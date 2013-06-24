@@ -1,0 +1,15 @@
+{
+  "name": "web-platform",
+  "version": "0.0.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "underscore": "~1.4.4",
+    "jquery": "~2.0.2",
+    "backbone": "~1.0.0",
+    "modernizr": "~2.6.2"
+  }
+}

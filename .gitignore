@@ -4,3 +4,5 @@ provision.sh
 .vagrant
 Vagrantfile
 node_modules
+components
+public

@@ -1,0 +1,24 @@
+{
+  "name": "web-platformer",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/somehats/web-platform"
+  },
+  "author": "Joe Dytrych @SomeHats",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/somehats/web-platform/issues"
+  },
+  "devDependencies": {
+    "grunt-commonjs": "~0.2.0rc7",
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-stylus": "~0.5.0",
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.2"
+  }
+}
