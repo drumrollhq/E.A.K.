@@ -13,9 +13,6 @@ module.exports = (grunt) ->
       grunt.file.copy fromPath, toPath
 
   grunt.initConfig
-    watch:
-      files: ['levels']
-
     uglify:
       options:
         mangle:
@@ -27,8 +24,6 @@ module.exports = (grunt) ->
       scripts:
         files:
           "public/js/index.min.js": ["public/js/**/*.js", "!public/js/index.min.js"]
-
-
 
     coffee:
       scripts:
@@ -46,6 +41,70 @@ module.exports = (grunt) ->
         src: "**/*.js"
         dest: "tmp/dest/"
 
+    stylus:
+      dev:
+        options:
+          paths: ['node_modules/grunt-contrib-stylus/node_modules']
+          linenos: true
+          compress: false
+
+        files:
+          'public/styles/main.css': 'src/styles/index.styl'
+
+      production:
+        options:
+          paths: ['node_modules/grunt-contrib-stylus/node_modules']
+          linenos: false
+          compress: true
+
+        files:
+          'public/styles/main.css': 'src/styles/index.styl'
+
+    watch:
+      options:
+        nospawn: true
+
+      scripts:
+        files: ["src/scripts/**/*"]
+        tasks: ["scripts"]
+
+      stylus:
+        files: ["src/styles/**/*"]
+        tasks: ["stylus:dev"]
+
+      levels:
+        files: ["levels/**/*"]
+        tasks: ["levels"]
+
+      build:
+        files: ["src/**/*", "!src/scripts/**/*", "!src/styles/**/*"]
+        tasks: ["build"]
+
+  grunt.registerTask "default", ["build"]
+
+  # Main task: basically, do everything.
+  grunt.registerTask "build", (type = "dev") ->
+    if type isnt "dev" and type isnt "production"
+      grunt.log.error "Unrecognised: #{type}. Only \"dev\" and \"production\" allowed."
+      return false
+
+    dev = type is "dev"
+
+    # Start with a blank canvas
+    grunt.file.delete "public"
+
+    # Copy across libs
+    grunt.task.run "libs:#{type}"
+
+    # Convert source files
+    grunt.task.run "scripts:#{type}"
+
+    # Convert styles
+    grunt.task.run "stylus:#{type}"
+
+    # Grab level definitions
+    grunt.task.run "levels"
+
 
   # Pull level definitions into data/levels.json
   grunt.registerTask "levels", ->
@@ -55,9 +114,11 @@ module.exports = (grunt) ->
     levels = levels.map (el) ->
       html: grunt.file.read "levels/#{el}/html.html"
       css: grunt.file.read "levels/#{el}/style.css"
-      config: JSON.parse grunt.file.read "levels/#{el}/config.js"
+      config: grunt.file.readJSON "levels/#{el}/config.js"
 
     grunt.file.write "public/data/levels.json", JSON.stringify levels
+    grunt.log.ok "File public/data/levels.json created."
+
 
   # Get libraries from bower
   grunt.registerTask "libs", (type = "dev") ->
@@ -67,7 +128,7 @@ module.exports = (grunt) ->
 
     dev = type is "dev"
 
-    grunt.file.delete "public/libs/"
+    if grunt.file.exists "public/libs/" then grunt.file.delete "public/libs/"
 
     if grunt.file.exists "public/index.html"
       source = grunt.file.read "public/index.html"
@@ -84,6 +145,7 @@ module.exports = (grunt) ->
       lib = grunt.file.read "components/#{file}/#{file}.js"
 
       grunt.file.write "public/libs/#{file}.js", lib
+      grunt.log.ok "File public/libs/#{file}.js created."
 
       if dev
         out += "<script src=\"libs/#{file}.js\"></script>\n"
@@ -92,6 +154,7 @@ module.exports = (grunt) ->
 
     if not dev
       grunt.file.write "public/libs/libs.js", out
+      grunt.log.ok "File public/libs/libs.js created."
       grunt.task.run "uglify:libs"
       out = "<script src=\"libs/libs.min.js\"></script>"
 
@@ -100,6 +163,7 @@ module.exports = (grunt) ->
     source = source.replace re, out
 
     grunt.file.write "public/index.html", source
+    grunt.log.ok "File public/index.html created."
 
   # Convert coffeescript to javascript & wrap commonjs modules
   grunt.registerTask "scripts", (type = "dev") ->
@@ -130,7 +194,7 @@ module.exports = (grunt) ->
 
     re = new RegExp "(<!--BEGIN SCRIPT-->.*?<!--END SCRIPTS-->)|(<!--SCRIPTS-->)", "gm"
 
-    grunt.file.delete "public/js"
+    if grunt.file.exists "public/js/" then grunt.file.delete "public/js"
 
     # Copy scripts over and assemble <script> tags
     out = ""
@@ -161,6 +225,8 @@ module.exports = (grunt) ->
 
     grunt.file.write "public/index.html", index
 
+    grunt.log.ok "File public/index.html created."
+
     grunt.file.delete "tmp/"
 
     if not dev then grunt.task.run "uglify:scripts"
@@ -168,3 +234,5 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-commonjs'
+  grunt.loadNpmTasks 'grunt-contrib-watch'
+  grunt.loadNpmTasks 'grunt-contrib-stylus'
