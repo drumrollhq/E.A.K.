@@ -1,0 +1,10 @@
+vendors = webkit moz ms
+
+calc()
+  if current-property
+    for prefix in vendors
+      arguments = unquote(arguments)
+      add-property(current-property[0], s('-%s-calc(%s)-', prefix, arguments))
+    s('calc(%s)', arguments)
+  else
+      error('calc() must be used within a property')

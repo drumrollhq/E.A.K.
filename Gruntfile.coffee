@@ -116,7 +116,11 @@ module.exports = (grunt) ->
       css: grunt.file.read "levels/#{el}/style.css"
       config: grunt.file.readJSON "levels/#{el}/config.js"
 
-    grunt.file.write "public/data/levels.json", JSON.stringify levels
+    data =
+      levels: levels
+      base: grunt.file.read "levels/base"
+
+    grunt.file.write "public/data/levels.json", JSON.stringify data
     grunt.log.ok "File public/data/levels.json created."
 
 
@@ -217,7 +221,7 @@ module.exports = (grunt) ->
     if not dev
       out = "<script src=\"js/index.min.js\"></script>"
 
-
+    console.log out
 
     out = "<!--BEGIN SCRIPT-->#{out}<!--END SCRIPTS-->"
 

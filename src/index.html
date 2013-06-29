@@ -5,11 +5,34 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width">
   <title>Web Platformer</title>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-  Hello
+  <div id="main">
+    <div class="dialogue" id="incompatible">
+      <h3>Sorry!</h3>
+      <p>Unfortunately, your browser doesn't support everything we need for
+        you to play. Try installing <a href="http://www.mozilla.org/en-US/firefox/">Firefox</a>.</p>
+    </div>
+    <div class="loader dialogue">
+      <h2>Loading...</h2>
+    </div>
+  </div>
+
   <!--LIBS-->
+
+  <script>
+    $(function() {
+      require("plugins");
+
+      Init = require("init");
+
+      window.app = new Init({el: $("#main")});
+    });
+  </script>
+
   <!--SCRIPTS-->
+
 </body>
 </html>

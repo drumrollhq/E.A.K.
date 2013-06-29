@@ -1,6 +1,6 @@
 {
   "data": "kittens",
   "assets": [
-    "http://placekitten.com/300/200"
+    "kitten-1.gif"
   ]
 }
