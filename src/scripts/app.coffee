@@ -1,3 +1,5 @@
+#Game = require "game/wrapper"
+
 module.exports = class App extends Backbone.View
   initialize: ->
     @$menu = @$ ".menu"
@@ -16,15 +18,14 @@ module.exports = class App extends Backbone.View
 
     switch type
       when "new"
-        console.log "new"
+        #new Game el: @$ ".game"
+        @$menu.hideDialogue()
 
       when "load"
         console.log "load"
 
       when "about"
-        @$menu.hideDialogue()
-        setTimeout (=> @$about.showDialogue()), 400
+        @$menu.switchDialogue @$about
 
   closeAbout: =>
-    @$about.hideDialogue()
-    setTimeout (=> @$menu.showDialogue()), 400
+    @$about.switchDialogue @$menu

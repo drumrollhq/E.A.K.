@@ -18,10 +18,7 @@ module.exports = class Init extends Backbone.View
     loader.load()
 
     loader.on "load:done", ->
-      loaderView.hide()
-
-      # Give a little time for the load dialogue to go away
-      setTimeout (-> app.render()), 400
+      loaderView.$el.switchDialogue app.$menu
 
   compatible: ->
     needed = ["csstransforms", "csstransforms3d", "cssanimations", "csscalc"

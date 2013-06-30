@@ -12,3 +12,7 @@ $.fn.toggleDialogue = ->
   else
     @showDialogue()
   @
+
+$.fn.switchDialogue = (to) ->
+  @hideDialogue()
+  setTimeout (-> to.showDialogue()), 300

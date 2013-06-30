@@ -22,6 +22,3 @@ module.exports = class LoaderView extends Backbone.View
 
   render: ->
     @$el.showDialogue()
-
-  hide: ->
-    @$el.hideDialogue()
