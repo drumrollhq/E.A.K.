@@ -10,14 +10,32 @@
 </head>
 <body>
   <div id="main">
+    <div class="app">
+      <div class="menu dialogue">
+        <h1>{{name}}</h1>
+        <ul>
+          <li class="new">New Game</li>
+          <li class="load">Load Game</li>
+          <li class="about">About</li>
+        </ul>
+      </div>
 
-    <div class="menu dialogue">
-      <h1>{{name}}</h1>
-      <ul>
-        <li>New Game</li>
-        <li>Load Game</li>
-        <li>About</li>
-      </ul>
+      <div class="about dialogue">
+        <h2>About</h2>
+
+        <p>{{name}} is a platform game with a difference: the levels are
+          written in HTML and CSS, and the only way to get past them is to use
+          your coding skills to hack the level.</p>
+
+        <p>Use the <kbd>A</kbd> and <kbd>D</kbd> or <kbd>&larr;</kbd> and
+          <kbd>&rarr;</kbd> keys to go left and right. Use <kbd>W</kbd>,
+          <kbd>space</kbd>, or <kbd>&uarr;</kbd> to jump.</p>
+
+        <p>Have fun!
+          - <a href="http://j.dytry.ch/" target="_blank">SomeHats</a></p>
+
+        <a href="#" class="back">&larr; Back</a>
+      </div>
     </div>
 
     <div class="loader dialogue">
@@ -26,7 +44,10 @@
 
     <div class="dialogue" id="incompatible">
       <h3>Sorry!</h3>
-      <p>Unfortunately, your browser doesn't support everything we need for you to play {{name}}. Try installing <a href="http://www.mozilla.org/en-US/firefox/">Firefox</a>.</p>
+      <p>Unfortunately, your browser doesn't support everything we need for
+        you to play {{name}}. Try installing
+        <a href="http://www.mozilla.org/en-US/firefox/">Firefox</a>.
+      </p>
     </div>
   </div>
 

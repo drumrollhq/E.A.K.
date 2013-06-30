@@ -1,6 +1,6 @@
 Loader = require "loader/loader"
 LoaderView = require "loader/loaderView"
-Menu = require "menu"
+App = require "app"
 
 module.exports = class Init extends Backbone.View
   initialize: ->
@@ -8,7 +8,7 @@ module.exports = class Init extends Backbone.View
       (@$ "#incompatible").showDialogue()
       return
 
-    menu = new Menu el: @$ ".menu"
+    app = new App el: @$ ".app"
 
     loader = new Loader url: "data/levels.json"
     loaderView = new LoaderView model: loader, el: @$ ".loader"
@@ -21,7 +21,7 @@ module.exports = class Init extends Backbone.View
       loaderView.hide()
 
       # Give a little time for the load dialogue to go away
-      setTimeout (-> menu.render()), 400
+      setTimeout (-> app.render()), 400
 
   compatible: ->
     needed = ["csstransforms", "csstransforms3d", "cssanimations", "csscalc"
