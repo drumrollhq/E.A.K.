@@ -1,6 +1,7 @@
 {
   "data": "kittens",
   "assets": [
-    "kitten-1.gif"
+    "level1/kitten-1.gif",
+    "at.png"
   ]
 }

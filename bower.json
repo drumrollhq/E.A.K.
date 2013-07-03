@@ -11,6 +11,7 @@
     "jquery": "~2.0.2",
     "backbone": "~1.0.0",
     "modernizr": "~2.6.2",
-    "commonjs": "~0.2.0"
+    "commonjs": "~0.2.0",
+    "anima": "https://github.com/lvivski/anima.git#~0.3.1"
   }
 }

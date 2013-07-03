@@ -1,4 +1,5 @@
-#Game = require "game/wrapper"
+AnimationWrapper = require "animation/wrapper"
+Game = require "game/game"
 
 module.exports = class App extends Backbone.View
   initialize: ->
@@ -18,14 +19,22 @@ module.exports = class App extends Backbone.View
 
     switch type
       when "new"
-        #new Game el: @$ ".game"
-        @$menu.hideDialogue()
+        $intro = @$ ".intro"
+        anim = new AnimationWrapper el: $intro
+        @$menu.switchDialogue $intro
+        anim.on "done", =>
+          @playGame false
+
+        anim.start()
 
       when "load"
-        console.log "load"
+        @playGame true
 
       when "about"
         @$menu.switchDialogue @$about
 
   closeAbout: =>
     @$about.switchDialogue @$menu
+
+  playGame: (load) =>
+    new Game load
