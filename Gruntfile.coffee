@@ -141,18 +141,38 @@ module.exports = (grunt) ->
 
     re = new RegExp "(<!--BEGIN LIBS-->.*?<!--END LIBS-->)|(<!--LIBS-->)", "gm"
 
-    libs = (grunt.file.readJSON "bower.json").dependencies
+    deps = (grunt.file.readJSON "bower.json").dependencies
 
     out = ""
 
-    for file of libs
-      lib = grunt.file.read "components/#{file}/#{file}.js"
+    for dep of deps
+      # Go through bower/component files to try and find a "main"
+      # fallback:
+      main = dep + ".js"
 
-      grunt.file.write "public/libs/#{file}.js", lib
-      grunt.log.ok "File public/libs/#{file}.js created."
+      # component.json:
+      f = path.join "components", dep, "component.json"
+      if grunt.file.exists f
+        main = (grunt.file.readJSON f).main or main
+
+      # bower.json:
+      f = path.join "components", dep, "bower.json"
+      if grunt.file.exists f
+        main = (grunt.file.readJSON f).main or main
+
+      if typeof main is 'object' then main = main[0]
+
+      f = path.join "components", dep, main
+
+      console.log typeof main
+
+      lib = grunt.file.read f
+
+      grunt.file.write "public/libs/#{dep}.js", lib
+      grunt.log.ok "File public/libs/#{dep}.js created."
 
       if dev
-        out += "<script src=\"libs/#{file}.js\"></script>\n"
+        out += "<script src=\"libs/#{dep}.js\"></script>\n"
       else
         out += lib + ";\n\n"
 
