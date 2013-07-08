@@ -27,6 +27,7 @@ module.exports = class Init extends Backbone.View
     works = true
 
     for need in needed
+      console.log "#{need}: #{Modernizr[need]};"
       works = works and Modernizr[need]
 
     works

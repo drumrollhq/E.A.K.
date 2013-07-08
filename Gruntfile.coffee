@@ -19,7 +19,7 @@ module.exports = (grunt) ->
           except: ['jQuery', 'Backbone', '_', '$', 'Modernizr', 'require']
       libs:
         files:
-          "public/libs/libs.min.js": "public/libs/libs.js"
+          "public/libs/libs.min.js": ["public/libs/*.js", "!public/js/libs.js", "!public/js/libs.min.js"]
 
       scripts:
         files:
@@ -145,7 +145,9 @@ module.exports = (grunt) ->
 
     out = ""
 
+    i = 0
     for dep of deps
+      i += 1
       # Go through bower/component files to try and find a "main"
       # fallback:
       main = dep + ".js"
@@ -168,17 +170,24 @@ module.exports = (grunt) ->
 
       lib = grunt.file.read f
 
-      grunt.file.write "public/libs/#{dep}.js", lib
-      grunt.log.ok "File public/libs/#{dep}.js created."
+      # i is a hack: files must be in order, and this forces uglify to do it
+      # properly when concatenating
+      grunt.file.write "public/libs/#{i}-#{dep}.js", lib
+      grunt.log.ok "File public/libs/#{i}-#{dep}.js created."
 
       if dev
-        out += "<script src=\"libs/#{dep}.js\"></script>\n"
-      else
-        out += lib + ";\n\n"
+        out += "<script src=\"libs/#{i}-#{dep}.js\"></script>\n"
+
+    # Some of the Modernizr bits we're using aren't in the default package, so
+    # have to bring them in separately
+    extras = (grunt.file.read "modernizr extras").split "\n"
+    for extra in extras
+      grunt.file.copy "components/modernizr/feature-detects/#{extra}.js", "public/libs/test-#{extra}.js"
+      out += "<script src=\"libs/test-#{extra}.js\"></script>"
 
     if not dev
-      grunt.file.write "public/libs/libs.js", out
-      grunt.log.ok "File public/libs/libs.js created."
+      # grunt.file.write "public/libs/libs.js", out
+      # grunt.log.ok "File public/libs/libs.js created."
       grunt.task.run "uglify:libs"
       out = "<script src=\"libs/libs.min.js\"></script>"
 

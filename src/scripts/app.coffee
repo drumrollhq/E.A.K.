@@ -28,6 +28,7 @@ module.exports = class App extends Backbone.View
         anim.start()
 
       when "load"
+        @$menu.hideDialogue()
         @playGame true
 
       when "about"
