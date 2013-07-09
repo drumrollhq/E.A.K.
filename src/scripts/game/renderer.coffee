@@ -1,6 +1,8 @@
+mediator = require "game/mediator"
+
 module.exports = class Renderer extends Backbone.View
   tagName: "div"
-  className: "level no-html"
+  className: "level no-html hidden"
   id: -> "levelrenderer-#{Date.now()}"
 
   initialize: (options) ->
@@ -12,6 +14,48 @@ module.exports = class Renderer extends Backbone.View
     style.text css
     style.appendTo document.head
     @$style = style
+
+    @listenTo mediator, "resize", @resize
+
+    @resize()
+
+    @render()
+
+  render: =>
+    # Not a brilliant name, considering it only makes already-rendered stuff
+    # visible
+    @$el.removeClass "hidden"
+
+  remove: =>
+    @$el.addClass "hidden"
+    setTimeout =>
+      @$style.remove()
+      super
+    , 400
+
+  resize: =>
+    elWidth = @$el.width()
+    elHeight = @$el.height()
+    winWidth = $window.width()
+    winHeight = $window.height()
+
+    scrolling =
+      x: no
+      y: no
+
+    if winWidth < elWidth
+      scrolling.x = yes
+      @$el.css left: 0, marginLeft: 0
+    else
+      @$el.css left: "50%", marginLeft: -elWidth/2
+
+    if winHeight < elHeight
+      scrolling.y = yes
+      @$el.css top: 0, marginTop: 0
+    else
+      @$el.css top: "50%", marginTop: -elHeight/2
+
+    mediator.trigger "renderer:set:scrolling", scrolling
 
   scopeCSS: (scope, css) ->
     ###
