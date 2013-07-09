@@ -20,7 +20,7 @@ module.exports = class Game extends Backbone.Model
     level = new Level @get "level"
 
   defaults:
-    level: 1
+    level: 0
 
   save: =>
     attrs = _.clone @attributes

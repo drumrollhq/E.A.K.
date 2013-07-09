@@ -13,4 +13,8 @@ frameDriver = =>
 
 window.rAF frameDriver
 
+mediator.on "alert", (msg) ->
+  # TODO: remove browser alert
+  alert msg
+
 module.exports = mediator

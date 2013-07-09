@@ -1,17 +1,25 @@
 elements = p h1 h2 h3 h4 h5 h6 ul ol li
 
-:not(.no-html)
-  &:before, &:after
-    color lighten(black, 50%)
-    font-size 0.8em
 
-  :before, :after
-    color lighten(black, 50%)
-    font-size 0.8em
+&:before, &:after
+  color lighten(black, 50%)
+  font-size 0.8em
 
+:before, :after
+  color lighten(black, 50%)
+  font-size 0.8em
+
+for tag in elements
+  {tag}:before
+    content s("'<%s> '", tag)
+
+  {tag}:after
+    content s("' </%s>'", tag)
+
+.no-html
   for tag in elements
-    {tag}&:before, {tag}:before
-      content s("'<%s> '", tag)
+    {tag}:before, &{tag}:before
+      content ""
 
-    {tag}&:after, {tag}:after
-      content s("' </%s>'", tag)
+    {tag}:after, &{tag}:after
+      content ""
