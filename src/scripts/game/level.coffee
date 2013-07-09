@@ -1,3 +1,5 @@
+World = require "game/physics/world"
+
 Renderer = require "game/renderer"
 
 mediator = require "game/mediator"
@@ -11,4 +13,7 @@ module.exports = class Level extends Backbone.Model
 
     level = window.LevelStore[num]
 
+    # Set up the HTML/CSS for the level
     renderer = new Renderer html: level.html, css: level.css
+
+    # Build a map of DOM elements

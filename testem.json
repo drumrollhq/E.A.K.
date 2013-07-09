@@ -1,0 +1,21 @@
+{
+  "framework": "mocha",
+
+  "src_files": [
+    "public/libs/**/*.js",
+    "public/js/**/*.js",
+    "test/**/*Spec.coffee"
+  ],
+
+  "before_tests": "coffee --compile --output jstest/ test/",
+
+  "serve_files": [
+    "test/**/*.js",
+    "public/libs/**/*.js",
+    "public/js/**/*.js",
+    "jstest/**/*Spec.js"
+  ],
+
+  "after_tests": "rm -rf jstest/"
+
+}
