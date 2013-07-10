@@ -72,3 +72,23 @@ describe "game/renderer", ->
         expect((($ document.body).find "div").length).to.equal divCount - 1
         expect(($ ".level").length).to.equal levelCount - 1
         done()
+
+  describe "#map", ->
+    it "should map relative to the center of the element", ->
+      html = "<div></div>"
+      css = "div{width: 400px; height: 100px; background: lime;}"
+
+      r = new Renderer html: html, css: css
+
+      r.$el.css "position", "absolute"
+
+      m = r.map()
+
+      expect(m).to.deep.equal [
+        type: 'rect'
+        x: 200
+        y: 50
+        width: 400
+        height: 100
+        el: r.el.children[0]
+      ]

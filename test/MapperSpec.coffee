@@ -1,11 +1,11 @@
-describe "game/dom/builder", ->
+describe "game/dom/mapper", ->
   Mapper = {}
   el = {}
 
   expect = chai.expect
 
   beforeEach ->
-    Mapper = require 'game/dom/builder'
+    Mapper = require 'game/dom/mapper'
 
     el = document.createElement 'div'
     document.body.appendChild el
@@ -52,7 +52,7 @@ describe "game/dom/builder", ->
       expect(style.borderRadius).to.equal "30px 0px 30px 10px / 30px 0px 30px 20px"
 
 
-  describe "#map", ->
+  describe "#build", ->
 
     it "should build a map", ->
       mapper = new Mapper el
@@ -75,8 +75,8 @@ describe "game/dom/builder", ->
         type: 'rect'
         x: 250
         y: 50
-        width: 50
-        height: 20
+        width: 100
+        height: 40
         el: el.children[0]
       ]
 

@@ -19,13 +19,13 @@ module.exports = class App extends Backbone.View
 
     switch type
       when "new"
-        $intro = @$ ".intro"
-        anim = new AnimationWrapper el: $intro
-        @$menu.switchDialogue $intro
-        anim.on "done", =>
-          @playGame false
+        # $intro = @$ ".intro"
+        # anim = new AnimationWrapper el: $intro
+        # @$menu.switchDialogue $intro
+        # anim.on "done", =>
+        @playGame false
 
-        anim.start()
+        # anim.start()
 
       when "load"
         @$menu.hideDialogue()
@@ -38,4 +38,5 @@ module.exports = class App extends Backbone.View
     @$about.switchDialogue @$menu
 
   playGame: (load) =>
+    @$menu.hideDialogue()
     new Game load

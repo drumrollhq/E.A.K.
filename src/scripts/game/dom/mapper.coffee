@@ -47,17 +47,18 @@ module.exports = class Mapper
           if (bounds.width is bounds.height) and (r >= bounds.width / 2) and (r >= bounds.height / 2)
             obj =
               type: "circle"
-              x: bounds.left + bounds.width / 2
-              y: bounds.top + bounds.height / 2
+              x: (bounds.left + bounds.right) / 2
+              y: (bounds.top + bounds.bottom) / 2
               radius: bounds.width / 2
 
       else
+        y = (bounds.top + bounds.bottom) / 2
         obj =
-          type: 'rect'
-          x: bounds.left + bounds.width / 2
-          y: bounds.top + bounds.height / 2
-          width: bounds.width / 2
-          height: bounds.height / 2
+          type: "rect"
+          x: (bounds.left + bounds.right) / 2
+          y: (bounds.top + bounds.bottom) / 2
+          width: bounds.width
+          height: bounds.height
 
       obj.el = node
 
