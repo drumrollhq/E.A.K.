@@ -17,11 +17,13 @@ mediator.on "alert", (msg) ->
   # TODO: remove browser alert
   alert msg
 
-$window.on "resize", =>
+($ window).on "resize", =>
   mediator.trigger "resize"
 
 # Debug:
-mediator.on "all", (type) ->
-  if type isnt "frame" then console.log arguments
+# mediator.on "all", (type) ->
+#   if type isnt "frame" then console.log arguments
+
+mediator.store = {}
 
 module.exports = mediator

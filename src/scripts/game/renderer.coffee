@@ -26,18 +26,19 @@ module.exports = class Renderer extends Backbone.View
     # visible
     @$el.removeClass "hidden"
 
-  remove: =>
+  remove: (done = ->) =>
     @$el.addClass "hidden"
     setTimeout =>
       @$style.remove()
       super
+      done()
     , 400
 
   resize: =>
     elWidth = @$el.width()
     elHeight = @$el.height()
-    winWidth = $window.width()
-    winHeight = $window.height()
+    winWidth = @$window.width()
+    winHeight = @$window.height()
 
     scrolling =
       x: no
@@ -140,3 +141,5 @@ module.exports = class Renderer extends Backbone.View
               currentSelector = c
 
     out
+
+  $window: $ window

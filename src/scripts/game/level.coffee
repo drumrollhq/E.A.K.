@@ -6,12 +6,12 @@ mediator = require "game/mediator"
 
 module.exports = class Level extends Backbone.Model
   initialize: (num) ->
-    if window.LevelStore[num] is undefined
-      console.log "Cannot find level #{num}", window.LevelStore
+    if mediator.LevelStore[num] is undefined
+      console.log "Cannot find level #{num}", mediator.LevelStore
       mediator.trigger "alert", "Well that's odd. We're unable to load level #{num}"
       return false
 
-    level = window.LevelStore[num]
+    level = mediator.LevelStore[num]
 
     # Set up the HTML/CSS for the level
     renderer = new Renderer html: level.html, css: level.css

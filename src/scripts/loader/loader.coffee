@@ -1,3 +1,5 @@
+mediator = require "game/mediator"
+
 module.exports = class Loader extends Backbone.Model
   defaults:
     stage: ""
@@ -14,7 +16,7 @@ module.exports = class Loader extends Backbone.Model
     ($.get (@get "url"), (data) =>
       @set "base", data.base
       @set "data", data.levels
-      window.LevelStore = data.levels
+      mediator.LevelStore = data.levels
     ).fail =>
       @set "stage", "Failed to load levels."
 

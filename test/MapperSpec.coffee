@@ -1,4 +1,4 @@
-describe "Mapper", ->
+describe "game/dom/builder", ->
   Mapper = {}
   el = {}
 
@@ -27,7 +27,7 @@ describe "Mapper", ->
     expect(mapper.el).to.exist
     expect(mapper.el).to.equal el
 
-  describe "Mapper.normaliseStyle", ->
+  describe "#normaliseStyle", ->
     getStyle = ->
       style = window.getComputedStyle el
       m = new Mapper el
@@ -52,7 +52,7 @@ describe "Mapper", ->
       expect(style.borderRadius).to.equal "30px 0px 30px 10px / 30px 0px 30px 20px"
 
 
-  describe "Mapper.map", ->
+  describe "#map", ->
 
     it "should build a map", ->
       mapper = new Mapper el

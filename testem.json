@@ -10,8 +10,8 @@
   "before_tests": "coffee --compile --output jstest/ test/",
 
   "serve_files": [
-    "test/**/*.js",
     "public/libs/**/*.js",
+    "test/**/*.js",
     "public/js/**/*.js",
     "jstest/**/*Spec.js"
   ],
