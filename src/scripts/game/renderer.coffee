@@ -29,6 +29,8 @@ module.exports = class Renderer extends Backbone.View
     @$el.css left: 0, top: 0, marginLeft: 0, marginTop: 0
     @mapper.build()
     @map = @mapper.map
+    @resize()
+    @map
 
   render: =>
     # Not a brilliant name, considering it only makes already-rendered stuff
