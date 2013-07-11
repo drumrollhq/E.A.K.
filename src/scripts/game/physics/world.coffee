@@ -34,7 +34,7 @@ module.exports = class World extends Backbone.View
     debug.SetLineThickness 1
     debug.SetFlags b2DebugDraw.e_shapeBit
     @world.SetDebugDraw debug
-    @debug = true
+    @debug = false
 
     # Debug interaction:
     mediator.on "keypress:b", => @toggleDebug()

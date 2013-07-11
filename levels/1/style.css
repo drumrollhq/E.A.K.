@@ -1,3 +1,16 @@
 h1 {
   color: green;
+  width: 300px;
+  margin-left: 200px;
+  display: block;
+  border: 1px solid green;
+}
+div {
+  background-color: yellow;
+  border: 5px solid red;
+  border-radius: 50px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  padding-top: 15px
 }

@@ -13,7 +13,9 @@ b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
 b2DebugDraw = Box2D.Dynamics.b2DebugDraw
 b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef
 
-module.exports = class GeneralBody
+scale = World::scale
+
+module.exports = class GeneralBody extends Backbone.Model
   constructor: (def) ->
     @bd = new b2BodyDef()
     @def = def
@@ -22,7 +24,7 @@ module.exports = class GeneralBody
     bd = @bd
     s = @def
 
-    bd.position.Set s.x / World::scale, s.y / World::scale
+    bd.position.Set s.x / scale, s.y / scale
 
     fd = new b2FixtureDef()
     fd.density = 1
@@ -32,11 +34,11 @@ module.exports = class GeneralBody
     @fd = fd
 
     if s.type is "circle"
-      fd.shape = new b2CircleShape s.radius / World::scale
+      fd.shape = new b2CircleShape s.radius / scale
       s.width = s.height = s.radius
     else
       fd.shape = new b2PolygonShape()
-      fd.shape.SetAsBox s.width / World::scale, s.height / World::scale
+      fd.shape.SetAsBox s.width / scale / 2, s.height / scale / 2
 
   attachTo: (world) =>
     body = world.world.CreateBody @bd
@@ -44,3 +46,11 @@ module.exports = class GeneralBody
     body.SetUserData @
     @body = body
     @world = world
+
+  isAwake: -> @body.GetType() isnt 0 and @body.IsAwake()
+
+  position: ->
+    p = @body.GetPosition()
+    x: (p.x * scale) - @def.x, y: (p.y * scale) - @def.y
+
+  angle: -> @body.GetAngle()

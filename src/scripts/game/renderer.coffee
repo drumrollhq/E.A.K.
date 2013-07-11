@@ -51,6 +51,9 @@ module.exports = class Renderer extends Backbone.View
     winWidth = @$window.width()
     winHeight = @$window.height()
 
+    @width = elWidth
+    @height = elHeight
+
     scrolling =
       x: no
       y: no
@@ -68,6 +71,14 @@ module.exports = class Renderer extends Backbone.View
       @$el.css top: "50%", marginTop: -elHeight/2
 
     mediator.trigger "renderer:set:scrolling", scrolling
+
+  setWidth: (width) =>
+    @$el.width width
+    @resize()
+
+  setHeight: (height) =>
+    @$el.height height
+    @resize()
 
   scopeCSS: (scope, css) ->
     ###

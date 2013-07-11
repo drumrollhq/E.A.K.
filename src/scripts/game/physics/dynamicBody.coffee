@@ -1,5 +1,7 @@
 GeneralBody = require "game/physics/generalBody"
 
+mediator = require "game/mediator"
+
 Vector = Box2D.Common.Math.b2Vec2
 b2AABB = Box2D.Collision.b2AABB
 b2BodyDef = Box2D.Dynamics.b2BodyDef
@@ -19,3 +21,16 @@ module.exports = class StaticBody extends GeneralBody
     @bd.type = b2Body.b2_dynamicBody
 
     @initialize()
+
+    @listenTo mediator, "frame", @render
+
+  render: =>
+    body = @body
+    if @isAwake()
+      p = @position()
+      trans = "translate3d(#{(p.x).toFixed 2}px, #{(p.y).toFixed 2}px, 0)"
+      r = @angle()
+      if r isnt 0 then trans += " rotate(#{r.toFixed 2}rad)"
+      @def.el.style[transform] = trans
+
+  transform = Modernizr.prefixed "transform"
