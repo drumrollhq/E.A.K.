@@ -70,6 +70,6 @@ module.exports = class Mapper
 
       obj.data = data
 
-      map.push obj
+      if data.ignore is undefined then map.push obj
 
     @map = map

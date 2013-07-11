@@ -144,3 +144,15 @@ describe "game/dom/mapper", ->
 
       expect(d1).to.deep.equal thing: "value", kittens: "several"
       expect(d2).to.deep.equal hello: "goodbye", breakfast: "toast"
+
+    it "should ignore some specified elements", ->
+      el.innerHTML = """
+        <p>Some tag</p>
+        <p data-ignore>Other tag</p>
+      """
+
+      mapper = new Mapper el
+
+      mapper.build()
+
+      expect(mapper.map).to.have.length 1
