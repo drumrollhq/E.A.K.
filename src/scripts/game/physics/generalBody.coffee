@@ -28,8 +28,8 @@ module.exports = class GeneralBody extends Backbone.Model
 
     fd = new b2FixtureDef()
     fd.density = 1
-    fd.friction = 0.55
-    fd.restitution = 0.4
+    fd.friction = 0.7
+    fd.restitution = 0.3
 
     @fd = fd
 
@@ -54,3 +54,5 @@ module.exports = class GeneralBody extends Backbone.Model
     x: (p.x * scale) - @def.x, y: (p.y * scale) - @def.y
 
   angle: -> @body.GetAngle()
+
+  angularVelocity: -> @body.GetAngularVelocity()

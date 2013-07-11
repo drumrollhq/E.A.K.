@@ -5,6 +5,8 @@ StaticBody = require "game/physics/staticBody"
 Renderer = require "game/renderer"
 Mapper = require "game/dom/mapper"
 
+Player = require "game/player"
+
 mediator = require "game/mediator"
 
 module.exports = class Level extends Backbone.Model
@@ -38,6 +40,11 @@ module.exports = class Level extends Backbone.Model
       body.attachTo world
 
     @addBorders conf.borders
+
+    # Add player
+    player = new Player conf.player, renderer.width, renderer.height
+    player.body.attachTo world
+    player.$el.appendTo renderer.el
 
   addBorders: (borders = "none") ->
     if borders is "none" then return

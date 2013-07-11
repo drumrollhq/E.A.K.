@@ -32,9 +32,14 @@ module.exports = class World extends Backbone.View
     debug.SetDrawScale World::scale
     debug.SetFillAlpha 0.5
     debug.SetLineThickness 1
-    debug.SetFlags b2DebugDraw.e_shapeBit
+    debug.SetFlags b2DebugDraw.e_shapeBit + b2DebugDraw.e_pairBit
     @world.SetDebugDraw debug
-    @debug = false
+
+    @debug = true
+
+    # Get the canvas into the right state:
+    @debug = not @debug
+    @toggleDebug()
 
     # Debug interaction:
     mediator.on "keypress:b", => @toggleDebug()
@@ -68,4 +73,4 @@ module.exports = class World extends Backbone.View
     if @debug then @world.DrawDebugData()
     @world.ClearForces()
 
-  scale: 50
+  scale: 40
