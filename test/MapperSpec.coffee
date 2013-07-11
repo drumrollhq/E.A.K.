@@ -78,6 +78,7 @@ describe "game/dom/mapper", ->
         width: 100
         height: 40
         el: el.children[0]
+        data: {}
       ]
 
     it "should find perfect circles", ->
@@ -111,16 +112,35 @@ describe "game/dom/mapper", ->
         y: 600
         radius: 100
         el: (el.querySelectorAll "div")[0]
+        data: {}
       ,
         type: 'circle'
         x: 225
         y: 125
         radius: 25
         el: (el.querySelectorAll "div")[1]
+        data: {}
       ,
         type: 'circle'
         x: 330
         y: 230
         radius: 30
         el: (el.querySelectorAll "div")[2]
+        data: {}
       ]
+
+    it "should add values in data-attributes to the map", ->
+      el.innerHTML = """
+        <p data-thing="value" data-kittens="several"></p>
+        <p data-hello="goodbye" data-breakfast="toast"></p>
+      """
+
+      mapper = new Mapper el
+
+      mapper.build()
+
+      d1 = mapper.map[0].data
+      d2 = mapper.map[1].data
+
+      expect(d1).to.deep.equal thing: "value", kittens: "several"
+      expect(d2).to.deep.equal hello: "goodbye", breakfast: "toast"

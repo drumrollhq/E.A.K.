@@ -6,3 +6,4 @@ Vagrantfile
 node_modules
 components
 public
+jstest

@@ -91,4 +91,5 @@ describe "game/renderer", ->
         width: 400
         height: 100
         el: r.el.children[0]
+        data: {}
       ]

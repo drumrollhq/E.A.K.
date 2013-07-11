@@ -62,6 +62,14 @@ module.exports = class Mapper
 
       obj.el = node
 
+      data = {}
+      for attribute in node.attributes
+        name = attribute.name
+        if (m = name.match /^data-[a-z1-9\-]+/) isnt null
+          data[m[0].replace /^data-/, ""] = attribute.value
+
+      obj.data = data
+
       map.push obj
 
     @map = map
