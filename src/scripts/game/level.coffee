@@ -1,4 +1,5 @@
 World = require "game/physics/world"
+DynamicBody = require "game/physics/dynamicBody"
 
 Renderer = require "game/renderer"
 Mapper = require "game/dom/mapper"
@@ -19,3 +20,10 @@ module.exports = class Level extends Backbone.Model
 
     # Build a map of DOM elements
     map = renderer.map()
+
+    world = new World renderer.$el
+
+    # Test physics:
+    for shape in map
+      body = new DynamicBody shape
+      body.attachTo world

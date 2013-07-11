@@ -16,3 +16,11 @@ $.fn.toggleDialogue = ->
 $.fn.switchDialogue = (to) ->
   @hideDialogue()
   setTimeout (-> to.showDialogue()), 300
+
+first = Date.now()
+
+# performance.now polyfill
+if window.performance is undefined
+  window.performance =
+    now: ->
+      return Date.now() - first
