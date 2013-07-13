@@ -58,6 +58,42 @@ $window = $ window
 $window.on "resize", =>
   mediator.trigger "resize"
 
+  mediator.orientation = if $window.width() > $window.height() then "landscape" else "portrait"
+
+# FIXME: Hack to find out if the browser is running Gecko. Gecko reports values
+# for device orientation differently to webkit browsers, and it appears (based
+# on my interpretation of the spec) that webkit has the correct implementation.
+# Unfortunately, there is no way to check this without browser sniffing :(
+isGecko = 'mozInnerScreenX' of window
+
+lim = 50
+snap = 10
+s = Math.PI / (lim - snap)
+tiltHandler = (e) ->
+  t = if mediator.orientation is "portrait" then e.gamma else e.beta
+  if isGecko then t = -t
+
+  # Cosine is symmetric, we can ignore the sign and replace it later
+  negative = t < 0
+  t = Math.abs t
+
+  # map t to snap < t < lim
+  t = snap if t < snap
+  t = lim if t > lim
+
+  # Convert t to scaled radians (accounting for snap and limit)
+  t *= s
+
+  # Smooth out everything
+  tilt = (1 - Math.cos t) / 2
+
+  # Restore the sign
+  tilt *= -1 if negative
+
+  mediator.trigger "tilt", tilt
+
+window.addEventListener "deviceorientation", tiltHandler, false
+
 # Debug:
 # mediator.on "all", (type) ->
 #   if type isnt "frame" then console.log arguments

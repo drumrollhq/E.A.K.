@@ -16,8 +16,6 @@ module.exports = class Player extends Backbone.View
 
     @$el.attr "data-ignore", true
 
-    console.log start
-
     @$el.css
       position: "absolute"
       top: h/2 - 20 + start.y
@@ -44,6 +42,8 @@ module.exports = class Player extends Backbone.View
     left = false
     right = false
     up = false
+    reqTilt = false
+    amount = 0
 
     b = @body
 
@@ -74,8 +74,17 @@ module.exports = class Player extends Backbone.View
       if up
         up = false
 
+    mediator.on "tilt", (tilt) ->
+      reqTilt = true
+      amount = tilt
+
     mediator.on "frame", =>
-      acc = if left then -torque else if right then torque else 0
+      if reqTilt
+        reqTilt = false
+        acc = amount * torque
+      else
+        acc = if left then -torque else if right then torque else 0
+
       av = b.angularVelocity()
       if (maxAngularVelocity > Math.abs av) or (acc / av < 0)
         b.body.ApplyTorque acc

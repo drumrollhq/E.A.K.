@@ -35,7 +35,7 @@ module.exports = class World extends Backbone.View
     debug.SetFlags b2DebugDraw.e_shapeBit + b2DebugDraw.e_pairBit
     @world.SetDebugDraw debug
 
-    @debug = true
+    @debug = false
 
     # Get the canvas into the right state:
     @debug = not @debug
