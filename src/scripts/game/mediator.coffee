@@ -66,8 +66,8 @@ $window.on "resize", =>
 # Unfortunately, there is no way to check this without browser sniffing :(
 isGecko = 'mozInnerScreenX' of window
 
-lim = 40
-snap = 7
+lim = 30
+snap = 5
 s = Math.PI / (lim - snap)
 tiltHandler = (e) ->
   t = if mediator.orientation is "portrait" then e.gamma else e.beta

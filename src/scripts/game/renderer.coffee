@@ -17,6 +17,8 @@ module.exports = class Renderer extends Backbone.View
     style.appendTo document.head
     @$style = style
 
+    ($ document.body).addClass "playing"
+
     @listenTo mediator, "resize", @resize
 
     @resize()
@@ -39,6 +41,7 @@ module.exports = class Renderer extends Backbone.View
 
   remove: (done = ->) =>
     @$el.addClass "hidden"
+    ($ document.body).removeClass "playing"
     setTimeout =>
       @$style.remove()
       super
