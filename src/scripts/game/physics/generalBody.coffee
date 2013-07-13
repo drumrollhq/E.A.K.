@@ -53,6 +53,10 @@ module.exports = class GeneralBody extends Backbone.Model
     p = @body.GetPosition()
     x: (p.x * scale) - @def.x, y: (p.y * scale) - @def.y
 
+  absolutePosition: ->
+    p = @body.GetPosition()
+    x: p.x * scale, y: p.y * scale
+
   angle: -> @body.GetAngle()
 
   angularVelocity: -> @body.GetAngularVelocity()

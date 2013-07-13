@@ -2,6 +2,8 @@ Mapper = require "game/dom/mapper"
 
 mediator = require "game/mediator"
 
+transform = Modernizr.prefixed "transform"
+
 module.exports = class Renderer extends Backbone.View
   tagName: "div"
   className: "level no-html hidden"
@@ -26,6 +28,8 @@ module.exports = class Renderer extends Backbone.View
     @render()
 
     @mapper = new Mapper @el
+
+    @listenTo mediator, "playermove", @move
 
   map: =>
     @$el.css left: 0, top: 0, marginLeft: 0, marginTop: 0
@@ -62,18 +66,18 @@ module.exports = class Renderer extends Backbone.View
       y: no
 
     if winWidth < elWidth
-      scrolling.x = yes
+      scrolling.x = winWidth
       @$el.css left: 0, marginLeft: 0
     else
       @$el.css left: "50%", marginLeft: -elWidth/2
 
     if winHeight < elHeight
-      scrolling.y = yes
+      scrolling.y = winHeight
       @$el.css top: 0, marginTop: 0
     else
       @$el.css top: "50%", marginTop: -elHeight/2
 
-    mediator.trigger "renderer:set:scrolling", scrolling
+    @scrolling = scrolling
 
   setWidth: (width) =>
     @$el.width width
@@ -82,6 +86,27 @@ module.exports = class Renderer extends Backbone.View
   setHeight: (height) =>
     @$el.height height
     @resize()
+
+  pad = 30
+
+  move: (position) =>
+    s = @scrolling
+    w = @width
+    h = @height
+    if s.x isnt false
+      max = (w + 2*pad) - s.x
+      tx = max * (position.x / w) - pad
+    else
+      tx = 0
+
+    if s.y isnt false
+      max = (h + 2*pad) - s.y
+      ty = max * (position.y / h) - pad
+    else
+      ty = 0
+
+    if tx is 0 and ty is 0 then @el.style[transform] = ""
+    @el.style[transform] = "translate3d(#{-tx}px, #{-ty}px, 0)"
 
   scopeCSS: (scope, css) ->
     ###

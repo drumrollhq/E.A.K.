@@ -22,7 +22,7 @@ module.exports = class Level extends Backbone.Model
     # Set up the HTML/CSS for the level
     renderer = @renderer = new Renderer html: level.html, css: level.css
 
-    if conf.color isnt undefined then renderer.el.style.backgroundColor = conf.color
+    if conf.background isnt undefined then renderer.el.style.background = conf.background
 
     if conf.width isnt undefined
       conf.width = parseFloat conf.width
