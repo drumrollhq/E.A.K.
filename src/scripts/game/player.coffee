@@ -78,10 +78,13 @@ module.exports = class Player extends Backbone.View
       reqTilt = true
       amount = tilt
 
+    mediator.on "uncaughtTap", -> jump()
+
     mediator.on "frame", =>
       if reqTilt
         reqTilt = false
         acc = amount * torque
+        ($ ".level h1").text acc.toFixed(4)
       else
         acc = if left then -torque else if right then torque else 0
 

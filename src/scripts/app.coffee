@@ -7,13 +7,14 @@ module.exports = class App extends Backbone.View
     @$about = @$ ".about"
 
   events:
-    "click .menu li": "clickHandler"
-    "click .about a.back": "closeAbout"
+    "tap .menu li": "clickHandler"
+    "tap .about a.back": "closeAbout"
 
   render: ->
     @$menu.showDialogue()
 
   clickHandler: (e) =>
+    e.stopPropagation()
     el = $ e.target
     type = (e.target.className.match /(new|load|about)/)[0]
 

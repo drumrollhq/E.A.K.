@@ -66,8 +66,8 @@ $window.on "resize", =>
 # Unfortunately, there is no way to check this without browser sniffing :(
 isGecko = 'mozInnerScreenX' of window
 
-lim = 50
-snap = 10
+lim = 40
+snap = 7
 s = Math.PI / (lim - snap)
 tiltHandler = (e) ->
   t = if mediator.orientation is "portrait" then e.gamma else e.beta
@@ -82,6 +82,7 @@ tiltHandler = (e) ->
   t = lim if t > lim
 
   # Convert t to scaled radians (accounting for snap and limit)
+  t = t - snap
   t *= s
 
   # Smooth out everything
@@ -93,6 +94,11 @@ tiltHandler = (e) ->
   mediator.trigger "tilt", tilt
 
 window.addEventListener "deviceorientation", tiltHandler, false
+
+$doc = $ document
+
+$doc.on "tap", (e) ->
+  mediator.trigger "uncaughtTap"
 
 # Debug:
 # mediator.on "all", (type) ->

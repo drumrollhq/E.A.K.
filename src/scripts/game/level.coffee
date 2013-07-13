@@ -36,7 +36,10 @@ module.exports = class Level extends Backbone.Model
 
     # Test physics:
     for shape in map
-      body = new DynamicBody shape
+      if shape.data.dynamic is undefined
+        body = new StaticBody shape
+      else
+        body = new DynamicBody shape
       body.attachTo world
 
     @addBorders conf.borders
