@@ -47,6 +47,8 @@ module.exports = class Player extends Backbone.View
 
     b = @body
 
+    mediator.on "keypress:a,left,d,right,w,up,space", (e) -> e.preventDefault()
+
     mediator.on "keydown:a,left", ->
       if not left
         left = true
