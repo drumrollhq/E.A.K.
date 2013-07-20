@@ -10,13 +10,13 @@ elements = p h1 h2 h3 h4 h5 h6 ul ol li
   font-size 0.8em
 
 for tag in elements
-  {tag}:before
+  {tag}:before, .html {tag}:before
     content s("'<%s> '", tag)
 
-  {tag}:after
+  {tag}:after, .html {tag}:after
     content s("' </%s>'", tag)
 
-.no-html
+.no-html :not(.html)
   for tag in elements
     {tag}:before, &{tag}:before
       content ""

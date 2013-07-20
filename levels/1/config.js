@@ -4,11 +4,13 @@
   "borders": "all",
   "background": "url(//s3-eu-west-1.amazonaws.com/somehats/web-platformer/grid.png) 0% 0% / 50px",
   "player": {
-    "x": 0,
-    "y": -250
+    "x": -290,
+    "y": -50
   },
   "assets": [
     "level1/kitten-1.gif",
-    "at.png"
+    "at.png",
+    "grid.png",
+    "level1/firefox.png"
   ]
 }

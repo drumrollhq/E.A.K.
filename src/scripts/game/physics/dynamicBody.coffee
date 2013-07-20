@@ -15,7 +15,7 @@ b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
 b2DebugDraw = Box2D.Dynamics.b2DebugDraw
 b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef
 
-module.exports = class StaticBody extends GeneralBody
+module.exports = class DynamicBody extends GeneralBody
   constructor: ->
     super
     @bd.type = b2Body.b2_dynamicBody
@@ -30,7 +30,7 @@ module.exports = class StaticBody extends GeneralBody
       p = @position()
       trans = "translate3d(#{(p.x).toFixed 2}px, #{(p.y).toFixed 2}px, 0)"
       r = @angle()
-      if r isnt 0 then trans += " rotate(#{r.toFixed 2}rad)"
+      if r isnt 0 then trans += " rotate(#{r.toFixed 4}rad)"
       @def.el.style[transform] = trans
 
   transform = Modernizr.prefixed "transform"
