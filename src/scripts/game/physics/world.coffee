@@ -44,12 +44,6 @@ module.exports = class World extends Backbone.View
     # Debug interaction:
     mediator.on "keypress:b", => @toggleDebug()
 
-    @last = performance.now()
-
-    # use a 100 point moving average for monitoring the frame rate
-    @intervals = (16 for [0..100])
-    @skippedlast = false
-
     mediator.on "frame", @update
 
   resize: ->
@@ -65,32 +59,8 @@ module.exports = class World extends Backbone.View
       @debug = true
       @$el.css display: "block"
 
-  update: =>
-    n = performance.now()
-    diff = n - @last
-
-    @intervals.push diff
-    @intervals.shift()
-
-    avg = 0
-    avg += int for int in @intervals
-    avg = avg / @intervals.length
-
-    lim1 = (1000 / 60) + 1
-    lim2 = (1000 / 30) + 1
-
-    if avg <= lim1
-      diff = lim1
-    else #if avg <= 1000 / 30
-      # FIXME: proper intervals for slower frame rates
-      diff = lim2
-
-      if @skippedlast is false
-        @skippedlast = true
-        return
-
-    @world.Step diff/1000, 10, 10
-    @last = n
+  update: (t) =>
+    @world.Step t/1000, 10, 10
 
     if @debug then @world.DrawDebugData()
     @world.ClearForces()

@@ -43,8 +43,39 @@ raf = window.requestAnimationFrame or window.mozRequestAnimationFrame or
 
 window.rAF = raf
 
+last = performance.now()
+
+# 100 point moving average for monitoring the frame rate
+intervals = (16 for [0..100])
+skippedlast = false
+
+lim1 = (1000 / 60) + 1
+lim2 = (1000 / 30) + 1
+
 frameDriver = =>
-  mediator.trigger "frame"
+  n = performance.now()
+  diff = n - last
+  last = n
+
+  intervals.push diff
+  intervals.shift()
+
+  avg = 0
+  avg += int for int in intervals
+  avg = avg / intervals.length
+
+  if avg <= lim1
+    diff = lim1
+  else #if avg <= lim2
+    # FIXME: proper intervals for slower frame rates
+    diff = lim2
+
+    if skippedlast is false
+      skippedlast = true
+      window.rAF frameDriver
+      return
+
+  mediator.trigger "frame", diff
   window.rAF frameDriver
 
 window.rAF frameDriver
