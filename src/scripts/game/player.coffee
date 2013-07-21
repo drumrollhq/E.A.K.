@@ -33,6 +33,25 @@ module.exports = class Player extends Backbone.View
 
     @setupKeyboardControls()
 
+    @listenTo mediator, "frame", @update
+
+  update: =>
+    b = @body
+
+    edge = b.body.GetContactList()
+
+    while edge isnt null
+      fixb = edge.contact.GetFixtureB().GetBody().GetUserData()
+      if fixb.isPlayer is true
+        other = edge.contact.GetFixtureA().GetBody().GetUserData()
+      else
+        other = fixb
+
+      if other.data.target isnt undefined and edge.contact.IsTouching()
+        mediator.trigger "kittenfound"
+
+      edge = edge.next
+
   setupKeyboardControls: ->
     torque = 5
     maxAngularVelocity = 15
@@ -47,42 +66,42 @@ module.exports = class Player extends Backbone.View
 
     b = @body
 
-    mediator.on "keypress:a,left,d,right,w,up,space", (e) -> e.preventDefault()
+    @listenTo mediator, "keypress:a,left,d,right,w,up,space", (e) -> e.preventDefault()
 
-    mediator.on "keydown:a,left", ->
+    @listenTo mediator, "keydown:a,left", ->
       if not left
         left = true
         right = false
 
-    mediator.on "keyup:a,left", ->
+    @listenTo mediator, "keyup:a,left", ->
       if left
         left = false
 
-    mediator.on "keydown:d,right", ->
+    @listenTo mediator, "keydown:d,right", ->
       if not right
         right = true
         left = false
 
-    mediator.on "keyup:d,right", ->
+    @listenTo mediator, "keyup:d,right", ->
       if right
         right = false
 
-    mediator.on "keydown:w,up,space", ->
+    @listenTo mediator, "keydown:w,up,space", ->
       if not up
         up = true
         jump()
 
-    mediator.on "keyup:w,up,space", ->
+    @listenTo mediator, "keyup:w,up,space", ->
       if up
         up = false
 
-    mediator.on "tilt", (tilt) ->
+    @listenTo mediator, "tilt", (tilt) ->
       reqTilt = true
       amount = tilt
 
-    mediator.on "uncaughtTap", -> jump()
+    @listenTo mediator, "uncaughtTap", -> jump()
 
-    mediator.on "frame", =>
+    @listenTo mediator, "frame", =>
       if reqTilt
         reqTilt = false
         acc = amount * torque

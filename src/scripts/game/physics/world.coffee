@@ -42,14 +42,17 @@ module.exports = class World extends Backbone.View
     @toggleDebug()
 
     # Debug interaction:
-    mediator.on "keypress:b", => @toggleDebug()
+    @listenTo mediator, "keypress:b", => @toggleDebug()
 
-    mediator.on "frame", @update
+    @listenTo mediator, "frame", @update
 
   resize: ->
     @$el.css @target.css ["left", "top", "marginTop", "marginLeft", "position"]
     @el.width = @target.width()
     @el.height = @target.height()
+
+  stop: =>
+    @stopListening mediator, "frame", @update
 
   toggleDebug: =>
     if @debug
@@ -64,5 +67,9 @@ module.exports = class World extends Backbone.View
 
     if @debug then @world.DrawDebugData()
     @world.ClearForces()
+
+  remove: =>
+    @world.SetDestructionListener()
+    super
 
   scale: 40

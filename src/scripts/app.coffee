@@ -29,7 +29,6 @@ module.exports = class App extends Backbone.View
         # anim.start()
 
       when "load"
-        @$menu.hideDialogue()
         @playGame true
 
       when "about"
@@ -39,5 +38,4 @@ module.exports = class App extends Backbone.View
     @$about.switchDialogue @$menu
 
   playGame: (load) =>
-    @$menu.hideDialogue()
     new Game load

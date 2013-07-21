@@ -1,7 +1,7 @@
 {
-  "name": "Moving About",
-  "width": "640",
-  "height": "480",
+  "name": "Editing Text",
+  "width": "740",
+  "height": "380",
   "borders": "all",
   "background": "url(//s3-eu-west-1.amazonaws.com/somehats/web-platformer/grid.png) center 0% / 50px",
   "player": {

@@ -1,0 +1,29 @@
+img[data-target] {
+  width: 100px;
+  position: absolute;
+  right: 15px;
+  top: 150px
+}
+
+.html {
+  padding: 50px;
+  background: white;
+  border-top: black 1px solid;
+  height: 260px;
+  position: absolute;
+  bottom: 0;
+  padding-top: 35px;
+  z-index: 5;
+}
+
+.intheway {
+  width: 100px;
+  height: 75px;
+  position: absolute;
+  left: 45%;
+  top: 130px;
+  background: white;
+  border: 1px solid black;
+  text-align: center;
+  padding-top: 10px;
+}

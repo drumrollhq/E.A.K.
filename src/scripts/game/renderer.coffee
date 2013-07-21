@@ -50,7 +50,7 @@ module.exports = class Renderer extends Backbone.View
       @$style.remove()
       super
       done()
-    , 400
+    , 1000
 
   resize: =>
     elWidth = @$el.width()

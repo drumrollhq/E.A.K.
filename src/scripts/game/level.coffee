@@ -10,13 +10,8 @@ Player = require "game/player"
 mediator = require "game/mediator"
 
 module.exports = class Level extends Backbone.Model
-  initialize: (num) ->
-    if mediator.LevelStore[num] is undefined
-      console.log "Cannot find level #{num}", mediator.LevelStore
-      mediator.trigger "alert", "Well that's odd. We're unable to load level #{num}"
-      return false
-
-    level = @level = mediator.LevelStore[num]
+  initialize: (level) ->
+    @level = level
     conf = @conf = level.config or {}
 
     # Set up the HTML/CSS for the level
@@ -50,6 +45,21 @@ module.exports = class Level extends Backbone.Model
     player = new Player conf.player, renderer.width, renderer.height
     player.body.attachTo world
     player.$el.appendTo renderer.el
+    player.id = "#{renderer.el.id}-player"
+    player.$el.attr "id", player.id
+    @player = player
+
+    # Get starting positions:
+    target = (renderer.$el.children "[data-target]")
+    @startPos = player: player.el.getBoundingClientRect()
+
+    if target.length >= 1
+      @startPos.target = (renderer.$el.children "[data-target]")[0].getBoundingClientRect()
+
+    # When the kitten is found, the level is complete:
+    @listenTo mediator, "kittenfound", @complete
+
+    @stopped = false
 
   addBorders: (borders = "none") ->
     if borders is "none" then return
@@ -91,3 +101,59 @@ module.exports = class Level extends Backbone.Model
         x: -t / 2
         y: 0
       (new StaticBody shape).attachTo @world
+
+  complete: =>
+    if not @stopped
+      @stopped = true
+
+      $playertarget = $ "<div></div>"
+      $playertarget.css
+        position: "absolute"
+        top: 0
+        left: 0
+        bottom: 0
+        right: 0
+
+      $playertarget.appendTo document.body
+
+      $playerEl = @player.$el
+      $targetEl = @renderer.$el.children "[data-target]"
+
+      $playerEl.appendTo $playertarget
+      $targetEl.appendTo $playertarget
+
+      $playerEl.css
+        position: "absolute"
+        top: @startPos.player.top
+        left: @startPos.player.left
+        width: @startPos.player.width
+        height: @startPos.player.height
+      $targetEl.css
+        position: "absolute"
+        top: @startPos.target.top
+        left: @startPos.target.left
+        width: @startPos.target.width
+        height: @startPos.target.height
+
+      @renderer.remove =>
+        # approx center:
+        t = $targetEl[0].getBoundingClientRect()
+        tx = t.left + t.width / 2
+        ty = t.top + t.height / 2
+        p = $playerEl[0].getBoundingClientRect()
+        px = p.left + p.width / 2
+        py = p.top + p.height / 2
+
+        cx = (px + tx) / 2
+        cy = (py + ty) / 2
+
+        $playertarget.css (Modernizr.prefixed "transformOrigin"), "#{cx}px #{cy}px"
+        $playertarget.addClass "level-entity-fadeout"
+
+        setTimeout =>
+          $playertarget.remove()
+          @world.remove()
+          @player.remove()
+          mediator.trigger "levelout"
+          @stopListening()
+        , 500

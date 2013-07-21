@@ -13,9 +13,23 @@ $.fn.toggleDialogue = ->
     @showDialogue()
   @
 
+d = 300
+
 $.fn.switchDialogue = (to) ->
   @hideDialogue()
-  setTimeout (-> to.showDialogue()), 300
+  setTimeout (-> to.showDialogue()), d
+
+$.fn.makeOnlyShownDialogue = ->
+  dialogues = $ ".dialogue.active"
+  if dialogues.length == 0
+    @showDialogue()
+  else
+    dialogues.each ->
+      console.log @
+      ($ @).hideDialogue()
+    setTimeout (=> @showDialogue()), d
+
+  @
 
 first = Date.now()
 
