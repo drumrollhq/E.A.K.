@@ -11,7 +11,6 @@
   "assets": [
     "level1/kitten-1.gif",
     "at.png",
-    "grid.png",
-    "level1/firefox.png"
+    "grid.png"
   ]
 }

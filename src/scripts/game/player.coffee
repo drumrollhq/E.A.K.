@@ -47,8 +47,9 @@ module.exports = class Player extends Backbone.View
       else
         other = fixb
 
-      if other.data.target isnt undefined and edge.contact.IsTouching()
-        mediator.trigger "kittenfound"
+      if edge.contact.IsTouching()
+        if other.data.target isnt undefined
+          mediator.trigger "kittenfound"
 
       edge = edge.next
 

@@ -32,6 +32,9 @@ module.exports = class GeneralBody extends Backbone.Model
     fd.friction = 0.7
     fd.restitution = 0.3
 
+    if @data.sensor is true
+      fd.isSensor = true
+
     @fd = fd
 
     if s.type is "circle"

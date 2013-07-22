@@ -1,29 +1,20 @@
-img[data-target] {
-  width: 100px;
-  position: absolute;
-  right: 15px;
-  top: 150px
-}
-
 .html {
-  padding: 50px;
+  padding: 30px;
+  padding-top: 20px;
   background: white;
-  border-top: black 1px solid;
-  height: 260px;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
   position: absolute;
   bottom: 0;
-  padding-top: 35px;
+  right: 0;
+  width: 350px;
   z-index: 5;
 }
 
-.intheway {
-  width: 100px;
-  height: 75px;
-  position: absolute;
-  left: 45%;
-  top: 130px;
-  background: white;
-  border: 1px solid black;
-  text-align: center;
-  padding-top: 10px;
+.ledge {
+  padding: 10px;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  margin-top: 155px;
+  display: inline-block;
 }

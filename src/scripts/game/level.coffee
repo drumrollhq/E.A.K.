@@ -9,6 +9,8 @@ Player = require "game/player"
 
 mediator = require "game/mediator"
 
+ContactListener = Box2D.Dynamics.b2ContactListener
+
 module.exports = class Level extends Backbone.Model
   initialize: (level) ->
     @level = level
@@ -55,6 +57,64 @@ module.exports = class Level extends Backbone.Model
 
     if target.length >= 1
       @startPos.target = (renderer.$el.children "[data-target]")[0].getBoundingClientRect()
+
+    # Add terminals
+    w = renderer.width
+    h = renderer.height
+    if conf.terminals isnt undefined
+      for terminal in conf.terminals
+        t = $ "<div></div>"
+        t.addClass "terminal-entity"
+        t.css
+          left: terminal[0] + w/2
+          top: terminal[1] + h/2
+
+        t.appendTo renderer.$el
+
+        body = new StaticBody
+          type: 'rect'
+          x: terminal[0] + w/2
+          y: terminal[1] + h/2
+          width: 50
+          height: 50
+          el: t
+          data:
+            sensor: true
+
+        body.isTerminal = true
+
+        body.attachTo world
+
+    # Check for contact with terminals:
+    contactListener = new ContactListener()
+
+    getPlayerFromContact = (contact) =>
+      fixa = contact.GetFixtureA().GetBody().GetUserData()
+      fixb = contact.GetFixtureB().GetBody().GetUserData()
+
+      if fixa.isPlayer is true
+        return [fixa, fixb]
+      else if fixb.isPlayer is true
+        return [fixb, fixa]
+      else
+        # player not invloved
+        return false
+
+    contactListener.BeginContact = (contact) =>
+      fixes = getPlayerFromContact contact
+
+      if fixes isnt false
+        if fixes[1].isTerminal is true
+          body.def.el.addClass "active"
+
+    contactListener.EndContact = (contact) =>
+      fixes = getPlayerFromContact contact
+
+      if fixes isnt false
+        if fixes[1].isTerminal is true
+          body.def.el.removeClass "active"
+
+    world.world.SetContactListener contactListener
 
     # When the kitten is found, the level is complete:
     @listenTo mediator, "kittenfound", @complete
