@@ -52,30 +52,34 @@ skippedlast = false
 lim1 = (1000 / 60) + 1
 lim2 = (1000 / 30) + 1
 
+mediator.paused = false
+
 frameDriver = =>
   n = performance.now()
   diff = n - last
   last = n
 
-  intervals.push diff
-  intervals.shift()
+  unless mediator.paused
+    intervals.push diff
+    intervals.shift()
 
-  avg = 0
-  avg += int for int in intervals
-  avg = avg / intervals.length
+    avg = 0
+    avg += int for int in intervals
+    avg = avg / intervals.length
 
-  if avg <= lim1
-    diff = lim1
-  else #if avg <= lim2
-    # FIXME: proper intervals for slower frame rates
-    diff = lim2
+    if avg <= lim1
+      diff = lim1
+    else #if avg <= lim2
+      # FIXME: proper intervals for slower frame rates
+      diff = lim2
 
-    if skippedlast is false
-      skippedlast = true
-      window.rAF frameDriver
-      return
+      if skippedlast is false
+        skippedlast = true
+        window.rAF frameDriver
+        return
 
-  mediator.trigger "frame", diff
+    mediator.trigger "frame", diff
+
   window.rAF frameDriver
 
 window.rAF frameDriver

@@ -33,7 +33,7 @@ module.exports = class Level extends Backbone.Model
 
     world = @world = new World renderer.$el
 
-    # Test physics:
+    # Create bodies from DOM:
     for shape in map
       if shape.data.dynamic is undefined
         body = new StaticBody shape
@@ -88,6 +88,10 @@ module.exports = class Level extends Backbone.Model
     # Check for contact with terminals:
     contactListener = new ContactListener()
 
+    startEditorListener = (e) =>
+      e.stopPropagation()
+      @startEditor()
+
     getPlayerFromContact = (contact) =>
       fixa = contact.GetFixtureA().GetBody().GetUserData()
       fixb = contact.GetFixtureB().GetBody().GetUserData()
@@ -106,6 +110,8 @@ module.exports = class Level extends Backbone.Model
       if fixes isnt false
         if fixes[1].isTerminal is true
           body.def.el.addClass "active"
+          mediator.on "keypress:e", @startEditor
+          body.def.el.on "tap", startEditorListener
 
     contactListener.EndContact = (contact) =>
       fixes = getPlayerFromContact contact
@@ -113,6 +119,8 @@ module.exports = class Level extends Backbone.Model
       if fixes isnt false
         if fixes[1].isTerminal is true
           body.def.el.removeClass "active"
+          mediator.off "keypress:e", @startEditor
+          body.def.el.off "tap", @startEditorListener
 
     world.world.SetContactListener contactListener
 
@@ -217,3 +225,7 @@ module.exports = class Level extends Backbone.Model
           mediator.trigger "levelout"
           @stopListening()
         , 500
+
+  startEditor: =>
+    mediator.paused = true
+    editor = new Editor @level

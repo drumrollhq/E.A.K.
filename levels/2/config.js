@@ -17,7 +17,7 @@
     "level1/kitten-1.gif",
     "at.png",
     "grid.png",
-    "terminal.svg"
+    "terminal.png"
   ],
   "terminals": [
     [-350, -60]
