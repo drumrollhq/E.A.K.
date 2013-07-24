@@ -166,8 +166,6 @@ module.exports = (grunt) ->
 
       f = path.join "components", dep, main
 
-      console.log typeof main
-
       lib = grunt.file.read f
 
       # i is a hack: files must be in order, and this forces uglify to do it
@@ -183,7 +181,15 @@ module.exports = (grunt) ->
     extras = (grunt.file.read "modernizr extras").split "\n"
     for extra in extras
       grunt.file.copy "components/modernizr/feature-detects/#{extra}.js", "public/libs/test-#{extra}.js"
+      grunt.log.ok "File public/libs/test-#{extra}.js created."
       out += "<script src=\"libs/test-#{extra}.js\"></script>"
+
+    # Fetch the non-standard bits of codemirror
+    modes = (grunt.file.read "codemirror modes").split "\n"
+    for mode in modes
+      grunt.file.copy "components/CodeMirror/mode/#{mode}/#{mode}.js", "public/libs/cm-mode-#{mode}.js"
+      grunt.log.ok "File public/libs/cm-mode-#{mode}.js created."
+      out += "<script src=\"libs/cm-mode-#{mode}.js\"></script>"
 
     if not dev
       # grunt.file.write "public/libs/libs.js", out
@@ -249,8 +255,6 @@ module.exports = (grunt) ->
 
     if not dev
       out = "<script src=\"js/index.min.js\"></script>"
-
-    console.log out
 
     out = "<!--BEGIN SCRIPT-->#{out}<!--END SCRIPTS-->"
 
