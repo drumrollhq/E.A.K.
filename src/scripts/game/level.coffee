@@ -5,6 +5,9 @@ StaticBody = require "game/physics/staticBody"
 Renderer = require "game/renderer"
 Mapper = require "game/dom/mapper"
 
+Editor = require "game/editor/editor"
+EditorView = require "game/editor/view"
+
 Player = require "game/player"
 
 mediator = require "game/mediator"
@@ -229,3 +232,12 @@ module.exports = class Level extends Backbone.Model
   startEditor: =>
     mediator.paused = true
     editor = new Editor @level
+
+    editorView = new EditorView model: editor
+
+    editorView.render()
+
+    editorView.$el.appendTo $ "#editor"
+
+    @renderer.editor = true
+    @renderer.resize()

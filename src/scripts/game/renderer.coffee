@@ -10,8 +10,9 @@ module.exports = class Renderer extends Backbone.View
   id: -> "levelrenderer-#{Date.now()}"
 
   initialize: (options) ->
+    @root = $ "#levelcontainer"
     @$el.html options.html
-    @$el.appendTo document.body
+    @$el.appendTo @root
 
     css = @scopeCSS "#"+@el.id, options.css
     style = $ "<style></style>"
@@ -61,6 +62,8 @@ module.exports = class Renderer extends Backbone.View
     @width = elWidth
     @height = elHeight
 
+    if @editor is true then winWidth = winWidth / 2
+
     scrolling =
       x: no
       y: no
@@ -69,13 +72,13 @@ module.exports = class Renderer extends Backbone.View
 
     if winWidth < elWidth
       scrolling.x = winWidth
-      @$el.css left: 0, marginLeft: 0
+      @$el.css left: 0, marginLeft: ''
     else
       @$el.css left: "50%", marginLeft: -elWidth/2
 
     if winHeight < elHeight
       scrolling.y = winHeight
-      @$el.css top: 0, marginTop: 0
+      @$el.css top: 0, marginTop: ''
     else
       @$el.css top: "50%", marginTop: -elHeight/2
 

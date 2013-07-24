@@ -1,0 +1,1 @@
+module.exports = class Editor extends Backbone.Model
