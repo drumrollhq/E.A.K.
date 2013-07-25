@@ -11,7 +11,7 @@
   "background": "white url(//s3-eu-west-1.amazonaws.com/somehats/web-platformer/grid.png) center center / 50px",
   "player": {
     "x": -440,
-    "y": -50
+    "y": -70
   },
   "assets": [
     "level2/kitten-2.gif",

@@ -37,6 +37,8 @@ module.exports = class Level extends Backbone.Model
     @addPlayer conf.player
     @addTerminals conf.terminals
 
+    @listenTo mediator, "frame", @checkPlayerIsInWorld
+
   addBodiesFromDom: (createWorld=true)=>
     # Build a map of DOM elements
     map = @renderer.createMap()
@@ -164,8 +166,8 @@ module.exports = class Level extends Backbone.Model
 
     t = 400
 
-    w = @renderer.width
-    h = @renderer.height
+    w = @w = @renderer.width
+    h = @h = @renderer.height
 
     if borders.top is true
       shape =
@@ -198,6 +200,16 @@ module.exports = class Level extends Backbone.Model
         x: -t / 2
         y: 0
       (new StaticBody shape).attachTo @world
+
+  checkPlayerIsInWorld: =>
+    pos = @player.body.positionUncorrected()
+
+    xpad = 100
+    padTop = 100
+    padBottom = 200
+
+    unless -xpad < pos.x < @w + xpad then @player.body.reset()
+    unless -padTop < pos.y < @h + padBottom then @player.body.reset()
 
   complete: =>
     if not @stopped

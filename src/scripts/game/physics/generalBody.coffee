@@ -59,11 +59,23 @@ module.exports = class GeneralBody extends Backbone.Model
     b.SetAngularVelocity 0
     b.SetLinearVelocity new Vector 0, 0
 
+  reset: =>
+    @halt()
+    @position x:0, y: 0
+    @body.SetAngle 0
+
   isAwake: -> @body.GetType() isnt 0 and @body.IsAwake()
 
-  position: ->
+  position: (p) ->
+    if p is undefined
+      p = @body.GetPosition()
+      return x: (p.x * scale) - @def.x, y: (p.y * scale) - @def.y
+    else
+      @body.SetPosition new Vector (p.x + @def.x) / scale, (p.y + @def.y) / scale
+
+  positionUncorrected: ->
     p = @body.GetPosition()
-    x: (p.x * scale) - @def.x, y: (p.y * scale) - @def.y
+    x: (p.x * scale), y: (p.y * scale)
 
   absolutePosition: ->
     p = @body.GetPosition()
