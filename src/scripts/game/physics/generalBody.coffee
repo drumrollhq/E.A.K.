@@ -54,6 +54,11 @@ module.exports = class GeneralBody extends Backbone.Model
   destroy: =>
     if @world isnt undefined then @world.world.DestroyBody @body
 
+  halt: =>
+    b = @body
+    b.SetAngularVelocity 0
+    b.SetLinearVelocity new Vector 0, 0
+
   isAwake: -> @body.GetType() isnt 0 and @body.IsAwake()
 
   position: ->

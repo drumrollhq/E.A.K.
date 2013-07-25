@@ -257,6 +257,10 @@ module.exports = class Level extends Backbone.Model
 
   startEditor: =>
     mediator.paused = true
+
+    # Stop the player from rolling off an edge when we've finished editing
+    @player.body.halt()
+
     editor = new Editor @level
 
     editorView = new EditorView model: editor, el: $ "#editor"
