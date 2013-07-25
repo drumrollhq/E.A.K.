@@ -1,6 +1,5 @@
 module.exports = class EditorView extends Backbone.View
   initialize: ->
-    console.log @$ ".editor-html"
     cm = CodeMirror (@$ ".editor-html")[0],
       value: @model.get "html"
       mode: "htmlmixed"
@@ -9,8 +8,7 @@ module.exports = class EditorView extends Backbone.View
       lineWrapping: true
       lineNumbers: true
 
-    cm.on "change", (cm) =>
-      @model.set "html", cm.getValue()
+    cm.on "change", @handleChange
 
     @cm = cm
     @doc = cm.getDoc()
@@ -23,12 +21,17 @@ module.exports = class EditorView extends Backbone.View
     "tap .undo": "undo"
     "tap .redo": "redo"
 
+  handleChange: (cm) =>
+    @model.set "html", cm.getValue()
+
   render: ->
     ($ document.body).addClass "editor"
 
-  remove: ->
+  remove: =>
     ($ document.body).removeClass "editor"
-    super
+    @stopListening()
+    @cm.off "change", @handleChange
+    ($ @cm.getWrapperElement()).remove()
 
   onChange: (m, html) =>
     # preserve all entities:

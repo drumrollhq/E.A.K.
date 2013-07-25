@@ -1,5 +1,27 @@
-<p class="ledge">I'm a ledge! Woohoo!</p>
+<!--
+  This is the source HTML source code to this level. It tells the browser the
+  content we want to display. There's more source code elsewhere, called CSS,
+  which is responsible for how everything looks, but we don't need to worry
+  about that now. Everything inside these these <!‐‐ ‐‐> tags is called a
+  comment - it's ignored by the browser, but you can use it to help understand
+  your code.
+-->
 
+<!--
+  HTML elements are written with tags. Tags are like boxes: Everything between
+  the <div> opening tag and the </div> closing tag is in it's own "div" box.
+  Div is a pretty odd name, but it's just used for general-purpose elements.
+  The class="platform html" bit is called an attribute. It's a little bit of
+  extra info that goes along with our element. Here, it's used to tie in with
+  CSS, but you don't need to worry about that for now. Inside the <div> element,
+  there's a <p> (p stands for paragraph), which contains a load of text, with
+  an inline kbd element, which tells the browser the the 'E' is refering to a
+  KeyBoarD key.
+
+  You can edit any of the code here and see the view to the right change as
+  you do so. Try it now. If anything goes wrong, just use the undo button to
+  fix the document.
+-->
 <div class="platform html">
   <p>
     Uh oh! There's no way to reach this platform! Roll over to the terminal and
@@ -8,4 +30,16 @@
   </p>
 </div>
 
-<!-- <img src="https://s3-eu-west-1.amazonaws.com/somehats/web-platformer/level1/kitten-1.gif" width="1" data-target data-dynamic> -->
+<!--
+  This <p> tag is the ledge you were on. Try editing the contents. If you
+  make the ledge long enough, you may be able to reach the other side...
+-->
+<p class="ledge">I'm a ledge! Woohoo!</p>
+
+
+<!--
+  This <img> element is the kitten gif we're aiming for. Notice the src. This
+  is called an attribute. In this case, the attribute tells the browser the
+  location of the image.
+-->
+<img src="https://s3-eu-west-1.amazonaws.com/somehats/web-platformer/level2/kitten-2.gif" data-target data-dynamic>

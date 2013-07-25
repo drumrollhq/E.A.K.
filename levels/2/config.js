@@ -8,15 +8,13 @@
     "bottom": false,
     "right": true
   },
-  "background": "url(//s3-eu-west-1.amazonaws.com/somehats/web-platformer/grid.png) center center / 50px",
+  "background": "white url(//s3-eu-west-1.amazonaws.com/somehats/web-platformer/grid.png) center center / 50px",
   "player": {
     "x": -440,
     "y": -50
   },
   "assets": [
-    "level1/kitten-1.gif",
-    "at.png",
-    "grid.png",
+    "level2/kitten-2.gif",
     "terminal.png"
   ],
   "terminals": [
