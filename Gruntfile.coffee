@@ -182,14 +182,14 @@ module.exports = (grunt) ->
     for extra in extras
       grunt.file.copy "components/modernizr/feature-detects/#{extra}.js", "public/libs/test-#{extra}.js"
       grunt.log.ok "File public/libs/test-#{extra}.js created."
-      out += "<script src=\"libs/test-#{extra}.js\"></script>"
+      out += "<script src=\"libs/test-#{extra}.js\"></script>\n"
 
     # Fetch the non-standard bits of codemirror
     modes = (grunt.file.read "codemirror modes").split "\n"
     for mode in modes
       grunt.file.copy "components/CodeMirror/mode/#{mode}/#{mode}.js", "public/libs/cm-mode-#{mode}.js"
       grunt.log.ok "File public/libs/cm-mode-#{mode}.js created."
-      out += "<script src=\"libs/cm-mode-#{mode}.js\"></script>"
+      out += "<script src=\"libs/cm-mode-#{mode}.js\"></script>\n"
 
     if not dev
       # grunt.file.write "public/libs/libs.js", out

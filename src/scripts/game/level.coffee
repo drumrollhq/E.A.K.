@@ -31,48 +31,61 @@ module.exports = class Level extends Backbone.Model
       conf.height = parseFloat conf.height
       renderer.setHeight conf.height
 
-    # Build a map of DOM elements
-    map = renderer.map()
 
-    world = @world = new World renderer.$el
+    @addBodiesFromDom()
+    @addBorders conf.borders
+    @addPlayer conf.player
+    @addTerminals conf.terminals
+
+  addBodiesFromDom: (createWorld=true)=>
+    # Build a map of DOM elements
+    map = @renderer.createMap()
+
+    if createWorld
+      world = @world = new World @renderer.$el
+    else
+      world = @world
 
     # Create bodies from DOM:
-    for shape in map
+    @domBodies = for shape in map
       if shape.data.dynamic is undefined
         body = new StaticBody shape
       else
         body = new DynamicBody shape
       body.attachTo world
+      body
 
-    @addBorders conf.borders
+  removeDOMBodies: =>
+    for body in @domBodies
+      body.destroy()
 
-    # Add player
-    player = new Player conf.player, renderer.width, renderer.height
-    player.body.attachTo world
-    player.$el.appendTo renderer.el
-    player.id = "#{renderer.el.id}-player"
+  addPlayer: (playerConf) =>
+    player = new Player playerConf, @renderer.width, @renderer.height
+    player.body.attachTo @world
+    player.$el.appendTo @renderer.el
+    player.id = "#{@renderer.el.id}-player"
     player.$el.attr "id", player.id
     @player = player
 
     # Get starting positions:
-    target = (renderer.$el.children "[data-target]")
+    target = (@renderer.$el.children "[data-target]")
     @startPos = player: player.el.getBoundingClientRect()
 
     if target.length >= 1
-      @startPos.target = (renderer.$el.children "[data-target]")[0].getBoundingClientRect()
+      @startPos.target = (@renderer.$el.children "[data-target]")[0].getBoundingClientRect()
 
-    # Add terminals
-    w = renderer.width
-    h = renderer.height
-    if conf.terminals isnt undefined
-      for terminal in conf.terminals
+  addTerminals: (terminals) =>
+    w = @renderer.width
+    h = @renderer.height
+    if terminals isnt undefined
+      for terminal in terminals
         t = $ "<div></div>"
-        t.addClass "terminal-entity"
+        t.addClass "terminal-entity entity"
         t.css
           left: terminal[0] + w/2
           top: terminal[1] + h/2
 
-        t.appendTo renderer.$el
+        t.appendTo @renderer.$el
 
         body = new StaticBody
           type: 'rect'
@@ -86,7 +99,7 @@ module.exports = class Level extends Backbone.Model
 
         body.isTerminal = true
 
-        body.attachTo world
+        body.attachTo @world
 
     # Check for contact with terminals:
     contactListener = new ContactListener()
@@ -125,12 +138,25 @@ module.exports = class Level extends Backbone.Model
           mediator.off "keypress:e", @startEditor
           body.def.el.off "tap", @startEditorListener
 
-    world.world.SetContactListener contactListener
+    @world.world.SetContactListener contactListener
 
     # When the kitten is found, the level is complete:
     @listenTo mediator, "kittenfound", @complete
 
     @stopped = false
+
+  redrawFrom: (html, css) =>
+    # Preserve entities:
+    entities = (@renderer.$el.children ".entity").detach()
+
+    @renderer.setHTMLCSS html, css
+
+    # Reset DOM bodies
+    @removeDOMBodies()
+    @addBodiesFromDom false
+
+    # Replace entities
+    entities.appendTo @renderer.$el
 
   addBorders: (borders = "none") ->
     if borders is "none" then return
@@ -233,7 +259,9 @@ module.exports = class Level extends Backbone.Model
     mediator.paused = true
     editor = new Editor @level
 
-    editorView = new EditorView model: editor
+    editorView = new EditorView model: editor, el: $ "#editor"
+
+    editorView.renderEl = @renderer.$el
 
     editorView.render()
 
@@ -241,3 +269,10 @@ module.exports = class Level extends Backbone.Model
 
     @renderer.editor = true
     @renderer.resize()
+
+    editor.once "save", =>
+      editorView.remove()
+      @renderer.editor = false
+      @renderer.resize()
+      @redrawFrom (editor.get "html"), (editor.get "css")
+      mediator.paused = false

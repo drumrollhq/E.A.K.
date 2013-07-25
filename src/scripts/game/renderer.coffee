@@ -11,14 +11,13 @@ module.exports = class Renderer extends Backbone.View
 
   initialize: (options) ->
     @root = $ "#levelcontainer"
-    @$el.html options.html
     @$el.appendTo @root
 
-    css = @scopeCSS "#"+@el.id, options.css
     style = $ "<style></style>"
-    style.text css
     style.appendTo document.head
     @$style = style
+
+    @setHTMLCSS options.html, options.css
 
     ($ document.body).addClass "playing"
 
@@ -32,7 +31,13 @@ module.exports = class Renderer extends Backbone.View
 
     @listenTo mediator, "playermove", @move
 
-  map: =>
+  setHTMLCSS: (html, css) =>
+    @$el.html html
+
+    css = @scopeCSS "#"+@el.id, css
+    @$style.text css
+
+  createMap: =>
     @$el.css left: 0, top: 0, marginLeft: 0, marginTop: 0
     @mapper.build()
     @map = @mapper.map

@@ -7,7 +7,7 @@ mediator = require "game/mediator"
 
 module.exports = class Player extends Backbone.View
   tagName: 'img'
-  className: 'player'
+  className: 'player entity'
 
   initialize: (start = {x:0,y:0}, w, h) ->
     @el.src = '//s3-eu-west-1.amazonaws.com/somehats/web-platformer/at.png'

@@ -133,7 +133,8 @@ window.addEventListener "deviceorientation", tiltHandler, false
 $doc = $ document
 
 $doc.on "tap", (e) ->
-  mediator.trigger "uncaughtTap"
+  unless mediator.paused
+    mediator.trigger "uncaughtTap"
 
 # Debug:
 # mediator.on "all", (type) ->
@@ -149,8 +150,9 @@ $window.on "keypress keyup keydown", (e) ->
   code = if keydict[e.which] isnt undefined then keydict[e.which] else
     (String.fromCharCode e.which).toLowerCase()
 
-  mediator.trigger e.type
-  mediator.trigger "#{e.type}:#{code}", e
+  unless mediator.paused
+    mediator.trigger e.type
+    mediator.trigger "#{e.type}:#{code}", e
 
 mediator.store = {}
 

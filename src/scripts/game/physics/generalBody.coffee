@@ -51,6 +51,9 @@ module.exports = class GeneralBody extends Backbone.Model
     @body = body
     @world = world
 
+  destroy: =>
+    if @world isnt undefined then @world.world.DestroyBody @body
+
   isAwake: -> @body.GetType() isnt 0 and @body.IsAwake()
 
   position: ->
