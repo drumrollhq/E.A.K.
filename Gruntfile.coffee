@@ -1,5 +1,6 @@
 fs = require "fs"
 path = require "path"
+request = require "request"
 
 module.exports = (grunt) ->
 
@@ -134,11 +135,6 @@ module.exports = (grunt) ->
 
     if grunt.file.exists "public/libs/" then grunt.file.delete "public/libs/"
 
-    if grunt.file.exists "public/index.html"
-      source = grunt.file.read "public/index.html"
-    else
-      source = grunt.file.read "src/index.html"
-
     re = new RegExp "(<!--BEGIN LIBS-->.*?<!--END LIBS-->)|(<!--LIBS-->)", "gm"
 
     deps = (grunt.file.readJSON "bower.json").dependencies
@@ -191,18 +187,55 @@ module.exports = (grunt) ->
       grunt.log.ok "File public/libs/cm-mode-#{mode}.js created."
       out += "<script src=\"libs/cm-mode-#{mode}.js\"></script>\n"
 
-    if not dev
-      # grunt.file.write "public/libs/libs.js", out
-      # grunt.log.ok "File public/libs/libs.js created."
-      grunt.task.run "uglify:libs"
-      out = "<script src=\"libs/libs.min.js\"></script>"
+    # Grab libs that aren't in bower from the interwebs:
+    libs = (grunt.file.read "libraries").split "\n"
+    done = grunt.task.current.async()
+    http = require "http"
 
-    out = "<!--BEGIN LIBS-->#{out}<!--END LIBS-->"
+    i = 0
 
-    source = source.replace re, out
+    doneOne = ->
+      i++
+      if i is libs.length
+        grunt.log.ok "All files downloaded successfully"
+        finish()
+        done()
 
-    grunt.file.write "public/index.html", source
-    grunt.log.ok "File public/index.html created."
+    for lib in libs
+      request lib, (err, res, body) ->
+        if err
+          grunt.log.error err.message
+          return
+
+        if res.statusCode isnt 200
+          grunt.log.error "Couldn't fetch #{res.request.href}: #{res.statusCode}"
+          return
+
+        grunt.log.ok "Fetched #{res.request.href}"
+        name = (res.request.href.split "/").pop()
+        grunt.file.write "public/libs/dl-#{name}", body
+        grunt.log.ok "File public/libs/dl-#{name} created."
+        out += "<script src=\"libs/dl-#{name}\"></script>\n"
+        doneOne()
+
+    finish = ->
+      if not dev
+        # grunt.file.write "public/libs/libs.js", out
+        # grunt.log.ok "File public/libs/libs.js created."
+        grunt.task.run "uglify:libs"
+        out = "<script src=\"libs/libs.min.js\"></script>"
+
+      out = "<!--BEGIN LIBS-->#{out}<!--END LIBS-->"
+
+      if grunt.file.exists "public/index.html"
+        source = grunt.file.read "public/index.html"
+      else
+        source = grunt.file.read "src/index.html"
+
+      source = source.replace re, out
+
+      grunt.file.write "public/index.html", source
+      grunt.log.ok "File public/index.html created."
 
   # Convert coffeescript to javascript & wrap commonjs modules
   grunt.registerTask "scripts", (type = "dev") ->
