@@ -13,6 +13,6 @@
     "modernizr": "~2.6.2",
     "commonjs": "~0.2.0",
     "box2dweb": "latest",
-    "CodeMirror": "latest"
+    "codemirror": "latest"
   }
 }
