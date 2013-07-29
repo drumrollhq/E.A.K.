@@ -3,27 +3,23 @@
     This is the HTML source code to this level. It tells the browser the
     content we want to display. There's more source code elsewhere, called CSS,
     which is responsible for how everything looks, but we don't need to worry
-    about that now. Everything inside these these <code>&lt;!‐‐ ‐‐&gt;</code> tags is called a
-    comment - it's ignored by the browser, but you can use it to help understand
-    your code.
+    about that now.
+  </p>
+
+  <p>Let's look at the code below. It represents the the platform we're trying
+    to get to. Each different aspect of the platform is represented by a HTML
+    element. Each element has an opening tag (<code>&lt;div&gt;</code>) and a
+    closing tag (<code>&lt;/div&gt;</code>). Everything between the two tags
+    is inside the element. So, the <code>&lt;div&gt;</code> tag contains a
+    <code>&lt;p&gt;</code> tag, which in turn contains the text we see shown,
+    and an extra <code>&lt;kbd&gt;</code> tag, to format some of the text.
+    <code>&lt;div&gt;</code> is a general purpose element,
+    <code>&lt;p&gt;</code> is a paragraph, and <code>&lt;kbd&gt;</code> means
+    key on your keyboard.
   </p>
 
   <p>
-    HTML elements are written with tags. Tags are like boxes: Everything between
-    the <code>&lt;div&gt;</code> opening tag and the <code>&lt;/div&gt;</code> closing tag is in it's own "div" box.
-    Div is a pretty odd name, but it's just used for general-purpose elements.
-    The <code>class="platform html"</code> bit is called an attribute. It's a little bit of
-    extra info that goes along with our element. Here, it's used to tie in with
-    CSS, but you don't need to worry about that for now. Inside the <code>&lt;div&gt;</code> element,
-    there's a <code>&lt;p&gt;</code> (p stands for paragraph), which contains a load of text, with
-    an inline kbd element, which tells the browser the the 'E' is refering to a
-    KeyBoarD key.
-  </p>
-
-  <p>
-    You can edit any of the code here and see the view to the right change as
-    you do so. Try it now. If anything goes wrong, just use the undo button to
-    fix the document.
+    You can edit the code. Try changing the text below and see what happens.
   </p>
 -->
 <div class="platform html">
@@ -35,14 +31,9 @@
 </div>
 
 <!--
-  This <code>&lt;p&gt;</code> tag is the ledge you were on. Try editing the contents. If you
-  make the ledge long enough, you may be able to reach the other side...
+  This <code>&lt;p&gt;</code> tag is the ledge you are on. Can you edit the
+  text inside the <code>&lt;p&gt;</code> opening tag and the
+  <code>&lt;/p&gt;</code> closing tag to make the ledge long enough to reach
+  the other side?
 -->
 <p class="ledge">I'm a ledge! Woohoo!</p>
-
-<!--
-  This <code>&lt;img&gt;</code> element is the kitten gif we're aiming for. Notice the src. This
-  is called an attribute. In this case, the attribute tells the browser the
-  location of the image.
--->
-<img src="https://s3-eu-west-1.amazonaws.com/somehats/web-platformer/level2/kitten-2.gif" data-target data-dynamic>

@@ -31,7 +31,7 @@ module.exports = class Level extends Backbone.Model
       conf.height = parseFloat conf.height
       renderer.setHeight conf.height
 
-
+    @addTarget conf.target
     @addBodiesFromDom()
     @addBorders conf.borders
     @addPlayer conf.player
@@ -59,7 +59,14 @@ module.exports = class Level extends Backbone.Model
 
   removeDOMBodies: =>
     for body in @domBodies
-      body.destroy()
+      if body.def.data.target is undefined
+        body.destroy()
+
+  addTarget: (targetHTML) =>
+    $target = $ targetHTML
+    $target.addClass "entity"
+    $target.attr "data-target", "data-target"
+    $target.appendTo @renderer.$el
 
   addPlayer: (playerConf) =>
     player = new Player playerConf, @renderer.width, @renderer.height

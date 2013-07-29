@@ -19,5 +19,6 @@
   ],
   "terminals": [
     [-350, -60]
-  ]
+  ],
+  "target": "<img src=\"https://s3-eu-west-1.amazonaws.com/somehats/web-platformer/level2/kitten-2.gif\" style=\"position: absolute; top: 30px; right: 30px;\" data-dynamic>"
 }
