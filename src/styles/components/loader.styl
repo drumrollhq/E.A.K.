@@ -1,0 +1,17 @@
+.loader
+  .stage
+    position absolute
+
+    &.next
+      transform translate(-30px, 0) translateZ(0)
+      opacity 0
+
+    &.current
+      transition all 0.2s 0.075s ease-out
+      transform translate(0, 0) translateZ(0)
+      opacity 1
+
+    &.prev
+      transition all 0.2s ease-in
+      transform translate(30px, 0) translateZ(0)
+      opacity 0

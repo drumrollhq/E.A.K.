@@ -1,0 +1,56 @@
+.level .terminal-entity
+  margin-top -24px
+  margin-left -24px
+  position absolute
+  width 48px
+  height 48px
+  z-index 0
+  transition all 0.3s 0.3s ease
+
+  &:before
+    content " "
+    width 48px
+    height 48px
+    display block
+    background url('//s3-eu-west-1.amazonaws.com/somehats/web-platformer/terminal.png')
+
+  &:after
+    content "Tap me or press E to edit this level's code!"
+    color black
+    display block
+    width 150px
+    padding 5px
+    border-radius 10px
+    background rgba(255, 255, 255, 0.6)
+    box-shadow 0 1px 3px rgba(0, 0, 0, 0.2)
+    position relative
+    top -57px
+    left 58px
+    opacity 0
+    pointer-events none
+    transition all 0.3s ease
+
+  &.active
+    transition all 0.3s ease
+    transform translate(0, -40px)
+
+    &:before
+      animation terminal-pulse 0.6s ease infinite
+
+    &:after
+      transition all 0.3s 0.3s ease
+      opacity 1
+      pointer-events auto
+
+  body.editor &
+    opacity 0
+
+@keyframes terminal-pulse
+  from
+    transform scale(1)
+
+  50%
+    transform scale(1.1)
+
+  to
+    transform scale(1)

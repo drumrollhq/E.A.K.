@@ -149,18 +149,18 @@ module.exports = (grunt) ->
       main = dep + ".js"
 
       # component.json:
-      f = path.join "components", dep, "component.json"
+      f = path.join "bower_components", dep, "component.json"
       if grunt.file.exists f
         main = (grunt.file.readJSON f).main or main
 
       # bower.json:
-      f = path.join "components", dep, "bower.json"
+      f = path.join "bower_components", dep, "bower.json"
       if grunt.file.exists f
         main = (grunt.file.readJSON f).main or main
 
       if typeof main is 'object' then main = main[0]
 
-      f = path.join "components", dep, main
+      f = path.join "bower_components", dep, main
 
       lib = grunt.file.read f
 
@@ -176,14 +176,14 @@ module.exports = (grunt) ->
     # have to bring them in separately
     extras = (grunt.file.read "modernizr extras").split "\n"
     for extra in extras
-      grunt.file.copy "components/modernizr/feature-detects/#{extra}.js", "public/libs/test-#{extra}.js"
+      grunt.file.copy "bower_components/modernizr/feature-detects/#{extra}.js", "public/libs/test-#{extra}.js"
       grunt.log.ok "File public/libs/test-#{extra}.js created."
       out += "<script src=\"libs/test-#{extra}.js\"></script>\n"
 
     # Fetch the non-standard bits of codemirror
     modes = (grunt.file.read "codemirror modes").split "\n"
     for mode in modes
-      grunt.file.copy "components/CodeMirror/mode/#{mode}/#{mode}.js", "public/libs/cm-mode-#{mode}.js"
+      grunt.file.copy "bower_components/codemirror/mode/#{mode}/#{mode}.js", "public/libs/cm-mode-#{mode}.js"
       grunt.log.ok "File public/libs/cm-mode-#{mode}.js created."
       out += "<script src=\"libs/cm-mode-#{mode}.js\"></script>\n"
 

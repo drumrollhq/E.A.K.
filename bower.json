@@ -7,11 +7,11 @@
     "components"
   ],
   "dependencies": {
-    "underscore": "~1.4.4",
-    "jquery": "~2.0.2",
-    "backbone": "~1.0.0",
-    "modernizr": "~2.6.2",
-    "commonjs": "~0.2.0",
+    "underscore": "latest",
+    "jquery": "latest",
+    "backbone": "latest",
+    "modernizr": "latest",
+    "commonjs": "latest",
     "box2dweb": "latest",
     "codemirror": "latest"
   }

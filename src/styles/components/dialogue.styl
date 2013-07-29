@@ -1,0 +1,45 @@
+.dialogue
+  display block
+  width 400px
+  margin-left -200px
+  margin-top 30px
+  display none
+  padding arem
+
+  position absolute
+  top 0
+  left 50%
+
+  @media (max-width: 400px)
+    width 100%
+    margin-left 0
+    left 0
+
+  &.active
+    display block
+    animation dialoguein 0.2s ease-out
+
+  &.disabled
+    display block
+    visibility hidden
+    animation dialogueout 0.2s ease-in
+
+@keyframes dialoguein
+  from
+    transform scale(0.9) translateZ(0)
+    opacity 0
+
+  to
+    transform scale(1) translateZ(0)
+    opacity 1
+
+@keyframes dialogueout
+  from
+    transform scale(1) translateZ(0)
+    opacity 1
+    visibility visible
+
+  to
+    transform scale(1.1) translateZ(0)
+    opacity 0
+    visibility hidden

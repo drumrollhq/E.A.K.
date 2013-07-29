@@ -4,6 +4,6 @@ provision.sh
 .vagrant
 Vagrantfile
 node_modules
-components
+bower_components
 public
 jstest
