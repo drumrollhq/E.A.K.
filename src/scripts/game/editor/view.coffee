@@ -57,12 +57,13 @@ module.exports = class EditorView extends Backbone.View
       n = document.createElement "div"
       n.className = "comment-widget"
       n.innerHTML = widget.html
-      cm.addLineWidget widget.line-1, n,
+      cm.addLineWidget widget.start.line, n,
         coverGutter: true
         noHScroll: true
 
-      cm.markText {line: widget.line-2, ch: Infinity}, {line: widget.line, ch: 0},
+      cm.markText widget.start, widget.end,
         readOnly: true
+        collapsed: true
 
   cancel: =>
     @model.set "html", @model.get "originalhtml"
@@ -87,46 +88,56 @@ module.exports = class EditorView extends Backbone.View
       indent_char: ' '
       preserve_newlines: false
 
-    stream = "\n"+stream
+    htmlout = ""
 
     i = 0
     current = ''
     next = ''
 
-    line = 0
+    position =
+      line: 0
+      ch: -1
 
-    consume = ->
+    pos = -> _.clone position
+
+    consume = (app=true) ->
+      if htmlout[htmlout.length - 1] is "\n"
+        position.line++
+        position.ch = 0
+      else
+        position.ch++
+
       current = stream[i]
       i++
       next = stream[i]
 
+      if app then htmlout += current
+
       next
 
-    htmlout = ""
     comments = []
 
     while consume() isnt undefined
       if current is "<" and next is "!"
+        commentStart = pos()
         consume()
         consume()
         if current is "-" and next is "-"
           # comment start
           currentComment = ""
           consume()
-          while consume() isnt undefined
+          while (if next is "\n" then consume false else consume true) isnt undefined
             if current is "-" and next is "-"
               consume()
               if next is ">"
                 # comment end
-                comments.push
-                  html: currentComment
-                  line: line
-
+                consume()
                 consume()
 
-                # Get rid of any trailing whitespace after the comment:
-                while next in [" ", "\t", "\n", "\r"]
-                  consume()
+                comments.push
+                  html: currentComment
+                  start: commentStart
+                  end: pos()
 
                 break
               else
@@ -134,17 +145,6 @@ module.exports = class EditorView extends Backbone.View
             else
               currentComment += current
 
-        else
-          htmlout += "<!-"
-      else
-        if current is "\n" then line++
-        htmlout += current
-
     console.log htmlout, comments
 
     return html: htmlout, comments: comments
-
-  blockEls: ["address", "article", "aside", "audio", "blockquote", "canvas",
-    "dd", "div", "dl", "fieldset", "figcaption", "figure", "footer", "form",
-    "h1", "h2", "h3", "h4", "h5", "h6", "header", "hgroup", "hr", "noscript",
-    "ol", "output", "p", "pre", "section", "table", "tfoot", "ul", "video"]
