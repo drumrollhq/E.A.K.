@@ -12,8 +12,6 @@ module.exports = class Game extends Backbone.Model
     @$levelNo = @$levelTitle.find "span"
     @$levelName = @$levelTitle.find "h4"
 
-    @startLevel @get "level"
-
   defaults:
     level: 0
 
@@ -45,7 +43,7 @@ module.exports = class Game extends Backbone.Model
     , 1300
 
   save: =>
-    console.log "Saving to local storage"
+    # console.log "Saving to local storage"
     attrs = _.clone @attributes
     localStorage.setItem Game::savefile, JSON.stringify attrs
 

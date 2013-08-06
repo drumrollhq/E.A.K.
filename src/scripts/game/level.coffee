@@ -20,7 +20,10 @@ module.exports = class Level extends Backbone.Model
     conf = @conf = level.config or {}
 
     # Set up the HTML/CSS for the level
-    renderer = @renderer = new Renderer html: level.html, css: level.css
+    renderer = @renderer = new Renderer
+      html: level.html
+      css: level.css
+      root: $ "#levelcontainer"
 
     if conf.background isnt undefined then renderer.el.style.background = conf.background
 

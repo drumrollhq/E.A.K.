@@ -38,4 +38,6 @@ module.exports = class App extends Backbone.View
     @$about.switchDialogue @$menu
 
   playGame: (load) =>
-    new Game load
+    game = new Game load
+    game.startLevel game.get "level"
+

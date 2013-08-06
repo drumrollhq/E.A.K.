@@ -1,3 +1,6 @@
+# Needs plugins for performance.now:
+require "plugins"
+
 class Mediator extends Backbone.Model
   # Extra binding functionality
   # Most of Backbone.Event's methods start with an event name. We can use
@@ -43,7 +46,7 @@ raf = window.requestAnimationFrame or window.mozRequestAnimationFrame or
 
 window.rAF = raf
 
-last = performance.now()
+last = window.performance.now()
 
 # 100 point moving average for monitoring the frame rate
 intervals = (16 for [0..100])

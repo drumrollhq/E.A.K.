@@ -46,8 +46,9 @@ module.exports = class World extends Backbone.View
 
     @listenTo mediator, "frame", @update
 
-  resize: ->
-    @$el.css @target.css ["left", "top", "marginTop", "marginLeft", "position"]
+  resize: =>
+    @$el.css @target.offset()
+    @$el.css "position", "absolute"
     @el.width = @target.width()
     @el.height = @target.height()
 

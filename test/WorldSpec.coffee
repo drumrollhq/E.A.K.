@@ -10,8 +10,8 @@ describe "game/physics/world", ->
     el.appendTo document.body
 
   afterEach ->
-    ($ "canvas").remove()
-    el.remove()
+    #($ "canvas").remove()
+    #el.remove()
 
   it "should create a Box2d world", ->
     world = new World el
@@ -22,6 +22,10 @@ describe "game/physics/world", ->
   describe "#resize()", ->
     it "should position the canvas over the level element", ->
       world = new World el
+
+      world.$el.appendTo document.body
+
+      world.el.style.display = "block"
 
       world.resize()
 

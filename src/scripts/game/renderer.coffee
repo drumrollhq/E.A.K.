@@ -10,7 +10,7 @@ module.exports = class Renderer extends Backbone.View
   id: -> "levelrenderer-#{Date.now()}"
 
   initialize: (options) ->
-    @root = $ "#levelcontainer"
+    @root = options.root
     @$el.appendTo @root
 
     style = $ "<style></style>"
