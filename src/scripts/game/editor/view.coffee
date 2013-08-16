@@ -1,3 +1,5 @@
+boxShadow = Modernizr.prefixed "boxShadow"
+
 module.exports = class EditorView extends Backbone.View
   initialize: ->
     html = @model.get "html"
@@ -22,6 +24,8 @@ module.exports = class EditorView extends Backbone.View
     @doc = cm.getDoc()
 
     @listenTo @model, "change:html", @onChange
+
+    @setupCMExtras @cm
 
   events:
     "tap .save": "save"
@@ -54,6 +58,7 @@ module.exports = class EditorView extends Backbone.View
 
     parsed = Slowparse.HTML document, html
 
+    @clearEditorExtras()
     @editorFocusing parsed.document
 
     e.empty()
@@ -76,26 +81,63 @@ module.exports = class EditorView extends Backbone.View
 
   editorFocusing: (node) =>
     if node.parseInfo isnt undefined and node.nodeType is 1
-      console.log node
+
+      info = node.parseInfo
+
+      if info.openTag isnt undefined
+        startOuter = @cm.posFromIndex info.openTag.start
+        startInner = @cm.posFromIndex info.openTag.end
+      else
+        startInner = startOuter = @cm.posFromIndex info.start
+
+      if info.closeTag isnt undefined
+        endOuter = @cm.posFromIndex info.closeTag.start
+        endInner = @cm.posFromIndex info.closeTag.end
+      else
+        endInner = endOuter = @cm.posFromIndex info.end
+
+      mark = @cm.markText startOuter, endOuter
+
+      mark.data = node: node
+      @editormarks.push mark
+
       node.addEventListener "click", (e) =>
         e.stopPropagation()
 
-        info = node.parseInfo
-
-        if info.openTag isnt undefined
-          info.start = info.openTag.end
-          info.end = info.closeTag.start
-
-        start = @cm.posFromIndex info.start
-        end = @cm.posFromIndex info.end
-
-        @cm.setSelection start, end
+        @cm.setSelection startInner, endInner
         @cm.focus()
 
       , false
 
     for n in node.childNodes
       @editorFocusing n
+
+  clearEditorExtras: (fully=false) =>
+    if @editormarks isnt undefined
+      for mark in @editormarks
+        mark.clear()
+
+    @editormarks = []
+
+  setupCMExtras: (cm) ->
+    lastMark = false
+    cm.on "cursorActivity", ->
+      if lastMark isnt false
+        lastMark.data.node.style[boxShadow] = lastMark.data.shadow
+
+      pos = cm.getCursor()
+      marks = cm.findMarksAt pos
+      if marks.length isnt 0
+        mark = marks[marks.length - 1]
+
+        if mark.data isnt undefined
+          mark.data.shadow = mark.data.node.style[boxShadow]
+          if mark.data.shadow is ""
+            mark.data.node.style[boxShadow] = "0 0 10px rgba(30, 200, 255, 0.8)"
+          else
+            mark.data.node.style[boxShadow] += ", 0 0 10px rgba(30, 200, 255, 0.8)"
+
+          lastMark = mark
 
   cancel: =>
     @model.set "html", @model.get "originalhtml"
