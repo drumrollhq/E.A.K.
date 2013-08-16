@@ -13,6 +13,7 @@
     "modernizr": "latest",
     "commonjs": "latest",
     "box2dweb": "latest",
-    "codemirror": "latest"
+    "codemirror": "latest",
+    "slowparse": "~0.0.1"
   }
 }
