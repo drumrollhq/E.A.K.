@@ -35,6 +35,10 @@ module.exports = class EditorView extends Backbone.View
   render: ->
     ($ document.body).addClass "editor"
 
+    # force change:
+    @onChange @model, @cm.getValue()
+
+
   remove: =>
     ($ document.body).removeClass "editor"
     @stopListening()
@@ -48,7 +52,12 @@ module.exports = class EditorView extends Backbone.View
     entities = e.children ".entity"
     entities.detach()
 
-    @renderEl.html html
+    parsed = Slowparse.HTML document, html
+
+    @editorFocusing parsed.document
+
+    e.empty()
+    e.append parsed.document
 
     entities.appendTo e
 
@@ -64,6 +73,29 @@ module.exports = class EditorView extends Backbone.View
       cm.markText widget.start, widget.end,
         readOnly: true
         collapsed: true
+
+  editorFocusing: (node) =>
+    if node.parseInfo isnt undefined and node.nodeType is 1
+      console.log node
+      node.addEventListener "click", (e) =>
+        e.stopPropagation()
+
+        info = node.parseInfo
+
+        if info.openTag isnt undefined
+          info.start = info.openTag.end
+          info.end = info.closeTag.start
+
+        start = @cm.posFromIndex info.start
+        end = @cm.posFromIndex info.end
+
+        @cm.setSelection start, end
+        @cm.focus()
+
+      , false
+
+    for n in node.childNodes
+      @editorFocusing n
 
   cancel: =>
     @model.set "html", @model.get "originalhtml"
@@ -144,7 +176,5 @@ module.exports = class EditorView extends Backbone.View
                 currentComment += "--"
             else
               currentComment += current
-
-    console.log htmlout, comments
 
     return html: htmlout, comments: comments
