@@ -172,20 +172,15 @@ module.exports = (grunt) ->
       if dev
         out += "<script src=\"libs/#{i}-#{dep}.js\"></script>\n"
 
-    # Some of the Modernizr bits we're using aren't in the default package, so
-    # have to bring them in separately
-    extras = (grunt.file.read "modernizr extras").split "\n"
-    for extra in extras
-      grunt.file.copy "bower_components/modernizr/feature-detects/#{extra}.js", "public/libs/test-#{extra}.js"
-      grunt.log.ok "File public/libs/test-#{extra}.js created."
-      out += "<script src=\"libs/test-#{extra}.js\"></script>\n"
-
-    # Fetch the non-standard bits of codemirror
-    modes = (grunt.file.read "codemirror modes").split "\n"
-    for mode in modes
-      grunt.file.copy "bower_components/codemirror/mode/#{mode}/#{mode}.js", "public/libs/cm-mode-#{mode}.js"
-      grunt.log.ok "File public/libs/cm-mode-#{mode}.js created."
-      out += "<script src=\"libs/cm-mode-#{mode}.js\"></script>\n"
+    # By default, bower will only include core files. bower-extras.json pulls in
+    # extra files for us:
+    bowerExtras = (grunt.file.readJSON "bower-extras.json")
+    extras = []
+    for bow of bowerExtras
+      for extra of bowerExtras[bow]
+        grunt.file.copy "bower_components/#{bow}/#{bowerExtras[bow][extra]}", "public/libs/#{extra}"
+        grunt.log.ok "File public/libs/#{extra} created."
+        out += "<script src=\"libs/#{extra}\"></script>\n"
 
     # Grab libs that aren't in bower from the interwebs:
     libs = (grunt.file.read "libraries").split "\n"
