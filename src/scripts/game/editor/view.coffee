@@ -91,8 +91,8 @@ module.exports = class EditorView extends Backbone.View
         startInner = startOuter = @cm.posFromIndex info.start
 
       if info.closeTag isnt undefined
-        endOuter = @cm.posFromIndex info.closeTag.start
-        endInner = @cm.posFromIndex info.closeTag.end
+        endOuter = @cm.posFromIndex info.closeTag.end
+        endInner = @cm.posFromIndex info.closeTag.start
       else
         endInner = endOuter = @cm.posFromIndex info.end
 
@@ -119,9 +119,9 @@ module.exports = class EditorView extends Backbone.View
 
     @editormarks = []
 
-  setupCMExtras: (cm) ->
+  setupCMExtras: (cm) =>
     lastMark = false
-    cm.on "cursorActivity", ->
+    cm.on "cursorActivity", =>
       if lastMark isnt false
         lastMark.data.node.style[boxShadow] = lastMark.data.shadow
 
@@ -137,7 +137,12 @@ module.exports = class EditorView extends Backbone.View
           else
             mark.data.node.style[boxShadow] += ", 0 0 10px rgba(30, 200, 255, 0.8)"
 
+          @showElement mark.data.node
+
           lastMark = mark
+
+  showElement: (el) =>
+    el.scrollIntoView(true)
 
   cancel: =>
     @model.set "html", @model.get "originalhtml"

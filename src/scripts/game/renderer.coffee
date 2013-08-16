@@ -101,29 +101,36 @@ module.exports = class Renderer extends Backbone.View
   damping = 10
 
   move: (position) =>
+    lx = @lastPosition.x
+    ly = @lastPosition.y
+
+    tx = lx + (position.x - lx) / damping
+    ty = ly + (position.y - ly) / damping
+
+    @lastPosition = x: tx, y: ty
+
+    @moveDirect x: tx, y: ty
+
+  moveDirect: (position, scroll = false) =>
     s = @scrolling
     w = @width
     h = @height
-    lx = @lastPosition.x
-    ly = @lastPosition.y
+
+    console.log "move to", JSON.stringify position
+
     if s.x isnt false
       max = (w + 2*pad) - s.x
       tx = max * (position.x / w) - pad
-      tx = lx + (tx - lx) / damping
     else
       tx = 0
 
     if s.y isnt false
       max = (h + 2*pad) - s.y
       ty = max * (position.y / h) - pad
-      ty = ly + (ty - ly) / damping
     else
       ty = 0
 
-    @lastPosition = x: tx, y: ty
-
-    if tx is 0 and ty is 0 then @el.style[transform] = ""
-    @el.style[transform] = "translate3d(#{-tx}px, #{-ty}px, 0)"
+    @el.style[transform] = if tx is 0 and ty is 0 then "" else "translate3d(#{-tx}px, #{-ty}px, 0)"
 
   scopeCSS: (scope, css) ->
     ###
