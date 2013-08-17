@@ -1,3 +1,5 @@
+mediator = require "game/mediator"
+
 boxShadow = Modernizr.prefixed "boxShadow"
 
 module.exports = class EditorView extends Backbone.View
@@ -22,6 +24,8 @@ module.exports = class EditorView extends Backbone.View
 
     @cm = cm
     @doc = cm.getDoc()
+
+    @hasErrors = false
 
     @listenTo @model, "change:html", @onChange
 
@@ -57,6 +61,9 @@ module.exports = class EditorView extends Backbone.View
     entities.detach()
 
     parsed = Slowparse.HTML document, html
+
+    @hasErrors = parsed.error isnt null
+
 
     @clearEditorExtras()
     @editorFocusing parsed.document
@@ -149,6 +156,10 @@ module.exports = class EditorView extends Backbone.View
     @model.trigger "save"
 
   save: =>
+    if @hasErrors
+      mediator.trigger "alert", "There are errors in your code! Fix them before saving."
+      return
+
     @model.trigger "save"
 
   undo: =>
