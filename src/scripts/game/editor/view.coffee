@@ -3,11 +3,11 @@ mediator = require "game/mediator"
 niceComments = require "game/editor/nice-comments"
 setupCMExtras = require "game/editor/cm-extras"
 
-boxShadow = Modernizr.prefixed "boxShadow"
-
 module.exports = class EditorView extends Backbone.View
-  initialize: ->
+  initialize: (options) ->
     html = @model.get "html"
+
+    @renderEl = options.renderEl if options.renderEl isnt undefined
 
     cm = CodeMirror (@$ ".editor-html")[0],
       value: html
@@ -17,18 +17,16 @@ module.exports = class EditorView extends Backbone.View
       lineWrapping: true
       lineNumbers: true
 
-    niceComments cm
-
     cm.on "change", @handleChange
 
     @cm = cm
-    @doc = cm.getDoc()
 
     @hasErrors = false
 
     @listenTo @model, "change:html", @onChange
 
     @extras = setupCMExtras cm
+    niceComments cm
 
   events:
     "tap .save": "save"
@@ -41,9 +39,6 @@ module.exports = class EditorView extends Backbone.View
 
   render: ->
     ($ document.body).addClass "editor"
-
-    # force change:
-    @onChange @model, @cm.getValue()
 
   remove: =>
     ($ document.body).removeClass "editor"

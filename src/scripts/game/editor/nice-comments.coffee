@@ -83,7 +83,7 @@ preProcessHTML = (stream) ->
 addWidgets = (cm, widgets) ->
   for widget in widgets
     n = document.createElement "div"
-    n.className = "comment-widget"
+    n.className = "annotation-widget"
     n.innerHTML = widget.html
     cm.addLineWidget widget.start.line, n,
       coverGutter: true

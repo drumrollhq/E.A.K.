@@ -1,0 +1,25 @@
+.annotation-widget
+  font-family font
+  font-size 16px
+  background white
+  line-height 1.5em
+  padding 10px
+  overflow hidden
+  color black
+  box-shadow 0 1px 3px rgba(0, 0, 0, 0.2)
+  margin 5px 0
+
+  &.annotation-error
+    box-shadow 0 0 3px rgba(255, 0, 0, 1)
+    border-right 5px solid red
+
+    [data-highlight]
+      color red
+      text-decoration underline
+      cursor pointer
+
+  p:first-child
+    margin-top 0
+
+.highlight-error
+  text-decoration underline

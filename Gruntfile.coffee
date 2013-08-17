@@ -182,6 +182,13 @@ module.exports = (grunt) ->
         grunt.log.ok "File public/libs/#{extra} created."
         out += "<script src=\"libs/#{extra}\"></script>\n"
 
+    # Fetch slowparse error files
+    grunt.file.write "public/data/errors.all.html",
+      (grunt.file.read "bower_components/slowparse/spec/errors.base.html") +
+      "\n\n" +
+      (grunt.file.read "bower_components/slowparse/spec/errors.forbidjs.html")
+      grunt.log.ok "File public/data/errors.all.html created."
+
     # Grab libs that aren't in bower from the interwebs:
     libs = (grunt.file.read "libraries").split "\n"
     done = grunt.task.current.async()

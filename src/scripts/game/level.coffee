@@ -292,9 +292,7 @@ module.exports = class Level extends Backbone.Model
 
     editor = new Editor @level
 
-    editorView = new EditorView model: editor, el: $ "#editor"
-
-    editorView.renderEl = @renderer.$el
+    editorView = new EditorView model: editor, renderEl: @renderer.$el, el: $ "#editor"
 
     editorView.render()
 

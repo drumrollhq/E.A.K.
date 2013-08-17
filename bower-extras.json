@@ -8,5 +8,8 @@
   "modernizr": {
     "test-css-calc.js": "feature-detects/css-calc.js",
     "test-css-boxsizing.js": "feature-detects/css-boxsizing.js"
+  },
+  "slowparse": {
+    "sp-errors.js": "spec/errors.jquery.js"
   }
 }
