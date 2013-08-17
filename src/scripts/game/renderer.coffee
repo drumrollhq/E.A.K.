@@ -116,8 +116,6 @@ module.exports = class Renderer extends Backbone.View
     w = @width
     h = @height
 
-    console.log "move to", JSON.stringify position
-
     if s.x isnt false
       max = (w + 2*pad) - s.x
       tx = max * (position.x / w) - pad

@@ -1,0 +1,49 @@
+.notification-container
+  position absolute
+  top 0
+  right 0
+  pointer-events none
+  margin 30px
+
+  .notification
+    animation notification-in 0.5s ease
+    overflow hidden
+    position relative
+    z-index 10000
+    padding 10px
+
+    &.hidden
+      animation notification-out 1.5s ease
+      opacity 0
+
+  .notification-inner
+    width 250px
+    height 100px
+    padding 10px
+    background-color rgba(255, 255, 255, 0.8)
+    color #333
+    border-radius 5px
+    box-shadow 0 0 5px rgba(30, 200, 255, 0.6)
+
+@keyframes notification-in
+  0%
+    opacity 0
+    height 0
+    left 50px
+
+  50%
+    opacity 0
+    height 120px
+    left 50px
+
+  100%
+    opacity 1
+    height 120px
+    left 0
+
+@keyframes notification-out
+  from
+    opacity 1
+
+  to
+    opacity 0

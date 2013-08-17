@@ -87,9 +87,34 @@ frameDriver = =>
 
 window.rAF frameDriver
 
+$body = $ document.body
+$notificationContainer = $ "<div></div>"
+$notificationContainer.addClass "notification-container"
+$notificationContainer.appendTo $body
+
+transitionEnd = {
+  "WebkitAnimation": "webkitAnimationEnd"
+  "MozAnimation": "animationend"
+  "OAnimation": "oanimationend"
+  "msAnimation": "MSAnimationEnd"
+  "animation": "animationend"}[Modernizr.prefixed "animation"]
+
 mediator.on "alert", (msg) ->
-  # TODO: remove browser alert
-  alert msg
+  $alert = $ "<div></div>"
+  $alert.addClass "notification"
+
+  $inner = $ "<div></div>"
+  $inner.addClass "notification-inner"
+  $inner.text msg
+  $inner.appendTo $alert
+
+  $alert.prependTo $notificationContainer
+
+  setTimeout =>
+    $alert.on transitionEnd, ->
+      $alert.remove()
+    $alert.addClass "hidden"
+  , 5000
 
 $window = $ window
 
