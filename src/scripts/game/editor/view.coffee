@@ -9,6 +9,9 @@ module.exports = class EditorView extends Backbone.View
 
     @renderEl = options.renderEl if options.renderEl isnt undefined
 
+    @entities = @renderEl.children ".entity"
+    @entities.detach()
+
     cm = CodeMirror (@$ ".editor-html")[0],
       value: html
       mode: "htmlmixed"
@@ -50,9 +53,6 @@ module.exports = class EditorView extends Backbone.View
     # preserve all entities:
     e = @renderEl
 
-    entities = e.children ".entity"
-    entities.detach()
-
     parsed = @extras.process html
 
     @hasErrors = parsed.error isnt null
@@ -60,7 +60,11 @@ module.exports = class EditorView extends Backbone.View
     e.empty()
     e.append parsed.document
 
-    entities.appendTo e
+    @entities.clone().prependTo e
+
+  restoreEntities: =>
+    (@renderEl.children ".entity").remove()
+    @entities.prependTo @renderEl
 
   cancel: =>
     @model.set "html", @model.get "originalhtml"

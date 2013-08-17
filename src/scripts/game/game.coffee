@@ -16,10 +16,9 @@ module.exports = class Game extends Backbone.Model
     level: 0
 
   startLevel: (n) =>
-    console.log n
     if mediator.LevelStore[n] is undefined
       console.log "Cannot find level #{n}", mediator.LevelStore
-      mediator.trigger "alert", "That's it! I haven't coded any more levels yet."
+      mediator.trigger "alert", "That's it! I haven't written any more levels yet!"
       return false
 
     level = mediator.LevelStore[n]

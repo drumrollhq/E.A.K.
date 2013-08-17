@@ -25,7 +25,6 @@ $.fn.makeOnlyShownDialogue = ->
     @showDialogue()
   else
     dialogues.each ->
-      console.log @
       ($ @).hideDialogue()
     setTimeout (=> @showDialogue()), d
 

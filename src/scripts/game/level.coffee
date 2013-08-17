@@ -302,6 +302,7 @@ module.exports = class Level extends Backbone.Model
     @renderer.resize()
 
     editor.once "save", =>
+      editorView.restoreEntities()
       editorView.remove()
       @renderer.editor = false
       @renderer.resize()

@@ -63,7 +63,6 @@ showElement = (el) ->
   el.scrollIntoView(true)
 
 showError = (cm, err) ->
-  console.log err
 
   if cm.data.errLine isnt undefined
     cm.removeLineClass cm.data.errLine, "wrap", "slowparse-error"
