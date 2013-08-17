@@ -103,8 +103,8 @@ module.exports = class Level extends Backbone.Model
           type: 'rect'
           x: terminal[0] + w/2
           y: terminal[1] + h/2
-          width: 50
-          height: 50
+          width: 125
+          height: 125
           el: t
           data:
             sensor: true
@@ -141,14 +141,21 @@ module.exports = class Level extends Backbone.Model
           mediator.on "keypress:e", @startEditor
           body.def.el.on "tap", startEditorListener
 
+          if fixes[1].hideTimeout isnt undefined then clearTimeout fixes[1].hideTimeout
+
     contactListener.EndContact = (contact) =>
       fixes = getPlayerFromContact contact
 
       if fixes isnt false
         if fixes[1].isTerminal is true
-          body.def.el.removeClass "active"
-          mediator.off "keypress:e", @startEditor
-          body.def.el.off "tap", @startEditorListener
+          # Timeout: Leave the terminal open for a little while
+          # before hiding it.
+          fixes[1].hideTimeout = setTimeout =>
+            body.def.el.removeClass "active"
+            mediator.off "keypress:e", @startEditor
+            body.def.el.off "tap", @startEditorListener
+            fixes[1].hideTimeout = undefined
+          , 1000
 
     @world.world.SetContactListener contactListener
 
