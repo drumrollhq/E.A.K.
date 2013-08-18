@@ -10,6 +10,7 @@
     "test-css-boxsizing.js": "feature-detects/css-boxsizing.js"
   },
   "slowparse": {
-    "sp-errors.js": "spec/errors.jquery.js"
+    "sp-errors.js": "spec/errors.jquery.js",
+    "sp-tree-inspectors.js": "tree-inspectors.js"
   }
 }

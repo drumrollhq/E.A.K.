@@ -45,7 +45,7 @@ module.exports = setupCMExtras = (cm) ->
         lastMark = mark
 
   return process: (html) ->
-    parsed = Slowparse.HTML document, html
+    parsed = Slowparse.HTML document, html, [TreeInspectors.forbidJS]
 
     clearMarks()
     linkToPreview parsed.document, marks, cm
@@ -89,6 +89,10 @@ showError = (cm, err) ->
     highlighters = error.find "[data-highlight]"
     highlighters.on "mouseover", ->
       highlight = $ @
+      hl = (highlight.data "highlight")
+      if typeof hl is "number"
+        return
+
       range = (highlight.data "highlight").split ','
       from = cm.posFromIndex range[0]
       to = cm.posFromIndex range[1]
@@ -110,10 +114,16 @@ showError = (cm, err) ->
 
     highlighters.on "click", ->
       highlight = $ @
-      range = (highlight.data "highlight").split ','
-      from = cm.posFromIndex range[0]
-      to = cm.posFromIndex range[1]
-      cm.setSelection from, to
+      hl = (highlight.data "highlight")
+      if typeof hl is "number"
+        pos = cm.posFromIndex hl
+        cm.setCursor pos
+      else
+        range = (highlight.data "highlight").split ','
+        from = cm.posFromIndex range[0]
+        to = cm.posFromIndex range[1]
+        cm.setSelection from, to
+
       cm.focus()
 
 linkToPreview = (node, marks, cm) =>
@@ -138,13 +148,15 @@ linkToPreview = (node, marks, cm) =>
     linkToPreview n, marks, cm
 
 getPositions = (info, cm) ->
+  p0 = cm.posFromIndex 0
+
   pos =
     start:
-      outer: 0
-      inner: 0
+      outer: p0
+      inner: p0
     end:
-      outer: 0
-      inner: 0
+      outer: p0
+      inner: p0
 
   noStart = noEnd = false
 
@@ -160,7 +172,7 @@ getPositions = (info, cm) ->
     pos.end.outer = cm.posFromIndex info.closeTag.end
     pos.end.inner = cm.posFromIndex info.closeTag.start
   else if info.end isnt undefined
-    pos.end.inner = end.outer = cm.posFromIndex info.end
+    pos.end.inner = pos.end.outer = cm.posFromIndex info.end
   else
     noEnd = true
 
@@ -168,5 +180,16 @@ getPositions = (info, cm) ->
     pos.start = pos.end
   else if noEnd and not noStart
     pos.end = pos.start
+
+  if noStart and noEnd
+    others = ["html", "cssBlock", "cssSelector", "cssProperty", "cssValue"]
+
+    for other in others
+      if info[other] isnt undefined
+        ref = info[other]
+        break
+
+    pos.start.outer = pos.start.inner = cm.posFromIndex ref.start
+    pos.end.outer = pos.end.inner = cm.posFromIndex ref.end
 
   return pos
