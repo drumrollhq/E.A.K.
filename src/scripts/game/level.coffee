@@ -43,6 +43,7 @@ module.exports = class Level extends Backbone.Model
     @listenTo mediator, "restart", @restart
 
     @listenTo mediator, "frame", @checkPlayerIsInWorld
+    @listenTo mediator, "kittenfound", @complete
 
   addBodiesFromDom: (createWorld=true)=>
     # Build a map of DOM elements
