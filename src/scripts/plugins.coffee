@@ -30,6 +30,14 @@ $.fn.makeOnlyShownDialogue = ->
 
   @
 
+$.hideDialogues = (fn) ->
+  dialogues = $ ".dialogue.active"
+  dialogues.each ->
+    ($ @).hideDialogue()
+  setTimeout fn, d
+
+  @
+
 first = Date.now()
 
 # performance.now polyfill
