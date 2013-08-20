@@ -36,6 +36,7 @@ module.exports = class EditorView extends Backbone.View
     "tap .cancel": "cancel"
     "tap .undo": "undo"
     "tap .redo": "redo"
+    "tap .reset": "reset"
 
   handleChange: (cm) =>
     @model.set "html", cm.getValue()
@@ -69,6 +70,12 @@ module.exports = class EditorView extends Backbone.View
   cancel: =>
     @model.set "html", @model.get "originalhtml"
     @model.trigger "save"
+
+  reset: =>
+    html = @model.get "originalhtml"
+    @model.set "html", html
+    @cm.setValue html
+    niceComments @cm
 
   save: =>
     if @hasErrors

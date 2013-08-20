@@ -40,6 +40,7 @@ module.exports = class Level extends Backbone.Model
     @addPlayer conf.player
 
     @listenTo mediator, "edit", @startEditor
+    @listenTo mediator, "restart", @restart
 
     @listenTo mediator, "frame", @checkPlayerIsInWorld
 
@@ -86,6 +87,11 @@ module.exports = class Level extends Backbone.Model
 
     if target.length >= 1
       @startPos.target = (@renderer.$el.children "[data-target]")[0].getBoundingClientRect()
+
+  restart: =>
+    @renderer.resize()
+    @redrawFrom @level.html, @level.css
+    @player.body.reset()
 
   redrawFrom: (html, css) =>
     # Preserve entities:

@@ -2,8 +2,8 @@ mediator = require "game/mediator"
 
 module.exports = class Bar extends Backbone.View
   events:
-    "click .edit": "edit"
-    "click .restart": "restart"
+    "tap .edit": "edit"
+    "tap .restart": "restart"
 
   edit: (e) =>
     e.preventDefault()
