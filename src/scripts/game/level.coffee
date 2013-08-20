@@ -38,7 +38,8 @@ module.exports = class Level extends Backbone.Model
     @addBodiesFromDom()
     @addBorders conf.borders
     @addPlayer conf.player
-    @addTerminals conf.terminals
+
+    @listenTo mediator, "edit", @startEditor
 
     @listenTo mediator, "frame", @checkPlayerIsInWorld
 
@@ -85,84 +86,6 @@ module.exports = class Level extends Backbone.Model
 
     if target.length >= 1
       @startPos.target = (@renderer.$el.children "[data-target]")[0].getBoundingClientRect()
-
-  addTerminals: (terminals) =>
-    w = @renderer.width
-    h = @renderer.height
-    if terminals isnt undefined
-      for terminal in terminals
-        t = $ "<div></div>"
-        t.addClass "terminal-entity entity"
-        t.css
-          left: terminal[0] + w/2
-          top: terminal[1] + h/2
-
-        t.appendTo @renderer.$el
-
-        body = new StaticBody
-          type: 'rect'
-          x: terminal[0] + w/2
-          y: terminal[1] + h/2
-          width: 125
-          height: 125
-          el: t
-          data:
-            sensor: true
-
-        body.isTerminal = true
-
-        body.attachTo @world
-
-    # Check for contact with terminals:
-    contactListener = new ContactListener()
-
-    startEditorListener = (e) =>
-      e.stopPropagation()
-      @startEditor()
-
-    getPlayerFromContact = (contact) =>
-      fixa = contact.GetFixtureA().GetBody().GetUserData()
-      fixb = contact.GetFixtureB().GetBody().GetUserData()
-
-      if fixa.isPlayer is true
-        return [fixa, fixb]
-      else if fixb.isPlayer is true
-        return [fixb, fixa]
-      else
-        # player not invloved
-        return false
-
-    contactListener.BeginContact = (contact) =>
-      fixes = getPlayerFromContact contact
-
-      if fixes isnt false
-        if fixes[1].isTerminal is true
-          body.def.el.addClass "active"
-          mediator.on "keypress:e", @startEditor
-          body.def.el.on "tap", startEditorListener
-
-          if fixes[1].hideTimeout isnt undefined then clearTimeout fixes[1].hideTimeout
-
-    contactListener.EndContact = (contact) =>
-      fixes = getPlayerFromContact contact
-
-      if fixes isnt false
-        if fixes[1].isTerminal is true
-          # Timeout: Leave the terminal open for a little while
-          # before hiding it.
-          fixes[1].hideTimeout = setTimeout =>
-            body.def.el.removeClass "active"
-            mediator.off "keypress:e", @startEditor
-            body.def.el.off "tap", @startEditorListener
-            fixes[1].hideTimeout = undefined
-          , 1000
-
-    @world.world.SetContactListener contactListener
-
-    # When the kitten is found, the level is complete:
-    @listenTo mediator, "kittenfound", @complete
-
-    @stopped = false
 
   redrawFrom: (html, css) =>
     # Preserve entities:

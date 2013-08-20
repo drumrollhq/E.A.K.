@@ -1,4 +1,5 @@
 Level = require "game/level"
+Bar = require "game/bar"
 
 mediator = require "game/mediator"
 
@@ -11,6 +12,8 @@ module.exports = class Game extends Backbone.Model
     @$levelTitle = $ ".levelname"
     @$levelNo = @$levelTitle.find "span"
     @$levelName = @$levelTitle.find "h4"
+
+    barView = new Bar el: $ "#bar"
 
   defaults:
     level: 0
