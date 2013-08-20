@@ -215,26 +215,28 @@ module.exports = class Level extends Backbone.Model
         , 500
 
   startEditor: =>
-    mediator.paused = true
 
-    # Stop the player from rolling off an edge when we've finished editing
-    @player.body.halt()
+    unless ($ document.body).hasClass "editor"
+      mediator.paused = true
 
-    editor = new Editor @level
+      # Stop the player from rolling off an edge when we've finished editing
+      @player.body.halt()
 
-    editorView = new EditorView model: editor, renderEl: @renderer.$el, el: $ "#editor"
+      editor = new Editor @level
 
-    editorView.render()
+      editorView = new EditorView model: editor, renderEl: @renderer.$el, el: $ "#editor"
 
-    editorView.$el.appendTo $ "#editor"
+      editorView.render()
 
-    @renderer.editor = true
-    @renderer.resize()
+      editorView.$el.appendTo $ "#editor"
 
-    editor.once "save", =>
-      editorView.restoreEntities()
-      editorView.remove()
-      @renderer.editor = false
+      @renderer.editor = true
       @renderer.resize()
-      @redrawFrom (editor.get "html"), (editor.get "css")
-      mediator.paused = false
+
+      editor.once "save", =>
+        editorView.restoreEntities()
+        editorView.remove()
+        @renderer.editor = false
+        @renderer.resize()
+        @redrawFrom (editor.get "html"), (editor.get "css")
+        mediator.paused = false
