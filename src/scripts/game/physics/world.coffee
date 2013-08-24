@@ -13,6 +13,8 @@ b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef;
 
 mediator = require "game/mediator"
 
+WorldListener = require "game/physics/worldListener"
+
 module.exports = class World extends Backbone.View
   tagName: "canvas"
 
@@ -43,6 +45,9 @@ module.exports = class World extends Backbone.View
 
     # Debug interaction:
     @listenTo mediator, "keypress:b", => @toggleDebug()
+
+    # Make sure that events are triggered for collisions etc.
+    @world.SetContactListener new WorldListener
 
     @listenTo mediator, "frame:process", @update
 

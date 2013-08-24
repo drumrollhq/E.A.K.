@@ -44,6 +44,17 @@ module.exports = class GeneralBody extends Backbone.Model
       fd.shape = new b2PolygonShape()
       fd.shape.SetAsBox s.width / scale / 2, s.height / scale / 2
 
+    ids = ["*"]
+    if s.id isnt undefined
+      ids.push s.id
+
+    if s.el isnt undefined
+      el = s.el
+      ids.push "#" + el.id if el.id isnt ""
+      ids.push "." + className for className in el.classList
+
+    @ids = ids
+
   attachTo: (world) =>
     body = world.world.CreateBody @bd
     body.CreateFixture @fd

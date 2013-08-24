@@ -27,6 +27,7 @@ module.exports = class Player extends Backbone.View
       y: start.y + h/2
       radius: 20
       el: @el
+      id: "ENTITY_PLAYER"
 
     @body = new DynamicBody shape
     @body.isPlayer = true

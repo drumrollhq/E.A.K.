@@ -12,8 +12,6 @@ Player = require "game/player"
 
 mediator = require "game/mediator"
 
-ContactListener = Box2D.Dynamics.b2ContactListener
-
 module.exports = class Level extends Backbone.Model
   initialize: (level) ->
     @level = level
@@ -72,6 +70,7 @@ module.exports = class Level extends Backbone.Model
     $target = $ targetHTML
     $target.addClass "entity"
     $target.attr "data-target", "data-target"
+    $target.attr "data-id", "ENTITY_TARGET"
     $target.appendTo @renderer.$el
 
   addPlayer: (playerConf) =>
@@ -122,6 +121,7 @@ module.exports = class Level extends Backbone.Model
         height: t
         x: 0
         y: -t / 2
+        id: "BORDER_TOP"
       (new StaticBody shape).attachTo @world
 
     if borders.bottom is true
@@ -130,6 +130,7 @@ module.exports = class Level extends Backbone.Model
         height: t
         x: 0
         y: h + t / 2
+        id: "BORDER_BOTTOM"
       (new StaticBody shape).attachTo @world
 
     if borders.left is true
@@ -138,6 +139,7 @@ module.exports = class Level extends Backbone.Model
         height: h * 2
         x: w + t / 2
         y: 0
+        id: "BORDER_LEFT"
       (new StaticBody shape).attachTo @world
 
     if borders.right is true
@@ -146,6 +148,7 @@ module.exports = class Level extends Backbone.Model
         height: h * 2
         x: -t / 2
         y: 0
+        id: "BORDER_RIGHT"
       (new StaticBody shape).attachTo @world
 
   checkPlayerIsInWorld: =>
