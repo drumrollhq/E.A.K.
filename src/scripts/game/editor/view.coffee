@@ -68,11 +68,11 @@ module.exports = class EditorView extends Backbone.View
     @entities.prependTo @renderEl
 
   cancel: =>
-    @model.set "html", @model.get "originalhtml"
+    @model.set "html", @model.get "startHTML"
     @model.trigger "save"
 
   reset: =>
-    html = @model.get "originalhtml"
+    html = @model.get "originalHTML"
     @model.set "html", html
     @cm.setValue html
     niceComments @cm

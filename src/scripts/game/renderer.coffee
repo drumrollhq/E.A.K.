@@ -32,6 +32,9 @@ module.exports = class Renderer extends Backbone.View
     @listenTo mediator, "playermove", @move
 
   setHTMLCSS: (html, css) =>
+    @currentHTML = html
+    @currentCSS = css
+
     @$el.html html
 
     css = @scopeCSS "#"+@el.id, css

@@ -222,7 +222,11 @@ module.exports = class Level extends Backbone.Model
       # Stop the player from rolling off an edge when we've finished editing
       @player.body.halt()
 
-      editor = new Editor @level
+      editor = new Editor
+        html: @renderer.currentHTML
+        css: @renderer.currentCSS
+        originalHTML: @level.html
+        originalCSS: @level.css
 
       editorView = new EditorView model: editor, renderEl: @renderer.$el, el: $ "#editor"
 
@@ -234,6 +238,7 @@ module.exports = class Level extends Backbone.Model
       @renderer.resize()
 
       editor.once "save", =>
+        console.log _.clone editor.attributes
         editorView.restoreEntities()
         editorView.remove()
         @renderer.editor = false
