@@ -34,25 +34,8 @@ module.exports = class Player extends Backbone.View
 
     @setupKeyboardControls()
 
-    @listenTo mediator, "frame:process", @update
-
-  update: =>
-    b = @body
-
-    edge = b.body.GetContactList()
-
-    while edge isnt null
-      fixb = edge.contact.GetFixtureB().GetBody().GetUserData()
-      if fixb.isPlayer is true
-        other = edge.contact.GetFixtureA().GetBody().GetUserData()
-      else
-        other = fixb
-
-      if edge.contact.IsTouching()
-        if other.data.target isnt undefined
-          mediator.trigger "kittenfound"
-
-      edge = edge.next
+    @listenTo mediator, "beginContact:ENTITY_PLAYER&ENTITY_TARGET", ->
+      mediator.trigger "kittenfound"
 
   setupKeyboardControls: ->
     torque = 5
@@ -103,11 +86,10 @@ module.exports = class Player extends Backbone.View
 
     @listenTo mediator, "uncaughtTap", -> jump()
 
-    @listenTo mediator, "frame", =>
+    @listenTo mediator, "frame:process", =>
       if reqTilt
         reqTilt = false
         acc = amount * torque
-        ($ ".level h1").text acc.toFixed(4)
       else
         acc = if left then -torque else if right then torque else 0
 

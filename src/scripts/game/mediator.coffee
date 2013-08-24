@@ -174,8 +174,9 @@ $doc.on "tap", (e) ->
     mediator.trigger "uncaughtTap"
 
 # Debug:
-# mediator.on "all", (type) ->
-#   if type isnt "frame" then console.log arguments
+# DEBUG_ignoredEvents = ["frame", "frame:process", "frame:render", "playermove"]
+# mediator.on "all", (type, stuff) ->
+#   if type not in DEBUG_ignoredEvents then console.log type
 
 # Key events:
 keydict = 8: "backspace", 9: "tab", 13: "enter", 16: "shift", 17: "ctrl",

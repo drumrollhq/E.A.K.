@@ -53,6 +53,8 @@ module.exports = class GeneralBody extends Backbone.Model
       ids.push "#" + el.id if el.id isnt ""
       ids.push "." + className for className in el.classList
 
+    ids.push @data.id if @data.id isnt undefined
+
     @ids = ids
 
   attachTo: (world) =>
