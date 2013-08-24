@@ -50,7 +50,7 @@ last = window.performance.now()
 
 # 100 point moving average for monitoring the frame rate
 intervals = (16 for [0..100])
-skippedlast = false
+lastWasProcess = false
 
 lim1 = (1000 / 60) + 1
 lim2 = (1000 / 30) + 1
@@ -76,12 +76,21 @@ frameDriver = =>
       # FIXME: proper intervals for slower frame rates
       diff = lim2
 
-      if skippedlast is false
-        skippedlast = true
-        window.rAF frameDriver
-        return
+      if lastWasProcess is false
+        lastWasProcess = true
+        mediator.trigger "frame", diff
+        mediator.trigger "frame:process", diff
+      else
+        mediator.trigger "frame:render", diff
+        lastWasProcess = false
+
+      window.rAF frameDriver
+
+      return
 
     mediator.trigger "frame", diff
+    mediator.trigger "frame:render", diff
+    mediator.trigger "frame:process", diff
 
   window.rAF frameDriver
 

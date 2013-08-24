@@ -44,7 +44,7 @@ module.exports = class World extends Backbone.View
     # Debug interaction:
     @listenTo mediator, "keypress:b", => @toggleDebug()
 
-    @listenTo mediator, "frame", @update
+    @listenTo mediator, "frame:process", @update
 
   resize: =>
     @$el.css @target.offset()
@@ -53,7 +53,7 @@ module.exports = class World extends Backbone.View
     @el.height = @target.height()
 
   stop: =>
-    @stopListening mediator, "frame", @update
+    @stopListening mediator, "frame:process", @update
 
   toggleDebug: =>
     if @debug

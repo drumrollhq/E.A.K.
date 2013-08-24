@@ -22,7 +22,7 @@ module.exports = class DynamicBody extends GeneralBody
 
     @initialize()
 
-    @listenTo mediator, "frame", @render
+    @listenTo mediator, "frame:render", @render
 
   render: =>
     body = @body

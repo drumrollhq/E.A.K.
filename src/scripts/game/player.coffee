@@ -33,7 +33,7 @@ module.exports = class Player extends Backbone.View
 
     @setupKeyboardControls()
 
-    @listenTo mediator, "frame", @update
+    @listenTo mediator, "frame:process", @update
 
   update: =>
     b = @body

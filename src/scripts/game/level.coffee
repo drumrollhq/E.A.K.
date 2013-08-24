@@ -42,7 +42,7 @@ module.exports = class Level extends Backbone.Model
     @listenTo mediator, "edit", @startEditor
     @listenTo mediator, "restart", @restart
 
-    @listenTo mediator, "frame", @checkPlayerIsInWorld
+    @listenTo mediator, "frame:process", @checkPlayerIsInWorld
     @listenTo mediator, "kittenfound", @complete
 
   addBodiesFromDom: (createWorld=true)=>
