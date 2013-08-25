@@ -11,9 +11,43 @@
     "jquery": "latest",
     "backbone": "latest",
     "modernizr": "latest",
-    "commonjs": "latest",
     "box2dweb": "latest",
     "codemirror": "latest",
     "slowparse": "~0.0.1"
+  },
+  "overrides": {
+    "underscore": {
+      "main": "underscore.js"
+    },
+    "backbone": {
+      "main": "backbone.js",
+      "dependencies": {
+        "underscore": "*",
+        "jquery": "*"
+      }
+    },
+    "modernizr": {
+      "main": [
+        "modernizr.js",
+        "feature-detects/css-calc.js",
+        "feature-detects/css-boxsizing.js"
+      ]
+    },
+    "codemirror": {
+      "main": [
+        "lib/codemirror.js",
+        "lib/codemirror.css",
+        "mode/xml/xml.js",
+        "mode/css/css.js",
+        "mode/htmlmixed/htmlmixed.js"
+      ]
+    },
+    "slowparse": {
+      "main": [
+        "slowparse.js",
+        "tree-inspectors.js",
+        "spec/errors.jquery.js"
+      ]
+    }
   }
 }
