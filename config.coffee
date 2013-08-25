@@ -48,4 +48,4 @@ exports.config =
     errors += "\n\n"
     errors += fs.readFileSync "bower_components/slowparse/spec/errors.forbidjs.html", encoding: "utf8"
 
-    fs.writeFileSync "public/data/errors.all.html"
+    fs.writeFileSync "public/data/errors.all.html", errors
