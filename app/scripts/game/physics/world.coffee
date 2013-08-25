@@ -26,6 +26,7 @@ module.exports = class World extends Backbone.View
     @listenTo mediator, "resize", => @resize()
 
     @$el.appendTo document.body
+    @$el.css "z-index", 999999
 
     @resize()
 
@@ -37,17 +38,13 @@ module.exports = class World extends Backbone.View
     debug.SetFlags b2DebugDraw.e_shapeBit + b2DebugDraw.e_pairBit
     @world.SetDebugDraw debug
 
-    @debug = false
-
     # Get the canvas into the right state:
-    @debug = not @debug
-    @toggleDebug()
-
-    # Debug interaction:
-    @listenTo mediator, "keypress:b", => @toggleDebug()
+    @toggleDebug mediator.DEBUG_enabled
 
     # Make sure that events are triggered for collisions etc.
     @world.SetContactListener new WorldListener
+
+    @listenTo mediator, "DEBUG_toggle", @toggleDebug
 
     @listenTo mediator, "frame:process", @update
 
@@ -60,18 +57,12 @@ module.exports = class World extends Backbone.View
   stop: =>
     @stopListening mediator, "frame:process", @update
 
-  toggleDebug: =>
-    if @debug
-      @debug = false
-      @$el.css display: "none"
-    else
-      @debug = true
-      @$el.css display: "block"
+  toggleDebug: (dbg) => @$el.css "display", if dbg then "block" else "none"
 
   update: (t) =>
     @world.Step t/1000, 10, 10
 
-    if @debug then @world.DrawDebugData()
+    if mediator.DEBUG_enabled then @world.DrawDebugData()
     @world.ClearForces()
 
   remove: =>

@@ -52,10 +52,17 @@ last = window.performance.now()
 intervals = (16 for [0..100])
 lastWasProcess = false
 
-lim1 = (1000 / 60) + 1
-lim2 = (1000 / 30) + 1
+msToFPS = FPSToMs = (ms) -> 1000/ms
+
+fpsLimit = 55
+limit = FPSToMs fpsLimit
+runAt = [60, 30].map FPSToMs
 
 mediator.paused = false
+
+frameDebug = (avg, diff, type) ->
+  if mediator.DEBUG_enabled
+    mediator.DEBUG_el.text "Frame mode: #{type}; Actual: #{(msToFPS avg).toFixed 2}fps; Limit: #{fpsLimit}fps; Emulated: #{(msToFPS diff).toFixed 2}fps;"
 
 frameDriver = =>
   n = performance.now()
@@ -70,11 +77,11 @@ frameDriver = =>
     avg += int for int in intervals
     avg = avg / intervals.length
 
-    if avg <= lim1
-      diff = lim1
+    if avg <= limit
+      diff = runAt[0]
     else #if avg <= lim2
       # FIXME: proper intervals for slower frame rates
-      diff = lim2
+      diff = runAt[1]
 
       if lastWasProcess is false
         lastWasProcess = true
@@ -84,6 +91,8 @@ frameDriver = =>
         mediator.trigger "frame:render", diff
         lastWasProcess = false
 
+      frameDebug avg, diff, "split"
+
       window.rAF frameDriver
 
       return
@@ -91,6 +100,8 @@ frameDriver = =>
     mediator.trigger "frame", diff
     mediator.trigger "frame:render", diff
     mediator.trigger "frame:process", diff
+
+    frameDebug avg, diff, "normal"
 
   window.rAF frameDriver
 
@@ -173,10 +184,20 @@ $doc.on "tap", (e) ->
   unless mediator.paused
     mediator.trigger "uncaughtTap"
 
-# Debug:
-# DEBUG_ignoredEvents = ["frame", "frame:process", "frame:render", "playermove"]
-# mediator.on "all", (type, stuff) ->
-#   if type not in DEBUG_ignoredEvents then console.log type
+# Debugging:
+mediator.DEBUG_enabled = false
+mediator.DEBUG_el = $ ".debug-data"
+
+mediator.on "keypress:b", ->
+  mediator.DEBUG_enabled = not mediator.DEBUG_enabled
+  mediator.trigger "DEBUG_toggle", mediator.DEBUG_enabled
+
+DEBUG_ignoredEvents = ["frame", "frame:process", "frame:render", "playermove"]
+mediator.on "all", (type, stuff) ->
+  if mediator.DEBUG_enabled and type not in DEBUG_ignoredEvents then console.log type
+
+mediator.on "DEBUG_toggle", (dbg) ->
+  mediator.DEBUG_el.css "display", if dbg then "block" else "none"
 
 # Key events:
 keydict = 8: "backspace", 9: "tab", 13: "enter", 16: "shift", 17: "ctrl",
