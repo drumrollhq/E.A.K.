@@ -14,13 +14,14 @@
   "bugs": {
     "url": "https://github.com/somehats/web-platform/issues"
   },
-  "devDependencies": {
-    "grunt-commonjs": "~0.2.0rc7",
-    "grunt-contrib-coffee": "~0.7.0",
-    "grunt-contrib-stylus": "~0.5.1",
-    "grunt": "~0.4.1",
-    "grunt-contrib-uglify": "~0.2.2",
-    "grunt-contrib-watch": "~0.4.4",
-    "request": "~2.25.0"
+  "dependencies": {
+    "request": "~2.25.0",
+    "javascript-brunch": ">= 1.0 < 1.8",
+    "css-brunch": ">= 1.0 < 1.8",
+    "uglify-js-brunch": ">= 1.0 < 1.8",
+    "clean-css-brunch": ">= 1.0 < 1.8",
+    "coffee-script-brunch": "~1.7.2",
+    "stylus-brunch": "~1.6.1",
+    "oncompile-brunch": "latest"
   }
 }
