@@ -137,22 +137,22 @@ module.exports = class Level extends Backbone.Model
         id: "BORDER_BOTTOM"
       (new StaticBody shape).attachTo @world
 
-    if borders.left is true
+    if borders.right is true
       shape =
         width: t
         height: h * 2
         x: w + t / 2
         y: 0
-        id: "BORDER_LEFT"
+        id: "BORDER_RIGHT"
       (new StaticBody shape).attachTo @world
 
-    if borders.right is true
+    if borders.left is true
       shape =
         width: t
         height: h * 2
         x: -t / 2
         y: 0
-        id: "BORDER_RIGHT"
+        id: "BORDER_LEFT"
       (new StaticBody shape).attachTo @world
 
   checkPlayerIsInWorld: =>
