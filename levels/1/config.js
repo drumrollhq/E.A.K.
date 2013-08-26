@@ -13,5 +13,33 @@
     "at.png",
     "grid.png"
   ],
-  "target": "<img src=\"https://s3-eu-west-1.amazonaws.com/somehats/web-platformer/level1/kitten-1.gif\" data-dynamic style=\"width: 100px; position: absolute; right: 15px; top: 150px\">"
+  "target": "<img src=\"https://s3-eu-west-1.amazonaws.com/somehats/web-platformer/level1/kitten-1.gif\" data-dynamic style=\"width: 100px; position: absolute; right: 15px; top: 150px\">",
+  "hints": [
+    {
+      "type": "pointer",
+      "target": ".player",
+      "content": "This is you! You can move left and right with the <kbd>A</kbd> and <kbd>D</kbd>, or <kbd>←</kbd> and <kbd>→</kbd> keys.",
+      "enter": "time:1",
+      "exit": "keydown:left,right,a,d",
+      "exitDelay": 0.5,
+      "name": "leftright"
+    },
+    {
+      "type": "pointer",
+      "target": ".intheway",
+      "content": "Jump using the <kbd>W</kbd>, <kbd>space</kbd>, or <kbd>↑</kbd> keys. You might need a run up to get over this obstacle!",
+      "enter": "hint-leftright:exit",
+      "enterDelay": 0.5,
+      "exit": "keydown:up,space,w",
+      "name": "jump"
+    },
+    {
+      "type": "pointer",
+      "target": "[data-target]",
+      "content": "Get to the kitten gif to complete the level!",
+      "enter": "hint-jump:exit",
+      "enterDelay": 0.5,
+      "exit": "beginContact:ENTITY_PLAYER&ENTITY_TARGET"
+    }
+  ]
 }

@@ -79,6 +79,12 @@ frameDriver = =>
 
     if avg <= limit
       diff = runAt[0]
+
+      mediator.trigger "frame", diff
+      mediator.trigger "frame:render", diff
+      mediator.trigger "frame:process", diff
+
+      frameDebug avg, diff, "normal"
     else #if avg <= lim2
       # FIXME: proper intervals for slower frame rates
       diff = runAt[1]
@@ -92,16 +98,6 @@ frameDriver = =>
         lastWasProcess = false
 
       frameDebug avg, diff, "split"
-
-      window.rAF frameDriver
-
-      return
-
-    mediator.trigger "frame", diff
-    mediator.trigger "frame:render", diff
-    mediator.trigger "frame:process", diff
-
-    frameDebug avg, diff, "normal"
 
   window.rAF frameDriver
 

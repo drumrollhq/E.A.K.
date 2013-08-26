@@ -8,6 +8,8 @@ Mapper = require "game/dom/mapper"
 Editor = require "game/editor/editor"
 EditorView = require "game/editor/view"
 
+HintController = require "game/hints/hintController"
+
 Player = require "game/player"
 
 mediator = require "game/mediator"
@@ -36,6 +38,8 @@ module.exports = class Level extends Backbone.Model
     @addBodiesFromDom()
     @addBorders conf.borders
     @addPlayer conf.player
+
+    @hintController = new HintController hints: conf.hints
 
     @listenTo mediator, "edit", @startEditor
     @listenTo mediator, "restart", @restart
