@@ -2,7 +2,8 @@
   padding: 50px;
   background: white;
   border-top: black 1px solid;
-  height: 260px;
+  height: 200px;
+  width: 100%;
   position: absolute;
   bottom: 0;
   padding-top: 35px;
@@ -14,9 +15,13 @@
   height: 75px;
   position: absolute;
   left: 45%;
-  top: 130px;
+  top: 190px;
   background: white;
   border: 1px solid black;
   text-align: center;
   padding-top: 10px;
+}
+
+[data-target] {
+  outline: 2px solid magenta;
 }

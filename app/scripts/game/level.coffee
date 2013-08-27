@@ -162,8 +162,10 @@ module.exports = class Level extends Backbone.Model
     padTop = 100
     padBottom = 200
 
-    unless -xpad < pos.x < @w + xpad then @player.body.reset()
-    unless -padTop < pos.y < @h + padBottom then @player.body.reset()
+    unless (-xpad < pos.x < @w + xpad) and (-padTop < pos.y < @h + padBottom)
+      @player.body.reset()
+      mediator.trigger "falloutofworld"
+      return
 
   complete: =>
     if not @stopped

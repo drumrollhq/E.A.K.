@@ -103,6 +103,14 @@ frameDriver = =>
 
 window.rAF frameDriver
 
+# Event links
+$(document).on "tap", '[href^="event:"]', (e) ->
+  e.preventDefault()
+  e.stopPropagation()
+  href = ($ e.target).attr "href"
+  ev = href.substr "event:".length
+  mediator.trigger ev
+
 $body = $ document.body
 $notificationContainer = $ "<div></div>"
 $notificationContainer.addClass "notification-container"

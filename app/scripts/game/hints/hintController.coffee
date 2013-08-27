@@ -23,6 +23,7 @@ module.exports = class HintController extends Backbone.Model
     exit: "time:4"
     enterDelay: 0
     exitDelay: 0
+    side: false
 
   initialize: ->
     hints = @get "hints"
@@ -51,10 +52,10 @@ module.exports = class HintController extends Backbone.Model
       , hint.enterDelay * 1000
 
       exit = hint.exit
-      if (enter.indexOf "time:") is 0
-        time = parseInt (enter.split "time:")[1]
+      if (exit.indexOf "time:") is 0
+        time = parseInt (exit.split "time:")[1]
         exit = "HintExit#{idCounter}"
-        timedEvent enter, time
+        timedEvent exit, time
 
       @listenToOnce mediator, exit, ->
         setTimeout ->

@@ -17,16 +17,29 @@ module.exports = class PointerHint extends Backbone.View
 
   render: =>
     $target = $ @hint.target
-    offset = $target.offset()
-    width = $target.width()
-    height = $target.height()
+    bbox = $target[0].getBoundingClientRect()
 
-    offset.top += height
-    offset.left += width / 2
+    if @hint.side
+      offset =
+        top: (bbox.top + bbox.bottom) / 2
+        left: bbox.right
+
+      @$el.addClass "side"
+
+    else
+      offset =
+        top: bbox.bottom
+        left: (bbox.left + bbox.right) / 2
+
+      if offset.left < 195
+        @$inner.css "margin-left", 195 - offset.left
 
     @$el.appendTo document.body
     @$el.css offset
     @$el.addClass "active"
+
+    if @hint.side
+      @$inner.css "margin-top", -(@$inner.height() / 2)
 
   remove: =>
     @$el.one transitionEnd, =>

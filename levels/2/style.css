@@ -1,20 +1,16 @@
-.html {
-  padding: 30px;
-  padding-top: 20px;
-  background: white;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 350px;
-  z-index: 5;
-}
-
 .ledge {
   padding: 10px;
   border-top: 1px solid black;
   border-right: 1px solid black;
-  margin-top: 155px;
-  display: inline-block;
+  display: block;
+  position: absolute;
+  top: 155px;
+  left: 0;
+}
+
+.right {
+  right: 0;
+  left: auto;
+  border-right: none;
+  border-left: 1px solid black;
 }

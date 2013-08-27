@@ -19,6 +19,8 @@ module.exports = class GeneralBody extends Backbone.Model
   constructor: (def) ->
     @bd = new b2BodyDef()
     @def = def
+    if def.width is 0 then def.width = 1
+    if def.height is 0 then def.height = 1
     @data = if def.data isnt undefined then def.data else {}
 
   initialize: ->
