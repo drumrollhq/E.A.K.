@@ -3,6 +3,16 @@ fs = require "fs"
 
 isDir = (name) -> fs.lstatSync(name).isDirectory()
 
+hasPrefix = (str, sub) ->
+  (str.substr 0, sub.length) is sub
+
+vendorInclude = [
+  "beautify-css.js"
+  "beautify-html.js"
+  "beautify.js"
+  "rework/rework.js"
+]
+
 exports.config =
   # See http://brunch.io/#documentation for docs.
   files:
@@ -19,6 +29,10 @@ exports.config =
     ignored: (file) ->
       if (path.extname file) is ".styl"
         return (path.basename file) isnt "index.styl"
+
+      if hasPrefix file, "vendor/"
+        file = file.replace /^vendor\//, ""
+        return file not in vendorInclude
 
       false
 

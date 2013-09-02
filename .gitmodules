@@ -1,0 +1,3 @@
+[submodule "vendor/rework"]
+	path = vendor/rework
+	url = https://github.com/visionmedia/rework.git
