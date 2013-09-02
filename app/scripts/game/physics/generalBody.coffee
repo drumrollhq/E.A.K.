@@ -29,6 +29,8 @@ module.exports = class GeneralBody extends Backbone.Model
 
     bd.position.Set s.x / scale, s.y / scale
 
+    @fds = []
+
     newFixture = =>
       fd = new b2FixtureDef()
       fd.density = 1
@@ -42,14 +44,28 @@ module.exports = class GeneralBody extends Backbone.Model
 
       fd
 
-    if s.type is "circle"
-      fd = newFixture()
-      fd.shape = new b2CircleShape s.radius / scale
-      s.width = s.height = s.radius
-    else
-      fd = newFixture()
-      fd.shape = new b2PolygonShape()
-      fd.shape.SetAsBox s.width / scale / 2, s.height / scale / 2
+    createShape = (def, position=false) ->
+      def = _.defaults def, GeneralBody::defDefaults
+      if def.type is "circle"
+        fd = newFixture()
+        fd.shape = new b2CircleShape def.radius / scale
+        def.width = def.height = def.radius
+        if position
+          console.log _.clone fd.shape.m_p
+          fd.shape.SetLocalPosition new Vector def.x/scale, def.y/scale
+          console.log _.clone fd.shape.m_p
+      else if def.type is "rect"
+        fd = newFixture()
+        fd.shape = new b2PolygonShape()
+        if position
+          fd.shape.SetAsOrientedBox def.width / scale / 2, def.height / scale / 2, (new Vector def.x/scale, def.y/scale), 0
+        else
+          fd.shape.SetAsBox def.width / scale / 2, def.height / scale / 2
+      else if def.type is "compound"
+        for shape in def.shapes
+          createShape shape, true
+
+    createShape s
 
     ids = ["*"]
     if s.id isnt undefined
@@ -104,3 +120,11 @@ module.exports = class GeneralBody extends Backbone.Model
   angle: -> @body.GetAngle()
 
   angularVelocity: -> @body.GetAngularVelocity()
+
+  defDefaults:
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+    radius: 0
+    type: "rect"
