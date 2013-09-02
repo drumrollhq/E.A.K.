@@ -129,6 +129,78 @@ describe "game/dom/mapper", ->
         data: {}
       ]
 
+    it "should find pills", ->
+      el.innerHTML = "
+        <div style=\"position: absolute;
+          left: 200px;
+          top: 100px;
+          width: 300px;
+          height: 50px;
+          border-radius: 25px;\"></div>
+
+        <div style=\"position: absolute;
+          left: 200px;
+          top: 100px;
+          width: 100px;
+          height: 200px;
+          border-radius: 500px;\"></div>
+      "
+
+      mapper = new Mapper el
+
+      mapper.build()
+
+      console.log mapper.map
+
+      (expect mapper.map).to.deep.equal [
+        type: 'compound'
+        x: 350
+        y: 125
+        el: (el.querySelectorAll "div")[0]
+        data: {}
+        shapes: [
+          type: 'rect'
+          x: 0
+          y: 0
+          width: 250
+          height: 50
+        ,
+          type: 'circle'
+          x: -125
+          y: 0
+          radius: 25
+        ,
+          type: 'circle'
+          x: 125
+          y: 0
+          radius: 25
+        ]
+      ,
+        type: 'compound'
+        x: 250
+        y: 200
+        el: (el.querySelectorAll "div")[1]
+        data: {}
+        shapes: [
+          type: 'rect'
+          x: 0
+          y: 0
+          width: 100
+          height: 100
+        ,
+          type: 'circle'
+          x: 0
+          y: -50
+          radius: 50
+        ,
+          type: 'circle'
+          x: 0
+          y: 50
+          radius: 50
+        ]
+      ]
+
+
     it "should add values in data-attributes to the map", ->
       el.innerHTML = """
         <p data-thing="value" data-kittens="several"></p>

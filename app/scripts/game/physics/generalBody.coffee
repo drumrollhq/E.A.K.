@@ -29,20 +29,25 @@ module.exports = class GeneralBody extends Backbone.Model
 
     bd.position.Set s.x / scale, s.y / scale
 
-    fd = new b2FixtureDef()
-    fd.density = 1
-    fd.friction = 0.7
-    fd.restitution = 0.3
+    newFixture = =>
+      fd = new b2FixtureDef()
+      fd.density = 1
+      fd.friction = 0.7
+      fd.restitution = 0.3
 
-    if @data.sensor is true
-      fd.isSensor = true
+      if @data.sensor is true
+        fd.isSensor = true
 
-    @fd = fd
+      @fds.push fd
+
+      fd
 
     if s.type is "circle"
+      fd = newFixture()
       fd.shape = new b2CircleShape s.radius / scale
       s.width = s.height = s.radius
     else
+      fd = newFixture()
       fd.shape = new b2PolygonShape()
       fd.shape.SetAsBox s.width / scale / 2, s.height / scale / 2
 
@@ -61,7 +66,7 @@ module.exports = class GeneralBody extends Backbone.Model
 
   attachTo: (world) =>
     body = world.world.CreateBody @bd
-    body.CreateFixture @fd
+    body.CreateFixture fd for fd in @fds
     body.SetUserData @
     @body = body
     @world = world

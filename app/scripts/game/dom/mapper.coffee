@@ -32,6 +32,10 @@ module.exports = class Mapper
       bounds = node.getBoundingClientRect()
       style = @normaliseStyle window.getComputedStyle node
 
+      c =
+        x: (bounds.left + bounds.right) / 2
+        y: (bounds.top + bounds.bottom) / 2
+
       if style.borderRadius isnt "0px 0px 0px 0px / 0px 0px 0px 0px"
         br = style.borderRadius.replace("/ ", "").split " "
         uniform = yes
@@ -45,18 +49,72 @@ module.exports = class Mapper
           r = parseFloat(br[0])
 
           if (bounds.width is bounds.height) and (r >= bounds.width / 2) and (r >= bounds.height / 2)
+            # Perfect Circle
             obj =
               type: "circle"
-              x: (bounds.left + bounds.right) / 2
-              y: (bounds.top + bounds.bottom) / 2
+              x: c.x
+              y: c.y
               radius: bounds.width / 2
 
+          else if (bounds.width > bounds.height) and (bounds.height is r*2)
+            # Landscape Pill
+            w = bounds.width - r*2
+            obj =
+              type: "compound"
+              x: c.x
+              y: c.y
+              shapes: [
+                type: "rect"
+                x: 0
+                y: 0
+                width: w
+                height: bounds.height
+              ,
+                type: "circle"
+                x: -w/2
+                y: 0
+                radius: r
+              ,
+                type: "circle"
+                x: w/2
+                y: 0
+                radius: r
+              ]
+
+          else if (bounds.height > bounds.width) and (bounds.width is r*2)
+            # Portrait Pill
+            h = bounds.height - r*2
+            obj =
+              type: "compound"
+              x: c.x
+              y: c.y
+              shapes: [
+                type: "rect"
+                x: 0
+                y: 0
+                width: bounds.width
+                height: h
+              ,
+                type: "circle"
+                x: 0
+                y: -h/2
+                radius: r
+              ,
+                type: "circle"
+                x: 0
+                y: h/2
+                radius: r
+              ]
+
+        else
+          console.log "Err: Not uniform"
+          console.log (_.clone bounds), (_.clone style)
+
       else
-        y = (bounds.top + bounds.bottom) / 2
         obj =
           type: "rect"
-          x: (bounds.left + bounds.right) / 2
-          y: (bounds.top + bounds.bottom) / 2
+          x: c.x
+          y: c.y
           width: bounds.width
           height: bounds.height
 
