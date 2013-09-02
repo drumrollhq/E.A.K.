@@ -48,6 +48,9 @@ module.exports = class Mapper
         if uniform
           r = parseFloat(br[0])
 
+          w = bounds.width - r*2
+          h = bounds.height - r*2
+
           if (bounds.width is bounds.height) and (r >= bounds.width / 2) and (r >= bounds.height / 2)
             # Perfect Circle
             obj =
@@ -58,7 +61,6 @@ module.exports = class Mapper
 
           else if (bounds.width > bounds.height) and (bounds.height is r*2)
             # Landscape Pill
-            w = bounds.width - r*2
             obj =
               type: "compound"
               x: c.x
@@ -83,7 +85,6 @@ module.exports = class Mapper
 
           else if (bounds.height > bounds.width) and (bounds.width is r*2)
             # Portrait Pill
-            h = bounds.height - r*2
             obj =
               type: "compound"
               x: c.x
@@ -103,6 +104,46 @@ module.exports = class Mapper
                 type: "circle"
                 x: 0
                 y: h/2
+                radius: r
+              ]
+
+          else
+            # Uniform rounded rect
+            obj =
+              type: "compound"
+              x: c.x
+              y: c.y
+              shapes: [
+                type: "rect"
+                x: 0
+                y: 0
+                width: bounds.width
+                height: h
+              ,
+                type: "rect"
+                x: 0
+                y: 0
+                width: w
+                height: bounds.height
+              ,
+                type: "circle"
+                x: w/2
+                y: h/2
+                radius: r
+              ,
+                type: "circle"
+                x: -w/2
+                y: h/2
+                radius: r
+              ,
+                type: "circle"
+                x: -w/2
+                y: -h/2
+                radius: r
+              ,
+                type: "circle"
+                x: w/2
+                y: -h/2
                 radius: r
               ]
 

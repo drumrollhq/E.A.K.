@@ -150,8 +150,6 @@ describe "game/dom/mapper", ->
 
       mapper.build()
 
-      console.log mapper.map
-
       (expect mapper.map).to.deep.equal [
         type: 'compound'
         x: 350
@@ -200,6 +198,64 @@ describe "game/dom/mapper", ->
         ]
       ]
 
+    it "should find uniform rounded rects", ->
+      el.innerHTML = """
+        <div style="
+          position: absolute;
+          top: 200px;
+          left: 400px;
+          width: 300px;
+          height: 200px;
+          border-radius: 20px;
+        "></div>
+      """
+
+      mapper = new Mapper el
+
+      mapper.build()
+
+      console.log mapper.map
+
+      expect(mapper.map).to.deep.equal [
+        type: "compound"
+        x: 550
+        y: 300
+        el: el.querySelector "div"
+        data: {}
+        shapes: [
+          type: "rect"
+          x: 0
+          y: 0
+          width: 300
+          height: 160
+        ,
+          type: "rect"
+          x: 0
+          y: 0
+          width: 260
+          height: 200
+        ,
+          type: "circle"
+          x: 130
+          y: 80
+          radius: 20
+        ,
+          type: "circle"
+          x: -130
+          y: 80
+          radius: 20
+        ,
+          type: "circle"
+          x: -130
+          y: -80
+          radius: 20
+        ,
+          type: "circle"
+          x: 130
+          y: -80
+          radius: 20
+        ]
+      ]
 
     it "should add values in data-attributes to the map", ->
       el.innerHTML = """
