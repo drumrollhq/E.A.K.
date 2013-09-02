@@ -26,9 +26,9 @@ module.exports = class HintController extends Backbone.Model
     side: false
 
   initialize: ->
-    hints = @get "hints"
+    @hints = @get "hints"
 
-    @setup hint for hint in hints
+    @setup hint for hint in @hints
 
   setup: (hint) ->
     idCounter += 1
@@ -38,6 +38,8 @@ module.exports = class HintController extends Backbone.Model
     hint = _.defaults hint, HintController::hintDefaults
 
     hintView = new hintTypes[hint.type] hint
+
+    hint.view = hintView
 
     enter = hint.enter
     if (enter.indexOf "time:") is 0
@@ -62,3 +64,6 @@ module.exports = class HintController extends Backbone.Model
           hintView.remove()
           mediator.trigger "hint-#{hint.name}:exit"
         , hint.exitDelay * 1000
+
+  destroy: =>
+    hint.view.remove() for hint in @hints

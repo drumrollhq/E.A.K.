@@ -200,6 +200,8 @@ module.exports = class Level extends Backbone.Model
         width: @startPos.target.width
         height: @startPos.target.height
 
+      @hintController.destroy()
+
       @renderer.remove =>
         # approx center:
         t = $targetEl[0].getBoundingClientRect()
