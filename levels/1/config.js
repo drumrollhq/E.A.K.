@@ -13,7 +13,7 @@
     "at.png",
     "grid.png"
   ],
-  "target": "<img src=\"https://s3-eu-west-1.amazonaws.com/somehats/web-platformer/level1/kitten-1.gif\" data-dynamic style=\"position: absolute; right: 15px; top: 150px\">",
+  "target": "<img src=\"https://s3-eu-west-1.amazonaws.com/somehats/web-platformer/level1/kitten-1.gif\" data-dynamic style=\"position: absolute; right: 15px; top: 150px; width: 150px;\">",
   "hints": [
     {
       "type": "pointer",
