@@ -46,8 +46,12 @@
       </div>
     </div>
 
-    <div class="loader dialogue">
+    <div class="loader dialogue active">
       <h2>Loading...</h2>
+      <div class="bar">
+        <div></div>
+      </div>
+      <p class="progress">0%</p>
     </div>
 
     <div class="dialogue" id="incompatible">
@@ -87,16 +91,98 @@
   <div id="levelcontainer">
   </div>
 
-  <script src="js/vendor.js"></script>
-  <script src="js/app.js"></script>
   <script>
-    $(function() {
-      require("plugins");
+    document.addEventListener("DOMContentLoaded", function() {
+      var scripts = ["js/vendor.js", "js/app.js"],
+        loaded = 0;
 
-      Init = require("init");
+      var total = [],
+        soFar = [];
 
-      window.app = new Init({el: $("#main")});
-    });
+      var failed = false;
+
+      var dialogue = document.querySelector(".loader"),
+        bar = dialogue.querySelector(".bar"),
+        progress = dialogue.querySelector(".progress"),
+        barInner = bar.children[0];
+
+      function onLoad(progress) {
+        loaded++;
+        var req = progress.target;
+        scripts[req.dataIter] = req.response;
+        if (loaded === scripts.length) {
+          finished();
+        }
+      }
+
+      function onError() {
+        if (!failed) {
+          alert("Oh no! We couldn't load all the assets for KittenQuest :(")
+        }
+      }
+
+      function onProgress(progress) {
+        if (progress.lengthComputable) {
+          var req = progress.target;
+          total[req.dataIter] = progress.total;
+          soFar[req.dataIter] = progress.loaded;
+
+          updateProgress();
+        }
+      }
+
+      function sum(arr) {
+        var n = 0;
+
+        for (var i = 0; i < scripts.length; i++) {
+          if (arr[i] !== undefined) {
+            n += arr[i];
+          }
+        }
+
+        return n;
+      }
+
+      function updateProgress() {
+        var sumTotal = sum(total),
+          soFarTotal = sum(soFar),
+          w = Math.round((soFarTotal / sumTotal) * 100) + "%";
+
+        progress.textContent = w;
+        barInner.style.width = w;
+      }
+
+      function finished() {
+        for (var i = 0; i < scripts.length; i++) {
+          var el = document.createElement("script");
+          el.textContent = scripts[i];
+          document.body.appendChild(el);
+        }
+
+        init();
+      }
+
+      for (var i = 0; i < scripts.length; i++) {
+        var req = new XMLHttpRequest();
+        req.addEventListener("load", onLoad, false);
+        req.addEventListener("error", onError, false);
+        req.addEventListener("abort", onError, false);
+        req.addEventListener("progress", onProgress, false)
+        req.open("GET", scripts[i]);
+        req.send();
+        req.dataIter = i;
+      }
+
+      function init() {
+        bar.style.display = progress.style.display = "none";
+
+        require("plugins");
+
+        Init = require("init");
+
+        window.app = new Init({el: $("#main")});
+      }
+    }, false);
   </script>
 
 </body>
