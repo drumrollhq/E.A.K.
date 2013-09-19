@@ -37,7 +37,7 @@ module.exports = class ElementLoader extends Backbone.Model
 
     @on "change:toLoad", (m, toLoad) =>
       if toLoad is 0
-        # @trigger "done"
+        @trigger "done"
         @set "stage", ""
         clearInterval int
 
