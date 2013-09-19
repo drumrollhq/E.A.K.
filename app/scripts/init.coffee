@@ -1,4 +1,4 @@
-Loader = require "loader/loader"
+LevelLoader = require "loader/levelLoader"
 LoaderView = require "loader/loaderView"
 App = require "app"
 
@@ -10,15 +10,18 @@ module.exports = class Init extends Backbone.View
 
     app = new App el: @$ ".app"
 
-    loader = new Loader url: "data/levels.json"
+    loader = new LevelLoader url: "data/levels.json"
     loaderView = new LoaderView model: loader, el: @$ ".loader"
 
     loaderView.render()
 
-    loader.load()
-
     loader.on "load:done", ->
       loaderView.$el.switchDialogue app.$menu
+      setTimeout ->
+        loaderView.remove()
+      , 500
+
+    loader.load()
 
   compatible: ->
     needed = ["csstransforms", "csstransforms3d", "cssanimations", "csscalc"

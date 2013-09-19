@@ -20,8 +20,6 @@ module.exports = class Renderer extends Backbone.View
 
     @setHTMLCSS options.html, options.css
 
-    ($ document.body).addClass "playing"
-
     @listenTo mediator, "resize", @resize
 
     @resize()
@@ -40,8 +38,11 @@ module.exports = class Renderer extends Backbone.View
 
     css = new CSS css
     css.scope "#" + @el.id
-    console.log css.toString()
     @$style.text css.toString()
+
+  load: (fn) =>
+    (@$el.find "img").each (i, el) ->
+      console.log el.src, el.complete
 
   createMap: =>
     @$el.css left: 0, top: 0, marginLeft: 0, marginTop: 0

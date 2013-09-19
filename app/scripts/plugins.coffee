@@ -15,9 +15,12 @@ $.fn.toggleDialogue = ->
 
 d = 300
 
-$.fn.switchDialogue = (to) ->
+$.fn.switchDialogue = (to, fn = -> undefined) ->
   @hideDialogue()
-  setTimeout (-> to.showDialogue()), d
+  setTimeout ->
+    to.showDialogue()
+    fn.call()
+  , d
 
 $.fn.makeOnlyShownDialogue = ->
   dialogues = $ ".dialogue.active"

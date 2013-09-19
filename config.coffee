@@ -39,8 +39,6 @@ exports.config =
   modules:
     nameCleaner: (name) -> name.replace "app/scripts/", ""
 
-  sourceMaps: false
-
   onCompile: ->
     fs.mkdirSync "public/data" unless fs.existsSync "public/data"
 

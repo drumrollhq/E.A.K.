@@ -1,11 +1,28 @@
+template = require "loader/template"
+
 module.exports = class LoaderView extends Backbone.View
+  tagName: "div"
+  className: "loader dialogue"
+
   initialize: ->
-    @model.on "change:stage", @setStage
+    if @el.parentNode is null
+      @$el.html template()
 
     classes = ["prev", "current", "next"]
 
-    @stages = for i in [0...3]
-      (($ '<div class="stage"></div>').addClass classes[i]).appendTo @$el
+    $stageContainer = @$ ".stages"
+
+    @stages = for classname in classes
+      (($ '<div class="stage"></div>').addClass classname).appendTo $stageContainer
+
+    @listenTo @model, "change:stage", @setStage
+
+    @setStage @model, @model.get "stage"
+
+    @$progressBar = @$ ".bar div"
+    @$percent = @$ ".progress"
+
+    @listenTo @model, "change:progress", @updateProgress
 
   setStage: (model, stage) =>
     prev = @stages.shift()
@@ -19,6 +36,10 @@ module.exports = class LoaderView extends Backbone.View
     (next.removeClass "next").addClass "current"
 
     @stages.push prev
+
+  updateProgress: (model, progress) =>
+    @$progressBar.width progress + "%"
+    @$precent.text (Math.round progress) + "%"
 
   render: ->
     @$el.showDialogue()
