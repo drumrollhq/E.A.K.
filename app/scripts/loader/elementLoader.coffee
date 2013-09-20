@@ -25,6 +25,14 @@ messages = [
   "Would you like a biscuit?"
   "You know, I actually prefer dogs..."
   "Making a delicious spaghetti carbonara"
+  "Sometimes we play Civ 5 all night..."
+  "Gotta get my bowl..."
+  "Gotta have cereal..."
+  "Slowly, (so slowly) slowly!..."
+  "Wanna see my Jony Ive impression?"
+  "Kitten gifs intercepted by the NSA..."
+  "Never gonna give you up..."
+  "8 minutes of battery life remaining..."
 ]
 
 module.exports = class ElementLoader extends Backbone.Model
