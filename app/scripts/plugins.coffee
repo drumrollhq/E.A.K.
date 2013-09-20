@@ -33,7 +33,7 @@ $.fn.makeOnlyShownDialogue = ->
 
   @
 
-$.hideDialogues = (fn) ->
+$.hideDialogues = (fn = -> undefined) ->
   dialogues = $ ".dialogue.active"
   dialogues.each ->
     ($ @).hideDialogue()
