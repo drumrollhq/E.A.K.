@@ -56,7 +56,6 @@ module.exports = setupCMExtras = (cm) ->
     jses = TreeInspectors.findJS parsed.document
 
     for js in jses
-      console.log js
       if js.type is "SCRIPT_ELEMENT"
         js.node.parentNode.removeChild js.node
       if js.type is "EVENT_HANDLER_ATTR" or js.type is "JAVASCRIPT_URL"

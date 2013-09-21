@@ -43,7 +43,6 @@ module.exports = class LoaderView extends Backbone.View
     @stages.push prev
 
   updateProgress: (model, progress) =>
-    console.log progress, @displayingProgress
     if progress is null and @displayingProgress
       @$progressEls.css "display", "none"
       @displayingProgress = no

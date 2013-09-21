@@ -51,9 +51,7 @@ module.exports = class GeneralBody extends Backbone.Model
         fd.shape = new b2CircleShape def.radius / scale
         def.width = def.height = def.radius
         if position
-          console.log _.clone fd.shape.m_p
           fd.shape.SetLocalPosition new Vector def.x/scale, def.y/scale
-          console.log _.clone fd.shape.m_p
       else if def.type is "rect"
         fd = newFixture()
         fd.shape = new b2PolygonShape()

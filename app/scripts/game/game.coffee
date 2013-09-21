@@ -35,7 +35,6 @@ module.exports = class Game extends Backbone.Model
     $.hideDialogues =>
       level = new Level level
       mediator.once "levelout", =>
-        console.log "levelout"
         l = (@get "level") + 1
         @set "level", l
         @startLevel l

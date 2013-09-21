@@ -1,8 +1,7 @@
 mediator = require "game/mediator"
 
 module.exports = class AlertPointer extends Backbone.View
-  initializdae: (hint) ->
-    console.log hint
+  initialize: (hint) ->
     @message = hint.content
 
   render: ->

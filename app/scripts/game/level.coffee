@@ -275,7 +275,6 @@ module.exports = class Level extends Backbone.Model
       @renderer.resize()
 
       editor.once "save", =>
-        console.log _.clone editor.attributes
         editorView.restoreEntities()
         editorView.remove()
         @renderer.editor = false

@@ -40,10 +40,6 @@ module.exports = class Renderer extends Backbone.View
     css.scope "#" + @el.id
     @$style.text css.toString()
 
-  load: (fn) =>
-    (@$el.find "img").each (i, el) ->
-      console.log el.src, el.complete
-
   createMap: =>
     @$el.css left: 0, top: 0, marginLeft: 0, marginTop: 0
     @mapper.build()
