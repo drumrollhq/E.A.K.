@@ -3,6 +3,7 @@ mediator = require "game/mediator"
 module.exports = class LevelLoader extends Backbone.Model
   defaults:
     stage: ""
+    progress: null
 
   initialize: ->
     # @on "change:data", @loadAssets

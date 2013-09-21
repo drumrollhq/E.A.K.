@@ -21,8 +21,13 @@ module.exports = class LoaderView extends Backbone.View
 
     @$progressBar = @$ ".bar div"
     @$percent = @$ ".progress"
+    @$progressEls = @$ ".progress, .bar"
+
+    @displayingProgress = yes
 
     @listenTo @model, "change:progress", @updateProgress
+
+    @updateProgress @model, @model.get "progress"
 
   setStage: (model, stage) =>
     prev = @stages.shift()
@@ -38,8 +43,16 @@ module.exports = class LoaderView extends Backbone.View
     @stages.push prev
 
   updateProgress: (model, progress) =>
+    console.log progress, @displayingProgress
+    if progress is null and @displayingProgress
+      @$progressEls.css "display", "none"
+      @displayingProgress = no
+    else if progress isnt null and not @displayingProgress
+      @$progressEls.css "display", "block"
+      @displayingProgress = yes
+
     @$progressBar.width progress + "%"
-    @$precent.text (Math.round progress) + "%"
+    @$percent.text (Math.round progress) + "%"
 
   render: ->
     @$el.showDialogue()

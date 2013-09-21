@@ -36,9 +36,11 @@ messages = [
 ]
 
 module.exports = class ElementLoader extends Backbone.Model
-  initialize: ->
-    @set "stage", start
+  defaults:
+    stage: start
+    progress: null
 
+  initialize: ->
     int = setInterval =>
       @set "stage", messages[Math.floor Math.random() * messages.length]
     , 1500 + (Math.random() * 500)
