@@ -38,7 +38,6 @@ module.exports = class Level extends Backbone.Model
       renderer.setHeight conf.height
 
     @addTarget conf.target
-    @addPlayer conf.player
 
     loader = new ElementLoader el: @renderer.$el
     loaderView = new LoaderView model: loader
@@ -58,7 +57,7 @@ module.exports = class Level extends Backbone.Model
         mediator.paused = false
 
         @addBodiesFromDom()
-        @player.body.attachTo @world
+        @addPlayer conf.player
         @addBorders conf.borders
 
 
@@ -105,7 +104,7 @@ module.exports = class Level extends Backbone.Model
 
   addPlayer: (playerConf) =>
     player = new Player playerConf, @renderer.width, @renderer.height
-
+    player.body.attachTo @world
     player.$el.appendTo @renderer.el
     player.id = "#{@renderer.el.id}-player"
     player.$el.attr "id", player.id
