@@ -1,5 +1,6 @@
 LevelLoader = require "loader/levelLoader"
 LoaderView = require "loader/loaderView"
+WebWorker = require "webworker"
 App = require "app"
 
 module.exports = class Init extends Backbone.View
@@ -22,6 +23,8 @@ module.exports = class Init extends Backbone.View
       , 500
 
     loader.load()
+
+    new WebWorker "mediator"
 
   compatible: ->
     needed = ["csstransforms", "csstransforms3d", "cssanimations", "csscalc"

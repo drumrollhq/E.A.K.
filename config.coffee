@@ -15,7 +15,8 @@ vendorInclude = [
 ]
 
 workerInclude = [
-  "app/scripts/game/mediator.coffee"
+  "bower_components/box2dweb/Box2dWeb-2.1.a.3.js"
+  "bower_components/underscore/underscore.js"
 ]
 
 optimize = ('--optimize' in process.argv) or ('-o' in process.argv)
@@ -25,7 +26,7 @@ scripts = []
 getJoinTo = =>
   scripts = []
   vexp = /^(bower_components|vendor)/
-  workerBits = (file) -> file in workerInclude
+  workerBits = (file) -> (file in workerInclude) or (file.match /^app\/workers\//) isnt null
   if optimize
     out =
       'js/app.js': /^app/
@@ -66,7 +67,9 @@ exports.config =
       false
 
   modules:
-    nameCleaner: (name) -> name.replace "app/scripts/", ""
+    nameCleaner: (name) ->
+      name = name.replace "app/scripts/", ""
+      name = name.replace "app/workers/", ""
 
   onCompile: ->
     ### LEVELS ###
@@ -113,6 +116,15 @@ exports.config =
     fs.writeFileSync "public/index.html", index
 
     ### WORKER INIT ###
-    worker = fs.readFileSync "public/js/worker.js", encoding: "utf8"
-    worker += "\nrequire('worker');"
-    fs.writeFileSync "public/js/worker.js", worker
+    unless workerMarked
+      worker = fs.readFileSync "public/js/worker.js", encoding: "utf8"
+      worker = """
+        if (self.window === undefined) {global = self;}
+        #{worker}
+        require("base");
+      """
+      fs.writeFileSync "public/js/worker.js", worker
+
+      workerMarked = yes
+
+workerMarked = no
