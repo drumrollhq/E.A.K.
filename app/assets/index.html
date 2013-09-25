@@ -92,7 +92,14 @@
   <div id="levelcontainer">
   </div>
 
+  <!--UNLESS-OPTIMIZED-->
+    <script src="js/vendor.js"></script>
+    <script src="js/app.js"></script>
+    <!--SCRIPTS-->
+  <!--END-UNLESS-OPTIMIZED-->
+
   <script>
+  <!--IF-OPTIMIZED-->
     document.addEventListener("DOMContentLoaded", function() {
       var scripts = ["js/vendor.js", "js/app.js"],
         loaded = 0;
@@ -160,6 +167,8 @@
           document.body.appendChild(el);
         }
 
+        bar.style.display = progress.style.display = "none";
+
         init();
       }
 
@@ -173,17 +182,22 @@
         req.send();
         req.dataIter = i;
       }
-
-      function init() {
-        bar.style.display = progress.style.display = "none";
-
-        require("plugins");
-
-        Init = require("init");
-
-        window.app = new Init({el: $("#main")});
-      }
     }, false);
+  <!--END-IF-OPTIMIZED-->
+
+    function init() {
+      require("plugins");
+
+      Init = require("init");
+
+      window.app = new Init({el: $("#main")});
+    }
+
+    <!--UNLESS-OPTIMIZED-->
+    $(function() {
+      init();
+    });
+    <!--END-UNLESS-OPTIMIZED-->
   </script>
 
 </body>

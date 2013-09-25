@@ -1,5 +1,6 @@
 path = require "path"
 fs = require "fs"
+glob = require "glob"
 
 isDir = (name) -> fs.lstatSync(name).isDirectory()
 
@@ -13,13 +14,34 @@ vendorInclude = [
   "rework/rework.js"
 ]
 
+optimize = ('--optimize' in process.argv) or ('-o' in process.argv)
+
+scripts = []
+
+getJoinTo = =>
+  scripts = []
+  vexp = /^(bower_components|vendor)/
+  if optimize
+    out =
+      'js/app.js': /^app/
+      'js/vendor.js': vexp
+  else
+    out = {}
+    for file in glob.sync "app/scripts/**/*.coffee"
+      pOut = file.replace /^app\/scripts/, "js"
+      pOut = pOut.replace /\.coffee$/, ".js"
+      out[pOut] = new RegExp "^#{file}$"
+      scripts.push pOut
+
+    out['js/vendor.js'] = vexp
+
+  out
+
 exports.config =
   # See http://brunch.io/#documentation for docs.
   files:
     javascripts:
-      joinTo:
-        'js/app.js': /^app/
-        'js/vendor.js': /^(bower_components|vendor)/
+      joinTo: getJoinTo()
     stylesheets:
       joinTo: 'css/app.css'
     templates:
@@ -40,6 +62,7 @@ exports.config =
     nameCleaner: (name) -> name.replace "app/scripts/", ""
 
   onCompile: ->
+    ### LEVELS ###
     fs.mkdirSync "public/data" unless fs.existsSync "public/data"
 
     # concat and copy level definitions
@@ -57,9 +80,27 @@ exports.config =
 
     fs.writeFileSync "public/data/levels.json", JSON.stringify data
 
-    # Copy across slowparse errors
+    ### SLOWPARSE ###
     errors = fs.readFileSync "bower_components/slowparse/spec/errors.base.html", encoding: "utf8"
     errors += "\n\n"
     errors += fs.readFileSync "bower_components/slowparse/spec/errors.forbidjs.html", encoding: "utf8"
 
     fs.writeFileSync "public/data/errors.all.html", errors
+
+    ### CONDITIONAL STUFF ###
+    index = fs.readFileSync "public/index.html", encoding: "utf8"
+
+    cond = if @optimize then "UNLESS" else "IF"
+    other = if @optimize then "IF" else "UNLESS"
+
+    remove = new RegExp "<!--#{cond}-OPTIMIZED-->[\\s\\S]+?<!--END-#{cond}-OPTIMIZED-->", "g"
+    tidy = new RegExp "(<!--#{other}-OPTIMIZED-->)|(<!--END-#{other}-OPTIMIZED-->)", "g"
+
+    index = index.replace remove, ""
+    index = index.replace tidy, ""
+
+    scriptsOut = []
+    scriptsOut.push "<script src=\"#{script}\"></script>" for script in scripts
+    index = index.replace "<!--SCRIPTS-->", scriptsOut.join "\n"
+
+    fs.writeFileSync "public/index.html", index

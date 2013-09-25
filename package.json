@@ -23,6 +23,7 @@
     "coffee-script-brunch": "~1.7.2",
     "stylus-brunch": "~1.6.1",
     "oncompile-brunch": "latest",
-    "handlebars-brunch": "~1.7.2"
+    "handlebars-brunch": "~1.7.2",
+    "glob": "~3.2.6"
   }
 }
