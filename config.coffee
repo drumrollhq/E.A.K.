@@ -14,6 +14,10 @@ vendorInclude = [
   "rework/rework.js"
 ]
 
+workerInclude = [
+  "app/scripts/game/mediator.coffee"
+]
+
 optimize = ('--optimize' in process.argv) or ('-o' in process.argv)
 
 scripts = []
@@ -21,10 +25,12 @@ scripts = []
 getJoinTo = =>
   scripts = []
   vexp = /^(bower_components|vendor)/
+  workerBits = (file) -> file in workerInclude
   if optimize
     out =
       'js/app.js': /^app/
       'js/vendor.js': vexp
+      'js/worker.js': workerBits
   else
     out = {}
     for file in glob.sync "app/scripts/**/*.coffee"
@@ -34,6 +40,7 @@ getJoinTo = =>
       scripts.push pOut
 
     out['js/vendor.js'] = vexp
+    out['js/worker.js'] = workerBits
 
   out
 
@@ -104,3 +111,8 @@ exports.config =
     index = index.replace "<!--SCRIPTS-->", scriptsOut.join "\n"
 
     fs.writeFileSync "public/index.html", index
+
+    ### WORKER INIT ###
+    worker = fs.readFileSync "public/js/worker.js", encoding: "utf8"
+    worker += "\nrequire('worker');"
+    fs.writeFileSync "public/js/worker.js", worker
