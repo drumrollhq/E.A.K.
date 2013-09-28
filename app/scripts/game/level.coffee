@@ -56,8 +56,6 @@ module.exports = class Level extends Backbone.Model
 
         mediator.paused = false
 
-        world = @world = new World
-
         @addBodiesFromDom()
         # @addPlayer conf.player
         # @addBorders conf.borders

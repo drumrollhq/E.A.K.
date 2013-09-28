@@ -10,8 +10,7 @@ module.exports = class World extends Backbone.Model
     @worker = new WebWorker name: "physics/world"
 
     mediator.on "frame:process", (t) =>
-      id = newUID()
-      @worker.send "triggerUpdate", id
+      @worker.send "triggerUpdate", t
 
   attachBody: (def) =>
     id = newUID()

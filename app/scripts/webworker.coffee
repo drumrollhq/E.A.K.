@@ -3,6 +3,7 @@ module.exports = class WebWorker extends Backbone.Model
     name: ""
 
   initialize: =>
+    console.log "CREATE WORKER:", @get "name"
     @worker = new Worker "js/worker.js"
     @worker.onmessage = (msg) => @trigger msg.data.evt, msg.data.data
 

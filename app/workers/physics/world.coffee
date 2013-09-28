@@ -16,6 +16,7 @@ mediator = require "mediator"
 WorldListener = require "physics/worldListener"
 
 StaticBody = require "physics/staticBody"
+DynamicBody = require "physics/dynamicBody"
 
 working = no
 
@@ -53,7 +54,10 @@ class World
     uid = data.uid
     def = data.def
 
-    body = if def.bodyType is "static" then new StaticBody def else new DynamicBody def
+    body = if def.bodyType is "static" then new StaticBody def, uid, World::scale else new DynamicBody def, uid, World::scale
+    body.attachTo @
+
+    @entities[uid] = body
 
   scale: 40
 

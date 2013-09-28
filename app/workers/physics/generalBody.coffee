@@ -1,5 +1,3 @@
-World = require "physics/world"
-
 Vector = Box2D.Common.Math.b2Vec2
 b2AABB = Box2D.Collision.b2AABB
 b2BodyDef = Box2D.Dynamics.b2BodyDef
@@ -13,18 +11,20 @@ b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
 b2DebugDraw = Box2D.Dynamics.b2DebugDraw
 b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef
 
-scale = World::scale
-
 module.exports = class GeneralBody
-  constructor: (def) ->
+  constructor: (def, @uid, @scale) ->
     @bd = new b2BodyDef()
     @def = def
     if def.width is 0 then def.width = 1
     if def.height is 0 then def.height = 1
 
+  initialize: ->
+    def = @def
+    bd = @bd
+
     @data = if def.data isnt undefined then def.data else {}
 
-    bd.Position.Set s.x / scale, s.y / scale
+    bd.position.Set def.x / @scale, def.y / @scale
 
     @fds = []
 
@@ -41,22 +41,22 @@ module.exports = class GeneralBody
 
       fd
 
-    createShape = (def, position=false) ->
+    createShape = (def, position=false) =>
       def = _.defaults def, GeneralBody::defDefaults
       if def.type is "circle"
         fd = newFixture()
-        fd.shape = new b2CircleShape def.radius / scale
+        fd.shape = new b2CircleShape def.radius / @scale
         def.width = def.height = def.radius
 
         if position
-          fd.shape.SetLocalPosition new Vector def.x / scale, def.y / scale
+          fd.shape.SetLocalPosition new Vector def.x / @scale, def.y / @scale
       else if def.type is "rect"
         fd = newFixture()
         fd.shape = new b2PolygonShape()
         if position
-          fd.shape.SetAsOrientedBox def.width / scale / 2, def.height / scale / 2, (new Vector def.x / scale, def.y / scale), 0
+          fd.shape.SetAsOrientedBox def.width / @scale / 2, def.height / @scale / 2, (new Vector def.x / @scale, def.y / @scale), 0
         else
-          fd.shape.SetAsBox def.width / scale / 2, def.height / scale / 2
+          fd.shape.SetAsBox def.width / @scale / 2, def.height / @scale / 2
       else if def.type is "compound"
         createShape shape, true for shape in def.shapes
 
@@ -90,13 +90,13 @@ module.exports = class GeneralBody
   position: (p) =>
     if p is undefined
       p = @body.GetPosition()
-      return x: (p.x * scale) - @def.x, y: (p.y * scale) - @def.y
+      return x: (p.x * @scale) - @def.x, y: (p.y * @scale) - @def.y
     else
-      @body.SetPosition new Vector (p.x + @def.x) / scale, (p.y + @def.y) / scale
+      @body.SetPosition new Vector (p.x + @def.x) / @scale, (p.y + @def.y) / @scale
 
   positionUncorrected: ->
     p = @body.GetPosition()
-    x: p.x * scale, y: p.y * scale
+    x: p.x * @scale, y: p.y * @scale
 
   angle: -> @body.GetAngle()
 
