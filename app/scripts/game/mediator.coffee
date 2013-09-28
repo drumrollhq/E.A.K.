@@ -81,8 +81,8 @@ frameDriver = =>
       diff = runAt[0]
 
       mediator.trigger "frame", diff
-      mediator.trigger "frame:render", diff
       mediator.trigger "frame:process", diff
+      mediator.trigger "frame:render", diff
 
       frameDebug avg, diff, "normal"
     else #if avg <= lim2

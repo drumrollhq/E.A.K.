@@ -37,7 +37,7 @@ module.exports = class Level extends Backbone.Model
       conf.height = parseFloat conf.height
       renderer.setHeight conf.height
 
-    @addTarget conf.target
+    # @addTarget conf.target
 
     loader = new ElementLoader el: @renderer.$el
     loaderView = new LoaderView model: loader
@@ -56,18 +56,20 @@ module.exports = class Level extends Backbone.Model
 
         mediator.paused = false
 
+        world = @world = new World
+
         @addBodiesFromDom()
-        @addPlayer conf.player
-        @addBorders conf.borders
+        # @addPlayer conf.player
+        # @addBorders conf.borders
 
 
-        @hintController = new HintController hints: conf.hints
+        # @hintController = new HintController hints: conf.hints
 
-        @listenTo mediator, "edit", @startEditor
-        @listenTo mediator, "restart", @restart
+        # @listenTo mediator, "edit", @startEditor
+        # @listenTo mediator, "restart", @restart
 
-        @listenTo mediator, "frame:process", @checkPlayerIsInWorld
-        @listenTo mediator, "kittenfound", @complete
+        # @listenTo mediator, "frame:process", @checkPlayerIsInWorld
+        # @listenTo mediator, "kittenfound", @complete
       , 600
 
     loader.start()

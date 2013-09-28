@@ -18,7 +18,7 @@ b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef
 module.exports = class DynamicBody extends GeneralBody
   constructor: ->
     super
-    @bd.type = b2Body.b2_dynamicBody
+    @def.bodyType = "dynamic"
 
     @initialize()
 

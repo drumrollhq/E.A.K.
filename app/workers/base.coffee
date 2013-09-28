@@ -18,5 +18,4 @@ if self.console is undefined
     send "WORKER_LOG", _.clone arguments
 
 mediator.once "initWorker", (name) ->
-  console.log "I've initWorker'd!"
   require name
