@@ -8,7 +8,9 @@ self.send = (evt, data) =>
 
 
 self.onmessage = (msg) ->
-  mediator.trigger msg.data.evt, msg.data.data
+  onDone = (response) ->
+    send "RESPONSE-#{msg.data.id}", response
+  mediator.trigger msg.data.evt, msg.data.data, onDone
 
 mediator.on "send", (data) -> self.send data.evt, data.data
 

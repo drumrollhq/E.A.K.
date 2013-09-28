@@ -1,3 +1,9 @@
+messageId = 0
+
+getMessageId = (evt) ->
+  messageId++
+  return "##{messageId}-#{evt}-#{Math.random().toString(36).substr(2)}"
+
 module.exports = class WebWorker extends Backbone.Model
   defaults:
     name: ""
@@ -14,10 +20,16 @@ module.exports = class WebWorker extends Backbone.Model
 
     @send "initWorker", @get "name"
 
-  send: (evt, data) =>
+  send: (evt, data, callback = no) =>
+    id = getMessageId evt
     try
-      @worker.postMessage evt: evt, data: data
+      @worker.postMessage evt: evt, data: data, id: id
     catch e
       console.log e, evt, data
+      return
+
+    @once "RESPONSE-#{id}", (data) ->
+      if typeof callback is "function"
+        callback data
 
   kill: => @worker.terminate()
