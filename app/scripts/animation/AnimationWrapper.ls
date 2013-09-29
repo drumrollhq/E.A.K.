@@ -1,4 +1,4 @@
 module.exports = class AnimationWrapper extends Backbone.View
-  start: =>
-    @$el.hideDialogue()
-    @trigger "done"
+  start: ~>
+    @$el.hide-dialogue!
+    @trigger \done
