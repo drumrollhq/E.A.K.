@@ -61,13 +61,13 @@ module.exports = class Level extends Backbone.Model
         @addBorders conf.borders
 
 
-        # @hintController = new HintController hints: conf.hints
+        @hintController = new HintController hints: conf.hints
 
-        # @listenTo mediator, "edit", @startEditor
-        # @listenTo mediator, "restart", @restart
+        @listenTo mediator, "edit", @startEditor
+        @listenTo mediator, "restart", @restart
 
-        # @listenTo mediator, "frame:process", @checkPlayerIsInWorld
-        # @listenTo mediator, "kittenfound", @complete
+        @listenTo mediator, "frame:process", @checkPlayerIsInWorld
+        @listenTo mediator, "kittenfound", @complete
       , 600
 
     loader.start()
@@ -181,16 +181,15 @@ module.exports = class Level extends Backbone.Model
       (new StaticBody shape).attachTo @world
 
   checkPlayerIsInWorld: =>
-    pos = @player.body.positionUncorrected()
+    @player.body.positionUncorrected (pos) ->
+      xpad = 100
+      padTop = 100
+      padBottom = 200
 
-    xpad = 100
-    padTop = 100
-    padBottom = 200
-
-    unless (-xpad < pos.x < @w + xpad) and (-padTop < pos.y < @h + padBottom)
-      @player.body.reset()
-      mediator.trigger "falloutofworld"
-      return
+      unless (-xpad < pos.x < @w + xpad) and (-padTop < pos.y < @h + padBottom)
+        @player.body.reset()
+        mediator.trigger "falloutofworld"
+        return
 
   complete: =>
     if not @stopped
