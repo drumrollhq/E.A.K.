@@ -17,6 +17,7 @@ WorldListener = require "physics/worldListener"
 
 StaticBody = require "physics/staticBody"
 DynamicBody = require "physics/dynamicBody"
+PlayerBody = require "physics/playerBody"
 
 working = no
 
@@ -60,7 +61,11 @@ class World
     uid = data.uid
     def = data.def
 
-    body = if def.bodyType is "static" then new StaticBody def, uid, World::scale else new DynamicBody def, uid, World::scale
+    body = switch def.bodyType
+      when "static" then new StaticBody def, uid, World::scale
+      when "dynamic" then new DynamicBody def, uid, World::scale
+      when "player" then new PlayerBody def, uid, World::scale
+
     body.attachTo @
 
     @entities[uid] = body

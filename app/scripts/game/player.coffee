@@ -1,7 +1,4 @@
-DynamicBody = require "game/physics/dynamicBody"
-
-Vector = Box2D.Common.Math.b2Vec2
-b2WorldManifold = Box2D.Collision.b2WorldManifold
+PlayerBody = require "game/physics/playerBody"
 
 mediator = require "game/mediator"
 
@@ -21,16 +18,7 @@ module.exports = class Player extends Backbone.View
       top: h/2 - 20 + start.y
       left: w/2 - 20 + start.x
 
-    shape =
-      type: 'circle'
-      x: start.x + w/2
-      y: start.y + h/2
-      radius: 20
-      el: @el
-      id: "ENTITY_PLAYER"
-
-    @body = new DynamicBody shape
-    @body.isPlayer = true
+    @body = new PlayerBody x: start.x, y: start.y, w, h, @el
 
     @setupKeyboardControls()
 
@@ -39,9 +27,6 @@ module.exports = class Player extends Backbone.View
 
   setupKeyboardControls: ->
     torque = 5
-    maxAngularVelocity = 15
-    jumpImpulse = new Vector(0, -7)
-    jumpLimit = Math.PI / 2
 
     left = false
     right = false
@@ -74,7 +59,7 @@ module.exports = class Player extends Backbone.View
     @listenTo mediator, "keydown:w,up,space", ->
       if not up
         up = true
-        jump()
+        b.jump()
 
     @listenTo mediator, "keyup:w,up,space", ->
       if up
@@ -84,7 +69,7 @@ module.exports = class Player extends Backbone.View
       reqTilt = true
       amount = tilt
 
-    @listenTo mediator, "uncaughtTap", -> jump()
+    @listenTo mediator, "uncaughtTap", -> b.jump()
 
     @listenTo mediator, "frame:process", =>
       if reqTilt
@@ -93,37 +78,7 @@ module.exports = class Player extends Backbone.View
       else
         acc = if left then -torque else if right then torque else 0
 
-      b.angularVelocity (av) ->
-        if (maxAngularVelocity > Math.abs av) or (acc / av < 0)
-          b.applyTorque acc
+      b.roll acc
 
       b.absolutePosition (p) ->
         mediator.trigger "playermove", p
-
-    jumpa = Math.PI / 2 - jumpLimit
-    jumpb = Math.PI / 2 + jumpLimit
-
-    jump = ->
-      edge = b.body.GetContactList()
-
-      # Adapted from http://sierakowski.eu/list-of-tips/114-box2d-basics-part-1.html
-
-      while edge isnt null
-        manifold = new b2WorldManifold()
-        edge.contact.GetWorldManifold manifold
-        collisionNormal = manifold.m_normal
-
-        # Check which fixture is the character, and flip normal if needed
-        fix = edge.contact.GetFixtureB().GetBody().GetUserData()
-
-        if fix.isPlayer is true
-          collisionNormal.x *= -1
-          collisionNormal.y *= -1
-
-        angle = Math.atan2 collisionNormal.y, collisionNormal.x
-
-        if jumpa < angle < jumpb
-          b.body.ApplyImpulse jumpImpulse, b.body.GetWorldCenter()
-          break
-
-        edge = edge.next
