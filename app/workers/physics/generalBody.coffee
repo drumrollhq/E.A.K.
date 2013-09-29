@@ -98,6 +98,10 @@ module.exports = class GeneralBody
     p = @body.GetPosition()
     x: p.x * @scale, y: p.y * @scale
 
+  absolutePosition: ->
+    p = @body.GetPosition()
+    x: p.x * @scale, y: p.y * @scale
+
   angle: -> @body.GetAngle()
 
   angularVelocity: -> @body.GetAngularVelocity()

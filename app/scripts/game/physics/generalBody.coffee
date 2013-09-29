@@ -4,7 +4,7 @@ module.exports = class GeneralBody extends Backbone.Model
 
     s = @def
 
-    @data = s.data
+    @data = s.data or {}
 
     ids = ["*"]
     if s.id isnt undefined
@@ -31,9 +31,6 @@ module.exports = class GeneralBody extends Backbone.Model
     @uid = world.attachBody @getSanitisedDef()
     @world = world
     @worker = world.worker
-    setTimeout =>
-      @destroy -> console.log "destroyed"
-    , 1000
 
   call: (name, args, done) =>
     if done is undefined

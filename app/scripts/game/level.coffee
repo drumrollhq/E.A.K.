@@ -37,7 +37,7 @@ module.exports = class Level extends Backbone.Model
       conf.height = parseFloat conf.height
       renderer.setHeight conf.height
 
-    # @addTarget conf.target
+    @addTarget conf.target
 
     loader = new ElementLoader el: @renderer.$el
     loaderView = new LoaderView model: loader
@@ -57,8 +57,8 @@ module.exports = class Level extends Backbone.Model
         mediator.paused = false
 
         @addBodiesFromDom()
-        # @addPlayer conf.player
-        # @addBorders conf.borders
+        @addPlayer conf.player
+        @addBorders conf.borders
 
 
         # @hintController = new HintController hints: conf.hints

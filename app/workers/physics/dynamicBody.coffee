@@ -29,6 +29,5 @@ module.exports = class DynamicBody extends GeneralBody
   render: =>
     body = @body
 
-    if @isAwake()
-      console.log @uid, @position()
+    # if @isAwake()
       # TODO: Send updated position

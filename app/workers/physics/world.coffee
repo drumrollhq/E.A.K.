@@ -63,7 +63,11 @@ class World
 
   entityCall: (data, done) =>
     entity = @entities[data.uid]
-    done entity[data.name].apply entity, data.arguments
+    try
+      done entity[data.name].apply entity, data.arguments
+    catch e
+      console.log "Error calling #{data.name} on entity #{data.uid} with", data.arguments
+      console.log "#{e} on #{e.line}"
 
   scale: 40
 
