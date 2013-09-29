@@ -1,4 +1,4 @@
-WebWorker = require "webworker"
+WebWorker = require "WebWorker"
 mediator = require "game/mediator"
 
 uidCounter = 1
