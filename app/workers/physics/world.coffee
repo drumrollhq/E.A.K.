@@ -50,6 +50,7 @@ class World
     unless working
       working = yes
       @world.Step t/1000, 10, 10
+      @world.ClearForces()
       updates = []
       mediator.trigger "collectUpdates", updates
       done updates
@@ -67,7 +68,7 @@ class World
   entityCall: (data, done) =>
     entity = @entities[data.uid]
     try
-      done entity[data.name].apply entity, data.arguments
+      done entity[data.name].apply entity, data.args
     catch e
       console.log "Error calling #{data.name} on entity #{data.uid} with", data.arguments
       console.log "#{e} on #{e.line}"

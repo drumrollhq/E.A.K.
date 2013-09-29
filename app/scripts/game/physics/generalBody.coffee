@@ -33,13 +33,14 @@ module.exports = class GeneralBody extends Backbone.Model
     @worker = world.worker
 
   call: (name, args, done) =>
-    if done is undefined
+    if done is undefined and typeof args is "function"
       done = args
-      args = []
+      args = ["kittens"]
+
     @worker.send "entityCall",
       uid: @uid
       name: name
-      arguments: args
+      args: args
     , done
 
   destroy: (callback) => @call "destroy", callback
@@ -51,3 +52,4 @@ module.exports = class GeneralBody extends Backbone.Model
   absolutePosition: (callback) => @call "absolutePosition", callback
   angle: (callback) => @call "angle", callback
   angularVelocity: (callback) => @call "angularVelocity", callback
+  applyTorque: (n, callback) => @call "applyTorque", [n], callback

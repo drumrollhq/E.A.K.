@@ -106,6 +106,8 @@ module.exports = class GeneralBody
 
   angularVelocity: -> @body.GetAngularVelocity()
 
+  applyTorque: (n) -> @body.ApplyTorque n
+
   defDefaults:
     x: 0
     y: 0

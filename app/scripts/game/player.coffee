@@ -93,11 +93,12 @@ module.exports = class Player extends Backbone.View
       else
         acc = if left then -torque else if right then torque else 0
 
-      av = b.angularVelocity()
-      if (maxAngularVelocity > Math.abs av) or (acc / av < 0)
-        b.body.ApplyTorque acc
+      b.angularVelocity (av) ->
+        if (maxAngularVelocity > Math.abs av) or (acc / av < 0)
+          b.applyTorque acc
 
-      mediator.trigger "playermove", b.absolutePosition()
+      b.absolutePosition (p) ->
+        mediator.trigger "playermove", p
 
     jumpa = Math.PI / 2 - jumpLimit
     jumpb = Math.PI / 2 + jumpLimit
