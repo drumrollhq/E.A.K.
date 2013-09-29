@@ -13,10 +13,10 @@ module.exports = class World extends Backbone.Model
 
     @updates = []
 
-    mediator.on "frame:process", (t) =>
+    @listenTo mediator, "frame:process", (t) =>
       @worker.send "triggerUpdate", t, (updates) => @updates = updates
 
-    mediator.on "frame:render", @update
+    @listenTo mediator, "frame:render", @update
 
     @worker.on "contactEvent", @contactEvent
 
@@ -36,6 +36,11 @@ module.exports = class World extends Backbone.Model
       body.render update.position, update.angle
 
     @updates = []
+
+  remove: =>
+    delete @bodies
+    @worker.kill()
+    @stopListening()
 
   contactEvent: (evt) =>
     type = evt.type
