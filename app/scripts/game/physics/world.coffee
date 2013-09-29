@@ -7,7 +7,7 @@ newUID = -> uidCounter++
 
 module.exports = class World extends Backbone.Model
   initialize: ->
-    @worker = new WebWorker name: "physics/world"
+    @worker = new WebWorker name: "physics/World"
 
     @bodies = []
 
