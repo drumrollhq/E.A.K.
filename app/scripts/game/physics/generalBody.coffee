@@ -19,6 +19,8 @@ module.exports = class GeneralBody extends Backbone.Model
 
     @ids = ids
 
+  getWorkerFn: (name) => return => @call "name", (_.initial arguments), _.last arguments
+
   getSanitisedDef: ->
     out = _.clone @def
     out.el = undefined
@@ -27,45 +29,28 @@ module.exports = class GeneralBody extends Backbone.Model
 
   attachTo: (world) =>
     @uid = world.attachBody @getSanitisedDef()
+    @world = world
+    @worker = world.worker
+    setTimeout =>
+      @destroy -> console.log "destroyed"
+    , 1000
 
-  destroy: =>
-    if @world isnt undefined then @world.world.DestroyBody @body
+  call: (name, args, done) =>
+    if done is undefined
+      done = args
+      args = []
+    @worker.send "entityCall",
+      uid: @uid
+      name: name
+      arguments: args
+    , done
 
-  halt: =>
-    b = @body
-    b.SetAngularVelocity 0
-    b.SetLinearVelocity new Vector 0, 0
-
-  reset: =>
-    @halt()
-    @position x:0, y: 0
-    @body.SetAngle 0
-
-  isAwake: -> @body.GetType() isnt 0 and @body.IsAwake()
-
-  position: (p) ->
-    if p is undefined
-      p = @body.GetPosition()
-      return x: (p.x * scale) - @def.x, y: (p.y * scale) - @def.y
-    else
-      @body.SetPosition new Vector (p.x + @def.x) / scale, (p.y + @def.y) / scale
-
-  positionUncorrected: ->
-    p = @body.GetPosition()
-    x: (p.x * scale), y: (p.y * scale)
-
-  absolutePosition: ->
-    p = @body.GetPosition()
-    x: p.x * scale, y: p.y * scale
-
-  angle: -> @body.GetAngle()
-
-  angularVelocity: -> @body.GetAngularVelocity()
-
-  defDefaults:
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-    radius: 0
-    type: "rect"
+  destroy: (callback) => @call "destroy", callback
+  halt: (callback) => @call "halt", callback
+  reset: (callback) => @call "reset", callback
+  isAwake: (callback) => @call "isAwake", callback
+  position: (p, callback) => @call "position", [p], callback
+  positionUncorrected: (callback) => @call "positionUncorrected", callback
+  absolutePosition: (callback) => @call "absolutePosition", callback
+  angle: (callback) => @call "angle", callback
+  angularVelocity: (callback) => @call "angularVelocity", callback

@@ -44,6 +44,8 @@ class World
 
     mediator.on "create:body", @createBody
 
+    mediator.on "entityCall", @entityCall
+
   update: (t) =>
     unless working
       working = yes
@@ -58,6 +60,10 @@ class World
     body.attachTo @
 
     @entities[uid] = body
+
+  entityCall: (data, done) =>
+    entity = @entities[data.uid]
+    done entity[data.name].apply entity, data.arguments
 
   scale: 40
 

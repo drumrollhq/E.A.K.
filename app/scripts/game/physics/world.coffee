@@ -17,3 +17,5 @@ module.exports = class World extends Backbone.Model
     @worker.send "create:body",
       uid: id
       def: def
+
+    id
