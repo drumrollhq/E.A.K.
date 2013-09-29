@@ -11,8 +11,12 @@ module.exports = class World extends Backbone.Model
 
     @bodies = []
 
+    @updates = []
+
     mediator.on "frame:process", (t) =>
-      @worker.send "triggerUpdate", t, @update
+      @worker.send "triggerUpdate", t, (updates) => @updates = updates
+
+    mediator.on "frame:render", @update
 
   attachBody: (body) =>
     id = newUID()
@@ -24,7 +28,9 @@ module.exports = class World extends Backbone.Model
 
     id
 
-  update: (updates) =>
-    for update in updates
+  update: =>
+    for update in @updates
       body = @bodies[update.uid]
       body.render update.position, update.angle
+
+    @updates = []
