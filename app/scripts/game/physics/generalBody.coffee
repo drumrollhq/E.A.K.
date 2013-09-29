@@ -28,7 +28,7 @@ module.exports = class GeneralBody extends Backbone.Model
     out
 
   attachTo: (world) =>
-    @uid = world.attachBody @getSanitisedDef()
+    @uid = world.attachBody @
     @world = world
     @worker = world.worker
 

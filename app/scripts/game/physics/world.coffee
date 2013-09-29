@@ -9,13 +9,22 @@ module.exports = class World extends Backbone.Model
   initialize: ->
     @worker = new WebWorker name: "physics/world"
 
-    mediator.on "frame:process", (t) =>
-      @worker.send "triggerUpdate", t
+    @bodies = []
 
-  attachBody: (def) =>
+    mediator.on "frame:process", (t) =>
+      @worker.send "triggerUpdate", t, @update
+
+  attachBody: (body) =>
     id = newUID()
     @worker.send "create:body",
       uid: id
-      def: def
+      def: body.getSanitisedDef()
+
+    @bodies[id] = body
 
     id
+
+  update: (updates) =>
+    for update in updates
+      body = @bodies[update.uid]
+      body.render update.position, update.angle

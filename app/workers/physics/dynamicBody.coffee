@@ -22,12 +22,15 @@ module.exports = class DynamicBody extends GeneralBody
 
     @initialize()
 
-    mediator.on "triggerUpdate", @render
+    mediator.on "collectUpdates", @render
 
     console.log "Created Dynamic Body #{@uid}"
 
-  render: =>
+  render: (updates) =>
     body = @body
 
-    # if @isAwake()
-      # TODO: Send updated position
+    if @isAwake()
+      updates.push
+        uid: @uid
+        position: @position()
+        angle: @angle()

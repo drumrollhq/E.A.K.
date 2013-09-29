@@ -46,10 +46,13 @@ class World
 
     mediator.on "entityCall", @entityCall
 
-  update: (t) =>
+  update: (t, done) =>
     unless working
       working = yes
       @world.Step t/1000, 10, 10
+      updates = []
+      mediator.trigger "collectUpdates", updates
+      done updates
       working = no
 
   createBody: (data) =>

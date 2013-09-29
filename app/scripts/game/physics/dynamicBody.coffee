@@ -22,15 +22,11 @@ module.exports = class DynamicBody extends GeneralBody
 
     @initialize()
 
-    @listenTo mediator, "frame:render", @render
-
-  render: => null
-    # body = @body
-    # if @isAwake()
-    #   p = @position()
-    #   trans = "translate3d(#{(p.x).toFixed 2}px, #{(p.y).toFixed 2}px, 0)"
-    #   r = @angle()
-    #   if r isnt 0 then trans += " rotate(#{r.toFixed 4}rad)"
-    #   @def.el.style[transform] = trans
+  render: (position, angle) =>
+    body = @body
+    trans = "translate3d(#{(position.x).toFixed 2}px, #{(position.y).toFixed 2}px, 0)"
+    r = @angle()
+    if r isnt 0 then trans += " rotate(#{angle.toFixed 4}rad)"
+    @def.el.style[transform] = trans
 
   transform = Modernizr.prefixed "transform"
