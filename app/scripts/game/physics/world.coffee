@@ -18,6 +18,8 @@ module.exports = class World extends Backbone.Model
 
     mediator.on "frame:render", @update
 
+    @worker.on "contactEvent", @contactEvent
+
   attachBody: (body) =>
     id = newUID()
     @worker.send "create:body",
@@ -34,3 +36,17 @@ module.exports = class World extends Backbone.Model
       body.render update.position, update.angle
 
     @updates = []
+
+  contactEvent: (evt) =>
+    type = evt.type
+    a = @bodies[evt.a]
+    b = @bodies[evt.b]
+
+    for idA in a.ids
+      for idB in b.ids
+        mediator.trigger "#{type}Contact:#{idA}&#{idB}",
+          a: a
+          b: b
+        mediator.trigger "#{type}Contact:#{idB}&#{idA}",
+          a: a
+          b: b

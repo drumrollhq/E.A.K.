@@ -181,7 +181,7 @@ module.exports = class Level extends Backbone.Model
       (new StaticBody shape).attachTo @world
 
   checkPlayerIsInWorld: =>
-    @player.body.positionUncorrected (pos) ->
+    @player.body.positionUncorrected (pos) =>
       xpad = 100
       padTop = 100
       padBottom = 200
