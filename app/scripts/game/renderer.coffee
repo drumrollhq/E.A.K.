@@ -1,5 +1,5 @@
-Mapper = require "game/dom/mapper"
-CSS = require "game/lang/css"
+Mapper = require "game/dom/Mapper"
+CSS = require "game/lang/CSS"
 
 mediator = require "game/mediator"
 

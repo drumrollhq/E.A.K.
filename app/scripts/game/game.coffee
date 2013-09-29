@@ -1,5 +1,5 @@
-Level = require "game/level"
-Bar = require "game/bar"
+Level = require "game/Level"
+Bar = require "game/Bar"
 
 mediator = require "game/mediator"
 

@@ -1,6 +1,6 @@
-LevelLoader = require "loader/levelLoader"
-LoaderView = require "loader/loaderView"
-App = require "app"
+LevelLoader = require "loader/LevelLoader"
+LoaderView = require "loader/LoaderView"
+KittenQuest = require "KittenQuest"
 
 module.exports = class Init extends Backbone.View
   initialize: ->
@@ -8,7 +8,7 @@ module.exports = class Init extends Backbone.View
       (@$ "#incompatible").showDialogue()
       return
 
-    app = new App el: @$ ".app"
+    app = new KittenQuest el: @$ ".app"
 
     loader = new LevelLoader url: "data/levels.json"
     loaderView = new LoaderView model: loader, el: @$ ".loader"

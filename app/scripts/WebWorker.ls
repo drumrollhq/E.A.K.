@@ -4,7 +4,7 @@ get-message-id = (evt) ->
   message-id++
   "##{message-id}-#evt-#{Math.random!.to-string 36 .substr 2}"
 
-module.exports = class WebWorker extends Backbone.module
+module.exports = class WebWorker extends Backbone.Model
   defaults: name: ""
 
   initialize: ~>

@@ -1,8 +1,8 @@
 mediator = require "game/mediator"
 
 hintTypes =
-  pointer: require "game/hints/pointer"
-  alert: require "game/hints/alert"
+  pointer: require "game/hints/Pointer"
+  alert: require "game/hints/AlertPointer"
 
 idCounter = 1
 

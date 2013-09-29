@@ -1,6 +1,6 @@
 # Hide comments from the source, replace them with line widgets that
 # are clearly not code, beautifying the code in the process.
-module.exports = niceComments = (cm) ->
+module.exports = NiceComments = (cm) ->
 
   html = cm.getValue()
 

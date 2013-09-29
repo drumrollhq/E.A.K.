@@ -1,7 +1,7 @@
-AnimationWrapper = require "animation/wrapper"
-Game = require "game/game"
+AnimationWrapper = require "animation/AnimationWrapper"
+Game = require "game/Game"
 
-module.exports = class App extends Backbone.View
+module.exports = class KittenQuest extends Backbone.View
   initialize: ->
     @$menu = @$ ".menu"
     @$about = @$ ".about"
@@ -40,4 +40,3 @@ module.exports = class App extends Backbone.View
   playGame: (load) =>
     game = new Game load
     game.startLevel game.get "level"
-

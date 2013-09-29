@@ -1,19 +1,19 @@
-World = require "game/physics/world"
-DynamicBody = require "game/physics/dynamicBody"
-StaticBody = require "game/physics/staticBody"
+World = require "game/physics/World"
+DynamicBody = require "game/physics/DynamicBody"
+StaticBody = require "game/physics/StaticBody"
 
-Renderer = require "game/renderer"
-Mapper = require "game/dom/mapper"
+Renderer = require "game/Renderer"
+Mapper = require "game/dom/Mapper"
 
-ElementLoader = require "loader/elementLoader"
-LoaderView = require 'loader/loaderView'
+ElementLoader = require "loader/ElementLoader"
+LoaderView = require 'loader/LoaderView'
 
-Editor = require "game/editor/editor"
-EditorView = require "game/editor/view"
+Editor = require "game/editor/Editor"
+EditorView = require "game/editor/EditorView"
 
-HintController = require "game/hints/hintController"
+HintController = require "game/hints/HintController"
 
-Player = require "game/player"
+Player = require "game/Player"
 
 mediator = require "game/mediator"
 

@@ -19,7 +19,6 @@ module.exports = class PlayerBody extends DynamicBody
     if max-angular-velocity > Math.abs av or torque / av < 0 then @apply-torque torque
 
   jump: !~>
-    console.log "jump!"
     edge = @body.GetContactList!
 
     while edge?
