@@ -8,7 +8,7 @@
     "bottom": false,
     "right": true
   },
-  "background": "white url(//s3-eu-west-1.amazonaws.com/somehats/web-platformer/grid.png) center center / 50px",
+  "background": "white url({{base}}/grid.png) center center / 50px",
   "player": {
     "x": 130,
     "y": -100
@@ -17,7 +17,7 @@
     "level2/kitten-2.gif",
     "terminal.png"
   ],
-  "target": "<img src=\"https://s3-eu-west-1.amazonaws.com/somehats/web-platformer/level3/kitten.gif\" width=\"200\" style=\"position: absolute; top: 30px; left: 30px;\" data-dynamic>",
+  "target": "<img src=\"{{base}}/level3/kitten.gif\" width=\"200\" style=\"position: absolute; top: 30px; left: 30px;\" data-dynamic>",
   "hints": [
     {
       "type": "pointer",
