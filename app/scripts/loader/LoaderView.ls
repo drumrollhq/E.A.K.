@@ -24,7 +24,7 @@ module.exports = class LoaderView extends Backbone.View
 
     @displaying-progress = yes
 
-    @listen-to @modle, \change:progress, @update-progress
+    @listen-to @model, \change:progress, @update-progress
 
     @update-progress @model, @model.get \progress
 
