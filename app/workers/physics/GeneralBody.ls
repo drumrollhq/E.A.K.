@@ -14,14 +14,15 @@ module.exports = class GeneralBody
     {def, bd, scale} = @
 
     @data = def.{}data
+    _.defaults @data, GeneralBody::data-defaults
 
     bd.position.Set def.x / scale, def.y / scale
 
     @fds = []
 
-    newFixture = ~>
+    new-fixture = ~>
       fd = new b2FixtureDef!
-      fd <<< density: 1, friction: 0.7, restitution: 0.3
+      fd <<< @data.{density, friction, restitution}
 
       if @data.sensor is true then fd.is-sensor = true
 
@@ -32,14 +33,14 @@ module.exports = class GeneralBody
 
       switch def.type
         when "circle"
-          fd = newFixture!
+          fd = new-fixture!
           fd.shape = new b2CircleShape def.radius / scale
           def.width = def.height = def.radius
 
           if position then new Vector def.x / scale, def.y / scale |> fd.shape.SetLocalPosition
 
         when "rect"
-          fd = newFixture!
+          fd = new-fixture!
           fd.shape = new b2PolygonShape!
           if position
             fd.shape.SetAsOrientedBox def.width / scale / 2, def.height / scale / 2, (new Vector def.x / scale, def.y / scale), 0
@@ -93,10 +94,15 @@ module.exports = class GeneralBody
 
   apply-torque: (n) ~> @body.ApplyTorque n
 
-  defDefaults:
+  def-defaults:
     x: 0
     y: 0
     width: 1
     height: 1
     radius: 0
     type: 'rect'
+
+  data-defaults:
+    restitution: 0.3
+    friction: 0.7
+    density: 1

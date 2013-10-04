@@ -17,6 +17,7 @@ module.exports = class LevelLoader extends Backbone.Model
       @set "base", data.base
       @set "data", data.levels
       mediator.LevelStore = data.levels
+      mediator.AssetBase = data.base
       @trigger "load:done"
     ).fail =>
       @set "stage", "Failed to load levels."
