@@ -7,7 +7,7 @@ module.exports = class Player extends Backbone.View
   className: 'player entity'
 
   initialize: (start = {x:0,y:0}, w, h) ->
-    @el.src = '//s3-eu-west-1.amazonaws.com/somehats/web-platformer/at.png'
+    @el.src = "#{mediator.AssetBase}/at.png"
     @el.width = 40
     @el.height = 40
 

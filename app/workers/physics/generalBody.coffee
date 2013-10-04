@@ -30,9 +30,9 @@ module.exports = class GeneralBody
 
     newFixture = =>
       fd = new b2FixtureDef()
-      fd.density = 1
-      fd.friction = 0.7
-      fd.restitution = 0.3
+      fd.density = @data.density or 1
+      fd.friction = @data.friction or 0.7
+      fd.restitution = @data.restitution or 0.3
 
       if @data.sensor is true
         fd.isSensor = true
