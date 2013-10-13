@@ -8,7 +8,7 @@
     "bottom": false,
     "right": true
   },
-  "background": "white url(/content/level2/bg.png) center center / 1000px 380px",
+  "background": "white url(content/level2/bg.png) center center / 1000px 380px",
   "player": {
     "x": -440,
     "y": -70
