@@ -40,6 +40,12 @@ getJoinTo = =>
       out[pOut] = new RegExp "^#{file}$"
       scripts.push pOut
 
+    for file in glob.sync "app/scripts/**/*.ls"
+      pOut = file.replace /^app\/scripts/, "js"
+      pOut = pOut.replace /\.ls$/, ".js"
+      out[pOut] = new RegExp "^#{file}$"
+      scripts.push pOut
+
     out['js/vendor.js'] = vexp
     out['js/worker.js'] = workerBits
 

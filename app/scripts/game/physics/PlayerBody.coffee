@@ -1,4 +1,4 @@
-DynamicBody = require "game/physics/dynamicBody"
+DynamicBody = require "game/physics/DynamicBody"
 
 module.exports = class PlayerBody extends DynamicBody
   constructor: (start, w, h, el) ->

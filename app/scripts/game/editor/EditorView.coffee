@@ -1,7 +1,7 @@
 mediator = require "game/mediator"
 
-niceComments = require "game/editor/nice-comments"
-setupCMExtras = require "game/editor/cm-extras"
+niceComments = require "game/editor/NiceComments"
+setupCMExtras = require "game/editor/CodeMirrorExtras"
 
 module.exports = class EditorView extends Backbone.View
   initialize: (options) ->

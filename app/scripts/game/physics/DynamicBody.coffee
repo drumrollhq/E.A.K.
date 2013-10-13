@@ -1,4 +1,4 @@
-GeneralBody = require "game/physics/generalBody"
+GeneralBody = require "game/physics/GeneralBody"
 
 mediator = require "game/mediator"
 
