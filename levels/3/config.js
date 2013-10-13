@@ -8,7 +8,6 @@
     "bottom": false,
     "right": true
   },
-  "background": "white url({{base}}/grid.png) center center / 50px",
   "player": {
     "x": 130,
     "y": -100

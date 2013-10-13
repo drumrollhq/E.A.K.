@@ -3,7 +3,6 @@
   "width": "640",
   "height": "480",
   "borders": "all",
-  "background": "white url({{base}}/grid.png) center 0% / 50px",
   "player": {
     "x": -230,
     "y": -50

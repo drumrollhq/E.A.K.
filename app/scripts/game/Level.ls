@@ -21,7 +21,9 @@ module.exports = class Level extends Backbone.Model
     # Set up the HTML/CSS for the level
     renderer = @renderer = new Renderer html: level.html, css: level.css, root: $ \#levelcontainer
 
-    if conf.background? then renderer.el.style.background = conf.background
+    if conf.background?
+      renderer.el.style.background = conf.background
+      mediator.trigger 'prepareBackground', conf.background
 
     if conf.width? then parse-float conf.width |> renderer.set-width
     if conf.height? then parse-float conf.height |> renderer.set-height
@@ -42,6 +44,8 @@ module.exports = class Level extends Backbone.Model
       <~ set-timeout _, 600
 
       $ document.body .add-class \playing
+
+      mediator.trigger 'showBackground'
 
       mediator.paused = false
 

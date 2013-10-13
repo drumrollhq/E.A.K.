@@ -1,6 +1,7 @@
 require! {
   'game/Level'
   'game/Bar'
+  'game/Background'
   'game/mediator'
 }
 
@@ -9,6 +10,8 @@ module.exports = class Game extends Backbone.Model
     if load then @load! else @save!
 
     @on \change @save
+
+    background = new Background!
 
     @$level-title = $ \.levelname
     @$level-no = @$level-title.find \span
