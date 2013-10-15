@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--
+      Stuff in the head tag tells kittenquest extra information about the level,
+      just like head would tell the browser extra information about a web page
+    -->
+
+    <!-- The title tag works just the same as in a normal web page -->
+    <title>My sample level</title>
+
+    <style>
+      /*
+        Any styles will be applied to the whole level. Style tags in the head won't
+        be shown to the player, so you can use them for anything that you don't want
+        to be editable
+      */
+
+      .ledge {
+        padding: 20px;
+        display: block;
+        background-image: url("content/common/grass-hangdown-top.png"), url("content/common/grass-hangdown-right.png"), url("content/common/grass-hangdown-left.png"), url("content/common/bricks.png");
+        background-position: top right, top right, top left, center;
+        background-repeat: repeat-x, no-repeat, no-repeat, repeat;
+        background-size: 62px 22px, 10px 44px, 10px 44px, 80px 80px;
+        box-shadow: 0 2px 0 2px rgba(0, 0, 0, 0.2);
+      }
+
+      .right {
+        right: 20px;
+        left: auto;
+        border-right: none;
+      }
+    </style>
+
+    <!-- KittenQuest uses some special meta tags and custom tags for the specifying the level: -->
+
+    <!-- this one sets the width and height of the level (widthxheight) -->
+    <meta name="size" value="640 480">
+
+    <!-- here we set the start position of the player (x y), relative to the center of the level -->
+    <meta name="player" value="-230 -50">
+
+    <!-- We can tell kitten quest to make the edges of the level walls with the
+    borders property. Possible values are 'all', 'none', or a list like this: 'top, left, bottom' -->
+    <meta name="borders" value="top, left, right">
+
+    <!-- This is our first custom kittenquest tag: target. The target element. This is what the
+    player is trying to get to. We put it in the head rather than the body so the player can't just
+    edit it to move it closer. The contents of <target> should be a single element, which will be
+    appended to the document. -->
+    <target>
+      <img src="/content/level2/kitten-2.gif" style="position: absolute; top: 30px; right: 30px;" data-dynamic>
+    </target>
+
+    <!-- The <hints> element contains a list of hints to show the user. Each hint has an 'enter'
+    attribute, which contains the name of an event, or several events separated by spaces. It can also
+    have a name (which is useful for making one hint appear as another exits) or an exit attribute,
+    which works in a similar way to enter.-->
+    <hints>
+      <!-- A pointer event hint will point towards a specific element, specified by the CSS selector
+      in the target attribute -->
+      <pointer target=".ledge.right" enter="time:1" exit="falloutofworld edit" name="myhintname">
+        Try to jump over to this ledge
+      </pointer>
+
+      <alert enter="hint-myhintname:exit">
+        I'm an alert! WOOOO!
+      </alert>
+    </hints>
+
+  </head>
+  <!-- Anything you put in <body> will be visible to people editing the source to the level in-game.
+  Avoid inline comments, as they are displayed in a more friendly way. It's a really good idea to
+  include comments - they can help players know what they need to do in order to complete your level! -->
+  <body>
+    <!--
+      <p>
+        This is the HTML source to this level. It describes the stuff shown on screen
+        to the right. The code below is the ledge you are on. It starts with:
+      </p>
+      <p>
+        <code>&lt;p ...&gt;</code> and ends with <code>&lt;<strong>/</strong>p&gt;</code>.
+      </p>
+      <p>
+        The stuff inside is the
+        text you can see. The more text, the longer the ledge. Can you change the
+        writing in the middle to make the ledge long enough to reach the other side?
+      </p>
+    -->
+    <p class="ledge">I'm a ledge! Woohoo!</p>
+
+    <!--
+      <p>
+        This is the other platform, over on the far right. You can edit this too!
+      </p>
+    -->
+    <p class="ledge right">Hey! I'm a ledge too!</p>
+  </body>
+</html>
