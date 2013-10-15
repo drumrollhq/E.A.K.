@@ -42,8 +42,13 @@
     <meta name="player" value="-230 -50">
 
     <!-- We can tell kitten quest to make the edges of the level walls with the
-    borders property. Possible values are 'all', 'none', or a list like this: 'top, left, bottom' -->
-    <meta name="borders" value="top, left, right">
+    borders property. Possible values are 'all', 'none', or a list like this: 'top left bottom' -->
+    <meta name="borders" value="top left right">
+
+    <!-- Using 'background', we can set a background image on the level. We'll find the url from
+    the CSS string, and use it to set the blurry background. One day I'll remove this property
+    and make it use proper css on body, but for now I'm in a massive rush. -->
+    <meta name="background" value="white url(/content/level2/bg.png) center center / 1000px 380px">
 
     <!-- This is our first custom kittenquest tag: target. The target element. This is what the
     player is trying to get to. We put it in the head rather than the body so the player can't just

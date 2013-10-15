@@ -1,5 +1,5 @@
 {
-  "name": "Go Back to Go Forward",
+  "name": "Levels are fun!",
   "width": "480",
   "height": "600",
   "borders": {

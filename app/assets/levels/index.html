@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Moving About</title>
+
+    <meta name="size" value="640 480">
+    <meta name="borders" value="all">
+    <meta name="player" value="-230 -50">
+
+    <target>
+      <img src="/contant/level1/kitten-1.gif" data-dynamic style="position: absolute; right: 15px; top: 150px; width: 150px;">
+    </target>
+
+    <hints>
+      <pointer target=".pointer" enter="time:1" exit="keydown:left,right,a,d" exit-delay="0.5" name="leftright">
+        This is you! You can move left and right with the <kbd>A</kbd> and <kbd>D</kbd>,
+        or <kbd>←</kbd> and <kbd>→</kbd> keys.
+      </pointer>
+      <pointer target=".intheway" enter="hint-leftright:exit" exit="keydown:up,space,w" name="jump">
+        Jump using the <kbd>W</kbd>, <kbd>space</kbd>, or <kbd>↑</kbd> keys.
+        You might need a run up to get over this obstacle!
+      </pointer>
+      <pointer target="[data-target]" enter="hint-jump:exit" exit="beginContact:ENTITY_PLAYER&ENTITY_TARGET">
+        Get to the kitten gif to complete the level!
+      </pointer>
+    </hints>
+
+    <style>
+      .html {
+        padding: 50px;
+        background: white;
+        border-top: black 1px solid;
+        height: 200px;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        padding-top: 35px;
+        z-index: 5;
+      }
+
+      .intheway {
+        width: 100px;
+        height: 75px;
+        position: absolute;
+        left: 45%;
+        top: 190px;
+        background: white;
+        text-align: center;
+        padding-top: 10px;
+        background-image: url("content/common/grass-hangdown-top.png"), url("content/common/grass-hangdown-right.png"), url("content/common/grass-hangdown-left.png"), url("content/common/bricks.png");
+        background-position: top right, top right, top left, center;
+        background-repeat: repeat-x, no-repeat, no-repeat, repeat;
+        background-size: 62px 22px, 10px 44px, 10px 44px, 80px 80px;
+        box-shadow: 0 2px 0 2px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+    <p>
+      Hello curious game player! This is the edit view. You won't need to use it to
+      complete this one, but feel free to poke around and change things if you want.
+      Don't worry - this'll all be explained next level :) - <i>JD</i>
+    </p>
+    -->
+    <div class="intheway" data-dynamic>Oh no! An obstacle!</div>
+
+    <div class="html">
+    </div>
+  </body>
+</html>
