@@ -19,22 +19,25 @@ module.exports = class Game extends Backbone.Model
 
     bar-view = new Bar el: $ \#bar
 
-  defaults: level: 0
+  defaults: level: '/levels/index.html'
 
-  start-level: (n) ~>
-    unless mediator.LevelStore[n]?
-      console.log "Cannot find level #n" mediator.LevelStore
-      mediator.trigger \alert "That's it! I haven't written any more levels yet!"
-      return false
+  start-level: (l) ~>
+    level-source <~ $.get l, _
+    parsed = Slowparse.HTML document, level-source, [TreeInspectors.forbidJS]
 
-    level = mediator.LevelStore[n]
-    @$level-no.text n + 1
+    if parsed.error isnt null
+      mediator.trigger 'alert', 'There are errors in that level!'
+      console.log parsed
+      return
 
-    @$level-name.text if level.config?.name? then level.config.name or ''
+    $level = $ parsed.document.children.0
+
+    console.log ($level.find 'title' .text!)
+    @$level-name.text ($level.find 'title' .text! or '')
 
     <~ $.hide-dialogues
 
-    new Level level
+    new Level $level
 
     mediator.once \levelout, ~>
       l = (@get \level) + 1

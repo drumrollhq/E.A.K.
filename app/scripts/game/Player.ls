@@ -8,7 +8,7 @@ module.exports = class Player extends Backbone.View
   class-name: 'player entity'
 
   initialize: (start = {x: 0, y: 0}, w, h) ->
-    @el.src = "#{mediator.AssetBase}/at.png"
+    @el.src = "/content/at.png"
     @el.width = @el.height = 40
 
     @$el.attr \data-ignore true

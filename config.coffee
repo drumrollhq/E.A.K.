@@ -23,6 +23,17 @@ optimize = ('--optimize' in process.argv) or ('-o' in process.argv)
 
 scripts = []
 
+# Hack Slowparse to expose some of its internals. This is really dirty. I should find a way of doing this properly:
+spFile = 'bower_components/slowparse/slowparse.js'
+sp = fs.readFileSync spFile, encoding: 'utf8'
+a = "// ### Exported Symbols\n  //\n  // `Slowparse` is the object that holds all exported symbols from\n  // this library.\n  var Slowparse = {"
+
+b = "// ### Exported Symbols - HACKILY MODIFIED FOR EAK!\n  //\n  // `Slowparse` is the object that holds all exported symbols from\n  // this library.\n  var Slowparse = {\n    HTMLParser: HTMLParser,"
+
+sp = sp.replace a, b
+
+fs.writeFileSync spFile, sp
+
 getJoinTo = =>
   scripts = []
   vexp = /^(bower_components|vendor)/

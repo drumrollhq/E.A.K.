@@ -13,22 +13,56 @@ require! {
   'game/mediator'
 }
 
+{map, reduce} = _
+
 module.exports = class Level extends Backbone.Model
   initialize: (level) ->
     @level = level
-    conf = @conf = level.{}config
+    conf = @conf = {}
 
     # Set up the HTML/CSS for the level
-    renderer = @renderer = new Renderer html: level.html, css: level.css, root: $ \#levelcontainer
+    conf.html = level.find 'body' .html!
+    conf.css = level.find 'head style' |> map _, (-> $ it .text!) |> reduce _, (m, n) -> m + '\n\n' + n
 
-    if conf.background?
-      renderer.el.style.background = conf.background
-      mediator.trigger 'prepareBackground', conf.background
+    renderer = @renderer = new Renderer html: conf.html, css: conf.css, root: $ \#levelcontainer
 
-    if conf.width? then parse-float conf.width |> renderer.set-width
-    if conf.height? then parse-float conf.height |> renderer.set-height
+    if bg = level.find 'meta[name=background]' .attr 'value'
+      renderer.el.style.background = bg
+      mediator.trigger 'prepareBackground', bg
+      @conf.background = bg
 
-    @add-target conf.target
+    if size = level.find 'meta[name=size]' .attr 'value'
+      [w, h] = size / ' '
+      w = parse-float w
+      h = parse-float h
+    else
+      w = h = 100
+
+    conf.width = w
+    conf.height = h
+    renderer.set-width w
+    renderer.set-height h
+
+    if player = level.find 'meta[name=player]' .attr 'value'
+      [x, y] = player / ' '
+      x = parse-float x
+      y = parse-float y
+    else
+      x = y = 0
+
+    conf.player = {x, y}
+
+    if borders = level.find 'meta[name=borders]' .attr 'value'
+      borders = borders / ' '
+    else
+      borders = <[ all ]>
+
+    if borders.0 is 'all' then borders = <[ top bottom left right ]>
+    if borders.0 is 'none' then borders = []
+
+    conf.borders = borders
+
+    @add-target level.find 'target'
 
     loader = new ElementLoader el: @renderer.$el
     loader-view = new LoaderView model: loader
@@ -83,8 +117,8 @@ module.exports = class Level extends Backbone.Model
   remove-DOM-bodies: ~>
     for body in @dom-bodies => unless body.def.data.target? then body.destroy!
 
-  add-target: (target-HTML) ~>
-    $target = $ target-HTML
+  add-target: (target-container) ~>
+    $target = target-container.children! .first!
     $target.add-class \entity
     $target.attr 'data-target': 'data-target', 'data-id': 'ENTITY_TARGET'
     $target.append-to @renderer.$el
@@ -122,7 +156,7 @@ module.exports = class Level extends Backbone.Model
     # Restore entities
     entities.append-to @renderer.$el
 
-  add-borders: (borders = \none) ->
+  add-borders: (borders = []) ->
     if borders is \none then return
     if borders is \all then borders = top: true, right: true, left: true, bottom: true
 
@@ -131,7 +165,7 @@ module.exports = class Level extends Backbone.Model
     w = @w = @renderer.width
     h = @h = @renderer.height
 
-    if borders.top then ({
+    if 'top' in borders then ({
       width: w * 2
       height: t
       x: 0
@@ -139,7 +173,7 @@ module.exports = class Level extends Backbone.Model
       id: \BORDER_TOP
     } |> new StaticBody _) .attach-to @world
 
-    if borders.bottom then ({
+    if 'bottom' in borders then ({
       width: w * 2
       height: t
       x: 0
@@ -147,7 +181,7 @@ module.exports = class Level extends Backbone.Model
       id: \BORDER_BOTTOM
     } |> new StaticBody _) .attach-to @world
 
-    if borders.right then ({
+    if 'right' in borders then ({
       width: t
       height: h * 2
       x: w + t / 2
@@ -155,7 +189,7 @@ module.exports = class Level extends Backbone.Model
       id: \BORDER_RIGHT
     } |> new StaticBody _) .attach-to @world
 
-    if borders.left then ({
+    if 'left' in borders then ({
       width: t
       height: h * 2
       x: -t / 2

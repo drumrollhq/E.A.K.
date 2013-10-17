@@ -8,17 +8,7 @@ module.exports = class Init extends Backbone.View
 
     app = new KittenQuest el: @$ \.app
 
-    loader = new LevelLoader url: 'data/levels.json'
-    loader-view = new LoaderView model: loader, el: @$ \.loader
-
-    loader-view.render!
-
-    loader.on \load:done ->
-      loader-view.$el.switch-dialogue app.$menu
-      <- set-timeout _, 500
-      loader-view.remove!
-
-    loader.load!
+    @$ \.loader .switch-dialogue app.$menu
 
   compatible: ->
     needed = <[ csstransforms cssanimations csstransitions csscalc boxsizing canvas webworkers ]>
