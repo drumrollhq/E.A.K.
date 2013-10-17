@@ -1,4 +1,4 @@
-require! <[ loader/LevelLoader loader/LoaderView KittenQuest Router game/mediator ]>
+require! <[ loader/LevelLoader loader/LoaderView game/Game Router game/mediator ]>
 
 module.exports = class Init extends Backbone.View
   initialize: ->
@@ -8,7 +8,7 @@ module.exports = class Init extends Backbone.View
 
     @$ \.loader .hide-dialogue!
 
-    app = new KittenQuest el: @$ \.app
+    game = new Game false
 
     router = new Router!
     Backbone.history.start!

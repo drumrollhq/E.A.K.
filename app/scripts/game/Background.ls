@@ -10,6 +10,7 @@ module.exports = class Background
 
     mediator.on 'prepareBackground' @prepare-background
     mediator.on 'showBackground' @show-background
+    mediator.on 'clearBackground' @clear-background
 
   prepare-background: (background) ~>
     @current-background = value: '', ready: false
@@ -34,7 +35,7 @@ module.exports = class Background
 
       console.log "Recieved blur stuff"
 
-      @current-background = ready: true, value: "url(#{canvas.to-data-URL 'image/png'}) center / cover"
+      @current-background = ready: true, value: "url(#{canvas.to-data-URL 'image/png'})"
 
       @current-background.ready: true
       if @show-called
@@ -45,18 +46,20 @@ module.exports = class Background
     img.src = background
 
   show-background: ~>
-    console.log "Show background called. Ready?", @current-background.ready
     if @current-background.ready
       @apply-current-background!
     else
       @show-called = true
 
+  clear-background: ~>
+    console.log "CLEARBG"
+    @$body.css \background-image, 'none'
+
   apply-current-background: ~>
-    console.log "Applying BG"
     @show-called = false
     if @current-background.ready
-      @$body.css \background, @current-background.value
-      @current-background = value: 'rgb(77, 77, 77)', ready: true
+      @$body.css \background-image, @current-background.value
+      @current-background = value: '', ready: true
 
   parse-bg: (bg) ->
     bg = bg / 'url(' |> _.last
@@ -70,5 +73,5 @@ module.exports = class Background
 
     done!
 
-  current-background: value: 'rgb(77, 77, 77)', ready: true
+  current-background: value: '', ready: true
   show-called: false

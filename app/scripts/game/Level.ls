@@ -94,6 +94,7 @@ module.exports = class Level extends Backbone.Model
       @listen-to mediator, \restart, @restart
       @listen-to mediator, \frame:process, @check-player-is-in-world
       @listen-to mediator, \kittenfound, @complete
+      @listen-to mediator, \stop-game, @complete
 
     loader.start!
 
@@ -206,7 +207,11 @@ module.exports = class Level extends Backbone.Model
       @player.body.reset!
       mediator.trigger \falloutofworld
 
-  complete: ~>
+  complete: (status, callback = -> null) ~>
+    # If a status object is passed, set 'handled' to true. This is so that if this was triggered by an
+    # event, it can know whether or not to wait for callback.
+    if status? then status.handled = true
+
     if @stopped then return
 
     @stopped = true
@@ -255,6 +260,7 @@ module.exports = class Level extends Backbone.Model
     @player.remove!
     mediator.trigger \levelout
     @stop-listening!
+    callback!
 
   start-editor: ~>
     if $ document.body .has-class \editor then return

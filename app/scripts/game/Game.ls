@@ -19,6 +19,9 @@ module.exports = class Game extends Backbone.Model
 
     bar-view = new Bar el: $ \#bar
 
+    mediator.on 'start-local-level', (level) ~>
+      @start-level "/levels/#level"
+
   defaults: level: '/levels/index.html'
 
   start-level: (l) ~>
@@ -38,11 +41,6 @@ module.exports = class Game extends Backbone.Model
     <~ $.hide-dialogues
 
     new Level $level
-
-    mediator.once \levelout, ~>
-      l = (@get \level) + 1
-      @set \level, l
-      @start-level l
 
   save: ~> @attributes |> _.clone |> JSON.stringify |> local-storage.set-item Game::savefile, _
 
