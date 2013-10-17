@@ -1,4 +1,4 @@
-require! <[ loader/LevelLoader loader/LoaderView KittenQuest ]>
+require! <[ loader/LevelLoader loader/LoaderView KittenQuest Router game/mediator ]>
 
 module.exports = class Init extends Backbone.View
   initialize: ->
@@ -6,9 +6,12 @@ module.exports = class Init extends Backbone.View
       @$ \#incompatible .show-dialogue!
       return
 
+    @$ \.loader .hide-dialogue!
+
     app = new KittenQuest el: @$ \.app
 
-    @$ \.loader .switch-dialogue app.$menu
+    router = new Router!
+    Backbone.history.start!
 
   compatible: ->
     needed = <[ csstransforms cssanimations csstransitions csscalc boxsizing canvas webworkers ]>
