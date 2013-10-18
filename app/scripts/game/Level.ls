@@ -265,10 +265,14 @@ module.exports = class Level extends Backbone.Model
   start-editor: ~>
     if $ document.body .has-class \editor then return
 
-    mediator.paused = true
+    # Put the play back where they started
+    <~ @player.body.reset
 
-    # Stop the player from rolling off an edge when we've finished editing
-    @player.body.halt!
+    # Wait 2 frames so we can ensure that the player has reset before continuing
+    <~ mediator.once 'frame:render'
+    <~ mediator.once 'frame:render'
+
+    mediator.paused = true
 
     editor = new Editor do
       html: @renderer.current-HTML

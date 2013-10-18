@@ -55,7 +55,7 @@ module.exports = class Renderer extends Backbone.View
   remove: (done = ->) ~>
     @$el.add-class \hidden
     $ document.body .remove-class \playing
-    <~ set-timeout _, 1000
+    <~ set-timeout _, 500
     @$style.remove!
     super
     done!
