@@ -9,6 +9,7 @@ transform = Modernizr.prefixed \transform
 module.exports = class Renderer extends Backbone.View
   tag-name: \div
   class-name: 'level no-html hidden'
+  hover-class: 'PLAYER_CONTACT'
 
   id: -> "levelrenderer-#{Date.now!}"
 
@@ -29,6 +30,7 @@ module.exports = class Renderer extends Backbone.View
     @mapper = new Mapper @el
 
     @listen-to mediator, \playermove @move
+    @setup-hover!
 
   set-HTML-CSS: (html, css) ~>
     @current-HTML = html
@@ -36,9 +38,14 @@ module.exports = class Renderer extends Backbone.View
 
     @$el.html html
 
-    css = new CSS css
-    css.scope \# + @el.id
-    css.to-string! |> @$style.text
+    css |> @preprocess-css |> @$style.text
+
+  preprocess-css: (source) ~>
+    css = new CSS source
+    css
+      ..scope \# + @el.id
+      ..rewrite-hover '.' + Renderer::hover-class
+      ..to-string!
 
   create-map: ~>
     @$el.css left: 0, top: 0, margin-left: 0, margin-top: 0
@@ -46,6 +53,17 @@ module.exports = class Renderer extends Backbone.View
     @map = @mapper.map
     @resize!
     @map
+
+  setup-hover: ~>
+    @listen-to mediator, 'beginContact:*&ENTITY_PLAYER' (collision) ~>
+      if el = collision.a.def.el
+        el.class-list.add Renderer::hover-class
+        el.trigger-fake-transition-start! if el.trigger-fake-transition-start?
+
+    @listen-to mediator, 'endContact:*&ENTITY_PLAYER' (collision) ~>
+      if el = collision.a.def.el
+        el.class-list.remove Renderer::hover-class
+        el.trigger-fake-transition-start! if el.trigger-fake-transition-start?
 
   render: ~>
     # Not a brilliant name, considering it only makes already-rendered stuff
