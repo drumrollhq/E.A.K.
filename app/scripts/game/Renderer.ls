@@ -38,6 +38,12 @@ module.exports = class Renderer extends Backbone.View
 
     @$el.html html
 
+    @$el.find 'style' .each (i, style) ~>
+      $style = $ style
+      console.log $style.text!
+      $style |> ( .text! ) |> @preprocess-css |> $style.text
+      console.log $style.text!
+
     css |> @preprocess-css |> @$style.text
 
   preprocess-css: (source) ~>

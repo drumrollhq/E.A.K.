@@ -33,7 +33,9 @@ module.exports = class Game extends Backbone.Model
       console.log parsed
       return
 
-    $level = $ parsed.document.children.0
+    console.log parsed
+
+    $level = $ parsed.document.last-child
 
     console.log ($level.find 'title' .text!)
     @$level-name.text ($level.find 'title' .text! or '')

@@ -275,8 +275,7 @@ module.exports = class Level extends Backbone.Model
     mediator.paused = true
 
     editor = new Editor do
-      html: @renderer.current-HTML
-      css: @renderer.current-CSS
+      renderer: @renderer
       original-HTML: @level.html
       original-CSS: @level.css
 
