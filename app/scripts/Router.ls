@@ -6,6 +6,7 @@ module.exports = class Router extends Backbone.Router
   routes:
     'about': 'about'
     'play/levels/*path': 'playLocalLevel'
+    'load': 'load'
     '*default': 'menu'
 
   stop-game: (callback) ->
@@ -27,6 +28,9 @@ module.exports = class Router extends Backbone.Router
     <- @stop-game
     mediator.trigger 'clearBackground'
     $ '#main .about' .make-only-shown-dialogue!
+
+  load: ->
+    mediator.trigger 'alert' 'I haven\'t implemented loading yet. Sorry!'
 
   play-local-level: (path) ->
     <- @stop-game

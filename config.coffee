@@ -120,7 +120,7 @@ exports.config =
     fs.writeFileSync "public/data/errors.all.html", errors
 
     ### CONDITIONAL STUFF ###
-    index = fs.readFileSync "public/index.html", encoding: "utf8"
+    game = fs.readFileSync "public/play.html", encoding: "utf8"
 
     cond = if @optimize then "UNLESS" else "IF"
     other = if @optimize then "IF" else "UNLESS"
@@ -128,14 +128,14 @@ exports.config =
     remove = new RegExp "<!--#{cond}-OPTIMIZED-->[\\s\\S]+?<!--END-#{cond}-OPTIMIZED-->", "g"
     tidy = new RegExp "(<!--#{other}-OPTIMIZED-->)|(<!--END-#{other}-OPTIMIZED-->)", "g"
 
-    index = index.replace remove, ""
-    index = index.replace tidy, ""
+    game = game.replace remove, ""
+    game = game.replace tidy, ""
 
     scriptsOut = []
     scriptsOut.push "<script src=\"#{script}\"></script>" for script in scripts
-    index = index.replace "<!--SCRIPTS-->", scriptsOut.join "\n"
+    game = game.replace "<!--SCRIPTS-->", scriptsOut.join "\n"
 
-    fs.writeFileSync "public/index.html", index
+    fs.writeFileSync "public/play.html", game
 
     ### WORKER INIT ###
     unless workerMarked
