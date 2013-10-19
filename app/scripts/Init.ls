@@ -11,7 +11,8 @@ module.exports = class Init extends Backbone.View
     game = new Game false
 
     router = new Router!
-    Backbone.history.start!
+
+    Backbone.history.start root: window.location.pathname
 
   compatible: ->
     needed = <[ csstransforms cssanimations csstransitions csscalc boxsizing canvas webworkers ]>
