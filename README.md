@@ -1,14 +1,8 @@
 HTML/CSS Game
 =============
 
-A currently unnamed platform game, where players have to modify the source
-code of the level in order to complete it.
+Erase All Kittens is a new open source game about an evil rebellion, intent on destroying all kittens on the Internet. Learn to code whilst playing to help save the kittens, and consequently save the world! We have an *early* demo you can play at http://eraseallkittens.com/
 
-The game is currently under development, and is far from done. There's a demo
-on [my website](http://j.dytry.ch/stuff/html-css-game/).
-Let me know what you think!
+We’re a team of one developer, one creative and one designer who are trying to teach kids to code with the best game we can build. We’ve created the story, structure and look of the game, and we’d like some help to develop it further, specifically from developers, illustrators, and level designers.
 
-I'd appreciate any help I can get with this. Notably, I'd like someone to help
-me out with the visual design, and someone to help me design levels. Music and
-a proper story for the game are in the works. If you have any ideas for a title,
-that would be great too!
+If you’re interested in what we’ve done so far or would like to help out, we’d love to hear from you. Fill out the form on [our website](http://eraseallkittens.com/), and we'll get in touch :) 
