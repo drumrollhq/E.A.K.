@@ -39,19 +39,20 @@
       }
 
       .intheway {
-        width: 100px;
+        width: 120px;
         height: 75px;
         position: absolute;
         left: 45%;
         top: 190px;
-        background: white;
         text-align: center;
-        padding-top: 10px;
-        background-image: url("content/common/grass-hangdown-top.png"), url("content/common/grass-hangdown-right.png"), url("content/common/grass-hangdown-left.png"), url("content/common/bricks.png");
-        background-position: top right, top right, top left, center;
-        background-repeat: repeat-x, no-repeat, no-repeat, repeat;
-        background-size: 62px 22px, 10px 44px, 10px 44px, 80px 80px;
-        box-shadow: 0 2px 0 2px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+      }
+
+      a {
+        display: block;
+        position: absolute;
+        top: 220px;
+        right: 20px;
       }
     </style>
   </head>
@@ -63,7 +64,9 @@
       Don't worry - this'll all be explained next level :) - <i>JD</i>
     </p>
     -->
-    <div class="intheway" data-dynamic>Oh no! An obstacle!</div>
+    <div class="intheway bricks" data-dynamic>Oh no! An obstacle!</div>
+
+    <a href="#/play/levels/editing-text.html">auctus</a>
 
     <div class="html">
     </div>

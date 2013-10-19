@@ -1,0 +1,15 @@
+.level a[href]
+  display inline-block
+
+.level a[href].PLAYER_CONTACT
+  animation hyperlink-anim 0.1s linear alternate infinite
+
+@keyframes hyperlink-anim
+  0%
+    transform rotate(5deg) scaleX(1.1) scaleY(0.9)
+
+  50%
+    transform rotate(0)
+
+  100%
+    transform rotate(-5deg) scaleX(1.1) scaleY(0.9)

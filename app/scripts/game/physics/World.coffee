@@ -52,6 +52,12 @@ module.exports = class World extends Backbone.Model
         mediator.trigger "#{type}Contact:#{idA}&#{idB}",
           a: a
           b: b
+          pre: evt.pre
+          post: evt.post
+          impulse: evt.impulse or {}
         mediator.trigger "#{type}Contact:#{idB}&#{idA}",
           a: a
           b: b
+          pre: evt.pre
+          post: evt.post
+          impulse: evt.impulse or {}

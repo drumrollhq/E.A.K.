@@ -2,6 +2,7 @@ require! {
   'game/Level'
   'game/Bar'
   'game/Background'
+  'game/Hyperlinker'
   'game/mediator'
 }
 

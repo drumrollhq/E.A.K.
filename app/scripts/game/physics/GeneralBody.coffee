@@ -15,6 +15,8 @@ module.exports = class GeneralBody extends Backbone.Model
       ids.push "#" + el.id if el.id isnt ""
       ids.push "." + className for className in el.classList
 
+      if s.el.tagName.toLowerCase() is 'a' then ids.push 'HYPERLINK'
+
     ids.push @data.id if @data.id isnt undefined
 
     @ids = ids

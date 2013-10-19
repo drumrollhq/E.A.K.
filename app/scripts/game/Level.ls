@@ -233,22 +233,28 @@ module.exports = class Level extends Backbone.Model
     $target-el.css position: \absolute
 
     $player-el.css @start-pos.player.{top, left, width, height}
-    $target-el.css @start-pos.target.{top, left, width, height}
+    if @start-pos.target? then $target-el.css @start-pos.target.{top, left, width, height}
 
     @hint-controller.destroy!
 
     <~ @renderer.remove
 
     # approx center
-    t = $target-el.0.get-bounding-client-rect!
-    tx = t.left + t.width / 2
-    ty = t.top + t.height / 2
     p = $player-el.0.get-bounding-client-rect!
     px = p.left + p.width / 2
     py = p.top + p.height / 2
 
-    cx = (px + tx) / 2
-    cy = (py + ty) / 2
+    if $target-el.0?
+      t = $target-el.0.get-bounding-client-rect!
+      tx = t.left + t.width / 2
+      ty = t.top + t.height / 2
+
+      cx = (px + tx) / 2
+      cy = (py + ty) / 2
+
+    else
+      cx = px
+      cy = py
 
     $player-target.css (Modernizr.prefixed "transformOrigin"), "#{cx}px #{cy}px"
     $player-target.add-class \level-entity-fadeout
