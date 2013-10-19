@@ -71,6 +71,8 @@ module.exports = class Renderer extends Backbone.View
         el.class-list.remove Renderer::hover-class
         el.trigger-fake-transition-start! if el.trigger-fake-transition-start?
 
+  append: ~> @$el.append it
+
   render: ~>
     # Not a brilliant name, considering it only makes already-rendered stuff
     # visible

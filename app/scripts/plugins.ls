@@ -34,7 +34,7 @@ $.hide-dialogues = (fn = -> void) ->
     window.performance = now: -> Date.now! - first
 
 # Custom elements for KQ levels:
-extras = <[ target hints pointer alert ]>
+extras = <[ target hints pointer alert hidden ]>
 extras |> each _, (-> document.create-element it)
 extras |> each _, (-> Slowparse.HTMLParser::html-elements.push it)
 

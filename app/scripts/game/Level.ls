@@ -62,7 +62,8 @@ module.exports = class Level extends Backbone.Model
 
     conf.borders = borders
 
-    @add-target level.find 'target'
+    'target' |> level.find |> @add-target
+    'head hidden' |> level.find |> ( .children! ) |> ( .add-class 'entity' ) |> ( .attr 'data-ignore' 'data-ignore' ) |> @renderer.append
 
     loader = new ElementLoader el: @renderer.$el
     loader-view = new LoaderView model: loader
