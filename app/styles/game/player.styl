@@ -1,31 +1,57 @@
+sprite(n)
+  background-position (-40px * (n - 1)) top
+
 .level .player.entity
   width 40px
   height 40px
-  background-color cyan
 
   .player-inner
     width 40px
     height 40px
-    background-image url('/content/common/player/static.png')
-    background-size 100%
-    background-position center
+    background-image url('/content/common/player.png')
+    background-size auto 40px
     background-repeat no-repeat
+
+    sprite 10
+
 
   &.player-left .player-inner
     transform scaleX(-1)
 
-  &.player-running
-    background-color lime
+  &.player-idle .player-inner
+    animation player-idle-cycle 10s infinite
 
-  &.player-jumping
-    background-color magenta
+  &.player-running .player-inner
+    animation player-walk-cycle 0.4s steps(3) infinite
 
-  &.player-jumping-forward
-    background-color yellow
+  &.player-jumping .player-inner
+    sprite 9
 
-  &.player-falling
-    background-color red
+  &.player-jumping-forward .player-inner
+    sprite 8
 
-  &.player-pain
-    background-color blue
+  &.player-falling .player-inner
+    sprite 7
 
+  &.player-pain .player-inner
+    sprite 5
+
+@keyframes player-walk-cycle
+  from
+    sprite 1
+
+  to
+    sprite 4
+
+@keyframes player-idle-cycle
+  0%
+    sprite 10
+
+  69.99%
+    sprite 10
+
+  70%
+    sprite 11
+
+  100%
+    sprite 11

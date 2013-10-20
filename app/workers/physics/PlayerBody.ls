@@ -63,6 +63,8 @@ module.exports = class PlayerBody extends DynamicBody
     if @is-on-floor!
       if 0.7 < Math.abs velocity.x
         classes.push 'running'
+      else
+        classes.push 'idle'
 
     else
       if velocity.y > 12

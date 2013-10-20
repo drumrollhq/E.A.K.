@@ -104,7 +104,7 @@ module.exports = class Player extends Backbone.View
 
       console.log 'Player contact impulse: ' + impulse
 
-      if impulse > 7.5 then
+      if impulse > 8.5 then
         @classes-disabled = true
         @apply-classes ['pain']
         <~ set-timeout _, 500
