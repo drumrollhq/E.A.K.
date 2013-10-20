@@ -17,6 +17,7 @@ module.exports = class PlayerBody extends DynamicBody
   roll: (torque) ~>
     av = @angular-velocity!
     if max-angular-velocity > Math.abs av or torque / av < 0 then @apply-torque torque
+    @body.SetAngularDamping 5 - Math.abs torque
 
   jump: !~>
     edge = @body.GetContactList!

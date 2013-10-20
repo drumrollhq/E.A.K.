@@ -6,6 +6,7 @@ Vector = Box2D.Common.Math.b2Vec2
 module.exports = class GeneralBody
   (def, @uid, @scale) ->
     @bd = new b2BodyDef!
+    @bd <<< def.{}bd
     @def = def
     if def.width is 0 then def.width = 1
     if def.height is 0 then def.height = 1
@@ -22,6 +23,7 @@ module.exports = class GeneralBody
 
     new-fixture = ~>
       fd = new b2FixtureDef!
+      console.log @data.{density, friction, restitution}
       fd <<< @data.{density, friction, restitution}
 
       if @data.sensor is true then fd.is-sensor = true
@@ -91,6 +93,8 @@ module.exports = class GeneralBody
   angle: (a) ~> if a? then @body.SetAngle a else @body.GetAngle!
 
   angular-velocity: ~> @body.GetAngularVelocity!
+
+  linear-velocity: ~> @body.GetLinearVelocity!
 
   apply-torque: (n) ~> @body.ApplyTorque n
 
