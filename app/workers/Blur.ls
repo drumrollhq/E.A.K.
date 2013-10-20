@@ -254,7 +254,7 @@ BlurStack = ->
 mediator.on 'blur', (img, done) ->
   console.log "Blur data got"
 
-  blur img, 50
+  blur img, 10
 
   console.log "Blur done"
 
