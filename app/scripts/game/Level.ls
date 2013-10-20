@@ -142,7 +142,7 @@ module.exports = class Level extends Backbone.Model
 
   restart: ~>
     @renderer.resize!
-    @redraw-from @level.html, @level.css
+    @redraw-from @conf.html, @conf.css
     @player.body.reset!
 
   redraw-from: (html, css) ~>
@@ -283,8 +283,8 @@ module.exports = class Level extends Backbone.Model
 
     editor = new Editor do
       renderer: @renderer
-      original-HTML: @level.html
-      original-CSS: @level.css
+      original-HTML: @conf.html
+      original-CSS: @conf.css
 
     editor-view = new EditorView model: editor, render-el: @renderer.$el, el: $ \#editor
     editor-view.render!
