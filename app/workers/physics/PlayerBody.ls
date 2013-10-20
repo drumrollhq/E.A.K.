@@ -6,8 +6,8 @@ b2WorldManifold = Box2D.Collision.b2WorldManifold
 const jump-limit = Math.PI / 2,
   jump-a = Math.PI / 2 - jump-limit,
   jump-b = Math.PI / 2 + jump-limit,
-  max-angular-velocity = 15,
-  jump-impulse = new Vector(0, -7)
+  max-angular-velocity = 10,
+  jump-impulse = new Vector(0, -5)
 
 module.exports = class PlayerBody extends DynamicBody
   (def, uid, scale) ->

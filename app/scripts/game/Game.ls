@@ -34,9 +34,8 @@ module.exports = class Game extends Backbone.Model
       console.log parsed
       return
 
-    console.log parsed
-
-    $level = $ parsed.document.last-child
+    for node in parsed.document.child-nodes
+      if typeof! node is 'HTMLHtmlElement' then $level = $ node
 
     console.log ($level.find 'title' .text!)
     @$level-name.text ($level.find 'title' .text! or '')
