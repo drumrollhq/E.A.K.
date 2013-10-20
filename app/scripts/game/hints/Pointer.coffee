@@ -16,7 +16,9 @@ module.exports = class PointerHint extends Backbone.View
     @hint = hint
 
   render: =>
+    console.log @hint.target
     $target = $ @hint.target
+    console.log $target
     bbox = $target[0].getBoundingClientRect()
 
     if @hint.side
