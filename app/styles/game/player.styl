@@ -1,0 +1,28 @@
+.level .player.entity
+  width 40px
+  height 40px
+  background-color cyan
+
+  .player-inner
+    width 40px
+    height 40px
+    background-image url('/content/common/player/static.png')
+    background-size 100%
+    background-position center
+    background-repeat no-repeat
+
+  &.player-left .player-inner
+    transform scaleX(-1)
+
+  &.player-running
+    background-color lime
+
+  &.player-jumping
+    background-color magenta
+
+  &.player-jumping-forward
+    background-color yellow
+
+  &.player-falling
+    background-color red
+

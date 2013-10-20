@@ -4,12 +4,15 @@ require! {
 }
 
 module.exports = class Player extends Backbone.View
-  tag-name: \img
+  tag-name: \div
   class-name: 'player entity'
 
   initialize: (start = {x: 0, y: 0}, w, h) ->
-    @el.src = "/content/at.png"
     @el.width = @el.height = 40
+
+    @$inner-el = $ '<div></div>'
+      ..add-class 'player-inner'
+      ..append-to @$el
 
     @$el.attr \data-ignore true
 
@@ -65,6 +68,8 @@ module.exports = class Player extends Backbone.View
 
     @listen-to mediator, \uncaughtTap -> b.jump!
 
+    last-classes = []
+
     @listen-to mediator, \frame:process ~>
       if req-tilt
         req-tilt := false
@@ -72,8 +77,16 @@ module.exports = class Player extends Backbone.View
       else
         acc = if left then -torque else if right then torque else 0
 
-      b.roll acc
+      movedata <~ b.roll acc
 
-      p <- b.absolute-position
+      {position, classes} = movedata
 
-      mediator.trigger \playermove, p
+      mediator.trigger \playermove, position
+
+      for classname in last-classes
+        if classname not in classes then @$el.remove-class "player-#classname"
+
+      for classname in classes
+        if classname not in last-classes then @$el.add-class "player-#classname"
+
+      last-classes := classes

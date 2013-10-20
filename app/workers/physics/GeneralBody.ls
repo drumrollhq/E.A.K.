@@ -88,8 +88,6 @@ module.exports = class GeneralBody
     p = @body.GetPosition!
     x: p.x * @scale, y: p.y * @scale
 
-  absolute-position: ~> @position-uncorrected!
-
   angle: (a) ~> if a? then @body.SetAngle a else @body.GetAngle!
 
   angular-velocity: ~> @body.GetAngularVelocity!
@@ -97,6 +95,8 @@ module.exports = class GeneralBody
   linear-velocity: ~> @body.GetLinearVelocity!
 
   apply-torque: (n) ~> @body.ApplyTorque n
+
+  movement: ~> position: @position-uncorrected!, velocity: @linear-velocity!
 
   def-defaults:
     x: 0

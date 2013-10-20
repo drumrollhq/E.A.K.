@@ -49,3 +49,4 @@ module.exports = class GeneralBody extends Backbone.Model
   angular-velocity: (callback) ~> @call \angularVelocity, callback
   linear-velocity: (callback) ~> @call \lineatVelocity, callback
   apply-torque: (n, callback) ~> @call \applyTorque, [n], callback
+  movement: (callback) ~> @call \movement callback

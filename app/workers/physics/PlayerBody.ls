@@ -13,13 +13,16 @@ module.exports = class PlayerBody extends DynamicBody
   (def, uid, scale) ->
     super def, uid, scale
     @is-player = yes
+    @last-direction = 'left'
 
   roll: (torque) ~>
     av = @angular-velocity!
     if max-angular-velocity > Math.abs av or torque / av < 0 then @apply-torque torque
     @body.SetAngularDamping 5 - Math.abs torque
 
-  jump: !~>
+    @get-move-data!
+
+  is-on-floor: ~>
     edge = @body.GetContactList!
 
     while edge?
@@ -36,7 +39,38 @@ module.exports = class PlayerBody extends DynamicBody
       angle = Math.atan2 collision-normal.y, collision-normal.x
 
       if jump-a < angle < jump-b
-        @body.ApplyImpulse jump-impulse, @body.GetWorldCenter!
-        break
+        return true
 
       edge = edge.next
+
+    return false
+
+  jump: !~> if @is-on-floor! then @body.ApplyImpulse jump-impulse, @body.GetWorldCenter!
+
+  get-move-data: ~>
+    velocity = @linear-velocity!
+    position = @position-uncorrected!
+
+    direction =
+      | velocity.x > 1 => 'left'
+      | velocity.x < -1 => 'right'
+      | otherwise => @last-direction
+
+    @last-direction := direction
+
+    classes = [direction]
+
+    if @is-on-floor!
+      if 0.7 < Math.abs velocity.x
+        classes.push 'running'
+
+    else
+      if velocity.y > 12
+        classes.push 'falling'
+      else if 3 > Math.abs velocity.x
+        classes.push 'jumping-forward'
+      else
+        classes.push 'jumping'
+
+    {position, classes}
+
