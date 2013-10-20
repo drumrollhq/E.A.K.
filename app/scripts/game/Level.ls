@@ -89,7 +89,7 @@ module.exports = class Level extends Backbone.Model
       @add-player conf.player
       @add-borders conf.borders
 
-      @hint-controller = new HintController hints: conf.[]hints
+      @hint-controller = new HintController hints: (level.find 'head hints' .children!)
 
       @listen-to mediator, \edit, @start-editor
       @listen-to mediator, \restart, @restart
