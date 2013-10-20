@@ -3,6 +3,8 @@ require! {
   'game/mediator'
 }
 
+{reduce} = _
+
 module.exports = class Player extends Backbone.View
   tag-name: \div
   class-name: 'player entity'
@@ -23,10 +25,21 @@ module.exports = class Player extends Backbone.View
 
     @body = new PlayerBody start.{x, y}, w, h, @el
 
+    @last-classes = []
+    @classes-disabled = false
+
     @setup-keyboard-controls!
 
-    @listen-to mediator, 'beginContact:ENTITY_PLAYER&ENTITY_TARGET', ->
-      mediator.trigger \kittenfound
+    @listen-to mediator, 'beginContact:ENTITY_PLAYER&ENTITY_TARGET', -> mediator.trigger \kittenfound
+
+  apply-classes: (classes) ~>
+    for classname in @last-classes
+      if classname not in classes then @$el.remove-class "player-#classname"
+
+    for classname in classes
+      if classname not in @last-classes then @$el.add-class "player-#classname"
+
+    @last-classes := classes
 
   setup-keyboard-controls: ->
     const torque = 5
@@ -69,6 +82,7 @@ module.exports = class Player extends Backbone.View
     @listen-to mediator, \uncaughtTap -> b.jump!
 
     last-classes = []
+    classes-disabled = false
 
     @listen-to mediator, \frame:process ~>
       if req-tilt
@@ -83,10 +97,16 @@ module.exports = class Player extends Backbone.View
 
       mediator.trigger \playermove, position
 
-      for classname in last-classes
-        if classname not in classes then @$el.remove-class "player-#classname"
+      unless @classes-disabled => @apply-classes classes
 
-      for classname in classes
-        if classname not in last-classes then @$el.add-class "player-#classname"
+    @listen-to mediator, 'beginContact:ENTITY_PLAYER&*' (contact) ~>
+      impulse = contact.impulse.normal-impulses |> reduce _, (a, b) -> a + b
 
-      last-classes := classes
+      console.log 'Player contact impulse: ' + impulse
+
+      if impulse > 7.5 then
+        @classes-disabled = true
+        @apply-classes ['pain']
+        <~ set-timeout _, 500
+        @classes-disabled = false
+
