@@ -10,6 +10,7 @@ require! {
   'game/editor/EditorView'
   'game/hints/HintController'
   'game/Player'
+  'game/Targets'
   'game/mediator'
 }
 
@@ -62,7 +63,10 @@ module.exports = class Level extends Backbone.Model
 
     conf.borders = borders
 
-    'target' |> level.find |> @add-target
+    add-targets = Targets renderer
+
+    if targets = level.find 'meta[name=targets]' .attr 'value' then add-targets targets
+
     'head hidden' |> level.find |> ( .children! ) |> ( .add-class 'entity' ) |> ( .attr 'data-ignore' 'data-ignore' ) |> @renderer.append
 
     loader = new ElementLoader el: @renderer.$el
@@ -94,7 +98,9 @@ module.exports = class Level extends Backbone.Model
       @listen-to mediator, \edit, @start-editor
       @listen-to mediator, \restart, @restart
       @listen-to mediator, \frame:process, @check-player-is-in-world
-      @listen-to mediator, \kittenfound, @complete
+      @listen-to mediator, \kittenfound, ->
+        # TODO: proper success thing.
+        mediator.trigger \alert 'Yay! You saved a kitten!'
       @listen-to mediator, \stop-game, @complete
 
     loader.start!

@@ -50,13 +50,9 @@
     and make it use proper css on body, but for now I'm in a massive rush. -->
     <meta name="background" value="white url(/content/level2/bg.png) center center / 1000px 380px">
 
-    <!-- This is our first custom kittenquest tag: target. The target element. This is what the
-    player is trying to get to. We put it in the head rather than the body so the player can't just
-    edit it to move it closer. The contents of <target> should be a single element, which will be
-    appended to the document. -->
-    <target>
-      <img src="/content/level2/kitten-2.gif" style="position: absolute; top: 30px; right: 30px;" data-dynamic>
-    </target>
+    <!-- The 'targets' meta element is for marking the targets that the player must try to reach
+    in the level. The value should be a list of coordinates: 'x1 y1, x2 y2, x3 y3' -->
+    <meta name="targets" value="-100 0, 0 0, 100 0">
 
     <!-- The <hints> element contains a list of hints to show the user. Each hint has an 'enter'
     attribute, which contains the name of an event, or several events separated by spaces. It can also

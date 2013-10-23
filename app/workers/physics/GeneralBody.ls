@@ -26,7 +26,7 @@ module.exports = class GeneralBody
       console.log @data.{density, friction, restitution}
       fd <<< @data.{density, friction, restitution}
 
-      if @data.sensor is true then fd.is-sensor = true
+      if @data.sensor? then fd.is-sensor = true
 
       @fds[*] = fd
 
