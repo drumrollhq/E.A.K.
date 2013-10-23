@@ -83,7 +83,7 @@ module.exports = class Renderer extends Backbone.View
     $ document.body .remove-class \playing
     <~ set-timeout _, 500
     @$style.remove!
-    super
+    super!
     done!
 
   resize: ~>
