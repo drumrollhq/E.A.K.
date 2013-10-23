@@ -20,8 +20,8 @@
         Jump using the <kbd>W</kbd>, <kbd>space</kbd>, or <kbd>↑</kbd> keys.
         You might need a run up to get over this obstacle!
       </pointer>
-      <pointer target="[data-target]" enter="hint-jump:exit" exit="beginContact:ENTITY_PLAYER&ENTITY_TARGET">
-        Get to the kitten gif to complete the level!
+      <pointer target=".level a" enter="hint-jump:exit" exit="beginContact:ENTITY_PLAYER&HYPERLINK">
+        This is a hyperlink. Jump up and down on it to see where it leads.
       </pointer>
     </hints>
 
@@ -69,7 +69,7 @@
     -->
     <div class="intheway" data-dynamic>Oh no! An obstacle!</div>
 
-    <a href="#/play/levels/editing-text.html">auctus</a>
+    <a class="exit" href="#/play/levels/editing-text.html">auctus</a>
 
     <div class="html">
     </div>
