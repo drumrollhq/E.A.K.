@@ -100,8 +100,6 @@ module.exports = class Player extends Backbone.View
     @listen-to mediator, 'beginContact:ENTITY_PLAYER&*' (contact) ~>
       impulse = contact.impulse.normal-impulses |> reduce _, (a, b) -> a + b
 
-      console.log 'Player contact impulse: ' + impulse
-
       if impulse > 8.5 then
         @classes-disabled = true
         @apply-classes ['pain']
