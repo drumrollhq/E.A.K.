@@ -30,8 +30,6 @@ module.exports = class Player extends Backbone.View
 
     @setup-keyboard-controls!
 
-    @listen-to mediator, 'beginContact:ENTITY_PLAYER&ENTITY_TARGET', -> mediator.trigger \kittenfound
-
   apply-classes: (classes) ~>
     for classname in @last-classes
       if classname not in classes then @$el.remove-class "player-#classname"

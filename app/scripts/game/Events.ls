@@ -13,3 +13,9 @@ mediator.on 'beginContact:ENTITY_TARGET&ENTITY_PLAYER endContact:ENTITY_TARGET&E
 
   $ target.def.el .remove!
   target.destroy!
+
+  unless target.destroyed
+    mediator.trigger 'kittenfound'
+
+  target.destroyed = true
+
