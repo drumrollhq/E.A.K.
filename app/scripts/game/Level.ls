@@ -67,7 +67,7 @@ module.exports = class Level extends Backbone.Model
 
     if targets = level.find 'meta[name=targets]' .attr 'value' then add-targets targets
 
-    'head hidden' |> level.find |> ( .children! ) |> ( .add-class 'entity' ) |> ( .attr 'data-ignore' 'data-ignore' ) |> @renderer.append
+    'head hidden' |> level.find |> ( .children! ) |> ( .add-class 'entity' ) |> @renderer.append
 
     loader = new ElementLoader el: @renderer.$el
     loader-view = new LoaderView model: loader
@@ -123,7 +123,7 @@ module.exports = class Level extends Backbone.Model
       body
 
   remove-DOM-bodies: ~>
-    for body in @dom-bodies => unless body.def.data.target? then body.destroy!
+    for body in @dom-bodies => unless body.def.el.class-list.contains 'entity' then body.destroy!
 
   add-target: (target-container) ~>
     $target = target-container.children! .first!
