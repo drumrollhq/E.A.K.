@@ -98,9 +98,9 @@ module.exports = class Level extends Backbone.Model
       @listen-to mediator, \edit, @start-editor
       @listen-to mediator, \restart, @restart
       @listen-to mediator, \frame:process, @check-player-is-in-world
-      @listen-to mediator, \kittenfound, ->
-        # TODO: proper success thing.
-        mediator.trigger \alert 'Yay! You saved a kitten!'
+      # @listen-to mediator, \kittenfound, ->
+      #   # TODO: proper success thing.
+      #   mediator.trigger \alert 'Yay! You saved a kitten!'
       @listen-to mediator, \stop-game, @complete
 
     loader.start!

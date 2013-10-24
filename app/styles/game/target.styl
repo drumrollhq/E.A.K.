@@ -1,7 +1,47 @@
 .level .entity.entity-target
   width 30px
   height 30px
+  margin-left -15px
+  margin-top -15px
   position absolute
   z-index 10000
 
-  background lime
+  background-size cover
+  background-position center
+
+  &.found
+    animation target-exit 3s ease
+
+@keyframes target-exit
+  0%
+    width 30px
+    height 30px
+    margin-top -15px
+    margin-left -15px
+    transform translate(0, 0)
+    opacity 1
+
+  20%
+    width 150px
+    height 150px
+    margin-top -75px
+    margin-left -75px
+    transform translate(0, -100px)
+    opacity 1
+
+  80%
+    width 150px
+    height 150px
+    margin-top -75px
+    margin-left -75px
+    transform translate(0, -100px)
+    opacity 1
+
+  100%
+    width 150px
+    height 150px
+    margin-top -75px
+    margin-left -75px
+    transform translate(0, -300px)
+    opacity 0
+
