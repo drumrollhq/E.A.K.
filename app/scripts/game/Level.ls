@@ -27,12 +27,12 @@ module.exports = class Level extends Backbone.Model
 
     renderer = @renderer = new Renderer html: conf.html, css: conf.css, root: $ \#levelcontainer
 
-    if bg = level.find 'meta[name=background]' .attr 'value'
+    if bg = level.find 'meta[name=background]' .attr \value
       renderer.el.style.background = bg
       mediator.trigger 'prepareBackground', bg
       @conf.background = bg
 
-    if size = level.find 'meta[name=size]' .attr 'value'
+    if size = level.find 'meta[name=size]' .attr \value
       [w, h] = size / ' '
       w = parse-float w
       h = parse-float h
@@ -44,16 +44,18 @@ module.exports = class Level extends Backbone.Model
     renderer.set-width w
     renderer.set-height h
 
-    if player = level.find 'meta[name=player]' .attr 'value'
+    if player = level.find 'meta[name=player]' .attr \value
       [x, y] = player / ' '
       x = parse-float x
       y = parse-float y
     else
       x = y = 0
 
-    conf.player = {x, y}
+    colour = (level.find 'meta[name=player-color]' .attr \value) or 'black'
 
-    if borders = level.find 'meta[name=borders]' .attr 'value'
+    conf.player = {x, y, colour}
+
+    if borders = level.find 'meta[name=borders]' .attr \value
       borders = borders / ' '
     else
       borders = <[ all ]>
@@ -65,7 +67,7 @@ module.exports = class Level extends Backbone.Model
 
     add-targets = Targets renderer
 
-    if targets = level.find 'meta[name=targets]' .attr 'value' then add-targets targets
+    if targets = level.find 'meta[name=targets]' .attr \value then add-targets targets
 
     'head hidden' |> level.find |> ( .children! ) |> ( .add-class 'entity' ) |> @renderer.append
 

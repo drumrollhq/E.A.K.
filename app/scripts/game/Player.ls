@@ -9,8 +9,10 @@ module.exports = class Player extends Backbone.View
   tag-name: \div
   class-name: 'player entity'
 
-  initialize: (start = {x: 0, y: 0}, w, h) ->
+  initialize: (start = {x: 0, y: 0, colour: 'white'}, w, h) ->
     @el.width = @el.height = 40
+
+    @$el.add-class "player-colour-#{start.colour}"
 
     @$inner-el = $ '<div></div>'
       ..add-class 'player-inner'
@@ -99,6 +101,8 @@ module.exports = class Player extends Backbone.View
 
     @listen-to mediator, 'beginContact:ENTITY_PLAYER&*' (contact) ~>
       impulse = contact.impulse.normal-impulses |> reduce _, (a, b) -> a + b
+
+      console.log \impulse: impulse
 
       if impulse > 8.5 then
         @classes-disabled = true

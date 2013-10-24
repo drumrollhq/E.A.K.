@@ -5,6 +5,7 @@ walk = (css, type, fn) ->
     else if rule.rules?
       walk rule, type, fn
 
+
 module.exports = class CSS
   (css) ->
     @source = css
@@ -14,7 +15,9 @@ module.exports = class CSS
   scope: (scope) ~>
     @css.use (css) ->
       walk css, 'rule', (rule) ->
-        rule.selectors .= map (selector) -> "#scope #selector"
+        rule.selectors .= map (selector) ->
+          | selector.trim! is 'body' => "#scope"
+          | otherwise => "#scope #selector"
 
   rewrite-hover: (new-hover) ~>
     @css.use (css) ->
