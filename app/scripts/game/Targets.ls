@@ -17,5 +17,6 @@ module.exports = (container, targets) -->
       ..add-class 'entity entity-target'
       ..attr 'data-sensor', true
       ..attr 'data-id', 'ENTITY_TARGET'
+      ..attr 'data-target', true
       ..css left: target.x + cx, top: target.y + cy
       ..append-to container.el
