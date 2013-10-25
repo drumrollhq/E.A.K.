@@ -104,9 +104,17 @@ module.exports = class Player extends Backbone.View
 
       console.log \impulse: impulse
 
-      if impulse > 8.5 then
+      if 8.5 < impulse < 12.7
         @classes-disabled = true
         @apply-classes ['pain']
         <~ set-timeout _, 500
         @classes-disabled = false
 
+      else if 12.7 <= impulse
+        mediator.trigger \falltodeath
+        @body.halt!
+        @apply-classes ['pain']
+        @classes-disabled = true
+        <~ set-timeout _, 400
+        @classes-disabled = false
+        @body.reset!
