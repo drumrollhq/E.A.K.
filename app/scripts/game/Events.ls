@@ -12,7 +12,7 @@ mediator.on 'beginContact:HYPERLINK&ENTITY_PLAYER' (contact) ->
 
   impulse = contact.impulse.normal-impulses
 
-  if impulse.0 > 5.5
+  if 5.5 < impulse.0 < 8.5
     window.location.hash = contact.a.def.el.hash
 
 mediator.on 'beginContact:ENTITY_TARGET&ENTITY_PLAYER endContact:ENTITY_TARGET&ENTITY_PLAYER' (contact) ->
