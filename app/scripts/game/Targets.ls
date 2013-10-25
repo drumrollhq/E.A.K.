@@ -1,6 +1,6 @@
 map = (fn, arr) --> _.map arr, fn
 
-const available-kittens = 3
+const available-kittens = 5
 
 parse-targets = ->
   it / ',' |> map (
