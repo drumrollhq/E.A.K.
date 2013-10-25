@@ -5,28 +5,42 @@
 
     <meta name="size" value="480 1000">
     <meta name="borders" value="all">
-    <meta name="player" value="-230 450">
+    <meta name="player" value="-230 -450">
     <meta name="player-color" value="white">
 
     <style>
       body {
         background: black;
       }
+
+      h1, h2, h3, h4, h5, h6 {
+        border-top: 1px solid white;
+        background: url(/content/common/lines-white.png) top / 15px 15px repeat-x,
+          url(/content/common/lines.png) top / 15px 15px repeat;
+        padding: 10px;
+        padding-top: 20px;
+        color: white;
+        margin-top: 80px;
+        margin-bottom: 180px;
+      }
+
+      h1, h3, h5 {
+        float: left;
+      }
+
+      h2, h4, h6 {
+        float: right;
+        position: relative;
+        top: -150px;
+      }
     </style>
   </head>
   <body>
-    <!--
-    <p>
-      Hello curious game player! This is the edit view. You won't need to use it to
-      complete this one, but feel free to poke around and change things if you want.
-      Don't worry - this'll all be explained next level :) - <i>JD</i>
-    </p>
-    -->
-    <div class="intheway" data-dynamic>Oh no! An obstacle!</div>
-
-    <a class="exit" href="#/play/levels/editing-text.html">auctus</a>
-
-    <div class="html">
-    </div>
+    <h1>SUPER HEADING!</h1>
+    <h2>SUPER HEADING!</h2>
+    <h3>SUPER HEADING!</h3>
+    <h4>SUPER HEADING!</h4>
+    <h5>SUPER HEADING!</h5>
+    <h6>SUPER HEADING!</h6>
   </body>
 </html>
