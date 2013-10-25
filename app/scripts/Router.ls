@@ -7,6 +7,7 @@ module.exports = class Router extends Backbone.Router
     'about': 'about'
     'play/levels/*path': 'playLocalLevel'
     'load': 'load'
+    'home': 'goHome'
     '*default': 'menu'
 
   stop-game: (callback) ->
@@ -31,6 +32,8 @@ module.exports = class Router extends Backbone.Router
 
   load: ->
     mediator.trigger 'alert' 'I haven\'t implemented loading yet. Sorry!'
+
+  go-home: -> location.href = '/'
 
   play-local-level: (path) ->
     <- @stop-game
