@@ -5,8 +5,9 @@
 
     <meta name="size" value="480 1000">
     <meta name="borders" value="all">
-    <meta name="player" value="-230 -450">
+    <meta name="player" value="-230 450">
     <meta name="player-color" value="white">
+    <meta name="targets" value="100 -255, -100 -95, 100 65, -100 225, 100 385">
 
     <style>
       body {
@@ -21,20 +22,52 @@
         padding-top: 20px;
         color: white;
         margin-bottom: 270px;
+        position: absolute;
+        top: 900px;
       }
 
       h1, h3, h5 {
-        float: left;
-        position: relative;
-        top: 80px;
+        left: 0;
       }
 
       h2, h4, h6 {
-        float: right;
-        position: relative;
-        top: -90px;
+        right: 0;
+      }
+
+      h1 {
+        top: 100px;
+      }
+
+      h2 {
+        top: 260px;
+      }
+
+      h3 {
+        top: 420px;
+      }
+
+      h4 {
+        top: 580px;
+      }
+
+      h5 {
+        top: 740px;
+      }
+
+      h6 {
+        top: 900px;
+      }
+
+      a.exit {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
       }
     </style>
+
+    <hidden>
+      <a href="#/about" class="exit">done</a>
+    </hidden>
   </head>
   <body>
     <h1>SUPER HEADING!</h1>
