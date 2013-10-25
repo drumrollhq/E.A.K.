@@ -110,7 +110,7 @@ module.exports = class Player extends Backbone.View
         <~ set-timeout _, 500
         @classes-disabled = false
 
-      else if 12.7 <= impulse
+      else if 13 <= impulse
         mediator.trigger \falltodeath
         @body.halt!
         @apply-classes ['pain']
