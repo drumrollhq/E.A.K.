@@ -69,7 +69,7 @@ clearMarks = (marks) ->
       mark.clear()
 
 showElement = (el) ->
-  el.scrollIntoView(true)
+  # el.scrollIntoView(true)
 
 showError = (cm, err) ->
 

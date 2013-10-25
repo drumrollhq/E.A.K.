@@ -95,6 +95,8 @@ module.exports = class Renderer extends Backbone.View
     win-width = @$window.width!
     win-height = @$window.height! - offset-top
 
+    console.log win-width, win-height
+
     if @editor then win-width = win-width / 2
 
     scrolling = x: no, y: no
@@ -144,12 +146,16 @@ module.exports = class Renderer extends Backbone.View
     w = @width
     h = @height
 
+    console.log 'x: ', position.x, 'y: ', position.y, 'sx: ', s.x, 'sy: ', s.y, w, h
+
     t =
       x: if s.x then ((w + 2*pad) - s.x) * (position.x / w) - pad else 0
       y: if s.y then ((h + 2*pad) - s.y) * (position.y / h) - pad else 0
 
     @el.style[transform] = if t.x is 0 and t.y is 0 then '' else "translate3d(#{-t.x}px, #{-t.y}px, 0)"
 
-  clear-transform: ~> @el.style[transform] = 'translate3d(0, 0, 0)'
+  clear-transform: ~>
+    @el.style[transform] = 'translate3d(0, 0, 0)'
+    @last-position = x: 0, y: 0
 
   $window: $ window
