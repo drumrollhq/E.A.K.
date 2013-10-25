@@ -26,6 +26,10 @@ module.exports = class Mapper
   build: ->
     window.scroll-to 0, 0
 
+    offset = @el.get-bounding-client-rect!.{top, left}
+
+    console.log \offset offset
+
     map = []
     nodes = @el.children
 
@@ -34,8 +38,8 @@ module.exports = class Mapper
       style = node |> window.get-computed-style |> @normalise-style
 
       c =
-        x: (bounds.left + bounds.right) / 2
-        y: (bounds.top + bounds.bottom) / 2
+        x: ((bounds.left + bounds.right) / 2) - offset.left
+        y: ((bounds.top + bounds.bottom) / 2) - offset.top
 
       if style.border-radius isnt "0px 0px 0px 0px / 0px 0px 0px 0px"
         br = style.border-radius.replace '/ ' '' .split ' '
