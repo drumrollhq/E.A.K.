@@ -6,6 +6,8 @@ require! {
 
 transform = Modernizr.prefixed \transform
 
+const offset-top = 50
+
 module.exports = class Renderer extends Backbone.View
   tag-name: \div
   class-name: 'level no-html hidden'
@@ -54,6 +56,7 @@ module.exports = class Renderer extends Backbone.View
       ..to-string!
 
   create-map: ~>
+    @clear-transform!
     @$el.css left: 0, top: 0, margin-left: 0, margin-top: 0
     @mapper.build!
     @map = @mapper.map
@@ -90,7 +93,7 @@ module.exports = class Renderer extends Backbone.View
     el-width = @width = @$el.width!
     el-height = @height = @$el.height!
     win-width = @$window.width!
-    win-height = @$window.height!
+    win-height = @$window.height! - offset-top
 
     if @editor then win-width = win-width / 2
 
@@ -105,10 +108,10 @@ module.exports = class Renderer extends Backbone.View
       @$el.css left: '50%', margin-left: -el-width / 2
 
     if win-height < el-height
-      scrolling.y = win-height
-      @$el.css top: 0, margin-top: 0
+      scrolling.y = win-height - offset-top
+      @$el.css top: 0, margin-top: offset-top
     else
-      @$el.css top: '50%', margin-top: -el-height / 2
+      @$el.css top: '50%', margin-top: (offset-top - el-height) / 2
 
     @scrolling = scrolling
 
@@ -125,6 +128,8 @@ module.exports = class Renderer extends Backbone.View
 
   move: (position) ~>
     l = @last-position.{x, y}
+
+    position.y -= offset-top
 
     t =
       x: l.x + (position.x - l.x) / damping

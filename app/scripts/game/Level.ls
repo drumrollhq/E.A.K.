@@ -303,6 +303,8 @@ module.exports = class Level extends Backbone.Model
     @renderer.editor = true
     @renderer.resize!
 
+    @renderer.clear-transform!
+
     <~ editor.once \save _
 
     editor-view.restore-entities!
