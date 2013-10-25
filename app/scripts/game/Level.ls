@@ -289,6 +289,8 @@ module.exports = class Level extends Backbone.Model
 
     mediator.paused = true
 
+    @renderer.clear-transform!
+
     editor = new Editor do
       renderer: @renderer
       original-HTML: @conf.html

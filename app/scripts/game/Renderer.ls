@@ -145,4 +145,6 @@ module.exports = class Renderer extends Backbone.View
 
     @el.style[transform] = if t.x is 0 and t.y is 0 then '' else "translate3d(#{-t.x}px, #{-t.y}px, 0)"
 
+  clear-transform: ~> @el.style[transform] = 'translate3d(0, 0, 0)'
+
   $window: $ window
