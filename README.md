@@ -6,6 +6,8 @@ Erase All Kittens
 ## Try it online
 We have an *early* demo you can play at [http://eraseallkittens.com/play.html](http://eraseallkittens.com/play.html) that we demonstrate during the [#MozFest 2013]().
 
+![Screenshot Erase All Kittens!](screenshots-Erase-All-Kittens.png)
+
 ## Team & project
 We’re a team of one developer, one creative and one designer who are trying to **teach kids to code with the best game we can build**.
 
