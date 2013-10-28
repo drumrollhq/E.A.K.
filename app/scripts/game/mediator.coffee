@@ -178,7 +178,7 @@ tiltHandler = (e) ->
   # Restore the sign
   tilt *= -1 if negative
 
-  mediator.trigger "tilt", tilt
+  # mediator.trigger "tilt", tilt
 
 window.addEventListener "deviceorientation", tiltHandler, false
 
