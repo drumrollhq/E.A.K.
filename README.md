@@ -1,5 +1,5 @@
-HTML/CSS Game
-=============
+Erase All Kittens
+=================
 
 Erase All Kittens is a new open source game about an evil rebellion, intent on destroying all kittens on the Internet. Learn to code whilst playing to help save the kittens, and consequently save the world! We have an *early* demo you can play at http://eraseallkittens.com/
 
