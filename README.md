@@ -48,3 +48,10 @@ Then, go to the app local server using [http://localhost:3333/](http://localhost
     http://localhost:3333/play.html
 
 Enjoy hack-learning ;)
+
+## Roadmap
+
+* more levels ;
+* more kitties >o< ;
+* …
+* localization support.
