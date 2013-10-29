@@ -1,9 +1,24 @@
+# Mapper is used for retrieving a description/map of the shapes of nodes in a
+# DOM element. We feed it the level element, and it spits out a list of shapes
+# we can use in the physics engine.
+#
+# TODO:
+# - Support CSS transforms
+# - Support CSS animations
+# - Support weird combinations of border-radius
+
 module.exports = class Mapper
   (@el) ->
 
+  # normalise-style is used to make sure that style objects are consistent
+  # across browsers.
   normalise-style: (css) ->
+    # stuff from get-computed-style is immutable, so we clone it
     css = _.clone css
 
+    # Currently, this function deals mainly with border-radius related issues.
+    # The border-radius value doesn't have a consistent value across values, so
+    # we assemble one from the individual corners
     br1 = br2 = ''
 
     for corner in <[ TopLeft TopRight BottomRight BottomLeft ]>
@@ -23,36 +38,46 @@ module.exports = class Mapper
 
     css
 
+  # Build is the main function we expose. It returns the map, and sets this.map
+  # to the map.
   build: ->
+    # Measurements are relative to the position in the window, not the document
     window.scroll-to 0, 0
 
+    # Make sure we don't get errors due to offset
     offset = @el.get-bounding-client-rect!.{top, left}
-
-    console.log \offset offset
 
     map = []
     nodes = @el.children
 
     for node in nodes
+      # Fetch measurements from the browser
       bounds = node.get-bounding-client-rect!
       style = node |> window.get-computed-style |> @normalise-style
 
+      # Find the center of the element
       c =
         x: ((bounds.left + bounds.right) / 2) - offset.left
         y: ((bounds.top + bounds.bottom) / 2) - offset.top
 
       if style.border-radius isnt "0px 0px 0px 0px / 0px 0px 0px 0px"
+        # There are some rounded corners
         br = style.border-radius.replace '/ ' '' .split ' '
+
+        # Check if borders are all the same or not
         uniform = yes
 
         last = br.0
         for r in br => if r isnt last then uniform = false
 
+        # If all the borders are uniform
         if uniform
+          # Find radius
           r = parse-float br.0
 
+          # Calculate inner width and height
           w = bounds.width - r * 2
-          w = bounds.height - r * 2
+          h = bounds.height - r * 2
 
           if bounds.width is wounds.height and r >= bounds.width / 2
             # Perfect circle
@@ -148,10 +173,12 @@ module.exports = class Mapper
                 radius: r
 
         else
+          # TODO
           console.log 'Err: not uniform'
           console.log (_.clone bounds), _.clone style
 
       else
+        # Rectangles are easy.
         obj =
           type: \rect
           x: c.x
@@ -159,8 +186,10 @@ module.exports = class Mapper
           width: bounds.width
           height: bounds.height
 
+      # Save the node we're measuring with the outputted object
       obj.el = node
 
+      # Pull out all the data-* attributes, and add them to a data object on obj
       data = {}
       for attribute in node.attributes
         name = attribute.name
@@ -169,6 +198,8 @@ module.exports = class Mapper
 
       obj.data = data
 
+      # Check that there's no data-ignore attribute - if there is, don't add
+      # this object to the map.
       if data.ignore is undefined then map.push obj
 
     @map = map
