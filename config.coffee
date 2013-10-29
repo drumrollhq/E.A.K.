@@ -89,28 +89,7 @@ exports.config =
       name = name.replace "app/workers/", ""
 
   onCompile: ->
-    ### LEVELS ###
     fs.mkdirSync "public/data" unless fs.existsSync "public/data"
-
-    # concat and copy level definitions
-    levels = (fs.readdirSync "levels").filter (el) ->
-      isDir "levels/#{el}"
-
-    levels = levels.map (el) ->
-      html: (fs.readFileSync "levels/#{el}/html.html", encoding: "utf8")
-      css: (fs.readFileSync "levels/#{el}/style.css", encoding: "utf8")
-      config: (JSON.parse fs.readFileSync "levels/#{el}/config.js", encoding: "utf8")
-
-    basefile = if optimize then "levels/base-production" else "levels/base-dev"
-
-    data =
-      levels: levels
-      base: (fs.readFileSync basefile, encoding: "utf8")
-
-    levelsFile = JSON.stringify data
-    levelsFile = levelsFile.replace /\{\{base\}\}/g, data.base
-
-    fs.writeFileSync "public/data/levels.json", levelsFile
 
     ### SLOWPARSE ###
     errors = fs.readFileSync "bower_components/slowparse/spec/errors.base.html", encoding: "utf8"
