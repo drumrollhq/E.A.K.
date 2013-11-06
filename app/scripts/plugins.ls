@@ -1,3 +1,6 @@
+# This file contains mostly boring jQuery plugins. Stuff gets a little more
+# interesting near the bottom where we register some custom elements for using
+# with SlowParse
 $.fn.show-dialogue = -> @add-class \active .remove-class \disabled
 
 $.fn.hide-dialogue = -> @remove-class \active .add-class \disabled
@@ -28,10 +31,10 @@ $.hide-dialogues = (fn = -> void) ->
   set-timeout fn, d
   @
 
-  # performance.now polyfill
-  first = Date.now!
-  unless window.performance?
-    window.performance = now: -> Date.now! - first
+# performance.now polyfill
+first = Date.now!
+unless window.performance?
+  window.performance = now: -> Date.now! - first
 
 # Prevent clicking on in-game links
 $ document .on \click '.level a[href]' (e) -> e.prevent-default!
