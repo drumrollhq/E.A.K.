@@ -72,3 +72,6 @@ There are a few unit tests in `test` - don't worry about these. They are unmaint
 - `tilt` - abstracted device orientation events. Currently disabled.
 - `uncaughtTap` - triggered when the screen is tapped / clicked but the event is not caught elsewhere
 - `keypress:[keylist]`, `keyup:[keylist]`, `keydown[keylist]` - document key events for the corresponding handlers, where keylist is a comma-separated list of keys - e.g. `keydown:w,up,space` is used for making the player jump
+- `prepareBackground` - takes a CSS background property, finds an  image URL, and blurs it. It can be shown later with:
+- `showBackground` - Show the previously prepared background. If the background isn't prepared yet, it will be shown as soon as it is ready
+- `clearBackground` - Clear a background previously set by the background manager.
