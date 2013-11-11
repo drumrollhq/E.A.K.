@@ -88,6 +88,11 @@ exports.config =
       name = name.replace "app/scripts/", ""
       name = name.replace "app/workers/", ""
 
+  paths:
+    l10n:
+      content: 'l10n-content'
+      templates: 'l10n-templates'
+
   onCompile: ->
     fs.mkdirSync "public/data" unless fs.existsSync "public/data"
 
