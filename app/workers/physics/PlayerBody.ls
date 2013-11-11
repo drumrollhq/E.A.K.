@@ -7,6 +7,7 @@ const jump-limit = Math.PI / 2,
   jump-a = Math.PI / 2 - jump-limit,
   jump-b = Math.PI / 2 + jump-limit,
   max-angular-velocity = 10,
+  max-linear-velocity = 4,
   jump-impulse = new Vector(0, -5)
 
 module.exports = class PlayerBody extends DynamicBody
@@ -19,6 +20,11 @@ module.exports = class PlayerBody extends DynamicBody
     av = @angular-velocity!
     if max-angular-velocity > Math.abs av or torque / av < 0 then @apply-torque torque
     @body.SetAngularDamping 5 - Math.abs torque
+
+    unless @is-on-floor!
+      lv = @linear-velocity! .x
+      torque = torque / 2
+      if max-linear-velocity > Math.abs lv or torque / lv < 0 then @apply-force new Vector torque, 0
 
     @get-move-data!
 

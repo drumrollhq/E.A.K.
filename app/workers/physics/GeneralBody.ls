@@ -96,6 +96,8 @@ module.exports = class GeneralBody
 
   apply-torque: (n) ~> @body.ApplyTorque n
 
+  apply-force: (f) ~> @body.ApplyForce f, @body.GetWorldCenter!
+
   movement: ~> position: @position-uncorrected!, velocity: @linear-velocity!
 
   def-defaults:

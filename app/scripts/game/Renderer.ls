@@ -146,7 +146,7 @@ module.exports = class Renderer extends Backbone.View
     w = @width
     h = @height
 
-    console.log 'x: ', position.x, 'y: ', position.y, 'sx: ', s.x, 'sy: ', s.y, w, h
+    # console.log 'x: ', position.x, 'y: ', position.y, 'sx: ', s.x, 'sy: ', s.y, w, h
 
     t =
       x: if s.x then ((w + 2*pad) - s.x) * (position.x / w) - pad else 0
