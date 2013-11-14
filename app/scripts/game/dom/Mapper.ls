@@ -79,7 +79,7 @@ module.exports = class Mapper
           w = bounds.width - r * 2
           h = bounds.height - r * 2
 
-          if bounds.width is wounds.height and r >= bounds.width / 2
+          if bounds.width is bounds.height and r >= bounds.width / 2
             # Perfect circle
             obj =
               type: \circle
@@ -116,22 +116,23 @@ module.exports = class Mapper
               type: \compound
               x: c.x
               y: c.y
-              shapes:
-                type: \rect
+              shapes: [
+              * type: \rect
                 x: 0
                 y: 0
                 width: bounds.width
                 height: h
-              ,
-                type: \circle
+
+              * type: \circle
                 x: 0
                 y: -h / 2
                 radius: r
-              ,
-                type: \circle
+
+              * type: \circle
                 x: 0
                 y: h / 2
                 radius: r
+              ]
 
           else
             # Uniform rounded rect
@@ -139,38 +140,39 @@ module.exports = class Mapper
               type: \compound
               x: c.x
               y: c.y
-              shapes:
-                type: \rect
+              shapes: [
+              * type: \rect
                 x: 0
                 y: 0
                 width: bounds.width
                 height: h
-              ,
-                type: \rect
+
+              * type: \rect
                 x: 0
                 y: 0
                 width: bounds.width
                 height: h
-              ,
-                type: \circle
+
+              * type: \circle
                 x: w/2
                 y: h/2
                 radius: r
-              ,
-                type: \circle
+
+              * type: \circle
                 x: -w/2
                 y: h/2
                 radius: r
-              ,
-                type: \circle
+
+              * type: \circle
                 x: -w/2
                 y: -h/2
                 radius: r
-              ,
-                type: \circle
+
+              * type: \circle
                 x: w/2
                 y: -h/2
                 radius: r
+              ]
 
         else
           # TODO
