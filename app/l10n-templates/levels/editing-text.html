@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Editing Text</title>
+    <title>{{title}}</title>
 
     <meta name="size" value="1000 580">
     <meta name="borders" value="top left right">
@@ -11,11 +11,10 @@
 
     <hints>
       <pointer target=".ledge.right" enter="time:1" exit="falloutofworld edit" name="oops">
-        Try to jump over to this ledge
+        {{hints.jump}}
       </pointer>
       <pointer target=".edit" enter="falloutofworld" exit="edit">
-        Uh oh! You need to make the ledge longer. Click 'Edit' or press the <kbd>E</kbd> key to
-        modify the level.
+        {{{hints.edit}}}
       </pointer>
     </hints>
 
@@ -47,26 +46,15 @@
   </head>
   <body>
     <!--
-      <p>
-        This is the HTML source to this level. It describes the stuff shown on screen
-        to the right. The code below is the ledge you are on. It starts with:
-      </p>
-      <p>
-        <code>&lt;p ...&gt;</code> and ends with <code>&lt;<strong>/</strong>p&gt;</code>.
-      </p>
-      <p>
-        The stuff inside is the
-        text you can see. The more text, the longer the ledge. Can you change the
-        writing in the middle to make the ledge long enough to reach the other side?
-      </p>
+      {{{comments.main}}}
     -->
-    <p class="ledge">I'm a ledge! Woohoo!</p>
+    <p class="ledge">{{{html.imALedge}}}</p>
 
     <!--
       <p>
-        This is the other platform, over on the far right. You can edit this too!
+        {{{comments.other}}}
       </p>
     -->
-    <p class="ledge right">Hey! I'm a ledge too!</p>
+    <p class="ledge right">{{{html.imALedgeToo}}}</p>
   </body>
 </html>

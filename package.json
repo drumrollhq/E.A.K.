@@ -26,6 +26,6 @@
     "handlebars-brunch": "~1.7.2",
     "glob": "~3.2.6",
     "LiveScript-brunch": "~1.6.0",
-    "l10n-lsc-brunch": "~0.1.0"
+    "l10n-lsc": "~0.1.0"
   }
 }

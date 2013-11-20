@@ -1,0 +1,22 @@
+title: 'Erase All Kittens'
+new-game: 'New Game'
+load-game: 'Load Game'
+about: 'About'
+about-description: 'Erase All Kittens is a platform game with a difference: the levels are written in HTML and CSS, and the only way to get past them is to use your coding skills
+  to hack the level.'
+about-instructions: 'Use the <kbd>A</kbd> and <kbd>D</kbd> or <kbd>&larr;</kbd> and <kbd>&rarr;</kbd> keys to go left and right. Use <kbd>W</kbd>, <kbd>space</kbd>, or <kbd>&uarr;</kbd> to jump.'
+have-fun: 'Have fun!'
+back: 'Back'
+todo: 'To do.'
+loading: 'Loading...'
+old-browser-msg-title: 'Sorry!'
+old-browser-msg-html: 'Unfortunately, your browser doesn\'t support everything we need for you to play Erase All Kittens!. Try installing <a href="http://www.mozilla.org/en-US/firefox/">Firefox</a>.'
+
+menu:
+  restart: 'Restart'
+  edit: 'Edit'
+  save: 'Save'
+  reset: 'Reset'
+  cancel: 'Cancel'
+  undo: 'Undo'
+  redo: 'Redo'
