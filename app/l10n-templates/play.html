@@ -3,50 +3,46 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Erase All Kittens!</title>
-  <link rel="stylesheet" href="css/app.css">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
   <div id="main" class="html">
     <div class="app">
       <div class="menu dialogue">
-        <h1>Erase All Kittens!</h1>
+        <h1>{{title}}</h1>
         <ul>
-          <li class="new"><a href="#/play/levels/index.html">New Game</a></li>
-          <li class="load"><a href="#/load">Load Game</a></li>
-          <li class="about"><a href="#/about">About</a></li>
+          <li class="new"><a href="#/play/levels/index.html">{{newGame}}</a></li>
+          <li class="load"><a href="#/load">{{loadGame}}</a></li>
+          <li class="about"><a href="#/about">{{about}}</a></li>
         </ul>
       </div>
 
       <div class="about dialogue">
-        <h2>About</h2>
+        <h2>{{about}}</h2>
 
-        <p>Erase All Kittens is a platform game with a difference: the levels are
-          written in HTML and CSS, and the only way to get past them is to use
-          your coding skills to hack the level.</p>
+        <p>{{aboutDescription}}</p>
 
-        <p>Use the <kbd>A</kbd> and <kbd>D</kbd> or <kbd>&larr;</kbd> and
-          <kbd>&rarr;</kbd> keys to go left and right. Use <kbd>W</kbd>,
-          <kbd>space</kbd>, or <kbd>&uarr;</kbd> to jump.</p>
+        <p>{{{aboutInstructions}}}</p>
 
-        <p>Have fun!
+        <p>{{haveFun}}
           - <a href="http://j.dytry.ch/" target="_blank">SomeHats</a></p>
 
-        <a href="#/" class="back">&larr; Back</a>
+        <a href="#/" class="back">&larr; {{back}}</a>
       </div>
 
       <div class="intro dialogue">
-        <p>To do</p>
+        <p>{{todo}}</p>
       </div>
 
       <div class="levelname dialogue">
-        <h2>Level <span></span></h2>
+        <!-- <h2>Level <span></span></h2> -->
         <h4></h4>
       </div>
     </div>
 
     <div class="loader dialogue active">
-      <h2>Loading...</h2>
+      <h2>{{loading}}</h2>
       <div class="stages"></div>
       <div class="bar">
         <div></div>
@@ -55,35 +51,32 @@
     </div>
 
     <div class="dialogue" id="incompatible">
-      <h3>Sorry!</h3>
-      <p>Unfortunately, your browser doesn't support everything we need for
-        you to play Erase All Kittens!. Try installing
-        <a href="http://www.mozilla.org/en-US/firefox/">Firefox</a>.
-      </p>
+      <h3>{{oldBrowserMsgTitle}}</h3>
+      <p>{{{oldBrowserMsgHtml}}}</p>
     </div>
   </div>
 
   <div id="bar" class="topbar">
     <div class="levelname right">
-      <h2>Level <span></span></h2>
+      <!-- <h2>Level <span></span></h2> -->
       <h4></h4>
     </div>
     <div class="debug-data right"></div>
     <div class="left">
-      <button class="restart">Restart</button>
-      <button class="edit">Edit</button>
+      <button class="restart">{{menu.restart}}</button>
+      <button class="edit">{{menu.edit}}</button>
     </div>
   </div>
 
   <div id="editor">
     <header class="topbar">
       <div class="right">
-        <button class="save">Save</button>
-        <button class="reset">Reset</button>
-        <button class="cancel">Cancel</button>
+        <button class="save">{{menu.save}}</button>
+        <button class="reset">{{menu.reset}}</button>
+        <button class="cancel">{{menu.cancel}}</button>
       </div>
-      <button class="undo">Undo</button>
-      <button class="redo">Redo</button>
+      <button class="undo">{{menu.undo}}</button>
+      <button class="redo">{{menu.redo}}</button>
     </header>
     <section class="editor-html"></section>
   </div>
@@ -92,15 +85,15 @@
   </div>
 
   <!--UNLESS-OPTIMIZED-->
-    <script src="js/vendor.js"></script>
-    <script src="js/app.js"></script>
+    <script src="/js/vendor.js"></script>
+    <script src="/js/app.js"></script>
     <!--SCRIPTS-->
   <!--END-UNLESS-OPTIMIZED-->
 
   <script>
   <!--IF-OPTIMIZED-->
     document.addEventListener("DOMContentLoaded", function() {
-      var scripts = ["js/vendor.js", "js/app.js"],
+      var scripts = ["/js/vendor.js", "/js/app.js"],
         loaded = 0;
 
       var total = [],

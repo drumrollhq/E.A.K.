@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Erase All Kittens</title>
-    <link rel="stylesheet" href="css/app.css">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/css/app.css">
     <meta name="viewport" content="width=device-width, user-scalable=false;">
   </head>
   <!--
@@ -15,48 +15,44 @@
   -->
   <body class="signup">
     <section class="dialogue active html">
-      <h1>Erase All Kittens</h1>
+      <h1>{{title}}</h1>
       <p>
-        Erase All Kittens is a new open source game about an evil rebellion, intent on destroying all kittens on the Internet.
-        Learn to code whilst playing to help save the kittens, and consequently save the world!
+        {{intro}}
       </p>
 
       <p>
-        The code is <a href="http://github.com/SomeHats/Erase-All-Kittens">available on Github</a> and there's a <a href="http://eraseallkittens.com/play">really early demo</a> for you to play, too.
+        {{{links}}}
       </p>
 
       <p>
-        We’re a team of one developer, one creative and one designer who are trying to teach kids to code with
-        the best game we can build. We’ve created the story, structure and look of the game, and we’d like
-        some help to develop it further, specifically from developers, illustrators, and level designers.
+        {{team}}
       </p>
 
       <p>
-        If you’re interested in what we’ve done so far or would like to help out, we’d love to hear from you.
-        Fill out the form below, and we'll get in touch :)
+        {{interested}}
       </p>
 
       <h2>
-        Yay email form!
+        {{form.title}}
       </h2>
       <!-- Begin MailChimp Signup Form -->
       <div id="mc_embed_signup">
         <form action="http://eraseallkittens.us7.list-manage2.com/subscribe/post?u=41bfffb3f1074558ba7a56fe5&amp;id=5891a36a1a" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
           <div class="mc-field-group">
             <label for="mce-EMAIL">
-              Email Address <span class="asterisk">*</span>
+              {{form.email}} <span class="asterisk">*</span>
             </label>
             <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
           </div>
           <div class="mc-field-group">
             <label for="mce-FNAME">
-              First Name
+              {{form.firstName}}
             </label>
             <input type="text" value="" name="FNAME" class="" id="mce-FNAME">
           </div>
           <div class="mc-field-group">
             <label for="mce-LNAME">
-              Last Name
+              {{form.lastName}}
             </label>
             <input type="text" value="" name="LNAME" class="" id="mce-LNAME">
           </div>
@@ -72,10 +68,7 @@
       <!--End mc_embed_signup-->
 
       <footer>
-        EAK is made in Brighton and London by
-          <a href="http://j.dytry.ch/" target="_blank">Joe Dytrych</a> (<a href="https://twitter.com/somehats" target="_blank">@SomeHats</a>),
-          Dee Saigal (<a href="https://twitter.com/deesai7" target="_blank">@deesai7</a>), and
-          Johnie Clayton.
+        {{{madeby}}}
       </footer>
     </section>
 

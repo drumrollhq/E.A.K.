@@ -1,6 +1,13 @@
 path = require "path"
 fs = require "fs"
 glob = require "glob"
+L10N = require "l10n-lsc"
+
+l10n = new L10N
+  content: 'app/l10n-content'
+  templates: 'app/l10n-templates'
+  out: 'public'
+  defaultLang: 'en'
 
 isDir = (name) -> fs.lstatSync(name).isDirectory()
 
@@ -49,13 +56,13 @@ getJoinTo = =>
       pOut = file.replace /^app\/scripts/, "js"
       pOut = pOut.replace /\.coffee$/, ".js"
       out[pOut] = new RegExp "^#{file}$"
-      scripts.push pOut
+      scripts.push '/' + pOut
 
     for file in glob.sync "app/scripts/**/*.ls"
       pOut = file.replace /^app\/scripts/, "js"
       pOut = pOut.replace /\.ls$/, ".js"
       out[pOut] = new RegExp "^#{file}$"
-      scripts.push pOut
+      scripts.push '/' + pOut
 
     out['js/vendor.js'] = vexp
     out['js/worker.js'] = workerBits
@@ -89,6 +96,9 @@ exports.config =
       name = name.replace "app/workers/", ""
 
   onCompile: ->
+    # Run localization before anything else:
+    l10n.localise()
+
     fs.mkdirSync "public/data" unless fs.existsSync "public/data"
 
     ### SLOWPARSE ###
@@ -99,22 +109,24 @@ exports.config =
     fs.writeFileSync "public/data/errors.all.html", errors
 
     ### CONDITIONAL STUFF ###
-    game = fs.readFileSync "public/play.html", encoding: "utf8"
+    htmlFile = glob.sync "public/**/*.html"
+    for file in htmlFile
+      game = fs.readFileSync file, encoding: "utf8"
 
-    cond = if @optimize then "UNLESS" else "IF"
-    other = if @optimize then "IF" else "UNLESS"
+      cond = if @optimize then "UNLESS" else "IF"
+      other = if @optimize then "IF" else "UNLESS"
 
-    remove = new RegExp "<!--#{cond}-OPTIMIZED-->[\\s\\S]+?<!--END-#{cond}-OPTIMIZED-->", "g"
-    tidy = new RegExp "(<!--#{other}-OPTIMIZED-->)|(<!--END-#{other}-OPTIMIZED-->)", "g"
+      remove = new RegExp "<!--#{cond}-OPTIMIZED-->[\\s\\S]+?<!--END-#{cond}-OPTIMIZED-->", "g"
+      tidy = new RegExp "(<!--#{other}-OPTIMIZED-->)|(<!--END-#{other}-OPTIMIZED-->)", "g"
 
-    game = game.replace remove, ""
-    game = game.replace tidy, ""
+      game = game.replace remove, ""
+      game = game.replace tidy, ""
 
-    scriptsOut = []
-    scriptsOut.push "<script src=\"#{script}\"></script>" for script in scripts
-    game = game.replace "<!--SCRIPTS-->", scriptsOut.join "\n"
+      scriptsOut = []
+      scriptsOut.push "<script src=\"#{script}\"></script>" for script in scripts
+      game = game.replace "<!--SCRIPTS-->", scriptsOut.join "\n"
 
-    fs.writeFileSync "public/play.html", game
+      fs.writeFileSync file, game
 
     ### WORKER INIT ###
     unless workerMarked

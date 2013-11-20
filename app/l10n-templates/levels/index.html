@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Moving About</title>
+    <title>{{title}}</title>
 
     <meta name="size" value="640 480">
     <meta name="borders" value="all">
@@ -10,15 +10,13 @@
 
     <hints>
       <pointer target=".player" enter="time:2" exit="keydown:left,right,a,d" exit-delay="0.5" name="leftright">
-        This is you! You can move left and right with the <kbd>A</kbd> and <kbd>D</kbd>,
-        or <kbd>←</kbd> and <kbd>→</kbd> keys.
+        {{{hints.leftright}}}
       </pointer>
       <pointer target=".intheway" enter="hint-leftright:exit" exit="keydown:up,space,w" name="jump">
-        Jump using the <kbd>W</kbd>, <kbd>space</kbd>, or <kbd>↑</kbd> keys.
-        You might need a run up to get over this obstacle!
+        {{{hints.jump}}}
       </pointer>
       <pointer target=".level a" enter="hint-jump:exit">
-        This is a hyperlink. Jump up and down on it to see where it leads!
+        {{{hints.hyperlink}}}
       </pointer>
     </hints>
 
@@ -59,12 +57,10 @@
   <body>
     <!--
     <p>
-      Hello curious game player! This is the edit view. You won't need to use it to
-      complete this one, but feel free to poke around and change things if you want.
-      Don't worry - this'll all be explained next level :) - <i>JD</i>
+      {{comment}}
     </p>
     -->
-    <div class="intheway" data-dynamic>Oh no! An obstacle!</div>
+    <div class="intheway" data-dynamic>{{html.obstacle}}</div>
 
     <a class="exit" href="#/play/levels/editing-text.html">auctus</a>
 
