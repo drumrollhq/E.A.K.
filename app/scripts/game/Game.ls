@@ -21,9 +21,9 @@ module.exports = class Game extends Backbone.Model
     bar-view = new Bar el: $ \#bar
 
     mediator.on 'start-local-level', (level) ~>
-      @start-level "/levels/#level"
+      @start-level "levels/#level"
 
-  defaults: level: '/levels/index.html'
+  defaults: level: 'levels/index.html'
 
   start-level: (l) ~>
     level-source <~ $.get l, _
