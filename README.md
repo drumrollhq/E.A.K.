@@ -61,7 +61,9 @@ EAK is very loosely based around Backbone, mainly for its event system. `app/scr
 
 Most of the code is in `app/scripts/game`. `app/scripts` contains a few utilities and `Init`, the module that starts up the Game. `app/scripts/WebWorker` provides a layer of abstraction over Web Workers (worker modules are in `app/workers`). `app/game/dom/mapper` is a utility that carefully maps elements in the dom to be fed into the physics engine.
 
-EAK has basic support for internationalisation. Files in `app/l10n-templates` are handlebars templates, that are merged with the contents of `app/l10n-content` to provide translated files. To create a new translation, just copy an existsing directory in `app/l10n-content` and start hacking! :)
+EAK has basic support for internationalisation. Files in `app/l10n-templates` are handlebars templates, that are merged with the contents of `app/l10n-content` to provide translated files. To create a new translation, just copy an existsing directory in `app/l10n-content` and start hacking! :) 
+
+The l10n stuff doesn't support Brunch's watch functionality yet, but I'm working on it. 
 
 ## Mediator Events
 - `frame:process` - this is triggered either 60 or 30 times a second. Any non-render tasks to be run every frame (e.g. physics)
