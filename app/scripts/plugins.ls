@@ -1,3 +1,6 @@
+# Globally expose prelude-ls:
+window <<< require 'lib/prelude-ls'
+
 # This file contains mostly boring jQuery plugins. Stuff gets a little more
 # interesting near the bottom where we register some custom elements for using
 # with SlowParse

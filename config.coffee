@@ -9,11 +9,6 @@ l10n = new L10N
   out: 'public'
   defaultLang: 'en'
 
-isDir = (name) -> fs.lstatSync(name).isDirectory()
-
-hasPrefix = (str, sub) ->
-  (str.substr 0, sub.length) is sub
-
 vendorInclude = [
   "beautify-css.js"
   "beautify-html.js"
@@ -25,6 +20,11 @@ workerInclude = [
   "bower_components/box2dweb/Box2dWeb-2.1.a.3.js"
   "bower_components/underscore/underscore.js"
 ]
+
+isDir = (name) -> fs.lstatSync(name).isDirectory()
+
+hasPrefix = (str, sub) ->
+  (str.substr 0, sub.length) is sub
 
 optimize = ('--optimize' in process.argv) or ('-o' in process.argv)
 
