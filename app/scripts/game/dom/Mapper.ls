@@ -7,6 +7,8 @@
 # - Support CSS animations
 # - Support weird combinations of border-radius
 
+clone = (obj) -> {[key, value] for key, value of obj}
+
 module.exports = class Mapper
   (@el) ->
 
@@ -14,7 +16,7 @@ module.exports = class Mapper
   # across browsers.
   normalise-style: (css) ->
     # stuff from get-computed-style is immutable, so we clone it
-    css = _.clone css
+    css = clone css
 
     # Currently, this function deals mainly with border-radius related issues.
     # The border-radius value doesn't have a consistent value across values, so
@@ -36,6 +38,24 @@ module.exports = class Mapper
 
     css.border-radius = "#{br1.trim!} / #{br2.trim!}"
 
+    # Normalize transform:
+    transform = css.transform or css.webkit-transform or css.moz-transform
+    if transform is 'none'
+      css.rotate = 0
+    else
+      matrix = transform.match /^matrix\((-?[0-9]+.[0-9]+),\s?(-?[0-9]+.[0-9]+),\s?(-?[0-9]+.[0-9]+),\s?(-?[0-9]+.[0-9]+),\s0,\s0\)$/
+      # Matrix should look like this:
+      # ( a b )
+      # ( c d )
+      [a, b, c, d] = matrix |> tail |> map parse-float
+
+      # Check it's only rotation:
+      unless a is d and b is -c
+        alert 'Uh oh. We can only do rotations at the moment...'
+
+      # Save the rotation, in radians:
+      css.rotate = asin b
+
     css
 
   # Build is the main function we expose. It returns the map, and sets this.map
@@ -55,10 +75,23 @@ module.exports = class Mapper
       bounds = node.get-bounding-client-rect!
       style = node |> window.get-computed-style |> @normalise-style
 
+      aabb =
+        top: bounds.top - offset.top
+        left: bounds.left - offset.left
+        bottom: bounds.bottom - offset.top
+        right: bounds.right - offset.left
+
       # Find the center of the element
       c =
         x: ((bounds.left + bounds.right) / 2) - offset.left
         y: ((bounds.top + bounds.bottom) / 2) - offset.top
+
+      # If there's a rotation, unapply the transform:
+      if style.rotate isnt 0
+        node.style.transform = node.style.webkit-transform = node.style.moz-transform = 'none'
+
+        # Use a new bounding box for subsequent measurements:
+        bounds = node.get-bounding-client-rect!
 
       if style.border-radius isnt "0px 0px 0px 0px / 0px 0px 0px 0px"
         # There are some rounded corners
@@ -188,8 +221,17 @@ module.exports = class Mapper
           width: bounds.width
           height: bounds.height
 
+      # Reapply rotation:
+      if style.rotate isnt 0
+        node.style.transform = node.style.webkit-transform = node.style.moz-transform = "rotate(#{style.rotate}rad)"
+
+      obj.rotation = style.rotate
+
       # Save the node we're measuring with the outputted object
       obj.el = node
+
+      # Save bounding box
+      obj.aabb = aabb
 
       # Pull out all the data-* attributes, and add them to a data object on obj
       data = {}
