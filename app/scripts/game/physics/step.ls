@@ -7,7 +7,7 @@ require! {
 
 const max-fall-speed = 10px,
   fall-acc = 0.3px,
-  max-move-speed = 6px,
+  max-move-speed = 5px,
   move-acc = 0.3px,
   move-acc-in-air = 0.2px
   move-damp = 1px,
@@ -105,7 +105,6 @@ module.exports = step = (state, t) ->
           if (Math.abs x-ofs) > (Math.abs y-ofs)
             obj.p.y += y-ofs
             obj.v.y = 0
-            obj.jump-frames = -1
 
             # Is the obj on top of the thing?
             if on-top-of-thing
@@ -121,7 +120,6 @@ module.exports = step = (state, t) ->
         else if y-ofs?
           obj.p.y += y-ofs
           obj.v.y = 0
-          obj.jump-frames = -1
 
           # Is the obj on top of the thing?
           if on-top-of-thing
@@ -165,7 +163,6 @@ module.exports = step = (state, t) ->
 
 # Manage user input on a player:
 handle-input = (node, scale) ->
-  console.log JSON.stringify keys
   # Moving right:
   if keys.right
     # If the object is on a thing, move with standard acceleration. If not, move with in-air acceleration
@@ -203,23 +200,40 @@ handle-input = (node, scale) ->
       node.v.x += if node.state is 'on-thing' then move-damp else move-damp-in-air
       if node.v.x > 0 then node.v.x = 0
 
-  # Jumping. The jump logic is fairly complex:
+  # Jumping:
+  # jump-frames is a timer that counts a the number of frames the player can be
+  # accelerating for. If it is >= 0 it is a timer, if it is -1 the player is ready
+  # to jump but not jumping, and if it is -2 the player is prevented from jumping
+  #
   # If the jump key is pressed and (the player is on the ground or mid-jump):
-  if (keys.jump) and (node.state is 'on-thing' or node.jump-frames > 0)
-    # Make the player ump up:
+  if keys.jump and (node.state is 'on-thing' or node.jump-frames > 0) and (node.jump-frames isnt -2)
+    # Make the player jump up:
     node.v.y = - jump-speed
 
     # Start a timer for how long a player can jump for
-    if node.jump-frames <= 0 then node.jump-frames = max-jump-frames
+    if node.jump-frames is -1
+      console.log 'start jump timer:', node.jump-frames
+      node.jump-frames = max-jump-frames
+
     node.jump-frames--
 
   # If the player has only just released the jump key OR the jump-timer is finished:
-  else if (keys.jump is false and node.jump-frames > 0) or (keys.jump and node.jump-frames is 0)
+  else if (keys.jump is false and node.jump-frames > 0)
+    # Slow down the player
+    node.v.y = node.v.y / 2
+
+    # Get the player ready for the next jump
+    node.jump-frames = -1
+
+  else if keys.jump and node.jump-frames is 0
     # Slow down the player
     node.v.y = node.v.y / 2
 
     # Prevent the player from jumping again.
-    node.jump-frames = -1
+    node.jump-frames = -2
+
+  else if keys.jump and node.jump-frames is -2
+    node.jump-frames = -2
 
   # Otherwise, keep the player on the ground
   else
