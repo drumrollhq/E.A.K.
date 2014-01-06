@@ -1,17 +1,15 @@
 require! {
-  'game/physics/World'
-  'game/physics/DynamicBody'
-  'game/physics/StaticBody'
-  'game/Renderer'
   'game/dom/Mapper'
-  'loader/ElementLoader'
-  'loader/LoaderView'
   'game/editor/Editor'
   'game/editor/EditorView'
   'game/hints/HintController'
+  'game/physics'
+  'game/Renderer'
   'game/Player'
   'game/Targets'
   'game/mediator'
+  'loader/ElementLoader'
+  'loader/LoaderView'
 }
 
 {map, reduce} = _
@@ -27,11 +25,13 @@ module.exports = class Level extends Backbone.Model
 
     renderer = @renderer = new Renderer html: conf.html, css: conf.css, root: $ \#levelcontainer
 
+    # Find and prepare the background image
     if bg = level.find 'meta[name=background]' .attr \value
       renderer.el.style.background = bg
       mediator.trigger 'prepareBackground', bg
       @conf.background = bg
 
+    # Set the level size
     if size = level.find 'meta[name=size]' .attr \value
       [w, h] = size / ' '
       w = parse-float w
@@ -44,6 +44,7 @@ module.exports = class Level extends Backbone.Model
     renderer.set-width w
     renderer.set-height h
 
+    # Set player coordinates
     if player = level.find 'meta[name=player]' .attr \value
       [x, y] = player / ' '
       x = parse-float x
@@ -51,10 +52,12 @@ module.exports = class Level extends Backbone.Model
     else
       x = y = 0
 
+    # Set player colour
     colour = (level.find 'meta[name=player-color]' .attr \value) or 'black'
 
     conf.player = {x, y, colour}
 
+    # Find borders
     if borders = level.find 'meta[name=borders]' .attr \value
       borders = borders / ' '
     else
@@ -65,6 +68,7 @@ module.exports = class Level extends Backbone.Model
 
     conf.borders = borders
 
+    # add-targets is a function that adds targets to Renderer.
     add-targets = Targets renderer
 
     if targets = level.find 'meta[name=targets]' .attr \value then add-targets targets
@@ -90,16 +94,18 @@ module.exports = class Level extends Backbone.Model
 
       mediator.paused = false
 
-      @create-world!
-      @add-bodies-from-dom!
-      @add-player conf.player
-      @add-borders conf.borders
+      nodes = []
+      @add-bodies-from-dom nodes
+      @add-player nodes, conf.player
+      @add-borders nodes, conf.borders
+
+      state = @state = physics.prepare nodes
 
       @hint-controller = new HintController hints: (level.find 'head hints' .children!)
 
       @listen-to mediator, \edit, @start-editor
       @listen-to mediator, \restart, @restart
-      @listen-to mediator, \frame:process, @check-player-is-in-world
+      @listen-to mediator, \frame:process, @frame
       # @listen-to mediator, \kittenfound, ->
       #   # TODO: proper success thing.
       #   mediator.trigger \alert 'Yay! You saved a kitten!'
@@ -107,46 +113,37 @@ module.exports = class Level extends Backbone.Model
 
     loader.start!
 
-  create-world: ~> @world = new World @renderer.$el
+  frame: (dt) ~>
+    @state = physics.step @state, dt
 
-  add-bodies-from-dom: ~>
+    # @check-player-is-in-world!
+
+  add-bodies-from-dom: (nodes) ~>
     # Build a map of some elements
-    map = @renderer.create-map!
+    dom-map = @renderer.create-map!
 
     world = @world
 
-    @dom-bodies = for shape in map
-      if shape.data.dynamic is undefined
-        body = new StaticBody shape
-      else
-        body = new DynamicBody shape
-
-      body.attach-to world
-      body
+    @dom-bodies = for shape in dom-map
+      nodes[*] = shape
+      shape.from-dom-map = true
 
   remove-DOM-bodies: ~>
-    for body in @dom-bodies => unless body.def.el.class-list.contains 'entity' then body.destroy!
+    for node, i in @state when shape.from-dom-map is true
+      @state.splice i, 1
 
-  add-target: (target-container) ~>
-    $target = target-container.children! .first!
-    $target.add-class \entity
-    $target.attr 'data-target': 'data-target', 'data-id': 'ENTITY_TARGET'
-    $target.append-to @renderer.$el
-
-  add-player: (player-conf) ~>
+  add-player: (nodes, player-conf) ~>
     player = new Player player-conf, @renderer.width, @renderer.height
-    player.body.attach-to @world
     player.$el.append-to @renderer.$el
     player.id = "#{@renderer.el.id}-player"
     player.$el.attr id: player.id
     @player = player
 
     # Get starting positions
-    target = @renderer.$el.children '[data-target]'
     @start-pos = player: player.el.get-bounding-client-rect!
 
-    if target.length >= 1
-      @start-pos.target = @renderer.$el.children '[data-target]' .0 .get-bounding-client-rect!
+    # Add player to physics
+    nodes[*] = player
 
   restart: ~>
     @renderer.resize!
@@ -166,7 +163,7 @@ module.exports = class Level extends Backbone.Model
     # Restore entities
     entities.append-to @renderer.$el
 
-  add-borders: (borders = []) ->
+  add-borders: (nodes, borders = []) ->
     if borders is \none then return
     if borders is \all then borders = top: true, right: true, left: true, bottom: true
 
@@ -175,37 +172,41 @@ module.exports = class Level extends Backbone.Model
     w = @w = @renderer.width
     h = @h = @renderer.height
 
-    if 'top' in borders then ({
+    if 'top' in borders then nodes[*] = {
+      type: 'rect'
       width: w * 2
       height: t
       x: 0
       y: -t / 2
       id: \BORDER_TOP
-    } |> new StaticBody _) .attach-to @world
+    }
 
-    if 'bottom' in borders then ({
+    if 'bottom' in borders then nodes[*] = {
+      type: 'rect'
       width: w * 2
       height: t
       x: 0
       y: h + t / 2
       id: \BORDER_BOTTOM
-    } |> new StaticBody _) .attach-to @world
+    }
 
-    if 'right' in borders then ({
+    if 'right' in borders then nodes[*] = {
+      type: 'rect'
       width: t
       height: h * 2
       x: w + t / 2
       y: 0
       id: \BORDER_RIGHT
-    } |> new StaticBody _) .attach-to @world
+    }
 
-    if 'left' in borders then ({
+    if 'left' in borders then nodes[*] = {
+      type: 'rect'
       width: t
       height: h * 2
       x: -t / 2
       y: 0
       id: \BORDER_LEFT
-    } |> new StaticBody _) .attach-to @world
+    }
 
   check-player-is-in-world: !~>
     pos <~ @player.body.position-uncorrected

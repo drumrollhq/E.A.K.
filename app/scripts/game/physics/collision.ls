@@ -27,6 +27,7 @@ get-aabb = (obj) ->
   {x, y} = obj.p
   {width, height, radius, sint, cost} = obj
 
+  switch
   # A rectangle with no rotation is its own bounding box. Easy!
   | obj.type is 'rect' and obj.rotation is 0
     {
@@ -39,7 +40,7 @@ get-aabb = (obj) ->
   # Finding the aabb of a rotated rectangle is a little trickier. See http://i.stack.imgur.com/0SH6d.png
   | obj.type is 'rect' and obj.rotation isnt 0
     aabb-width = height * sint + width * cost
-    aabb-heigh = width * sint + height * cost
+    aabb-height = width * sint + height * cost
 
     {
       left: x - aabb-width / 2
@@ -78,4 +79,4 @@ get-contacts = (node, nodes) ->
   # Currently, this is a very naive implementation
   filter (find-bbox-intersects node), nodes
 
-module.export = { get-aabb, find-bbox-intersects, get-contacts }
+module.exports = { get-aabb, find-bbox-intersects, get-contacts }

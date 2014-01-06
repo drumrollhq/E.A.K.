@@ -82,18 +82,9 @@ last-was-process = false
 
 ms-to-fps = fps-to-ms = (ms) -> 1000 / ms
 
-# We try to run at 60fps, triggering `frame`, `frame:process`, and `frame:render`
-# on every frame. If the average frame rate drops below fps-limit, we switch to
-# triggering `frame`/`frame:process` and `frame:render` on alternate frames,
-# simulating 30 fps. There are probably more elegant ways of doing this.
-fps-limit = 55fps
-ms-limit = fps-to-ms fps-limit
-run-at = [60fps 30fps].map fps-to-ms
-
-# Frame related debug info
-frame-debug = (avg, diff, type) ->
-  if mediator.DEBUG-enabled
-    mediator.DEBUG-el.text "Frame mode: #{type}; Actual: #{(msToFPS avg).toFixed 2}fps; Limit: #{fpsLimit}fps; Emulated: #{(msToFPS diff).toFixed 2}fps;"
+# In an older version of this code, we would alternate frame:process and frame:render
+# events between on slower devices, to compensate for Box2D wanting a consistent framerate.
+# The new physics engine doesn't need this, so we just trigger both every frame
 
 # frame-driver dispatches frame events
 frame-driver = ~>
@@ -102,38 +93,9 @@ frame-driver = ~>
   last := n
 
   unless mediator.paused
-    # Calculate 100-point moving average
-    intervals.push diff
-    intervals.shift!
-
-    avg = 0
-    for int in intervals => avg += int
-    avg = avg / intervals.length
-
-    if avg <= ms-limit
-      # We're running at ~60fps
-      diff = run-at.0
-
-      mediator.trigger \frame diff
-      mediator.trigger \frame:process diff
-      mediator.trigger \frame:render diff
-
-      frame-debug avg, diff, \normal
-
-  else
-    # Drop down to 30fps with alternate frame mode
-    # TODO: Proper intervals, with more than 2 frame modes.
-
-    diff = run-at.1
-
-    # Split frames up
-    if last-was-process
-      mediator.trigger \frame:render diff
-    else
-      mediator.trigger \frame diff
-      mediator.trigger \frame:render diff
-
-    last-was-process = not last-was-process
+    mediator.trigger \frame diff
+    mediator.trigger \frame:process diff
+    mediator.trigger \frame:render diff
 
   window.rAF frame-driver
 

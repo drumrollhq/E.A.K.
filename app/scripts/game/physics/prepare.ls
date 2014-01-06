@@ -1,6 +1,7 @@
 require! {
   './Vector'
   './Matrix'
+  './collision'
 }
 
 module.exports = prepare = (nodes) ->
@@ -16,12 +17,15 @@ module.exports = prepare = (nodes) ->
       it.jump-frames = 0
 
       # pre-calculate basic trig stuff
+      unless it.rotation? then it.rotation = 0
       it.sin = sint = sin it.rotation
       it.cos = cost = cos it.rotation
       it.matrix = matrix = new Matrix cost, sint, -sint, cost
 
       # Player stuff:
-      if it.data.player then it.data.handle-input = true
+      unless it.data? then console.log it
+
+      if it.data?.player then it.handle-input = true
 
       # Find polygon:
       if it.type is 'rect'
@@ -44,9 +48,13 @@ module.exports = prepare = (nodes) ->
             # Apply rotation matrix, translate back to original position
             matrix.transform c .add it.p
 
+      it.aabb = collision.get-aabb it
+
     it
 
-  dynamics = nodes |> filter ( -> it.data.player? or it.data.dynamic? )
-  nodes = nodes |> filter ( -> not it.data.player? )
+  dynamics = nodes |> filter ( -> it.data?.player? or it.data?.dynamic? )
+  nodes = nodes |> filter ( -> not it.data?.player? )
+
+  console.log dynamics, nodes
 
   {dynamics, nodes}

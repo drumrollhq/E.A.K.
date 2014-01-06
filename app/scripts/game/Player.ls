@@ -1,5 +1,4 @@
 require! {
-  'game/physics/PlayerBody'
   'game/mediator'
 }
 
@@ -22,15 +21,24 @@ module.exports = class Player extends Backbone.View
 
     @$el.css do
       position: \absolute
-      top: h/2 - 20 + start.y
-      left: w/2 - 20 + start.x
-
-    @body = new PlayerBody start.{x, y}, w, h, @el
+      left: start.x + w/2 - 20
+      top: start.y + h/2 - 20
 
     @last-classes = []
     @classes-disabled = false
 
-    @setup-keyboard-controls!
+    console.log start
+    # Data for physics engine:
+    @ <<< {
+      type: 'rect'
+      x: start.x + w/2
+      y: start.y + h/2
+      width: 40
+      height: 40
+      rotation: 0
+      data:
+        player: true
+    }
 
   apply-classes: (classes) ~>
     for classname in @last-classes
@@ -40,81 +48,3 @@ module.exports = class Player extends Backbone.View
       if classname not in @last-classes then @$el.add-class "player-#classname"
 
     @last-classes := classes
-
-  setup-keyboard-controls: ->
-    const torque = 5
-
-    left = false
-    right = false
-    up = false
-    req-tilt = false
-    amount = 0
-
-    b = @body
-
-    @listen-to mediator, 'keypress:a,left,d,right,w,up,space' (e) -> e.prevent-default!
-
-    @listen-to mediator, 'keydown:a,left' -> unless left
-      left := true
-      right := false
-
-    @listen-to mediator, 'keyup:a,left' -> if left
-      left := false
-
-    @listen-to mediator, 'keydown:d,right' -> unless right
-      right := true
-      left := false
-
-    @listen-to mediator, 'keyup:d,right' -> if right
-      right := false
-
-    @listen-to mediator, 'keydown:w,up,space' -> unless up
-      up := true
-      b.jump!
-
-    @listen-to mediator, 'keyup:w,up,space' -> if up
-      up := false
-
-    @listen-to mediator, \tilt, (tilt) ->
-      req-tilt := true
-      amount := true
-
-    @listen-to mediator, \uncaughtTap -> b.jump!
-
-    last-classes = []
-    classes-disabled = false
-
-    @listen-to mediator, \frame:process ~>
-      if req-tilt
-        req-tilt := false
-        acc = amount * torque
-      else
-        acc = if left then -torque else if right then torque else 0
-
-      movedata <~ b.roll acc
-
-      {position, classes} = movedata
-
-      mediator.trigger \playermove, position
-
-      unless @classes-disabled => @apply-classes classes
-
-    @listen-to mediator, 'beginContact:ENTITY_PLAYER&*' (contact) ~>
-      impulse = contact.impulse.normal-impulses |> reduce _, (a, b) -> a + b
-
-      console.log \impulse: impulse
-
-      if 8.5 < impulse < 12.7
-        @classes-disabled = true
-        @apply-classes ['pain']
-        <~ set-timeout _, 500
-        @classes-disabled = false
-
-      else if 13 <= impulse
-        mediator.trigger \falltodeath
-        @body.halt!
-        @apply-classes ['pain']
-        @classes-disabled = true
-        <~ set-timeout _, 400
-        @classes-disabled = false
-        @body.reset!

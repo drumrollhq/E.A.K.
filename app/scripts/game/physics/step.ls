@@ -2,7 +2,7 @@ require! {
   './Vector'
   './Matrix'
   './collision'
-  './handle-input'
+  './keys'
 }
 
 const max-fall-speed = 10px,
@@ -12,8 +12,8 @@ const max-fall-speed = 10px,
   move-acc-in-air = 0.2px
   move-damp = 1px,
   move-damp-in-air = 0.01px
-  jump-speed = 7px,
-  max-jump-frames = 15,
+  jump-speed = 5.4px,
+  max-jump-frames = 16,
   pad = 0.1
 
 update-el = (obj) ->
@@ -24,7 +24,7 @@ update-el = (obj) ->
 is-contact-above = (shape-a, shape-b) --> true
   # shape-a.p.y >= shape-b.y
 
-find-state = (obj) ->
+find-state = (obj, nodes) ->
   contacts = get-contacts obj, nodes
 
   obj.contacts = contacts
@@ -73,7 +73,7 @@ module.exports = step = (state, t) ->
 
     obj.aabb = get-aabb obj
 
-    state = find-state obj
+    state = find-state obj, nodes
 
     # Handle general collisions:
     contacts = obj.contacts
@@ -148,12 +148,12 @@ module.exports = step = (state, t) ->
       else
         obj.v.y += fall-acc
 
-      if obj.is-player then obj.handle-input dt
+      if obj.handle-input then handle-input obj, dt
 
     | 'on-thing' =>
       # obj.v.y = 0
       # obj.p.y = state.thing.aabb.top - obj.height / 2
-      if obj.is-player then obj.handle-input dt
+      if obj.handle-input then handle-input obj, dt
 
     | otherwise =>
       throw new Error 'Unknown state'
@@ -165,7 +165,7 @@ module.exports = step = (state, t) ->
 
 # Manage user input on a player:
 handle-input = (node, scale) ->
-
+  console.log JSON.stringify keys
   # Moving right:
   if keys.right
     # If the object is on a thing, move with standard acceleration. If not, move with in-air acceleration
@@ -214,7 +214,7 @@ handle-input = (node, scale) ->
     node.jump-frames--
 
   # If the player has only just released the jump key OR the jump-timer is finished:
-  else (if keys.jump is false and node.jump-frames > 0) or (keys.jump and node.jump-frames is 0)
+  else if (keys.jump is false and node.jump-frames > 0) or (keys.jump and node.jump-frames is 0)
     # Slow down the player
     node.v.y = node.v.y / 2
 
