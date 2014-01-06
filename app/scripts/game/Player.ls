@@ -27,7 +27,6 @@ module.exports = class Player extends Backbone.View
     @last-classes = []
     @classes-disabled = false
 
-    console.log start
     # Data for physics engine:
     @ <<< {
       type: 'rect'
@@ -40,6 +39,19 @@ module.exports = class Player extends Backbone.View
         player: true
         id: 'ENTITY_PLAYER'
     }
+
+    mediator.on 'falloutofworld', ~>
+      @reset start, w, h
+
+  reset: (start, w, h) ~>
+    @ <<< {
+      x: start.x + w/2
+      y: start.y + h/2
+      rotation: 0
+      prepared: false
+    }
+
+    @prepare!
 
   apply-classes: (classes) ~>
     for classname in @last-classes

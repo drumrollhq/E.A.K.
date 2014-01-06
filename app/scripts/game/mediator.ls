@@ -124,7 +124,7 @@ mediator.on \alert (msg) ->
   $inner = $ '<div></div>'
     ..add-class \notification-inner
     ..text msg
-    .. append-to $alert
+    ..append-to $alert
 
   # Notifications are hidden after 5 seconds
   <- set-timeout _, 5000ms

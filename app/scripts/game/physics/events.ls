@@ -17,8 +17,6 @@ send = (queue, mediator) ->
       for idb in b.ids
         mediator.trigger "#{type}:#{ida}:#{idb}"
         mediator.trigger "#{type}:#{idb}:#{ida}"
-        console.log "#{type}:#{ida}:#{idb}"
-        console.log "#{type}:#{idb}:#{ida}"
 
 module.exports = events = (state, mediator) ->
   queue = queuer mediator

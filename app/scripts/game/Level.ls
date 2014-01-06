@@ -120,7 +120,7 @@ module.exports = class Level extends Backbone.Model
     # Emit events caused by the simulation
     physics.events @state, mediator
 
-    # @check-player-is-in-world!
+    @check-player-is-in-world!
 
   add-bodies-from-dom: (nodes) ~>
     # Build a map of some elements
@@ -213,12 +213,11 @@ module.exports = class Level extends Backbone.Model
     }
 
   check-player-is-in-world: !~>
-    pos <~ @player.body.position-uncorrected
+    pos = @player.p
 
     const xpad = 100, pad-top = 100, pad-bottom = 200
 
     unless (-xpad < pos.x < @w + xpad) and (-pad-top < pos.y < @h + pad-bottom)
-      @player.body.reset!
       mediator.trigger \falloutofworld
 
   complete: (status, callback = -> null) ~>
