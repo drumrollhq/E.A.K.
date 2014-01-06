@@ -78,7 +78,8 @@ module.exports = step = (state, t) ->
 
     # Handle general collisions:
     contacts = obj.contacts
-    for contact in contacts => switch
+    for contact in contacts when contact.sensor is false
+      switch
       | contact.type is 'circle'
         'none'
 

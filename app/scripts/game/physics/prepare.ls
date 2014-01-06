@@ -28,6 +28,9 @@ module.exports = prepare = (nodes) ->
       it.p = new Vector it.{x, y}
       it.jump-frames = 0
 
+      # Is this a sensor?
+      if it.data?.sensor? then it.sensor = true else it.sensor = false
+
       # pre-calculate basic trig stuff
       unless it.rotation? then it.rotation = 0
       it.sin = sint = sin it.rotation
