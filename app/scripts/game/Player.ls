@@ -38,6 +38,7 @@ module.exports = class Player extends Backbone.View
       rotation: 0
       data:
         player: true
+        id: 'ENTITY_PLAYER'
     }
 
   apply-classes: (classes) ~>

@@ -27,6 +27,7 @@ is-contact-above = (shape-a, shape-b) --> true
 find-state = (obj, nodes) ->
   contacts = get-contacts obj, nodes
 
+  obj.prev-contacts = obj.contacts
   obj.contacts = contacts
 
   # Find contacts we appear to be on top of (naive)

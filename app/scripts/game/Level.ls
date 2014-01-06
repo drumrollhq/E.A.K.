@@ -114,7 +114,11 @@ module.exports = class Level extends Backbone.Model
     loader.start!
 
   frame: (dt) ~>
+    # Run physics simulation / player input
     @state = physics.step @state, dt
+
+    # Emit events caused by the simulation
+    physics.events @state, mediator
 
     # @check-player-is-in-world!
 

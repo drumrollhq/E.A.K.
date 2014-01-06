@@ -4,6 +4,7 @@ require! {
   './collision'
   './prepare'
   './step'
+  './events'
 }
 
 /*
@@ -22,7 +23,10 @@ Usage:
     // number of milliseconds elapsed since the last frame
     state = step state, time-delta
 
+    // Triggers events from the state on mediator.
+    events state, mediator
+
 
 */
 
-module.exports = { Vector, Matrix, prepare, step, collision }
+module.exports = { Vector, Matrix, prepare, step, collision, events }

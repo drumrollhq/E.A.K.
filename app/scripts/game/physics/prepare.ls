@@ -11,6 +11,18 @@ module.exports = prepare = (nodes) ->
     unless it.prepared
       it.prepared = true
 
+      # Save ids:
+      ids = []
+      if it.id then ids[*] = that
+      if it.data?.id then ids[*] = that
+
+      if it.el?
+        if it.el.id then ids[*] = '#' + that
+
+        for class-name in it.el.class-list => ids[*] = '.' + class-name
+
+      it.ids = ids
+
       # Initialize velocity, position, and jump-frames (used to control height of jump)
       it.v = new Vector 0, 0
       it.p = new Vector it.{x, y}
