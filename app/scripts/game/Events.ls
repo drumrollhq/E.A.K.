@@ -1,12 +1,5 @@
 require! 'game/mediator'
 
-animation-end = {
-  "WebkitAnimation": "webkitAnimationEnd"
-  "MozAnimation": "mozanimationend"
-  "OAnimation": "oanimationend"
-  "msAnimation": "MSAnimationEnd"
-  "animation": "animationend"}[Modernizr.prefixed "animation"]
-
 # Hyperlinks
 mediator.on 'beginContact:HYPERLINK&ENTITY_PLAYER' (contact) ->
 
@@ -15,8 +8,10 @@ mediator.on 'beginContact:HYPERLINK&ENTITY_PLAYER' (contact) ->
   if 5.5 < impulse.0 < 8.5
     window.location.hash = contact.a.def.el.hash
 
-mediator.on 'beginContact:ENTITY_TARGET&ENTITY_PLAYER endContact:ENTITY_TARGET&ENTITY_PLAYER' (contact) ->
+mediator.on 'begin-contact:ENTITY_TARGET:ENTITY_PLAYER' (contact) ->
   target = contact.a
+
+  console.log 'CONTACT!!!!'
 
   target.destroy!
 
@@ -25,9 +20,9 @@ mediator.on 'beginContact:ENTITY_TARGET&ENTITY_PLAYER endContact:ENTITY_TARGET&E
 
   target.destroyed = true
 
-  $el = $ target.def.el
+  $el = $ target.el
 
-  $el.one animation-end, -> $el.remove!
+  $el.one prefixed.animation-end, -> $el.remove!
 
   $el.add-class 'found'
 

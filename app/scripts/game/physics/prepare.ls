@@ -9,6 +9,7 @@ prepare-one = ->
     it.prepared = true
     obj = it
     it.prepare = -> prepare-one obj
+    it.destroy = -> obj._destroyed = true
 
     # Save ids:
     ids = []
@@ -71,8 +72,7 @@ prepare = (nodes) ->
   # Map the nodes to their prepared versions.
   nodes = nodes |> map prepare-one
 
-  dynamics = nodes |> filter ( -> it.data?.player? or it.data?.dynamic? )
-  nodes = nodes |> filter ( -> not it.data?.player? )
+  dynamics = nodes |> filter -> it.data?.player? or it.data?.dynamic?
 
   console.log dynamics, nodes
 

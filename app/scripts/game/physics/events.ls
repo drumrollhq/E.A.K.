@@ -15,8 +15,8 @@ send = (queue, mediator) ->
     type = if type is '+' then 'begin-contact' else 'end-contact'
     for ida in a.ids
       for idb in b.ids
-        mediator.trigger "#{type}:#{ida}:#{idb}"
-        mediator.trigger "#{type}:#{idb}:#{ida}"
+        mediator.trigger "#{type}:#{ida}:#{idb}", a: a, b: b
+        mediator.trigger "#{type}:#{idb}:#{ida}", a: b, b: a
 
 module.exports = events = (state, mediator) ->
   queue = queuer mediator

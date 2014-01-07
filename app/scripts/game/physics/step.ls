@@ -53,6 +53,16 @@ module.exports = step = (state, t) ->
   # Get the useful stuff out of the state:
   {nodes, dynamics} = state
 
+  # Find a list of indexes of bodies destroyed between this frame and the last
+  destroyed = [i for node, i in nodes when node._destroyed]
+
+  # Remove the destroyed indexes
+  for i in destroyed => nodes.splice i, 1
+
+  # If we had to remove stuff, regenerate the list of dynamics
+  if destroyed.length > 0
+    dynamics = nodes |> filter -> it.data?.player? or it.data?.dynamic?
+
   # Keep track of the time-deltas between each iteration. We use a moving average to
   # smoothly adjust to slower run times
   dt = t / target
@@ -214,7 +224,6 @@ handle-input = (node, scale) ->
 
     # Start a timer for how long a player can jump for
     if node.jump-frames is -1
-      console.log 'start jump timer:', node.jump-frames
       node.jump-frames = max-jump-frames
 
     node.jump-frames--
