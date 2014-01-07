@@ -1,21 +1,32 @@
+require! 'game/mediator'
+
 module.exports = keys = {
   left: false
   right: false
   jump: false
 }
 
-document.add-event-listener 'keydown', (e) ->
-  switch e.which
-  | 39, 68 =>
-    keys.right = true
-    keys.left = false
-  | 37, 65 =>
-    keys.left = true
-    keys.right = false
-  | 38, 87, 32 => keys.jump = true
+triggers = {
+  left:
+    keys: <[ left a ]>
+    exclude: <[ right ]>
 
-document.add-event-listener 'keyup', (e) ->
-  switch e.which
-  | 39, 68 => keys.right = false
-  | 37, 65 => keys.left = false
-  | 38, 87, 32 => keys.jump = false
+  right:
+    keys: <[ right d ]>
+    exclude: <[ left ]>
+
+  jump:
+    keys: <[ up w space ]>
+    exclude: []
+}
+
+listen = (name, trigger) ->
+  console.log name, "keydown:#{trigger.keys.join ','}"
+  mediator.on "keydown:#{trigger.keys.join ','}", ->
+    keys[name] = true
+    [keys[ex] = false for ex in trigger.exclude]
+
+  mediator.on "keyup:#{trigger.keys.join ','}", ->
+    keys[name] = false
+
+for name, trigger of triggers => listen name, trigger
