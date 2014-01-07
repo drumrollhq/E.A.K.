@@ -72,9 +72,15 @@ prepare = (nodes) ->
   # Map the nodes to their prepared versions.
   nodes = nodes |> map prepare-one
 
-  dynamics = nodes |> filter -> it.data?.player? or it.data?.dynamic?
+  sort-points = (obj) ->
+    p = 0
+    if obj.data?.player? then p -= 10
+    if obj.data?.dynamic? then p += 1
+    p
 
-  console.log dynamics, nodes
+  nodes = nodes.sort (a, b) -> (sort-points a) - (sort-points b)
+
+  dynamics = nodes |> filter -> it.data?.player? or it.data?.dynamic?
 
   {dynamics, nodes}
 
