@@ -12,7 +12,7 @@ prepare-one = ->
     it.destroy = -> obj._destroyed = true
 
     # Save ids:
-    ids = []
+    ids = ['*']
     if it.id then ids[*] = that
     if it.data?.id then ids[*] = that
 
@@ -68,6 +68,7 @@ prepare-one = ->
   it
 
 prepare = (nodes) ->
+  console.log 'prepare:', nodes
 
   # Map the nodes to their prepared versions.
   nodes = nodes |> map prepare-one

@@ -8,8 +8,10 @@ module.exports = class Player extends Backbone.View
   tag-name: \div
   class-name: 'player entity'
 
-  initialize: (start = {x: 0, y: 0, colour: 'white'}, w, h) ->
+  initialize: (start = {x: 0, y: 0, colour: 'white'}, w = 100, h = 100) ->
     @el.width = @el.height = 40
+
+    @ <<< {start, w, h}
 
     @$el.add-class "player-colour-#{start.colour}"
 
@@ -40,10 +42,9 @@ module.exports = class Player extends Backbone.View
         id: 'ENTITY_PLAYER'
     }
 
-    mediator.on 'falloutofworld', ~>
-      @reset start, w, h
+    mediator.on 'falloutofworld', ~> @reset!
 
-  reset: (start, w, h) ~>
+  reset: (start = @start, w = @w, h = @h) ~>
     @ <<< {
       x: start.x + w/2
       y: start.y + h/2

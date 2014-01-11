@@ -16,8 +16,23 @@ const max-fall-speed = 10px,
   max-jump-frames = 16,
   pad = 0.1
 
+old-els = []
+trails = false
+
 update-el = (obj) ->
-  obj.el.style.transform = obj.el.style.moz-transform = obj.el.style.webkit-transform = "translate(#{obj.p.x - obj.x}px, #{obj.p.y - obj.y}px)"
+  t = "translate3d(#{obj.p.x - obj.x}px, #{obj.p.y - obj.y}px, 0)"
+  if obj._lt is t then return
+
+  if trails and obj.data.player
+    new-el = $ obj.el .clone!
+    new-el.insert-after obj.el
+    obj.el = new-el.0
+
+    old-els[*] = new-el
+    if old-els.length > 250 then old-els.shift!remove!
+
+  obj._lt = t
+  obj.el.style.transform = obj.el.style.moz-transform = obj.el.style.webkit-transform = t
 
 {get-aabb, find-bbox-intersects, get-contacts} = collision
 

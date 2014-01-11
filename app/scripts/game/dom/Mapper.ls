@@ -43,10 +43,10 @@ module.exports = class Mapper
     if transform is 'none'
       css.rotate = 0
     else
-      matrix = transform.match /^matrix\((-?[0-9]+.[0-9]+),\s?(-?[0-9]+.[0-9]+),\s?(-?[0-9]+.[0-9]+),\s?(-?[0-9]+.[0-9]+),\s0,\s0\)$/
+      matrix = transform.match /matrix\((-?[0-9]+(?:.[0-9]+)?),\s?(-?[0-9]+(?:.[0-9]+)?),\s?(-?[0-9]+(?:.[0-9]+)?),\s?(-?[0-9]+(?:.[0-9]+)?),\s?(-?[0-9]+(?:.[0-9]+)?),\s?(-?[0-9]+(?:.[0-9]+)?)\)$/
       # Matrix should look like this:
-      # ( a b )
-      # ( c d )
+      # ( a b x )
+      # ( c d y )
       [a, b, c, d] = matrix |> tail |> map parse-float
 
       # Check it's only rotation:

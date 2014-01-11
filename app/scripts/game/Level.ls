@@ -126,6 +126,8 @@ module.exports = class Level extends Backbone.Model
     # Build a map of some elements
     dom-map = @renderer.create-map!
 
+    console.log dom-map
+
     world = @world
 
     @dom-bodies = for shape in dom-map
@@ -133,26 +135,31 @@ module.exports = class Level extends Backbone.Model
       shape.from-dom-map = true
 
   remove-DOM-bodies: ~>
-    for node, i in @state when shape.from-dom-map is true
-      @state.splice i, 1
+    for node, i in @state.nodes when node.from-dom-map is true
+      node.destroy!
 
   add-player: (nodes, player-conf) ~>
-    player = new Player player-conf, @renderer.width, @renderer.height
-    player.$el.append-to @renderer.$el
-    player.id = "#{@renderer.el.id}-player"
-    player.$el.attr id: player.id
-    @player = player
+    if @player?
+      nodes[*] = @player
+      @player.prepared = false
 
-    # Get starting positions
-    @start-pos = player: player.el.get-bounding-client-rect!
+    else
+      player = new Player player-conf, @renderer.width, @renderer.height
+      player.$el.append-to @renderer.$el
+      player.id = "#{@renderer.el.id}-player"
+      player.$el.attr id: player.id
+      @player = player
 
-    # Add player to physics
-    nodes[*] = player
+      # Get starting positions
+      @start-pos = player: player.el.get-bounding-client-rect!
+
+      # Add player to physics
+      nodes[*] = player
 
   restart: ~>
     @renderer.resize!
     @redraw-from @conf.html, @conf.css
-    @player.body.reset!
+    @player.reset!
 
   redraw-from: (html, css) ~>
     # Preserve entities
@@ -162,10 +169,18 @@ module.exports = class Level extends Backbone.Model
 
     # Reset DOM bodies
     @remove-DOM-bodies!
-    @add-bodies-from-dom!
 
     # Restore entities
     entities.append-to @renderer.$el
+
+    nodes = []
+    @add-bodies-from-dom nodes
+    @add-player nodes, @conf.player
+    @add-borders nodes, @conf.borders
+
+    state = @state = physics.prepare nodes
+
+    console.log @state
 
   add-borders: (nodes, borders = []) ->
     if borders is \none then return
@@ -285,7 +300,7 @@ module.exports = class Level extends Backbone.Model
     if $ document.body .has-class \editor then return
 
     # Put the play back where they started
-    <~ @player.body.reset
+    @player.reset!
 
     # Wait 2 frames so we can ensure that the player has reset before continuing
     <~ mediator.once 'frame:render'
