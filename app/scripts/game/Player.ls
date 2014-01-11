@@ -27,6 +27,7 @@ module.exports = class Player extends Backbone.View
       top: start.y + h/2 - 20
 
     @last-classes = []
+    @last-direction = 'right'
     @classes-disabled = false
 
     # Data for physics engine:
@@ -44,7 +45,7 @@ module.exports = class Player extends Backbone.View
 
     @listen-to mediator, 'falloutofworld', ~> @reset!
     @listen-to mediator, 'fall-to-death', @fall-to-death
-    @listen-to mediator, 'frame', ~> @apply-classes []
+    @listen-to mediator, 'frame', @calc-classes
 
   reset: (start = @start, w = @w, h = @h) ~>
     @ <<< {
@@ -55,6 +56,24 @@ module.exports = class Player extends Backbone.View
     }
 
     @prepare!
+
+  calc-classes: ~>
+    unless @classes-disabled
+      classes = []
+
+      classes[*] = @last-direction =
+        | @v.x > 0.7 => 'left'
+        | @v.x < -0.7 => 'right'
+        | otherwise => @last-direction
+
+      classes[*] =
+        | @state is 'on-thing' and 0.7 < abs @v.x => 'running'
+        | @state is 'on-thing' => 'idle'
+        | @fall-frames > 50 => 'falling'
+        | 3 > abs @v.x => 'jumping-forward'
+        | otherwise => 'jumping'
+
+      @apply-classes classes
 
   apply-classes: (classes) ~>
     for classname in @last-classes
@@ -67,6 +86,7 @@ module.exports = class Player extends Backbone.View
 
   fall-to-death: ~>
     @apply-classes ['pain']
+    @handle-input = false
     @classes-disabled = true
     <~ set-timeout _, 400
     @classes-disabled = false

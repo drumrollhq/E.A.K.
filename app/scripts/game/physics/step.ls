@@ -8,10 +8,10 @@ require! {
 
 const max-fall-speed = 10px,
   fall-acc = 0.3px,
-  max-move-speed = 5px,
+  max-move-speed = 4px,
   move-acc = 0.3px,
   move-acc-in-air = 0.2px
-  move-damp = 1px,
+  move-damp = 0.7px,
   move-damp-in-air = 0.01px
   jump-speed = 5.4px,
   max-jump-frames = 16,
@@ -210,7 +210,10 @@ handle-input = (node, scale) ->
   if keys.right
     # If the object is on a thing, move with standard acceleration. If not, move with in-air acceleration
     node.v.x += if node.state is 'on-thing'
-      move-acc * scale
+      if node.v.x > 0
+        move-acc * scale
+      else
+        move-damp * scale
     else
       move-acc-in-air * scale
 
@@ -221,7 +224,10 @@ handle-input = (node, scale) ->
   # Moving left. Same as moving right, but the other way
   else if keys.left
     node.v.x -= if node.state is 'on-thing'
-      move-acc * scale
+      if node.v.x < 0
+        move-acc * scale
+      else
+        move-damp * scale
     else
       move-acc-in-air * scale
 
