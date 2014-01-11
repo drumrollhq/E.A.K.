@@ -128,14 +128,14 @@ module.exports = class Renderer extends Backbone.View
   const pad = 30
   const damping = 10
 
-  move: (position) ~>
+  move: ({x, y}) ~>
     l = @last-position.{x, y}
 
-    position.y -= offset-top
+    y -= offset-top
 
     t =
-      x: l.x + (position.x - l.x) / damping
-      y: l.y + (position.y - l.y) / damping
+      x: l.x + (x - l.x) / damping
+      y: l.y + (y - l.y) / damping
 
     @last-position = t.{x, y}
 

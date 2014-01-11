@@ -42,7 +42,9 @@ module.exports = class Player extends Backbone.View
         id: 'ENTITY_PLAYER'
     }
 
-    mediator.on 'falloutofworld', ~> @reset!
+    @listen-to mediator, 'falloutofworld', ~> @reset!
+    @listen-to mediator, 'fall-to-death', @fall-to-death
+    @listen-to mediator, 'frame', ~> @apply-classes []
 
   reset: (start = @start, w = @w, h = @h) ~>
     @ <<< {
@@ -62,3 +64,10 @@ module.exports = class Player extends Backbone.View
       if classname not in @last-classes then @$el.add-class "player-#classname"
 
     @last-classes := classes
+
+  fall-to-death: ~>
+    @apply-classes ['pain']
+    @classes-disabled = true
+    <~ set-timeout _, 400
+    @classes-disabled = false
+    @reset!

@@ -3,6 +3,7 @@ require! {
   './Matrix'
   './collision'
   './keys'
+  '../mediator'
 }
 
 const max-fall-speed = 10px,
@@ -20,6 +21,8 @@ old-els = []
 trails = false
 
 update-el = (obj) ->
+  if obj.data.player then mediator.trigger 'playermove', obj.p
+
   t = "translate3d(#{obj.p.x - obj.x}px, #{obj.p.y - obj.y}px, 0)"
   if obj._lt is t then return
 
@@ -55,6 +58,10 @@ find-state = (obj, nodes) ->
       type: 'contact'
       thing: contact
     }
+
+  if obj.jump-frames > 0
+    obj.state = 'jumping'
+    return type: 'jumping'
 
   obj.state = 'falling'
 
@@ -95,8 +102,11 @@ module.exports = step = (state, t) ->
       y: obj.v.y * dt
     }
 
-    obj.last-v = new Vector obj.v
-    obj.last-state = obj.state
+    obj <<< {
+      last-v: new Vector obj.v
+      last-state: obj.state
+      last-fall-frames: obj.fall-frames
+    }
 
     obj.p.add-eq v
 
@@ -170,11 +180,13 @@ module.exports = step = (state, t) ->
           obj.el.style.background = "rgb(#{255 * Math.random!}, #{255 * Math.random!}, #{255 * Math.random!})"
 
     switch obj.state
-    | 'falling', 'contact' =>
+    | 'falling', 'contact', 'jumping' =>
       if obj.v.y >= max-fall-speed
         obj.v.y = max-fall-speed
       else
         obj.v.y += fall-acc
+
+      if obj.state isnt 'jumping' then obj.fall-frames += dt else obj.fall-frames = 0
 
       if obj.handle-input then handle-input obj, dt
 
@@ -182,6 +194,7 @@ module.exports = step = (state, t) ->
       # obj.v.y = 0
       # obj.p.y = state.thing.aabb.top - obj.height / 2
       if obj.handle-input then handle-input obj, dt
+      obj.fall-frames = 0
 
     | otherwise =>
       throw new Error 'Unknown state'
