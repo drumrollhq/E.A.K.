@@ -19,10 +19,10 @@ module.exports = class Vector
     @y += v.y
     @
 
-  min: (v) ~>
+  minus: (v) ~>
     new Vector @x - v.x, @y - v.y
 
-  min-eq: (v) ~>
+  minus-eq: (v) ~>
     @x -= v.x
     @y -= v.y
     @
@@ -34,6 +34,8 @@ module.exports = class Vector
     (v.x - @x) * (v.x - @x) + (v.y - @y) * (v.y - @y)
 
   dist: (v) ~> sqrt @dist-sq v
+
+  length: ~> Math.sqrt @x * @x + @y * @y
 
   # Point in polygon by ray-casting.
   # See http://en.wikipedia.org/wiki/Point_in_polygon

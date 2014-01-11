@@ -95,6 +95,9 @@ module.exports = step = (state, t) ->
       y: obj.v.y * dt
     }
 
+    obj.last-v = new Vector obj.v
+    obj.last-state = obj.state
+
     obj.p.add-eq v
 
     obj.aabb = get-aabb obj

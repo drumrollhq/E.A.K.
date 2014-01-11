@@ -1,12 +1,10 @@
 require! 'game/mediator'
 
 # Hyperlinks
-mediator.on 'beginContact:HYPERLINK&ENTITY_PLAYER' (contact) ->
+mediator.on 'begin-contact:HYPERLINK:ENTITY_PLAYER' (contact) ->
 
-  impulse = contact.impulse.normal-impulses
-
-  if 5.5 < impulse.0 < 8.5
-    window.location.hash = contact.a.def.el.hash
+  speed = contact.b.last-v.y
+  if 3.5px < speed < 10px then window.location.href = contact.a.el.href
 
 mediator.on 'begin-contact:ENTITY_TARGET:ENTITY_PLAYER' (contact) ->
   target = contact.a

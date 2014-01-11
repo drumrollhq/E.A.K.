@@ -123,12 +123,10 @@ module.exports = class Level extends Backbone.Model
     @check-player-is-in-world!
 
   add-bodies-from-dom: (nodes) ~>
+    @renderer.$el.find 'a[href]' .attr 'data-id', 'HYPERLINK'
+
     # Build a map of some elements
     dom-map = @renderer.create-map!
-
-    console.log dom-map
-
-    world = @world
 
     @dom-bodies = for shape in dom-map
       nodes[*] = shape
@@ -290,7 +288,7 @@ module.exports = class Level extends Backbone.Model
     <~ set-timeout _, 500
 
     $player-target.remove!
-    @world.remove!
+    delete @state
     @player.remove!
     mediator.trigger \levelout
     @stop-listening!
