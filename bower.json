@@ -11,7 +11,6 @@
     "jquery": "latest",
     "backbone": "latest",
     "modernizr": "latest",
-    "box2dweb": "latest",
     "codemirror": "latest",
     "slowparse": "~0.0.1"
   },
