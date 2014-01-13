@@ -1,7 +1,7 @@
 path = require "path"
 fs = require "fs"
 glob = require "glob"
-L10N = require "l10n-lsc"
+L10N = require "l10n-ls"
 
 l10n = new L10N
   content: 'app/l10n-content'
