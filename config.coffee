@@ -113,8 +113,8 @@ exports.config =
     for file in htmlFile
       game = fs.readFileSync file, encoding: "utf8"
 
-      cond = if @optimize then "UNLESS" else "IF"
-      other = if @optimize then "IF" else "UNLESS"
+      cond = if optimize then "UNLESS" else "IF"
+      other = if optimize then "IF" else "UNLESS"
 
       remove = new RegExp "<!--#{cond}-OPTIMIZED-->[\\s\\S]+?<!--END-#{cond}-OPTIMIZED-->", "g"
       tidy = new RegExp "(<!--#{other}-OPTIMIZED-->)|(<!--END-#{other}-OPTIMIZED-->)", "g"

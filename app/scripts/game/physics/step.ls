@@ -49,7 +49,7 @@ find-state = (obj, nodes) ->
   obj.contacts = contacts
 
   # Find contacts we appear to be on top of (naive)
-  above-contacts = filter (is-contact-above obj), contacts
+  above-contacts = contacts.filter -> is-contact-above obj
 
   if above-contacts.length
     contact = head above-contacts
