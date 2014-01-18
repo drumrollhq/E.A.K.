@@ -178,6 +178,18 @@
   <!--END-IF-OPTIMIZED-->
 
     function init() {
+      if (!(window.performance && window.performance.now)) {
+        (function(){
+          var startTime;
+          startTime = Date.now();
+          return window.performance = {
+            now: function(){
+              return Date.now() - startTime;
+            }
+          };
+        })();
+      }
+
       require("plugins");
 
       Init = require("Init");
