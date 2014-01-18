@@ -1,3 +1,9 @@
+unless window.performance then do ->
+  start-time = Date.now!
+  window.performance = {
+    now: -> Date.now! - start-time
+  }
+
 require! <[ loader/LevelLoader loader/LoaderView game/Game Router game/mediator ]>
 
 module.exports = class Init extends Backbone.View
