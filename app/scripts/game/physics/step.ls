@@ -94,7 +94,7 @@ module.exports = step = (state, t) ->
   dt = mean ts
 
   # We only need to process physics stuff for dynamic stuff: things that can move
-  for obj in dynamics
+  for obj in dynamics when not obj.frozen
 
     # Calculate a change in position using speed and time. ∆s = v · ∆t
     v = {
