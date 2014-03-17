@@ -3,11 +3,11 @@
   <head>
     <title>{{title}}</title>
 
-    <meta name="size" value="1000 580">
+    <meta name="size" value="780 585">
     <meta name="borders" value="top left right">
-    <meta name="player" value="-440 -70">
-    <meta name="background" value="white url(/content/level2/bg-new.png) center center / cover">
-    <meta name="targets" value="70 -60">
+    <meta name="player" value="-350 -120">
+    <meta name="background" value="white url(/content/bgs/intro-level.png) center center / cover">
+    <meta name="targets" value="70 -130">
 
     <hints>
       <pointer target=".ledge.right" enter="time:1" exit="falloutofworld edit" name="oops">
@@ -19,23 +19,27 @@
     </hints>
 
     <hidden>
-      <div class="cloud-a" style="top: 30px; left: 200px;" data-ignore></div>
-      <div class="cloud-b" style="top: 100px; right: 180px;" data-ignore></div>
-      <div class="cloud-c" style="bottom: 100px; left: 45%;" data-ignore></div>
-      <div class="flying-monster" style="bottom: 120px; left: 150px" data-ignore></div>
-      <a class="exit" style="position: absolute; right: 30px; top: 230px;" href="#/play/levels/the-third-level.html">erado</a>
+      <div class="cloud-a" style="top: 30px; left: 140px;" data-ignore></div>
+      <div class="cloud-b" style="top: 20px; left: 250px;" data-ignore></div>
+      <div class="scale-8">
+        <div class="birdicorn" style="top: 30px; right: 80px" data-ignore>
+          <div class="birdicorn-body"></div>
+          <div class="birdicorn-wing-1"></div>
+          <div class="birdicorn-wing-2"></div>
+        </div>
+      </div>
+      <a class="exit" style="position: absolute; right: 30px; top: 160px;" href="#/play/levels/the-third-level.html">erado</a>
     </hidden>
 
     <style>
       .ledge {
+        font-size: 16px;
         padding: 10px;
         display: block;
         position: absolute;
-        top: 255px;
+        top: 180px;
         left: 20px;
-        background: url(/content/common/lines.png) repeat-x #b6ddc2 bottom left / 15px 15px;
-        padding-bottom: 20px;
-        border: 2px solid black;
+        background: #FFD0E5;
       }
 
       .right {

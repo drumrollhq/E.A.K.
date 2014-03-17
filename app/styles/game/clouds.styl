@@ -1,6 +1,6 @@
 .cloud
   position absolute
-  background-size contain
+  background-size 100% 100%
   background-repeat no-repeat
   background-position center
   z-index 0
@@ -8,17 +8,17 @@
 .level
   .cloud-a
     @extends .cloud
-    background-image url('/content/common/clouds-a.png')
+    background-image url('/content/common/cloud-a.png')
     animation cloud-float 5s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite
-    width 250px
-    height 82px
+    width 125px
+    height 90px
 
   .cloud-b
     @extends .cloud
-    background-image url('/content/common/clouds-b.png')
+    background-image url('/content/common/cloud-b.png')
     animation cloud-float 6s 0.5s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite reverse
     width 150px
-    height 60px
+    height 74px
 
   .cloud-c
     @extends .cloud

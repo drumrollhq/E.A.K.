@@ -1,0 +1,55 @@
+.birdicorn
+  width 100px
+  height 93px
+  position absolute
+  animation birdicorn-body 0.4s linear infinite alternate
+
+.birdicorn-body
+  background-image url('/content/common/birdicorn-nowings.png')
+  background-size 100% 100%
+  width 100px
+  height 93px
+  position absolute
+  z-index 3
+
+.birdicorn-wing-1
+  width 42px
+  height 42px
+  top 10px
+  left 58px
+  position absolute
+  z-index 2
+  background-image url('/content/common/birdicorn-wing-1.png')
+  background-size 100% 100%
+  animation birdicorn-wing-1 0.2s linear infinite alternate
+
+.birdicorn-wing-2
+  width 29px
+  height 36px
+  top 12px
+  left 55px
+  position absolute
+  background-image url('/content/common/birdicorn-wing-2.png')
+  background-size 100% 100%
+  animation birdicorn-wing-2 0.2s linear infinite alternate
+
+@keyframes birdicorn-body
+  from
+    transform translate(0, 0)
+
+  to
+    transform translate(0, 7px)
+
+@keyframes birdicorn-wing-1
+  from
+    transform none
+
+  to
+    transform scaleY(0.6) translate(6px, 18px) rotate(20deg)
+
+@keyframes birdicorn-wing-2
+  from
+    transform none
+
+  to
+    transform scaleY(0.8) rotate(10deg) translate(4px, 10px)
