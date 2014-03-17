@@ -2,8 +2,27 @@
   display inline-block
   color blue
 
-.level a[href].PLAYER_CONTACT
+.level a[href].PLAYER_CONTACT:not(.portal)
   animation hyperlink-anim 0.1s linear alternate infinite
+
+/* portal: */
+.level .portal
+  width 80px
+  height 105px
+  background-image url('/content/common/portal.png')
+  background-size 100% 100%
+  position absolute
+
+  &.portal-out
+    animation portal-out 0.5s ease-in
+    animation-fill-mode both
+    transform-origin 0 100%
+
+.player.portal-out .player-inner
+  animation portal-out 0.5s ease-in !important
+  animation-fill-mode both
+  transform-origin 0 100%
+  opacity 0
 
 @keyframes hyperlink-anim
   0%
@@ -14,3 +33,12 @@
 
   100%
     transform rotate(-5deg) scaleX(1.1) scaleY(0.9)
+
+@keyframes portal-out
+  from
+    transform scaleY(1)
+    opacity 1
+
+  to
+    transform scaleY(0)
+    opacity 0

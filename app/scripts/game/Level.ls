@@ -123,7 +123,10 @@ module.exports = class Level extends Backbone.Model
     @check-player-is-in-world!
 
   add-bodies-from-dom: (nodes) ~>
-    @renderer.$el.find 'a[href]' .attr 'data-id', 'HYPERLINK'
+    @renderer.$el.find 'a[href]:not(.portal)' .attr 'data-id', 'HYPERLINK'
+    @renderer.$el.find 'a[href].portal'
+      ..attr 'data-id' 'PORTAL'
+      ..attr 'data-sensor' 'data-sensor'
 
     # Build a map of some elements
     dom-map = @renderer.create-map!
