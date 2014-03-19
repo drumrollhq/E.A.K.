@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+
+    <meta name="size" value="780 585">
+    <meta name="borders" value="none">
+    <meta name="player" value="-330 260">
+    <meta name="player-color" value="white">
+    <meta name="background" value="white url(/content/bgs/creating-elements.png) center center / cover">
+    <meta name="targets" value="160 -33">
+
+    <hints>
+
+    </hints>
+
+    <hidden>
+      <div class="scale-7" style="top: 240px; left: 120px; position: absolute;">
+        <div class="dragon" data-ignore>
+          <div class="dragon-body"></div>
+          <div class="dragon-leg-1"></div>
+          <div class="dragon-leg-2"></div>
+          <div class="dragon-leg-3"></div>
+          <div class="dragon-leg-4"></div>
+        </div>
+      </div>
+
+      <div class="ledge"></div>
+      <a href="#/play/levels/headings.html" class="portal" style="right: 10px; bottom: 370px;"></a>
+
+      <div class="guide-1" data-ignore></div>
+      <div class="guide-2" data-ignore></div>
+    </hidden>
+
+    <style>
+      body > div:not(.entity), .guide-1, .guide-2 {
+        display: block;
+        width: 100px;
+        min-height: 80px;
+        padding: 5px;
+        position: absolute;
+        background: #FFD0E5;
+        text-align: center;
+      }
+
+      .guide-1, .guide-2 {
+        background: transparent;
+        padding: 3px;
+        border: 2px dashed rgba(255, 255, 255, 0.3);
+      }
+
+      body > div:not(.entity) > div {
+        outline: 1px solid red;
+      }
+
+      body > div:not(.entity):nth-child(1) {
+        bottom: -40px;
+        left: 20px;
+      }
+
+      body > div:not(.entity):nth-child(2) {
+        bottom: 50px;
+        left: 180px;
+      }
+
+      body > div:not(.entity):nth-child(3), .guide-1 {
+        bottom: 140px;
+        left: 340px;
+      }
+
+      body > div:not(.entity):nth-child(4), .guide-2 {
+        bottom: 230px;
+        left: 500px;
+      }
+
+      .ledge {
+        width: 120px;
+        height: 16px;
+        border-top: 4px solid rgb(153, 146, 145);
+        background: rgb(136, 130, 130);
+        position: absolute;
+        bottom: 350px;
+        right: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div>Box!</div>
+    <div>Box!</div>
+  </body>
+</html>

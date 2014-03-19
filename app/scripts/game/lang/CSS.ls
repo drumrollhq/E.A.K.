@@ -17,6 +17,7 @@ module.exports = class CSS
       walk css, 'rule', (rule) ->
         rule.selectors .= map (selector) ->
           | selector.trim! is 'body' => "#scope"
+          | selector.match 'body' => selector.replace 'body', scope
           | otherwise => "#scope #selector"
 
   rewrite-hover: (new-hover) ~>

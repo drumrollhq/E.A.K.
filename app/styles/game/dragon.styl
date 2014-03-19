@@ -1,0 +1,68 @@
+.dragon
+  width 288px
+  height 65px
+  position absolute
+  transform-origin 40% -150%
+  animation 45s dragon-float linear infinite
+
+.dragon *
+  position absolute
+  background-size 100% 100%
+  z-index 1
+
+.dragon-body
+  width 288px
+  height 65px
+  background-image url('/content/common/dragon-body.png')
+  z-index 2
+
+.dragon-leg-1
+  width 14px
+  height 24px
+  background-image url('/content/common/dragon-leg-1.png')
+  top 43px
+  left 58px
+  transform-origin 80% 10%
+  animation 1.3s ease-in-out dragon-leg infinite alternate
+
+.dragon-leg-2
+  width 9px
+  height 24px
+  background-image url('/content/common/dragon-leg-2.png')
+  top 48px
+  left 68px
+  transform-origin 80% 10%
+  animation 0.9s 0.3s ease-in-out dragon-leg infinite alternate
+
+.dragon-leg-3
+  width 13px
+  height 15px
+  background-image url('/content/common/dragon-leg-3.png')
+  top 52px
+  left 183px
+  transform-origin 80% 10%
+  animation 0.7s 0s ease-in-out dragon-leg infinite alternate
+
+.dragon-leg-4
+  width 6px
+  height 17px
+  background-image url('/content/common/dragon-leg-4.png')
+  top 53px
+  left 194px
+  transform-origin 50% 10%
+  animation 1.05s 0.5s ease-in-out dragon-leg infinite alternate
+
+@keyframes dragon-float
+  0%
+    transform rotate(70deg)
+
+  100%
+    transform rotate(430deg)
+
+@keyframes dragon-leg
+  from
+    transform rotate(15deg)
+
+  to
+    transform rotate(-15deg)
+
