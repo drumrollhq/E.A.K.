@@ -311,10 +311,11 @@ module.exports = class Level extends Backbone.Model
 
     @renderer.clear-transform!
 
-    editor = new Editor do
+    editor = new Editor {
       renderer: @renderer
       original-HTML: @conf.html
       original-CSS: @conf.css
+    }
 
     editor-view = new EditorView model: editor, render-el: @renderer.$el, el: $ \#editor
     editor-view.render!

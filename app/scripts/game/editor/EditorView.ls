@@ -63,11 +63,11 @@ module.exports = class EditorView extends Backbone.View
       $style = $ style
       $style |> ( .text! ) |> @renderer.preprocess-css |> $style.text
 
-    @entities.clone!prepend-to e
+    @entities.clone!append-to e
 
   restore-entities: ~>
     @render-el.children \.entity .remove!
-    @entities.prepend-to @render-el
+    @entities.append-to @render-el
 
   cancel: ~>
     @model.set \html @model.get \startHTML
