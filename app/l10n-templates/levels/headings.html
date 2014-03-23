@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Moving About</title>
+    <title>{{title}}</title>
 
     <meta name="size" value="480 828">
     <meta name="borders" value="all">
@@ -72,7 +72,7 @@
     </style>
 
     <hidden>
-      <a href="#/home" class="exit">done</a>
+      <a href="#/home" class="exit portal"></a>
 
       <!-- Ceiling spikes: -->
       <div class="spike rocky down" data-action="spike" style="top: 0; left: 0; width: 40px; height: 100px"></div>
@@ -98,22 +98,14 @@
   </head>
   <body>
     <!--
-      <p>
-        These are headings. The HTML headings are a very big family - they go all the
-        way from &lt;h1&gt; (the most important heading) to &lt;h6&gt; (the least
-        important heading). On a web page, you might have the page title in a &lt;h1&gt;,
-        and a subtitle in a &lt;h2&gt;, for example.
-      </p>
-
-      <p>
-        Two headings got you that far down into the cave - if you created more, you might
-        be able to find the bottom!
-      </p>
+      {{{comments.main}}}
     -->
-    <h1>I'M VERY IMPORTANT</h1>
-    <h2>ME TOO! Kinda...</h2>
+    <h1>{{{html.h1}}}</h1>
+    <h2>{{{html.h2}}}</h2>
 
-    <!-- Try adding a &lt;h3&gt; to get started: -->
+    <!--
+      {{{comments.getStarted}}}
+    -->
 
 
 
