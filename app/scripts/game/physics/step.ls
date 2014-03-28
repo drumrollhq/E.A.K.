@@ -48,6 +48,8 @@ find-state = (obj, nodes) ->
   obj.prev-contacts = obj.contacts
   obj.contacts = contacts
 
+  contacts = contacts |> reject -> it.data?.ignore? or it.data?.sensor?
+
   # Find contacts we appear to be on top of (naive)
   above-contacts = contacts.filter -> is-contact-above obj
 

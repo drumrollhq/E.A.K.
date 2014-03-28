@@ -1,61 +1,425 @@
-sprite(n)
-  background-position (-40px * (n - 1)) top
-
 .level .player.entity
-  width 40px
-  height 40px
+  width 33px
+  height 54px
   z-index 10000
 
-  .player-inner
-    width 40px
-    height 40px
-    background-image url('/content/common/player.png')
-    background-size auto 40px
+  *
+    position absolute
+    background-size 100% 100%
     background-repeat no-repeat
 
-    sprite 10
+  .player-inner
+    width 39px
+    height 54px
+    margin-left -3px
+    margin-top -6px
 
-  &.player-colour-white .player-inner
-    background-image url('/content/common/player-white.png')
+    *
+      animation 1s anim-null linear infinite
 
+  .player-body
+    background-image url('/content/common/arca/front/body.png')
+    width 31px
+    height 33px
+    top 22px
+    left 4px
+    transform-origin 50% 30%
+    z-index 1
+
+  .player-head
+    width 35px
+    height 30px
+    top 5px
+    left 2px
+    z-index 2
+
+  .player-face
+    background-image url('/content/common/arca/front/head.png')
+    width 35px
+    height 30px
+
+  .player-ear-left
+    background-image url('/content/common/arca/front/ear-left.png')
+    width 23px
+    height 24px
+    top -5px
+    left -2px
+    transform-origin 80% 80%
+
+  .player-ear-right
+    background-image url('/content/common/arca/front/ear-right.png')
+    width 23px
+    height 24px
+    top -5px
+    left 14px
+    transform-origin 20% 80%
+
+  .player-eyes
+    background-image url('/content/common/arca/front/eye-01.png')
+    width 21px
+    height 7px
+    top 18px
+    left 6.5px
+
+  .player-leg-left
+    background-image url('/content/common/arca/front/leg-left.png')
+    width 6px
+    height 13px
+    top 47px
+    left 11px
+    transform-origin 50% 30%
+
+  .player-leg-right
+    background-image url('/content/common/arca/front/leg-left.png')
+    width 6px
+    height 13px
+    top 47px
+    left 22px
+    transform-origin 50% 30%
 
   &.player-left .player-inner
-    transform scaleX(-1)
+    transform scaleX(-1) translateZ(0)
 
-  &.player-idle .player-inner
-    animation player-idle-cycle 10s infinite
+  /* Side facing: */
+  &.player-running, &.player-jumping
 
-  &.player-running .player-inner
-    animation player-walk-cycle 0.6s steps(4) infinite
+    /* These assets are the wrong way round, so we reverse them: */
+    .player-inner
+      width 31px
+      height 60px
+      margin-top -8px
+      margin-left 1px
+      transform scaleX(-1) translateZ(0)
 
-  &.player-jumping .player-inner
-    sprite 9
+    &.player-left .player-inner
+      transform translateZ(0)
 
-  &.player-jumping-forward .player-inner
-    sprite 8
+    .player-body
+      background-image url('/content/common/arca/side/body.png')
+      width 31px
+      height 33px
+      top 24px
+      left 0px
+      z-index 1
 
-  &.player-falling .player-inner
-    sprite 7
+    .player-head
+      width 30px
+      height 30px
+      top 8px
+      left 1px
+      z-index 2
 
-  &.player-pain .player-inner
-    sprite 5
+    .player-face
+      background-image url('/content/common/arca/side/head.png')
+      width 30px
+      height 30px
+      z-index 2
 
-@keyframes player-walk-cycle
+    .player-ear-left
+      background-image url('/content/common/arca/side/ear-front.png')
+      width 15px
+      height 16px
+      top -6px
+      left 1.7px
+      transform-origin 20% 80%
+      z-index 3
+
+    .player-ear-right
+      background-image url('/content/common/arca/side/ear-back.png')
+      width 17px
+      height 19px
+      top -8px
+      left 7px
+      z-index 1
+
+    .player-eyes
+      background-image url('/content/common/arca/side/eye-01.png')
+      width 6px
+      height 8px
+      top 16px
+      left 20px
+      z-index 2
+
+    .player-leg-left
+      background-image url('/content/common/arca/side/leg-front.png')
+      width 7px
+      height 14px
+      top 49px
+      left 11px
+
+    .player-leg-right
+      background-image url('/content/common/arca/side/leg-back.png')
+      width 5px
+      height 14px
+      top 49px
+      left 16px
+
+
+  &.player-idle
+    .player-ear-left
+      animation player-ear-left-idle 5s linear infinite
+
+    .player-ear-right
+      animation player-ear-right-idle 6s -3.141s linear infinite
+
+  &.player-running
+    .player-body
+      animation player-body-run 0.3s ease-in-out alternate infinite
+
+    .player-head
+      animation player-head-run 0.3s ease-in-out alternate infinite
+
+    .player-ear-left
+      animation player-ear-left-run 0.3s ease-in-out alternate infinite
+
+    .player-ear-right
+      animation player-ear-right-run 0.3s ease-in-out alternate infinite
+
+    .player-leg-left
+      animation player-leg-left-run 0.2s ease-in alternate infinite
+
+    .player-leg-right
+      animation player-leg-right-run 0.2s ease-out alternate infinite
+
+  &.player-jumping
+    .player-ear-left
+      animation player-ear-left-jump 0.1s ease-out alternate infinite
+
+    .player-ear-right
+      animation player-ear-right-jump 0.1s ease-out alternate infinite
+
+    .player-leg-left
+      animation player-leg-left-jump 0.5s ease-in-out alternate infinite
+      animation-fill-mode both
+
+    .player-leg-right
+      animation player-leg-right-jump 0.5s ease-in-out alternate infinite
+      animation-fill-mode both
+
+  &.player-jumping-forward
+    .player-ear-left
+      animation player-ear-left-jump-forward 0.1s ease-out alternate infinite
+
+    .player-ear-right
+      animation player-ear-right-jump-forward 0.1s ease-out alternate infinite
+
+    .player-leg-left
+      animation player-leg-left-jump-forward 0.5s ease-in-out
+      animation-fill-mode both
+
+    .player-leg-right
+      animation player-leg-right-jump-forward 0.5s ease-in-out
+      animation-fill-mode both
+
+  &.player-falling
+    .player-leg-left
+      animation player-leg-left-falling 0.3s ease-in-out alternate infinite
+
+    .player-leg-right
+      animation player-leg-right-falling 0.33141s ease-in-out alternate infinite
+
+    .player-ear-left
+      animation player-ear-left-falling 0.1s ease-in-out alternate infinite
+
+    .player-ear-right
+      animation player-ear-right-falling 0.1s ease-in-out alternate infinite
+
+    .player-head
+      animation player-head-falling 0.4s -0.2s ease-in-out alternate infinite
+
+    .player-body
+      animation player-body-falling 0.43141s -0.2157s ease-in-out alternate infinite
+
+  // &.player-pain .player-inner
+  //   sprite 5
+
+/* We use this animation to keep things sharp: */
+@keyframes anim-null
   from
-    sprite 1
+    transform rotate(0)
 
   to
-    sprite 5
+    transform rotate(0)
 
-@keyframes player-idle-cycle
+/* Player idle: */
+@keyframes player-ear-left-idle
   0%
-    sprite 10
+    transform rotate(0)
 
-  69.99%
-    sprite 10
+  80%
+    transform rotate(0)
 
-  70%
-    sprite 11
+  85%
+    transform rotate(4deg)
+
+  95%
+    transform rotate(-4deg)
 
   100%
-    sprite 11
+    transform rotate(0)
+
+@keyframes player-ear-right-idle
+  0%
+    transform rotate(0)
+
+  80%
+    transform rotate(0)
+
+  85%
+    transform rotate(-4deg)
+
+  95%
+    transform rotate(4deg)
+
+  100%
+    transform rotate(0)
+
+/* Forward facing jump */
+@keyframes player-ear-left-jump-forward
+  from
+    transform rotate(0)
+
+  to
+    transform rotate(-10deg)
+
+@keyframes player-ear-right-jump-forward
+  from
+    transform rotate(0)
+
+  to
+    transform rotate(10deg)
+
+@keyframes player-leg-left-jump-forward
+  from
+    transform rotate(0)
+
+  to
+    transform rotate(40deg)
+
+@keyframes player-leg-right-jump-forward
+  from
+    transform rotate(0)
+
+  to
+    transform rotate(-40deg)
+
+/* Falling */
+@keyframes player-leg-left-falling
+  from
+    transform rotate(-10deg)
+
+  to
+    transform rotate(40deg)
+
+@keyframes player-leg-right-falling
+  from
+    transform rotate(10deg)
+
+  to
+    transform rotate(-40deg)
+
+@keyframes player-ear-left-falling
+  from
+    transform rotate(10deg)
+
+  to
+    transform rotate(-10deg)
+
+@keyframes player-ear-right-falling
+  from
+    transform rotate(-10deg)
+
+  to
+    transform rotate(10deg)
+
+@keyframes player-head-falling
+  from
+    transform rotate(-10deg)
+
+  to
+    transform rotate(10deg)
+
+@keyframes player-body-falling
+  from
+    transform rotate(10deg)
+
+  to
+    transform rotate(-10deg)
+
+/* Running */
+@keyframes player-leg-left-run
+  from
+    transform rotate(10deg)
+
+  to
+    transform rotate(-20deg)
+
+@keyframes player-leg-right-run
+  from
+    transform rotate(-20deg)
+
+  to
+    transform rotate(10deg)
+
+@keyframes player-body-run
+  0%
+    transform translate(0, 0) rotate(0)
+
+  50%
+    transform translate(1px, -1px) rotate(1.5deg)
+
+  100%
+    transform translate(2px, 0) rotate(3deg)
+
+@keyframes player-head-run
+  0%
+    transform translate(0, 0) rotate(5deg)
+
+  50%
+    transform translate(1px, -1px) rotate(2.5deg)
+
+  100%
+    transform translate(2px, 0) rotate(0deg)
+
+@keyframes player-ear-left-run
+  from
+    transform rotate(0deg)
+
+  to
+    transform rotate(5deg)
+
+@keyframes player-ear-right-run
+  from
+    transform rotate(5deg)
+
+  to
+    transform rotate(0deg)
+
+/* Jumping */
+@keyframes player-ear-left-jump
+  from
+    transform rotate(-5deg)
+
+  to
+    transform rotate(5deg)
+
+@keyframes player-ear-right-jump
+  from
+    transform rotate(5deg)
+
+  to
+    transform rotate(-5deg)
+
+@keyframes player-leg-left-jump
+  from
+    transform rotate(0deg)
+
+  to
+    transform rotate(40deg)
+
+@keyframes player-leg-right-jump
+  from
+    transform rotate(0deg)
+
+  to
+    transform rotate(-40deg)

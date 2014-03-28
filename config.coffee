@@ -2,6 +2,7 @@ path = require "path"
 fs = require "fs"
 glob = require "glob"
 L10N = require "l10n-ls"
+stylus = require './node_modules/stylus-brunch/node_modules/stylus/'
 
 l10n = new L10N
   content: 'app/l10n-content'
@@ -78,6 +79,13 @@ exports.config =
       joinTo: 'css/app.css'
     templates:
       joinTo: 'js/app.js'
+
+  plugins:
+    stylus:
+      defines:
+        url: stylus.url()
+
+      paths: ['./app/assets/']
 
   conventions:
     ignored: (file) ->

@@ -2,6 +2,20 @@ require! {
   'game/mediator'
 }
 
+player-html = '''
+  <div class="player-inner">
+    <div class="player-head">
+      <div class="player-ear-left"></div>
+      <div class="player-ear-right"></div>
+      <div class="player-face"></div>
+      <div class="player-eyes"></div>
+    </div>
+    <div class="player-body"></div>
+    <div class="player-leg-left"></div>
+    <div class="player-leg-right"></div>
+  </div>
+'''
+
 {reduce} = _
 
 module.exports = class Player extends Backbone.View
@@ -9,22 +23,24 @@ module.exports = class Player extends Backbone.View
   class-name: 'player entity'
 
   initialize: (start = {x: 0, y: 0, colour: 'white'}, w = 100, h = 100) ->
-    @el.width = @el.height = 40
+    @el.width = 33px
+    @el.height = 54px
 
     @ <<< {start, w, h}
 
     @$el.add-class "player-colour-#{start.colour}"
 
-    @$inner-el = $ '<div></div>'
-      ..add-class 'player-inner'
-      ..append-to @$el
+    @$el.html player-html
+
+    @$inner-el = @$el.find '.player-inner'
 
     @$el.attr \data-ignore true
 
-    @$el.css do
+    @$el.css {
       position: \absolute
-      left: start.x + w/2 - 20
-      top: start.y + h/2 - 20
+      left: start.x + w/2 - @el.width/2
+      top: start.y + h/2 - @el.height/2
+    }
 
     @last-classes = []
     @last-direction = 'right'
@@ -35,8 +51,8 @@ module.exports = class Player extends Backbone.View
       type: 'rect'
       x: start.x + w/2
       y: start.y + h/2
-      width: 40
-      height: 40
+      width: @el.width
+      height: @el.height
       rotation: 0
       data:
         player: true

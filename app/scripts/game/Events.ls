@@ -17,6 +17,8 @@ mediator.on 'begin-contact:HYPERLINK:ENTITY_PLAYER' (contact) ->
 mediator.on 'begin-contact:PORTAL:ENTITY_PLAYER' (contact) ->
   <- set-timeout _, 250
 
+  if contact.b.last-fall-frames > 35 then return
+
   contact.b
     ..frozen = true
     ..handle-input = false
@@ -30,7 +32,6 @@ mediator.on 'begin-contact:PORTAL:ENTITY_PLAYER' (contact) ->
 
 # Falling to death, actions:
 mediator.on 'begin-contact:ENTITY_PLAYER:*' (contact) ->
-  console.log contact.a.last-fall-frames
 
   # First, check for and trigger actions
   if contact.b.data?.action?
@@ -40,7 +41,6 @@ mediator.on 'begin-contact:ENTITY_PLAYER:*' (contact) ->
       actions[action] contact.a, contact.b
 
   if contact.a.last-fall-frames > 55 and not contact.b.data?.sensor?
-    console.log contact.a.last-fall-frames
     mediator.trigger 'fall-to-death'
 
 # Kitten finding
