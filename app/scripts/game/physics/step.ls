@@ -14,7 +14,7 @@ const max-fall-speed = 10px,
   move-damp = 0.7px,
   move-damp-in-air = 0.01px
   jump-speed = 5.4px,
-  max-jump-frames = 16,
+  max-jump-frames = 10,
   pad = 0.1
 
 old-els = []
@@ -71,7 +71,7 @@ find-state = (obj, nodes) ->
 
 target = 1000 / 60 # Aim for 60fps
 
-ts = replicate 300 1
+ts = replicate 30 1
 
 module.exports = step = (state, t) ->
   # Get the useful stuff out of the state:
@@ -90,7 +90,7 @@ module.exports = step = (state, t) ->
   # Keep track of the time-deltas between each iteration. We use a moving average to
   # smoothly adjust to slower run times
   dt = t / target
-  if dt > 4 then dt = 4
+  # if dt > 4 then dt = 4
   ts.shift!
   ts.push dt
   dt = mean ts
@@ -107,7 +107,7 @@ module.exports = step = (state, t) ->
     obj <<< {
       last-v: new Vector obj.v
       last-state: obj.state
-      last-fall-frames: obj.fall-frames
+      last-fall-dist: obj.fall-dist
     }
 
     obj.p.add-eq v
@@ -181,14 +181,17 @@ module.exports = step = (state, t) ->
         if collide
           obj.el.style.background = "rgb(#{255 * Math.random!}, #{255 * Math.random!}, #{255 * Math.random!})"
 
+    if obj.v.y > 0
+      obj.fall-dist = obj.p.y - obj.fall-start
+    else
+      obj.fall-start = obj.p.y
+
     switch obj.state
     | 'falling', 'contact', 'jumping' =>
       if obj.v.y >= max-fall-speed
         obj.v.y = max-fall-speed
       else
-        obj.v.y += fall-acc
-
-      if obj.state isnt 'jumping' then obj.fall-frames += dt else obj.fall-frames = 0
+        obj.v.y += fall-acc * dt
 
       if obj.handle-input then handle-input obj, dt
 
@@ -196,7 +199,7 @@ module.exports = step = (state, t) ->
       # obj.v.y = 0
       # obj.p.y = state.thing.aabb.top - obj.height / 2
       if obj.handle-input then handle-input obj, dt
-      obj.fall-frames = 0
+      obj.fall-dist = 0
 
     | otherwise =>
       throw new Error 'Unknown state'
@@ -253,38 +256,25 @@ handle-input = (node, scale) ->
 
   # Jumping:
   # jump-frames is a timer that counts a the number of frames the player can be
-  # accelerating for. If it is >= 0 it is a timer, if it is -1 the player is ready
-  # to jump but not jumping, and if it is -2 the player is prevented from jumping
+  # accelerating for.
+  # jump-state indicates the state of the jump
   #
   # If the jump key is pressed and (the player is on the ground or mid-jump):
-  if keys.jump and (node.state is 'on-thing' or node.jump-frames > 0) and (node.jump-frames isnt -2)
-    # Make the player jump up:
-    node.v.y = - jump-speed
+  {jump-state, state, jump-frames} = node
+  if keys.jump and jump-state is \ready and state is \on-thing
+    node.v.y = -jump-speed
+    node.jump-frames = max-jump-frames
+    node.jump-state = \jumping
+    node.fall-dist = 0
 
-    # Start a timer for how long a player can jump for
-    if node.jump-frames is -1
-      node.jump-frames = max-jump-frames
+  else if keys.jump and jump-state is \jumping and state is \jumping and jump-frames > 0
+    node.v.y = -jump-speed
+    node.jump-frames -= scale
+    node.jump-state = \jumping
+    node.fall-dist = 0
 
-    node.jump-frames--
+  else if keys.jump and jump-frames <= 0
+    node.jump-state = \stop
 
-  # If the player has only just released the jump key OR the jump-timer is finished:
-  else if (keys.jump is false and node.jump-frames > 0)
-    # Slow down the player
-    node.v.y = node.v.y / 2
-
-    # Get the player ready for the next jump
-    node.jump-frames = -1
-
-  else if keys.jump and node.jump-frames is 0
-    # Slow down the player
-    node.v.y = node.v.y / 2
-
-    # Prevent the player from jumping again.
-    node.jump-frames = -2
-
-  else if keys.jump and node.jump-frames is -2
-    node.jump-frames = -2
-
-  # Otherwise, keep the player on the ground
   else
-    node.jump-frames = -1
+    node.jump-state = \ready

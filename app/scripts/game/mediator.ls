@@ -1,5 +1,10 @@
 require! plugins
 
+# Delay: Utility function for simulating computers that can't run EAK at 60FPS:
+delay = (ms) ->
+  stop = performance.now! + ms
+  while performance.now! < stop => null
+
 class Mediator extends Backbone.Model
   sc = Backbone.Model.prototype
   # Extra event bindings. This allows us to listen on 'eventname:a,b,c'
@@ -165,6 +170,8 @@ mediator.once \keypress:f ->
 
   mediator.on \preframe ->
     stats.begin!
+    # Slow things right down for testing
+    # delay 50
 
   mediator.on \postframe ->
     stats.end!

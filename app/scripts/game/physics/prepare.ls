@@ -26,7 +26,9 @@ prepare-one = ->
     # Initialize velocity, position, and jump-frames (used to control height of jump)
     it.v = it.last-v = new Vector 0, 0
     it.p = new Vector it.{x, y}
-    it.jump-frames = it.fall-frames = 0
+    it.fall-start = y
+    it.jump-frames = it.fall-dist = 0
+    it.jump-state = \ready
 
     # Is this a sensor?
     if it.data?.sensor? then it.sensor = true else it.sensor = false
