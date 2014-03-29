@@ -4,7 +4,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>{{title}}</title>
-  <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/css/min.css">
+  <!--UNLESS-OPTIMIZED-->
+    <link rel="stylesheet" href="/css/app.css">
+  <!--END-UNLESS-OPTIMIZED-->
 </head>
 <body>
   <div id="main" class="html">
@@ -88,32 +91,42 @@
 
   <script>
   <!--IF-OPTIMIZED-->
-    document.addEventListener("DOMContentLoaded", function() {
-      var scripts = ["/js/vendor.js", "/js/app.js"],
-        loaded = 0;
+    document.addEventListener('DOMContentLoaded', function() {
+      var loaded = 0,
+        loadables = [
+          {
+            src: '/js/vendor.js',
+            type: 'js'
+          }, {
+            src: '/js/app.js',
+            type: 'js'
+          }, {
+            src: '/css/app.css',
+            type: 'css'
+          }];
 
       var total = [],
         soFar = [];
 
       var failed = false;
 
-      var dialogue = document.querySelector(".loader"),
-        bar = dialogue.querySelector(".bar"),
-        progress = dialogue.querySelector(".progress"),
+      var dialogue = document.querySelector('.loader'),
+        bar = dialogue.querySelector('.bar'),
+        progress = dialogue.querySelector('.progress'),
         barInner = bar.children[0];
 
       function onLoad(progress) {
         loaded++;
         var req = progress.target;
-        scripts[req.dataIter] = req.response;
-        if (loaded === scripts.length) {
+        loadables[req.dataIter].data = req.response;
+        if (loaded === loadables.length) {
           finished();
         }
       }
 
       function onError() {
         if (!failed) {
-          alert("Oh no! We couldn't load all the assets for Erase All Kittens! :(")
+          alert('Oh no! We couldn\'t load all the assets for Erase All Kittens! :(')
         }
       }
 
@@ -130,7 +143,7 @@
       function sum(arr) {
         var n = 0;
 
-        for (var i = 0; i < scripts.length; i++) {
+        for (var i = 0; i < arr.length; i++) {
           if (arr[i] !== undefined) {
             n += arr[i];
           }
@@ -142,31 +155,40 @@
       function updateProgress() {
         var sumTotal = sum(total),
           soFarTotal = sum(soFar),
-          w = Math.round((soFarTotal / sumTotal) * 100) + "%";
+          w = Math.round((soFarTotal / sumTotal) * 100) + '%';
 
         progress.textContent = w;
         barInner.style.width = w;
       }
 
       function finished() {
-        for (var i = 0; i < scripts.length; i++) {
-          var el = document.createElement("script");
-          el.textContent = scripts[i];
-          document.body.appendChild(el);
+        var el;
+
+        for (var i = 0; i < loadables.length; i++) {
+          if (loadables[i].type === 'js') {
+            el = document.createElement('script');
+            el.textContent = loadables[i].data;
+            document.body.appendChild(el);
+          } else if (loadables[i].type === 'css') {
+            el = document.createElement('style');
+            el.type = 'text/css';
+            el.appendChild(document.createTextNode(loadables[i].data));
+            document.head.appendChild(el);
+          }
         }
 
-        bar.style.display = progress.style.display = "none";
+        bar.style.display = progress.style.display = 'none';
 
         init();
       }
 
-      for (var i = 0; i < scripts.length; i++) {
+      for (var i = 0; i < loadables.length; i++) {
         var req = new XMLHttpRequest();
-        req.addEventListener("load", onLoad, false);
-        req.addEventListener("error", onError, false);
-        req.addEventListener("abort", onError, false);
-        req.addEventListener("progress", onProgress, false)
-        req.open("GET", scripts[i]);
+        req.addEventListener('load', onLoad, false);
+        req.addEventListener('error', onError, false);
+        req.addEventListener('abort', onError, false);
+        req.addEventListener('progress', onProgress, false)
+        req.open('GET', loadables[i].src);
         req.send();
         req.dataIter = i;
       }
@@ -186,11 +208,11 @@
         })();
       }
 
-      require("plugins");
+      require('plugins');
 
-      Init = require("Init");
+      Init = require('Init');
 
-      window.app = new Init({el: $("#main")});
+      window.app = new Init({el: $('#main')});
     }
 
     <!--UNLESS-OPTIMIZED-->
