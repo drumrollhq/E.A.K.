@@ -93,9 +93,11 @@ frame-driver = ~>
   last := n
 
   unless mediator.paused
+    mediator.trigger \preframe diff
     mediator.trigger \frame diff
     mediator.trigger \frame:process diff
     mediator.trigger \frame:render diff
+    mediator.trigger \postframe diff
 
   window.rAF frame-driver
 
@@ -153,6 +155,19 @@ mediator.on \keypress:b ->
 
 mediator.on \DEBUG-toggle (dbg) ->
   mediator.DEBUG-el.css \display if dbg then \block else \none
+
+# FPS monitor. The 'f' key turns on the fps meter:
+mediator.once \keypress:f ->
+  stats = mediator.stats = new Stats!
+  stats.set-mode 0
+  stats.dom-element.style <<< position: 'absolute', bottom: 0, right: 0
+  document.body.append-child stats.dom-element
+
+  mediator.on \preframe ->
+    stats.begin!
+
+  mediator.on \postframe ->
+    stats.end!
 
 # Key events
 # Us the names of non alpha-numeric keys

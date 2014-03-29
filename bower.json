@@ -12,7 +12,8 @@
     "backbone": "latest",
     "modernizr": "latest",
     "codemirror": "latest",
-    "slowparse": "~0.0.1"
+    "slowparse": "~0.0.1",
+    "stats.js": "*"
   },
   "overrides": {
     "underscore": {
@@ -47,6 +48,9 @@
         "tree-inspectors.js",
         "spec/errors.jquery.js"
       ]
+    },
+    "stats.js": {
+      "main": "build/stats.min.js"
     }
   }
 }
