@@ -1,8 +1,6 @@
 .pointer-hint
   position absolute
   display none
-  margin-top 20px
-  margin-left -175px
   z-index 99998
 
   > div
@@ -20,21 +18,45 @@
     position absolute
     width 20px
     height 20px
-    top -10px
-    left 175px
     margin-left -10px
     background-color white
     box-shadow 0 0 5px rgba(30, 200, 255, 0.6)
     transform rotate(45deg)
     z-index 99999
 
-  &.side
+  &.position-below
+    margin-top 20px
+    margin-left -175px
+
+    &:before
+      top -10px
+      left 175px
+
+  &.position-above
+    margin-top -30px
+    margin-bottom 20px
+    margin-left -175px
+
+    &:before
+      bottom -10px
+      left 175px
+
+  &.position-right
     margin-top 0
     margin-left 20px
 
     &:before
       top -10px
       left 0
+
+  &.position-left
+    margin-top 0
+    margin-left -20px
+    margin-right 20px
+
+    &:before
+      top -10px
+      right -10px
 
   &.active
     display block

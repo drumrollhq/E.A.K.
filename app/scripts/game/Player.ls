@@ -85,7 +85,7 @@ module.exports = class Player extends Backbone.View
       classes[*] =
         | @state is 'on-thing' and 0.7 < abs @v.x => 'running'
         | @state is 'on-thing' => 'idle'
-        | @fall-frames > 50 => 'falling'
+        | @fall-dist > 150 => 'falling'
         | 3 > abs @v.x => 'jumping-forward'
         | otherwise => 'jumping'
 

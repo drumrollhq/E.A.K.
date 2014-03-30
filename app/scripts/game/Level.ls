@@ -21,7 +21,7 @@ module.exports = class Level extends Backbone.Model
 
     # Set up the HTML/CSS for the level
     conf.html = level.find 'body' .html!
-    conf.css = level.find 'head style' |> map _, (-> $ it .text!) |> reduce _, (m, n) -> m + '\n\n' + n
+    conf.css = level.find 'style' |> map _, (-> $ it .text!) |> join '\n\n'
 
     renderer = @renderer = new Renderer html: conf.html, css: conf.css, root: $ \#levelcontainer
 

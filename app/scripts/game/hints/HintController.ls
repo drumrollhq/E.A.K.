@@ -19,7 +19,7 @@ module.exports = class HintController extends Backbone.Model
     exit: \time:4
     enter-delay: 0
     exit-delay: 0
-    side: false
+    position: \below
 
   initialize: ->
     hint-els = @get \hints
@@ -37,7 +37,7 @@ module.exports = class HintController extends Backbone.Model
         exit: ($el.attr 'exit') or HintController::hint-defaults.exit
         enter-delay: ($el.attr 'enter-delay') or HintController::hint-defaults.enter-delay
         exit-delay: ($el.attr 'exit-delay') or HintController::hint-defaults.exit-delay
-        side: ($el.attr 'side') or HintController::hint-defaults.side
+        position: ($el.attr 'position') or HintController::hint-defaults.position
 
       @hints.push obj
 
