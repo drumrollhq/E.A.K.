@@ -38,8 +38,8 @@ module.exports = class Router extends Backbone.Router
     mediator.trigger 'alert' 'I haven\'t implemented loading yet. Sorry!'
 
   # TODO: Add a proper screen for reaching the end of the game. At the moment,
-  # we just redirect to the home page with the email sign up.
-  go-home: -> location.href = '/'
+  # we just redirect to a feedback form.
+  go-home: -> location.href = 'https://docs.google.com/forms/d/1q_uwYzcNSpGIvvNKc4LHoKqj7tta-uQveWjaiskOVrA/viewform'
 
   # Plays a local ('official') level from the repo. TODO: Playing levels from
   # Thimble, and maybe even arbitrary URLs
