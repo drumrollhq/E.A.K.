@@ -1,5 +1,6 @@
 require! {
   'game/mediator'
+  'game/physics/keys'
 }
 
 player-html = '''

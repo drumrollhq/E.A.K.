@@ -267,7 +267,7 @@ handle-input = (node, scale) ->
     node.jump-state = \jumping
     node.fall-dist = 0
 
-  else if keys.jump and jump-state is \jumping and state is \jumping and jump-frames > 0
+  else if keys.jump and jump-state is \jumping and state in <[jumping contact]> and jump-frames > 0
     node.v.y = -jump-speed
     node.jump-frames -= scale
     node.jump-state = \jumping
