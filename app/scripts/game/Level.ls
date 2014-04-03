@@ -29,7 +29,12 @@ module.exports = class Level extends Backbone.Model
     if bg = level.find 'meta[name=background]' .attr \value
       renderer.el.style.background = bg
       mediator.trigger 'prepareBackground', bg
+      mediator.trigger 'showBackground'
       @conf.background = bg
+      mediator.once 'background-applied' -> mediator.trigger 'level-loaded'
+    else
+      <- set-timeout _, 0
+      mediator.trigger 'level-loaded'
 
     # Set the level size
     if size = level.find 'meta[name=size]' .attr \value
@@ -77,11 +82,14 @@ module.exports = class Level extends Backbone.Model
 
     loader = new ElementLoader el: @renderer.$el
     loader-view = new LoaderView model: loader
+    loader-view.hide-progress!
     loader-view.$el.append-to '#main > .app'
 
     loader-view.render!
 
     mediator.paused = true
+
+    <~ mediator.once 'level-loaded'
 
     do
       <~ loader.once 'done', _
@@ -89,8 +97,6 @@ module.exports = class Level extends Backbone.Model
       <~ set-timeout _, 600
 
       $ document.body .add-class \playing
-
-      mediator.trigger 'showBackground'
 
       mediator.paused = false
 

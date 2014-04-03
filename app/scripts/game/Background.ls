@@ -74,6 +74,7 @@ module.exports = class Background
     if @current-background.ready
       @$body.css \background-image, @current-background.value
       @current-background = value: '', ready: true
+      mediator.trigger 'background-applied'
 
   # Find a URL from a background image
   parse-bg: (bg) ->

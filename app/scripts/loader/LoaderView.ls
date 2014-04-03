@@ -20,7 +20,7 @@ module.exports = class LoaderView extends Backbone.View
 
     @$progress-bar = @$ '.bar div'
     @$percent = @$ '.progress'
-    @$progress-els = @$ '.progress .bar'
+    @$progress-els = @$ '.progress, .bar'
 
     @displaying-progress = yes
 
@@ -50,5 +50,8 @@ module.exports = class LoaderView extends Backbone.View
 
     @$progress-bar.width progress + '%'
     @$percent.text (Math.round progress) + '%'
+
+  hide-progress: ->
+    @$progress-els.css display: \none
 
   render: -> @$el.show-dialogue!
