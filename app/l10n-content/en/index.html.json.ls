@@ -1,12 +1,22 @@
-title: 'Erase All Kittens'
+title: 'E.A.K.'
 
-intro: 'Erase All Kittens is a new open source game about an evil rebellion, intent on destroying all kittens on the Internet. Learn to code whilst playing to help save the kittens, and consequently save the world!'
+intro: 'E.A.K. is a new open source game about an evil rebellion, intent on destroying all kittens on the Internet. Create and change the web to the save kittens, and the world!'
 
-links: 'The code is <a href="http://github.com/SomeHats/Erase-All-Kittens">available on Github</a> and there\'s a <a href="http://eraseallkittens.com/play">really early demo</a> for you to play, too.'
+demo: 'E.A.K: Play the demo now!'
 
-team: 'E.A.K. is made by <a href="http://drumrollhq.com/">Drum Roll</a>. We’re a team of one developer, one creative and one designer who are trying to teach kids about creation on the web with the best game we can build. We’ve created the story, structure and look of the game, but we’d love some help to develop it further, specifically from developers, illustrators, and level designers.'
+links: 'We\'re working on updating this website, but you can play an early demo of the game by clicking the big purple thing above. The source code is <a href="http://github.com/SomeHats/E.A.K.">here</a> if you\'re into that sort of thing.'
 
-interested: 'If you’re interested in what we’ve done so far or would like to help out, we’d love to hear from you. Fill out the form below, and we\'ll get in touch :)'
+help: 'Help us!'
+
+team: 'E.A.K. is made by <a href="http://drumrollhq.com/">Drum Roll</a>. The game is free and open source - we need your help to make it great:'
+
+need:
+  teachUK: 'If you are a teacher in the UK or know anyone who is, we\'d love to come visit and observe your class playing our game. It\'s important that we test it out with as many people as possible!'
+  teach: 'If you\'re a teacher outside of the UK, it would still be amazing if you played the game with your students. Tell us what you thought!'
+  dev: 'We\'re also eager to chat to developers, designers, educators, and anyone else who would like to help us build E.A.K.'
+  other: 'None of the above? Get in touch anyway! If you want to help out, we will find something for you to help with.'
+
+interested: 'Email us at <a href="mailto:&#104;&#117;&#109;&#097;&#110;&#115;&#064;&#103;&#111;&#100;&#114;&#117;&#109;&#114;&#111;&#108;&#108;&#046;&#111;&#114;&#103;">&#104;&#117;&#109;&#097;&#110;&#115;&#064;&#103;&#111;&#100;&#114;&#117;&#109;&#114;&#111;&#108;&#108;&#046;&#111;&#114;&#103;</a>. <br> Fill out this form to keep up to date with all things E.A.K.'
 
 form:
   title: 'Yay email form!'
