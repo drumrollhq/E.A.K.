@@ -16,7 +16,7 @@ need:
   dev: 'We\'re also eager to chat to developers, designers, educators, and anyone else who would like to help us build E.A.K.'
   other: 'None of the above? Get in touch anyway! If you want to help out, we\'ll find something for you to help with.'
 
-interested: 'Email us at <a href="mailto:&#104;&#117;&#109;&#097;&#110;&#115;&#064;&#103;&#111;&#100;&#114;&#117;&#109;&#114;&#111;&#108;&#108;&#046;&#111;&#114;&#103;">&#104;&#117;&#109;&#097;&#110;&#115;&#064;&#103;&#111;&#100;&#114;&#117;&#109;&#114;&#111;&#108;&#108;&#046;&#111;&#114;&#103;</a>. <br> Fill out this form to keep up to date with all things E.A.K.'
+interested: 'Email us at <a href="mailto:&#104;&#117;&#109;&#097;&#110;&#115;&#064;&#103;&#111;&#100;&#114;&#117;&#109;&#114;&#111;&#108;&#108;&#046;&#111;&#114;&#103;">&#104;&#117;&#109;&#097;&#110;&#115;&#064;&#103;&#111;&#100;&#114;&#117;&#109;&#114;&#111;&#108;&#108;&#046;&#111;&#114;&#103;</a>, and fill out this form to keep up to date with all things E.A.K.'
 
 form:
   title: 'Yay email form!'
