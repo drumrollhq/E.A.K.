@@ -103,7 +103,7 @@ module.exports = class Player extends Backbone.View
     @last-classes := classes
 
   fall-to-death: ~>
-    @apply-classes ['squish']
+    @apply-classes ['squish' @last-direction]
     @deactivated = true
     @classes-disabled = true
     <~ set-timeout _, 1500
