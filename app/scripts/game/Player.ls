@@ -103,11 +103,10 @@ module.exports = class Player extends Backbone.View
     @last-classes := classes
 
   fall-to-death: ~>
-    @apply-classes ['pain']
-    @frozen = true
-    @handle-input = false
+    @apply-classes ['squish']
+    @deactivated = true
     @classes-disabled = true
-    <~ set-timeout _, 400
+    <~ set-timeout _, 1500
     @classes-disabled = false
-    @frozen = false
+    @deactivated = false
     @reset!

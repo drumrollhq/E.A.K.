@@ -9,13 +9,14 @@ actions = {
 
 # Hyperlinks
 mediator.on 'begin-contact:HYPERLINK:ENTITY_PLAYER' (contact) ->
-
+  if contact.b.deactivated then return
   speed = contact.b.last-v.y
   if 3.5px < speed < 10px then window.location.href = contact.a.el.href
 
 # Portals
 mediator.on 'begin-contact:PORTAL:ENTITY_PLAYER' (contact) ->
   <- set-timeout _, 250
+  if contact.b.deactivated then return
 
   if contact.b.last-fall-dist > 200px then return
 
@@ -32,6 +33,7 @@ mediator.on 'begin-contact:PORTAL:ENTITY_PLAYER' (contact) ->
 
 # Falling to death, actions:
 mediator.on 'begin-contact:ENTITY_PLAYER:*' (contact) ->
+  if contact.a.deactivated then return
   console.log contact.a.last-fall-dist
 
   # First, check for and trigger actions
@@ -46,6 +48,7 @@ mediator.on 'begin-contact:ENTITY_PLAYER:*' (contact) ->
 
 # Kitten finding
 mediator.on 'begin-contact:ENTITY_TARGET:ENTITY_PLAYER' (contact) ->
+  if contact.b.deactivated then return
   target = contact.a
 
   target.destroy!

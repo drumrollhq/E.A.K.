@@ -230,6 +230,31 @@
     .player-body
       animation player-body-falling 0.43141s -0.2157s ease-in-out alternate infinite
 
+  &.player-squish
+    .player-inner
+      animation player-inner-squish 1s linear
+      animation-fill-mode both
+
+    .player-leg-right
+      animation player-leg-right-squish 1s ease
+      animation-fill-mode both
+
+    .player-leg-left
+      animation player-leg-left-squish 1s ease
+      animation-fill-mode both
+
+    .player-head
+      animation player-head-squish 1s ease-in
+      animation-fill-mode both
+
+    .player-ear-right
+      animation player-ear-right-squish 1s linear
+      animation-fill-mode both
+
+    .player-ear-left
+      animation player-ear-left-squish 1s ease-out
+      animation-fill-mode both
+
   // &.player-pain .player-inner
   //   sprite 5
 
@@ -423,3 +448,83 @@
 
   to
     transform rotate(-40deg)
+
+@keyframes player-inner-squish
+  0%
+    transform rotate(0)
+
+  20%
+    transform translate(12px, 5px) rotate(40deg)
+
+  40%
+    transform translate(24px, 13px) rotate(80deg)
+
+  60%
+    transform translate(35px, 30px) rotate(119deg)
+
+  100%
+    transform translate(35px, 30px) rotate(119deg)
+
+@keyframes player-leg-right-squish
+  0%
+    transform rotate(0)
+
+  15%
+    transform rotate(45deg)
+
+  60%
+    transform rotate(15deg)
+
+  100%
+    transform rotate(-60deg)
+
+@keyframes player-leg-left-squish
+  0%
+    transform rotate(0)
+
+  25%
+    transform rotate(0)
+
+  50%
+    transform rotate(5deg)
+
+  100%
+    transform rotate(-50deg)
+
+@keyframes player-head-squish
+  0%
+    transform rotate(0)
+
+  30%
+    transform rotate(10deg)
+
+  60%
+    transform translate(-12px, 7px) rotate(-40deg)
+
+  100%
+    transform translate(-12px, 7px) rotate(-40deg)
+
+@keyframes player-ear-right-squish
+  0%
+    transform rotate(0)
+
+  55%
+    transform rotate(-20deg)
+
+  75%
+    transform rotate(0deg)
+
+@keyframes player-ear-left-squish
+  0%
+    transform rotate(0)
+
+  57%
+    transform rotate(-20deg)
+
+  85%
+    transform rotate(25deg)
+
+  100%
+    transform rotate(25deg)
+
+

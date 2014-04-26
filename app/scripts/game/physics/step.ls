@@ -212,7 +212,7 @@ module.exports = step = (state, t) ->
 # Manage user input on a player:
 handle-input = (node, scale) ->
   # Moving right:
-  if keys.right
+  if keys.right && !node.deactivated
     # If the object is on a thing, move with standard acceleration. If not, move with in-air acceleration
     node.v.x += if node.state is 'on-thing'
       if node.v.x > 0
@@ -227,7 +227,7 @@ handle-input = (node, scale) ->
       node.v.x = max-move-speed
 
   # Moving left. Same as moving right, but the other way
-  else if keys.left
+  else if keys.left && !node.deactivated
     node.v.x -= if node.state is 'on-thing'
       if node.v.x < 0
         move-acc * scale
@@ -261,19 +261,20 @@ handle-input = (node, scale) ->
   #
   # If the jump key is pressed and (the player is on the ground or mid-jump):
   {jump-state, state, jump-frames} = node
-  if keys.jump and jump-state is \ready and state is \on-thing
+  jump-key = if node.deactivated then false else keys.jump
+  if jump-key and jump-state is \ready and state is \on-thing
     node.v.y = -jump-speed
     node.jump-frames = max-jump-frames
     node.jump-state = \jumping
     node.fall-dist = 0
 
-  else if keys.jump and jump-state is \jumping and state in <[jumping contact]> and jump-frames > 0
+  else if jump-key and jump-state is \jumping and state in <[jumping contact]> and jump-frames > 0
     node.v.y = -jump-speed
     node.jump-frames -= scale
     node.jump-state = \jumping
     node.fall-dist = 0
 
-  else if keys.jump and jump-frames <= 0
+  else if jump-key and jump-frames <= 0
     node.jump-state = \stop
 
   else
