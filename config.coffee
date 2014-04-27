@@ -3,6 +3,7 @@ fs = require 'fs'
 glob = require 'glob'
 L10N = require 'l10n-ls'
 stylus = require './node_modules/stylus-brunch/node_modules/stylus/'
+exec = require 'exec-sync'
 
 l10n = new L10N
   content: 'app/l10n-content'
@@ -26,6 +27,12 @@ isDir = (name) -> fs.lstatSync(name).isDirectory()
 
 hasPrefix = (str, sub) ->
   (str.substr 0, sub.length) is sub
+
+getVersion = ->
+  v = exec 'git rev-parse HEAD'
+  if exec 'git status --porcelain'
+    v + '_DEV'
+  else v
 
 optimize = ('--optimize' in process.argv) or ('-o' in process.argv)
 
@@ -135,6 +142,9 @@ exports.config =
       scriptsOut = []
       scriptsOut.push "<script src=\"#{script}\"></script>" for script in scripts
       game = game.replace '<!--SCRIPTS-->', scriptsOut.join '\n'
+
+      # Add version number:
+      game = game.replace '[__VERSION]', getVersion()
 
       fs.writeFileSync file, game
 
