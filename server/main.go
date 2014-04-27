@@ -1,19 +1,31 @@
 package main
 
 import (
+	"./api"
+
 	"bytes"
 	"log"
 	"net/http"
 	"os/exec"
+	"runtime"
 	"strings"
 
 	"github.com/zenazn/goji"
+	"github.com/zenazn/goji/web"
 )
 
 var APP_VERSION string
 
 func main() {
+	runtime.GOMAXPROCS(runtime.NumCPU())
 	APP_VERSION = getVersion()
+
+	conf := loadConfig()
+	if conf.ApiEnabled {
+		apiHandler := web.New()
+		goji.Handle("/api/*", apiHandler)
+		api.Attach(apiHandler, APP_VERSION, conf)
+	}
 
 	goji.Get("/*", static("../public"))
 
