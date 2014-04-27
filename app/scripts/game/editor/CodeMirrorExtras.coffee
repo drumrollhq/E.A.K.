@@ -13,7 +13,7 @@ boxShadow = Modernizr.prefixed "boxShadow"
 
 errors = undefined
 
-$.loadErrors "data/", ["all"], (err) ->
+$.loadErrors "/data/", ["all"], (err) ->
   if err isnt null
     mediator.trigger "alert", err
 
