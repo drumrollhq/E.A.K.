@@ -19,6 +19,7 @@ var APP_VERSION string
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	APP_VERSION = getVersion()
+	log.Println("Version:", APP_VERSION)
 
 	conf := loadConfig()
 	if conf.ApiEnabled {
@@ -29,7 +30,6 @@ func main() {
 
 	goji.Get("/*", static("../public"))
 
-	log.Println("Version:", APP_VERSION)
 	goji.Serve()
 	log.Println("Finished")
 }

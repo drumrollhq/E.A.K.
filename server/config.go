@@ -1,6 +1,8 @@
 package main
 
 import (
+	"./api"
+
 	"encoding/json"
 	"flag"
 	"io/ioutil"
