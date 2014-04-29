@@ -15,6 +15,7 @@ var defaultUser int
 func Attach(app *web.Mux, version string, conf Config) {
 	log.Println("Connecting to Postgres...")
 	db = connectPg(conf.Postgres)
+	prepareQueries()
 	getOrCreateDefaultUser()
 	log.Println("Connected")
 

@@ -23,12 +23,7 @@ func getCurrentUserHandler(c web.C, w http.ResponseWriter, r *http.Request) {
 func getCurrentUser(r *http.Request) (User, error) {
 	// TODO: use a query that selects the user on some proper metric rather than a default id:
 	st := time.Now()
-	rows, err := db.Query(`
-		UPDATE users
-		SET last_seen = NOW()
-		WHERE id = $1
-		RETURNING id, state, created, last_seen
-	`, defaultUser)
+	rows, err := queries.getAndUpdateUser.Query(defaultUser)
 	if err != nil {
 		return User{}, err
 	}
