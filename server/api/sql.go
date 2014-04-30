@@ -8,6 +8,8 @@ import (
 var queries struct {
 	getAndUpdateUser *sql.Stmt
 	createEvent      *sql.Stmt
+	getEvent         *sql.Stmt
+	checkin          *sql.Stmt
 }
 
 func prepareQueries() {
@@ -31,4 +33,25 @@ func prepareQueries() {
 		log.Fatal(err)
 	}
 	queries.createEvent = q
+
+	q, err = db.Prepare(`
+		SELECT id, user_id, parent_id, type, version, start_time, duration, event_data
+		FROM events
+		WHERE id = $1
+	`)
+	if err != nil {
+		log.Fatal(err)
+	}
+	queries.getEvent = q
+
+	q, err = db.Prepare(`
+		UPDATE events
+		SET duration = $2
+		WHERE id = $1
+		RETURNING id, user_id, parent_id, type, version, start_time, duration, event_data
+	`)
+	if err != nil {
+		log.Fatal(err)
+	}
+	queries.checkin = q
 }

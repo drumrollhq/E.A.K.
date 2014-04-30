@@ -37,3 +37,7 @@ type Event struct {
 	Duration float64                `json:"duration,omitempty"`
 	Data     map[string]interface{} `json:"data,omitempty"`
 }
+
+type dbScanner interface {
+	Scan(...interface{}) error
+}
