@@ -1,14 +1,14 @@
 package main
 
 import (
-	"./api"
-
 	"bytes"
 	"log"
 	"net/http"
 	"os/exec"
 	"runtime"
 	"strings"
+
+	"./api"
 
 	"github.com/zenazn/goji"
 	"github.com/zenazn/goji/web"

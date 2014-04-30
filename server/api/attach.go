@@ -19,7 +19,10 @@ func Attach(app *web.Mux, version string, conf Config) {
 	getOrCreateDefaultUser()
 	log.Println("Connected")
 
+	app.Use(currentUserMiddleware)
+
 	app.Get("/api/users/me", getCurrentUserHandler)
+	app.Post("/api/events", postEventHandler)
 }
 
 func connectPg(conf PgConfig) *sql.DB {
@@ -38,6 +41,8 @@ func connectPg(conf PgConfig) *sql.DB {
 	if err != nil {
 		log.Fatal("Could not connect to Postgres: ", err)
 	}
+
+	db.SetMaxOpenConns(25)
 
 	var ping string
 	err = db.QueryRow("SELECT 'ping'").Scan(&ping)
@@ -62,6 +67,7 @@ func getOrCreateDefaultUser() {
 	var id int
 
 	row, err := db.Query("SELECT id FROM users ORDER BY id LIMIT 1")
+	defer row.Close()
 	if err != nil {
 		log.Fatal("Couldn't query for users ", err)
 	}

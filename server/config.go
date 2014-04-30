@@ -1,12 +1,12 @@
 package main
 
 import (
-	"./api"
-
 	"encoding/json"
 	"flag"
 	"io/ioutil"
 	"log"
+
+	"./api"
 )
 
 var configFile = flag.String("config", "conf.default.json", "path to the server config file")

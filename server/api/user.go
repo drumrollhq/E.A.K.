@@ -9,21 +9,31 @@ import (
 	"github.com/zenazn/goji/web"
 )
 
-func getCurrentUserHandler(c web.C, w http.ResponseWriter, r *http.Request) {
-	user, err := getCurrentUser(r)
-	if err != nil {
-		log.Println("Error: ", err)
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+func currentUserMiddleware(c *web.C, h http.Handler) http.Handler {
+	fn := func(w http.ResponseWriter, r *http.Request) {
+		user, err := getCurrentUser(r)
+		if err != nil {
+			log.Println("[currentUserMiddleware] Error: ", err)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		c.Env["user"] = user
+		h.ServeHTTP(w, r)
 	}
 
-	sendJSON(w, user)
+	return http.HandlerFunc(fn)
+}
+
+func getCurrentUserHandler(c web.C, w http.ResponseWriter, r *http.Request) {
+	sendJSON(w, c.Env["user"])
 }
 
 func getCurrentUser(r *http.Request) (User, error) {
 	// TODO: use a query that selects the user on some proper metric rather than a default id:
 	st := time.Now()
 	rows, err := queries.getAndUpdateUser.Query(defaultUser)
+	defer rows.Close()
 	if err != nil {
 		return User{}, err
 	}

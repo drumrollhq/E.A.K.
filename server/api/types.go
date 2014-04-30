@@ -24,3 +24,16 @@ type User struct {
 	Created time.Time `json:"created"`
 	Seen    time.Time `json:"lastSeen"`
 }
+
+type Event struct {
+	Id       int                    `json:"id"`
+	ParentId int                    `json:"parentId"`
+	Parent   *Event                 `json:"parent"`
+	UserId   int                    `json:"userId"`
+	User     *User                  `json:"user"`
+	Type     string                 `json:"type"`
+	Version  string                 `json:"appVersion"`
+	Start    time.Time              `json:"startTime"`
+	Duration float64                `json:"duration"`
+	Data     map[string]interface{} `json:"data"`
+}
