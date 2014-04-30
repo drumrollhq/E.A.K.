@@ -26,14 +26,14 @@ type User struct {
 }
 
 type Event struct {
-	Id       int                    `json:"id"`
-	ParentId int                    `json:"parentId"`
-	Parent   *Event                 `json:"parent"`
-	UserId   int                    `json:"userId"`
-	User     *User                  `json:"user"`
-	Type     string                 `json:"type"`
-	Version  string                 `json:"appVersion"`
-	Start    time.Time              `json:"startTime"`
-	Duration float64                `json:"duration"`
-	Data     map[string]interface{} `json:"data"`
+	Id       int                    `json:"id,omitempty"`
+	ParentId int                    `json:"parentId,omitempty"`
+	Parent   *Event                 `json:"parent,omitempty"`
+	UserId   int                    `json:"userId,omitempty"`
+	User     *User                  `json:"user,omitempty"`
+	Type     string                 `json:"type,omitempty"`
+	Version  string                 `json:"version,omitempty"`
+	Start    time.Time              `json:"startTime,omitempty"`
+	Duration float64                `json:"duration,omitempty"`
+	Data     map[string]interface{} `json:"data,omitempty"`
 }
