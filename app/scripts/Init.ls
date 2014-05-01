@@ -1,4 +1,4 @@
-require! <[ loader/LevelLoader loader/LoaderView game/Game Router game/mediator ]>
+require! <[ loader/LevelLoader loader/LoaderView game/Game Router game/mediator logger ]>
 
 module.exports = class Init extends Backbone.View
   initialize: ->
@@ -11,6 +11,10 @@ module.exports = class Init extends Backbone.View
     @$ \.loader .hide-dialogue!
 
     game = new Game false
+    logger.start 'session', ua: navigator.user-agent, (event) ->
+      logger.set-default-parent event.id
+
+    window.logger = logger
 
     # Start up the Backbone router
     router = new Router!

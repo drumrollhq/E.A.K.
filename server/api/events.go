@@ -151,11 +151,11 @@ func CreateEvent(event Event) (Event, error) {
 		return Event{}, fmt.Errorf("Event must have userId")
 	}
 
-	var parent interface{}
+	var parent int
 	if event.ParentId == 0 {
 		parent = event.ParentId
 	} else {
-		parent = nil
+		parent = 0
 	}
 
 	dataBytes, err := json.Marshal(event.Data)
@@ -184,6 +184,7 @@ func readEvent(row dbScanner) (Event, error) {
 	err := row.Scan(&ne.Id, &ne.UserId, &ne.ParentId, &ne.Type,
 		&ne.Version, &ne.Start, &duration, &data)
 	if err != nil {
+		log.Printf("%#v", ne)
 		return ne, err
 	}
 
