@@ -26,7 +26,6 @@ module.exports = {
 
     delete data.parent
     event = {type, parent-id, data, version: window.EAKVERSION}
-    console.log 'Create event' event
     send 'events', event, cb
 
   start: (type, data, cb = no-op) ->

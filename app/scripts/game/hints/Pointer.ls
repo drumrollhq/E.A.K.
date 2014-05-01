@@ -44,9 +44,7 @@ module.exports =  class PointerHint extends Backbone.View
     if @hint.position is \left then @$el.css \left offset.left - @$el.outer-width!
 
   remove: ~>
-    console.log transition-end
     @$el
       ..one transition-end, ~>
-        console.log 'Transition End'
         super!
       ..add-class \done

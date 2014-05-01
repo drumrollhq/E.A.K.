@@ -39,12 +39,10 @@ mediator.on 'begin-contact:PORTAL:ENTITY_PLAYER' (contact) ->
 # Falling to death, actions:
 mediator.on 'begin-contact:ENTITY_PLAYER:*' (contact) ->
   if contact.a.deactivated then return
-  console.log contact.a.last-fall-dist
 
   # First, check for and trigger actions
   if contact.b.data?.action?
     action = contact.b.data.action
-    console.log 'ACTION' action
     if actions[action]?
       logger.log 'action', {action}
       actions[action] contact.a, contact.b

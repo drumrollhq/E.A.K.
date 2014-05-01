@@ -29,8 +29,6 @@ module.exports = class WebWorker extends Backbone.Model
   defaults: name: ""
 
   initialize: ~>
-    console.log "CREATE WORKER: #{@get 'name'}"
-
     # Creata a native WebWorker
     @worker = new Worker "/js/worker.js"
 

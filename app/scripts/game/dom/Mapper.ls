@@ -209,8 +209,7 @@ module.exports = class Mapper
 
         else
           # TODO
-          console.log 'Err: not uniform'
-          console.log (_.clone bounds), _.clone style
+          console.error 'Err: not uniform', (_.clone bounds), _.clone style
 
       else
         # Rectangles are easy.

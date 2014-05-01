@@ -35,8 +35,4 @@ module.exports = events = (state, mediator) ->
       unless contact in contacts
         queue '-', node, contact
 
-    # if node.contacts and node.contacts.length > 0
-    #   console.log node
-    #   throw new Error
-
   send queue, mediator

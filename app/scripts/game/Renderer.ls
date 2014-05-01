@@ -42,9 +42,7 @@ module.exports = class Renderer extends Backbone.View
 
     @$el.find 'style' .each (i, style) ~>
       $style = $ style
-      console.log $style.text!
       $style |> ( .text! ) |> @preprocess-css |> $style.text
-      console.log $style.text!
 
     css |> @preprocess-css |> @$style.text
 
@@ -95,8 +93,6 @@ module.exports = class Renderer extends Backbone.View
     win-width = @$window.width!
     win-height = @$window.height! - offset-top
 
-    console.log win-width, win-height
-
     if @editor then win-width = win-width / 2
 
     scrolling = x: no, y: no
@@ -145,8 +141,6 @@ module.exports = class Renderer extends Backbone.View
     s = @scrolling
     w = @width
     h = @height
-
-    # console.log 'x: ', position.x, 'y: ', position.y, 'sx: ', s.x, 'sy: ', s.y, w, h
 
     t =
       x: if s.x then ((w + 2*pad) - s.x) * (position.x / w) - pad else 0

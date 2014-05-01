@@ -4,7 +4,7 @@ self.send = (evt, data) ~>
   try
     post-message {evt, data}
   catch error
-    console.log "Couldn't send #evt: #error"
+    console.error "Couldn't send #evt: #error"
 
 self.onmessage = (msg) ->
   on-done = (response) ->

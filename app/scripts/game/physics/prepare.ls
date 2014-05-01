@@ -40,8 +40,6 @@ prepare-one = ->
     it.matrix = matrix = new Matrix cost, sint, -sint, cost
 
     # Player stuff:
-    unless it.data? then console.log it
-
     if it.data?.player then it.handle-input = true
 
     # Find polygon:
@@ -70,8 +68,6 @@ prepare-one = ->
   it
 
 prepare = (nodes) ->
-  console.log 'prepare:', nodes
-
   # Map the nodes to their prepared versions.
   nodes = nodes |> map prepare-one
 

@@ -27,7 +27,6 @@ module.exports = class Game extends Backbone.Model
   defaults: level: '/levels/index.html'
 
   start-level: (l) ~>
-    console.log 'LOGGER', logger
     event <~ logger.start 'level', {level: l, parent: @logger-parent}
     logger.set-default-parent event.id
     level-source <~ $.get l, _
@@ -35,13 +34,11 @@ module.exports = class Game extends Backbone.Model
 
     if parsed.error isnt null
       mediator.trigger 'alert', 'There are errors in that level!'
-      console.log parsed
       return
 
     for node in parsed.document.child-nodes
       if typeof! node is 'HTMLHtmlElement' then $level = $ node
 
-    console.log ($level.find 'title' .text!)
     @$level-name.text ($level.find 'title' .text! or '')
 
     <~ $.hide-dialogues

@@ -21,7 +21,6 @@ triggers = {
 }
 
 listen = (name, trigger) ->
-  console.log name, "keydown:#{trigger.keys.join ','}"
   mediator.on "keydown:#{trigger.keys.join ','}", ->
     keys[name] = true
     [keys[ex] = false for ex in trigger.exclude]

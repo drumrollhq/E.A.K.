@@ -189,8 +189,6 @@ module.exports = class Level extends Backbone.Model
 
     state = @state = physics.prepare nodes
 
-    console.log @state
-
   add-borders: (nodes, borders = []) ->
     if borders is \none then return
     if borders is \all then borders = top: true, right: true, left: true, bottom: true
