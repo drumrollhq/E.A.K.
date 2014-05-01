@@ -1,5 +1,6 @@
 require! {
   'game/mediator'
+  'logger'
 }
 
 module.exports = class Router extends Backbone.Router
@@ -24,12 +25,14 @@ module.exports = class Router extends Backbone.Router
   # Show the main menu
   menu: ->
     <- @stop-game
+    logger.log 'show-menu'
     mediator.trigger 'clearBackground'
     $ '#main .menu' .make-only-shown-dialogue!
 
   # Show the about page
   about: ->
     <- @stop-game
+    logger.log 'show-about'
     mediator.trigger 'clearBackground'
     $ '#main .about' .make-only-shown-dialogue!
 
@@ -39,7 +42,9 @@ module.exports = class Router extends Backbone.Router
 
   # TODO: Add a proper screen for reaching the end of the game. At the moment,
   # we just redirect to a feedback form.
-  go-home: -> location.href = 'https://docs.google.com/forms/d/1q_uwYzcNSpGIvvNKc4LHoKqj7tta-uQveWjaiskOVrA/viewform'
+  go-home: ->
+    logger.log 'show-form'
+    location.href = 'https://docs.google.com/forms/d/1q_uwYzcNSpGIvvNKc4LHoKqj7tta-uQveWjaiskOVrA/viewform'
 
   # Plays a local ('official') level from the repo. TODO: Playing levels from
   # Thimble, and maybe even arbitrary URLs

@@ -7,14 +7,12 @@ module.exports = class Init extends Backbone.View
       @$ \#incompatible .show-dialogue!
       return
 
+    event <- logger.start 'session', ua: navigator.user-agent
+
     # Hide the loader and start up the game.
     @$ \.loader .hide-dialogue!
 
-    game = new Game false
-    logger.start 'session', ua: navigator.user-agent, (event) ->
-      logger.set-default-parent event.id
-
-    window.logger = logger
+    game = new Game false, event.id
 
     # Start up the Backbone router
     router = new Router!
@@ -30,6 +28,7 @@ module.exports = class Init extends Backbone.View
 
     if lacking.length > 0
       console.log 'Lacking:', lacking
+      logger.log 'incompatible', {lacking}
       false
     else
       true

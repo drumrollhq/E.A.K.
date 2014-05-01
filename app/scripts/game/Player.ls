@@ -1,6 +1,7 @@
 require! {
   'game/mediator'
   'game/physics/keys'
+  'logger'
 }
 
 player-html = '''
@@ -60,7 +61,10 @@ module.exports = class Player extends Backbone.View
         id: 'ENTITY_PLAYER'
     }
 
-    @listen-to mediator, 'falloutofworld', ~> @reset!
+    @listen-to mediator, 'falloutofworld', ~>
+      logger.log 'death', cause: 'fall out of world', player: @{p, v}
+      @reset!
+
     @listen-to mediator, 'fall-to-death', @fall-to-death
     @listen-to mediator, 'frame', @calc-classes
 
@@ -102,7 +106,8 @@ module.exports = class Player extends Backbone.View
 
     @last-classes := classes
 
-  fall-to-death: ~>
+  fall-to-death: (cause = 'generic')~>
+    logger.log 'death', from: cause, player: @{p, v}
     @apply-classes ['squish' @last-direction]
     @deactivated = true
     @classes-disabled = true

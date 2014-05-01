@@ -10,6 +10,7 @@ require! {
   'game/mediator'
   'loader/ElementLoader'
   'loader/LoaderView'
+  'logger'
 }
 
 {map, reduce} = _
@@ -164,6 +165,7 @@ module.exports = class Level extends Backbone.Model
       nodes[*] = player
 
   restart: ~>
+    logger.log 'restart', parent: @event-id
     @renderer.resize!
     @redraw-from @conf.html, @conf.css
     @player.reset!
@@ -251,6 +253,8 @@ module.exports = class Level extends Backbone.Model
 
     @stopped = true
 
+    @trigger 'done'
+
     $player-target = $ '<div></div>'
     $player-target.css do
       position: \absolute
@@ -306,6 +310,9 @@ module.exports = class Level extends Backbone.Model
   start-editor: ~>
     if $ document.body .has-class \editor then return
 
+    edit-event = undefined
+    logger.start 'edit', parent: @event-id, (event) -> edit-event := event
+
     # Put the play back where they started
     @player.reset!
 
@@ -333,6 +340,12 @@ module.exports = class Level extends Backbone.Model
     @renderer.clear-transform!
 
     <~ editor.once \save _
+
+    if edit-event then edit-event.stop!
+    logger.log 'edit-finish', {
+      html: editor.get \html
+      css: editor.get \css
+    }
 
     editor-view.restore-entities!
     editor-view.remove!

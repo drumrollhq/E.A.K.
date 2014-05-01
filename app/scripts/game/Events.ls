@@ -1,4 +1,7 @@
-require! 'game/mediator'
+require! {
+  'game/mediator'
+  'logger'
+}
 
 actions = {
   kill: (player) ->
@@ -28,6 +31,8 @@ mediator.on 'begin-contact:PORTAL:ENTITY_PLAYER' (contact) ->
   contact.b.el.class-list.add 'portal-out'
   contact.a.el.class-list.add 'portal-out'
 
+  logger.log 'portal', player: contact.b.{p, v}
+
   <- set-timeout _, 750
   window.location.href = contact.a.el.href
 
@@ -41,6 +46,7 @@ mediator.on 'begin-contact:ENTITY_PLAYER:*' (contact) ->
     action = contact.b.data.action
     console.log 'ACTION' action
     if actions[action]?
+      logger.log 'action', {action}
       actions[action] contact.a, contact.b
 
   if contact.a.last-fall-dist > 300px and not contact.b.data?.sensor?
@@ -54,6 +60,7 @@ mediator.on 'begin-contact:ENTITY_TARGET:ENTITY_PLAYER' (contact) ->
   target.destroy!
 
   unless target.destroyed
+    logger.log 'kitten', player: contact.b.{v, p}
     mediator.trigger 'kittenfound'
 
   target.destroyed = true

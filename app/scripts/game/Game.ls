@@ -4,10 +4,11 @@ require! {
   'game/Background'
   'game/Events'
   'game/mediator'
+  'logger'
 }
 
 module.exports = class Game extends Backbone.Model
-  initialize: (load) ->
+  initialize: (load, @logger-parent) ->
     if load then @load! else @save!
 
     @on \change @save
@@ -26,6 +27,9 @@ module.exports = class Game extends Backbone.Model
   defaults: level: '/levels/index.html'
 
   start-level: (l) ~>
+    console.log 'LOGGER', logger
+    event <~ logger.start 'level', {level: l, parent: @logger-parent}
+    logger.set-default-parent event.id
     level-source <~ $.get l, _
     parsed = Slowparse.HTML document, level-source, [TreeInspectors.forbidJS]
 
@@ -42,7 +46,9 @@ module.exports = class Game extends Backbone.Model
 
     <~ $.hide-dialogues
 
-    new Level $level
+    level = new Level $level
+    level.event-id = event.id
+    level.on 'done' -> event.stop!
 
   save: ~> @attributes |> _.clone |> JSON.stringify |> local-storage.set-item Game::savefile, _
 

@@ -152,7 +152,7 @@ func CreateEvent(event Event) (Event, error) {
 	}
 
 	var parent int
-	if event.ParentId == 0 {
+	if event.ParentId != 0 {
 		parent = event.ParentId
 	} else {
 		parent = 0
