@@ -23,6 +23,7 @@ func Attach(app *web.Mux, version string, conf Config) {
 
 	app.Get("/api/users/me", getCurrentUserHandler)
 	app.Post("/api/events", postEventHandler)
+	app.Get("/api/events/:id", getEventHandler)
 	app.Post("/api/events/:id/checkin", postCheckinHandler)
 }
 

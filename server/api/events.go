@@ -38,6 +38,26 @@ func postEventHandler(c web.C, w http.ResponseWriter, r *http.Request) {
 	sendJSON(w, newEv)
 }
 
+func getEventHandler(c web.C, w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.ParseInt(c.URLParams["id"], 10, 64)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	event, err, bad := GetEvent(id)
+	if err != nil {
+		if bad {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		} else {
+			http.Error(w, err.Error(), http.StatusNotFound)
+		}
+		return
+	}
+
+	sendJSON(w, event)
+}
+
 func postCheckinHandler(c web.C, w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.ParseInt(c.URLParams["id"], 10, 64)
 	if err != nil {
