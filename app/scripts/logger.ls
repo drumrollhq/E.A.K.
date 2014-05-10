@@ -3,7 +3,7 @@ no-op = -> null
 send = (url, data = {}, cb = no-op) ->
   $.ajax {
     method: \POST
-    url: "api/#url"
+    url: "/api/#url"
     data-type: 'json'
     content-type: 'application/json'
     data: JSON.stringify data
