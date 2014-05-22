@@ -1,0 +1,103 @@
+header
+  position relative
+  margin 0
+  padding 0
+  width 100%
+
+  @media screen and (min-width: 870px)
+    background-image url(/content/site/head-strip.png)
+    background-size 100% 100%
+
+.head-inner
+  height 200px
+  max-width 1680px
+  margin auto
+  color white
+  text-align center
+  font-family 'KG Next To Me', 'Open Sans', sans-serif
+  background-color #3D366C
+  background-image url(/content/site/head-small.jpg)
+  background-size auto 200px
+  background-position 50% 50%
+  background-repeat no-repeat
+  // image-rendering -moz-crisp-edges
+  // image-rendering -o-crisp-edges
+  // image-rendering -webkit-optimize-contrast
+  // image-rendering -webkit-crisp-edges
+  // image-rendering crisp-edges
+  // -ms-interpolation-mode: nearest-neighbor
+
+  h1
+    padding-top 1em
+    font-size 32px
+
+  .kitten-count
+    position absolute
+    top 118px
+    left 50%
+    width 98px
+    letter-spacing 0.37em
+    text-align right
+    font-family monospace
+    font-size 15px
+    color #555
+
+  .tg
+    display none
+
+  @media screen and (min-width: 420px)
+    height 300px
+    background-size auto 300px
+
+    h1
+      font-size 48px
+
+    .kitten-count
+      font-size 22.5px
+      top 185px
+      width 147px
+
+  @media screen and (min-width: 650px)
+    background-image url(/content/site/head-large.jpg)
+
+    h1
+      padding-top 0.7em
+
+    .kitten-count
+      font-size 30.5px
+      top 148px
+      width 198px
+
+  @media screen and (min-width: 870px)
+    height 400px
+    background-size auto 400px
+
+    h1
+      padding-top 1em
+
+    .kitten-count
+      font-size 40px
+      top 200px
+      width 262px
+
+    .tg
+      display block
+      position absolute
+      width 94px
+      height 126px
+      top 130px
+      right 50%
+      margin-right 40px
+      background-image url(/content/site/tg-sprite.png)
+      background-repeat no-repeat
+      background-position 0 0
+      background-size auto 126px
+      animation tg-flex steps(66) 4s infinite
+
+@keyframes tg-flex
+  from
+    background-position 0 0
+
+  to
+    background-position -6250px 0
+
