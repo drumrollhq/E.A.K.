@@ -1,186 +1,206 @@
-body
-  background-color #DCF7F6
-  font-weight 300
+.site
+  body&
+    background-color #DCF7F6
+    font-weight 300
 
-header
-  position relative
-  margin 0
-  padding 0
-  width 100%
+  header
+    position relative
+    margin 0
+    padding 0
+    width 100%
 
-  @media screen and (min-width: 870px)
-    background-image url(/content/site/head-strip.png)
-    background-size 100% 100%
+    @media screen and (min-width: 870px)
+      background-image url(/content/site/head-strip.png)
+      background-size 100% 100%
 
-.head-inner
-  height 200px
-  max-width 1680px
-  margin auto
-  color white
-  text-align center
-  font-family 'KG Next To Me', 'Open Sans', sans-serif
-  background-color #3D366C
-  background-image url(/content/site/head-small.jpg)
-  background-size auto 200px
-  background-position 50% 50%
-  background-repeat no-repeat
-  // image-rendering -moz-crisp-edges
-  // image-rendering -o-crisp-edges
-  // image-rendering -webkit-optimize-contrast
-  // image-rendering -webkit-crisp-edges
-  // image-rendering crisp-edges
-  // -ms-interpolation-mode: nearest-neighbor
-
-  h1
-    padding-top 1em
-    font-size 32px
-
-  .kitten-count
-    position absolute
-    top 118px
-    left 50%
-    width 98px
-    letter-spacing 0.4em
-    text-align right
-    font-family 'Open Sans', sans-serif
-    font-size 15px
-    color #555
-
-  @media screen and (min-width: 420px)
-    height 300px
-    background-size auto 300px
-
-    h1
-      font-size 48px
-
-    .kitten-count
-      font-size 22.5px
-      top 185px
-      width 147px
-
-  @media screen and (min-width: 650px)
-    background-image url(/content/site/head-large.jpg)
-
-    h1
-      padding-top 0.7em
-
-    .kitten-count
-      font-size 30.5px
-      top 148px
-      width 198px
-
-  @media screen and (min-width: 870px)
-    height 400px
-    background-size auto 400px
+  .head-inner
+    height 200px
+    max-width 1680px
+    margin auto
+    color white
+    text-align center
+    font-family 'KG Next To Me', 'Open Sans', sans-serif
+    background-color #3D366C
+    background-image url(/content/site/head-small.jpg)
+    background-size auto 200px
+    background-position 50% 50%
+    background-repeat no-repeat
+    // image-rendering -moz-crisp-edges
+    // image-rendering -o-crisp-edges
+    // image-rendering -webkit-optimize-contrast
+    // image-rendering -webkit-crisp-edges
+    // image-rendering crisp-edges
+    // -ms-interpolation-mode: nearest-neighbor
 
     h1
       padding-top 1em
+      font-size 32px
 
     .kitten-count
-      font-size 40px
-      top 200px
-      width 262px
-
-.container
-  width 100%
-  max-width 600px
-  margin auto
-  padding 10px
-
-brand=#443C72
-space=30px
-depress=4px
-h=8px
-
-button, .button
-  padding 10px
-  background brand
-  border none
-  border-radius 5px
-  color white
-  font-family 'KG Next To Me', 'Open Sans', sans-serif
-  text-align center
-  line-height 1.5em
-  box-shadow 0 (h/2) 0 lighten(brand, 30%)
-  transition all 0.3s ease
-
-  &:hover
-    background lighten(brand, 20%)
-
-.cta-cont
-  text-align center
-  min-height 130px
-
-.cta
-  @extend .button
-  display inline-block
-  padding 10px 20px
-  margin space auto
-  font-size 1.6em
-  text-decoration none
-  box-shadow 0 h 0 lighten(brand, 30%)
-
-  &:hover
-    background lighten(brand, 10%)
-    margin-top space + depress
-    margin-bottom space - depress
-    box-shadow 0 (h - depress) 0 lighten(brand, 30%)
-
-  &:active
-    background lighten(brand, 30%)
-
-p
-  margin-bottom 1em
-  line-height 1.75em
-  text-align justify
-
-label
-  display block
-
-input
-  display block
-  width 100%
-  margin-bottom 20px
-  padding 5px
-  border 1px solid rgba(black, 0.3)
-  font-family 'Open Sans', sans-serif
-  font-size 0.8em
-  background-color rgba(white, 0.5)
-
-  &:hover, &:focus
-    background-color white
-
-shelbySize = 212px
-footer
-  position relative
-  padding 30px 10px
-  text-align center
-  background-color #ECE07A
-
-  .shelby
-    display none
-    position absolute
-    height auto
-
-  @media screen and (min-width: 650px)
-    padding-top 60px
-    margin-top 50px
-
-    .shelby
-      top -40px
-      display block
+      position absolute
+      top 118px
       left 50%
-      margin-left 130px
-      width (shelbySize * 0.75)
+      width 98px
+      letter-spacing 0.4em
+      text-align right
+      font-family 'Open Sans', sans-serif
+      font-size 15px
+      color #555
 
-  @media screen and (min-width: 870px)
+    @media screen and (min-width: 420px)
+      height 300px
+      background-size auto 300px
+
+      h1
+        font-size 48px
+
+      .kitten-count
+        font-size 22.5px
+        top 185px
+        width 147px
+
+    @media screen and (min-width: 650px)
+      background-image url(/content/site/head-large.jpg)
+
+      h1
+        padding-top 0.7em
+
+      .kitten-count
+        font-size 30.5px
+        top 148px
+        width 198px
+
+    @media screen and (min-width: 870px)
+      height 400px
+      background-size auto 400px
+
+      h1
+        padding-top 1em
+
+      .kitten-count
+        font-size 40px
+        top 200px
+        width 262px
+
+  .container
+    width 100%
+    max-width 600px
+    margin auto
+    padding 10px
+
+  brand=#443C72
+  space=30px
+  depress=4px
+  h=8px
+
+  button, .button
+    padding 10px
+    background brand
+    border none
+    border-radius 5px
+    color white
+    font-family 'KG Next To Me', 'Open Sans', sans-serif
+    text-align center
+    line-height 1.5em
+    box-shadow 0 (h/2) 0 lighten(brand, 30%)
+    transition all 0.3s ease
+
+    &:hover
+      background lighten(brand, 20%)
+
+  .cta-cont
+    text-align center
+    min-height 150px
+
+  .cta
+    @extend .site .button
+    display inline-block
+    padding 10px 20px
+    margin space auto
+    font-size 1.2em
+    text-decoration none
+    box-shadow 0 h 0 lighten(brand, 30%)
+
+    &:hover
+      background lighten(brand, 10%)
+      margin-top space + depress
+      margin-bottom space - depress
+      box-shadow 0 (h - depress) 0 lighten(brand, 30%)
+
+    &:active
+      background lighten(brand, 30%)
+
+  p
+    margin-bottom 1em
+    line-height 1.75em
+    text-align justify
+
+  label
+    display block
+
+  input
+    display block
+    width 100%
+    margin-bottom 20px
+    padding 5px
+    border 1px solid rgba(black, 0.3)
+    font-family 'Open Sans', sans-serif
+    font-size 0.8em
+    background-color rgba(white, 0.5)
+
+    &:hover, &:focus
+      background-color white
+
+  shelbySize = 212px
+  footer
+    position relative
+    padding 30px 10px
+    text-align center
+    background-color #ECE07A
+
     .shelby
-      width shelbySize
-      left auto
-      right 30px
-      margin 0
-      top -60px
+      display none
+      position absolute
 
-  @media screen and (min-width: 960px)
-    padding-top 30px
-    margin-top 0
+      img
+        width 100%
+        height auto
+    @media screen and (min-width: 650px)
+      padding-top 60px
+      margin-top 50px
+
+      .shelby
+        top -40px
+        display block
+        left 50%
+        margin-left 130px
+        width (shelbySize * 0.75)
+
+    @media screen and (min-width: 870px)
+      .shelby
+        width shelbySize
+        left auto
+        right 30px
+        margin 0
+        top -60px
+
+    @media screen and (min-width: 960px)
+      padding-top 30px
+      margin-top 0
+
+      .shelby:before
+        content attr(data-dialog)
+        display block
+        position absolute
+        top 0
+        left -90px
+        width 120px
+        color black
+        opacity 0
+        transform translateX(50px)
+        transition all 0.3s ease
+
+      .shelby:hover:before
+        transform translateX(0)
+        opacity 1
+
