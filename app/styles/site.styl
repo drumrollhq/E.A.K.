@@ -84,9 +84,9 @@
 
   .container
     width 100%
-    max-width 600px
+    max-width 800px
     margin auto
-    padding 10px
+    padding 15px
 
   brand=#443C72
   space=30px
@@ -117,7 +117,7 @@
     display inline-block
     padding 10px 20px
     margin space auto
-    font-size 1em
+    font-size 0.9em
     text-decoration none
     box-shadow 0 h 0 lighten(brand, 30%)
 
@@ -135,6 +135,10 @@
     line-height 1.75em
     text-align justify
 
+  .lead
+    font-size 1.1em
+    margin-bottom 35px
+
   label
     display block
 
@@ -150,6 +154,56 @@
 
     &:hover, &:focus
       background-color white
+
+  .row.img, .row .img
+    text-align center
+
+  .row img
+    max-width 100%
+
+  .speech-bubble
+    position relative
+    padding 10px
+    margin auto
+    margin-bottom 10px
+    margin-top 20px
+    background-color white
+    border-radius 10px
+    font-family 'KG Next To Me', 'Open Sans', sans-serif
+    text-align center
+    color #444
+
+    &:after
+      content " "
+      position absolute
+      display block
+      width 0
+      height 0
+      bottom -40px
+      left 50%
+      margin-left -20px
+      border 20px solid transparent
+      border-top 20px solid white
+
+  .lim
+    max-width 380px
+
+  .space-top-sm
+    margin-top 30px
+
+  .space-top
+    margin-top 50px
+
+  .flowers
+    margin-top 25px
+    width 125px
+
+  .space-bottom
+    margin-bottom 30px
+
+  ul
+    margin-left 25px
+    list-style circle
 
   shelbySize = 212px
   footer
@@ -178,11 +232,9 @@
 
     @media screen and (min-width: 870px)
       .shelby
-        width shelbySize
         left auto
         right 30px
         margin 0
-        top -60px
 
     @media screen and (min-width: 960px)
       padding-top 30px
@@ -192,8 +244,8 @@
         content attr(data-dialog)
         display block
         position absolute
-        top -15px
-        left -105px
+        top -25px
+        left -115px
         width 120px
         padding-right 20px
         color black
@@ -208,4 +260,3 @@
       .shelby:hover:before
         transform translate(0, 0)
         opacity 1
-
