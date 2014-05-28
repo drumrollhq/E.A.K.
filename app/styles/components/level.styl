@@ -39,6 +39,9 @@ body
 body.playing
   background-color lighten(black, 30%);
 
+body.editor #levelcontainer *
+  animation-play-state paused
+
 .level-entity-fadeout
   animation entity-fadeout-scale 0.5s cubic-bezier(.99, .01, .99, 1.01), entity-fadeout-opacity 0.5s linear
   opacity 0
