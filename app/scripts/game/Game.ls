@@ -28,6 +28,7 @@ module.exports = class Game extends Backbone.Model
 
   start-level: (l) ~>
     event <~ logger.start 'level', {level: l, parent: @logger-parent}
+    l += "?#{Date.now!}"
     logger.set-default-parent event.id
     level-source <~ $.get l, _
     parsed = Slowparse.HTML document, level-source, [TreeInspectors.forbidJS]
