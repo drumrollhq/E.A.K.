@@ -1,3 +1,10 @@
 for num in (1..20)
   .scale-{num}
     transform scale(num / 10)
+
+entity(img, w, h)
+  position absolute
+  width w
+  height h
+  background-image url(img)
+  background-size 100% 100%
