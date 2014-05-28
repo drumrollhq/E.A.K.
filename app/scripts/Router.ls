@@ -43,7 +43,7 @@ module.exports = class Router extends Backbone.Router
   # TODO: Add a proper screen for reaching the end of the game. At the moment,
   # we just redirect to a feedback form.
   go-home: ->
-    logger.log 'show-form'
+    <- logger.log 'show-form', {}
     location.href = 'https://docs.google.com/forms/d/1q_uwYzcNSpGIvvNKc4LHoKqj7tta-uQveWjaiskOVrA/viewform'
 
   # Plays a local ('official') level from the repo. TODO: Playing levels from
