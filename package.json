@@ -21,7 +21,7 @@
     "uglify-js-brunch": ">= 1.0 < 1.8",
     "clean-css-brunch": ">= 1.0 < 1.8",
     "coffee-script-brunch": "~1.7.2",
-    "stylus-brunch": "~1.6.1",
+    "stylus-brunch": "^1.8.0",
     "oncompile-brunch": "latest",
     "handlebars-brunch": "~1.7.2",
     "glob": "~3.2.6",

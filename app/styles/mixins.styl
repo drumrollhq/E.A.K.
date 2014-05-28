@@ -1,8 +1,8 @@
-vendors = webkit moz ms
+calcVendors = webkit moz ms
 
 calc()
   if current-property
-    for prefix in vendors
+    for prefix in calcVendors
       arguments = unquote(arguments)
       add-property(current-property[0], s('-%s-calc(%s)', prefix, arguments))
     s('calc(%s)', arguments)
