@@ -73,6 +73,7 @@ module.exports = class Mapper
     for node in nodes
       # Fetch measurements from the browser
       bounds = node.get-bounding-client-rect!
+      style-attr = node.get-attribute \style
       style = node |> window.get-computed-style |> @normalise-style
 
       aabb =
@@ -221,8 +222,7 @@ module.exports = class Mapper
           height: bounds.height
 
       # Reapply rotation:
-      if style.rotate isnt 0
-        node.style.transform = node.style.webkit-transform = node.style.moz-transform = "rotate(#{style.rotate}rad)"
+      node.set-attribute \style style-attr
 
       obj.rotation = style.rotate
 
