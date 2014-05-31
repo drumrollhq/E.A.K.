@@ -13,7 +13,8 @@
     "modernizr": "latest",
     "codemirror": "latest",
     "slowparse": "~0.0.1",
-    "stats.js": "*"
+    "stats.js": "*",
+    "pubsub.js": "~0.1.0"
   },
   "overrides": {
     "underscore": {

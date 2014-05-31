@@ -1,4 +1,4 @@
-require! <[ loader/LevelLoader loader/LoaderView game/Game Router game/mediator logger ]>
+require! <[ loader/LevelLoader loader/LoaderView game/Game Router game/mediator game/event-loop logger ]>
 
 module.exports = class Init extends Backbone.View
   initialize: ->
