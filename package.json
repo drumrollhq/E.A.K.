@@ -7,12 +7,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/somehats/web-platform"
+    "url": "http://github.com/somehats/E.A.K."
   },
   "author": "Joe Dytrych @SomeHats",
-  "license": "MIT",
+  "license": "GPLv3",
   "bugs": {
-    "url": "https://github.com/somehats/web-platform/issues"
+    "url": "https://github.com/somehats/E.A.K./issues"
   },
   "dependencies": {
     "request": "~2.25.0",
