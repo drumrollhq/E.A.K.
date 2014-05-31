@@ -20,14 +20,11 @@ Start by cloning the project:
 git clone --recursive git@github.com:SomeHats/Erase-All-Kittens.git
 cd Erase-All-Kittens
 ```
-Then install dependendies and initialize submodule:
+Then install dependencies:
 ```bash
 # install dependecies
 npm install
 bower install
-# init and install submodule
-git submodule init
-git submodule update
 ```
 You will also need to install [`brunch`](https://github.com/brunch/brunch) to be able to build the project:
 ```bash
