@@ -79,18 +79,6 @@ mediator.paused = false
 # last is the timestamp of the previous frame
 last = window.performance.now!
 
-# intervals stores the last 100 frame durations for calculating fps
-intervals = [16ms] * 100
-
-# Was the last frame event frame:process?
-last-was-process = false
-
-ms-to-fps = fps-to-ms = (ms) -> 1000 / ms
-
-# In an older version of this code, we would alternate frame:process and frame:render
-# events between on slower devices, to compensate for Box2D wanting a consistent framerate.
-# The new physics engine doesn't need this, so we just trigger both every frame
-
 # frame-driver dispatches frame events
 frame-driver = ~>
   n = performance.now!
@@ -100,8 +88,6 @@ frame-driver = ~>
   unless mediator.paused
     mediator.trigger \preframe diff
     mediator.trigger \frame diff
-    mediator.trigger \frame:process diff
-    mediator.trigger \frame:render diff
     mediator.trigger \postframe diff
 
   window.rAF frame-driver
@@ -148,7 +134,7 @@ $doc.on \tap -> unless mediator.paused then mediator.trigger \uncaughtTap
 # logged to the console.
 mediator.DEBUG-enabled = false
 mediator.DEBUG-el = $ '.debug-data'
-DEBUG-ignored-events = <[ frame frame:process frame:render playermove ]>
+DEBUG-ignored-events = <[ frame postframe playermove ]>
 
 mediator.on \all (name, data) ->
   if mediator.DEBUG-enabled and name not in DEBUG-ignored-events

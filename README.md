@@ -66,9 +66,7 @@ EAK has basic support for internationalisation. Files in `app/l10n-templates` ar
 The l10n stuff doesn't support Brunch's watch functionality yet, but I'm working on it. 
 
 ## Mediator Events
-- `frame:process` - this is triggered either 60 or 30 times a second. Any non-render tasks to be run every frame (e.g. physics)
-- `frame:render` - render tasks to be run every frame
-- `frame` - same as `frame:process`
+- `frame` - triggered 60 times a second
 - `alert` - triggering an alert causes a notification to be shown on screen.
 - `resize` - window resize events
 - `tilt` - abstracted device orientation events. Currently disabled.

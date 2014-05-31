@@ -112,7 +112,7 @@ module.exports = class Level extends Backbone.Model
 
       @listen-to mediator, \edit, @start-editor
       @listen-to mediator, \restart, @restart
-      @listen-to mediator, \frame:process, @frame
+      @listen-to mediator, \frame, @frame
       # @listen-to mediator, \kittenfound, ->
       #   # TODO: proper success thing.
       #   mediator.trigger \alert 'Yay! You saved a kitten!'
@@ -315,8 +315,8 @@ module.exports = class Level extends Backbone.Model
     @player.reset!
 
     # Wait 2 frames so we can ensure that the player has reset before continuing
-    <~ mediator.once 'frame:render'
-    <~ mediator.once 'frame:render'
+    <~ mediator.once 'frame'
+    <~ mediator.once 'frame'
 
     mediator.paused = true
 
