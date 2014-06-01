@@ -23,7 +23,7 @@ checker = (channel) ->
         throw new TypeError "Expected type of '#{prop.name}' to be '#extpected', but got '#actual' in channel '#{channel.name}'"
 
 module.exports = class Channel
-  ({name = '!anonymous', @schema}, @_read-only = false) ->
+  ({name = '!anonymous', @schema = {}}, @_read-only = false) ->
     @name = camelize name
     @_check = checker this
     @id = "#{id++}/#{@name}"
@@ -36,3 +36,13 @@ module.exports = class Channel
 
     @_check data
     PubSub.publish @id, data
+
+  map: (fn) ~>
+    new-chan = new Channel {}, true
+    @subscribe (data) -> PubSub.publish new-chan.id, fn data
+    new-chan
+
+  filter: (fn) ~>
+    new-chan = new Channel {}, true
+    @subscribe (data) -> if fn data then PubSub.publish new-chan.id, data
+    new-chan
