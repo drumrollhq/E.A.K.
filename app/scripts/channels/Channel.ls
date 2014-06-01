@@ -29,6 +29,10 @@ module.exports = class Channel
     @id = "#{id++}/#{@name}"
 
   subscribe: (handler) ~> new Subscription this, handler
+  once: (handler) ~>
+    sub = new Subscription (data) ->
+      handler data
+      sub.unsubscribe!
 
   publish: (data) ~>
     if @_read-only

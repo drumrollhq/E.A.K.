@@ -1,4 +1,5 @@
 require! {
+  'channels'
   'game/mediator'
   'game/physics/keys'
   'logger'
@@ -66,7 +67,7 @@ module.exports = class Player extends Backbone.View
       @reset!
 
     @listen-to mediator, 'fall-to-death', @fall-to-death
-    @listen-to mediator, 'frame', @calc-classes
+    @frame-sub = channels.post-frame.subscribe @calc-classes
 
   reset: (start = @start, w = @w, h = @h) ~>
     @ <<< {
@@ -77,6 +78,10 @@ module.exports = class Player extends Backbone.View
     }
 
     @prepare!
+
+  remove: ->
+    super!
+    @frame-sub.unsubscribe!
 
   calc-classes: ~>
     unless @classes-disabled

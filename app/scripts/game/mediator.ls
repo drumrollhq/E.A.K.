@@ -57,42 +57,8 @@ $window = $ window
 $doc = $ document
 $body = $ document.body
 
-# Yay vendor prefixes!
-raf = window.request-animation-frame or window.moz-request-animation-frame or
-  window.webkit-request-animation-frame or window.ms-request-animation-frame or
-  (fn) -> set-timeout fn, 16ms
-
-window.rAF = raf
-
-animation-end = {
-  'WebkitAnimation': 'webkitAnimationEnd'
-  'MozAnimation': 'animationend'
-  'OAnimation': 'oanimationend'
-  'msAnimation': 'MSAnimationEnd'
-  'animation': 'animationend'
-}[Modernizr.prefixed \animation]
-
 # mediator.paused stops frame and key events from being triggered when true
 mediator.paused = false
-
-# time monitoring stuff:
-# last is the timestamp of the previous frame
-last = window.performance.now!
-
-# frame-driver dispatches frame events
-frame-driver = ~>
-  n = performance.now!
-  diff = n - last
-  last := n
-
-  unless mediator.paused
-    mediator.trigger \preframe diff
-    mediator.trigger \frame diff
-    mediator.trigger \postframe diff
-
-  window.rAF frame-driver
-
-window.rAF frame-driver
 
 # You can trigger events using hyperlinks. Use `event:` instead of `http:`
 $ document .on \tap '[href^="event:"]' (e) ->

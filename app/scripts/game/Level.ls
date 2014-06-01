@@ -1,4 +1,5 @@
 require! {
+  'channels'
   'game/dom/Mapper'
   'game/editor/Editor'
   'game/editor/EditorView'
@@ -112,7 +113,7 @@ module.exports = class Level extends Backbone.Model
 
       @listen-to mediator, \edit, @start-editor
       @listen-to mediator, \restart, @restart
-      @listen-to mediator, \frame, @frame
+      @frame-sub = channels.frame.subscribe @frame
       # @listen-to mediator, \kittenfound, ->
       #   # TODO: proper success thing.
       #   mediator.trigger \alert 'Yay! You saved a kitten!'
@@ -120,9 +121,9 @@ module.exports = class Level extends Backbone.Model
 
     loader.start!
 
-  frame: (dt) ~>
+  frame: (data) ~>
     # Run physics simulation / player input
-    @state = physics.step @state, dt
+    @state = physics.step @state, data.t
 
     # Emit events caused by the simulation
     physics.events @state, mediator
@@ -302,6 +303,7 @@ module.exports = class Level extends Backbone.Model
     delete @state
     @player.remove!
     mediator.trigger \levelout
+    @frame-sub.unsubscribe!
     @stop-listening!
     callback!
 
@@ -315,8 +317,8 @@ module.exports = class Level extends Backbone.Model
     @player.reset!
 
     # Wait 2 frames so we can ensure that the player has reset before continuing
-    <~ mediator.once 'frame'
-    <~ mediator.once 'frame'
+    <~ channels.frame.once
+    <~ channels.frame.once
 
     mediator.paused = true
 
