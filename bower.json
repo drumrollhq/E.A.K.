@@ -14,7 +14,8 @@
     "codemirror": "latest",
     "slowparse": "~0.0.1",
     "stats.js": "*",
-    "pubsub.js": "~0.1.0"
+    "pubsub.js": "~0.1.0",
+    "prelude-ls": "~1.1.1"
   },
   "overrides": {
     "underscore": {
@@ -33,6 +34,9 @@
         "feature-detects/css-calc.js",
         "feature-detects/css-boxsizing.js"
       ]
+    },
+    "prelude-ls": {
+      "main": "browser/prelude-browser.js"
     },
     "codemirror": {
       "main": [

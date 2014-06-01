@@ -1,4 +1,6 @@
-channels = <[frame]>
+require! 'channels/Subscription'
+
+channels = <[frame pre-frame post-frame]>
 
 checker = (channel) ->
   allowed-keys = keys channel.schema
@@ -22,12 +24,16 @@ checker = (channel) ->
 
 id = 0
 get-channel = (file) ->
-  channel = require "events/#file"
+  channel = require "channels/#file"
+  channel.name = camelize channel.name
   channel.id = "#{id++}/#{channel.name}"
 
   check = checker channel
 
-  channel.subscribe = (handler) -> PubSub.subscribe channel.id, handler
+  channel.subscribe = (handler) ->
+    sub = PubSub.subscribe channel.id, handler
+    new Subscription sub, channel
+
   channel.unsubscribe = (handler) -> PubSub.unsubscribe channel.id, handler
   channel.publish = (data = {}) ->
     check data

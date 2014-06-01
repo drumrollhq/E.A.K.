@@ -1,5 +1,5 @@
 # Globally expose prelude-ls:
-window <<< require 'lib/prelude-ls'
+window <<< window.prelude-ls
 
 # Prefixes:
 window.prefixed = {

@@ -16,6 +16,7 @@ vendorInclude = [
   'beautify-html.js'
   'beautify.js'
   'rework/rework.js'
+  'unclobber-require.js'
 ]
 
 workerInclude = [

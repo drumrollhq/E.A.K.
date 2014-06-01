@@ -1,4 +1,11 @@
-require! <[ loader/LevelLoader loader/LoaderView game/Game Router game/mediator game/event-loop logger ]>
+require! <[
+  plugins
+  game/Game
+  Router
+  game/mediator
+  game/event-loop
+  logger
+]>
 
 module.exports = class Init extends Backbone.View
   initialize: ->
@@ -7,6 +14,7 @@ module.exports = class Init extends Backbone.View
       @$ \#incompatible .show-dialogue!
       return
 
+    event-loop.init!
     event <- logger.start 'session', ua: navigator.user-agent
 
     # Hide the loader and start up the game.
