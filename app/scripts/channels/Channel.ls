@@ -30,7 +30,7 @@ module.exports = class Channel
 
   subscribe: (handler) ~> new Subscription this, handler
   once: (handler) ~>
-    sub = new Subscription (data) ->
+    sub = new Subscription this, (data) ->
       handler data
       sub.unsubscribe!
 

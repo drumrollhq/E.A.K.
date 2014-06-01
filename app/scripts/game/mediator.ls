@@ -128,19 +128,4 @@ mediator.once \keypress:f ->
   mediator.on \postframe ->
     stats.end!
 
-# Key events
-# Us the names of non alpha-numeric keys
-keydict = do
-  8: \backspace, 9: \tab, 13: \enter, 16: \shift, 17: \ctrl,
-  19: \pausebreak, 18: \alt, 20: \capslock, 27: \escape, 32: \space, 33: \pageup,
-  34: \pagedown, 35: \end, 36: \home, 37: \left, 38: \up, 39: \right,
-  40: \down, 45: \insert, 46: \delete
-
-$window.on 'keypress keyup keydown' (e) ->
-  code = keydict[e.which] or (String.from-char-code e.which .to-lower-case!)
-
-  unless mediator.paused
-    mediator.trigger e.type
-    mediator.trigger "#{e.type}:#code" e
-
 module.exports = mediator

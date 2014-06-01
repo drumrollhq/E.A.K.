@@ -1,6 +1,7 @@
 require! {
   'channels'
   'game/dom/Mapper'
+  'game/event-loop'
   'game/editor/Editor'
   'game/editor/EditorView'
   'game/hints/HintController'
@@ -89,6 +90,7 @@ module.exports = class Level extends Backbone.Model
 
     loader-view.render!
 
+    event-loop.pause!
     mediator.paused = true
 
     <~ mediator.once 'level-loaded'
@@ -100,6 +102,7 @@ module.exports = class Level extends Backbone.Model
 
       $ document.body .add-class \playing
 
+      event-loop.resume!
       mediator.paused = false
 
       nodes = []
@@ -320,6 +323,7 @@ module.exports = class Level extends Backbone.Model
     <~ channels.frame.once
     <~ channels.frame.once
 
+    event-loop.pause!
     mediator.paused = true
 
     @renderer.clear-transform!
@@ -353,3 +357,4 @@ module.exports = class Level extends Backbone.Model
     @renderer.resize!
     @redraw-from (editor.get \html), (editor.get \css)
     mediator.paused = false
+    event-loop.resume!

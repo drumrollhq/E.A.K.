@@ -5,20 +5,41 @@ raf = window.request-animation-frame or window.moz-request-animation-frame or
   (fn) -> set-timeout fn, 16ms
 window.request-animation-frame = raf
 
-module.exports = event-loop = {
-  init: ->
-    event-loop.last = window.performance.now!
-    window.request-animation-frame event-loop.frame-driver
-
-  frame-driver: ->
-    now = window.performance.now!
-    diff = now - event-loop.last
-    event-loop.last = now
-
-    channels.pre-frame.publish t: diff
-    channels.frame.publish t: diff
-    channels.post-frame.publish t: diff
-
-    window.request-animation-frame event-loop.frame-driver
+key-dict = {
+  8: \backspace, 9: \tab, 13: \enter, 16: \shift, 17: \ctrl,
+  19: \pausebreak, 18: \alt, 20: \capslock, 27: \escape, 32: \space, 33: \pageup,
+  34: \pagedown, 35: \end, 36: \home, 37: \left, 38: \up, 39: \right,
+  40: \down, 45: \insert, 46: \delete
 }
+key-channels = keypress: channels.key-press, keyup: channels.key-up, keydown: channels.key-down
 
+class EventLoop
+  init: ~>
+    @_paused = false
+    @last = window.performance.now!
+    window.request-animation-frame @frame-driver
+    @setup-keys!
+
+  frame-driver: ~>
+    now = window.performance.now!
+    diff = now - @last
+    @last = now
+
+    unless @_paused
+      channels.pre-frame.publish t: diff
+      channels.frame.publish t: diff
+      channels.post-frame.publish t: diff
+
+    window.request-animation-frame @frame-driver
+
+  setup-keys: ~>
+    $ window .on 'keypress keyup keydown' (e) ->
+      unless @_paused
+        key = key-dict[e.which] or (String.from-char-code e.which .to-lower-case!)
+        key-channels[e.type].publish code: e.which, key: key
+
+
+  pause: ~> @_paused = true
+  resume: ~> @_paused = false
+
+module.exports = new EventLoop!

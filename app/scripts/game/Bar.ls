@@ -1,4 +1,7 @@
-require! 'game/mediator'
+require! {
+  'channels'
+  'game/mediator'
+}
 
 module.exports = class Bar extends Backbone.View
   events: do
@@ -6,7 +9,7 @@ module.exports = class Bar extends Backbone.View
     'tap .restart': \restart
 
   initialize: ->
-    mediator.on \keypress:e -> mediator.trigger 'edit'
+    channels.key-press.filter ( .key is 'e' ) .subscribe -> mediator.trigger 'edit'
 
   edit: (e) ->
     e.prevent-default!

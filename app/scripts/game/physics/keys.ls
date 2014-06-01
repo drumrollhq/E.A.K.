@@ -1,4 +1,4 @@
-require! 'game/mediator'
+require! 'channels'
 
 module.exports = keys = {
   left: false
@@ -21,11 +21,11 @@ triggers = {
 }
 
 listen = (name, trigger) ->
-  mediator.on "keydown:#{trigger.keys.join ','}", ->
+  channels.key-down.filter ( .key in trigger.keys ) .subscribe ->
     keys[name] = true
     [keys[ex] = false for ex in trigger.exclude]
 
-  mediator.on "keyup:#{trigger.keys.join ','}", ->
+  channels.key-up.filter ( .key in trigger.keys ) .subscribe ->
     keys[name] = false
 
 for name, trigger of triggers => listen name, trigger

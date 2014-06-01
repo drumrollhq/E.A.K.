@@ -1,6 +1,6 @@
 require! 'channels/Channel'
 
-channels = <[frame pre-frame post-frame]>
+channels = <[frame pre-frame post-frame key-press key-up key-down]>
 
 id = 0
 get-channel = (file) ->
