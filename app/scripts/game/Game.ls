@@ -2,8 +2,8 @@ require! {
   'channels'
   'game/Level'
   'game/Events'
-  'ui/Bar'
   'logger'
+  'ui/Bar'
 }
 
 module.exports = class Game extends Backbone.Model

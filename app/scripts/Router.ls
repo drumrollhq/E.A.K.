@@ -1,6 +1,5 @@
 require! {
   'channels'
-  'game/mediator'
   'logger'
 }
 

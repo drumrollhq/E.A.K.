@@ -1,7 +1,7 @@
 require! {
   'channels'
-  'game/editor/NiceComments'
   'game/editor/CodeMirrorExtras'
+  'game/editor/NiceComments'
 }
 
 module.exports = class EditorView extends Backbone.View

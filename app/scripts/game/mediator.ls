@@ -1,4 +1,4 @@
-require! plugins
+require! 'plugins'
 
 # Delay: Utility function for simulating computers that can't run EAK at 60FPS:
 delay = (ms) ->

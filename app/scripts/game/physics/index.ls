@@ -1,10 +1,10 @@
 require! {
-  './Vector'
-  './Matrix'
-  './collision'
-  './prepare'
-  './step'
-  './events'
+  'game/physics/collision'
+  'game/physics/events'
+  'game/physics/Matrix'
+  'game/physics/prepare'
+  'game/physics/step'
+  'game/physics/Vector'
 }
 
 /*

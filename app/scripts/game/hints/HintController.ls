@@ -1,4 +1,8 @@
-require! { 'game/mediator' 'game/hints/Pointer' 'game/hints/Alert' }
+require! {
+  'game/hints/Alert'
+  'game/hints/Pointer'
+  'game/mediator'
+}
 
 hint-types = pointer: Pointer, alert: Alert
 

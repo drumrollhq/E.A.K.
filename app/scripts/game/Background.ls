@@ -1,6 +1,4 @@
-require! {
-  'WebWorker'
-}
+require! 'WebWorker'
 
 # Background manages the background images. It tries to parse the URL out of a
 # CSS background property, and then passes the result to a worker that blurs the

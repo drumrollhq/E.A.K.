@@ -1,12 +1,12 @@
-require! <[
-  plugins
-  game/Game
-  Router
-  game/mediator
-  game/event-loop
-  logger
-  ui/alert
-]>
+require! {
+  'game/event-loop'
+  'game/Game'
+  'game/mediator'
+  'logger'
+  'plugins'
+  'Router'
+  'ui/alert'
+}
 
 module.exports = class Init extends Backbone.View
   initialize: ->
