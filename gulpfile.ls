@@ -26,6 +26,8 @@ src = {
   hbs: './app/scripts/**/*.hbs'
   css: ['./app/styles/app.styl', './app/styles/min.styl']
   css-all: './app/styles/**/*.styl'
+  local-content: './app/l10n-content/**/*.json.ls'
+  local-templates: './app/l10n-templates/**/*'
   assets: './app/assets/**/*'
 }
 
@@ -85,6 +87,11 @@ gulp.task 'handlebars' ->
     .pipe wrap-commonjs!
     .pipe gulp.dest dest.hbs
 
+gulp.task 'l10n' ->
+  gulp.src src.local-content
+    .pipe localize!
+    .pipe gulp.dest dest.assets
+
 # Custom/utils etc.
 function wrap-commonjs
   es.map (file, cb) ->
@@ -94,4 +101,8 @@ function wrap-commonjs
       file.contents
       new Buffer '\n});'
     ]
+    cb null, file
+
+function localize
+  es.map (file, cb) ->
     cb null, file
