@@ -1,4 +1,5 @@
 require! {
+  'channels'
   'game/mediator'
   'logger'
 }
@@ -48,7 +49,7 @@ mediator.on 'begin-contact:ENTITY_PLAYER:*' (contact) ->
       actions[action] contact.a, contact.b
 
   if contact.a.last-fall-dist > 300px and not contact.b.data?.sensor?
-    mediator.trigger 'fall-to-death'
+    channel.death.publish cause: 'fall-to-death'
 
 # Kitten finding
 mediator.on 'begin-contact:ENTITY_TARGET:ENTITY_PLAYER' (contact) ->

@@ -1,6 +1,5 @@
 require! {
   'channels'
-  'game/mediator'
   'game/physics/keys'
   'logger'
 }
@@ -28,6 +27,7 @@ module.exports = class Player extends Backbone.View
   initialize: (start = {x: 0, y: 0, colour: 'white'}, w = 100, h = 100) ->
     @el.width = 33px
     @el.height = 54px
+    @subs = []
 
     @ <<< {start, w, h}
 
@@ -62,12 +62,11 @@ module.exports = class Player extends Backbone.View
         id: 'ENTITY_PLAYER'
     }
 
-    @listen-to mediator, 'falloutofworld', ~>
-      logger.log 'death', cause: 'fall out of world', player: @{p, v}
-      @reset!
-
-    @listen-to mediator, 'fall-to-death', @fall-to-death
-    @frame-sub = channels.post-frame.subscribe @calc-classes
+    @subs[*] = channels.death.filter ( .cause is 'fall-out-of-world' ) .subscribe ~> @reset!
+    @subs[*] = channels.death.filter ( .cause is 'fall-to-death' ) .subscribe @fall-to-death
+    @subs[*] = channels.post-frame.subscribe @calc-classes
+    @subs[*] = channels.death.subscribe (death) ~>
+      logger.log 'death', {cause: death.cause, data: death.data, player: @{p, v}}
 
   reset: (start = @start, w = @w, h = @h) ~>
     @ <<< {
@@ -79,9 +78,9 @@ module.exports = class Player extends Backbone.View
 
     @prepare!
 
-  remove: ->
+  remove: ~>
     super!
-    @frame-sub.unsubscribe!
+    for sub in @subs => sub.unsubscribe!
 
   calc-classes: ~>
     unless @classes-disabled
@@ -111,8 +110,7 @@ module.exports = class Player extends Backbone.View
 
     @last-classes := classes
 
-  fall-to-death: (cause = 'generic')~>
-    logger.log 'death', from: cause, player: @{p, v}
+  fall-to-death: ~>
     @apply-classes ['squish' @last-direction]
     @deactivated = true
     @classes-disabled = true

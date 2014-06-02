@@ -237,7 +237,7 @@ module.exports = class Level extends Backbone.Model
     const xpad = 100, pad-top = 100, pad-bottom = 200
 
     unless (-xpad < pos.x < @w + xpad) and (-pad-top < pos.y < @h + pad-bottom)
-      mediator.trigger \falloutofworld
+      channels.death.publish cause: 'fall-out-of-world'
 
   complete: ({payload = {handled: false, callback: -> null}}) ~>
     # If a status object is passed, set 'handled' to true. This is so that if this was triggered
