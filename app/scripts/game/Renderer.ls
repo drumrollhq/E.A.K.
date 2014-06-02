@@ -1,4 +1,5 @@
 require! {
+  'channels'
   'game/dom/Mapper'
   'game/lang/CSS'
   'game/mediator'
@@ -25,13 +26,13 @@ module.exports = class Renderer extends Backbone.View
 
     @set-HTML-CSS options.html, options.css
 
-    @listen-to mediator, \resize @resize
+    channels.window-size.subscribe @resize
 
     @resize!
     @render!
     @mapper = new Mapper @el
 
-    @listen-to mediator, \playermove @move
+    channels.player-position.subscribe @move
     @setup-hover!
 
   set-HTML-CSS: (html, css) ~>
@@ -87,11 +88,12 @@ module.exports = class Renderer extends Backbone.View
     super!
     done!
 
-  resize: ~>
+  resize: (win-width, win-height) ~>
     el-width = @width = @$el.width!
     el-height = @height = @$el.height!
-    win-width = @$window.width!
-    win-height = @$window.height! - offset-top
+    # win-width = @$window.width!
+    # win-height = @$window.height! - offset-top
+    win-height -= offset-top
 
     if @editor then win-width = win-width / 2
 

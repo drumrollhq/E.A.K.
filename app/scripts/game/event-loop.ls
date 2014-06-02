@@ -13,12 +13,16 @@ key-dict = {
 }
 key-channels = keypress: channels.key-press, keyup: channels.key-up, keydown: channels.key-down
 
+$window = $ window
+$body = $ document.body
+
 class EventLoop
   init: ~>
     @_paused = false
     @last = window.performance.now!
     window.request-animation-frame @frame-driver
     @setup-keys!
+    @setup-window-events!
 
   frame-driver: ~>
     now = window.performance.now!
@@ -33,11 +37,14 @@ class EventLoop
     window.request-animation-frame @frame-driver
 
   setup-keys: ~>
-    $ window .on 'keypress keyup keydown' (e) ->
+    $window .on 'keypress keyup keydown' (e) ->
       unless @_paused
         key = key-dict[e.which] or (String.from-char-code e.which .to-lower-case!)
         key-channels[e.type].publish code: e.which, key: key
 
+  setup-window-events: ~>
+    $window .on 'resize' (e) ->
+      unless @_paused then channels.window-size.publish width: $body.width!, height: $body.height!
 
   pause: ~> @_paused = true
   resume: ~> @_paused = false

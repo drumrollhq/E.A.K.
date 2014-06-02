@@ -20,7 +20,8 @@ checker = (channel) ->
       actual = (typeof! data[prop.name]).to-lower-case!
       extpected = prop.type
       if actual isnt extpected
-        throw new TypeError "Expected type of '#{prop.name}' to be '#extpected', but got '#actual' in channel '#{channel.name}'"
+        unless prop.optional and actual is 'undefined'
+          throw new TypeError "Expected type of '#{prop.name}' to be '#extpected', but got '#actual' in channel '#{channel.name}'"
 
 module.exports = class Channel
   ({name = '!anonymous', @schema = {}}, @_read-only = false) ->

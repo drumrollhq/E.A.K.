@@ -1,6 +1,4 @@
-require! {
-  './Vector'
-}
+require! './Vector'
 
 # Basic 2D-matrix class.
 # Matrices are in the form:

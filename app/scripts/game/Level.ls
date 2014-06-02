@@ -19,6 +19,7 @@ require! {
 
 module.exports = class Level extends Backbone.Model
   initialize: (level) ->
+    @subs = []
     @level = level
     conf = @conf = {}
 
@@ -34,10 +35,10 @@ module.exports = class Level extends Backbone.Model
       mediator.trigger 'prepareBackground', bg
       mediator.trigger 'showBackground'
       @conf.background = bg
-      mediator.once 'background-applied' -> mediator.trigger 'level-loaded'
+      mediator.once 'background-applied' -> channels.game-commands.publish command: \loaded
     else
       <- set-timeout _, 0
-      mediator.trigger 'level-loaded'
+      channels.game-commands.publish command: \loaded
 
     # Set the level size
     if size = level.find 'meta[name=size]' .attr \value
@@ -93,7 +94,7 @@ module.exports = class Level extends Backbone.Model
     event-loop.pause!
     mediator.paused = true
 
-    <~ mediator.once 'level-loaded'
+    <~ channels.game-commands.filter ( .command is 'loaded' ) .once
 
     do
       <~ loader.once 'done', _
@@ -114,13 +115,13 @@ module.exports = class Level extends Backbone.Model
 
       @hint-controller = new HintController hints: (level.find 'head hints' .children!)
 
-      @listen-to mediator, \edit, @start-editor
-      @listen-to mediator, \restart, @restart
-      @frame-sub = channels.frame.subscribe @frame
+      @subs[*] = channels.game-commands.filter ( .command is \edit ) .subscribe @start-editor
+      @subs[*] = channels.game-commands.filter ( .command is \restart ) .subscribe @restart
+      @subs[*] = channels.game-commands.filter ( .command is \stop ) .subscribe @complete
+      @subs[*] = channels.frame.subscribe @frame
       # @listen-to mediator, \kittenfound, ->
       #   # TODO: proper success thing.
       #   mediator.trigger \alert 'Yay! You saved a kitten!'
-      @listen-to mediator, \stop-game, @complete
 
     loader.start!
 
@@ -246,10 +247,11 @@ module.exports = class Level extends Backbone.Model
     unless (-xpad < pos.x < @w + xpad) and (-pad-top < pos.y < @h + pad-bottom)
       mediator.trigger \falloutofworld
 
-  complete: (status, callback = -> null) ~>
-    # If a status object is passed, set 'handled' to true. This is so that if this was triggered by an
-    # event, it can know whether or not to wait for callback.
-    if status? then status.handled = true
+  complete: ({payload = {handled: false, callback: -> null}}) ~>
+    # If a status object is passed, set 'handled' to true. This is so that if this was triggered
+    # by an event, it can know whether or not to wait for callback. Kinda hacky.
+    payload.handled = true
+    callback = payload.callback or -> null
 
     if @stopped then return
 
@@ -305,8 +307,8 @@ module.exports = class Level extends Backbone.Model
     $player-target.remove!
     delete @state
     @player.remove!
-    mediator.trigger \levelout
-    @frame-sub.unsubscribe!
+    channels.game-commands.publish command: \level-out
+    for sub in @subs => sub.unsubscribe!
     @stop-listening!
     callback!
 

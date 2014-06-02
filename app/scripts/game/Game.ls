@@ -1,4 +1,5 @@
 require! {
+  'channels'
   'game/Level'
   'game/Bar'
   'game/Background'
@@ -21,8 +22,7 @@ module.exports = class Game extends Backbone.Model
 
     bar-view = new Bar el: $ \#bar
 
-    mediator.on 'start-local-level', (level) ~>
-      @start-level "/levels/#level"
+    channels.levels.subscribe ({url}) ~> @start-level url
 
   defaults: level: '/levels/index.html'
 

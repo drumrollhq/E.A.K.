@@ -1,4 +1,5 @@
 require! {
+  'channels'
   'game/mediator'
   'logger'
 }
@@ -17,10 +18,10 @@ module.exports = class Router extends Backbone.Router
     # send a status object. Whatever picks up this event should set status.handled to true,
     # so we can trigger the callback immediately. This is a bit of a hack, but as far as
     # I'm aware, there's no way to tell if an event has been handled with Backbone.Events
-    status = handled: false
-    mediator.trigger 'stop-game', status, callback
+    payload = handled: false, callback: callback
+    channels.game-commands.publish command: \stop, payload: payload
 
-    unless status.handled => callback!
+    unless payload.handled => callback!
 
   # Show the main menu
   menu: ->
@@ -51,4 +52,4 @@ module.exports = class Router extends Backbone.Router
   play-local-level: (path) ->
     <- @stop-game
     <- $.hide-dialogues
-    mediator.trigger 'start-local-level', path
+    channels.levels.publish url: "/levels/#path"

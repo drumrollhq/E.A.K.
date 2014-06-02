@@ -1,9 +1,9 @@
 require! {
+  'channels'
   './Vector'
   './Matrix'
   './collision'
   './keys'
-  '../mediator'
 }
 
 const max-fall-speed = 10px,
@@ -21,7 +21,7 @@ old-els = []
 trails = false
 
 update-el = (obj) ->
-  if obj.data.player then mediator.trigger 'playermove', obj.p
+  if obj.data.player then channels.player-position.publish obj.p.{x, y}
 
   t = "translate3d(#{obj.p.x - obj.x}px, #{obj.p.y - obj.y}px, 0)"
   if obj._lt is t then return
