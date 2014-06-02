@@ -1,5 +1,5 @@
 require! {
-  'game/mediator'
+  'channels'
   'game/editor/NiceComments'
   'game/editor/CodeMirrorExtras'
 }
@@ -81,7 +81,7 @@ module.exports = class EditorView extends Backbone.View
 
   save: ~>
     if @has-errors
-      mediator.trigger \alert 'There are errors in your code! Fix them before saving.'
+      channels.alert.publish msg: 'There are errors in your code! Fix them before saving.'
       return
 
     @model.trigger \save

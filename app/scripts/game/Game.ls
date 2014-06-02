@@ -1,10 +1,9 @@
 require! {
   'channels'
   'game/Level'
-  'game/Bar'
   'game/Background'
   'game/Events'
-  'game/mediator'
+  'ui/Bar'
   'logger'
 }
 
@@ -34,7 +33,7 @@ module.exports = class Game extends Backbone.Model
     parsed = Slowparse.HTML document, level-source, [TreeInspectors.forbidJS]
 
     if parsed.error isnt null
-      mediator.trigger 'alert', 'There are errors in that level!'
+      channels.alert.publish msg: 'There are errors in that level!'
       return
 
     for node in parsed.document.child-nodes

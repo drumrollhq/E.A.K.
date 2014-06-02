@@ -5,6 +5,7 @@ require! <[
   game/mediator
   game/event-loop
   logger
+  ui/alert
 ]>
 
 module.exports = class Init extends Backbone.View

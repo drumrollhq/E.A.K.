@@ -7,14 +7,14 @@ Extra bits that make CM a better editor to learn with:
 
 */
 
-require! 'game/mediator'
+require! 'channels'
 
 box-shadow = Modernizr.prefixed 'boxShadow'
 errors = undefined
 
 $.load-errors '/data/', <[all]>, (err) ->
   if err isnt null
-    mediator.trigger \alert err
+    channels.alert.publish msg: err
 
 module.exports = setup-CM-extras = (cm) ->
   last-mark = false

@@ -68,30 +68,6 @@ $ document .on \tap '[href^="event:"]' (e) ->
   ev = $ e.target .attr \href .substr 'event:'.length
   mediator.trigger ev
 
-# The `alert` event triggers a notification. These are loosely based on OSX
-# notifications. TODO: make notifications resize to fit their content.
-# Animation etc. is handled all in CSS.
-$notification-container = $ '<div></div>'
-  ..add-class \notification-container
-  ..append-to $body
-
-mediator.on \alert (msg) ->
-  $alert = $ '<div></div>'
-    ..add-class \notification
-    ..prepend-to $notification-container
-
-  $inner = $ '<div></div>'
-    ..add-class \notification-inner
-    ..text msg
-    ..append-to $alert
-
-  # Notifications are hidden after 5 seconds
-  <- set-timeout _, 5000ms
-  $alert.add-class \hidden
-
-  <- $alert.on animation-end
-  $alert.remove!
-
 # Trigger events for taps/clicks that aren't caught elsewhere
 $doc.on \tap -> unless mediator.paused then mediator.trigger \uncaughtTap
 

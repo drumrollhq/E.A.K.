@@ -1,7 +1,7 @@
 require! 'channels/Channel'
 
 channels = <[frame pre-frame post-frame key-press key-up key-down game-commands player-position
-  levels window-size]>
+  levels window-size alert]>
 
 id = 0
 get-channel = (file) ->

@@ -39,7 +39,7 @@ module.exports = class Router extends Backbone.Router
 
   # TODO: Loading
   load: ->
-    mediator.trigger 'alert' 'I haven\'t implemented loading yet. Sorry!'
+    channels.alert.publish msg: 'I haven\'t implemented loading yet. Sorry!'
 
   # TODO: Add a proper screen for reaching the end of the game. At the moment,
   # we just redirect to a feedback form.

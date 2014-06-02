@@ -119,9 +119,6 @@ module.exports = class Level extends Backbone.Model
       @subs[*] = channels.game-commands.filter ( .command is \restart ) .subscribe @restart
       @subs[*] = channels.game-commands.filter ( .command is \stop ) .subscribe @complete
       @subs[*] = channels.frame.subscribe @frame
-      # @listen-to mediator, \kittenfound, ->
-      #   # TODO: proper success thing.
-      #   mediator.trigger \alert 'Yay! You saved a kitten!'
 
     loader.start!
 
