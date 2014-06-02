@@ -5,7 +5,7 @@ channels = <[frame pre-frame post-frame key-press key-up key-down game-commands 
 
 id = 0
 get-channel = (file) ->
-  channel = require "channels/#file"
+  channel = require "channels/schema/#file"
   new Channel channel
 
 to-obj-by = (fn, xs) --> {[(fn x), x] for x in xs}

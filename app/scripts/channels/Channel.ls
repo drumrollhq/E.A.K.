@@ -28,26 +28,62 @@ module.exports = class Channel
     @name = camelize name
     @_check = checker this
     @id = "#{id++}/#{@name}"
+    @_handlers = []
+    @_onces = []
+
+  _sub: (handler) ~>
+    b = @_handlers.length
+    @_handlers[*] = handler
+    console.log '_sub:' @id, 'b:' b, 'a:' @_handlers.length
+
+  _unsub: (handler) ~>
+    b = @_handlers.length
+    @_handlers .= filter ( isnt handler )
+    @_onces .= filter ( isnt handler )
+    console.log '_unsub:' @id, 'b:' b, 'a:' @_handlers.length
+
 
   subscribe: (handler) ~> new Subscription this, handler
-  once: (handler) ~>
-    sub = new Subscription this, (data) ->
-      handler data
-      sub.unsubscribe!
+  once: (handler) ~> @_onces[*] = handler
+
+  unsubscribe: (arg) ~>
+    if typeof! arg isnt 'Function'
+      if arg.handler?
+        handler = sub.handler
+        if arg.unsubscribe? then return arg.unsubscribe!
+      else
+        throw new TypeError 'unsubscribe can only take a function or subscription!'
+    else
+      handler = arg
+
+    @_unsub handler
+
+  _publish: (data) ~>
+    todo = @_handlers ++ @_onces
+    @_onces = []
+    [handler data for handler in todo]
 
   publish: (data) ~>
     if @_read-only
       throw new TypeError "Cannot publish on read-only channel #{@id}"
 
     @_check data
-    PubSub.publish @id, data
+    <~ set-timeout _, 0
+    @_publish data
+
+  publish-sync: (data) ~>
+    if @_read-only
+      throw new TypeError "Cannot publish on read-only channel #{@id}"
+
+    @_check data
+    @_publish data
 
   map: (fn) ~>
     new-chan = new Channel {}, true
-    @subscribe (data) -> PubSub.publish new-chan.id, fn data
+    @subscribe (data) -> new-chan._publish data
     new-chan
 
   filter: (fn) ~>
     new-chan = new Channel {}, true
-    @subscribe (data) -> if fn data then PubSub.publish new-chan.id, data
+    @subscribe (data) -> if fn data then new-chan._publish data
     new-chan

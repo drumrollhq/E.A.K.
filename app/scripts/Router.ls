@@ -19,7 +19,7 @@ module.exports = class Router extends Backbone.Router
     # so we can trigger the callback immediately. This is a bit of a hack, but as far as
     # I'm aware, there's no way to tell if an event has been handled with Backbone.Events
     payload = handled: false, callback: callback
-    channels.game-commands.publish command: \stop, payload: payload
+    channels.game-commands.publish-sync command: \stop, payload: payload
 
     unless payload.handled => callback!
 

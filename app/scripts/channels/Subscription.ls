@@ -2,10 +2,10 @@ module.exports = class Subscription
   (@channel, @handler) -> @_resub!
 
   _unsub: ~>
-    PubSub.unsubscribe @channel.id, @handler
+    @channel._unsub @handler
     @_subscribed = false
   _resub: ~>
-    PubSub.subscribe @channel.id, @handler
+    @channel._sub @handler
     @_subscribed = true
 
   unsubscribe: ~>
