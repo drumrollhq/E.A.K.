@@ -1,6 +1,7 @@
 require! 'channels/Subscription'
 
 id = 0
+debug = false
 
 checker = (channel) ->
   allowed-keys = keys channel.schema
@@ -32,16 +33,14 @@ module.exports = class Channel
     @_onces = []
 
   _sub: (handler) ~>
-    b = @_handlers.length
     @_handlers[*] = handler
-    console.log '_sub:' @id, 'b:' b, 'a:' @_handlers.length
+    if debug then console.log '_sub:' @id, (new Error()).stack
 
   _unsub: (handler) ~>
     b = @_handlers.length
     @_handlers .= filter ( isnt handler )
     @_onces .= filter ( isnt handler )
-    console.log '_unsub:' @id, 'b:' b, 'a:' @_handlers.length
-
+    if debug then console.log '_unsub:' @id, (new Error()).stack
 
   subscribe: (handler) ~> new Subscription this, handler
   once: (handler) ~> @_onces[*] = handler

@@ -19,6 +19,7 @@ module.exports = class Renderer extends Backbone.View
   initialize: (options) ->
     @{root} = options
     @$el.append-to @root
+    @subs = []
 
     style = $ '<style></style>'
     style.append-to document.head
@@ -26,13 +27,13 @@ module.exports = class Renderer extends Backbone.View
 
     @set-HTML-CSS options.html, options.css
 
-    channels.window-size.subscribe @resize
+    @subs[*] = channels.window-size.subscribe @resize
 
     @resize!
     @render!
     @mapper = new Mapper @el
 
-    channels.player-position.subscribe @move
+    @subs[*] = channels.player-position.subscribe @move
     @setup-hover!
 
   set-HTML-CSS: (html, css) ~>
@@ -86,6 +87,7 @@ module.exports = class Renderer extends Backbone.View
     <~ set-timeout _, 500
     @$style.remove!
     super!
+    for sub in @subs => sub.unsubscribe!
     done!
 
   resize: (win-width, win-height) ~>
