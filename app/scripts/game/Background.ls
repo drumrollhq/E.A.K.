@@ -1,5 +1,4 @@
 require! {
-  'game/mediator'
   'WebWorker'
 }
 
@@ -7,19 +6,14 @@ require! {
 # CSS background property, and then passes the result to a worker that blurs the
 # image. The blurred image fills the browser window behind the level.
 
-module.exports = class Background
+class Background
   ->
     @$body = $ document.body
 
     # Set up the worker
     @worker = new WebWorker name: 'Blur'
 
-    # Background is controlled by the global Mediator.
-    mediator.on 'prepareBackground' @prepare-background
-    mediator.on 'showBackground' @show-background
-    mediator.on 'clearBackground' @clear-background
-
-  prepare-background: (background) ~>
+  show: (background, callback) ~>
     @current-background = value: '', ready: false
 
     # Parse out an image URL from the background property
@@ -28,7 +22,7 @@ module.exports = class Background
     # Load the image
     img = new Image
 
-    img.addEventListener \load, ~>
+    img.add-event-listener \load, ~>
 
       # Create a canvas a quarter the size of the image
       canvas = document.create-element \canvas
@@ -45,36 +39,22 @@ module.exports = class Background
 
       # Save the blurred canvas, ready to be used
       @current-background = ready: true, value: "url(#{canvas.to-data-URL 'image/png'})"
-
-      @current-background.ready: true
-
-      # We've already had someone try to show the background, show it now
-      if @show-called
-        @apply-current-background!
+      @apply-current-background!
+      callback!
 
     , false
 
     # Kick off image load
     img.src = background
 
-  # If the background's ready, show it. If not, signal to show the background as
-  # soon as it's ready
-  show-background: ~>
-    if @current-background.ready
-      @apply-current-background!
-    else
-      @show-called = true
-
   # reset bg image
-  clear-background: ~> @$body.css \background-image, 'none'
+  clear: ~> @$body.css \background-image, 'none'
 
   # Get the background image onto the page
   apply-current-background: ~>
-    @show-called = false
     if @current-background.ready
       @$body.css \background-image, @current-background.value
       @current-background = value: '', ready: true
-      mediator.trigger 'background-applied'
 
   # Find a URL from a background image
   parse-bg: (bg) ->
@@ -97,3 +77,5 @@ module.exports = class Background
 
   current-background: value: '', ready: true
   show-called: false
+
+module.exports = new Background!

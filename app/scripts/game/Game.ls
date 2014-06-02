@@ -1,7 +1,6 @@
 require! {
   'channels'
   'game/Level'
-  'game/Background'
   'game/Events'
   'ui/Bar'
   'logger'
@@ -12,8 +11,6 @@ module.exports = class Game extends Backbone.Model
     if load then @load! else @save!
 
     @on \change @save
-
-    background = new Background!
 
     @$level-title = $ \.levelname
     @$level-no = @$level-title.find \span

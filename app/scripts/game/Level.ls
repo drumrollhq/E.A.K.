@@ -1,5 +1,6 @@
 require! {
   'channels'
+  'game/background'
   'game/dom/Mapper'
   'game/event-loop'
   'game/editor/Editor'
@@ -29,16 +30,10 @@ module.exports = class Level extends Backbone.Model
 
     renderer = @renderer = new Renderer html: conf.html, css: conf.css, root: $ \#levelcontainer
 
-    # Find and prepare the background image
-    if bg = level.find 'meta[name=background]' .attr \value
-      renderer.el.style.background = bg
-      mediator.trigger 'prepareBackground', bg
-      mediator.trigger 'showBackground'
-      @conf.background = bg
-      mediator.once 'background-applied' -> channels.game-commands.publish command: \loaded
-    else
-      <- set-timeout _, 0
-      channels.game-commands.publish command: \loaded
+    # Find the background image
+    bg = if level.find 'meta[name=background]' .attr \value then that else 'white'
+    renderer.el.style.background = bg
+    @conf.background = bg
 
     # Set the level size
     if size = level.find 'meta[name=size]' .attr \value
@@ -92,9 +87,10 @@ module.exports = class Level extends Backbone.Model
     loader-view.render!
 
     event-loop.pause!
-    mediator.paused = true
 
-    <~ channels.game-commands.filter ( .command is 'loaded' ) .once
+    # Apply the blurred background image:
+    <~ background.show bg
+    channels.game-commands.publish command: \loaded
 
     do
       <~ loader.once 'done', _
@@ -104,7 +100,6 @@ module.exports = class Level extends Backbone.Model
       $ document.body .add-class \playing
 
       event-loop.resume!
-      mediator.paused = false
 
       nodes = []
       @add-bodies-from-dom nodes
@@ -307,6 +302,7 @@ module.exports = class Level extends Backbone.Model
     channels.game-commands.publish command: \level-out
     for sub in @subs => sub.unsubscribe!
     @stop-listening!
+    background.clear!
     callback!
 
   start-editor: ~>
@@ -323,7 +319,6 @@ module.exports = class Level extends Backbone.Model
     <~ channels.frame.once
 
     event-loop.pause!
-    mediator.paused = true
 
     @renderer.clear-transform!
 
@@ -355,5 +350,4 @@ module.exports = class Level extends Backbone.Model
     @renderer.editor = false
     @renderer.resize!
     @redraw-from (editor.get \html), (editor.get \css)
-    mediator.paused = false
     event-loop.resume!

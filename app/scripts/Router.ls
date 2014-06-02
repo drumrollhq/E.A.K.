@@ -27,14 +27,12 @@ module.exports = class Router extends Backbone.Router
   menu: ->
     <- @stop-game
     logger.log 'show-menu'
-    mediator.trigger 'clearBackground'
     $ '#main .menu' .make-only-shown-dialogue!
 
   # Show the about page
   about: ->
     <- @stop-game
     logger.log 'show-about'
-    mediator.trigger 'clearBackground'
     $ '#main .about' .make-only-shown-dialogue!
 
   # TODO: Loading
