@@ -3,8 +3,10 @@ require! {
   exec: 'exec-sync'
   File: 'vinyl'
   'gulp'
+  'gulp-bower-files'
   'gulp-changed'
   'gulp-clean'
+  'gulp-concat'
   'gulp-handlebars'
   'gulp-header'
   'gulp-livescript'
@@ -15,6 +17,7 @@ require! {
   'nib'
   'path'
   'prelude-ls'
+  'streamqueue'
   'through2'
   'yargs'
 }
@@ -44,14 +47,15 @@ src = {
   local-content: './app/l10n-content/**/*.json.ls'
   local-templates: './app/l10n-templates/**/*'
   assets: './app/assets/**/*'
+  vendor: ['./vendor/*.js' './vendor/rework/rework.js']
 }
 
 dest = {
   all: './public/**/*'
-  lsc: './public/js'
-  hbs: './public/js'
+  js: './public/js'
   css: './public/css'
   assets: './public'
+  vendor: './public/lib'
 }
 
 tmp = {
@@ -63,7 +67,7 @@ script-root = new RegExp "^#{path.resolve './'}/app/scripts/"
 gulp.task 'default' -> gulp.start 'dev'
 
 gulp.task 'build' <[clean]> ->
-  gulp.start \scripts \assets \stylus \l10n
+  gulp.start \scripts \assets \stylus \l10n \vendor
 
 gulp.task 'dev' <[build]> ->
   gulp.watch src.assets, ['assets']
@@ -85,6 +89,11 @@ gulp.task 'assets' ->
     .pipe gulp-preprocess context: preprocess-context
     .pipe gulp.dest dest.assets
 
+gulp.task 'vendor' ->
+  streamqueue {+object-mode}, (gulp-bower-files!), (gulp.src src.vendor)
+    .pipe gulp-concat 'vendor.js'
+    .pipe gulp.dest dest.js
+
 gulp.task 'stylus' ->
   gulp.src src.css
     .pipe gulp-stylus stylus-conf
@@ -96,7 +105,7 @@ gulp.task 'livescript' ->
     .pipe gulp-livescript bare: true
     .on 'error' -> throw it
     .pipe wrap-commonjs!
-    .pipe gulp.dest dest.lsc
+    .pipe gulp.dest dest.js
 
 gulp.task 'handlebars' ->
   gulp.src src.hbs
@@ -104,7 +113,7 @@ gulp.task 'handlebars' ->
     .pipe gulp-handlebars!
     .pipe gulp-header 'module.exports = '
     .pipe wrap-commonjs!
-    .pipe gulp.dest dest.hbs
+    .pipe gulp.dest dest.js
 
 gulp.task 'l10n-templates' ->
   gulp.src src.local-templates

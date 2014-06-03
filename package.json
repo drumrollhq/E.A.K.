@@ -31,6 +31,9 @@
     "prelude-ls": "^1.1.1",
     "handlebars": "^2.0.0-alpha.4",
     "yargs": "^1.2.2",
-    "exec-sync": "^0.1.6"
+    "exec-sync": "^0.1.6",
+    "gulp-bower-files": "^0.2.4",
+    "streamqueue": "^0.1.1",
+    "gulp-concat": "^2.2.0"
   }
 }

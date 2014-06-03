@@ -36,7 +36,6 @@
     "codemirror": {
       "main": [
         "lib/codemirror.js",
-        "lib/codemirror.css",
         "mode/xml/xml.js",
         "mode/css/css.js",
         "mode/htmlmixed/htmlmixed.js"
