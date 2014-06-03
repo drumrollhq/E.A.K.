@@ -1,5 +1,6 @@
 require! {
   es: 'event-stream'
+  exec: 'exec-sync'
   File: 'vinyl'
   'gulp'
   'gulp-changed'
@@ -7,14 +8,22 @@ require! {
   'gulp-handlebars'
   'gulp-header'
   'gulp-livescript'
+  'gulp-preprocess'
   'gulp-stylus'
-  'gulp-util'
   'handlebars'
   'LiveScript'
   'nib'
   'path'
   'prelude-ls'
   'through2'
+  'yargs'
+}
+
+{argv} = yargs
+optimized = argv.o or argv.optimized or argv.optimised or false
+preprocess-context = {
+  optimized: optimized
+  version: exec 'git rev-parse HEAD'
 }
 
 default-lang = 'en'
@@ -57,6 +66,7 @@ gulp.task 'build' <[clean]> ->
   gulp.start \scripts \assets \stylus \l10n
 
 gulp.task 'dev' <[build]> ->
+  gulp.watch src.assets, ['assets']
   gulp.watch src.lsc, ['livescript']
   gulp.watch src.hbs, ['handlebars']
   gulp.watch src.css-all, ['stylus']
@@ -71,6 +81,8 @@ gulp.task 'scripts' ->
 
 gulp.task 'assets' ->
   gulp.src src.assets #, cwd: src.assets
+    .pipe gulp-changed dest.assets
+    .pipe gulp-preprocess context: preprocess-context
     .pipe gulp.dest dest.assets
 
 gulp.task 'stylus' ->
@@ -96,6 +108,7 @@ gulp.task 'handlebars' ->
 
 gulp.task 'l10n-templates' ->
   gulp.src src.local-templates
+    .pipe gulp-preprocess context: preprocess-context
     .pipe template-cache!
 
 gulp.task 'l10n' ['l10n-templates'] ->
