@@ -17,6 +17,7 @@ require! {
   'through2'
 }
 
+default-lang = 'en'
 
 stylus = require './node_modules/gulp-stylus/node_modules/stylus'
 stylus-conf = {
@@ -59,6 +60,7 @@ gulp.task 'dev' <[build]> ->
   gulp.watch src.lsc, ['livescript']
   gulp.watch src.hbs, ['handlebars']
   gulp.watch src.css-all, ['stylus']
+  gulp.watch [src.local-content, src.local-templates], ['l10n']
 
 gulp.task 'clean' ->
   gulp.src dest.all, read: false
@@ -95,7 +97,6 @@ gulp.task 'handlebars' ->
 gulp.task 'l10n-templates' ->
   gulp.src src.local-templates
     .pipe template-cache!
-    # .pipe gulp.dest '/dev/null'
 
 gulp.task 'l10n' ['l10n-templates'] ->
   gulp.src src.local-content
@@ -122,6 +123,12 @@ function localize
     file.contents = data |> template |> to-buffer
     file.path .= replace /\.json\.ls$/ ''
 
+    if default-lang is country-code path
+      def = file.clone!
+      def.path = def.base + (strip-country-code path)
+      def.path .= replace /\.json\.ls$/ ''
+      @push def
+
     @push file
     cb!
 
@@ -145,8 +152,11 @@ function relative-path file
 function country-code path
   path |> split '/' |> first
 
+function strip-country-code path
+  path |> split '/' |> tail |> join '/'
+
 function template-name path
-  path |> split '/' |> tail |> join '/' |> ( .replace /\.json\.ls$/, '')
+  path |> strip-country-code |> ( .replace /\.json\.ls$/, '')
 
 function load-template name
   _t-cache[name]
