@@ -25,6 +25,10 @@
     "gulp-clean": "^0.3.0",
     "gulp-header": "^1.0.2",
     "gulp-stylus": "^1.0.2",
-    "nib": "^1.0.2"
+    "nib": "^1.0.2",
+    "through2": "^0.4.2",
+    "vinyl": "^0.2.3",
+    "prelude-ls": "^1.1.1",
+    "handlebars": "^2.0.0-alpha.4"
   }
 }

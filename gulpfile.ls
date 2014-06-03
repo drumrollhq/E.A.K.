@@ -1,5 +1,6 @@
 require! {
   es: 'event-stream'
+  File: 'vinyl'
   'gulp'
   'gulp-changed'
   'gulp-clean'
@@ -8,8 +9,12 @@ require! {
   'gulp-livescript'
   'gulp-stylus'
   'gulp-util'
+  'handlebars'
+  'LiveScript'
   'nib'
   'path'
+  'prelude-ls'
+  'through2'
 }
 
 
@@ -48,7 +53,7 @@ script-root = new RegExp "^#{path.resolve './'}/app/scripts/"
 gulp.task 'default' -> gulp.start 'dev'
 
 gulp.task 'build' <[clean]> ->
-  gulp.start \scripts \assets \stylus
+  gulp.start \scripts \assets \stylus \l10n
 
 gulp.task 'dev' <[build]> ->
   gulp.watch src.lsc, ['livescript']
@@ -87,12 +92,17 @@ gulp.task 'handlebars' ->
     .pipe wrap-commonjs!
     .pipe gulp.dest dest.hbs
 
-gulp.task 'l10n' ->
+gulp.task 'l10n-templates' ->
+  gulp.src src.local-templates
+    .pipe template-cache!
+    # .pipe gulp.dest '/dev/null'
+
+gulp.task 'l10n' ['l10n-templates'] ->
   gulp.src src.local-content
     .pipe localize!
     .pipe gulp.dest dest.assets
 
-# Custom/utils etc.
+# Custom plugins:
 function wrap-commonjs
   es.map (file, cb) ->
     name = file.path.replace script-root, '' .replace /\.js$/, ''
@@ -104,5 +114,42 @@ function wrap-commonjs
     cb null, file
 
 function localize
+  through2.obj (file, enc, cb) ->
+    path = relative-path file
+    template = path |> template-name |> load-template
+    data = lsc-to-json file
+
+    file.contents = data |> template |> to-buffer
+    file.path .= replace /\.json\.ls$/ ''
+
+    @push file
+    cb!
+
+_t-cache = {}
+function template-cache
   es.map (file, cb) ->
+    if file.stat.is-directory! then return cb null, null
+    name = relative-path file
+    _t-cache[name] = handlebars.compile file.contents.to-string!
     cb null, file
+
+# Utils:
+function lsc-to-json file
+  eval LiveScript.compile file.contents.to-string!, bare: true
+
+function relative-path file
+  base-re = new RegExp "^#{file.base}"
+  file.path.replace base-re, ''
+
+{split, first, tail, join} = prelude-ls
+function country-code path
+  path |> split '/' |> first
+
+function template-name path
+  path |> split '/' |> tail |> join '/' |> ( .replace /\.json\.ls$/, '')
+
+function load-template name
+  _t-cache[name]
+
+function to-buffer str
+  new Buffer str
