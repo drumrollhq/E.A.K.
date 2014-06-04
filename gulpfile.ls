@@ -9,6 +9,7 @@ require! {
   'gulp-clean'
   'gulp-coffee'
   'gulp-concat'
+  'gulp-footer'
   'gulp-header'
   'gulp-livescript'
   'gulp-preprocess'
@@ -59,6 +60,10 @@ src = {
   assets: './app/assets/**/*'
   vendor: ['./vendor/*.js' './vendor/rework/rework.js']
   errors: './bower_components/slowparse/spec/errors.{base,forbidjs}.html'
+  workers: './app/workers/**/*.ls'
+  workers-static: ['./bower_components/underscore/underscore.js'
+                   './app/workers/**/*.js'
+                   './vendor/require.js']
 }
 
 dest = {
@@ -74,7 +79,7 @@ tmp = {
   css: './.tmp/css'
 }
 
-script-root = new RegExp "^#{path.resolve './'}/app/scripts/"
+script-root = new RegExp "^#{path.resolve './'}/app/(scripts|workers)/"
 
 gulp.task 'default' -> gulp.start 'dev'
 
@@ -92,7 +97,7 @@ gulp.task 'clean' ->
     .pipe gulp-clean force: true
 
 gulp.task 'scripts' ->
-  gulp.start 'livescript' 'coffee'
+  gulp.start 'livescript' 'coffee' 'workers'
 
 gulp.task 'assets' ->
   gulp.src src.assets #, cwd: src.assets
@@ -139,6 +144,17 @@ gulp.task 'errors' ->
   gulp.src src.errors
     .pipe gulp-concat 'errors.all.html'
     .pipe gulp.dest dest.data
+
+gulp.task 'workers' ->
+  ls = gulp.src src.workers
+    .pipe gulp-livescript bare: true
+    .pipe wrap-commonjs!
+
+  streamqueue {+object-mode}, (gulp.src src.workers-static), ls
+    .pipe gulp-concat 'worker.js'
+    .pipe gulp-header 'if (self.window === undefined) {global = self;};'
+    .pipe gulp-footer ';require(\'base\');'
+    .pipe gulp.dest dest.js
 
 # Custom plugins:
 function wrap-commonjs
