@@ -107,6 +107,7 @@ gulp.task 'assets' ->
 
 gulp.task 'vendor' ->
   streamqueue {+object-mode}, (gulp-bower-files!), (gulp.src src.vendor)
+    .pipe hack-slowparse!
     .pipe gulp-concat 'vendor.js'
     .pipe gulp.dest dest.js
 
@@ -192,6 +193,32 @@ function template-cache
     if file.stat.is-directory! then return cb null, null
     name = relative-path file
     _t-cache[name] = handlebars.compile file.contents.to-string!
+    cb null, file
+
+function hack-slowparse
+  es.map (file, cb) ->
+    if file.path.match /\/bower_components\/slowparse\/slowparse\.js$/
+      orig = file.contents.to-string!
+      a = '''
+        // ### Exported Symbols
+          //
+          // `Slowparse` is the object that holds all exported symbols from
+          // this library.
+          var Slowparse = {'''
+
+      b = '''
+        // ### Exported Symbols - HACKILY MODIFIED FOR EAK!
+          //
+          // `Slowparse` is the object that holds all exported symbols from
+          // this library.
+          var Slowparse = {
+            // EAK requires the HTMLParser to be exposed so we can add custom elements:
+            HTMLParser: HTMLParser,'''
+
+      contents = orig.replace a, b
+
+      file.contents = new Buffer contents
+
     cb null, file
 
 # Utils:
