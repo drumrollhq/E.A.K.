@@ -12,7 +12,6 @@ require! {
   'gulp-header'
   'gulp-livescript'
   'gulp-minify-css'
-  'gulp-minify-html'
   'gulp-preprocess'
   'gulp-stylus'
   'gulp-uglify'
@@ -109,12 +108,13 @@ gulp.task 'vendor' ->
   streamqueue {+object-mode}, (gulp-bower-files!), (gulp.src src.vendor)
     .pipe hack-slowparse!
     .pipe gulp-concat 'vendor.js'
+    .pipe if optimized then gulp-uglify! else noop!
     .pipe gulp.dest dest.js
 
 gulp.task 'stylus' ->
   gulp.src src.css
     .pipe gulp-stylus stylus-conf
-    .pipe if optimized then gulp-minify-css else noop!
+    .pipe if optimized then gulp-minify-css! else noop!
     .pipe gulp.dest dest.css
 
 gulp.task 'livescript' ->
@@ -135,7 +135,6 @@ gulp.task 'l10n-templates' ->
 gulp.task 'l10n' ['l10n-templates'] ->
   gulp.src src.local-content
     .pipe localize!
-    .pipe if optimized then gulp-minify-html! else noop!
     .pipe gulp.dest dest.assets
 
 gulp.task 'errors' ->
@@ -152,6 +151,7 @@ gulp.task 'workers' ->
     .pipe gulp-concat 'worker.js'
     .pipe gulp-header 'if (self.window === undefined) {global = self;};'
     .pipe gulp-footer ';require(\'base\');'
+    .pipe if optimized then gulp-uglify! else noop!
     .pipe gulp.dest dest.js
 
 # Custom plugins:
