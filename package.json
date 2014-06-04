@@ -34,6 +34,7 @@
     "exec-sync": "^0.1.6",
     "gulp-bower-files": "^0.2.4",
     "streamqueue": "^0.1.1",
-    "gulp-concat": "^2.2.0"
+    "gulp-concat": "^2.2.0",
+    "glob": "^4.0.2"
   }
 }

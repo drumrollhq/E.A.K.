@@ -2,6 +2,7 @@ require! {
   es: 'event-stream'
   exec: 'exec-sync'
   File: 'vinyl'
+  'glob'
   'gulp'
   'gulp-bower-files'
   'gulp-changed'
@@ -22,11 +23,20 @@ require! {
   'yargs'
 }
 
+{split, first, tail, join, map} = prelude-ls
+
+scripts = glob.sync './app/scripts/**/*.{ls,hbs}'
+  |> map ( .replace /^\.\/app\/scripts\// '/js/')
+  |> map ( .replace /\.(ls|hbs)$/ '.js')
+  |> map -> """<script src="#it"></script>"""
+  |> join '\n'
+
 {argv} = yargs
 optimized = argv.o or argv.optimized or argv.optimised or false
 preprocess-context = {
   optimized: optimized
   version: exec 'git rev-parse HEAD'
+  scripts: scripts
 }
 
 default-lang = 'en'
@@ -86,7 +96,6 @@ gulp.task 'scripts' ->
 gulp.task 'assets' ->
   gulp.src src.assets #, cwd: src.assets
     .pipe gulp-changed dest.assets
-    .pipe gulp-preprocess context: preprocess-context
     .pipe gulp.dest dest.assets
 
 gulp.task 'vendor' ->
@@ -101,7 +110,7 @@ gulp.task 'stylus' ->
 
 gulp.task 'livescript' ->
   gulp.src src.lsc
-    .pipe gulp-changed dest.lsc, extension: '.js'
+    .pipe gulp-changed dest.js, extension: '.js'
     .pipe gulp-livescript bare: true
     .on 'error' -> throw it
     .pipe wrap-commonjs!
@@ -109,7 +118,7 @@ gulp.task 'livescript' ->
 
 gulp.task 'handlebars' ->
   gulp.src src.hbs
-    .pipe gulp-changed dest.hbs, extension: '.js'
+    .pipe gulp-changed dest.js, extension: '.js'
     .pipe gulp-handlebars!
     .pipe gulp-header 'module.exports = '
     .pipe wrap-commonjs!
@@ -170,7 +179,6 @@ function relative-path file
   base-re = new RegExp "^#{file.base}"
   file.path.replace base-re, ''
 
-{split, first, tail, join} = prelude-ls
 function country-code path
   path |> split '/' |> first
 
