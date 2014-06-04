@@ -48,6 +48,7 @@ stylus-conf = {
   define:
     url: stylus.url!
   paths: [__dirname + '/app/assets/']
+  'include css': true
 }
 
 src = {
