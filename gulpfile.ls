@@ -35,6 +35,7 @@ scripts = glob.sync './app/scripts/**/*.ls'
 
 {argv} = yargs
 optimized = argv.o or argv.optimized or argv.optimised or false
+console.log "Optimized?: #optimized"
 preprocess-context = {
   optimized: optimized
   version: exec 'git rev-parse HEAD'
