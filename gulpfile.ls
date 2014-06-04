@@ -7,7 +7,6 @@ require! {
   'gulp-bower-files'
   'gulp-changed'
   'gulp-clean'
-  'gulp-coffee'
   'gulp-concat'
   'gulp-footer'
   'gulp-header'
@@ -29,9 +28,9 @@ require! {
 
 {split, first, tail, join, map} = prelude-ls
 
-scripts = glob.sync './app/scripts/**/*.{ls,coffee}'
+scripts = glob.sync './app/scripts/**/*.ls'
   |> map ( .replace /^\.\/app\/scripts\// '/js/')
-  |> map ( .replace /\.(ls|coffee)$/ '.js')
+  |> map ( .replace /\.ls$/ '.js')
   |> map -> """<script src="#it"></script>"""
   |> join '\n'
 
@@ -56,7 +55,6 @@ stylus-conf = {
 
 src = {
   lsc: './app/scripts/**/*.ls'
-  coffee: './app/scripts/**/*.coffee'
   css: ['./app/styles/app.styl', './app/styles/min.styl']
   css-all: './app/styles/**/*.styl'
   local-content: './app/l10n-content/**/*.json.ls'
@@ -100,7 +98,7 @@ gulp.task 'clean' ->
   gulp.src dest.all, read: false
     .pipe gulp-clean force: true
 
-gulp.task 'scripts' ['livescript' 'coffee' 'workers']
+gulp.task 'scripts' ['livescript' 'workers']
 
 gulp.task 'assets' ->
   gulp.src src.assets #, cwd: src.assets
@@ -127,14 +125,6 @@ gulp.task 'livescript' ->
     .pipe wrap-commonjs!
     .pipe if optimized then gulp-concat 'app.js' else noop!
     .pipe if optimized then gulp-uglify! else noop!
-    .pipe gulp.dest dest.js
-
-gulp.task 'coffee' ->
-  gulp.src src.coffee
-    .pipe gulp-changed dest.js, extension: '.js'
-    .pipe gulp-coffee bare: true
-    .on 'error' -> throw it
-    .pipe wrap-commonjs!
     .pipe gulp.dest dest.js
 
 gulp.task 'l10n-templates' ->
