@@ -38,6 +38,7 @@
     "glob": "^4.0.2",
     "gulp-footer": "^1.0.4",
     "gulp-minify-css": "^0.3.4",
-    "gulp-uglify": "^0.3.0"
+    "gulp-uglify": "^0.3.0",
+    "gulp-preprocess": "^1.0.1"
   }
 }
