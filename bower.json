@@ -11,7 +11,7 @@
     "jquery": "latest",
     "backbone": "latest",
     "modernizr": "latest",
-    "codemirror": "latest",
+    "codemirror": "4.2.x",
     "slowparse": "~0.0.1",
     "stats.js": "*",
     "prelude-ls": "~1.1.1"
@@ -40,7 +40,6 @@
     "codemirror": {
       "main": [
         "lib/codemirror.js",
-        "lib/codemirror.css",
         "mode/xml/xml.js",
         "mode/css/css.js",
         "mode/htmlmixed/htmlmixed.js"

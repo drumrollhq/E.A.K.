@@ -1,5 +1,3 @@
-require! events
-
 mediator = {}
 
 _.extend mediator, Events
