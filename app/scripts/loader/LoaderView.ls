@@ -1,11 +1,18 @@
-require! 'loader/template'
+template = """
+  <h2>Loading...</h2>
+  <div class="stages"></div>
+  <div class="bar">
+    <div></div>
+  </div>
+  <p class="progress">0%</p>
+"""
 
 module.exports = class LoaderView extends Backbone.View
   tag-name: \div
   class-name: 'loader dialogue'
 
   initialize: ->
-    unless @el.parent-node? then @$el.html template!
+    unless @el.parent-node? then @$el.html template
 
     classes = <[ prev current next ]>
 

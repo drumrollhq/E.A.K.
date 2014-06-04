@@ -9,7 +9,6 @@ require! {
   'gulp-clean'
   'gulp-coffee'
   'gulp-concat'
-  'gulp-handlebars'
   'gulp-header'
   'gulp-livescript'
   'gulp-preprocess'
@@ -26,9 +25,9 @@ require! {
 
 {split, first, tail, join, map} = prelude-ls
 
-scripts = glob.sync './app/scripts/**/*.{ls,hbs,coffee}'
+scripts = glob.sync './app/scripts/**/*.{ls,coffee}'
   |> map ( .replace /^\.\/app\/scripts\// '/js/')
-  |> map ( .replace /\.(ls|hbs|coffee)$/ '.js')
+  |> map ( .replace /\.(ls|coffee)$/ '.js')
   |> map -> """<script src="#it"></script>"""
   |> join '\n'
 
@@ -52,7 +51,6 @@ stylus-conf = {
 
 src = {
   lsc: './app/scripts/**/*.ls'
-  hbs: './app/scripts/**/*.hbs'
   coffee: './app/scripts/**/*.coffee'
   css: ['./app/styles/app.styl', './app/styles/min.styl']
   css-all: './app/styles/**/*.styl'
@@ -86,7 +84,6 @@ gulp.task 'build' <[clean]> ->
 gulp.task 'dev' <[build]> ->
   gulp.watch src.assets, ['assets']
   gulp.watch src.lsc, ['livescript']
-  gulp.watch src.hbs, ['handlebars']
   gulp.watch src.css-all, ['stylus']
   gulp.watch [src.local-content, src.local-templates], ['l10n']
 
@@ -95,7 +92,7 @@ gulp.task 'clean' ->
     .pipe gulp-clean force: true
 
 gulp.task 'scripts' ->
-  gulp.start 'livescript' 'handlebars' 'coffee'
+  gulp.start 'livescript' 'coffee'
 
 gulp.task 'assets' ->
   gulp.src src.assets #, cwd: src.assets
@@ -117,14 +114,6 @@ gulp.task 'livescript' ->
     .pipe gulp-changed dest.js, extension: '.js'
     .pipe gulp-livescript bare: true
     .on 'error' -> throw it
-    .pipe wrap-commonjs!
-    .pipe gulp.dest dest.js
-
-gulp.task 'handlebars' ->
-  gulp.src src.hbs
-    .pipe gulp-changed dest.js, extension: '.js'
-    .pipe gulp-handlebars!
-    .pipe gulp-header 'module.exports = '
     .pipe wrap-commonjs!
     .pipe gulp.dest dest.js
 
