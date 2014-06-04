@@ -12,8 +12,11 @@ require! {
   'gulp-footer'
   'gulp-header'
   'gulp-livescript'
+  'gulp-minify-css'
+  'gulp-minify-html'
   'gulp-preprocess'
   'gulp-stylus'
+  'gulp-uglify'
   'handlebars'
   'LiveScript'
   'nib'
@@ -97,8 +100,7 @@ gulp.task 'clean' ->
   gulp.src dest.all, read: false
     .pipe gulp-clean force: true
 
-gulp.task 'scripts' ->
-  gulp.start 'livescript' 'coffee' 'workers'
+gulp.task 'scripts' ['livescript' 'coffee' 'workers']
 
 gulp.task 'assets' ->
   gulp.src src.assets #, cwd: src.assets
@@ -114,6 +116,7 @@ gulp.task 'vendor' ->
 gulp.task 'stylus' ->
   gulp.src src.css
     .pipe gulp-stylus stylus-conf
+    .pipe if optimized then gulp-minify-css else noop!
     .pipe gulp.dest dest.css
 
 gulp.task 'livescript' ->
@@ -122,6 +125,8 @@ gulp.task 'livescript' ->
     .pipe gulp-livescript bare: true
     .on 'error' -> throw it
     .pipe wrap-commonjs!
+    .pipe if optimized then gulp-concat 'app.js' else noop!
+    .pipe if optimized then gulp-uglify! else noop!
     .pipe gulp.dest dest.js
 
 gulp.task 'coffee' ->
@@ -140,6 +145,7 @@ gulp.task 'l10n-templates' ->
 gulp.task 'l10n' ['l10n-templates'] ->
   gulp.src src.local-content
     .pipe localize!
+    .pipe if optimized then gulp-minify-html! else noop!
     .pipe gulp.dest dest.assets
 
 gulp.task 'errors' ->
@@ -220,6 +226,9 @@ function hack-slowparse
       file.contents = new Buffer contents
 
     cb null, file
+
+function noop
+  es.map (file, cb) -> cb null, file
 
 # Utils:
 function lsc-to-json file
