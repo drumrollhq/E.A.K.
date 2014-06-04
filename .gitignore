@@ -10,3 +10,4 @@ jstest
 *.!sync
 conf.dev.json
 conf.production.json
+.tmp
