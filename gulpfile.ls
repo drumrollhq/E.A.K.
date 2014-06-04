@@ -60,6 +60,7 @@ src = {
   local-templates: './app/l10n-templates/**/*'
   assets: './app/assets/**/*'
   vendor: ['./vendor/*.js' './vendor/rework/rework.js']
+  errors: './bower_components/slowparse/spec/errors.{base,forbidjs}.html'
 }
 
 dest = {
@@ -68,6 +69,7 @@ dest = {
   css: './public/css'
   assets: './public'
   vendor: './public/lib'
+  data: './public/data'
 }
 
 tmp = {
@@ -79,7 +81,7 @@ script-root = new RegExp "^#{path.resolve './'}/app/scripts/"
 gulp.task 'default' -> gulp.start 'dev'
 
 gulp.task 'build' <[clean]> ->
-  gulp.start \scripts \assets \stylus \l10n \vendor
+  gulp.start \scripts \assets \stylus \l10n \vendor \errors
 
 gulp.task 'dev' <[build]> ->
   gulp.watch src.assets, ['assets']
@@ -143,6 +145,11 @@ gulp.task 'l10n' ['l10n-templates'] ->
   gulp.src src.local-content
     .pipe localize!
     .pipe gulp.dest dest.assets
+
+gulp.task 'errors' ->
+  gulp.src src.errors
+    .pipe gulp-concat 'errors.all.html'
+    .pipe gulp.dest dest.data
 
 # Custom plugins:
 function wrap-commonjs
