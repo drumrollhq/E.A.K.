@@ -25,7 +25,7 @@ checker = (channel) ->
           throw new TypeError "Expected type of '#{prop.name}' to be '#extpected', but got '#actual' in channel '#{channel.name}'"
 
 module.exports = class Channel
-  ({name = '!anonymous', @schema = {}}, @_read-only = false) ->
+  ({name = '!anonymous', @schema = {}, @parse}, @_read-only = false) ->
     @name = camelize name
     @_check = checker this
     @id = "#{id++}/#{@name}"
