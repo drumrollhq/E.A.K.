@@ -33,4 +33,9 @@ channels.parse = (str) ->
     return channel.filter channel.parse details
   else throw new Error "Parse not implemented on channel '#channel-name'"
 
+channels.merge = (...chans) ->
+  channel = new Channel {}, true
+  for chan in chans => chan.subscribe (data) -> channel._publish data
+  channel
+
 module.exports = channels

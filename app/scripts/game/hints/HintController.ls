@@ -1,4 +1,5 @@
 require! {
+  'channels'
   'game/hints/Alert'
   'game/hints/Pointer'
   'game/mediator'
@@ -50,7 +51,7 @@ module.exports = class HintController extends Backbone.Model
   setup: (hint) ->
     id-counter += 1
 
-    HintController::hint-defaults.name = "hint-#id-counter"
+    HintController::hint-defaults.name = "hint-#{id-counter}"
 
     hint = _.defaults hint, HintController::hint-defaults
 
@@ -64,7 +65,7 @@ module.exports = class HintController extends Backbone.Model
       enter := "HintEnter#id-counter"
       timed-event enter, time
 
-    <~ @listen-to-once mediator, enter
+    <~ channels.parse enter .once
     do
       <- set-timeout _, hint.enter-delay * 1000
       view.render!
