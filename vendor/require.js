@@ -1,5 +1,9 @@
 (function() {
-  'use strict';
+  // Prelude-ls sets require, which breaks everything. This fixes that.
+  if (self.window) {
+    window.preludeLs = window.require('prelude-ls');
+    delete window.require
+  }
 
   var globals = typeof window === 'undefined' ? global : window;
   if (typeof globals.require === 'function') return;

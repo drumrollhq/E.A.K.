@@ -93,6 +93,7 @@ gulp.task 'dev' <[build]> ->
   gulp.watch src.lsc, ['livescript']
   gulp.watch src.css-all, ['stylus']
   gulp.watch [src.local-content, src.local-templates], ['l10n']
+  gulp.watch src.vendor, ['vendor']
 
 gulp.task 'clean' ->
   gulp.src dest.all, read: false
@@ -108,6 +109,7 @@ gulp.task 'assets' ->
 gulp.task 'vendor' ->
   streamqueue {+object-mode}, (gulp-bower-files!), (gulp.src src.vendor)
     .pipe hack-slowparse!
+    .pipe vendor-wrapper!
     .pipe gulp-concat 'vendor.js'
     .pipe if optimized then gulp-uglify! else noop!
     .pipe gulp.dest dest.js
@@ -215,6 +217,17 @@ function hack-slowparse
       contents = orig.replace a, b
 
       file.contents = new Buffer contents
+
+    cb null, file
+
+function vendor-wrapper
+  es.map (file, cb) ->
+    unless file.path.match /\/bower_components\/slowparse/
+      file.contents = Buffer.concat [
+        new Buffer ';(function(){'
+        file.contents
+        new Buffer '}.call(this));'
+      ]
 
     cb null, file
 
