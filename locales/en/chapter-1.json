@@ -1,0 +1,90 @@
+{
+  "levels/index.html/title": {
+    "message": "Arca's Home",
+    "description": "1st level: title. Arca is the name of the character in the game. I'm not sure if it can or should be translated. "
+  },
+  "levels/index.html/hintsLeftRight": {
+    "message": "This is you! You can move left and right with the <kbd>←</kbd> and <kbd>→</kbd> keys.",
+    "description": "1st level: tell the player how to move about"
+  },
+  "levels/index.html/hintsJump": {
+    "message": "Jump using the <kbd>space</kbd> or <kbd>↑</kbd> keys.",
+    "description": "1st level: instructions. Jumping is fun!"
+  },
+  "levels/index.html/hintsTarget": {
+    "message": "Move over to this kitten to rescue it. You need to rescue all the kittens you find!",
+    "description": "1st level: instructions. yay, kittens"
+  },
+  "levels/index.html/hintsPortal": {
+    "message": "This is a portal. Walk in to see where it leads!",
+    "description": "1st level: instructions"
+  },
+  "levels/editing-text.html/title": {
+    "message": "The Ledge",
+    "description": "2nd level: title"
+  },
+  "levels/editing-text.html/hintsJump": {
+    "message": "Try to jump over to this ledge",
+    "description": "2nd level: instructions"
+  },
+  "levels/editing-text.html/hintsEdit": {
+    "message": "Uh Oh! You need to make the ledge longer. Click 'Edit' or press the <kbd>E</kbd> key to change the level.",
+    "description": "2nd level: instructions"
+  },
+  "levels/editing-text.html/commentsMain": {
+    "message": "<p>\n  This is the HTML source of this level. It describes the stuff shown on screen to the right. The code below is the ledge you are on. It starts with:\n</p>\n<p>\n  <code>&lt;p ...&gt;</code> and ends with <code>&lt;/p&gt;</code>.\n</p>\n<p>\n  These <code>&lt;&gt;</code> bits are called tags. The bit that shows up on the page is the stuff <em>between</em> the tags. Try adding more writing to make the ledge longer.\n</p>",
+    "description": "2nd level: html comments. Make sure you preserve the HTML structure!"
+  },
+  "levels/editing-text.html/commentsOther": {
+    "message": "This is the other ledge, on the far right. You can edit the code for this too!",
+    "description": "2nd level: html comments"
+  },
+  "levels/editing-text.html/htmlImALedge": {
+    "message": "I'm a ledge! Woohoo!",
+    "description": "2nd level: level content. This must stay approximately the same length for the level to work"
+  },
+  "levels/editing-text.html/htmlImALedgeToo": {
+    "message": "Hey! I'm a ledge too!",
+    "description": "2nd level: level content. This must stay approximately the same length for the level to work"
+  },
+  "levels/creating-elements.html/title": {
+    "message": "Arca in Space",
+    "description": "Space level: title"
+  },
+  "levels/creating-elements.html/hint": {
+    "message": "Hmmm... Looks as if we need more boxes. Try editing the level - use the <kbd>E</kbd> key or press the 'Edit' button.",
+    "description": "Space level: instructions"
+  },
+  "levels/creating-elements.html/comment": {
+    "message": "<p>These are <code>&lt;div&gt;</code> tags. They represent the boxes. Try to create some of your own.</p>\n<p>Remember to start with an opening <code>&lt;div&gt;</code> and a closing <code>&lt;/div&gt;</code>, with some writing in between. Don't forget the <code>/</code>!</p>",
+    "description": "Space level: code comments. Make sure you preserve the HTML structure"
+  },
+  "levels/creating-elements.html/htmlBox1": {
+    "message": "Box!",
+    "description": "Space level: content. The writing on the first box"
+  },
+  "levels/creating-elements.html/htmlBox2": {
+    "message": "Box?",
+    "description": "Space level: content. The writing on the second box"
+  },
+  "levels/headings.html/title": {
+    "message": "Spikes!",
+    "description": "Headings level: title"
+  },
+  "levels/headings.html/commentsMain": {
+    "message": "<p>\n  These are headings. The HTML headings are a very big family - they go all the way from <code>&lt;h1&gt;</code> (the most important heading) to <code>&lt;h6&gt;</code> (the least important heading). On a web page, you might have the page title in a <code>&lt;h1&gt;</code>, and a subtitle in a <code>&lt;h2&gt;</code>, for example.\n</p>\n\n<p>\n  The first two headings got you that far down into the cave - if you created more, you might be able to reach the bottom!\n</p>",
+    "description": "Headings level: comment"
+  },
+  "levels/headings.html/commentsGetStarted": {
+    "message": "Try adding a <code>&lt;h3&gt;</code> element to get started. Don't forget the <code>&lt;/h3&gt;</code> at the end!",
+    "description": "Headings level: comment"
+  },
+  "levels/headings.html/htmlH1": {
+    "message": "I'M VERY IMPORTANT",
+    "description": "Headings level: content"
+  },
+  "levels/headings.html/htmlH2": {
+    "message": "ME TOO! Kinda...",
+    "description": "Headings level: content"
+  }
+}

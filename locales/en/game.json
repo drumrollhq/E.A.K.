@@ -1,0 +1,82 @@
+{
+  "play.html/language": {
+    "message": "English",
+    "description": "The name of the language you're translating to, in that language."
+  },
+  "play.html/title": {
+    "message": "Erase All Kittens",
+    "description": "The name of the game!"
+  },
+  "play.html/menu.newGame": {
+    "message": "New Game",
+    "description": "button on the main menu"
+  },
+  "play.html/menu.loadGame": {
+    "message": "Load Game",
+    "description": "button on the main menu"
+  },
+  "play.html/menu.about": {
+    "message": "About",
+    "description": "button on the main menu"
+  },
+  "play.html/about.description": {
+    "message": "Erase All Kittens is a platform game with a difference: the levels are written in HTML and CSS, and the only way to get past them is to use your coding skills to hack the level.",
+    "description": "a short description of the game"
+  },
+  "play.html/about.instructions": {
+    "message": "Use the <kbd>A</kbd> and <kbd>D</kbd> or <kbd>&larr;</kbd> and <kbd>&rarr;</kbd> keys to go left and right. Use <kbd>W</kbd>, <kbd>space</kbd>, or <kbd>&uarr;</kbd> to jump.",
+    "description": "brief instructions on the 'about' page"
+  },
+  "play.html/haveFun": {
+    "message": "Have fun!",
+    "description": "have fun or else."
+  },
+  "play.html/back": {
+    "message": "Back",
+    "description": "for a 'back' button"
+  },
+  "play.html/todo": {
+    "message": "To do.",
+    "description": "for when I've not done stuff yet ;)"
+  },
+  "play.html/loading": {
+    "message": "Loading...",
+    "description": ""
+  },
+  "play.html/oldBrowserMsgTitle": {
+    "message": "Sorry!",
+    "description": "This is the heading for a notice that tells users on older browsers that they can't run the game"
+  },
+  "play.html/oldBrowserMsgHtml": {
+    "message": "Unfortunately, your browser doesn't support everything we need for you to play Erase All Kittens!. Try installing <a href=\"http://www.mozilla.org/en-US/firefox/\">Firefox</a>.",
+    "description": "Prompt users on old browsers to upgrade to a newer one"
+  },
+  "play.html/menuRestart": {
+    "message": "Restart",
+    "description": "Button on the bar at the top of the screen during levels. Puts the level and player back in the starting state."
+  },
+  "play.html/menuEdit": {
+    "message": "Edit",
+    "description": "Button on the bar at the top of the screen during levels. Opens up the edit view."
+  },
+  "play.html/menuSave": {
+    "message": "Save",
+    "description": "Button on the bar at the top of the screen during levels. Closes the edit view, keeping the code the user entered"
+  },
+  "play.html/menuReset": {
+    "message": "Reset",
+    "description": "Button on the bar at the top of the screen during levels. When in the edit view, this sets the code to how it was at the start of the level"
+  },
+  "play.html/menuCancel": {
+    "message": "Cancel",
+    "description": "Button on the bar at the top of the screen during levels. Closes the edit view, discarding the code the user entered"
+  },
+  "play.html/menuUndo": {
+    "message": "Undo",
+    "description": "Undo button for the code editor"
+  },
+  "play.html/menuRedo": {
+    "message": "Redo",
+    "description": "Redo button for the code editor"
+  }
+}
