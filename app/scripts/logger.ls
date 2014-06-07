@@ -49,6 +49,5 @@ module.exports = {
   event: (id) -> active-events[id]
 
   set-default-parent: (id) ->
-    console.log 'set-default-parent' id
     default-parent := id
 }

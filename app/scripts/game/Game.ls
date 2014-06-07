@@ -11,8 +11,6 @@ if first-path in window.LANGUAGES
   prefix = "/#first-path"
 else prefix = ''
 
-console.log {prefix, first-path}
-
 module.exports = class Game extends Backbone.Model
   initialize: (load, @logger-parent) ->
     if load then @load! else @save!

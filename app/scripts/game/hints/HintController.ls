@@ -67,7 +67,6 @@ module.exports = class HintController extends Backbone.Model
     fn = -> set-timeout cb, parse-int delay
     if ev.match /^time:\s?(\d+?)$/
       time = that.1 |> parse-int
-      console.log {time}
       set-timeout fn, time
     else
       channels.parse ev .once fn
