@@ -10,16 +10,33 @@
     <meta name="targets" value="200 238">
 
     <hints>
-      <pointer target=".player" enter="time:1" exit="keydown:left,right,a,d" exit-delay="0.5" name="leftright" position="above">
+      <pointer name="leftright"
+        target=".player"
+        enter="time: 1000"
+        exit="key-down: left, right, a, d"
+        exit-delay="500"
+        position="above">
         {{{hints.leftRight}}}
       </pointer>
-      <pointer target=".computer-junk" enter="hint-leftright:exit" exit="keydown:up,space,w" name="jump" position="right">
+      <pointer name="jump"
+        target=".computer-junk"
+        enter="hint: leftright:exit"
+        exit="key-down: up, space, w"
+        position="right">
         {{{hints.jump}}}
       </pointer>
-      <pointer target=".level .entity-target" enter="hint-jump:exit" exit="begin-contact:ENTITY_PLAYER:ENTITY_TARGET" name="target" position="right">
+      <pointer name="target"
+        target=".level .entity-target"
+        enter="hint: jump:exit"
+        exit="contact: start: ENTITY_PLAYER + ENTITY_TARGET"
+        position="right">
         {{{hints.target}}}
       </pointer>
-      <pointer target=".level .portal" enter="hint-target:exit" exit="begin-contact:ENTITY_PLAYER:PORTAL" position="above">
+      <pointer
+        target=".level .portal"
+        enter="hint: target:exit"
+        exit="contact: start: ENTITY_PLAYER + PORTAL"
+        position="above">
         {{{hints.portal}}}
       </pointer>
     </hints>

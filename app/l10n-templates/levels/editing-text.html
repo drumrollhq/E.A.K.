@@ -10,10 +10,16 @@
     <meta name="targets" value="230 -119">
 
     <hints>
-      <pointer target=".ledge.right" enter="time:1" exit="falloutofworld edit" name="oops">
+      <pointer name="oops"
+        target=".ledge.right"
+        enter="time: 1000"
+        exit="death: fall-out-of-world; game-commands: edit">
         {{hints.jump}}
       </pointer>
-      <pointer target=".edit" enter="falloutofworld" exit="edit">
+      <pointer
+        target=".edit"
+        enter="death: fall-out-of-world"
+        exit="game-commands: edit">
         {{{hints.edit}}}
       </pointer>
     </hints>

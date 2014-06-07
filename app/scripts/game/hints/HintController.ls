@@ -2,16 +2,11 @@ require! {
   'channels'
   'game/hints/Alert'
   'game/hints/Pointer'
-  'game/mediator'
 }
 
 hint-types = pointer: Pointer, alert: Alert
 
 id-counter = 1
-
-timed-event = (e, t) ->
-  <- set-timeout _, t * 1000
-  mediator.trigger e
 
 module.exports = class HintController extends Backbone.Model
   defaults: hints: []
@@ -60,26 +55,21 @@ module.exports = class HintController extends Backbone.Model
     hint <<< {view}
     {enter, exit} = hint
 
-    if 0 is enter.index-of \time:
-      time = enter.split \time: .1 |> parse-int
-      enter := "HintEnter#id-counter"
-      timed-event enter, time
+    <~ @on-event hint.enter, hint.enter-delay
+    view.render!
+    channels.hint.publish {type: \enter, name: hint.name}
 
-    <~ channels.parse enter .once
-    do
-      <- set-timeout _, hint.enter-delay * 1000
-      view.render!
-      mediator.trigger "hint-#{hint.name}:enter"
-
-    if 0 is exit.index-of \time:
-      time = exit.split \time: .1 |> parse-int
-      exit := "HintExit#id-counter"
-      timed-event exit, time
-
-    <~ @listen-to-once mediator, exit
-    <~ set-timeout _, hint.exit-delay * 1000
-
+    <~ @on-event hint.exit, hint.exit-delay
     view.remove!
-    mediator.trigger "hint-#{hint.name}:exit"
+    channels.hint.publish {type: \exit, name: hint.name}
+
+  on-event: (ev, delay = 0, cb = -> null) ~>
+    fn = -> set-timeout cb, parse-int delay
+    if ev.match /^time:\s?(\d+?)$/
+      time = that.1 |> parse-int
+      console.log {time}
+      set-timeout fn, time
+    else
+      channels.parse ev .once fn
 
   destroy: ~> [hint.view.remove! for hint in @hints]
