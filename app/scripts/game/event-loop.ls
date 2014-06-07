@@ -30,9 +30,9 @@ class EventLoop
     @last = now
 
     unless @_paused
-      channels.pre-frame.publish t: diff
-      channels.frame.publish t: diff
-      channels.post-frame.publish t: diff
+      channels.pre-frame.publish-sync t: diff
+      channels.frame.publish-sync t: diff
+      channels.post-frame.publish-sync t: diff
 
     window.request-animation-frame @frame-driver
 
