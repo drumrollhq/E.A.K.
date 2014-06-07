@@ -25,7 +25,7 @@ require! {
   'yargs'
 }
 
-languages = ['en']
+languages = ['en' 'es']
 
 _ = {
   merge: require 'lodash.merge'
@@ -47,6 +47,7 @@ preprocess-context = {
   optimized: optimized
   version: exec 'git rev-parse HEAD'
   scripts: scripts
+  languages: languages |> map (-> "'#it'") |> join ',' |> (-> "[#it]")
 }
 
 default-lang = 'en'
