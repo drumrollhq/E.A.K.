@@ -1,6 +1,5 @@
 require! {
   'channels'
-  'game/mediator'
   'logger'
 }
 
@@ -53,7 +52,7 @@ channels.parse 'contact: start: ENTITY_PLAYER' .subscribe (contact) ->
       actions[action] player, other
 
   if player.last-fall-dist > 300px and not other.data?.sensor?
-    channel.death.publish cause: 'fall-to-death'
+    channels.death.publish cause: 'fall-to-death'
 
 # Kitten finding
 channels.parse 'contact: start: ENTITY_PLAYER + ENTITY_TARGET' .subscribe (contact) ->
@@ -64,7 +63,7 @@ channels.parse 'contact: start: ENTITY_PLAYER + ENTITY_TARGET' .subscribe (conta
 
   unless kitten.destroyed
     logger.log 'kitten', player: player.{v, p}
-    mediator.trigger 'kittenfound'
+    channels.kitten.publish {}
 
   kitten.destroyed = true
 

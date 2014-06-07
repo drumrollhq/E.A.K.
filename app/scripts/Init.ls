@@ -1,7 +1,6 @@
 require! {
   'game/event-loop'
   'game/Game'
-  'game/mediator'
   'logger'
   'plugins'
   'Router'

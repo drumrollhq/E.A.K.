@@ -91,11 +91,11 @@ module.exports = class Renderer extends Backbone.View
     for sub in @subs => sub.unsubscribe!
     done!
 
-  resize: (win-width, win-height) ~>
+  resize: ~>
     el-width = @width = @$el.width!
     el-height = @height = @$el.height!
-    # win-width = @$window.width!
-    # win-height = @$window.height! - offset-top
+    win-width = @$window.width!
+    win-height = @$window.height! - offset-top
     win-height -= offset-top
 
     if @editor then win-width = win-width / 2
