@@ -52,6 +52,9 @@ unless window.performance?
 # Prevent clicking on in-game links
 $ document .on \click '.level a[href]' (e) -> e.prevent-default!
 
+# Prevent accidentally going 'back' a page when editing with the backspace key:
+$ document.body .on 'keydown' (e) -> if e.which is 8 then e.prevent-default!
+
 # Custom elements for KQ levels:
 extras = <[ target hints pointer alert hidden ]>
 extras |> each _, (-> document.create-element it)

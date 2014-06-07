@@ -11,7 +11,20 @@ module.exports = class Router extends Backbone.Router
     'home': 'goHome'
     '*default': 'menu'
 
-  stop-game: (callback) ->
+  initialize: ->
+    @last-hash = '#'
+
+  should-prevent-route: ->
+    if $ document.body .has-class \editor
+      return true
+    else
+      @last-hash = window.location.hash
+      return false
+
+  prevent-route: ->
+    window.location.hash = @last-hash
+
+  stop-game: (callback) ~>
     # Stopping the game takes some time, hence the callback. However, if there isn't a
     # game to be stopped, the callback will never get called. So along with the callback, we
     # send a status object. Whatever picks up this event should set status.handled to true,
@@ -23,30 +36,35 @@ module.exports = class Router extends Backbone.Router
     unless payload.handled => callback!
 
   # Show the main menu
-  menu: ->
+  menu: ~>
+    if @should-prevent-route! then return @prevent-route!
     <- @stop-game
     logger.log 'show-menu'
     $ '#main .menu' .make-only-shown-dialogue!
 
   # Show the about page
-  about: ->
+  about: ~>
+    if @should-prevent-route! then return @prevent-route!
     <- @stop-game
     logger.log 'show-about'
     $ '#main .about' .make-only-shown-dialogue!
 
   # TODO: Loading
-  load: ->
+  load: ~>
+    if @should-prevent-route! then return @prevent-route!
     channels.alert.publish msg: 'I haven\'t implemented loading yet. Sorry!'
 
   # TODO: Add a proper screen for reaching the end of the game. At the moment,
   # we just redirect to a feedback form.
-  go-home: ->
+  go-home: ~>
+    if @should-prevent-route! then return @prevent-route!
     <- logger.log 'show-form', {}
     location.href = 'https://docs.google.com/forms/d/1q_uwYzcNSpGIvvNKc4LHoKqj7tta-uQveWjaiskOVrA/viewform'
 
   # Plays a local ('official') level from the repo. TODO: Playing levels from
   # Thimble, and maybe even arbitrary URLs
-  play-local-level: (path) ->
+  play-local-level: (path) ~>
+    if @should-prevent-route! then return @prevent-route!
     <- @stop-game
     <- $.hide-dialogues
     channels.levels.publish url: "/levels/#path"
