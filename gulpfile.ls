@@ -99,7 +99,7 @@ gulp.task 'dev' <[build]> ->
   gulp.watch src.assets, ['assets']
   gulp.watch src.lsc, ['livescript']
   gulp.watch src.css-all, ['stylus']
-  gulp.watch [src.local-content, src.local-templates], ['l10n']
+  gulp.watch [src.locale-data, src.locale-templates], ['l10n']
 
 gulp.task 'clean' ->
   gulp.src dest.all, read: false
@@ -137,11 +137,11 @@ gulp.task 'livescript' ->
 
 gulp.task 'l10n-data' ->
   gulp.src src.locale-data
-    .pipe gulp-preprocess context: preprocess-context
     .pipe locale-data-cache! .on 'error' -> throw it
 
 gulp.task 'l10n' ['l10n-data'] ->
   gulp.src src.locale-templates
+    .pipe gulp-preprocess context: preprocess-context
     .pipe localize! .on 'error' -> throw it
     .pipe gulp.dest dest.assets
 
