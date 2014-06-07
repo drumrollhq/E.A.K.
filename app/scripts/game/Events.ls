@@ -12,59 +12,63 @@ actions = {
 }
 
 # Hyperlinks
-mediator.on 'begin-contact:HYPERLINK:ENTITY_PLAYER' (contact) ->
-  if contact.b.deactivated then return
-  speed = contact.b.last-v.y
-  if 3.5px < speed < 10px then window.location.href = contact.a.el.href
+channels.parse 'contact: start: HYPERLINK + ENTITY_PLAYER' .subscribe (contact) ->
+  [player, link] = contact.find 'ENTITY_PLAYER'
+
+  if player.deactivated then return
+  speed = player.last-v.y
+  if 3.5px < speed < 10px then window.location.href = link.el.href
 
 # Portals
-mediator.on 'begin-contact:PORTAL:ENTITY_PLAYER' (contact) ->
+channels.parse 'contact: start: PORTAL + ENTITY_PLAYER' .subscribe (contact) ->
+  [player, portal] = contact.find 'ENTITY_PLAYER'
   <- set-timeout _, 250
-  if contact.b.deactivated then return
 
-  if contact.b.last-fall-dist > 200px then return
+  if player.deactivated then return
+  if player.last-fall-dist > 200px then return
 
-  contact.b
+  player
     ..frozen = true
     ..handle-input = false
     ..classes-disabled = true
 
-  contact.b.el.class-list.add 'portal-out'
-  contact.a.el.class-list.add 'portal-out'
+  player.el.class-list.add 'portal-out'
+  portal.el.class-list.add 'portal-out'
 
-  logger.log 'portal', player: contact.b.{p, v}
+  logger.log 'portal', player: player.{p, v}
 
   <- set-timeout _, 750
-  window.location.href = contact.a.el.href
+  window.location.href = portal.el.href
 
 # Falling to death, actions:
-mediator.on 'begin-contact:ENTITY_PLAYER:*' (contact) ->
-  if contact.a.deactivated then return
+channels.parse 'contact: start: ENTITY_PLAYER' .subscribe (contact) ->
+  [player, other] = contact.find 'ENTITY_PLAYER'
+  if player.deactivated then return
 
   # First, check for and trigger actions
-  if contact.b.data?.action?
-    action = contact.b.data.action
+  if other.data?.action?
+    action = other.data.action
     if actions[action]?
       logger.log 'action', {action}
-      actions[action] contact.a, contact.b
+      actions[action] player, other
 
-  if contact.a.last-fall-dist > 300px and not contact.b.data?.sensor?
+  if player.last-fall-dist > 300px and not other.data?.sensor?
     channel.death.publish cause: 'fall-to-death'
 
 # Kitten finding
-mediator.on 'begin-contact:ENTITY_TARGET:ENTITY_PLAYER' (contact) ->
-  if contact.b.deactivated then return
-  target = contact.a
+channels.parse 'contact: start: ENTITY_PLAYER + ENTITY_TARGET' .subscribe (contact) ->
+  [player, kitten] = contact.find 'ENTITY_PLAYER'
+  if player.deactivated then return
 
-  target.destroy!
+  kitten.destroy!
 
-  unless target.destroyed
-    logger.log 'kitten', player: contact.b.{v, p}
+  unless kitten.destroyed
+    logger.log 'kitten', player: player.{v, p}
     mediator.trigger 'kittenfound'
 
-  target.destroyed = true
+  kitten.destroyed = true
 
-  $el = $ target.el
+  $el = $ kitten.el
 
   $el.one prefixed.animation-end, -> $el.remove!
 

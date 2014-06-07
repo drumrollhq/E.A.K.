@@ -2,7 +2,6 @@ require! {
   'channels'
   'game/dom/Mapper'
   'game/lang/CSS'
-  'game/mediator'
 }
 
 transform = Modernizr.prefixed \transform
@@ -64,14 +63,16 @@ module.exports = class Renderer extends Backbone.View
     @map
 
   setup-hover: ~>
-    @listen-to mediator, 'beginContact:*&ENTITY_PLAYER' (collision) ~>
-      if el = collision.a.def.el
-        el.class-list.add Renderer::hover-class
-        el.trigger-fake-transition-start! if el.trigger-fake-transition-start?
+    chan = channels.parse 'contact: start: ENTITY_PLAYER, end: ENTITY_PLAYER'
+    @subs[*] = chan.subscribe (contact) ->
+      [player, other] = contact.find 'ENTITY_PLAYER'
+      if other.def?.el?
+        el = other.def.el
 
-    @listen-to mediator, 'endContact:*&ENTITY_PLAYER' (collision) ~>
-      if el = collision.a.def.el
-        el.class-list.remove Renderer::hover-class
+        if contact.type is 'start'
+          el.class-list.add Renderer::hover-class
+        else el.class-list.remove Renderer::hover-class
+
         el.trigger-fake-transition-start! if el.trigger-fake-transition-start?
 
   append: ~> @$el.append it

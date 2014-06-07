@@ -1,25 +1,25 @@
-queuer = (mediator) ->
+queuer = ->
   queue = []
-
   fn = (type, a, b) ->
     # TODO: make sure no duplicates are added to the queue
     queue[*] = {type, a, b}
 
   fn.queue = queue
-
   fn
 
-send = (queue, mediator) ->
+contact-find = (id) ->
+  | id in @a.ids => [@a, @b]
+  | id in @b.ids => [@b, @a]
+  | otherwise => throw new Error "Cannot find '#id' in contact"
+
+send = (queue, channel) ->
   for item in queue.queue
     {a, b, type} = item
-    type = if type is '+' then 'begin-contact' else 'end-contact'
-    for ida in a.ids
-      for idb in b.ids
-        mediator.trigger "#{type}:#{ida}:#{idb}", a: a, b: b
-        mediator.trigger "#{type}:#{idb}:#{ida}", a: b, b: a
+    type = if type is '+' then 'start' else 'end'
+    channel.publish {type, a, b, find: contact-find}
 
-module.exports = events = (state, mediator) ->
-  queue = queuer mediator
+module.exports = events = (state, channel) ->
+  queue = queuer!
 
   for node in state.dynamics
     contacts = node.contacts or []
@@ -35,4 +35,4 @@ module.exports = events = (state, mediator) ->
       unless contact in contacts
         queue '-', node, contact
 
-  send queue, mediator
+  send queue, channel

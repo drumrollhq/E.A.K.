@@ -6,7 +6,6 @@ require! {
   'game/editor/EditorView'
   'game/event-loop'
   'game/hints/HintController'
-  'game/mediator'
   'game/physics'
   'game/Player'
   'game/Renderer'
@@ -122,7 +121,7 @@ module.exports = class Level extends Backbone.Model
     @state = physics.step @state, data.t
 
     # Emit events caused by the simulation
-    physics.events @state, mediator
+    physics.events @state, channels.contact
 
     @check-player-is-in-world!
 

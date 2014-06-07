@@ -1,7 +1,7 @@
 require! 'channels/Channel'
 
 schemas = <[frame pre-frame post-frame key-press key-up key-down game-commands player-position
-  levels window-size alert death hint]>
+  levels window-size alert death hint contact]>
 
 id = 0
 get-channel = (file) ->
