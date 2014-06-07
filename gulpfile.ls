@@ -25,7 +25,14 @@ require! {
   'yargs'
 }
 
-{split, first, tail, join, map} = prelude-ls
+languages = ['en' 'es']
+
+_ = {
+  merge: require 'lodash.merge'
+  defaults: require 'lodash.defaults'
+}
+
+{split, first, last, initial, tail, join, map, camelize} = prelude-ls
 
 scripts = glob.sync './app/scripts/**/*.ls'
   |> map ( .replace /^\.\/app\/scripts\// '/js/')
@@ -40,6 +47,7 @@ preprocess-context = {
   optimized: optimized
   version: exec 'git rev-parse HEAD'
   scripts: scripts
+  languages: languages |> map (-> "'#it'") |> join ',' |> (-> "[#it]")
 }
 
 default-lang = 'en'
@@ -57,8 +65,8 @@ src = {
   lsc: './app/scripts/**/*.ls'
   css: ['./app/styles/app.styl', './app/styles/min.styl']
   css-all: './app/styles/**/*.styl'
-  local-content: './app/l10n-content/**/*.json.ls'
-  local-templates: './app/l10n-templates/**/*'
+  locale-data: './locales/**/*.json'
+  locale-templates: './app/l10n-templates/**/*'
   assets: './app/assets/**/*'
   vendor: ['./vendor/*.js' './vendor/rework/rework.js']
   errors: './bower_components/slowparse/spec/errors.{base,forbidjs}.html'
@@ -92,7 +100,7 @@ gulp.task 'dev' <[build]> ->
   gulp.watch src.assets, ['assets']
   gulp.watch src.lsc, ['livescript']
   gulp.watch src.css-all, ['stylus']
-  gulp.watch [src.local-content, src.local-templates], ['l10n']
+  gulp.watch [src.locale-data, src.locale-templates], ['l10n']
   gulp.watch src.vendor, ['vendor']
 
 gulp.task 'clean' ->
@@ -130,14 +138,14 @@ gulp.task 'livescript' ->
     .pipe if optimized then gulp-uglify! else noop!
     .pipe gulp.dest dest.js
 
-gulp.task 'l10n-templates' ->
-  gulp.src src.local-templates
-    .pipe gulp-preprocess context: preprocess-context
-    .pipe template-cache!
+gulp.task 'l10n-data' ->
+  gulp.src src.locale-data
+    .pipe locale-data-cache! .on 'error' -> throw it
 
-gulp.task 'l10n' ['l10n-templates'] ->
-  gulp.src src.local-content
-    .pipe localize!
+gulp.task 'l10n' ['l10n-data'] ->
+  gulp.src src.locale-templates
+    .pipe gulp-preprocess context: preprocess-context
+    .pipe localize! .on 'error' -> throw it
     .pipe gulp.dest dest.assets
 
 gulp.task 'errors' ->
@@ -169,29 +177,43 @@ function wrap-commonjs
     cb null, file
 
 function localize
+  default-lang = first languages
   through2.obj (file, enc, cb) ->
+    if file.stat.is-directory! then return cb!
     path = relative-path file
-    template = path |> template-name |> load-template
-    data = lsc-to-json file
+    template = handlebars.compile file.contents.to-string!
 
-    file.contents = data |> template |> to-buffer
-    file.path .= replace /\.json\.ls$/ ''
+    for lang in languages
+      data = get-locale-data lang, path
+      f = file.clone!
+      f.contents = new Buffer template data
+      f.path = "#{f.base}/#{lang}/#{path}"
+      @push f
 
-    if default-lang is country-code path
-      def = file.clone!
-      def.path = def.base + (strip-country-code path)
-      def.path .= replace /\.json\.ls$/ ''
-      @push def
+      if lang is default-lang
+        f .= clone!
+        f.path = "#{f.base}/#{path}"
+        @push f
 
-    @push file
     cb!
 
-_t-cache = {}
-function template-cache
+_locale-cache = {}
+function locale-data-cache
   es.map (file, cb) ->
-    if file.stat.is-directory! then return cb null, null
-    name = relative-path file
-    _t-cache[name] = handlebars.compile file.contents.to-string!
+    lang = file |> relative-path |> country-code
+    data = JSON.parse file.contents.to-string!
+
+    _locale-cache[lang] ?= {}
+    lang-data = _locale-cache[lang]
+
+    for key, {message} of data
+      file = key |> split '/' |> initial |> join '/'
+      path = key |> split '/' |> last |> split '.' |> map camelize
+
+      lang-data[file] ?= {}
+      file-data = lang-data[file]
+      set-path file-data, path, message
+
     cb null, file
 
 function hack-slowparse
@@ -235,9 +257,6 @@ function noop
   es.map (file, cb) -> cb null, file
 
 # Utils:
-function lsc-to-json file
-  eval LiveScript.compile file.contents.to-string!, bare: true
-
 function relative-path file
   base-re = new RegExp "^#{file.base}"
   file.path.replace base-re, ''
@@ -245,14 +264,19 @@ function relative-path file
 function country-code path
   path |> split '/' |> first
 
-function strip-country-code path
-  path |> split '/' |> tail |> join '/'
+function get-locale-data lang, file
+  default-lang = first languages
+  data = _locale-cache{}[lang]{}[file]
 
-function template-name path
-  path |> strip-country-code |> ( .replace /\.json\.ls$/, '')
-
-function load-template name
-  _t-cache[name]
+  default-data = _locale-cache[default-lang][file]
+  _.merge data, default-data, _.defaults
 
 function to-buffer str
   new Buffer str
+
+function set-path obj, path, val
+  switch
+  | path.length is 1 => obj[first path] = val
+  | otherwise =>
+    obj[first path] ?= {}
+    set-path obj[first path], (tail path), val

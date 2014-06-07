@@ -1,3 +1,15 @@
 [main]
 host = https://www.transifex.com
 
+[eak.game]
+file_filter = locales/<lang>/game.json
+source_file = locales/en/game.json
+source_lang = en
+type = CHROME
+
+[eak.chapter-1]
+file_filter = locales/<lang>/chapter-1.json
+source_file = locales/en/chapter-1.json
+source_lang = en
+type = CHROME
+

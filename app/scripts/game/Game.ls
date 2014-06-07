@@ -6,6 +6,13 @@ require! {
   'ui/Bar'
 }
 
+first-path = window.location.pathname |> split '/' |> reject empty |> first
+if first-path in window.LANGUAGES
+  prefix = "/#first-path"
+else prefix = ''
+
+console.log {prefix, first-path}
+
 module.exports = class Game extends Backbone.Model
   initialize: (load, @logger-parent) ->
     if load then @load! else @save!
@@ -22,9 +29,10 @@ module.exports = class Game extends Backbone.Model
 
   defaults: level: '/levels/index.html'
 
-  start-level: (l) ~>
-    event <~ logger.start 'level', {level: l, parent: @logger-parent}
-    l += "?#{Date.now!}"
+  start-level: (level-url) ~>
+    event <~ logger.start 'level', {level: level-url, parent: @logger-parent}
+    console.log {level-url}
+    l = prefix + level-url + "?#{Date.now!}"
     logger.set-default-parent event.id
     level-source <~ $.get l, _
     parsed = Slowparse.HTML document, level-source, [TreeInspectors.forbidJS]

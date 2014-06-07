@@ -15,21 +15,21 @@
       <div class="menu dialogue">
         <h1>{{title}}</h1>
         <ul>
-          <li class="new"><a href="#/play/levels/index.html">{{newGame}}</a></li>
-          <!-- <li class="load"><a href="#/load">{{loadGame}}</a></li> -->
-          <li class="about"><a href="#/about">{{about}}</a></li>
+          <li class="new"><a href="#/play/levels/index.html">{{mainMenu.newGame}}</a></li>
+          <!-- <li class="load"><a href="#/load">{{mainMenu.loadGame}}</a></li> -->
+          <li class="about"><a href="#/about">{{mainMenu.about}}</a></li>
         </ul>
       </div>
 
       <div class="about dialogue">
-        <h2>{{about}}</h2>
+        <h2>{{mainMenu.about}}</h2>
 
-        <p>{{aboutDescription}}</p>
+        <p>{{about.description}}</p>
 
-        <p>{{{aboutInstructions}}}</p>
+        <p>{{{about.instructions}}}</p>
 
-        <p>{{haveFun}}
-          - <a href="http://j.dytry.ch/" target="_blank">SomeHats</a></p>
+        <p>{{about.haveFun}}
+          - <a href="http://drumrollhq.com/" target="_blank">Drum Roll</a></p>
 
         <a href="#/" class="back">&larr; {{back}}</a>
       </div>
@@ -54,8 +54,8 @@
     </div>
 
     <div class="dialogue" id="incompatible">
-      <h3>{{oldBrowserMsgTitle}}</h3>
-      <p>{{{oldBrowserMsgHtml}}}</p>
+      <h3>{{oldBrowserMsg.title}}</h3>
+      <p>{{{oldBrowserMsg.html}}}</p>
     </div>
   </div>
 
@@ -90,6 +90,7 @@
 
   <script>
   window.EAKVERSION = "<!-- @echo version -->";
+  window.LANGUAGES = <!-- @echo languages -->;
 
   <!-- @if optimized -->
     document.addEventListener('DOMContentLoaded', function() {
