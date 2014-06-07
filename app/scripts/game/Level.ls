@@ -27,7 +27,19 @@ module.exports = class Level extends Backbone.Model
     conf.html = level.find 'body' .html!
     conf.css = level.find 'style' |> map _, (-> $ it .text!) |> join '\n\n'
 
-    renderer = @renderer = new Renderer html: conf.html, css: conf.css, root: $ \#levelcontainer
+    # Should we display the top bar?
+    editable-str = (level.find 'meta[name=editable]' .attr \value) or 'true'
+    if editable-str.trim!.to-lower-case! is 'false'
+      editable = false
+    else editable = true
+    @editable = editable
+
+    offs = if editable then 50 else 0
+    renderer = @renderer = new Renderer {
+      html: conf.html
+      css: conf.css
+      root: $ \#levelcontainer
+    }, offs
 
     # Find the background image
     bg = if level.find 'meta[name=background]' .attr \value then that else 'white'
@@ -97,6 +109,7 @@ module.exports = class Level extends Backbone.Model
       <~ set-timeout _, 600
 
       $ document.body .add-class \playing
+      unless editable then $ document.body .add-class \hide-bar
 
       event-loop.resume!
 
@@ -109,7 +122,8 @@ module.exports = class Level extends Backbone.Model
 
       @hint-controller = new HintController hints: (level.find 'head hints' .children!)
 
-      @subs[*] = channels.game-commands.filter ( .command is \edit ) .subscribe @start-editor
+      if editable
+        @subs[*] = channels.game-commands.filter ( .command is \edit ) .subscribe @start-editor
       @subs[*] = channels.game-commands.filter ( .command is \restart ) .subscribe @restart
       @subs[*] = channels.game-commands.filter ( .command is \stop ) .subscribe @complete
       @subs[*] = channels.frame.subscribe @frame
@@ -271,6 +285,7 @@ module.exports = class Level extends Backbone.Model
 
     @hint-controller.destroy!
 
+    $ document.body .remove-class 'playing hide-bar'
     <~ @renderer.remove
 
     # approx center

@@ -6,8 +6,6 @@ require! {
 
 transform = Modernizr.prefixed \transform
 
-const offset-top = 50
-
 module.exports = class Renderer extends Backbone.View
   tag-name: \div
   class-name: 'level no-html hidden'
@@ -15,7 +13,7 @@ module.exports = class Renderer extends Backbone.View
 
   id: -> "levelrenderer-#{Date.now!}"
 
-  initialize: (options) ->
+  initialize: (options, @offset-top = 50) ->
     @{root} = options
     @$el.append-to @root
     @subs = []
@@ -84,7 +82,6 @@ module.exports = class Renderer extends Backbone.View
 
   remove: (done = ->) ~>
     @$el.add-class \hidden
-    $ document.body .remove-class \playing
     <~ set-timeout _, 500
     @$style.remove!
     super!
@@ -95,8 +92,8 @@ module.exports = class Renderer extends Backbone.View
     el-width = @width = @$el.width!
     el-height = @height = @$el.height!
     win-width = @$window.width!
-    win-height = @$window.height! - offset-top
-    win-height -= offset-top
+    win-height = @$window.height! - @offset-top
+    win-height -= @offset-top
 
     if @editor then win-width = win-width / 2
 
@@ -111,10 +108,10 @@ module.exports = class Renderer extends Backbone.View
       @$el.css left: '50%', margin-left: -el-width / 2
 
     if win-height < el-height
-      scrolling.y = win-height - offset-top
-      @$el.css top: 0, margin-top: offset-top
+      scrolling.y = win-height - @offset-top
+      @$el.css top: 0, margin-top: @offset-top
     else
-      @$el.css top: '50%', margin-top: (offset-top - el-height) / 2
+      @$el.css top: '50%', margin-top: (@offset-top - el-height) / 2
 
     @scrolling = scrolling
 
@@ -132,7 +129,7 @@ module.exports = class Renderer extends Backbone.View
   move: ({x, y}) ~>
     l = @last-position.{x, y}
 
-    y -= offset-top
+    y -= @offset-top
 
     t =
       x: l.x + (x - l.x) / damping
