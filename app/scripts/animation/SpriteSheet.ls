@@ -24,6 +24,16 @@ module.exports = class SpriteSheet extends Backbone.View
     @_start-time = performance.now!
     @render-frame 0
 
+  stop: ~>
+    @frame-sub.pause!
+
+  play: ~>
+    @frame-sub.resume!
+
+  restart: ~>
+    @_start-time = performance.now!
+    @frame-sub.resume!
+
   setup-renderer: ~>
     @canvas = document.create-element \canvas
     @$canvas = $ @canvas
