@@ -11,6 +11,11 @@ parse-targets = ->
 random-kitten = ->
   "url('/content/kittens/kitten-#{ (Math.random! * available-kittens |> Math.floor) + 1 }.gif')"
 
+random-kitten-el = ->
+  $ '<div></div>'
+    ..css 'background-image', random-kitten!
+    ..add-class 'kitten-anim'
+
 module.exports = (container, targets) -->
   targets = parse-targets targets
 
@@ -18,13 +23,23 @@ module.exports = (container, targets) -->
   cy = container.height / 2
 
   for target in targets
+
     el = $ '<div></div>'
       ..add-class 'entity entity-target'
-      ..attr 'data-sensor', true
-      ..attr 'data-id', 'ENTITY_TARGET'
-      ..attr 'data-target', true
+      ..attr {
+        'data-sensor': true
+        'data-id': 'ENTITY_TARGET'
+        'data-target': true
+        'data-sprite': '/content/sprites/kitten-box-burst.png'
+        'data-sprite-start-frame': 0
+        'data-sprite-frames': 24
+        'data-sprite-loop': 1
+        'data-sprite-state': 'paused'
+        'data-sprite-size': '48x52'
+        'data-sprite-speed': '0.025'
+      }
       ..css do
         left: target.x + cx
         top: target.y + cy
-        background-image: random-kitten!
+      ..append random-kitten-el!
       ..append-to container.el

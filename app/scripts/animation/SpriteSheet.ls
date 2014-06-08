@@ -2,13 +2,22 @@ require! 'channels'
 
 module.exports = class SpriteSheet extends Backbone.View
   initialize: ({cb}) ->
+    @$el.data 'sprite-controller', this
+
     @url = @$el.attr 'data-sprite'
     speed = @$el.attr 'data-sprite-speed'
     size = @$el.attr 'data-sprite-size'
     frames = @$el.attr 'data-sprite-frames'
+    start-frame = @$el.attr 'data-sprite-start-frame' or '0'
+    state = @$el.attr 'data-sprite-state' or 'play'
+    loop-times = @$el.attr 'data-sprite-loop' or '0'
 
     @speed = 1000 * parse-float speed
     @frames = parse-int frames
+    @start-frame = parse-int start-frame
+    @loop-times = parse-int loop-times
+
+    @duration = @speed * @frames
 
     [width, height] = size |> split 'x' |> map ( .trim! ) |> map parse-int
     @size = {width, height}
@@ -22,7 +31,9 @@ module.exports = class SpriteSheet extends Backbone.View
     @setup-renderer!
     @frame-sub = channels.frame.subscribe @frame
     @_start-time = performance.now!
-    @render-frame 0
+    @render-frame @start-frame
+
+    if state.to-lower-case! is 'paused' then @stop!
 
   stop: ~>
     @frame-sub.pause!
@@ -63,7 +74,8 @@ module.exports = class SpriteSheet extends Backbone.View
 
   frame: ~>
     elapsed = performance.now! - @_start-time
-    frame = (elapsed / @speed) % @frames .|. 0
+    if @loop-times isnt 0 and elapsed > @loop-times * @duration then return
+    frame = (@start-frame + elapsed / @speed) % @frames .|. 0
     if frame isnt @_last-frame then @render-frame frame
 
   render-frame: (n) ~>
@@ -72,3 +84,7 @@ module.exports = class SpriteSheet extends Backbone.View
     ch = @canvas.height
     @ctx.clear-rect 0, 0, cw, ch
     @ctx.draw-image @img, n * cw, 0, cw, ch, 0, 0, cw, ch
+
+  remove: ~>
+    super!
+    @frame-sub.unsubscribe!

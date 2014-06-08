@@ -1,47 +1,60 @@
 .level .entity.entity-target
-  width 30px
-  height 30px
-  margin-left -15px
-  margin-top -15px
+  width 48px
+  height 52px
+  margin-left -24px
+  margin-top -26px
   position absolute
   z-index 10000
 
-  background-size cover
-  background-position center
+  canvas
+    position absolute
+    z-index 10002
 
-  &.found
-    animation target-exit 6s ease
+  .kitten-anim
+    position absolute
+    width 200px
+    height 200px
+    margin-top -100px
+    margin-left -100px
+    top 32px
+    left 24px
+    transform scale(0.2)
+    z-index 10001
+    background-size cover
+    background-position center
+
+  &.found .kitten-anim
+    animation target-exit 5s 0.5s ease
+    animation-fill-mode forwards
+
+  &.found canvas
+    animation target-fade-out 2s 1s linear
+    animation-fill-mode forwards
+
+@keyframes target-fade-out
+  from
+    opacity 1
+
+  to
+    opacity 0
 
 @keyframes target-exit
   0%
-    width 30px
-    height 30px
-    margin-top -15px
-    margin-left -15px
-    transform translate(0, 0)
     opacity 1
+    transform translate(0, 0) scale(0.2)
 
   10%
-    width 150px
-    height 150px
-    margin-top -75px
-    margin-left -75px
-    transform translate(0, -100px)
     opacity 1
+    transform translate(0, -70px) scale(0.2)
+
+  20%
+    opacity 1
+    transform translate(0, -150px) scale(1)
 
   90%
-    width 150px
-    height 150px
-    margin-top -75px
-    margin-left -75px
-    transform translate(0, -100px)
     opacity 1
+    transform translate(0, -150px) scale(1)
 
   100%
-    width 150px
-    height 150px
-    margin-top -75px
-    margin-left -75px
-    transform translate(0, -300px)
     opacity 0
-
+    transform translate(0, -400px) scale(1)

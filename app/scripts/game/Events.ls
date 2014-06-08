@@ -68,8 +68,10 @@ channels.parse 'contact: start: ENTITY_PLAYER + ENTITY_TARGET' .subscribe (conta
   kitten.destroyed = true
 
   $el = $ kitten.el
+  sprite-controller = $el.data 'sprite-controller'
 
-  $el.one prefixed.animation-end, -> $el.remove!
+  sprite-controller.restart!
+  $el.find '.kitten-anim' .one prefixed.animation-end, ->
+    sprite-controller.remove!
 
   $el.add-class 'found'
-
