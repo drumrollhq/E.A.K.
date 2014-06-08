@@ -11,11 +11,26 @@ module.exports = class SpriteSheet extends Backbone.View
     start-frame = @$el.attr 'data-sprite-start-frame' or '0'
     state = @$el.attr 'data-sprite-state' or 'play'
     loop-times = @$el.attr 'data-sprite-loop' or '0'
+    delay-range = @$el.attr 'data-sprite-delay' or '0'
 
     @speed = 1000 * parse-float speed
     @frames = parse-int frames
     @start-frame = parse-int start-frame
     @loop-times = parse-int loop-times
+
+    if delay-range.match /-/
+      [mn, mx] = delay-range |> split '-' |> map parse-float
+    else mx = mn = parse-float delay-range
+    if mx is mn
+      if mx is 0
+        @delay = false
+      else
+        @delay = (cb) ->
+          set-timeout cb, mx * 1000
+    else
+      @delay = (cb) ->
+        t = mn + Math.random! * (mx - mn)
+        set-timeout cb, t * 1000
 
     @duration = @speed * @frames
 
@@ -74,7 +89,13 @@ module.exports = class SpriteSheet extends Backbone.View
 
   frame: ~>
     elapsed = performance.now! - @_start-time
+
     if @loop-times isnt 0 and elapsed > @loop-times * @duration then return
+    if elapsed > @duration and @delay
+      @stop!
+      @delay @restart
+      return
+
     frame = (@start-frame + elapsed / @speed) % @frames .|. 0
     if frame isnt @_last-frame then @render-frame frame
 
