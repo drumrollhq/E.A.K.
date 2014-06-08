@@ -103,6 +103,9 @@ module.exports = class Level extends Backbone.Model
     <~ background.show bg
     channels.game-commands.publish command: \loaded
 
+    # Load sprite sheet animations:
+    <~ renderer.setup-sprite-sheets
+
     do
       <~ loader.once 'done', _
       $.hide-dialogues!

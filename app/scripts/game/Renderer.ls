@@ -1,4 +1,5 @@
 require! {
+  'animation/SpriteSheet'
   'channels'
   'game/dom/Mapper'
   'game/lang/CSS'
@@ -72,6 +73,12 @@ module.exports = class Renderer extends Backbone.View
         else el.class-list.remove Renderer::hover-class
 
         el.trigger-fake-transition-start! if el.trigger-fake-transition-start?
+
+  setup-sprite-sheets: (done) ~>
+    <- async.each (@$el.find '[data-sprite]'), (el, cb) ->
+      new SpriteSheet {el, cb}
+
+    done!
 
   append: ~> @$el.append it
 
