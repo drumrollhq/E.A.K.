@@ -262,58 +262,14 @@ module.exports = class Level extends Backbone.Model
     callback = payload.callback or -> null
 
     if @stopped then return
-
     @stopped = true
 
     @trigger 'done'
-
-    $player-target = $ '<div></div>'
-    $player-target.css do
-      position: \absolute
-      top: 0, left: 0, bottom: 0, right: 0
-
-    $player-target.append-to document.body
-
-    $player-el = @player.$el
-    $target-el = @renderer.$el.children '[data-target]'
-
-    $player-el.append-to $player-target
-    $target-el.append-to $player-target
-
-    $player-el.css position: \absolute
-    $target-el.css position: \absolute
-
-    $player-el.css @start-pos.player.{top, left, width, height}
-    if @start-pos.target? then $target-el.css @start-pos.target.{top, left, width, height}
-
     @hint-controller.destroy!
 
     $ document.body .remove-class 'playing hide-bar'
-    <~ @renderer.remove
+    @renderer.remove!
 
-    # approx center
-    p = $player-el.0.get-bounding-client-rect!
-    px = p.left + p.width / 2
-    py = p.top + p.height / 2
-
-    if $target-el.0?
-      t = $target-el.0.get-bounding-client-rect!
-      tx = t.left + t.width / 2
-      ty = t.top + t.height / 2
-
-      cx = (px + tx) / 2
-      cy = (py + ty) / 2
-
-    else
-      cx = px
-      cy = py
-
-    $player-target.css (Modernizr.prefixed "transformOrigin"), "#{cx}px #{cy}px"
-    $player-target.add-class \level-entity-fadeout
-
-    <~ set-timeout _, 500
-
-    $player-target.remove!
     delete @state
     @player.remove!
     channels.game-commands.publish command: \level-out

@@ -87,13 +87,11 @@ module.exports = class Renderer extends Backbone.View
     # visible
     @$el.remove-class \hidden
 
-  remove: (done = ->) ~>
+  remove: ~>
     @$el.add-class \hidden
-    <~ set-timeout _, 500
     @$style.remove!
     super!
     for sub in @subs => sub.unsubscribe!
-    done!
 
   resize: ~>
     el-width = @width = @$el.width!
