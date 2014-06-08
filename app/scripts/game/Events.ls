@@ -68,13 +68,18 @@ channels.parse 'contact: start: ENTITY_PLAYER + ENTITY_TARGET' .subscribe (conta
   kitten.destroyed = true
 
   $el = $ kitten.el
+  blink = $el.find '.box-blink'
+  blink.css 'display' 'none'
+  blink-controller = blink.data 'sprite-controller'
+
   burst = $el.find '.box-burst'
-  $el.find '.box-blink' .css 'display' 'none'
   burst.css 'display' 'block'
   burst-controller = burst.data 'sprite-controller'
 
   burst-controller.restart!
   $el.find '.kitten-anim' .one prefixed.animation-end, ->
     burst-controller.remove!
+    blink-controller.remove!
+    $el.remove!
 
   $el.add-class 'found'
