@@ -1,4 +1,7 @@
-require! 'channels'
+require! {
+  'channels'
+  'logger'
+}
 
 follow-ons = {
   intro: '#/play/levels/index.html'
@@ -19,6 +22,9 @@ template = (name) -> """
 module.exports = class CutScene extends Backbone.View
   tag-name: 'div'
   class-name: 'cut-scene'
+  events:
+    'tap .skip': 'triggerSkip'
+
   initialize: ({name}) ->
     @subs = []
     @name = name
@@ -42,8 +48,11 @@ module.exports = class CutScene extends Backbone.View
     @video.play!
 
   finish: ~>
+    @trigger 'finish'
     @remove!
     window.location.href = follow-ons[@name]
+
+  trigger-skip: ~> @trigger 'skip'
 
   resize: ~>
     w = @$el.width!

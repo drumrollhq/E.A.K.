@@ -56,6 +56,9 @@ module.exports = class Game extends Backbone.Model
     cs = new CutScene {name}
     cs.$el.append-to document.body
     cs.render!
+    event <~ logger.start 'cutscene', {name: name, parent: @logger-parent}
+    cs.on 'finish' -> event.stop!
+    cs.on 'skip' -> logger.log 'skip' {parent: event.id}
 
   save: ~> @attributes |> _.clone |> JSON.stringify |> local-storage.set-item Game::savefile, _
 
