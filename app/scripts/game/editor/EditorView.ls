@@ -12,7 +12,6 @@ module.exports = class EditorView extends Backbone.View
     @renderer = @model.get \renderer
 
     @entities = @render-el.children \.entity
-      ..detach!
 
     cm = CodeMirror (@$ '.editor-html' .0),
       value: html
@@ -51,6 +50,7 @@ module.exports = class EditorView extends Backbone.View
 
   on-change: (m, html) ~>
     # preserve entities
+    @entities.detach!
     e = @render-el
 
     parsed = @extras.process html
@@ -63,10 +63,10 @@ module.exports = class EditorView extends Backbone.View
       $style = $ style
       $style |> ( .text! ) |> @renderer.preprocess-css |> $style.text
 
-    @entities.clone!append-to e
+    @entities.append-to e
 
   restore-entities: ~>
-    @render-el.children \.entity .remove!
+    @render-el.children \.entity .detach!
     @entities.append-to @render-el
 
   cancel: ~>
