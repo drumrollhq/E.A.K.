@@ -8,7 +8,14 @@ send = (url, data = {}, cb = no-op) ->
     content-type: 'application/json'
     data: JSON.stringify data
     success: (event) -> cb event
-    error: -> console.error arguments
+    error: ->
+      # Send fake event so everything still works:
+      cb {
+        id: 0
+        parent-id: 0
+        type: \__error
+      }
+      console.error arguments
   }
 
 const dt = 5000ms
@@ -30,6 +37,12 @@ module.exports = {
 
   start: (type, data, cb = no-op) ->
     event <- module.exports.log type, data
+
+    # if it's an error, don't poll
+    if event.type is \__error
+      event.stop = -> null
+      return cb event
+
     active-events[event.id] = event
     poll = ->
       <- set-timeout _, dt
