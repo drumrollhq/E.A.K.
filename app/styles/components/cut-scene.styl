@@ -1,0 +1,24 @@
+videoWidth = 960px
+videoHeight = 720px
+
+.cut-scene
+  position fixed
+  top 0
+  bottom 0
+  left 0
+  right 0
+  background lighten(black, 20%)
+
+  video
+    position absolute
+    box-shadow 0 5px 15px rgba(0,0,0,0.3);
+
+  .skip
+    position absolute
+    top 10px
+    right 10px
+    color white
+    text-decoration none
+
+    &:hover
+      text-decoration underline

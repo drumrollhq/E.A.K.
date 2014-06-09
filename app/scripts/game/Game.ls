@@ -1,7 +1,8 @@
 require! {
   'channels'
-  'game/Level'
+  'game/CutScene'
   'game/Events'
+  'game/Level'
   'logger'
   'ui/Bar'
 }
@@ -23,7 +24,8 @@ module.exports = class Game extends Backbone.Model
 
     bar-view = new Bar el: $ \#bar
 
-    channels.levels.subscribe ({url}) ~> @start-level url
+    channels.stage.filter ( .type is 'level' ) .subscribe ({url}) ~> @start-level url
+    channels.stage.filter ( .type is 'cutscene' ) .subscribe ({url}) ~> @start-cutscene url
 
   defaults: level: '/levels/index.html'
 
@@ -49,6 +51,11 @@ module.exports = class Game extends Backbone.Model
     level = new Level $level
     level.event-id = event.id
     level.on 'done' -> event.stop!
+
+  start-cutscene: (name) ~>
+    cs = new CutScene {name}
+    cs.$el.append-to document.body
+    cs.render!
 
   save: ~> @attributes |> _.clone |> JSON.stringify |> local-storage.set-item Game::savefile, _
 
