@@ -10,6 +10,7 @@ require! {
   'gulp-concat'
   'gulp-footer'
   'gulp-header'
+  'gulp-imagemin'
   'gulp-livescript'
   'gulp-minify-css'
   'gulp-preprocess'
@@ -68,6 +69,7 @@ src = {
   locale-data: './locales/**/*.json'
   locale-templates: './app/l10n-templates/**/*'
   assets: './app/assets/**/*'
+  images: './app/assets/**/*.{jpg,png,gif}'
   vendor: ['./vendor/*.js' './vendor/rework/rework.js']
   errors: './bower_components/slowparse/spec/errors.{base,forbidjs}.html'
   workers: './app/workers/**/*.ls'
@@ -83,6 +85,7 @@ dest = {
   assets: './public'
   vendor: './public/lib'
   data: './public/data'
+  images: './app/assets'
 }
 
 tmp = {
@@ -108,6 +111,12 @@ gulp.task 'clean' ->
     .pipe gulp-clean force: true
 
 gulp.task 'scripts' ['livescript' 'workers']
+
+gulp.task 'imagemin' ->
+  images = './app/assets/**/*.{png,jpg,gif}'
+  gulp.src src.images
+    .pipe gulp-imagemin!
+    .pipe gulp.dest dest.images
 
 gulp.task 'assets' ->
   gulp.src src.assets #, cwd: src.assets
