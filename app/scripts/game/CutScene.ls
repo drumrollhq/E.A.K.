@@ -3,23 +3,18 @@ require! {
   'logger'
 }
 
-follow-ons = {
-  intro: '#/play/levels/index.html'
-}
-
 const vw = 960px
 const vh = 720px
 const v-aspect = vh / vw
 
-skip = $ '#translations' .html! |> JSON.parse |> ( .skip )
+translations = $ '#translations' .html! |> JSON.parse
 
-template = (name) -> """
-  <video controls>
-    <source src="/cutscenes/#{name}.webm" type="video/webm">
-    <source src="/cutscenes/#{name}.mp4" type="video/mp4">
-  </video>
-  <a href="#{follow-ons[name]}" class="skip">#skip &rarr;</a>
+template = ({next, html}) -> """
+  #html
+  <a href="#next" class="skip">#{translations.cutscene.skip} &rarr;</a>
 """
+
+$util = $ '<div></div>'
 
 module.exports = class CutScene extends Backbone.View
   tag-name: 'div'
@@ -32,14 +27,27 @@ module.exports = class CutScene extends Backbone.View
     @name = name
     @subs[*] = channels.window-size.subscribe @resize
     @subs[*] = channels.game-commands.filter ( .command is \stop ) .subscribe @finish
+    @html = translations.cutscene.loading
+    $.ajax {
+      url: name
+      success: (html) ~>
+        @html = html
+        $util.html @html
+        @next = $util.find 'a' .attr 'href'
+        @render!
+      error: ~>
+        console.log arguments
+        channels.alert.publish msg: translations.cutscene.error
+    }
 
   render: ->
-    @name |> template |> @$el.html
+    @$el.html template this.{html, next}
     @$video = @$el.find 'video'
-    @video = @$video.get 0
-    @resize!
+    if @$video.length > 0
+      @video = @$video.get 0
+      @resize!
 
-    @start-video!
+      @start-video!
 
   remove: ->
     for sub in @subs => sub.unsubscribe!
