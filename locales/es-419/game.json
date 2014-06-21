@@ -11,8 +11,12 @@
         "message": "Editar",
         "description": "Button on the bar at the top of the screen during levels. Opens up the edit view."
     },
+    "play.html/cutscene.continue": {
+        "message": "Continuar",
+        "description": "Continue after the cutscene"
+    },
     "play.html/language": {
-        "message": "Ingles",
+        "message": "Español (Latinoamérica)",
         "description": "The name of the language you're translating to, in that language."
     },
     "play.html/main-menu.load-game": {
@@ -47,6 +51,10 @@
         "message": "Regresar",
         "description": "for a 'back' button"
     },
+    "play.html/cutscene.skip": {
+        "message": "Omitir",
+        "description": "Skip the current cutscene"
+    },
     "play.html/about.description": {
         "message": "Erase All Kittens (Elimina a Todos los Gatitos) es una plataforma de juego con una diferencia: Los niveles del juego estan escritos en HTML y CSS, y la unica manera de avanzar es usando tus habilidades de programacion para \"hackear\" el nivel siguiente.",
         "description": "a short description of the game"
@@ -70,6 +78,10 @@
     "play.html/menu.reset": {
         "message": "Restaurar",
         "description": "Button on the bar at the top of the screen during levels. When in the edit view, this sets the code to how it was at the start of the level"
+    },
+    "play.html/cutscene.error": {
+        "message": "¡Oh no! Esta escena no pudo ser cargada...",
+        "description": "Cutscene didn't load"
     },
     "play.html/menu.restart": {
         "message": "Reiniciar",

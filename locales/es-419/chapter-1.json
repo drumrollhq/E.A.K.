@@ -16,7 +16,7 @@
         "description": "Space level: content. The writing on the first box"
     },
     "levels/index.html/hints.left-right": {
-        "message": "Este eres tu! Puedes moverte a la izquierda o derecha con las teclas <kbd>←</kbd> y <kbd>→</kbd> .",
+        "message": "Este eres tú! Muévete a los lados con las teclas <kbd>←</kbd> y <kbd>→</kbd> .",
         "description": "1st level: tell the player how to move about"
     },
     "levels/index.html/hints.portal": {
@@ -31,6 +31,14 @@
         "message": "¡ Oh ! Necesitas hacer la plataforma mas grande. Presiona el boton 'Editar' o la tecla <kbd>E</kbd> para editar este nivel.",
         "description": "2nd level: instructions"
     },
+    "cutscenes/intro.html/subtitles.d": {
+        "message": "Descubrieron algo que les trajo gran felicidad y sentido a sus vidas: unos animales peludos y encantadores.",
+        "description": "Subtitle for cutscene"
+    },
+    "cutscenes/intro.html/subtitles.b": {
+        "message": "Pero en el año 345AG (antes de los gatitos), Internet llegó.",
+        "description": "Subtitle for cutscene"
+    },
     "levels/creating-elements.html/title": {
         "message": "Arca en el espacio",
         "description": "Space level: title"
@@ -38,6 +46,10 @@
     "levels/headings.html/html.h1": {
         "message": "SOY MUY IMPORTANTE",
         "description": "Headings level: content"
+    },
+    "cutscenes/intro.html/subtitles.c": {
+        "message": "Y toda la humanidad se alegró.",
+        "description": "Subtitle for cutscene"
     },
     "levels/editing-text.html/hints.jump": {
         "message": "Trata de saltar hacia esta plataforma",
@@ -51,12 +63,20 @@
         "message": "<p>\n  Estos son los encabezados. En HTML, los encabezados son una familia grande - van desde  <code>&lt;h1&gt;</code> (el encabezado mas importante) hasta <code>&lt;h6&gt;</code> (el encabezado menos importante). En una pagina web puedes tener el titulo de la pagina en un encabezado <code>&lt;h1&gt;</code>, y el subtitulo en un encabezado <code>&lt;h2&gt;</code>, por ejemplo.\n</p>\n\n<p>\n Los primeros dos encabezados te permitieron llegar hasta esta parte de la cueva - ¡Si eres capaz de crear algunos mas, quizas puedas llegar hasta el fondo! </p>",
         "description": "Headings level: comment"
     },
+    "cutscenes/intro.html/subtitles.e": {
+        "message": "Buscaron cada vez más y más en la red: desde pandas gigantes hasta cachorros juguetones.",
+        "description": "Subtitle for cutscene"
+    },
+    "cutscenes/intro.html/subtitles.j": {
+        "message": "De hecho, los gatitos eran tus únicos amigos.",
+        "description": "Subtitle for cutscene"
+    },
     "levels/index.html/title": {
         "message": "La casa de Arca",
         "description": "1st level: title. Arca is the name of the character in the game. I'm not sure if it can or should be translated. "
     },
     "levels/editing-text.html/html.im-a-ledge": {
-        "message": "¡Estoy en una plataforma! ¡Woohoo!",
+        "message": "¡Estoy en una plataforma!",
         "description": "2nd level: level content. This must stay approximately the same length for the level to work"
     },
     "levels/headings.html/html.h2": {
@@ -67,24 +87,52 @@
         "message": "Hmmm... Parece que necesitas mas bloques. Intenta editando este nivel - usa la tecla <kbd>E</kbd> o presiona el boton \"Editar\".",
         "description": "Space level: instructions"
     },
+    "cutscenes/intro.html/subtitles.i": {
+        "message": "rechazado por las creaturas de Internet, y condenado a vivir en ruinas antiguas.",
+        "description": "Subtitle for cutscene"
+    },
     "levels/index.html/hints.target": {
         "message": "Acercate hacia este gatito para rescatarl. Necesitas rescatar a todos los gatitos que encuentres!",
         "description": "1st level: instructions. yay, kittens"
     },
+    "cutscenes/intro.html/continue": {
+        "message": "Continuar",
+        "description": "Continue"
+    },
+    "cutscenes/intro.html/subtitles.k": {
+        "message": "Hasta que, uno a uno, comenzaron a desaparecer...",
+        "description": "Subtitle for cutscene"
+    },
     "levels/editing-text.html/html.im-a-ledge-too": {
-        "message": "¡Yo tambien estoy en una plataforma!",
+        "message": "¡Y yo también!",
         "description": "2nd level: level content. This must stay approximately the same length for the level to work"
+    },
+    "cutscenes/intro.html/subtitles.a": {
+        "message": "Mucho tiempo atrás; en los antiguos tiempos de Internet, los humanos vivían sin gifs de gatitos.",
+        "description": "Subtitle for cutscene"
     },
     "levels/editing-text.html/comments.other": {
         "message": "Esta es la otra plataforma, a la derecha. ¡Tambien puedes editar el codigo para este elemento!",
         "description": "2nd level: html comments"
     },
+    "cutscenes/intro.html/subtitles.h": {
+        "message": "A los gatitos no les importaba que tú, Arca, fueses un marginado.",
+        "description": "Subtitle for cutscene"
+    },
     "levels/editing-text.html/title": {
         "message": "Plataformas",
         "description": "2nd level: title"
     },
+    "cutscenes/intro.html/subtitles.f": {
+        "message": "De pronto, los gatitos crecieron en popularidad, y comenzaron a aparecer por todo el universo de Internet.",
+        "description": "Subtitle for cutscene"
+    },
+    "cutscenes/intro.html/subtitles.g": {
+        "message": "Esto te trajo una gran felicidad.",
+        "description": "Subtitle for cutscene"
+    },
     "levels/index.html/hints.jump": {
-        "message": "Salta usando las teclas <kbd>espacio</kbd> o <kbd>↑</kbd>.",
+        "message": "Salta con las teclas <kbd>espacio</kbd> o <kbd>↑</kbd>.",
         "description": "1st level: instructions. Jumping is fun!"
     }
 }
