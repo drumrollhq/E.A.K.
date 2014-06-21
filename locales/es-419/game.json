@@ -1,0 +1,82 @@
+{
+    "play.html/title": {
+        "message": "Erase All Kittens (Elimina a Todos los Gatitos)",
+        "description": "The name of the game!"
+    },
+    "play.html/old-browser-msg.html": {
+        "message": "Desafortunadamente tu navegador no ofrece el soporte necesario para jugar Erase All Kittens! (Elimina a Todos los Gatitos). Intenta instalando <a href=\"http://www.mozilla.org/en-US/firefox/\">Firefox</a>.",
+        "description": "Prompt users on old browsers to upgrade to a newer one"
+    },
+    "play.html/menu.edit": {
+        "message": "Editar",
+        "description": "Button on the bar at the top of the screen during levels. Opens up the edit view."
+    },
+    "play.html/language": {
+        "message": "Ingles",
+        "description": "The name of the language you're translating to, in that language."
+    },
+    "play.html/main-menu.load-game": {
+        "message": "Cargar juego",
+        "description": "button on the main menu"
+    },
+    "play.html/main-menu.new-game": {
+        "message": "Nuevo juego",
+        "description": "button on the main menu"
+    },
+    "play.html/old-browser-msg.title": {
+        "message": "Lo sentimos!",
+        "description": "This is the heading for a notice that tells users on older browsers that they can't run the game"
+    },
+    "play.html/menu.cancel": {
+        "message": "Cancelar",
+        "description": "Button on the bar at the top of the screen during levels. Closes the edit view, discarding the code the user entered"
+    },
+    "play.html/menu.undo": {
+        "message": "Deshacer",
+        "description": "Undo button for the code editor"
+    },
+    "play.html/loading": {
+        "message": "Cargando...",
+        "description": ""
+    },
+    "play.html/about.have-fun": {
+        "message": "Diviertete!",
+        "description": "have fun or else."
+    },
+    "play.html/back": {
+        "message": "Regresar",
+        "description": "for a 'back' button"
+    },
+    "play.html/about.description": {
+        "message": "Erase All Kittens (Elimina a Todos los Gatitos) es una plataforma de juego con una diferencia: Los niveles del juego estan escritos en HTML y CSS, y la unica manera de avanzar es usando tus habilidades de programacion para \"hackear\" el nivel siguiente.",
+        "description": "a short description of the game"
+    },
+    "play.html/menu.save": {
+        "message": "Guardar",
+        "description": "Button on the bar at the top of the screen during levels. Closes the edit view, keeping the code the user entered"
+    },
+    "play.html/menu.redo": {
+        "message": "Rehacer",
+        "description": "Redo button for the code editor"
+    },
+    "play.html/about.instructions": {
+        "message": "Usa las teclas <kbd>A</kbd> y <kbd>D</kbd> o <kbd>&larr;</kbd> y <kbd>&rarr;</kbd> para moverte a la izquiera y derecha. Usa <kbd>W</kbd>, <kbd>espacio</kbd>, o <kbd>&uarr;</kbd> para brincar.",
+        "description": "brief instructions on the 'about' page"
+    },
+    "play.html/main-menu.about": {
+        "message": "Acerca de",
+        "description": "button on the main menu"
+    },
+    "play.html/menu.reset": {
+        "message": "Restaurar",
+        "description": "Button on the bar at the top of the screen during levels. When in the edit view, this sets the code to how it was at the start of the level"
+    },
+    "play.html/menu.restart": {
+        "message": "Reiniciar",
+        "description": "Button on the bar at the top of the screen during levels. Puts the level and player back in the starting state."
+    },
+    "play.html/todo": {
+        "message": "Por completar",
+        "description": "for when I've not done stuff yet ;)"
+    }
+}

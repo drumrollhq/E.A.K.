@@ -1,5 +1,6 @@
 [main]
 host = https://www.transifex.com
+lang_map = es_419: es-419
 
 [eak.game]
 file_filter = locales/<lang>/game.json

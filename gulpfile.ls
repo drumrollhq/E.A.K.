@@ -26,7 +26,7 @@ require! {
   'yargs'
 }
 
-languages = ['en' 'es']
+languages = ['en' 'es-419']
 
 _ = {
   merge: require 'lodash.merge'

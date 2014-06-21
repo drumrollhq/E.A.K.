@@ -1,0 +1,90 @@
+{
+    "levels/creating-elements.html/html.box-2": {
+        "message": "¿Bloque?",
+        "description": "Space level: content. The writing on the second box"
+    },
+    "levels/headings.html/comments.get-started": {
+        "message": "Intenta agregar un elemento <code>&lt;h3&gt;</code> para iniciar. ¡No olvides el  <code>&lt;/h3&gt;</code> al final!",
+        "description": "Headings level: comment"
+    },
+    "levels/creating-elements.html/comment": {
+        "message": "<p>Estas son etiquetas <code>&lt;div&gt;</code> y representan los bloques. Intenta creando algunas por tu cuenta.</p>\n<p>Recuerda iniciar abriendo la etiqueta con un <code>&lt;div&gt;</code> y cerrando con <code>&lt;/div&gt;</code>, agregando algun texto entre ambas. No olvides el simbolo <code>/</code>!</p>",
+        "description": "Space level: code comments. Make sure you preserve the HTML structure"
+    },
+    "levels/creating-elements.html/html.box-1": {
+        "message": "Bloque",
+        "description": "Space level: content. The writing on the first box"
+    },
+    "levels/index.html/hints.left-right": {
+        "message": "Este eres tu! Puedes moverte a la izquierda o derecha con las teclas <kbd>←</kbd> y <kbd>→</kbd> .",
+        "description": "1st level: tell the player how to move about"
+    },
+    "levels/index.html/hints.portal": {
+        "message": "Este es un portal. Entra para descubrir a donde te lleva!",
+        "description": "1st level: instructions"
+    },
+    "levels/headings.html/title": {
+        "message": "¡Pinchos!",
+        "description": "Headings level: title"
+    },
+    "levels/editing-text.html/hints.edit": {
+        "message": "¡ Oh ! Necesitas hacer la plataforma mas grande. Presiona el boton 'Editar' o la tecla <kbd>E</kbd> para editar este nivel.",
+        "description": "2nd level: instructions"
+    },
+    "levels/creating-elements.html/title": {
+        "message": "Arca en el espacio",
+        "description": "Space level: title"
+    },
+    "levels/headings.html/html.h1": {
+        "message": "SOY MUY IMPORTANTE",
+        "description": "Headings level: content"
+    },
+    "levels/editing-text.html/hints.jump": {
+        "message": "Trata de saltar hacia esta plataforma",
+        "description": "2nd level: instructions"
+    },
+    "levels/editing-text.html/comments.main": {
+        "message": "<p>\n  Este es el codigo en HTML para este nivel. Describe los elementos que se muestran en a la derecha de la pantalla. El codigo de abajo es la plataforma sobre la que te encuentras ahora. Inicia con:\n</p>\n<p>\n  <code>&lt;p ...&gt;</code> y termina con <code>&lt;/p&gt;</code>.\n</p>\n<p>\n  Estos elementos <code>&lt;&gt;</code> se llaman etiquetas. Las partes que aparece en la pagina  es lo que escribimos <em>adentro de</em> las etiquetas. Intenta agregar mas texto para hacer mas larga la plataforma.\n</p>",
+        "description": "2nd level: html comments. Make sure you preserve the HTML structure!"
+    },
+    "levels/headings.html/comments.main": {
+        "message": "<p>\n  Estos son los encabezados. En HTML, los encabezados son una familia grande - van desde  <code>&lt;h1&gt;</code> (el encabezado mas importante) hasta <code>&lt;h6&gt;</code> (el encabezado menos importante). En una pagina web puedes tener el titulo de la pagina en un encabezado <code>&lt;h1&gt;</code>, y el subtitulo en un encabezado <code>&lt;h2&gt;</code>, por ejemplo.\n</p>\n\n<p>\n Los primeros dos encabezados te permitieron llegar hasta esta parte de la cueva - ¡Si eres capaz de crear algunos mas, quizas puedas llegar hasta el fondo! </p>",
+        "description": "Headings level: comment"
+    },
+    "levels/index.html/title": {
+        "message": "La casa de Arca",
+        "description": "1st level: title. Arca is the name of the character in the game. I'm not sure if it can or should be translated. "
+    },
+    "levels/editing-text.html/html.im-a-ledge": {
+        "message": "¡Estoy en una plataforma! ¡Woohoo!",
+        "description": "2nd level: level content. This must stay approximately the same length for the level to work"
+    },
+    "levels/headings.html/html.h2": {
+        "message": "¡YO TAMBIEN! Bueno, mas o menos...",
+        "description": "Headings level: content"
+    },
+    "levels/creating-elements.html/hint": {
+        "message": "Hmmm... Parece que necesitas mas bloques. Intenta editando este nivel - usa la tecla <kbd>E</kbd> o presiona el boton \"Editar\".",
+        "description": "Space level: instructions"
+    },
+    "levels/index.html/hints.target": {
+        "message": "Acercate hacia este gatito para rescatarl. Necesitas rescatar a todos los gatitos que encuentres!",
+        "description": "1st level: instructions. yay, kittens"
+    },
+    "levels/editing-text.html/html.im-a-ledge-too": {
+        "message": "¡Yo tambien estoy en una plataforma!",
+        "description": "2nd level: level content. This must stay approximately the same length for the level to work"
+    },
+    "levels/editing-text.html/comments.other": {
+        "message": "Esta es la otra plataforma, a la derecha. ¡Tambien puedes editar el codigo para este elemento!",
+        "description": "2nd level: html comments"
+    },
+    "levels/editing-text.html/title": {
+        "message": "Plataformas",
+        "description": "2nd level: title"
+    },
+    "levels/index.html/hints.jump": {
+        "message": "Salta usando las teclas <kbd>espacio</kbd> o <kbd>↑</kbd>.",
+        "description": "1st level: instructions. Jumping is fun!"
+    }
+}
