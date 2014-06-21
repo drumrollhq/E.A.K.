@@ -10,7 +10,10 @@ const v-aspect = vh / vw
 translations = $ '#translations' .html! |> JSON.parse
 
 template = ({next, html}) -> """
-  #html
+  <div class="cutscene-vid">
+    #html
+    <div class="cutscene-subtitle" id="cutscene-subtitle"></div>
+  </div>
   <a href="#next" class="skip">#{translations.cutscene.skip} &rarr;</a>
 """
 
@@ -42,9 +45,10 @@ module.exports = class CutScene extends Backbone.View
 
   render: ->
     @$el.html template this.{html, next}
-    @$video = @$el.find 'video'
+    @$video-cont = @$el.find '.cutscene-vid'
+    @$video = @$video-cont.find 'video'
     if @$video.length > 0
-      @video = @$video.get 0
+      @video = @$video .get 0 |> Popcorn
       @resize!
 
       @start-video!
@@ -54,13 +58,29 @@ module.exports = class CutScene extends Backbone.View
     super!
 
   start-video: ~>
-    @$video.on 'ended' @finish
+    @video.on 'ended' @finish
+
+    # Set up subtitles:
+    subtitle-target = @$el.find '.csst-inner'
+    subtitles = $util.find '[data-start][data-end]'
+    subtitles.each (i, el) ~>
+      $el = $ el
+      start-time = parse-float $el.attr 'data-start'
+      end-time = parse-float $el.attr 'data-end'
+
+      @video.subtitle {
+        start: start-time
+        end: end-time
+        text: $el.text!
+        target: 'cutscene-subtitle'
+      }
+
     @video.play!
 
   finish: ~>
     @trigger 'finish'
     @remove!
-    window.location.href = follow-ons[@name]
+    window.location.href = @next
 
   trigger-skip: ~> @trigger 'skip'
 
@@ -82,7 +102,7 @@ module.exports = class CutScene extends Backbone.View
         @scaled-resize h / vh, w, h
 
   natural-resize: (w, h) ~>
-    @$video.css {
+    @$video-cont.css {
       width: vw
       height: vh
       top: (h - vh) / 2
@@ -90,7 +110,7 @@ module.exports = class CutScene extends Backbone.View
     }
 
   scaled-resize: (scale, w, h) ~>
-    @$video.css {
+    @$video-cont.css {
       width: scale * vw
       height: scale * vh
       top: (h - scale * vh) / 2
