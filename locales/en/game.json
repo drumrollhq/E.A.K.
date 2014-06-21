@@ -78,5 +78,17 @@
   "play.html/menu.redo": {
     "message": "Redo",
     "description": "Redo button for the code editor"
+  },
+  "play.html/cutscene.skip": {
+    "message": "Skip",
+    "description": "Skip the current cutscene"
+  },
+  "play.html/cutscene.continue": {
+    "message": "Continue",
+    "description": "Continue after the cutscene"
+  },
+  "play.html/cutscene.error": {
+    "message": "Oh no! We couldn't load that cutscene...",
+    "description": "Cutscene didn't load"
   }
 }

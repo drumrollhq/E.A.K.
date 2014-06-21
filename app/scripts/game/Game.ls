@@ -53,7 +53,7 @@ module.exports = class Game extends Backbone.Model
     level.on 'done' -> event.stop!
 
   start-cutscene: (name) ~>
-    cs = new CutScene {name}
+    cs = new CutScene {name: "#prefix/cutscenes/#name"}
     cs.$el.append-to document.body
     cs.render!
     event <~ logger.start 'cutscene', {name: name, parent: @logger-parent}
