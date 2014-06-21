@@ -86,5 +86,53 @@
   "levels/headings.html/html.h2": {
     "message": "ME TOO! Kinda...",
     "description": "Headings level: content"
+  },
+  "cutscenes/intro.html/subtitles.a": {
+    "message": "Long, long ago, in the times of the ancient Internet humans lived in a world without kitten gifs.",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.b": {
+    "message": "Then, in 345BC (before cats), the Internet arrived.",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.c": {
+    "message": "All of human kind rejoiced.",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.d": {
+    "message": "They discovered something that bought great happiness and meaning to their lives: cute, fluffy, animals.",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.e": {
+    "message": "They searched the web for more, and more: from giant pandas, to playful puppies.",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.f": {
+    "message": "Suddenly, kittens grew more popular, and started to appear all over the Internet universe.",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.g": {
+    "message": "This brought you great joy.",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.h": {
+    "message": "The kittens didn't care that you, Arca, were an outcast;",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.i": {
+    "message": "rejected by the creatures of the internet, and doomed to live in the ancient ruins.",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.j": {
+    "message": "In fact, kittens were your only friends.",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.k": {
+    "message": "Until one by one, they started going missing...",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/continue": {
+    "message": "Continue",
+    "description": "Continue"
   }
 }

@@ -11,12 +11,14 @@ const vw = 960px
 const vh = 720px
 const v-aspect = vh / vw
 
+skip = $ '#translations' .html! |> JSON.parse |> ( .skip )
+
 template = (name) -> """
   <video controls>
     <source src="/cutscenes/#{name}.webm" type="video/webm">
     <source src="/cutscenes/#{name}.mp4" type="video/mp4">
   </video>
-  <a href="#{follow-ons[name]}" class="skip">Skip &rarr;</a>
+  <a href="#{follow-ons[name]}" class="skip">#skip &rarr;</a>
 """
 
 module.exports = class CutScene extends Backbone.View
