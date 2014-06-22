@@ -8,7 +8,7 @@
         "description": "Headings level: comment"
     },
     "levels/creating-elements.html/comment": {
-        "message": "<p>Estas son etiquetas <code>&lt;div&gt;</code> y representan los bloques. Intenta creando algunas por tu cuenta.</p>\n<p>Recuerda iniciar abriendo la etiqueta con un <code>&lt;div&gt;</code> y cerrando con <code>&lt;/div&gt;</code>, agregando algun texto entre ambas. No olvides el simbolo <code>/</code>!</p>",
+        "message": "<p>Estas son etiquetas <code>&lt;div&gt;</code> y representan los bloques. Intenta creando algunas etiquetas por tu cuenta.</p>\n<p>Recuerda iniciar la etiqueta con un <code>&lt;div&gt;</code> y cerrando con <code>&lt;/div&gt;</code>, agregando algún texto entre ambas. ¡No olvides el símbolo <code>/</code>!</p>",
         "description": "Space level: code comments. Make sure you preserve the HTML structure"
     },
     "levels/creating-elements.html/html.box-1": {
@@ -20,7 +20,7 @@
         "description": "1st level: tell the player how to move about"
     },
     "levels/index.html/hints.portal": {
-        "message": "Este es un portal. Entra para descubrir a donde te lleva!",
+        "message": "Este es un portal. ¡Entra para descubrir a donde te lleva!",
         "description": "1st level: instructions"
     },
     "levels/headings.html/title": {
@@ -28,7 +28,7 @@
         "description": "Headings level: title"
     },
     "levels/editing-text.html/hints.edit": {
-        "message": "¡ Oh ! Necesitas hacer la plataforma mas grande. Presiona el boton 'Editar' o la tecla <kbd>E</kbd> para editar este nivel.",
+        "message": "¡Oh! Necesitas hacer la plataforma más grande. Presiona el botón 'Editar' o la tecla <kbd>E</kbd> para editar este nivel.",
         "description": "2nd level: instructions"
     },
     "cutscenes/intro.html/subtitles.d": {
@@ -56,11 +56,11 @@
         "description": "2nd level: instructions"
     },
     "levels/editing-text.html/comments.main": {
-        "message": "<p>\n  Este es el codigo en HTML para este nivel. Describe los elementos que se muestran en a la derecha de la pantalla. El codigo de abajo es la plataforma sobre la que te encuentras ahora. Inicia con:\n</p>\n<p>\n  <code>&lt;p ...&gt;</code> y termina con <code>&lt;/p&gt;</code>.\n</p>\n<p>\n  Estos elementos <code>&lt;&gt;</code> se llaman etiquetas. Las partes que aparece en la pagina  es lo que escribimos <em>adentro de</em> las etiquetas. Intenta agregar mas texto para hacer mas larga la plataforma.\n</p>",
+        "message": "<p>\nEste es el código en HTML para este nivel. Describe los elementos que se muestran a la derecha de la pantalla. El código de aquí abajo es la plataforma sobre la que te encuentras ahora. Inicia con:\n</p>\n<p>\n<code>&lt;p ...&gt;</code> y termina con <code>&lt;/p&gt;</code>.\n</p>\n<p>\nEstos elementos <code>&lt;&gt;</code> se llaman etiquetas. Las partes que aparece en la página  es lo que escribimos <em>adentro</em> de las etiquetas. Intenta agregar más texto para extender la plataforma.\n</p>",
         "description": "2nd level: html comments. Make sure you preserve the HTML structure!"
     },
     "levels/headings.html/comments.main": {
-        "message": "<p>\n  Estos son los encabezados. En HTML, los encabezados son una familia grande - van desde  <code>&lt;h1&gt;</code> (el encabezado mas importante) hasta <code>&lt;h6&gt;</code> (el encabezado menos importante). En una pagina web puedes tener el titulo de la pagina en un encabezado <code>&lt;h1&gt;</code>, y el subtitulo en un encabezado <code>&lt;h2&gt;</code>, por ejemplo.\n</p>\n\n<p>\n Los primeros dos encabezados te permitieron llegar hasta esta parte de la cueva - ¡Si eres capaz de crear algunos mas, quizas puedas llegar hasta el fondo! </p>",
+        "message": "<p>\nEstos son los encabezados. En HTML, los encabezados son una familia grande - van desde  <code>&lt;h1&gt;</code> (el encabezado más importante) hasta <code>&lt;h6&gt;</code> (el encabezado menos importante). En una página web puedes tener, por ejemplo, el título en un encabezado <code>&lt;h1&gt;</code>, y el subtítulo en un encabezado <code>&lt;h2&gt;</code>.\n</p>\n<p>\nLos primeros dos encabezados te permitieron llegar hasta esta parte de la cueva - ¡Si eres capaz de crear algunos más, quizás puedas llegar hasta el fondo! </p>\n\n<p>\n Los primeros dos encabezados te permitieron llegar hasta esta parte de la cueva - ¡Si eres capaz de crear algunos mas, quizas puedas llegar hasta el fondo! </p>",
         "description": "Headings level: comment"
     },
     "cutscenes/intro.html/subtitles.e": {
@@ -80,11 +80,11 @@
         "description": "2nd level: level content. This must stay approximately the same length for the level to work"
     },
     "levels/headings.html/html.h2": {
-        "message": "¡YO TAMBIEN! Bueno, mas o menos...",
+        "message": "¡YO TAMBIEN! Bueno, más o menos...",
         "description": "Headings level: content"
     },
     "levels/creating-elements.html/hint": {
-        "message": "Hmmm... Parece que necesitas mas bloques. Intenta editando este nivel - usa la tecla <kbd>E</kbd> o presiona el boton \"Editar\".",
+        "message": "Hmmm... Parece que necesitas más bloques. Intenta editando este nivel - usa la tecla <kbd>E</kbd> o presiona el botón \"Editar\".",
         "description": "Space level: instructions"
     },
     "cutscenes/intro.html/subtitles.i": {
@@ -92,7 +92,7 @@
         "description": "Subtitle for cutscene"
     },
     "levels/index.html/hints.target": {
-        "message": "Acercate hacia este gatito para rescatarl. Necesitas rescatar a todos los gatitos que encuentres!",
+        "message": "Acércate hacia este gatito para rescatarlo. ¡Necesitas rescatar a todos los gatitos que encuentres!\n",
         "description": "1st level: instructions. yay, kittens"
     },
     "cutscenes/intro.html/continue": {
@@ -104,7 +104,7 @@
         "description": "Subtitle for cutscene"
     },
     "levels/editing-text.html/html.im-a-ledge-too": {
-        "message": "¡Y yo también!",
+        "message": "¡Mira aquí! ¡Yo también!",
         "description": "2nd level: level content. This must stay approximately the same length for the level to work"
     },
     "cutscenes/intro.html/subtitles.a": {
@@ -112,7 +112,7 @@
         "description": "Subtitle for cutscene"
     },
     "levels/editing-text.html/comments.other": {
-        "message": "Esta es la otra plataforma, a la derecha. ¡Tambien puedes editar el codigo para este elemento!",
+        "message": "Esta es la otra plataforma, a la derecha. ¡También puedes editar el código para este elemento!",
         "description": "2nd level: html comments"
     },
     "cutscenes/intro.html/subtitles.h": {

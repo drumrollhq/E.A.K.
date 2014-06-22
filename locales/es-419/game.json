@@ -28,7 +28,7 @@
         "description": "button on the main menu"
     },
     "play.html/old-browser-msg.title": {
-        "message": "Lo sentimos!",
+        "message": "¡Lo siento!",
         "description": "This is the heading for a notice that tells users on older browsers that they can't run the game"
     },
     "play.html/menu.cancel": {
@@ -44,7 +44,7 @@
         "description": ""
     },
     "play.html/about.have-fun": {
-        "message": "Diviertete!",
+        "message": "¡Diviértete!",
         "description": "have fun or else."
     },
     "play.html/back": {
@@ -52,11 +52,11 @@
         "description": "for a 'back' button"
     },
     "play.html/cutscene.skip": {
-        "message": "Omitir",
+        "message": "Saltar",
         "description": "Skip the current cutscene"
     },
     "play.html/about.description": {
-        "message": "Erase All Kittens (Elimina a Todos los Gatitos) es una plataforma de juego con una diferencia: Los niveles del juego estan escritos en HTML y CSS, y la unica manera de avanzar es usando tus habilidades de programacion para \"hackear\" el nivel siguiente.",
+        "message": "Erase All Kittens (Elimina a Todos los Gatitos) es una plataforma de juego con una diferencia: Los niveles del juego están escritos en HTML y CSS, y la única manera de avanzar es usando tus habilidades de programación para \"hackear\" el nivel siguiente.",
         "description": "a short description of the game"
     },
     "play.html/menu.save": {
