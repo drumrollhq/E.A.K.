@@ -3,6 +3,9 @@
     background-color #DCF7F6
     font-weight 300
 
+    &.no-scroll
+      overflow hidden
+
   header
     position relative
     margin 0
@@ -33,6 +36,8 @@
     // -ms-interpolation-mode: nearest-neighbor
 
     h1
+      position relative
+      z-index 20
       padding-top 1em
       font-size 32px
 
@@ -205,6 +210,40 @@
     margin-left 25px
     list-style circle
 
+  .lang-select
+    display none
+    position fixed
+    width 350px
+    top 100px
+    left 50%
+    margin-left -(350px/2)
+    z-index 30
+
+    &.active
+      display block
+      animation lang-in 0.5s ease
+
+    .cta
+      width 100%
+      margin-bottom 0
+
+      &:hover
+        margin-bottom -3px
+
+  .cover
+    display none
+    position fixed
+    top 0
+    bottom 0
+    left 0
+    right 0
+    z-index 10
+    background rgba(48, 40, 91, 0.8)
+
+    &.active
+      display block
+      animation cover-in 0.5s ease
+
   shelbySize = 212px
   footer
     position relative
@@ -260,3 +299,19 @@
       .shelby:hover:before
         transform translate(0, 0)
         opacity 1
+
+@keyframes cover-in
+  from
+    opacity 0
+
+  to
+    opacity 1
+
+@keyframes lang-in
+  from
+    opacity 0
+    transform translateY(50px)
+
+  to
+    opacity 1
+    transform translateY(0)

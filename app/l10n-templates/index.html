@@ -17,7 +17,7 @@
 
   <div class="container">
     <div class="cta-cont">
-      <a class="cta" href="/play/#/play/cutscene/intro">Play The<br>Demo!</a>
+      <a class="cta demo-button" href="/play/#/play/cutscene/intro">Play The<br>Demo!</a>
     </div>
 
     <div class="row">
@@ -135,19 +135,67 @@
     Made in London by the lovely humans at <a href="http://drumrollhq.com/">Drum Roll</a>.
   </footer>
 
+  <div class="lang-select hidden">
+    <a href="/en/play/#/play/cutscene/intro" class="button cta" data-lang="en">English</a>
+    <a href="/es-419/play/#/play/cutscene/intro" class="button cta" data-lang="es-419">
+      Español (Latinoamérica)
+    </a>
+  </div>
+  <div class="cover"></div>
+
 
   <script>
   (function () {
-    var r = new XMLHttpRequest();
-    r.open('GET', '/api/events/sum?types=kitten');
-    r.onreadystatechange = function () {
-      if (r.readyState !== 4 || r.status !== 200) {
-        return;
-      }
+    function loadKittenCount() {
+      var r = new XMLHttpRequest();
+      r.open('GET', '/api/events/sum?types=kitten');
+      r.onreadystatechange = function () {
+        if (r.readyState !== 4 || r.status !== 200) {
+          return;
+        }
 
-      document.querySelector('.kitten-count').innerHTML = JSON.parse(r.response).kitten;
-    };
-    r.send();
+        document.querySelector('.kitten-count').innerHTML = JSON.parse(r.response).kitten;
+      };
+      r.send();
+    }
+
+    function languageSelect() {
+      var lang = document.cookie.replace(/(?:(?:^|.*;\s*)eak\-lang\s*\=\s*([^;]*).*$)|^.*$/, "$1"),
+        selecter = document.querySelector('.lang-select'),
+        cover = document.querySelector('.cover');
+
+      if (lang) {
+        window.location.href = '/' + lang + '/play/#/play/cutscene/intro'
+      } else {
+        selecter.classList.add('active');
+        cover.classList.add('active');
+        window.scroll(0, 0);
+        document.body.classList.add('no-scroll');
+
+        var buttons = Array.prototype.slice.apply(selecter.querySelectorAll('a'));
+        buttons.forEach(function (button) {
+          button.addEventListener('click', function (e) {
+            e.preventDefault();
+            var lang = button.getAttribute('data-lang');
+
+            document.cookie = 'eak-lang=' + lang + ';';
+            window.location.href = button.getAttribute('href');
+          }, false);
+        });
+      }
+    }
+
+    function setupLanguage() {
+      var button = document.querySelector('.demo-button');
+
+      button.addEventListener('click', function (e) {
+        e.preventDefault();
+        languageSelect();
+      }, false);
+    }
+
+    loadKittenCount();
+    setupLanguage();
   }())
   </script>
 </body>
