@@ -36,6 +36,7 @@ module.exports = class CutScene extends Backbone.View
       success: (html) ~>
         @html = html
         $util.html @html
+        $util.find 'source' .attr 'src', '' .remove!
         @next = $util.find 'a' .attr 'href'
         @render!
       error: ~>
@@ -45,6 +46,12 @@ module.exports = class CutScene extends Backbone.View
 
   render: ->
     @$el.html template this.{html, next}
+
+    # Prevent strange video loading bug in chrome
+    @$el.find 'source' .each ->
+      $el = $ this
+      $el.attr 'src', "#{$el.attr 'src'}?#{Date.now!}"
+
     @$video-cont = @$el.find '.cutscene-vid'
     @$video = @$video-cont.find 'video'
     if @$video.length > 0
