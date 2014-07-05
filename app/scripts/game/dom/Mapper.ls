@@ -9,6 +9,9 @@
 
 clone = (obj) -> {[key, value] for key, value of obj}
 
+number = '(-?[0-9]+(?:\\.[0-9]+(?:e\\-?[0-9]+)?)?),?\\s?'
+matrix-regex = new RegExp "matrix\\(#{repeat 6 number}\\)$"
+
 module.exports = class Mapper
   (@el) ->
 
@@ -43,7 +46,8 @@ module.exports = class Mapper
     if transform is 'none'
       css.rotate = 0
     else
-      matrix = transform.match /matrix\((-?[0-9]+(?:.[0-9]+)?),\s?(-?[0-9]+(?:.[0-9]+)?),\s?(-?[0-9]+(?:.[0-9]+)?),\s?(-?[0-9]+(?:.[0-9]+)?),\s?(-?[0-9]+(?:.[0-9]+)?),\s?(-?[0-9]+(?:.[0-9]+)?)\)$/
+      matrix = transform.match matrix-regex
+
       # Matrix should look like this:
       # ( a b x )
       # ( c d y )
