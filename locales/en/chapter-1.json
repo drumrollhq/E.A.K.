@@ -16,7 +16,7 @@
     "description": "1st level: instructions. yay, kittens"
   },
   "levels/index.html/hints.portal": {
-    "message": "This is a portal. Walk in to see where it leads!",
+    "message": "This is a portal. Walk in and press the <kbd>↓</kbd> key to see where it leads!",
     "description": "1st level: instructions"
   },
   "levels/editing-text.html/title": {

@@ -19,9 +19,16 @@ channels.parse 'contact: start: HYPERLINK + ENTITY_PLAYER' .subscribe (contact) 
   if 3.5px < speed < 10px then window.location.href = link.el.href
 
 # Portals
+portal = null
+player = null
 channels.parse 'contact: start: PORTAL + ENTITY_PLAYER' .subscribe (contact) ->
-  [player, portal] = contact.find 'ENTITY_PLAYER'
-  <- set-timeout _, 250
+  [player, portal] := contact.find 'ENTITY_PLAYER'
+
+channels.parse 'contact: end: PORTAL + ENTITY_PLAYER' .subscribe ->
+  portal := null
+
+channels.parse 'key-down: down, s' .subscribe ->
+  unless portal then return
 
   if player.deactivated then return
   if player.last-fall-dist > 200px then return
