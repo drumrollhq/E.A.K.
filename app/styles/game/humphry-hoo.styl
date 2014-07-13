@@ -1,0 +1,60 @@
+.humphry-hoo
+  entity '/content/common/humphry-hoo/humphry-hoo-body.png' 56.5px 79.5px
+  transform rotate(-13deg)
+  animation humphry-hoo-flight 0.6s ease-in-out alternate infinite
+
+.humphry-hoo:after
+  entity '/content/common/humphry-hoo/humphry-hoo-body.png' 56.5px 79.5px
+  content " "
+  z-index 1
+
+.humphry-hoo-face
+  entity '/content/common/humphry-hoo/humphry-hoo-face.png' 42.5px 25px
+  top 15px
+  left 7.5px
+  z-index 2
+  animation humphry-hoo-face 0.3s ease-in-out alternate infinite
+
+.humphry-hoo-wing-left
+  entity '/content/common/humphry-hoo/humphry-hoo-wing-left.png' 82.5px 41.5px
+  top 0px
+  right 45px
+  z-index 0
+  transform-origin bottom right
+  animation humphry-hoo-wing-left 0.3s ease-in-out alternate infinite
+
+.humphry-hoo-wing-right
+  entity '/content/common/humphry-hoo/humphry-hoo-wing-right.png' 82px 42.5px
+  top 0px
+  left 45px
+  z-index 0
+  transform-origin bottom left
+  animation humphry-hoo-wing-right 0.3s ease-in-out alternate infinite
+
+@keyframes humphry-hoo-flight
+  from
+    transform rotate(-18deg) translateY(8px)
+
+  to
+    transform rotate(-10deg) translateY(-8px)
+
+@keyframes humphry-hoo-face
+  from
+    transform translateY(-3px)
+
+  to
+    transform translateY(3px)
+
+@keyframes humphry-hoo-wing-left
+  from
+    transform rotate(-15deg) scaleX(0.8)
+
+  to
+    transform rotate(15deg) scaleX(1.1)
+
+@keyframes humphry-hoo-wing-right
+  from
+    transform rotate(15deg) scaleX(0.8)
+
+  to
+    transform rotate(-15deg) scaleX(1.1)
