@@ -19,6 +19,9 @@ module.exports = class Renderer extends Backbone.View
     @$el.append-to @root
     @subs = []
 
+    bg-style = $ '<style></style>'
+    bg-style.append-to document.head
+    @$bg-style = bg-style
     style = $ '<style></style>'
     style.append-to document.head
     @$style = style
@@ -91,6 +94,7 @@ module.exports = class Renderer extends Backbone.View
   remove: ~>
     @$el.add-class \hidden
     @$style.remove!
+    @$bg-style.remove!
     super!
     for sub in @subs => sub.unsubscribe!
 
@@ -159,5 +163,12 @@ module.exports = class Renderer extends Backbone.View
   clear-transform: ~>
     @el.style[transform] = 'translate3d(0, 0, 0)'
     @last-position = x: 0, y: 0
+
+  set-background: (bg) ~>
+    @$bg-style.text """
+      \##{@el.id} {
+        background: #{bg};
+      }
+    """
 
   $window: $ window

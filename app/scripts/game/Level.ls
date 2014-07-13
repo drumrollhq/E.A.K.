@@ -43,7 +43,7 @@ module.exports = class Level extends Backbone.Model
 
     # Find the background image
     bg = if level.find 'meta[name=background]' .attr \value then that else 'white'
-    renderer.el.style.background = bg
+    renderer.set-background bg
     @conf.background = bg
 
     # Set the level size
