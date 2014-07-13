@@ -4,9 +4,8 @@ require! {
   File: 'vinyl'
   'glob'
   'gulp'
-  'gulp-bower-files'
   'gulp-changed'
-  'gulp-clean'
+  'gulp-rimraf'
   'gulp-concat'
   'gulp-footer'
   'gulp-header'
@@ -18,6 +17,7 @@ require! {
   'gulp-uglify'
   'handlebars'
   'LiveScript'
+  'main-bower-files'
   'nib'
   'path'
   'prelude-ls'
@@ -79,7 +79,7 @@ src = {
 }
 
 dest = {
-  all: './public/**/*'
+  all: './public/'
   js: './public/js'
   css: './public/css'
   assets: './public'
@@ -94,7 +94,7 @@ tmp = {
 
 script-root = new RegExp "^#{path.resolve './'}/app/(scripts|workers)/"
 
-gulp.task 'default' -> gulp.start 'dev'
+gulp.task 'default' <[dev]>
 
 gulp.task 'build' <[clean]> ->
   gulp.start \scripts \assets \stylus \l10n \vendor \errors
@@ -108,7 +108,7 @@ gulp.task 'dev' <[build]> ->
 
 gulp.task 'clean' ->
   gulp.src dest.all, read: false
-    .pipe gulp-clean force: true
+    .pipe gulp-rimraf force: true
 
 gulp.task 'scripts' ['livescript' 'workers']
 
@@ -124,7 +124,7 @@ gulp.task 'assets' ->
     .pipe gulp.dest dest.assets
 
 gulp.task 'vendor' ->
-  streamqueue {+object-mode}, (gulp-bower-files!), (gulp.src src.vendor)
+  streamqueue {+object-mode}, (gulp.src main-bower-files!), (gulp.src src.vendor)
     .pipe hack-slowparse!
     .pipe vendor-wrapper!
     .pipe gulp-concat 'vendor.js'
