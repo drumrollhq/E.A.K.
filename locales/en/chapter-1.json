@@ -134,5 +134,29 @@
   "cutscenes/intro.html/continue": {
     "message": "Continue",
     "description": "Continue"
+  },
+  "levels/colours.html/comments.what-is-css": {
+    "message": "This is a <code>&lt;style&gt;</code> tag. You use them when you want to write CSS styles. CSS is the code inside the <code>style</code> tag, which describes the <em>design</em> of a HTML page - colours, shapes, and fonts.",
+    "description": "CSS Colours level: comment"
+  },
+  "levels/colours.html/comments.how-many-things": {
+    "message": "here are three things going on in the CSS code:",
+    "description": "CSS Colours level: comment"
+  },
+  "levels/colours.html/comments.the-first-thing": {
+    "message": "<code>body { ... }</code> tells the browser that the bits between <code>{ }</code> are for the whole page.",
+    "description": "CSS Colours level: comment"
+  },
+  "levels/colours.html/comments.the-second-thing": {
+    "message": "<code>background:</code> says that we want to change the background.",
+    "description": "CSS Colours level: comment"
+  },
+  "levels/colours.html/comments.the-third-thing": {
+    "message": "<code>hsl(191, 100%, 41%)</code> is what we want to the background to be. Here, we're using the code for a colour.",
+    "description": "CSS Colours level: comment"
+  },
+  "levels/colours.html/comments.change-the-thing": {
+    "message": "Try changing the numbers to see how they affect the level.",
+    "description": "CSS Colours level: comment"
   }
 }
