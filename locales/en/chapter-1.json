@@ -88,7 +88,7 @@
     "description": "Headings level: content"
   },
   "cutscenes/intro.html/subtitles.a": {
-    "message": "Long, long ago; in the times of the ancient Internet; humans lived in a world without kitten gifs.",
+    "message": "Long long ago, in the times of the ancient Internet, humans lived in a world without kitten gifs.",
     "description": "Subtitle for cutscene"
   },
   "cutscenes/intro.html/subtitles.b": {
@@ -100,11 +100,11 @@
     "description": "Subtitle for cutscene"
   },
   "cutscenes/intro.html/subtitles.d": {
-    "message": "They discovered something that bought great happiness and meaning to their lives: cute, fluffy, animals.",
+    "message": "They discovered something that bought great happiness and meaning to their lives... cute, fluffy, animals.",
     "description": "Subtitle for cutscene"
   },
   "cutscenes/intro.html/subtitles.e": {
-    "message": "They searched the web for more, and more: from giant pandas, to playful puppies.",
+    "message": "They searched the web for more and more; from giant pandas, to playful puppies.",
     "description": "Subtitle for cutscene"
   },
   "cutscenes/intro.html/subtitles.f": {
@@ -116,11 +116,11 @@
     "description": "Subtitle for cutscene"
   },
   "cutscenes/intro.html/subtitles.h": {
-    "message": "The kittens didn't care that you, Arca, were an outcast;",
+    "message": "The kittens didn't care that you, Arca, were an outcast...",
     "description": "Subtitle for cutscene"
   },
   "cutscenes/intro.html/subtitles.i": {
-    "message": "rejected by the creatures of the internet, and doomed to live in the ancient ruins.",
+    "message": "...rejected by the creatures of the internet, and doomed to live in the ancient ruins.",
     "description": "Subtitle for cutscene"
   },
   "cutscenes/intro.html/subtitles.j": {
