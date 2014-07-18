@@ -3,7 +3,7 @@ require! {
   'audio/context'
 }
 
-formats = <[mp3 ogg wav]> .filter (format) -> Modernizr.audio[format] is 'probably'
+formats = <[mp3 ogg]> .filter (format) -> Modernizr.audio[format] is 'probably'
 if empty formats then return module.exports = {}
 
 format = first formats
