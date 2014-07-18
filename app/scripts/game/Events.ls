@@ -4,9 +4,7 @@ require! {
 }
 
 actions = {
-  kill: (player) ->
-    player.fall-to-death!
-
+  kill: (player) -> channels.death.publish cause: 'fall-to-death'
   spike: (player) -> actions.kill player
 }
 
@@ -29,6 +27,8 @@ channels.parse 'contact: end: PORTAL + ENTITY_PLAYER' .subscribe ->
 
 channels.parse 'key-down: down, s' .subscribe ->
   unless portal then return
+  portal-el = portal.el
+  portal := null
 
   if player.deactivated then return
   if player.last-fall-dist > 200px then return
@@ -39,12 +39,13 @@ channels.parse 'key-down: down, s' .subscribe ->
     ..classes-disabled = true
 
   player.el.class-list.add 'portal-out'
-  portal.el.class-list.add 'portal-out'
+  portal-el.class-list.add 'portal-out'
 
+  channels.game-commands.publish command: 'portal'
   logger.log 'portal', player: player.{p, v}
 
   <- set-timeout _, 750
-  window.location.href = portal.el.href
+  window.location.href = portal-el.href
 
 # Falling to death, actions:
 channels.parse 'contact: start: ENTITY_PLAYER' .subscribe (contact) ->

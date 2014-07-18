@@ -1,4 +1,5 @@
 require! {
+  'audio/effects'
   'game/event-loop'
   'game/Game'
   'logger'
@@ -14,8 +15,10 @@ module.exports = class Init extends Backbone.View
       @$ \#incompatible .show-dialogue!
       return
 
+    <~ effects.load!
+
     event-loop.init!
-    event <- logger.start 'session', ua: navigator.user-agent
+    event <~ logger.start 'session', ua: navigator.user-agent
 
     # Hide the loader and start up the game.
     @$ \.loader .hide-dialogue!

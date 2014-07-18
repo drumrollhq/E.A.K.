@@ -282,6 +282,7 @@ module.exports = class Level extends Backbone.Model
     if $ document.body .has-class \editor then return
 
     edit-event = undefined
+    channels.game-commands.publish command: 'edit-start'
     logger.start 'edit', parent: @event-id, (event) -> edit-event := event
 
     # Put the play back where they started
@@ -317,6 +318,7 @@ module.exports = class Level extends Backbone.Model
       html: editor.get \html
       css: editor.get \css
     }
+    channels.game-commands.publish command: 'edit-stop'
 
     editor-view.restore-entities!
     editor-view.remove!
