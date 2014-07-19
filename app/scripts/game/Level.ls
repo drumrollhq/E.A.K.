@@ -1,4 +1,5 @@
 require! {
+  'audio/music-manager'
   'channels'
   'game/background'
   'game/dom/Mapper'
@@ -83,6 +84,9 @@ module.exports = class Level extends Backbone.Model
 
     conf.borders = borders
 
+    # Find music track:
+    music = (level.find 'meta[name=music]' .attr \value) or 'none'
+
     # add-targets is a function that adds targets to Renderer.
     add-targets = Targets renderer
 
@@ -98,6 +102,9 @@ module.exports = class Level extends Backbone.Model
     loader-view.render!
 
     event-loop.pause!
+
+    # Load and play the music:
+    <~ music-manager.start-track music
 
     # Apply the blurred background image:
     <~ background.show bg

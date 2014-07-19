@@ -8,7 +8,7 @@ if empty formats then return module.exports = {}
 format = first formats
 
 module.exports = function fetch-audio-data url, cb
-  if cache[url]? then return cb null, cache[url]
+  if cache[url]? then return cb cache[url], null
 
   $.ajax {
     type: \GET

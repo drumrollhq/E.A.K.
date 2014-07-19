@@ -23,7 +23,10 @@ module.exports = class Sound
     sound-source = context.create-buffer-source!
       ..buffer = @_buffer
       ..connect @gain-node
-      ..onended = ~> sound-source.disconnect!
+      ..on-ended = -> null
+      ..onended = ~>
+          sound-source.disconnect!
+          sound-source.on-ended!
       ..loop = @loop
       ..start wh, offset % @_buffer.duration, duration
       ..started = context.current-time - offset
