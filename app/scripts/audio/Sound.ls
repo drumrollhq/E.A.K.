@@ -5,7 +5,11 @@ require! {
 }
 
 module.exports = class Sound
-  (@_path, @_track) ->
+  (@_path, track) ->
+    @loop = false
+    @gain-node = context.create-gain!
+    @gain-node.connect track.node
+    @gain = @gain-node.gain
 
   load: (cb) ~>
     buffer, err <~ load @_path
@@ -13,10 +17,13 @@ module.exports = class Sound
     @_buffer = buffer
     cb!
 
-  start: ~>
+  start: (wh = context.current-time, offset = 0, duration) ~>
+    unless duration? then duration = @_buffer.duration - (offset % @_buffer.duration)
+
     sound-source = context.create-buffer-source!
-    sound-source.buffer = @_buffer
-    sound-source.connect @_track.node
-    sound-source.onended = ~> sound-source.disconnect @_track.node
-    sound-source.start 0, 0, @_buffer.duration
-    sound-source
+      ..buffer = @_buffer
+      ..connect @gain-node
+      ..onended = ~> sound-source.disconnect!
+      ..loop = @loop
+      ..start wh, offset % @_buffer.duration, duration
+      ..started = context.current-time - offset
