@@ -1,11 +1,12 @@
 require! {
   es: 'event-stream'
   exec: 'exec-sync'
+  ffmpeg: 'fluent-ffmpeg'
   File: 'vinyl'
+  ProgressBar: 'progress'
   'glob'
   'gulp'
   'gulp-changed'
-  'gulp-rimraf'
   'gulp-concat'
   'gulp-footer'
   'gulp-header'
@@ -13,11 +14,13 @@ require! {
   'gulp-livescript'
   'gulp-minify-css'
   'gulp-preprocess'
+  'gulp-rimraf'
   'gulp-stylus'
   'gulp-uglify'
   'handlebars'
   'LiveScript'
   'main-bower-files'
+  'mkdirp'
   'nib'
   'path'
   'prelude-ls'
@@ -63,29 +66,31 @@ stylus-conf = {
 }
 
 src = {
-  lsc: './app/scripts/**/*.ls'
-  css: ['./app/styles/app.styl', './app/styles/min.styl']
+  assets: './app/assets/**/*'
+  audio: './app/audio/**/*'
   css-all: './app/styles/**/*.styl'
+  css: ['./app/styles/app.styl', './app/styles/min.styl']
+  errors: './bower_components/slowparse/spec/errors.{base,forbidjs}.html'
+  images: './app/assets/**/*.{jpg,png,gif}'
   locale-data: './locales/**/*.json'
   locale-templates: './app/l10n-templates/**/*'
-  assets: './app/assets/**/*'
-  images: './app/assets/**/*.{jpg,png,gif}'
+  lsc: './app/scripts/**/*.ls'
   vendor: ['./vendor/*.js' './vendor/rework/rework.js']
-  errors: './bower_components/slowparse/spec/errors.{base,forbidjs}.html'
-  workers: './app/workers/**/*.ls'
   workers-static: ['./bower_components/underscore/underscore.js'
                    './app/workers/**/*.js'
                    './vendor/require.js']
+  workers: './app/workers/**/*.ls'
 }
 
 dest = {
   all: './public/'
-  js: './public/js'
-  css: './public/css'
   assets: './public'
-  vendor: './public/lib'
+  audio: './public/audio'
+  css: './public/css'
   data: './public/data'
   images: './app/assets'
+  js: './public/js'
+  vendor: './public/lib'
 }
 
 tmp = {
@@ -97,7 +102,7 @@ script-root = new RegExp "^#{path.resolve './'}/app/(scripts|workers)/"
 gulp.task 'default' <[dev]>
 
 gulp.task 'build' <[clean]> ->
-  gulp.start \scripts \assets \stylus \l10n \vendor \errors
+  gulp.start \scripts \assets \stylus \l10n \vendor \errors \audio
 
 gulp.task 'dev' <[build]> ->
   gulp.watch src.assets, ['assets']
@@ -130,6 +135,36 @@ gulp.task 'vendor' ->
     .pipe gulp-concat 'vendor.js'
     .pipe if optimized then gulp-uglify! else noop!
     .pipe gulp.dest dest.js
+
+gulp.task 'audio' ->
+  gulp.src src.audio, read: false .pipe through2.obj (file, enc, cb) ->
+    if file.stat.is-directory! then return cb!
+    output = output-loc file, dest.audio
+
+    file-name = file.path.replace file.base, ''
+    bar = new ProgressBar "[:bar] :percent #file-name", total: 100, width: 30
+    l = 0
+
+    <- mkdirp path.dirname output 'test'
+
+    x = ffmpeg file.path
+      .output output '.mp3'
+      .audio-codec 'libmp3lame'
+      .audio-channels 1
+      .audio-frequency 22050
+
+      .output output '.ogg'
+      .audio-codec 'libvorbis'
+      .audio-channels 1
+      .audio-frequency 22050
+
+      .on 'progress', (progress) ->
+        bar.tick progress.percent - l
+        l := progress.percent
+      .on 'end', ->
+        bar.tick 100
+        cb!
+      .run!
 
 gulp.task 'stylus' ->
   gulp.src src.css
@@ -289,3 +324,14 @@ function set-path obj, path, val
   | otherwise =>
     obj[first path] ?= {}
     set-path obj[first path], (tail path), val
+
+change-ext = (new-ext, file) -->
+  new-ext = new-ext.replace /^\./, ''
+  old-ext = path.extname file
+  "#{file.substring 0, file.length - oldExt.length}.#{newExt}"
+
+output-loc = (file, output, ext) -->
+  file.path
+    |> change-ext ext
+    |> ( .replace file.base, '' )
+    |> -> path.resolve output, it
