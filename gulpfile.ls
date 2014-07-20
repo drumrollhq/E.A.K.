@@ -110,6 +110,7 @@ gulp.task 'dev' <[build]> ->
   gulp.watch src.css-all, ['stylus']
   gulp.watch [src.locale-data, src.locale-templates], ['l10n']
   gulp.watch src.vendor, ['vendor']
+  gulp.watch src.audio, ['audio']
 
 gulp.task 'clean' ->
   gulp.src dest.all, read: false
@@ -137,34 +138,36 @@ gulp.task 'vendor' ->
     .pipe gulp.dest dest.js
 
 gulp.task 'audio' ->
-  gulp.src src.audio, read: false .pipe through2.obj (file, enc, cb) ->
-    if file.stat.is-directory! then return cb!
-    output = output-loc file, dest.audio
+  gulp.src src.audio, read: false
+    .pipe gulp-changed dest.audio
+    .pipe through2.obj (file, enc, cb) ->
+      if file.stat.is-directory! then return cb!
+      output = output-loc file, dest.audio
 
-    file-name = file.path.replace file.base, ''
-    bar = new ProgressBar "[:bar] :percent #file-name", total: 100, width: 30
-    l = 0
+      file-name = file.path.replace file.base, ''
+      bar = new ProgressBar "[:bar] :percent #file-name", total: 100, width: 30
+      l = 0
 
-    <- mkdirp path.dirname output 'test'
+      <- mkdirp path.dirname output 'test'
 
-    x = ffmpeg file.path
-      .output output '.mp3'
-      .audio-codec 'libmp3lame'
-      .audio-channels 1
-      .audio-frequency 22050
+      x = ffmpeg file.path
+        .output output '.mp3'
+        .audio-codec 'libmp3lame'
+        .audio-channels 1
+        .audio-frequency 22050
 
-      .output output '.ogg'
-      .audio-codec 'libvorbis'
-      .audio-channels 1
-      .audio-frequency 22050
+        .output output '.ogg'
+        .audio-codec 'libvorbis'
+        .audio-channels 1
+        .audio-frequency 22050
 
-      .on 'progress', (progress) ->
-        bar.tick progress.percent - l
-        l := progress.percent
-      .on 'end', ->
-        bar.tick 100
-        cb!
-      .run!
+        .on 'progress', (progress) ->
+          bar.tick progress.percent - l
+          l := progress.percent
+        .on 'end', ->
+          bar.tick 100
+          cb!
+        .run!
 
 gulp.task 'stylus' ->
   gulp.src src.css
