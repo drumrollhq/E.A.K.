@@ -154,12 +154,12 @@ gulp.task 'audio' ->
         .output output '.mp3'
         .audio-codec 'libmp3lame'
         .audio-channels 1
-        .audio-frequency 22050
+        .audio-frequency 44100
 
         .output output '.ogg'
         .audio-codec 'libvorbis'
         .audio-channels 1
-        .audio-frequency 22050
+        .audio-frequency 44100
 
         .on 'progress', (progress) ->
           bar.tick progress.percent - l
