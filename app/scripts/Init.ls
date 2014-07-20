@@ -5,7 +5,9 @@ require! {
   'logger'
   'plugins'
   'Router'
+  'settings'
   'ui/alert'
+  'ui/SettingsView'
 }
 
 module.exports = class Init extends Backbone.View
@@ -14,6 +16,8 @@ module.exports = class Init extends Backbone.View
     unless @compatible!
       @$ \#incompatible .show-dialogue!
       return
+
+    new SettingsView model: settings, el: $ '#bar-options'
 
     <~ effects.load!
 

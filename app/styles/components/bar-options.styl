@@ -1,0 +1,27 @@
+#bar-options
+  display block
+  position absolute
+  top 0
+  right 0
+  z-index 50
+
+  button
+    width 50px
+    height 50px
+    display block
+    float right
+    background none
+    border none
+    font-size 28px
+    line-height 38px
+    cursor pointer
+
+    &:before
+      color #999
+      text-shadow 0 0 10px rgba(0, 0, 0, 0)
+      transition all 0.5s ease
+
+    .hide-bar &:before
+      color white
+      text-shadow 0 0 10px rgba(0, 0, 0, 0.7)
+

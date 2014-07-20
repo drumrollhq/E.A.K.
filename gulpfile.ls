@@ -71,6 +71,7 @@ src = {
   css-all: './app/styles/**/*.styl'
   css: ['./app/styles/app.styl', './app/styles/min.styl']
   errors: './bower_components/slowparse/spec/errors.{base,forbidjs}.html'
+  fonts: './bower_components/font-awesome/fonts/*'
   images: './app/assets/**/*.{jpg,png,gif}'
   locale-data: './locales/**/*.json'
   locale-templates: './app/l10n-templates/**/*'
@@ -88,6 +89,7 @@ dest = {
   audio: './public/audio'
   css: './public/css'
   data: './public/data'
+  fonts: './public/fonts'
   images: './app/assets'
   js: './public/js'
   vendor: './public/lib'
@@ -102,7 +104,7 @@ script-root = new RegExp "^#{path.resolve './'}/app/(scripts|workers)/"
 gulp.task 'default' <[dev]>
 
 gulp.task 'build' <[clean]> ->
-  gulp.start \scripts \assets \stylus \l10n \vendor \errors \audio
+  gulp.start \scripts \assets \stylus \l10n \vendor \errors \audio \fonts
 
 gulp.task 'dev' <[build]> ->
   gulp.watch src.assets, ['assets']
@@ -128,6 +130,11 @@ gulp.task 'assets' ->
   gulp.src src.assets #, cwd: src.assets
     .pipe gulp-changed dest.assets
     .pipe gulp.dest dest.assets
+
+gulp.task 'fonts' ->
+  gulp.src src.fonts
+    .pipe gulp-changed dest.fonts
+    .pipe gulp.dest dest.fonts
 
 gulp.task 'vendor' ->
   streamqueue {+object-mode}, (gulp.src main-bower-files!), (gulp.src src.vendor)

@@ -16,7 +16,8 @@
     "stats.js": "*",
     "prelude-ls": "~1.1.1",
     "async": "~0.9.0",
-    "popcornjs": "~1.5.6"
+    "popcornjs": "~1.5.6",
+    "font-awesome": "~4.1.0"
   },
   "overrides": {
     "underscore": {
@@ -61,7 +62,13 @@
       "main": "lib/async.js"
     },
     "popcornjs": {
-      "main": ["popcorn.js", "plugins/subtitle/popcorn.subtitle.js"]
+      "main": [
+        "popcorn.js",
+        "plugins/subtitle/popcorn.subtitle.js"
+      ]
+    },
+    "font-awesome": {
+      "main": "*.ignore"
     }
   }
 }
