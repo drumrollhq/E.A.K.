@@ -14,11 +14,14 @@ class Settings extends Backbone.Model
     }
 
   initialize: ->
-    @on 'change:mute'  ~>
-      @publish-mute!
-      @save!
+    @on 'change:mute' ~> @publish-mute!
+    @on 'change:musicVolume' ~> @publish-volume 'music'
+    @on 'change:effectsVolume' ~> @publish-volume 'effects'
+    @on 'change' ~> @save!
 
     @publish-mute!
+    @publish-volume 'music'
+    @publish-volume 'effects'
 
   _save: ~>
     console.log 'Save settings'
@@ -40,6 +43,12 @@ class Settings extends Backbone.Model
     channels.track-volume.publish {
       track: \master
       value: if (@get \mute) then 0 else 1
+    }
+
+  publish-volume: (name) ->
+    channels.track-volume.publish {
+      track: name
+      value: @get "#{name}Volume"
     }
 
 module.exports = new Settings!

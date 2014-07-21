@@ -42,6 +42,8 @@ module.exports = class SettingsView extends Backbone.View
   events:
     'click .mute': 'toggleMute'
     'click .settings-button': 'toggleSettings'
+    'slide .range': 'changeSlider'
+    'set .range': 'changeSlider'
 
   render: ~>
     if @model.get 'mute'
@@ -51,6 +53,11 @@ module.exports = class SettingsView extends Backbone.View
 
   toggle-mute: ~>
     @model.set 'mute', not @model.get 'mute'
+
+  change-slider: (e, v) ~>
+    prop = $ e.current-target .data 'prop'
+    value = (parse-int v) / 100
+    @model.set prop, value
 
   toggle-settings: ~>
     if @modal-active
