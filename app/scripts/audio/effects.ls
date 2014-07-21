@@ -47,7 +47,7 @@ module.exports = new Effects {
   triggers:
     'kitten': 'box-get'
     'game-commands: portal': 'portal'
-    'death': 'player-death'
+    # 'death': 'player-death'
     'game-commands: edit-start': 'edit-start'
     'game-commands: edit-stop': 'edit-stop'
 }
