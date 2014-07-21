@@ -69,7 +69,27 @@
 
   <div id="bar-options">
     <button class="fa fa-volume-up mute"></button>
-    <button class="fa fa-wrench"></button>
+    <button class="settings-button">
+      <span class="fa fa-wrench icon-inactive"></span>
+      <span class="fa fa-times icon-active"></span>
+    </button>
+
+    <div id="settings">
+      <div class="cont">
+        <h2>Settings</h2>
+        <label class="range" data-prop="musicVolume">
+          <h4 class="name">Music Volume</h4>
+          <span class="value"></span>
+          <div class="slider"></div>
+        </label>
+
+        <label class="range" data-prop="effectsVolume">
+          <h4 class="name">Sound Effects Volume</h4>
+          <span class="value"></span>
+          <div class="slider"></div>
+        </label>
+      </div>
+    </div>
   </div>
 
   <div id="editor">
@@ -87,6 +107,8 @@
 
   <div id="levelcontainer">
   </div>
+
+  <div id="overlay"></div>
 
   <!-- @if !optimized -->
     <script src="/js/vendor.js"></script>

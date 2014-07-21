@@ -3,7 +3,7 @@
   position absolute
   top 0
   right 0
-  z-index 50
+  z-index 100001
 
   button
     width 50px
@@ -16,12 +16,120 @@
     line-height 38px
     cursor pointer
 
-    &:before
+    &:before, & span:before
       color #999
       text-shadow 0 0 10px rgba(0, 0, 0, 0)
       transition all 0.5s ease
 
-    .hide-bar &:before
+    .hide-bar &:before, .hide-bar & span:before
       color white
       text-shadow 0 0 10px rgba(0, 0, 0, 0.7)
 
+  .settings-button
+    span
+      display block
+      position absolute
+      margin-top -16px
+      margin-left 13px
+      transform rotate(0deg)
+      transition all 0.4s ease
+
+    .icon-inactive
+      opacity 1
+
+    .icon-active
+      opacity 0
+
+    &.active
+      span
+        transform translate(2px, 2px) rotate(90deg)
+        &:before
+          color white
+
+      .icon-inactive
+        opacity 0
+
+      .icon-active
+        opacity 1
+
+#settings
+  display none
+  position fixed
+  top 75px
+  left 0
+  right 0
+  opacity 0
+
+  &.active
+    display block
+    opacity 1
+    animation dialogue-in 0.4s ease
+
+  &.inactive
+    display block
+    opacity 0
+    animation dialogue-out 0.4s ease
+
+  .cont
+    width 100%
+    max-width 400px
+    margin auto
+    color white
+
+  h2
+    text-align center
+    font-family brandFont
+    font-size 36px
+    line-height 1.5em
+
+  .range
+    display block
+    margin-top 30px
+
+    .name
+      float left
+      font-family brandFont
+
+    .value
+      float right
+      font-family brandFont
+
+    .slider
+      clear both
+      position relative
+      top 5px
+
+#overlay
+  display none
+  position fixed
+  top 0
+  bottom 0
+  left 0
+  right 0
+  z-index 100000
+  opacity 0
+  background rgba(darkEakPurple, 0.95)
+
+  &.active
+    display block
+    opacity 1
+    animation overlay-in 0.4s ease
+
+  &.inactive
+    display block
+    opacity 0
+    animation overlay-out 0.4s ease
+
+@keyframes overlay-in
+  from
+    opacity 0
+
+  to
+    opacity 1
+
+@keyframes overlay-out
+  from
+    opacity 1
+
+  to
+    opacity 0

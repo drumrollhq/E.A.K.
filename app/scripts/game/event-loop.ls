@@ -18,7 +18,7 @@ $body = $ document.body
 
 class EventLoop
   init: ~>
-    @_paused = false
+    @paused = false
     @last = window.performance.now!
     window.request-animation-frame @frame-driver
     @setup-keys!
@@ -29,7 +29,7 @@ class EventLoop
     diff = now - @last
     @last = now
 
-    unless @_paused
+    unless @paused
       channels.pre-frame.publish-sync t: diff
       channels.frame.publish-sync t: diff
       channels.post-frame.publish-sync t: diff
@@ -38,15 +38,15 @@ class EventLoop
 
   setup-keys: ~>
     $window .on 'keypress keyup keydown' (e) ->
-      unless @_paused
+      unless @paused
         key = key-dict[e.which] or (String.from-char-code e.which .to-lower-case!)
         key-channels[e.type].publish code: e.which, key: key
 
   setup-window-events: ~>
     $window .on 'resize' (e) ->
-      unless @_paused then channels.window-size.publish width: $body.width!, height: $body.height!
+      unless @paused then channels.window-size.publish width: $body.width!, height: $body.height!
 
-  pause: ~> @_paused = true
-  resume: ~> @_paused = false
+  pause: ~> @paused = true
+  resume: ~> @paused = false
 
 module.exports = new EventLoop!
