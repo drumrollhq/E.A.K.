@@ -10,23 +10,31 @@ class Settings extends Backbone.Model
       lang: lang
       mute: ls.mute or false
       music-volume: ls.music-volume or 0.8
-      effects-volume: ls.effects-volume or 1
+      effects-volume: ls.effects-volume or 0.8
     }
 
   initialize: ->
     @on 'change:mute'  ~>
       @publish-mute!
-      @save-ls!
+      @save!
 
     @publish-mute!
 
-  save-ls: ~>
+  _save: ~>
+    console.log 'Save settings'
     data = {
       mute: @get 'mute'
-      music-volume: @get 'music-volume'
-      effects-volume: @get 'effects-volume'
+      music-volume: @get 'musicVolume'
+      effects-volume: @get 'effectsVolume'
     }
     local-storage.set-item 'eak-settings', JSON.stringify data
+
+  save: ~>
+    if @_save-thottled
+      @_save-thottled!
+    else
+      @_save-thottled = _.throttle @_save, 1000ms, leading: false
+      @_save-thottled!
 
   publish-mute: ~>
     channels.track-volume.publish {
