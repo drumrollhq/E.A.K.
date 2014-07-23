@@ -32,7 +32,7 @@ module.exports = class CutScene extends Backbone.View
     @subs[*] = channels.game-commands.filter ( .command is \stop ) .subscribe @finish
     @html = translations.cutscene.loading
     $.ajax {
-      url: name
+      url: "#{name}.html"
       success: (html) ~>
         @html = html
         $util.html @html
