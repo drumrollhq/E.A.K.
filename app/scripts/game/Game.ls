@@ -38,7 +38,7 @@ module.exports = class Game extends Backbone.Model
     parsed = Slowparse.HTML document, level-source, [TreeInspectors.forbidJS]
 
     if parsed.error isnt null
-      channels.alert.publish msg: 'There are errors in that level!'
+      channels.alert.publish msg: translations.errors.level-errors
       return
 
     for node in parsed.document.child-nodes

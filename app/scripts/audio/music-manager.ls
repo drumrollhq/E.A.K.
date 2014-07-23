@@ -46,7 +46,7 @@ class MusicManager
     err <~ async.parallel [music.load, @stop]
 
     if err?
-      channels.alert.publish msg: "Error loading music: #err"
+      channels.alert.publish msg: "#{translations.errors.music-not-found}: #err"
       return cb!
 
     music.play 'normal'

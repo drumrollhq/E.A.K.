@@ -1,5 +1,7 @@
+require! 'translations'
+
 template = """
-  <h2>Loading...</h2>
+  <h2>#{translations.cutscene.loading}</h2>
   <div class="stages"></div>
   <div class="bar">
     <div></div>

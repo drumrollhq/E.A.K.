@@ -1,4 +1,7 @@
-require! 'channels'
+require! {
+  'channels'
+  'translations'
+}
 
 module.exports = class SpriteSheet extends Backbone.View
   initialize: ({cb}) ->
@@ -82,7 +85,7 @@ module.exports = class SpriteSheet extends Backbone.View
       done!
 
     $img.on 'error' (e) ~>
-      channels.alert.publish {msg: "Error: Cannot load sprite #{@url}"}
+      channels.alert.publish {msg: "#{translations.errors.load-sprite} #{@url}"}
       done e
 
     img.src = @url

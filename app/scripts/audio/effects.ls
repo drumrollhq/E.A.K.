@@ -2,6 +2,7 @@ require! {
   'audio/Sound'
   'audio/Track'
   'channels'
+  'translations'
 }
 
 track = new Track 'effects'
@@ -15,7 +16,7 @@ class Effects
   play: (name) ~>
     unless @ready then return
     sound = @_sounds[camelize name]
-    unless sound? then throw new Error 'Sound not found: ' + name
+    unless sound? then throw new Error "#{translations.errors.sound-not-found} #name"
 
     sound.start!
 

@@ -76,15 +76,15 @@
 
     <div id="settings">
       <div class="cont">
-        <h2>Settings</h2>
+        <h2>{{settings.title}}</h2>
         <label class="range" data-prop="musicVolume">
-          <h4 class="name">Music Volume</h4>
+          <h4 class="name">{{settings.music}}</h4>
           <span class="value"></span>
           <div class="slider"></div>
         </label>
 
         <label class="range" data-prop="effectsVolume">
-          <h4 class="name">Sound Effects Volume</h4>
+          <h4 class="name">{{settings.effects}}</h4>
           <span class="value"></span>
           <div class="slider"></div>
         </label>
@@ -271,6 +271,23 @@
         "continue": "{{cutscene.continue}}",
         "error": "{{{cutscene.error}}}",
         "loading": "{{loading}}"
+      },
+      "loading": {
+        "start": "{{loader.start}}",
+        "messages": [
+          "{{loader.a}}","{{loader.b}}","{{loader.c}}","{{loader.d}}","{{loader.e}}",
+          "{{loader.f}}","{{loader.g}}","{{loader.h}}","{{loader.i}}","{{loader.j}}",
+          "{{loader.k}}","{{loader.l}}","{{loader.m}}","{{loader.n}}","{{loader.o}}",
+          "{{loader.p}}","{{loader.q}}","{{loader.r}}","{{loader.s}}","{{loader.t}}",
+          "{{loader.u}}","{{loader.v}}"
+        ]
+      },
+      "errors": {
+        "loadSprite": "{{errors.loadSprite}}",
+        "soundNotFound": "{{errors.soundNotFound}}",
+        "musicNotFound": "{{errors.musicNotFound}}",
+        "codeErrors": "{{errors.codeErrors}}",
+        "levelErrors": "{{errors.levelErrors}}"
       }
     }
   </script>

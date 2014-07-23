@@ -1,13 +1,12 @@
 require! {
   'channels'
   'logger'
+  'translations'
 }
 
 const vw = 960px
 const vh = 720px
 const v-aspect = vh / vw
-
-translations = $ '#translations' .html! |> JSON.parse
 
 template = ({next, html}) -> """
   <div class="cutscene-vid">

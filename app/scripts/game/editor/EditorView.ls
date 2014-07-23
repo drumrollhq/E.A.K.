@@ -2,6 +2,7 @@ require! {
   'channels'
   'game/editor/CodeMirrorExtras'
   'game/editor/NiceComments'
+  'translations'
 }
 
 module.exports = class EditorView extends Backbone.View
@@ -81,7 +82,7 @@ module.exports = class EditorView extends Backbone.View
 
   save: ~>
     if @has-errors
-      channels.alert.publish msg: 'There are errors in your code! Fix them before saving.'
+      channels.alert.publish msg: translations.errors.code-errors
       return
 
     @model.trigger \save

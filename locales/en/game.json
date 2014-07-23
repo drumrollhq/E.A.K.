@@ -90,5 +90,130 @@
   "play.html/cutscene.error": {
     "message": "Oh no! We couldn't load that cutscene...",
     "description": "Cutscene didn't load"
+  },
+  "play.html/settings.title": {
+    "message": "Settings",
+    "description": "Title for the settings dialogue"
+  },
+  "play.html/settings.music": {
+    "message": "Music Volume",
+    "description": "Music setting"
+  },
+  "play.html/settings.effects": {
+    "message": "Sound Effects Volume",
+    "description": "Music setting"
+  },
+  "play.html/loader.start": {
+    "message": "Loading kitten gifs...",
+    "description": "loading message"
+  },
+  "play.html/loader.a": {
+    "message": "Still loading kitten gifs...",
+    "description": "loading message"
+  },
+  "play.html/loader.b": {
+    "message": "These are some pretty heavy kittens...",
+    "description": "loading message"
+  },
+  "play.html/loader.c": {
+    "message": "So many kittens to load...",
+    "description": "loading message"
+  },
+  "play.html/loader.d": {
+    "message": "Are you having a nice day?",
+    "description": "loading message"
+  },
+  "play.html/loader.e": {
+    "message": "KITTENS KITTENS KITTENS KITTENS",
+    "description": "loading message"
+  },
+  "play.html/loader.f": {
+    "message": "...",
+    "description": "loading message"
+  },
+  "play.html/loader.g": {
+    "message": "*yawns*",
+    "description": "loading message"
+  },
+  "play.html/loader.h": {
+    "message": "Unloading kittens from the lorry...",
+    "description": "loading message"
+  },
+  "play.html/loader.i": {
+    "message": "Fighting off malicious smileys...",
+    "description": "loading message"
+  },
+  "play.html/loader.j": {
+    "message": "Taking the Ring to Mordor...",
+    "description": "loading message"
+  },
+  "play.html/loader.k": {
+    "message": "Inventing kittens...",
+    "description": "loading message"
+  },
+  "play.html/loader.l": {
+    "message": "Playing with yarn...",
+    "description": "loading message"
+  },
+  "play.html/loader.m": {
+    "message": "Oooh! Yarn!",
+    "description": "loading message"
+  },
+  "play.html/loader.n": {
+    "message": "Loading more loading messages...",
+    "description": "loading message"
+  },
+  "play.html/loader.o": {
+    "message": "Googleing more kitten gifs...",
+    "description": "loading message"
+  },
+  "play.html/loader.p": {
+    "message": "Buying kittens off ebay...",
+    "description": "loading message"
+  },
+  "play.html/loader.q": {
+    "message": "Capturing panda-sneezes...",
+    "description": "loading message"
+  },
+  "play.html/loader.r": {
+    "message": "Time for a cup of tea...",
+    "description": "loading message"
+  },
+  "play.html/loader.s": {
+    "message": "Would you like a biscuit?",
+    "description": "loading message"
+  },
+  "play.html/loader.t": {
+    "message": "Kitten gifs intercepted by the NSA...",
+    "description": "loading message"
+  },
+  "play.html/loader.u": {
+    "message": "8 minutes of battery life remaining...",
+    "description": "loading message"
+  },
+  "play.html/loader.v": {
+    "message": "Haggling over the price of kittens...",
+    "description": "loading message"
+  },
+  "play.html/errors.load-sprite": {
+    "message": "Oh no! We couldn't load the animations!",
+    "description": "error message"
+  },
+  "play.html/errors.sound-not-found": {
+    "message": "Oh no! We couldn't load the sound!",
+    "description": "error message"
+  },
+  "play.html/errors.music-not-found": {
+    "message": "Oh no! We couldn't load the music!",
+    "description": "error message"
+  },
+  "play.html/errors.code-errors": {
+    "message": "There are errors in your code! Fix them before saving.",
+    "description": "error message"
+  }
+  ,
+  "play.html/errors.level-errors": {
+    "message": "There are errors in that level!",
+    "description": "error message"
   }
 }
