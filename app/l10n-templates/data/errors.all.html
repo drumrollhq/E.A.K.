@@ -1,0 +1,86 @@
+<!-- HTML ERRORS -->
+<div class="error-msg UNEXPECTED_CLOSE_TAG">
+  <p>{{{slowparse.unexpectedCloseTag}}}</p>
+</div>
+<div class="error-msg MISMATCHED_CLOSE_TAG">
+  <p>{{{slowparse.mismatchedCloseTag}}}</p>
+</div>
+<div class="error-msg CLOSE_TAG_FOR_VOID_ELEMENT">
+  <p>{{{slowparse.closeTagForVoidElement}}}</p>
+</div>
+<div class="error-msg SELF_CLOSING_NON_VOID_ELEMENT">
+  <p>{{{slowparse.selfClosingNonVoidElement}}}</p>
+</div>
+<div class="error-msg UNCLOSED_TAG">
+  <p>{{{slowparse.unclosedTag}}}</p>
+</div>
+<div class="error-msg INVALID_TAG_NAME">
+  <p>
+    [% if (openTag.name) { %]
+      {{{slowparse.invalidTagName}}}
+    [% } else { %> %]
+      {{{slowparse.lonelyAngleBracket}}}
+    [% } %]
+  </p>
+</div>
+<div class="error-msg UNTERMINATED_ATTR_VALUE">
+  <p>{{{slowparse.unterminatedAttrValue}}}</p>
+</div>
+<div class="error-msg UNQUOTED_ATTR_VALUE">
+  <p>{{{slowparse.unquotedAttrValue}}}</p>
+</div>
+<div class="error-msg UNTERMINATED_CLOSE_TAG">
+  <p>{{{slowparse.unterminatedCloseTag}}}</p>
+</div>
+<div class="error-msg UNTERMINATED_OPEN_TAG">
+  <p>{{{slowparse.unterminatedOpenTag}}}</p>
+</div>
+<div class="error-msg UNTERMINATED_COMMENT">
+  <p>{{{slowparse.unterminatedComment}}}</p>
+</div>
+
+<!-- CSS ERRORS -->
+<div class="error-msg INVALID_CSS_PROPERTY_NAME">
+  <p>{{{slowparse.invalidCssPropertyName}}}</p>
+</div>
+<div class="error-msg MISSING_CSS_SELECTOR">
+  <p>{{{slowparse.missingCssSelector}}}</p>
+</div>
+<div class="error-msg UNFINISHED_CSS_SELECTOR">
+  <p>{{{slowparse.unfinishedCssSelector}}}</p>
+</div>
+<div class="error-msg MISSING_CSS_PROPERTY">
+  <p>{{{slowparse.missingCssProperty}}}</p>
+</div>
+<div class="error-msg UNFINISHED_CSS_PROPERTY">
+  <p>{{{slowparse.unfinishedCssProperty}}}</p>
+</div>
+<div class="error-msg MISSING_CSS_VALUE">
+  <p>{{{slowparse.missingCssValue}}}</p>
+</div>
+<div class="error-msg UNFINISHED_CSS_VALUE">
+  <p>{{{slowparse.unfinishedCssValue}}}</p>
+</div>
+<div class="error-msg MISSING_CSS_BLOCK_CLOSER">
+  <p>{{{slowparse.missingCssBlockCloser}}}</p>
+</div>
+<div class="error-msg UNCAUGHT_CSS_PARSE_ERROR">
+  <p>{{{slowparse.uncaughtCssParseError}}}</p>
+</div>
+<div class="error-msg UNTERMINATED_CSS_COMMENT">
+  <p>{{{slowparse.unterminatedCssComment}}}</p>
+</div>
+<div class="error-msg HTML_CODE_IN_CSS_BLOCK">
+  <p>{{{slowparse.htmlCodeInCssBlock}}}
+</div>
+
+<!-- FORBIDJS ERRORS -->
+<div class="error-msg SCRIPT_ELEMENT_NOT_ALLOWED">
+  <p>{{{slowparse.forbidJS}}}</p>
+</div>
+<div class="error-msg EVENT_HANDLER_ATTR_NOT_ALLOWED">
+  <p>{{{slowparse.forbidJS}}}</p>
+</div>
+<div class="error-msg JAVASCRIPT_URL_NOT_ALLOWED">
+  <p>{{{slowparse.forbidJS}}}</p>
+</div>

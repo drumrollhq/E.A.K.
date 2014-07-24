@@ -210,10 +210,105 @@
   "play.html/errors.code-errors": {
     "message": "There are errors in your code! Fix them before saving.",
     "description": "error message"
-  }
-  ,
+  },
   "play.html/errors.level-errors": {
     "message": "There are errors in that level!",
     "description": "error message"
+  },
+  "data/errors.all.html/slowparse.unexpected-close-tag": {
+    "message": "Watch out! You've got a closing (end) <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag, but no opening (start) tag to go with it.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.mismatched-close-tag": {
+    "message": "These tags don't match! You've got a closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag, but it's trying to pair with the opening <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;/{{closeTag.name}}&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.close-tag-for-void-element": {
+    "message": "DRAMA: <code>&lt;{{closeTag.name}}&gt;</code> tags don't have closing tags, so this <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> isn't needed.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.self-closing-non-void-element": {
+    "message": "OI! You can't have a <code>/</code> at the end of this opening <code data-highlight=\"{{start}},{{end}}\">&lt;{{name}}&gt;</code>. It has to go in a closing <code>&lt;/{name}}&gt;</code> tag.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unclosed-tag": {
+    "message": "Oh no! This <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code> needs a closing <code>&lt;/{{openTag.name}}&gt;</code> tag.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.invalid-tag-name": {
+    "message": "There's no such thing as a <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code> tag. The masters of HTML wouldn't allow it.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.lonely-angle-bracket": {
+    "message": "This lonely <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;</code> looks like the start of a tag. It doesn't work on its own - delete it, or add the tag name and closing <code>&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unterminated-attr-value": {
+    "message": "You need to add a <code>\"</code> at the end of this <code data-highlight=\"{{attribute.openTag.start}}\">&lt;{{openTag.name}}&gt;</code> tag's <code data-highlight=\"{{attribute.value.start}}\">{{attribute.name.value}}</code> attribute. Crazy, right?",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unquoted-attr-value": {
+    "message": "You need a <code>\"</code> after the <code>=</code> on this <code data-highlight=\"{{attribute.start}}\">{{attribute.name}}</code> attribute. Just saying.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unterminated-close-tag": {
+    "message": "Whuuutttt!? You need to add a <code>&gt;</code> to this closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unterminated-open-tag": {
+    "message": "FYI, you need to add a <code>&gt;</code> to the end of this opening <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unterminated-comment": {
+    "message": "This comment should end with a <code>--&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.invalid-css-property-name": {
+    "message": "Hey! There's no such thing as <code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}</code>. The CSS gods decided it wasn't meant to be. Or perhaps you spelled it wrong...",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.missing-css-selector": {
+    "message": "You need to finish your CSS with a <code data-highlight=\"{{cssBlock.start}},{{cssBlock.end}}\">&lt;/style&gt;</code> tag!",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unfinished-css-selector": {
+    "message": "This selector <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> should end with a <code>{</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.missing-css-property": {
+    "message": "This <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> is empty! It needs a property.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unfinished-css-property": {
+    "message": "<code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}</code> isn't finished! You need a <code>:</code> after the property's name.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.missing-css-value": {
+    "message": "You need to add a value after <code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}:</code>!",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unfinished-css-value": {
+    "message": "Oops! Finish your value <code data-highlight=\"{{cssValue.start}},{{cssValue.end}}\">{{cssValue.value}}</code> with a <code>;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.missing-css-block-closer": {
+    "message": "You need to finish this <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> CSS block with a <code>}</code> after <code data-highlight=\"{{cssValue.start}},{{cssValue.end}}\">{{cssValue.value}};</code>",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.uncaught-css-parse-error": {
+    "message": "Something's gone terribly wrong. You probably don't know what, and neither do we, but we found this at the scene of the crime: <code data-highlight=\"{{error.start}},{{error.end}}\">{{error.msg}}</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unterminated-css-comment": {
+    "message": "You need to finish this CSS comment with a <code>*/</code>! DO IT!",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.html-code-in-css-block": {
+    "message": "EWWWW!!! You've got HTML in your CSS! It doesn't belong there...",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.forbid-JS": {
+    "message": "Sorry! You can't use JavaScript in E.A.K. (yet). So don't. The JavaScript police will get you with their sharp pointy teeth!",
+    "description": "HTML/CSS error"
   }
 }

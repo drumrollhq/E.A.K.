@@ -70,7 +70,6 @@ src = {
   audio: './app/audio/**/*'
   css-all: './app/styles/**/*.styl'
   css: ['./app/styles/app.styl', './app/styles/min.styl']
-  errors: './bower_components/slowparse/spec/errors.{base,forbidjs}.html'
   fonts: './bower_components/font-awesome/fonts/*'
   images: './app/assets/**/*.{jpg,png,gif}'
   locale-data: './locales/**/*.json'
@@ -104,7 +103,7 @@ script-root = new RegExp "^#{path.resolve './'}/app/(scripts|workers)/"
 gulp.task 'default' <[dev]>
 
 gulp.task 'build' <[clean]> ->
-  gulp.start \scripts \assets \stylus \l10n \vendor \errors \audio \fonts
+  gulp.start \scripts \assets \stylus \l10n \vendor \audio \fonts
 
 gulp.task 'dev' <[build]> ->
   gulp.watch src.assets, ['assets']
@@ -202,11 +201,6 @@ gulp.task 'l10n' ['l10n-data'] ->
     .pipe localize! .on 'error' -> throw it
     .pipe gulp.dest dest.assets
 
-gulp.task 'errors' ->
-  gulp.src src.errors
-    .pipe gulp-concat 'errors.all.html'
-    .pipe gulp.dest dest.data
-
 gulp.task 'workers' ->
   ls = gulp.src src.workers
     .pipe gulp-livescript bare: true
@@ -292,6 +286,15 @@ function hack-slowparse
 
       contents = orig.replace a, b
 
+      file.contents = new Buffer contents
+
+    if file.path.match /\/bower_components\/slowparse\/spec\/errors\.jquery\.js$/
+      orig = file.contents.to-string!
+      a = 'var _ = (function createUnderscoreTemplating() {'
+      b = 'var _ignore = (function createUnderscoreTemplating() {'
+      c = 'escape: /\\{\\{(.+?)\\}\\}/g'
+      d = 'escape: /\\{\\{(.+?)\\}\\}/g, evaluate: /\\[%(.+?)%\\]/'
+      contents = orig.replace a, b .replace c, d
       file.contents = new Buffer contents
 
     cb null, file
