@@ -1,217 +1,217 @@
 {
-  "play.html/language": {
+  "play/index.html/language": {
     "message": "English",
     "description": "The name of the language you're translating to, in that language."
   },
-  "play.html/title": {
+  "play/index.html/title": {
     "message": "Erase All Kittens",
     "description": "The name of the game!"
   },
-  "play.html/main-menu.new-game": {
+  "play/index.html/main-menu.new-game": {
     "message": "New Game",
     "description": "button on the main menu"
   },
-  "play.html/main-menu.load-game": {
+  "play/index.html/main-menu.load-game": {
     "message": "Load Game",
     "description": "button on the main menu"
   },
-  "play.html/main-menu.about": {
+  "play/index.html/main-menu.about": {
     "message": "About",
     "description": "button on the main menu"
   },
-  "play.html/about.description": {
+  "play/index.html/about.description": {
     "message": "Erase All Kittens is a platform game with a difference: the levels are written in HTML and CSS, and the only way to get past them is to use your coding skills to hack the level.",
     "description": "a short description of the game"
   },
-  "play.html/about.instructions": {
+  "play/index.html/about.instructions": {
     "message": "Use the <kbd>A</kbd> and <kbd>D</kbd> or <kbd>&larr;</kbd> and <kbd>&rarr;</kbd> keys to go left and right. Use <kbd>W</kbd>, <kbd>space</kbd>, or <kbd>&uarr;</kbd> to jump.",
     "description": "brief instructions on the 'about' page"
   },
-  "play.html/about.have-fun": {
+  "play/index.html/about.have-fun": {
     "message": "Have fun!",
     "description": "have fun or else."
   },
-  "play.html/back": {
+  "play/index.html/back": {
     "message": "Back",
     "description": "for a 'back' button"
   },
-  "play.html/todo": {
+  "play/index.html/todo": {
     "message": "To do.",
     "description": "for when I've not done stuff yet ;)"
   },
-  "play.html/loading": {
+  "play/index.html/loading": {
     "message": "Loading...",
     "description": ""
   },
-  "play.html/old-browser-msg.title": {
+  "play/index.html/old-browser-msg.title": {
     "message": "Sorry!",
     "description": "This is the heading for a notice that tells users on older browsers that they can't run the game"
   },
-  "play.html/old-browser-msg.html": {
+  "play/index.html/old-browser-msg.html": {
     "message": "Unfortunately, your browser doesn't support everything we need for you to play Erase All Kittens!. Try installing <a href=\"http://www.mozilla.org/en-US/firefox/\">Firefox</a>.",
     "description": "Prompt users on old browsers to upgrade to a newer one"
   },
-  "play.html/menu.restart": {
+  "play/index.html/menu.restart": {
     "message": "Restart",
     "description": "Button on the bar at the top of the screen during levels. Puts the level and player back in the starting state."
   },
-  "play.html/menu.edit": {
+  "play/index.html/menu.edit": {
     "message": "Edit",
     "description": "Button on the bar at the top of the screen during levels. Opens up the edit view."
   },
-  "play.html/menu.save": {
+  "play/index.html/menu.save": {
     "message": "Save",
     "description": "Button on the bar at the top of the screen during levels. Closes the edit view, keeping the code the user entered"
   },
-  "play.html/menu.reset": {
+  "play/index.html/menu.reset": {
     "message": "Reset",
     "description": "Button on the bar at the top of the screen during levels. When in the edit view, this sets the code to how it was at the start of the level"
   },
-  "play.html/menu.cancel": {
+  "play/index.html/menu.cancel": {
     "message": "Cancel",
     "description": "Button on the bar at the top of the screen during levels. Closes the edit view, discarding the code the user entered"
   },
-  "play.html/menu.undo": {
+  "play/index.html/menu.undo": {
     "message": "Undo",
     "description": "Undo button for the code editor"
   },
-  "play.html/menu.redo": {
+  "play/index.html/menu.redo": {
     "message": "Redo",
     "description": "Redo button for the code editor"
   },
-  "play.html/cutscene.skip": {
+  "play/index.html/cutscene.skip": {
     "message": "Skip",
     "description": "Skip the current cutscene"
   },
-  "play.html/cutscene.continue": {
+  "play/index.html/cutscene.continue": {
     "message": "Continue",
     "description": "Continue after the cutscene"
   },
-  "play.html/cutscene.error": {
+  "play/index.html/cutscene.error": {
     "message": "Oh no! We couldn't load that cutscene...",
     "description": "Cutscene didn't load"
   },
-  "play.html/settings.title": {
+  "play/index.html/settings.title": {
     "message": "Settings",
     "description": "Title for the settings dialogue"
   },
-  "play.html/settings.music": {
+  "play/index.html/settings.music": {
     "message": "Music Volume",
     "description": "Music setting"
   },
-  "play.html/settings.effects": {
+  "play/index.html/settings.effects": {
     "message": "Sound Effects Volume",
     "description": "Music setting"
   },
-  "play.html/loader.start": {
+  "play/index.html/loader.start": {
     "message": "Loading kitten gifs...",
     "description": "loading message"
   },
-  "play.html/loader.a": {
+  "play/index.html/loader.a": {
     "message": "Still loading kitten gifs...",
     "description": "loading message"
   },
-  "play.html/loader.b": {
+  "play/index.html/loader.b": {
     "message": "These are some pretty heavy kittens...",
     "description": "loading message"
   },
-  "play.html/loader.c": {
+  "play/index.html/loader.c": {
     "message": "So many kittens to load...",
     "description": "loading message"
   },
-  "play.html/loader.d": {
+  "play/index.html/loader.d": {
     "message": "Are you having a nice day?",
     "description": "loading message"
   },
-  "play.html/loader.e": {
+  "play/index.html/loader.e": {
     "message": "KITTENS KITTENS KITTENS KITTENS",
     "description": "loading message"
   },
-  "play.html/loader.f": {
+  "play/index.html/loader.f": {
     "message": "...",
     "description": "loading message"
   },
-  "play.html/loader.g": {
+  "play/index.html/loader.g": {
     "message": "*yawns*",
     "description": "loading message"
   },
-  "play.html/loader.h": {
+  "play/index.html/loader.h": {
     "message": "Unloading kittens from the lorry...",
     "description": "loading message"
   },
-  "play.html/loader.i": {
+  "play/index.html/loader.i": {
     "message": "Fighting off malicious smileys...",
     "description": "loading message"
   },
-  "play.html/loader.j": {
+  "play/index.html/loader.j": {
     "message": "Taking the Ring to Mordor...",
     "description": "loading message"
   },
-  "play.html/loader.k": {
+  "play/index.html/loader.k": {
     "message": "Inventing kittens...",
     "description": "loading message"
   },
-  "play.html/loader.l": {
+  "play/index.html/loader.l": {
     "message": "Playing with yarn...",
     "description": "loading message"
   },
-  "play.html/loader.m": {
+  "play/index.html/loader.m": {
     "message": "Oooh! Yarn!",
     "description": "loading message"
   },
-  "play.html/loader.n": {
+  "play/index.html/loader.n": {
     "message": "Loading more loading messages...",
     "description": "loading message"
   },
-  "play.html/loader.o": {
+  "play/index.html/loader.o": {
     "message": "Googleing more kitten gifs...",
     "description": "loading message"
   },
-  "play.html/loader.p": {
+  "play/index.html/loader.p": {
     "message": "Buying kittens off ebay...",
     "description": "loading message"
   },
-  "play.html/loader.q": {
+  "play/index.html/loader.q": {
     "message": "Capturing panda-sneezes...",
     "description": "loading message"
   },
-  "play.html/loader.r": {
+  "play/index.html/loader.r": {
     "message": "Time for a cup of tea...",
     "description": "loading message"
   },
-  "play.html/loader.s": {
+  "play/index.html/loader.s": {
     "message": "Would you like a biscuit?",
     "description": "loading message"
   },
-  "play.html/loader.t": {
+  "play/index.html/loader.t": {
     "message": "Kitten gifs intercepted by the NSA...",
     "description": "loading message"
   },
-  "play.html/loader.u": {
+  "play/index.html/loader.u": {
     "message": "8 minutes of battery life remaining...",
     "description": "loading message"
   },
-  "play.html/loader.v": {
+  "play/index.html/loader.v": {
     "message": "Haggling over the price of kittens...",
     "description": "loading message"
   },
-  "play.html/errors.load-sprite": {
+  "play/index.html/errors.load-sprite": {
     "message": "Oh no! We couldn't load the animations!",
     "description": "error message"
   },
-  "play.html/errors.sound-not-found": {
+  "play/index.html/errors.sound-not-found": {
     "message": "Oh no! We couldn't load the sound!",
     "description": "error message"
   },
-  "play.html/errors.music-not-found": {
+  "play/index.html/errors.music-not-found": {
     "message": "Oh no! We couldn't load the music!",
     "description": "error message"
   },
-  "play.html/errors.code-errors": {
+  "play/index.html/errors.code-errors": {
     "message": "There are errors in your code! Fix them before saving.",
     "description": "error message"
   },
-  "play.html/errors.level-errors": {
+  "play/index.html/errors.level-errors": {
     "message": "There are errors in that level!",
     "description": "error message"
   },

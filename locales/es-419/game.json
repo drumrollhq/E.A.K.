@@ -1,93 +1,93 @@
 {
-    "play.html/title": {
+    "play/index.html/title": {
         "message": "Erase All Kittens (Elimina a Todos los Gatitos)",
         "description": "The name of the game!"
     },
-    "play.html/old-browser-msg.html": {
+    "play/index.html/old-browser-msg.html": {
         "message": "Desafortunadamente tu navegador no ofrece el soporte necesario para jugar Erase All Kittens! (Elimina a Todos los Gatitos). Intenta instalando <a href=\"http://www.mozilla.org/en-US/firefox/\">Firefox</a>.",
         "description": "Prompt users on old browsers to upgrade to a newer one"
     },
-    "play.html/menu.edit": {
+    "play/index.html/menu.edit": {
         "message": "Editar",
         "description": "Button on the bar at the top of the screen during levels. Opens up the edit view."
     },
-    "play.html/cutscene.continue": {
+    "play/index.html/cutscene.continue": {
         "message": "Continuar",
         "description": "Continue after the cutscene"
     },
-    "play.html/language": {
+    "play/index.html/language": {
         "message": "Español (Latinoamérica)",
         "description": "The name of the language you're translating to, in that language."
     },
-    "play.html/main-menu.load-game": {
+    "play/index.html/main-menu.load-game": {
         "message": "Cargar juego",
         "description": "button on the main menu"
     },
-    "play.html/main-menu.new-game": {
+    "play/index.html/main-menu.new-game": {
         "message": "Nuevo juego",
         "description": "button on the main menu"
     },
-    "play.html/old-browser-msg.title": {
+    "play/index.html/old-browser-msg.title": {
         "message": "¡Lo siento!",
         "description": "This is the heading for a notice that tells users on older browsers that they can't run the game"
     },
-    "play.html/menu.cancel": {
+    "play/index.html/menu.cancel": {
         "message": "Cancelar",
         "description": "Button on the bar at the top of the screen during levels. Closes the edit view, discarding the code the user entered"
     },
-    "play.html/menu.undo": {
+    "play/index.html/menu.undo": {
         "message": "Deshacer",
         "description": "Undo button for the code editor"
     },
-    "play.html/loading": {
+    "play/index.html/loading": {
         "message": "Cargando...",
         "description": ""
     },
-    "play.html/about.have-fun": {
+    "play/index.html/about.have-fun": {
         "message": "¡Diviértete!",
         "description": "have fun or else."
     },
-    "play.html/back": {
+    "play/index.html/back": {
         "message": "Regresar",
         "description": "for a 'back' button"
     },
-    "play.html/cutscene.skip": {
+    "play/index.html/cutscene.skip": {
         "message": "Saltar",
         "description": "Skip the current cutscene"
     },
-    "play.html/about.description": {
+    "play/index.html/about.description": {
         "message": "Erase All Kittens (Elimina a Todos los Gatitos) es una plataforma de juego con una diferencia: Los niveles del juego están escritos en HTML y CSS, y la única manera de avanzar es usando tus habilidades de programación para \"hackear\" el nivel siguiente.",
         "description": "a short description of the game"
     },
-    "play.html/menu.save": {
+    "play/index.html/menu.save": {
         "message": "Guardar",
         "description": "Button on the bar at the top of the screen during levels. Closes the edit view, keeping the code the user entered"
     },
-    "play.html/menu.redo": {
+    "play/index.html/menu.redo": {
         "message": "Rehacer",
         "description": "Redo button for the code editor"
     },
-    "play.html/about.instructions": {
+    "play/index.html/about.instructions": {
         "message": "Usa las teclas <kbd>A</kbd> y <kbd>D</kbd> o <kbd>&larr;</kbd> y <kbd>&rarr;</kbd> para moverte a la izquiera y derecha. Usa <kbd>W</kbd>, <kbd>espacio</kbd>, o <kbd>&uarr;</kbd> para brincar.",
         "description": "brief instructions on the 'about' page"
     },
-    "play.html/main-menu.about": {
+    "play/index.html/main-menu.about": {
         "message": "Acerca de",
         "description": "button on the main menu"
     },
-    "play.html/menu.reset": {
+    "play/index.html/menu.reset": {
         "message": "Restaurar",
         "description": "Button on the bar at the top of the screen during levels. When in the edit view, this sets the code to how it was at the start of the level"
     },
-    "play.html/cutscene.error": {
+    "play/index.html/cutscene.error": {
         "message": "¡Oh no! Esta escena no pudo ser cargada...",
         "description": "Cutscene didn't load"
     },
-    "play.html/menu.restart": {
+    "play/index.html/menu.restart": {
         "message": "Reiniciar",
         "description": "Button on the bar at the top of the screen during levels. Puts the level and player back in the starting state."
     },
-    "play.html/todo": {
+    "play/index.html/todo": {
         "message": "Por completar",
         "description": "for when I've not done stuff yet ;)"
     }
