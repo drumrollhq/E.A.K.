@@ -68,8 +68,8 @@
   </div>
 
   <div id="bar-options">
-    <button class="fa fa-volume-up mute"></button>
-    <button class="settings-button">
+    <button class="fa fa-volume-up mute square"></button>
+    <button class="settings-button square">
       <span class="fa fa-wrench icon-inactive"></span>
       <span class="fa fa-times icon-active"></span>
     </button>
@@ -88,6 +88,12 @@
           <span class="value"></span>
           <div class="slider"></div>
         </label>
+
+        <div class="lang-select">
+          <h4>{{settings.language}}</h4>
+          <button data-lang="en" class="btn lang">English</button>
+          <button data-lang="es-419" class="btn lang">Español (Latinoamérica)</button>
+        </div>
       </div>
     </div>
   </div>
@@ -288,7 +294,8 @@
         "musicNotFound": "{{errors.musicNotFound}}",
         "codeErrors": "{{errors.codeErrors}}",
         "levelErrors": "{{errors.levelErrors}}"
-      }
+      },
+      "settings": {"languageWarn": "{{{settings.languageWarn}}}"}
     }
   </script>
 

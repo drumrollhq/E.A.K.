@@ -103,6 +103,14 @@
     "message": "Sound Effects Volume",
     "description": "Music setting"
   },
+  "play/index.html/settings.language": {
+    "message": "Language",
+    "description": "Heading in settings page"
+  },
+  "play/index.html/settings.language-warn": {
+    "message": "If you change language, you'll lose any progress you made on your current level. Are you sure you want to continue?",
+    "description": "Language change warning in settings page"
+  },
   "play/index.html/loader.start": {
     "message": "Loading kitten gifs...",
     "description": "loading message"

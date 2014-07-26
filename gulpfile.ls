@@ -175,9 +175,10 @@ gulp.task 'audio' ->
           cb!
         .run!
 
-gulp.task 'stylus' ->
+gulp.task 'stylus' (cb) ->
   gulp.src src.css
     .pipe gulp-stylus stylus-conf
+    .on 'error' -> throw it
     .pipe if optimized then gulp-minify-css! else noop!
     .pipe gulp.dest dest.css
 

@@ -1,4 +1,7 @@
-require! 'game/event-loop'
+require! {
+  'game/event-loop'
+  'translations'
+}
 
 animation-end = {
   'WebkitAnimation': 'webkitAnimationEnd'
@@ -17,6 +20,7 @@ module.exports = class SettingsView extends Backbone.View
     @$mute-button = @$ '.mute'
     @$settings-button = @$ '.settings-button'
     @$overlay = $ '#overlay, #settings'
+    @$lang-buttons = @$ '.lang'
 
     @$ '.range' .each (i, el) ~>
       $el = $ el
@@ -44,8 +48,12 @@ module.exports = class SettingsView extends Backbone.View
     'click .settings-button': 'toggleSettings'
     'slide .range': 'changeSlider'
     'set .range': 'changeSlider'
+    'click .lang': 'changeLanguage'
 
   render: ~>
+    @$lang-buttons.remove-class 'disabled'
+    @$ ".lang[data-lang=#{@model.get 'lang'}]" .add-class 'disabled'
+
     if @model.get 'mute'
       @$mute-button.remove-class 'fa-volume-up' .add-class 'fa-volume-off'
     else
@@ -58,6 +66,13 @@ module.exports = class SettingsView extends Backbone.View
     prop = $ e.current-target .data 'prop'
     value = (parse-int v) / 100
     @model.set prop, value
+
+  change-language: (e) ~>
+    $button = $ e.current-target
+    lang = $button.data 'lang'
+
+    if confirm translations.settings.language-warn
+      @model.set 'lang' lang
 
   toggle-settings: ~>
     if @modal-active

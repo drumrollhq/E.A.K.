@@ -17,6 +17,7 @@ class Settings extends Backbone.Model
     @on 'change:mute' ~> @publish-mute!
     @on 'change:musicVolume' ~> @publish-volume 'music'
     @on 'change:effectsVolume' ~> @publish-volume 'effects'
+    @on 'change:lang' ~> @switch-lang!
     @on 'change' ~> @save!
 
     @publish-mute!
@@ -50,5 +51,9 @@ class Settings extends Backbone.Model
       track: name
       value: @get "#{name}Volume"
     }
+
+  switch-lang: (lang = @get 'lang') ~>
+    document.cookie = "eak-lang=#{lang};"
+    window.location.href = "/#{lang}/play/#{window.location.hash}"
 
 module.exports = new Settings!
