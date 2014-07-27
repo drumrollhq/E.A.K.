@@ -48,8 +48,16 @@
     "description": "This is the heading for a notice that tells users on older browsers that they can't run the game"
   },
   "play/index.html/old-browser-msg.html": {
-    "message": "Unfortunately, your browser doesn't support everything we need for you to play Erase All Kittens!. Try installing <a href=\"http://www.mozilla.org/en-US/firefox/\">Firefox</a>.",
+    "message": "Unfortunately, your browser doesn't support everything we need for E.A.K. to run well. You seem to be missing:",
     "description": "Prompt users on old browsers to upgrade to a newer one"
+  },
+  "play/index.html/old-browser-msg.ignore": {
+    "message": "You can ignore this message and continue anyway, but things are likely to be broken or not work at all. E.A.K. runs best in the latest <a href=\"http://mozilla.org/firefox\">Firefox</a> or <a href=\"http://google.com/chrome\">Chrome</a>.",
+    "description": "Users of old browsers can continue anyway, but we'd rather they upgraded"
+  },
+  "play/index.html/old-browser-msg.continue": {
+    "message": "Continue anyway &rarr;",
+    "description": "Continue"
   },
   "play/index.html/menu.restart": {
     "message": "Restart",

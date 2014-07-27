@@ -13,8 +13,14 @@ require! {
 module.exports = class Init extends Backbone.View
   initialize: ->
     # Check this browser is capable of running EAK
-    unless @compatible!
-      @$ \#incompatible .show-dialogue!
+    {compatible, lacking} = @compatible!
+    unless compatible
+      @$ '#incompatible'
+        ..make-only-shown-dialogue!
+        ..find 'ul' .html "<li>#{lacking.join '</li><li>'}</li>"
+        ..find 'button' .on 'click' ->
+          window.session-storage.set-item 'eak-ignore-compatibility' true
+          window.location.reload!
       return
 
     new SettingsView model: settings, el: $ '#bar-options'
@@ -37,13 +43,14 @@ module.exports = class Init extends Backbone.View
   # Uses modernizr to check that all the browser features that EAK requires are present. Returns true
   # if they are, false if not.
   compatible: ->
-    needed = <[ csstransforms cssanimations csstransitions csscalc boxsizing canvas webworkers ]>
+    if window.session-storage.get-item 'eak-ignore-compatibility' then return {compatible: true, lacking: false}
 
+    needed = <[ csstransforms cssanimations csstransitions csscalc boxsizing canvas webworkers webaudio ]>
     lacking = _.filter needed, ( not Modernizr. )
 
     if lacking.length > 0
       console.log 'Lacking:', lacking
       logger.log 'incompatible', {lacking}
-      false
+      {compatible: false, lacking}
     else
-      true
+      {compatible: true, lacking: []}
