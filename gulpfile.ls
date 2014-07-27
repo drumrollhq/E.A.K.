@@ -1,6 +1,6 @@
 require! {
   es: 'event-stream'
-  exec: 'exec-sync'
+  exec: 'execSync'
   ffmpeg: 'fluent-ffmpeg'
   File: 'vinyl'
   ProgressBar: 'progress'
@@ -49,7 +49,7 @@ optimized = argv.o or argv.optimized or argv.optimised or false
 console.log "Optimized?: #optimized"
 preprocess-context = {
   optimized: optimized
-  version: exec 'git rev-parse HEAD'
+  version: exec.exec 'git rev-parse HEAD' .stdout
   scripts: scripts
   languages: languages |> map (-> "'#it'") |> join ',' |> (-> "[#it]")
 }

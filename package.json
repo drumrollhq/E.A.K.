@@ -17,7 +17,7 @@
   "dependencies": {
     "LiveScript": "^1.2.0",
     "event-stream": "^3.1.5",
-    "exec-sync": "^0.1.6",
+    "execSync": "^1.0.1-pre",
     "fluent-ffmpeg": "^2.0.0-rc1",
     "glob": "^4.0.2",
     "gulp": "^3.7.0",
