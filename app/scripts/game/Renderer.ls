@@ -67,7 +67,6 @@ module.exports = class Renderer extends Backbone.View
   setup-hover: ~>
     chan = channels.parse 'contact: start: ENTITY_PLAYER, end: ENTITY_PLAYER'
     @subs[*] = chan.subscribe (contact) ->
-      console.log {contact}
       [player, other] = contact.find 'ENTITY_PLAYER'
       if other.el?
         el = other.el

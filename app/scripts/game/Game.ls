@@ -31,7 +31,6 @@ module.exports = class Game extends Backbone.Model
 
   start-level: (level-url) ~>
     event <~ logger.start 'level', {level: level-url, parent: @logger-parent}
-    console.log {level-url}
     l = prefix + level-url + "?#{Date.now!}"
     logger.set-default-parent event.id
     level-source <~ $.get l, _

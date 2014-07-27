@@ -81,7 +81,6 @@ module.exports = class SpriteSheet extends Backbone.View
     $img = $ img
     $img.on 'load' (e) ~>
       @scale-factor = img.height / @size.height
-      console.log @{scale-factor}
       done!
 
     $img.on 'error' (e) ~>
