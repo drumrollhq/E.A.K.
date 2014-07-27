@@ -35,8 +35,7 @@
       "main": [
         "modernizr.js",
         "feature-detects/css-calc.js",
-        "feature-detects/css-boxsizing.js",
-        "feature-detects/audio-webaudio-api.js"
+        "feature-detects/css-boxsizing.js"
       ]
     },
     "prelude-ls": {

@@ -14,8 +14,5 @@ format = first formats
 if AudioContext?
   module.exports = new AudioContext!
   module.exports.format = format
-else if webkitAudioContext?
-  module.exports = new webkitAudioContext!
-  module.exports.format = format
 else
   module.exports = false

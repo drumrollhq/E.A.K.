@@ -43,6 +43,7 @@ module.exports = class Init extends Backbone.View
   # Uses modernizr to check that all the browser features that EAK requires are present. Returns true
   # if they are, false if not.
   compatible: ->
+    Modernizr.addTest 'webaudio', !!window.AudioContext
     if window.session-storage.get-item 'eak-ignore-compatibility' then return {compatible: true, lacking: false}
 
     needed = <[ csstransforms cssanimations csstransitions csscalc boxsizing canvas webworkers webaudio ]>
