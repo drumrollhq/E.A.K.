@@ -3,6 +3,8 @@ require! {
   'channels'
 }
 
+unless context then return module.exports = false
+
 nodes = {}
 
 nodes.master = context.create-gain!

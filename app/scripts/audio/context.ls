@@ -3,4 +3,4 @@ if AudioContext?
 else if webkitAudioContext?
   module.exports = new webkitAudioContext!
 else
-  module.exports = {}
+  module.exports = false

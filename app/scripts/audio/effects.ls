@@ -5,6 +5,13 @@ require! {
   'translations'
 }
 
+unless Track then return module.exports = new class MockEffects
+  -> @ready = false
+  play: -> null
+  load: (cb) ~>
+    @ready = true
+    cb!
+
 track = new Track 'effects'
 
 class Effects

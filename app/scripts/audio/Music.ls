@@ -4,6 +4,15 @@ require! {
   'audio/Track'
 }
 
+unless Track then return module.exports = class MockMusic
+  -> @playing = false
+  load: (cb) -> cb!
+  play: -> null
+  stop: -> null
+  fade-out: (d, cb = -> null) -> cb!
+  switch-to: -> null
+  fade-to: -> null
+
 track = new Track 'music'
 
 module.exports = class Music
