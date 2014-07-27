@@ -2,17 +2,12 @@ require! 'audio/context'
 
 cache = {}
 
-formats = <[mp3 ogg]> .filter (format) -> Modernizr.audio[format] is 'probably'
-if empty formats then return module.exports = {}
-
-format = first formats
-
 module.exports = function fetch-audio-data url, cb
   if cache[url]? then return cb cache[url], null
 
   $.ajax {
     type: \GET
-    url: "#{url}.#{format}"
+    url: "#{url}.#{context.format}"
     data-type: 'arraybuffer'
     error: (xhr, status, err) -> cb null, "Error loading #url: #status - #err"
     success: (data) ->
