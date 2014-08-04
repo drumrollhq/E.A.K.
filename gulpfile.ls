@@ -49,7 +49,7 @@ optimized = argv.o or argv.optimized or argv.optimised or false
 console.log "Optimized?: #optimized"
 preprocess-context = {
   optimized: optimized
-  version: exec.exec 'git rev-parse HEAD' .stdout
+  version: exec.exec 'git rev-parse HEAD' .stdout.trim!
   scripts: scripts
   languages: languages |> map (-> "'#it'") |> join ',' |> (-> "[#it]")
 }
@@ -267,7 +267,7 @@ function locale-data-cache
 
 function hack-slowparse
   es.map (file, cb) ->
-    if file.path.match /\/bower_components\/slowparse\/slowparse\.js$/
+    if file.path.replace /\\/g '/' .match /\/bower_components\/slowparse\/slowparse\.js$/
       orig = file.contents.to-string!
       a = '''
         // ### Exported Symbols
@@ -289,7 +289,7 @@ function hack-slowparse
 
       file.contents = new Buffer contents
 
-    if file.path.match /\/bower_components\/slowparse\/spec\/errors\.jquery\.js$/
+    if file.path.replace /\\/g '/' .match /\/bower_components\/slowparse\/spec\/errors\.jquery\.js$/
       orig = file.contents.to-string!
       a = 'var _ = (function createUnderscoreTemplating() {'
       b = 'var _ignore = (function createUnderscoreTemplating() {'
@@ -302,7 +302,7 @@ function hack-slowparse
 
 function vendor-wrapper
   es.map (file, cb) ->
-    unless file.path.match /\/bower_components\/slowparse/
+    unless file.path.replace /\\/g '/' .match /\/bower_components\/slowparse/
       file.contents = Buffer.concat [
         new Buffer ';(function(){'
         file.contents
