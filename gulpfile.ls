@@ -98,7 +98,7 @@ tmp = {
   css: './.tmp/css'
 }
 
-script-root = new RegExp "^#{path.resolve './'}/app/(scripts|workers)/"
+script-root = new RegExp "^#{path.resolve './' .replace /\\/g, '\\\\'}(/|\\\\)app(/|\\\\)(scripts|workers)(/|\\\\)"
 
 gulp.task 'default' <[dev]>
 
@@ -217,7 +217,7 @@ gulp.task 'workers' ->
 # Custom plugins:
 function wrap-commonjs
   es.map (file, cb) ->
-    name = file.path.replace script-root, '' .replace /\.js$/, ''
+    name = file.path.replace script-root, '' .replace /\.js$/, '' .replace /\\/g '/'
     file.contents = Buffer.concat [
       new Buffer """;require.register("#{name}", function(exports,require,module){\n"""
       file.contents
@@ -316,8 +316,9 @@ function noop
 
 # Utils:
 function relative-path file
-  base-re = new RegExp "^#{file.base}"
-  file.path.replace base-re, ''
+  base-re = new RegExp "^#{file.base .replace /\\/g, '\\\\'}"
+  
+  file.path.replace base-re, '' .replace /\\/g, '/'
 
 function country-code path
   path |> split '/' |> first
