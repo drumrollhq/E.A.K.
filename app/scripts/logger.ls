@@ -1,66 +1,123 @@
-no-op = -> null
+const dt = 5000ms
 
-send = (url, data = {}, cb = no-op) ->
+no-op = -> null
+post-json = ({url, data, success, error}) ->
   $.ajax {
     method: \POST
-    url: "/api/#url"
-    data-type: 'json'
     content-type: 'application/json'
+    url: url
     data: JSON.stringify data
-    success: (event) -> cb event
-    error: ->
-      # Send fake event so everything still works:
-      cb {
-        id: 0
-        parent-id: 0
-        type: \__error
-      }
-      console.error arguments
+    success: success
+    error: error
   }
 
-const dt = 5000ms
-active-events = {}
-default-parent = undefined
+create-session = (data, cb) ->
+  post-json {
+    url: '/api/v1/sessions'
+    data: data
+    success: (session) -> cb session
+    error: ->
+      console.error arguments
+      cb id: 'error', user: 'error'
+  }
 
 module.exports = {
-  log: (type, data = {}, cb = no-op) ->
-    <- set-timeout _, 0
-    parent-id = if data.parent?
-      data.parent
-    else if default-parent?
-      default-parent
-    else undefined
+  setup: (missing-features, cb = no-op) ->
+    # Send session data:
+    first-path = window.location.pathname.replace /^\//, '' .split '/' .0
+    if first-path in window.LANGUAGES then lang = first-path else lang = 'default'
+    data = {
+      platform:
+        browser:
+          name: platform.name or 'Unknown'
+          version: platform.version or 'Unknown'
+          engine: platform.layout or 'Unknown'
+        os:
+          name: platform.os.family or 'Unknown'
+          version: platform.os.version or 'Unknown'
+        device:
+          name: platform.product or 'Unknown'
+          manufacturer: platform.manufacturer or 'Unknown'
 
-    delete data.parent
-    event = {type, parent-id, data, version: window.EAKVERSION}
-    send 'events', event, cb
+      dimensions:
+        screen:
+          width: window.screen.width
+          height: window.screen.height
+        window:
+          width: $ window .width!
+          height: $ window .height!
 
-  start: (type, data, cb = no-op) ->
-    event <- module.exports.log type, data
+      ua: window.navigator.user-agent
+      device-pixel-ratio: window.device-pixel-ratio
+      browser-locale: window.navigator.language
+      game-locale: lang
+      entry-hash: window.location.hash
+      domain: window.location.host
+      missing-features: missing-features or false
+    }
 
-    # if it's an error, don't poll
-    if event.type is \__error
-      event.stop = -> null
-      return cb event
+    session <~ create-session data
+    @session = session
+    @session.active-events = []
+    @setup-checkin-loop!
+    @setup-cleanup!
+    cb!
 
-    active-events[event.id] = event
-    poll = ->
-      <- set-timeout _, dt
-      if event.stopped? then return
-      nev <- send "events/#{event.id}/checkin", dt: dt / 1000
-      event <<< nev
-      poll!
+  setup-checkin-loop: ->
+    url = "/api/v1/sessions/#{@session.id}"
+    <~ set-interval _, dt
+    post-json {
+      url: url
+      data:
+        ids: @session.active-events
+    }
 
-    event.stop = ->
-      event.stopped = true
-      poll := no-op
-    poll!
+  setup-cleanup: ->
+    is-clean = false
+    cleanup = !~>
+      if is-clean then return
+      $.ajax {
+        type: \DELETE
+        url: "/api/v1/sessions/#{@session.id}"
+        async: false
+        success: -> is-clean := true
+      }
 
-    cb event
+    $ window
+      ..on 'unload' ~>
+        cleanup!
+      ..on 'beforeunload' ~>
+        cleanup!
 
-  stop: (id) -> active-events[id].stop!
-  event: (id) -> active-events[id]
+  send-event: (type, data, has-duration, cb) ->
+    post-json {
+      url: "/api/v1/sessions/#{@session.id}/events"
+      data: {type, data, has-duration}
+      success: (event) ~>
+        if has-duration then @session.active-events[*] = event.id
+        cb event
+      error: ->
+        console.error arguments
+        cb {id: 'error'}
+    }
 
-  set-default-parent: (id) ->
-    default-parent := id
+  log: (type, data = {}, cb = no-op) -> @send-event type, data, false, cb
+  start: (type, data = {}, cb = no-op) -> @send-event type, data, true, cb
+
+  stop: (id) ->
+    @session.active-events .= filter (it) -> it isnt id
+    $.ajax {
+      type: \DELETE
+      url: "/api/v1/sessions/#{@session.id}/events/#{id}"
+    }
+
+  update: (id, data, cb) ->
+    console.log data, JSON.stringify data
+    post-json {
+      url: "/api/v1/sessions/#{@session.id}/events/#{id}"
+      data: data
+      success: -> cb!
+      error: -> cb!
+    }
 }
+

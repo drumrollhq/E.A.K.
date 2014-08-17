@@ -1,6 +1,5 @@
 require! {
   'channels'
-  'logger'
   'translations'
 }
 
@@ -88,7 +87,8 @@ module.exports = class CutScene extends Backbone.View
     @remove!
     window.location.href = @next
 
-  trigger-skip: ~> @trigger 'skip'
+  trigger-skip: ~>
+    @trigger 'skip'
 
   resize: ~>
     w = @$el.width!

@@ -185,7 +185,7 @@ module.exports = class Level extends Backbone.Model
       nodes[*] = player
 
   restart: ~>
-    logger.log 'restart', parent: @event-id
+    logger.log 'action' type: 'restart'
     @renderer.resize!
     @redraw-from @conf.html, @conf.css
     @player.reset!
@@ -290,7 +290,7 @@ module.exports = class Level extends Backbone.Model
 
     edit-event = undefined
     channels.game-commands.publish command: 'edit-start'
-    logger.start 'edit', parent: @event-id, (event) -> edit-event := event
+    logger.start 'edit', {}, (event) -> edit-event := event.id
 
     # Put the play back where they started
     @player.reset!
@@ -320,11 +320,10 @@ module.exports = class Level extends Backbone.Model
 
     <~ editor.once \save _
 
-    if edit-event then edit-event.stop!
-    logger.log 'edit-finish', {
-      html: editor.get \html
-      css: editor.get \css
-    }
+    if edit-event
+      <- logger.update edit-event, html: (editor.get \html), css: (editor.get \css)
+      logger.stop edit-event
+
     channels.game-commands.publish command: 'edit-stop'
 
     editor-view.restore-entities!

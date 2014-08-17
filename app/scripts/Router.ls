@@ -40,14 +40,14 @@ module.exports = class Router extends Backbone.Router
   menu: ~>
     if @should-prevent-route! then return @prevent-route!
     <- @stop-game
-    logger.log 'show-menu'
+    logger.log 'page' type: 'menu'
     $ '#main .menu' .make-only-shown-dialogue!
 
   # Show the about page
   about: ~>
     if @should-prevent-route! then return @prevent-route!
     <- @stop-game
-    logger.log 'show-about'
+    logger.log 'page' type: 'about'
     $ '#main .about' .make-only-shown-dialogue!
 
   # TODO: Loading
@@ -59,7 +59,7 @@ module.exports = class Router extends Backbone.Router
   # we just redirect to a feedback form.
   go-home: ~>
     if @should-prevent-route! then return @prevent-route!
-    <- logger.log 'show-form', {}
+    <- logger.log 'finish'
     location.href = 'https://docs.google.com/forms/d/1gMg8FcbDmVH-FPYvAaiO33mVp5EaHndu1W3l97RN00s/viewform?usp=send_form'
 
   # Plays a local ('official') level from the repo. TODO: Playing levels from

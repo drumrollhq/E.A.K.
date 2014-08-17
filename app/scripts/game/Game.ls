@@ -13,7 +13,7 @@ if first-path in window.LANGUAGES
 else prefix = ''
 
 module.exports = class Game extends Backbone.Model
-  initialize: (load, @logger-parent) ->
+  initialize: (load) ->
     if load then @load! else @save!
 
     @on \change @save
@@ -30,9 +30,8 @@ module.exports = class Game extends Backbone.Model
   defaults: level: '/levels/index.html'
 
   start-level: (level-url) ~>
-    event <~ logger.start 'level', {level: level-url, parent: @logger-parent}
+    event <~ logger.start 'level', {level: level-url}
     l = prefix + level-url + "?#{Date.now!}"
-    logger.set-default-parent event.id
     level-source <~ $.get l, _
     parsed = Slowparse.HTML document, level-source, [TreeInspectors.forbidJS]
 
@@ -49,15 +48,19 @@ module.exports = class Game extends Backbone.Model
 
     level = new Level $level
     level.event-id = event.id
-    level.on 'done' -> event.stop!
+    level.on 'done' -> logger.stop event.id
 
   start-cutscene: (name) ~>
     cs = new CutScene {name: "#prefix/cutscenes/#name"}
     cs.$el.append-to document.body
     cs.render!
-    event <~ logger.start 'cutscene', {name: name, parent: @logger-parent}
-    cs.on 'finish' -> event.stop!
-    cs.on 'skip' -> logger.log 'skip' {parent: event.id}
+    event <~ logger.start 'cutscene', {name: name}
+    cs.on 'finish' ->
+      console.log 'cs finish'
+      logger.stop event.id
+    cs.on 'skip' ->
+      console.log 'cs skip'
+      logger.log 'skip'
 
   save: ~> @attributes |> _.clone |> JSON.stringify |> local-storage.set-item Game::savefile, _
 

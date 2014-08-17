@@ -21,19 +21,21 @@ module.exports = class Init extends Backbone.View
         ..find 'button' .on 'click' ->
           window.session-storage.set-item 'eak-ignore-compatibility' true
           window.location.reload!
+
+      logger.setup lacking
       return
 
     new SettingsView model: settings, el: $ '#bar-options'
 
     <~ effects.load!
 
+    <~ logger.setup false
     event-loop.init!
-    event <~ logger.start 'session', ua: navigator.user-agent
 
     # Hide the loader and start up the game.
     @$ \.loader .hide-dialogue!
 
-    game = new Game false, event.id
+    game = new Game false
 
     # Start up the Backbone router
     router = new Router!
@@ -51,7 +53,6 @@ module.exports = class Init extends Backbone.View
 
     if lacking.length > 0
       console.log 'Lacking:', lacking
-      logger.log 'incompatible', {lacking}
       {compatible: false, lacking}
     else
       {compatible: true, lacking: []}

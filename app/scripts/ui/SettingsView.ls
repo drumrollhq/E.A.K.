@@ -1,5 +1,6 @@
 require! {
   'game/event-loop'
+  'logger'
   'translations'
 }
 
@@ -86,6 +87,10 @@ module.exports = class SettingsView extends Backbone.View
 
       @modal-active = false
 
+      if @settings-event
+        logger.stop @settings-event
+        @settings-event = false
+
     else
       @$settings-button.add-class 'active'
       @$overlay.add-class 'active'
@@ -95,3 +100,6 @@ module.exports = class SettingsView extends Backbone.View
       event-loop.pause!
 
       @modal-active = true
+      event <~ logger.start 'page' type: 'settings'
+      unless @modal-active then logger.stop event.id
+      @settings-event = event.id

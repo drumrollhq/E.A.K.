@@ -42,7 +42,7 @@ channels.parse 'key-down: down, s' .subscribe ->
   portal-el.class-list.add 'portal-out'
 
   channels.game-commands.publish command: 'portal'
-  logger.log 'portal', player: player.{p, v}
+  logger.log 'action', type: 'portal', player: player.{p, v}
 
   <- set-timeout _, 750
   window.location.href = portal-el.href
@@ -56,7 +56,7 @@ channels.parse 'contact: start: ENTITY_PLAYER' .subscribe (contact) ->
   if other.data?.action?
     action = other.data.action
     if actions[action]?
-      logger.log 'action', {action}
+      logger.log 'action', {type: action}
       actions[action] player, other
 
   if player.last-fall-dist > 300px and not other.data?.sensor?
