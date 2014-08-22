@@ -198,7 +198,7 @@
   (function () {
     function loadKittenCount() {
       var r = new XMLHttpRequest();
-      r.open('GET', '/api/v1/count/alltime?types=kitten');
+      r.open('GET', '/api/v1/count/alltime?types=kitten&_v=' + Date.now());
       r.onreadystatechange = function () {
         if (r.readyState !== 4 || r.status !== 200) {
           return;
