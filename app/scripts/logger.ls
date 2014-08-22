@@ -1,4 +1,4 @@
-const dt = 5000ms
+const dt = 15000ms
 
 no-op = -> null
 post-json = ({url, data, success, error}) ->
