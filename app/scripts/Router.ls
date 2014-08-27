@@ -59,7 +59,7 @@ module.exports = class Router extends Backbone.Router
   # we just redirect to a feedback form.
   go-home: ~>
     if @should-prevent-route! then return @prevent-route!
-    <- logger.log 'finish'
+    <- logger.log 'finish', {}
     location.href = 'https://docs.google.com/forms/d/1gMg8FcbDmVH-FPYvAaiO33mVp5EaHndu1W3l97RN00s/viewform?usp=send_form'
 
   # Plays a local ('official') level from the repo. TODO: Playing levels from
