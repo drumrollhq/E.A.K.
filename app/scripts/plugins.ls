@@ -56,7 +56,7 @@ $ document .on \click '.level a[href]' (e) -> e.prevent-default!
 $ document.body .on 'keydown' (e) -> if e.which is 8 then e.prevent-default!
 
 # Custom elements for KQ levels:
-extras = <[ target hints pointer alert hidden ]>
+extras = <[ target hints pointer alert hidden tutorial step action content ]>
 extras |> each _, (-> document.create-element it)
 extras |> each _, (-> Slowparse.HTMLParser::html-elements.push it)
 

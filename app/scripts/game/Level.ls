@@ -5,6 +5,7 @@ require! {
   'game/dom/Mapper'
   'game/editor/Editor'
   'game/editor/EditorView'
+  'game/editor/Tutorial'
   'game/event-loop'
   'game/hints/HintController'
   'game/physics'
@@ -131,6 +132,7 @@ module.exports = class Level extends Backbone.Model
       state = @state = physics.prepare nodes
 
       @hint-controller = new HintController hints: (level.find 'head hints' .children!)
+      @tutorial-controller = new Tutorial tutorial-el: (level.find 'head tutorial')
 
       if editable
         @subs[*] = channels.game-commands.filter ( .command is \edit ) .subscribe @start-editor

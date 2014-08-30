@@ -4,6 +4,7 @@ require! {
   'game/Events'
   'game/Level'
   'logger'
+  'translations'
   'ui/Bar'
 }
 
@@ -36,6 +37,7 @@ module.exports = class Game extends Backbone.Model
     parsed = Slowparse.HTML document, level-source, [TreeInspectors.forbidJS]
 
     if parsed.error isnt null
+      console.log parsed.error
       channels.alert.publish msg: translations.errors.level-errors
       return
 
