@@ -48,7 +48,7 @@ module.exports = class Init extends Backbone.View
     Modernizr.addTest 'webaudio', !!window.AudioContext
     if window.session-storage.get-item 'eak-ignore-compatibility' then return {compatible: true, lacking: false}
 
-    needed = <[ csstransforms cssanimations csstransitions csscalc boxsizing canvas webworkers webaudio ]>
+    needed = <[ csstransforms cssanimations csstransitions csscalc boxsizing canvas webworkers webaudio flexbox ]>
     lacking = _.filter needed, ( not Modernizr. )
 
     if lacking.length > 0

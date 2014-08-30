@@ -1,4 +1,7 @@
 #editor
+  display flex
+  flex-flow column nowrap
+  align-items stretch
   position absolute
   width 50%
   height 100%
@@ -9,6 +12,21 @@
   z-index 50
 
   transition all 0.3s ease
+
+  > .topbar
+    flex-basis 50px
+
+  > .editor-html
+    flex 3
+    position relative
+
+    .CodeMirror
+      position absolute
+      height 100%
+      width 100%
+
+  > .editor-tutorial
+    flex-basis 250px
 
 body.editor
 

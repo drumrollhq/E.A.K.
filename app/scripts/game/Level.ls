@@ -132,7 +132,11 @@ module.exports = class Level extends Backbone.Model
       state = @state = physics.prepare nodes
 
       @hint-controller = new HintController hints: (level.find 'head hints' .children!)
-      @tutorial-controller = new Tutorial tutorial-el: (level.find 'head tutorial')
+      tutorial-el = level.find 'head tutorial'
+      @has-tutorial = !!tutorial-el.length
+      if @has-tutorial
+        $ document.body .add-class \has-tutorial
+        @tutorial-controller = new Tutorial tutorial-el: (level.find 'head tutorial')
 
       if editable
         @subs[*] = channels.game-commands.filter ( .command is \edit ) .subscribe @start-editor
@@ -276,7 +280,7 @@ module.exports = class Level extends Backbone.Model
     @trigger 'done'
     @hint-controller.destroy!
 
-    $ document.body .remove-class 'playing hide-bar'
+    $ document.body .remove-class 'playing hide-bar has-tutorial'
     @renderer.remove!
 
     delete @state
