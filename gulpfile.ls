@@ -68,6 +68,7 @@ stylus-conf = {
 src = {
   assets: './app/assets/**/*'
   audio: './app/audio/**/*'
+  audio-cache: './gulp-cache/audio/**/*'
   css-all: './app/styles/**/*.styl'
   css: ['./app/styles/app.styl', './app/styles/min.styl']
   fonts: './bower_components/font-awesome/fonts/*'
@@ -150,7 +151,7 @@ gulp.task 'vendor' ->
     .pipe gulp.dest dest.js
 
 gulp.task 'audio' ['convert-audio'] ->
-  gulp.src dest.audio-cache
+  gulp.src src.audio-cache
     .pipe gulp-changed dest.audio
     .pipe gulp.dest dest.audio
 
