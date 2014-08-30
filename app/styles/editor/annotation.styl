@@ -1,17 +1,19 @@
 .annotation-widget
   font-family font
   font-size 18px
+  font-weight 300
   background white
   line-height 1.7em
   padding 10px
   overflow hidden
   color black
-  box-shadow 0 1px 3px rgba(0, 0, 0, 0.2)
+  border-top 1px solid lighten(black, 90%)
+  border-bottom 1px solid lighten(black, 90%)
   margin 5px 0
 
   &.annotation-error
-    box-shadow 0 0 3px rgba(255, 0, 0, 1)
-    border-right 5px solid red
+    border-right 5px solid
+    border-color red
 
     [data-highlight]
       color red

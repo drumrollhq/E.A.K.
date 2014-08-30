@@ -17,7 +17,7 @@ module.exports = class EditorView extends Backbone.View
     cm = CodeMirror (@$ '.editor-html' .0),
       value: html
       mode: \htmlmixed
-      theme: \jsbin
+      theme: 'solarized light'
       tabsize: 2
       line-wrapping: true
       line-numbers: true

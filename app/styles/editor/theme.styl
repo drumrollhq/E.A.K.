@@ -1,130 +1,188 @@
 /*
-From: https://github.com/mozilla/friendlycode/blob/gh-pages/css/jsbin-codemirror-theme.css
+Solarized theme for code-mirror
+http//ethanschoonover.com/solarized
 */
 
-/* jsbin - based on web inspector */
-.cm-s-jsbin span.cm-keyword {color: #AA0D91;}
-.cm-s-jsbin span.cm-atom {color: #219;}
-.cm-s-jsbin span.cm-number {color: #164;}
-.cm-s-jsbin span.cm-def {color: #00f;}
-.cm-s-jsbin span.cm-variable {color: black;}
-.cm-s-jsbin span.cm-variable-2 {color: #05a;}
-.cm-s-jsbin span.cm-variable-3 {color: #0a5;}
-.cm-s-jsbin span.cm-property {color: black;}
-.cm-s-jsbin span.cm-operator {color: black;}
-.cm-s-jsbin span.cm-comment {color: #236E25;}
-.cm-s-jsbin span.cm-string {color: #C41A16;}
-.cm-s-jsbin span.cm-meta {color: #555;}
-.cm-s-jsbin span.cm-error {color: #f00;}
-.cm-s-jsbin span.cm-qualifier {color: #555;}
-.cm-s-jsbin span.cm-builtin {color: #30a;}
-.cm-s-jsbin span.cm-bracket {color: #cc7;}
-.cm-s-jsbin span.cm-tag {color: #881280;}
-.cm-s-jsbin span.cm-attribute {color: #994500;}
+/*
+Solarized color pallet
+http//ethanschoonover.com/solarized/img/solarized-palette.png
+*/
 
-.CodeMirror {
-  font-family: 'Ubuntu Mono', monospace;
-  font-weight: 200;
-  font-size: 16px;
-}
+solar-base03 = #002b36
+solar-base02 = #073642
+solar-base01 = #586e75
+solar-base00 = #657b83
+solar-base0 = #839496
+solar-base1 = #93a1a1
+solar-base2 = #eee8d5
+solar-base3 = #fdf6e3
+solar-yellow = #b58900
+solar-orange = #cb4b16
+solar-red = #dc322f
+solar-magenta = #d33682
+solar-violet = #6c71c4
+solar-blue = #268bd2
+solar-cyan = #2aa198
+solar-green = #859900
 
-.CodeMirror .CodeMirror-lines {
-  color: #333;
-  font-size: 16px;
-  line-height: 15.75px;
-}
+/* Color scheme for code-mirror */
 
-.CodeMirror textarea {
-  font-family: 'Ubuntu Mono', monospace;
-  font-size: 16px;
-  line-height: 15.75px;
-}
+.cm-s-solarized
+  font-family codeFonts
+  color-profile sRGB
+  rendering-intent auto
 
-.CodeMirror-gutter {
-  background-color: #EEEEEE !important;
-}
+.cm-s-solarized.cm-s-dark
+  color solar-base0
+  background-color  solar-base03
+  text-shadow solar-base03 0 1px
 
-.CodeMirror-gutter-text {
-  color: #A9A9A9;
-  font-size: 14px;
-  line-height: 15.75px;
-  padding-left: 0;
-}
+.cm-s-solarized.cm-s-light
+  background-color white
+  color solar-base00
+  // text-shadow solar-base2 0 1px
 
-.cm-s-jsbin span.cm-meta {
-  color: #999999;
-}
+.cm-s-solarized .CodeMirror-widget
+  text-shadow none
 
-.cm-s-jsbin span.cm-comment {
-  color: #333;
-  font-style: italic;
-  font-weight: bold;
+.cm-s-solarized .cm-keyword
+  color solar-orange
 
-  /* This needs to be a little less than the standard line-height to align on
-multi-line wrapped content. */
-  line-height: 15.75px;
-}
+.cm-s-solarized .cm-atom
+  color solar-magenta
 
-.CodeMirror-wrap .CodeMirror-scroll {
-  overflow: hidden;
-}
+.cm-s-solarized .cm-number
+  color solar-magenta
 
-.CodeMirror-scroll.cm-s-jsbin {
-  height: 100%;
-}
+.cm-s-solarized .cm-def
+  color solar-cyan
 
-.cm-tag {
-  color: #3A85FF !important;
-}
+.cm-s-solarized .cm-variable
+  color solar-blue
 
-.CodeMirror-lines .CodeMirror-line-highlight {
-  background-color: #EEEEEE;
-  margin-left: -3em;
-  padding-left: 3em;
-}
+.cm-s-solarized .cm-variable-2
+  color solar-cyan
 
-.CodeMirror-gutter {
-  opacity: 1 !important;
-}
-.CodeMirror span.preview-to-editor-highlight {
-  background-color: rgba(50,100,255,0.3);
-}
+.cm-s-solarized .cm-variable-3
+  color solar-violet
 
-/* Text size: small */
+.cm-s-solarized .cm-property
+  color solar-cyan
 
-.CodeMirror[data-size="small"] div,
-.CodeMirror[data-size="small"] pre {
-  font-size: 12px;
-  line-height: 13.5px;
-}
+.cm-s-solarized .cm-operator color solar-violet
 
-.CodeMirror[data-size="small"] .cm-s-jsbin span.cm-comment {
-  font-size: 12px;
-  line-height: 12.5px;
-}
+.cm-s-solarized .cm-comment
+  color solar-base01 font-style italic
 
-/* Text size: normal */
+.cm-s-solarized .cm-string
+  color solar-green
 
-.CodeMirror[data-size="normal"] div,
-.CodeMirror[data-size="normal"] pre {
-  font-size: 14px;
-  line-height: 15.75px;
-}
+.cm-s-solarized .cm-string-2
+  color solar-yellow
 
-.CodeMirror[data-size="normal"] .cm-s-jsbin span.cm-comment {
-  font-size: 14px;
-  line-height: 14.75px;
-}
+.cm-s-solarized .cm-meta
+  color solar-green
 
-/* Text size: large */
+.cm-s-solarized .cm-qualifier
+  color solar-yellow
 
-.CodeMirror[data-size="large"] div,
-.CodeMirror[data-size="large"] pre {
-  font-size: 18px;
-  line-height: 20.25px;
-}
+.cm-s-solarized .cm-builtin
+  color solar-magenta
 
-.CodeMirror[data-size="large"] .cm-s-jsbin span.cm-comment {
-  font-size: 18px;
-  line-height: 19.25px;
-}
+.cm-s-solarized .cm-bracket
+  color solar-orange
+
+.cm-s-solarized .CodeMirror-matchingbracket
+  color solar-green
+
+.cm-s-solarized .CodeMirror-nonmatchingbracket
+  color solar-red
+
+.cm-s-solarized .cm-tag
+  color solar-blue
+
+.cm-s-solarized .cm-attribute
+   color solar-magenta
+
+.cm-s-solarized .cm-header
+  color solar-base01
+
+.cm-s-solarized .cm-quote
+  color solar-base1
+
+.cm-s-solarized .cm-hr
+  color transparent
+  border-top 1px solid solar-base01
+  display block
+
+.cm-s-solarized .cm-link
+  color solar-base1
+  cursor pointer
+
+.cm-s-solarized .cm-special
+  color solar-violet
+
+.cm-s-solarized .cm-em
+  color #999
+  text-decoration underline
+  text-decoration-style dotted
+
+.cm-s-solarized .cm-strong
+  color #eee
+
+.cm-s-solarized .cm-error,
+.cm-s-solarized .cm-invalidchar
+  color solar-base01
+  border-bottom 1px dotted solar-red
+
+.cm-s-solarized.cm-s-dark .CodeMirror-selected
+  background solar-base02
+
+.cm-s-solarized.cm-s-light .CodeMirror-selected
+  background darken(white, 10%)
+
+/* Gutter border and some shadow from it  */
+.cm-s-solarized .CodeMirror-gutters
+  padding 0 5px 0 0
+  // box-shadow 0 10px 20px black
+  border-right 1px solid
+
+/* Gutter colors and line number styling based of color scheme (dark / light) */
+
+/* Dark */
+.cm-s-solarized.cm-s-dark .CodeMirror-gutters
+  background-color solar-base02
+  border-color #00232c
+
+.cm-s-solarized.cm-s-dark .CodeMirror-linenumber
+  // text-shadow #021014 0 -1px
+
+/* Light */
+.cm-s-solarized.cm-s-light .CodeMirror-gutters
+  background-color darken(white, 1%)
+  border-color darken(white, 10%)
+
+/* Common */
+.cm-s-solarized .CodeMirror-linenumber
+  color darken(white, 25%)
+
+.cm-s-solarized .CodeMirror-gutter .CodeMirror-gutter-text
+  color solar-base01
+
+.cm-s-solarized .CodeMirror-lines pre
+  padding-left 10px
+
+.cm-s-solarized .CodeMirror-lines .CodeMirror-cursor
+  border-left 1px solid #819090
+
+/*
+Active line. Negative margin compensates left padding of the text in the
+view-port
+*/
+.cm-s-solarized.cm-s-dark .CodeMirror-activeline-background
+  background rgba(255, 255, 255, 0.10)
+
+.cm-s-solarized.cm-s-light .CodeMirror-activeline-background
+  background rgba(0, 0, 0, 0.10)
+
+
