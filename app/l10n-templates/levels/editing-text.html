@@ -26,21 +26,22 @@
     </hints>
 
     <tutorial track="/audio/tutorials/editing-text">
-      <step duration="3">
+      <step duration="9">
         <content>
           Yes! That's it! This is the HTML source code of Banana Bird Forest. It describes the stuff
           shown on the screen to the right
         </content>
 
-        <action at="1" type="highlight-code-and-level" selector="p.legde" highlight="pulse: 3" duration="2"></action>
+        <action at="1" type="highlight-code" selector="p.ledge" duration="4"></action>
+        <action at="5" type="highlight-level" selector="p.ledge"></action>
       </step>
-      <step duration="4">
+      <step duration="5.3">
         <content>
           <p>This code is the ledge you are on...</p>
-          <p class="fade-in" at="2">...and this code is the ledge on the right</p>
+          <p class="fade-in" at="2.5">...and this code is the ledge on the right</p>
         </content>
-        <action duration="2" type="highlight-code-and-level" selector="p.ledge:not(.right)"></action>
-        <action at="2" type="highlight-code-and-level" selector="p.ledge.right"></action>
+        <action duration="2.5" type="highlight-code-and-level" selector="p.ledge:not(.right)"></action>
+        <action at="2.5" type="highlight-code-and-level" selector="p.ledge.right"></action>
       </step>
     </tutorial>
 
