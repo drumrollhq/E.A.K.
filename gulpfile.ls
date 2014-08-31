@@ -9,6 +9,7 @@ require! {
   'gulp-changed'
   'gulp-concat'
   'gulp-footer'
+  'gulp-handlebars'
   'gulp-header'
   'gulp-imagemin'
   'gulp-livescript'
@@ -17,6 +18,7 @@ require! {
   'gulp-rimraf'
   'gulp-stylus'
   'gulp-uglify'
+  'gulp-wrap'
   'handlebars'
   'LiveScript'
   'main-bower-files'
@@ -38,9 +40,9 @@ _ = {
 
 {split, first, last, initial, tail, join, map, camelize} = prelude-ls
 
-scripts = glob.sync './app/scripts/**/*.ls'
+scripts = glob.sync './app/scripts/**/*.{ls,hbs}'
   |> map ( .replace /^\.\/app\/scripts\// '/js/')
-  |> map ( .replace /\.ls$/ '.js')
+  |> map ( .replace /\.(ls|hbs)$/ '.js')
   |> map -> """<script src="#it"></script>"""
   |> join '\n'
 
@@ -72,6 +74,7 @@ src = {
   css-all: './app/styles/**/*.styl'
   css: ['./app/styles/app.styl', './app/styles/min.styl']
   fonts: './bower_components/font-awesome/fonts/*'
+  hbs: './app/scripts/**/*.hbs'
   images: './app/assets/**/*.{jpg,png,gif}'
   locale-data: './locales/**/*.json'
   locale-templates: './app/l10n-templates/**/*'
@@ -106,11 +109,13 @@ script-root = new RegExp "^#{path.resolve './' .replace /\\/g, '\\\\'}(/|\\\\)ap
 gulp.task 'default' <[dev]>
 
 gulp.task 'build' <[clean]> ->
-  gulp.start \scripts \assets \stylus \l10n \vendor \audio \fonts
+  scripts = if optimized then \optimized-scripts else \scripts
+  gulp.start scripts, \assets \stylus \l10n \vendor \audio \fonts
 
 gulp.task 'dev' <[build]> ->
   gulp.watch src.assets, ['assets']
   gulp.watch src.lsc, ['livescript']
+  gulp.watch src.hbs, ['handlebars']
   gulp.watch src.css-all, ['stylus']
   gulp.watch [src.locale-data, src.locale-templates], ['l10n']
   gulp.watch src.vendor, ['vendor']
@@ -124,7 +129,13 @@ gulp.task 'clean-cache' ->
   gulp.src dest.cache, read: false
     .pipe gulp-rimraf force: true
 
-gulp.task 'scripts' ['livescript' 'workers']
+gulp.task 'scripts' ['livescript' 'workers' 'handlebars']
+
+gulp.task 'optimized-scripts' ['scripts'] ->
+  gulp.src ['./public/js/**/*.js', '!**/{worker,app,vendor}.js']
+    .pipe gulp-concat 'app.js'
+    .pipe gulp-uglify!
+    .pipe gulp.dest dest.js
 
 gulp.task 'imagemin' ->
   images = './app/assets/**/*.{png,jpg,gif}'
@@ -200,8 +211,15 @@ gulp.task 'livescript' ->
     .pipe gulp-livescript bare: true
     .on 'error' -> throw it
     .pipe wrap-commonjs!
-    .pipe if optimized then gulp-concat 'app.js' else noop!
-    .pipe if optimized then gulp-uglify! else noop!
+    .pipe gulp.dest dest.js
+
+gulp.task 'handlebars' ->
+  gulp.src src.hbs
+    .pipe gulp-changed dest.js, extension: '.js'
+    .pipe gulp-handlebars!
+    .on 'error' -> throw it
+    .pipe gulp-wrap 'module.exports = Handlebars.template(<%= contents %>);'
+    .pipe wrap-commonjs!
     .pipe gulp.dest dest.js
 
 gulp.task 'l10n-data' ->
@@ -314,7 +332,7 @@ function hack-slowparse
 
 function vendor-wrapper
   es.map (file, cb) ->
-    unless file.path.replace /\\/g '/' .match /\/bower_components\/slowparse/
+    unless file.path.replace /\\/g '/' .match /\/bower_components\/(slowparse|handlebars)/
       file.contents = Buffer.concat [
         new Buffer ';(function(){'
         file.contents
