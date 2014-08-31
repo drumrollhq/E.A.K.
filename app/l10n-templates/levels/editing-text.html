@@ -28,7 +28,8 @@
     <tutorial track="/audio/tutorials/editing-text">
       <step duration="9">
         <content>
-          Yes! That's it! This is the HTML source code of Banana Bird Forest. It describes the stuff
+          Yes! That's it! This is the HTML source code of Banana Bird Forest. <br>
+          It describes the stuff
           shown on the screen to the right
         </content>
 
@@ -38,16 +39,32 @@
       <step duration="5.3">
         <content>
           <p>This code is the ledge you are on...</p>
-          <p class="fade-in" at="2.5">...and this code is the ledge on the right</p>
+          <p class="fade" in="2.5">...and this code is the ledge on the right</p>
         </content>
         <action duration="2.5" type="highlight-code-and-level" selector="p.ledge:not(.right)"></action>
         <action at="2.5" type="highlight-code-and-level" selector="p.ledge.right"></action>
       </step>
       <step duration="11">
-        <content>todo</content>
+        <content>
+          <p>Each ledge starts with a <code>&lt;p ...&gt;</code> and ends with a <code>&lt;/p&gt;</code></p>
+          <p class="important"><code>
+            <span in="2" class="fade">&lt;p <span class="deem">...</span>&gt;</span>
+            <span class="fade">Hello!</span>
+            <span in="4.7" class="fade">&lt;/p&gt;</span>
+          </code></p>
+          <p in="8" class="fade">These are called tags.</p>
+        </content>
       </step>
       <step duration="10.7">
-        <content>todo</content>
+        <content>
+          <p>The writing between the two tags <br> is the content that is shown on screen.</p>
+          <p class="important"><code>
+            <span>&lt;p <span class="deem">...</span>&gt;</span>
+            <span class="fade" in="3">Hello!</span>
+            <span>&lt;/p&gt;</span>
+          </code></p>
+          <p in="6" class="fade">Try changing the words in the code above to make <br> the ledge you are standing on longer</p>
+        </content>
       </step>
     </tutorial>
 

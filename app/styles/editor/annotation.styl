@@ -16,9 +16,17 @@
     border-color red
 
     [data-highlight]
-      color red
-      text-decoration underline
+      display inline-block
+      color black
+      border 1px solid lighten(eakPurple, 70%)
+      padding 0 8px
+      border-radius 0.2em
       cursor pointer
+
+      &:hover
+        color white
+        background eakPurple
+        animation highlight-pulse 0.3s ease-in-out alternate infinite
 
   p:first-child
     margin-top 0
@@ -28,4 +36,18 @@
     margin-left 1.5em
 
 .highlight-error
-  text-decoration underline
+  color white !important
+  col = lighten(eakPurple, 20%)
+  background col
+  border-top 2px solid col
+  border-bottom 4px solid col
+  animation highlight-pulse 0.3s ease-in-out alternate infinite
+
+@keyframes highlight-pulse
+   from
+     background lighten(eakPurple, 20%)
+     border-color lighten(eakPurple, 20%)
+
+   to
+     background lighten(eakPurple, 60%)
+     border-color lighten(eakPurple, 60%)
