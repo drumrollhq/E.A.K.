@@ -37,16 +37,26 @@ module.exports = class Tutorial
 
     @media = Popcorn @track
     add-track-events @media, @steps
+    @media.on 'ended' ~>
+      @ended = true
+      console.log 'ended'
 
     @view = new TutorialView el: $el, tutorial: this
 
-    @media.play!
+    step = @get-active-step-index!
+    console.log @media.current-time!, step, @ended
+    if step? and not @ended then @play-step step
 
   detach: ->
     @media.pause!
     @media.destroy!
     @view.remove!
     @media = null
+
+  get-active-step-index: ->
+    unless @media? then return
+    time = @media.current-time!
+    for step, i in @steps => if step.end > time then return i
 
   play-pause: ->
     unless @media? then return
