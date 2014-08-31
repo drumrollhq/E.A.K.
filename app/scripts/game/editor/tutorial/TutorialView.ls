@@ -26,7 +26,9 @@ module.exports = class TutorialView extends Backbone.View
       steps: @$ '.controls .step'
     }
 
-    for step, i in @tutorial.steps => @els["step-#i"] = @$ ".controls [data-step=#i]"
+    for step, i in @tutorial.steps
+      @els["step-#{i}"] = st = @$ ".controls [data-step=#i]"
+      @els["step-#{i}-progress"] = st.find '.progress'
 
   remove: ->
     @$el.empty!
@@ -37,9 +39,16 @@ module.exports = class TutorialView extends Backbone.View
     time = @media.current-time!
     [complete, incomplete] = @tutorial.steps |> partition ( .end <= time )
     active-index = complete.length
+    active = first incomplete
+
+    if active? then @update-step-progress active-index, (time - active.start) / active.duration
+
     if active-index isnt @active-index
       @els.steps.remove-class 'active'
       if @tutorial.steps[active-index]? then @els["step-#{active-index}"].add-class 'active'
+
+      for _, step in complete => @update-step-progress step, 1
+      if tail incomplete then for _, step in that => @update-step-progress step + complete.length + 1, 0
 
       if complete.length is 0 then @disable 'prev' true else @disable 'prev' false
       if incomplete.length is 1 then @disable 'next' true else @disable 'next' false
@@ -48,6 +57,8 @@ module.exports = class TutorialView extends Backbone.View
         @disable 'next' true
 
     @active-index = active-index
+
+  update-step-progress: (i, progress) ~> @els["step-#{i}-progress"].css 'width', "#{progress * 100}%"
 
   disable: (el, disable) ~>
     @els[el].attr 'disabled', disable

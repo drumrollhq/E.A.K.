@@ -43,9 +43,17 @@
 
     .step
       flex 1
+      position relative
 
       &.active
         background lighten(eakPurple, 85%)
+
+    .progress
+      position absolute
+      left 0
+      bottom 0
+      height 5px
+      background eakPurple
 
     .fa
       font-size 30px

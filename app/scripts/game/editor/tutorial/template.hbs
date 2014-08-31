@@ -8,6 +8,7 @@
   {{#each tutorial.steps}}
     <button class="step" data-step="{{@index}}" style="flex: {{duration}}">
       {{inc @index}}
+      <div class="progress">
     </button>
   {{/each}}
   <button class="prev"><span class="fa fa-chevron-left"></span></button>
