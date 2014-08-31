@@ -20,7 +20,6 @@ require! {
   'gulp-uglify'
   'gulp-wrap'
   'handlebars'
-  'LiveScript'
   'main-bower-files'
   'mkdirp'
   'nib'

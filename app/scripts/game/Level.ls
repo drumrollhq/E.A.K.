@@ -5,7 +5,7 @@ require! {
   'game/dom/Mapper'
   'game/editor/Editor'
   'game/editor/EditorView'
-  'game/editor/Tutorial'
+  'game/editor/tutorial/Tutorial'
   'game/event-loop'
   'game/hints/HintController'
   'game/physics'
@@ -136,7 +136,7 @@ module.exports = class Level extends Backbone.Model
       @has-tutorial = !!tutorial-el.length
       if @has-tutorial
         $ document.body .add-class \has-tutorial
-        @tutorial-controller = new Tutorial tutorial-el: (level.find 'head tutorial')
+        @tutorial = new Tutorial tutorial-el
 
       if editable
         @subs[*] = channels.game-commands.filter ( .command is \edit ) .subscribe @start-editor
@@ -319,6 +319,8 @@ module.exports = class Level extends Backbone.Model
     editor-view.render!
     editor-view.$el.append-to $ \#editor
 
+    if @tutorial then @tutorial.attach editor-view
+
     @renderer.editor = true
     @renderer.resize!
 
@@ -332,6 +334,7 @@ module.exports = class Level extends Backbone.Model
 
     channels.game-commands.publish command: 'edit-stop'
 
+    if @tutorial then @tutorial.detach!
     editor-view.restore-entities!
     editor-view.remove!
     @renderer.editor = false

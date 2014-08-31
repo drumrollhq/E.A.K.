@@ -1,0 +1,13 @@
+<div class="content">
+  content
+</div>
+<div class="controls">
+  <div class="play-pause">pp</div>
+  {{#each tutorial.steps}}
+  <div class="step" style="flex: {{duration}}">
+      {{inc @index}}
+    </div>
+  {{/each}}
+  <div class="prev">prev</div>
+  <div class="next">next</div>
+</div>

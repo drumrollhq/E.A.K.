@@ -3,3 +3,28 @@
 
   body:not(.has-tutorial) &
     display none
+
+  display flex
+  flex-flow column no-wrap
+
+  .content
+    flex 1
+
+  .controls
+    border-top 1px solid lighten(black, 90%)
+    flex-basis 50px
+    display flex
+    flex-flow row nowrap
+
+    > *
+      height 50px
+      border-right 1px solid lighten(black, 90%)
+
+      &:last-child
+        border-right none
+
+    .play-pause, .prev, .next
+      flex-basis 50px
+
+    .step
+      flex 1
