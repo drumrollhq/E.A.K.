@@ -1,13 +1,15 @@
-<div class="content">
-  content
+<div class="content-container">
+  <div class="content">
+    content
+  </div>
 </div>
 <div class="controls">
-  <div class="play-pause">pp</div>
+  <button class="play-pause"><span class="fa fa-play"></span></button>
   {{#each tutorial.steps}}
-  <div class="step" style="flex: {{duration}}">
+    <button class="step" data-step="{{@index}}" style="flex: {{duration}}">
       {{inc @index}}
-    </div>
+    </button>
   {{/each}}
-  <div class="prev">prev</div>
-  <div class="next">next</div>
+  <button class="prev"><span class="fa fa-chevron-left"></span></button>
+  <button class="next"><span class="fa fa-chevron-right"></span></button>
 </div>

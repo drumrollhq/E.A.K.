@@ -35,8 +35,26 @@ module.exports = class Tutorial
     $el = editor-view.$ '.editor-tutorial'
       ..empty!
 
+    @media = Popcorn @track
+    add-track-events @media, @steps
+
     @view = new TutorialView el: $el, tutorial: this
 
+    @media.play!
+
   detach: ->
+    @media.pause!
+    @media.destroy!
     @view.remove!
+    @media = null
+
+  play-pause: ->
+    unless @media? then return
+    if @media.paused! then @media.play! else @media.pause!
+
+  play-step: (i) ->
+    unless @media? then return
+    @media
+      ..current-time @steps[i].start
+      ..play!
 

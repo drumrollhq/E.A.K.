@@ -7,8 +7,12 @@
   display flex
   flex-flow column no-wrap
 
-  .content
+  .content-container
     flex 1
+    display flex
+    justify-content center
+    align-items center
+    text-align center
 
   .controls
     border-top 1px solid lighten(black, 90%)
@@ -16,15 +20,32 @@
     display flex
     flex-flow row nowrap
 
-    > *
-      height 50px
+    > button
+      @extend .topbar button
+      display block
+      padding 0
+      margin 0
+      line-height 50px
+      text-align center
+      border none
       border-right 1px solid lighten(black, 90%)
 
       &:last-child
         border-right none
+
+      &:disabled
+        opacity 0.5
+        pointer-events none
+        cursor not-allowed
 
     .play-pause, .prev, .next
       flex-basis 50px
 
     .step
       flex 1
+
+      &.active
+        background lighten(eakPurple, 85%)
+
+    .fa
+      font-size 30px
