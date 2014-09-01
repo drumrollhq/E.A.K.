@@ -15,8 +15,6 @@ module.exports = class Action
     @end = @start + @duration
 
   on-start: ~>
-    console.log 'action on start'
 
   on-end: ~>
-    console.log 'action on end'
 

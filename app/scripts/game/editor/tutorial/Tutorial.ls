@@ -30,21 +30,17 @@ module.exports = class Tutorial
       step
 
     @duration = time
-    console.log this
 
   attach: (editor-view) ->
     $el = editor-view.$ '.editor-tutorial'
       ..empty!
 
     @media = Popcorn @track
-    @media.on 'ended' ~>
-      @ended = true
-      console.log 'ended'
+    @media.on 'ended' ~> @ended = true
 
     @view = new TutorialView el: $el, tutorial: this
 
     step = @get-active-step-index!
-    console.log @media.current-time!, step, @ended
     if step? and not @ended then @play-step step
 
     add-track-events @media, @steps, @view

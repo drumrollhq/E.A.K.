@@ -22,15 +22,12 @@ module.exports = class Step
     @content-container.html @content.html!
 
   on-end: ~>
-    console.log 'step end'
     @content-container.empty!
 
   content-enter: ({content-id}) ~>
-    console.log 'content-enter', arguments
     @content-container.find "[data-content-id=#content-id]" .add-class 'active'
 
   content-exit: ({content-id}) ~>
-    console.log 'content-exit', arguments
     @content-container.find "[data-content-id=#content-id]" .remove-class 'active'
 
   add-track-events: (track, view) ->
@@ -41,8 +38,6 @@ module.exports = class Step
       $el = $ el
       id = id-counter++
       $el.attr 'data-content-id', id
-
-      console.log 'Dynamic content:', el
 
       in-time = if $el.attr 'in'
         parse-float that or throw new Error "Can't parse content.in: #that"
