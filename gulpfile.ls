@@ -78,7 +78,8 @@ src = {
   locale-data: './locales/**/*.json'
   locale-templates: './app/l10n-templates/**/*'
   lsc: './app/scripts/**/*.ls'
-  vendor: ['./vendor/*.js' './vendor/rework/rework.js']
+  vendor: ['./vendor/*.js' './vendor/rework/rework.js', './vendor/slowparse/slowparse.js',
+    './vendor/slowparse/tree-inspectors.js', './vendor/slowparse/spec/errors.jquery.js']
   workers-static: ['./bower_components/underscore/underscore.js'
                    './app/workers/**/*.js'
                    './vendor/require.js']
@@ -154,7 +155,6 @@ gulp.task 'fonts' ->
 
 gulp.task 'vendor' ->
   streamqueue {+object-mode}, (gulp.src main-bower-files!), (gulp.src src.vendor)
-    .pipe hack-slowparse!
     .pipe vendor-wrapper!
     .pipe gulp-concat 'vendor.js'
     .pipe if optimized then gulp-uglify! else noop!
@@ -294,44 +294,9 @@ function locale-data-cache
 
     cb null, file
 
-function hack-slowparse
-  es.map (file, cb) ->
-    if file.path.replace /\\/g '/' .match /\/bower_components\/slowparse\/slowparse\.js$/
-      orig = file.contents.to-string!
-      a = '''
-        // ### Exported Symbols
-          //
-          // `Slowparse` is the object that holds all exported symbols from
-          // this library.
-          var Slowparse = {'''
-
-      b = '''
-        // ### Exported Symbols - HACKILY MODIFIED FOR EAK!
-          //
-          // `Slowparse` is the object that holds all exported symbols from
-          // this library.
-          var Slowparse = {
-            // EAK requires the HTMLParser to be exposed so we can add custom elements:
-            HTMLParser: HTMLParser,'''
-
-      contents = orig.replace a, b
-
-      file.contents = new Buffer contents
-
-    if file.path.replace /\\/g '/' .match /\/bower_components\/slowparse\/spec\/errors\.jquery\.js$/
-      orig = file.contents.to-string!
-      a = 'var _ = (function createUnderscoreTemplating() {'
-      b = 'var _ignore = (function createUnderscoreTemplating() {'
-      c = 'escape: /\\{\\{(.+?)\\}\\}/g'
-      d = 'escape: /\\{\\{(.+?)\\}\\}/g, evaluate: /\\[%(.+?)%\\]/'
-      contents = orig.replace a, b .replace c, d
-      file.contents = new Buffer contents
-
-    cb null, file
-
 function vendor-wrapper
   es.map (file, cb) ->
-    unless file.path.replace /\\/g '/' .match /\/bower_components\/(slowparse|handlebars)/
+    unless file.path.replace /\\/g '/' .match /slowparse|handlebars/
       file.contents = Buffer.concat [
         new Buffer ';(function(){'
         file.contents
@@ -346,7 +311,7 @@ function noop
 # Utils:
 function relative-path file
   base-re = new RegExp "^#{file.base .replace /\\/g, '\\\\'}"
-  
+
   file.path.replace base-re, '' .replace /\\/g, '/'
 
 function country-code path

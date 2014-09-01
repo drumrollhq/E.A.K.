@@ -1,3 +1,6 @@
 [submodule "vendor/rework"]
 	path = vendor/rework
 	url = https://github.com/visionmedia/rework.git
+[submodule "vendor/slowparse"]
+	path = vendor/slowparse
+	url = git@github.com:SomeHats/eak-slowparse.git
