@@ -236,7 +236,7 @@
     "description": "HTML/CSS error"
   },
   "data/errors.all.html/slowparse.mismatched-close-tag": {
-    "message": "These tags don't match! You've got a closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag, but it's trying to pair with the opening <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;/{{closeTag.name}}&gt;</code>.",
+    "message": "These tags don't match! You've got a closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag, but it's trying to pair with the opening <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code>.",
     "description": "HTML/CSS error"
   },
   "data/errors.all.html/slowparse.close-tag-for-void-element": {
@@ -244,7 +244,7 @@
     "description": "HTML/CSS error"
   },
   "data/errors.all.html/slowparse.self-closing-non-void-element": {
-    "message": "OI! You can't have a <code>/</code> at the end of this opening <code data-highlight=\"{{start}},{{end}}\">&lt;{{name}}&gt;</code>. It has to go in a closing <code>&lt;/{name}}&gt;</code> tag.",
+    "message": "OI! You can't have a <code>/</code> at the end of this opening <code data-highlight=\"{{start}},{{end}}\">&lt;{{name}}&gt;</code>. It has to go in a closing <code>&lt;/{{name}}&gt;</code> tag.",
     "description": "HTML/CSS error"
   },
   "data/errors.all.html/slowparse.unclosed-tag": {
@@ -255,24 +255,32 @@
     "message": "There's no such thing as a <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code> tag. The masters of HTML wouldn't allow it.",
     "description": "HTML/CSS error"
   },
+  "data/errors.all.html/slowparse.invalid-attr-name": {
+    "message": "There's no such thing as a <code data-highlight=\"{{start}},{{end}}\">{{attribute.name.value}}</code> attribute. The masters of HTML wouldn't allow it.",
+    "description": "HTML/CSS error"
+  },
   "data/errors.all.html/slowparse.lonely-angle-bracket": {
     "message": "This lonely <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;</code> looks like the start of a tag. It doesn't work on its own - delete it, or add the tag name and closing <code>&gt;</code>.",
     "description": "HTML/CSS error"
   },
   "data/errors.all.html/slowparse.unterminated-attr-value": {
-    "message": "You need to add a <code>\"</code> at the end of this <code data-highlight=\"{{attribute.openTag.start}}\">&lt;{{openTag.name}}&gt;</code> tag's <code data-highlight=\"{{attribute.value.start}}\">{{attribute.name.value}}</code> attribute. Crazy, right?",
+    "message": "You need to add a <code>\"</code> at the end of this <code data-highlight=\"{{openTag.start}},{{openTag.start + openTag.name.length + 1}}\">&lt;{{openTag.name}}&gt;</code> tag's <code data-highlight=\"{{attribute.name.start}},{{attribute.value.start}}\">{{attribute.name.value}}</code> attribute. Crazy, right?",
     "description": "HTML/CSS error"
   },
   "data/errors.all.html/slowparse.unquoted-attr-value": {
-    "message": "You need a <code>\"</code> after the <code>=</code> on this <code data-highlight=\"{{attribute.start}}\">{{attribute.name}}</code> attribute. Just saying.",
+    "message": "You need a <code>\"</code> after the <code>=</code> on this <code data-highlight=\"{{attribute.name.start}},{{attribute.name.end + 1}}\">{{attribute.name.value}}</code> attribute. Just saying.",
     "description": "HTML/CSS error"
   },
   "data/errors.all.html/slowparse.unterminated-close-tag": {
-    "message": "Whuuutttt!? You need to add a <code>&gt;</code> to this closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag.",
+    "message": " Oh, what!? You need to add a <code>&gt;</code> to this closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag.",
     "description": "HTML/CSS error"
   },
   "data/errors.all.html/slowparse.unterminated-open-tag": {
-    "message": "FYI, you need to add a <code>&gt;</code> to the end of this opening <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag",
+    "message": "FYI, you need to add a <code>&gt;</code> to the end of this opening <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;/{{openTag.name}}&gt;</code> tag.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.attribute-in-closing-tag": {
+    "message": "I thought you should know, you can't put an attribute in this closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag.",
     "description": "HTML/CSS error"
   },
   "data/errors.all.html/slowparse.unterminated-comment": {

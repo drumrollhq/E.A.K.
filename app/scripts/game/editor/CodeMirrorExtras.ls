@@ -42,7 +42,7 @@ module.exports = setup-CM-extras = (cm) ->
         last-mark := mark
 
   return process: (html) ->
-    parsed = Slowparse.HTML document, html, [TreeInspectors.forbid-JS]
+    parsed = Slowparse.HTML document, html, error-detectors: [TreeInspectors.forbid-JS]
 
     clear-marks!
     link-to-preview parsed.document, marks, cm

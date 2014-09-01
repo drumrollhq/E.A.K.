@@ -18,7 +18,7 @@
   <p>
     [% if (openTag.name) { %]
       {{{slowparse.invalidTagName}}}
-    [% } else { %> %]
+    [% } else { %]
       {{{slowparse.lonelyAngleBracket}}}
     [% } %]
   </p>
@@ -29,11 +29,17 @@
 <div class="error-msg UNQUOTED_ATTR_VALUE">
   <p>{{{slowparse.unquotedAttrValue}}}</p>
 </div>
+<div class="error-msg INVALID_ATTR_NAME">
+  <p>{{{slowparse.invalidAttrName}}}</p>
+</div>
 <div class="error-msg UNTERMINATED_CLOSE_TAG">
   <p>{{{slowparse.unterminatedCloseTag}}}</p>
 </div>
 <div class="error-msg UNTERMINATED_OPEN_TAG">
   <p>{{{slowparse.unterminatedOpenTag}}}</p>
+</div>
+<div class="error-msg ATTRIBUTE_IN_CLOSING_TAG">
+  <p>{{{slowparse.attributeInClosingTag}}}</p>
 </div>
 <div class="error-msg UNTERMINATED_COMMENT">
   <p>{{{slowparse.unterminatedComment}}}</p>
@@ -84,3 +90,4 @@
 <div class="error-msg JAVASCRIPT_URL_NOT_ALLOWED">
   <p>{{{slowparse.forbidJS}}}</p>
 </div>
+
