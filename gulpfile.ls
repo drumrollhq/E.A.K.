@@ -68,6 +68,7 @@ stylus-conf = {
 src = {
   assets: './app/assets/**/*'
   audio: './app/audio/**/*'
+  audio-cache: './gulp-cache/audio/**/*'
   css-all: './app/styles/**/*.styl'
   css: ['./app/styles/app.styl', './app/styles/min.styl']
   fonts: './bower_components/font-awesome/fonts/*'
@@ -86,6 +87,8 @@ dest = {
   all: './public/'
   assets: './public'
   audio: './public/audio'
+  audio-cache: './gulp-cache/audio'
+  cache: './gulp-cache/'
   css: './public/css'
   data: './public/data'
   fonts: './public/fonts'
@@ -117,6 +120,10 @@ gulp.task 'clean' ->
   gulp.src dest.all, read: false
     .pipe gulp-rimraf force: true
 
+gulp.task 'clean-cache' ->
+  gulp.src dest.cache, read: false
+    .pipe gulp-rimraf force: true
+
 gulp.task 'scripts' ['livescript' 'workers']
 
 gulp.task 'imagemin' ->
@@ -143,12 +150,17 @@ gulp.task 'vendor' ->
     .pipe if optimized then gulp-uglify! else noop!
     .pipe gulp.dest dest.js
 
-gulp.task 'audio' ->
-  gulp.src src.audio, read: false
+gulp.task 'audio' ['convert-audio'] ->
+  gulp.src src.audio-cache
     .pipe gulp-changed dest.audio
+    .pipe gulp.dest dest.audio
+
+gulp.task 'convert-audio' ->
+  gulp.src src.audio, # read: false
+    .pipe gulp-changed dest.audio-cache
     .pipe through2.obj (file, enc, cb) ->
       if file.stat.is-directory! then return cb!
-      output = output-loc file, dest.audio
+      output = output-loc file, dest.audio-cache
 
       file-name = file.path.replace file.base, ''
       bar = new ProgressBar "[:bar] :percent #file-name", total: 100, width: 30

@@ -11,3 +11,4 @@ jstest
 conf.dev.json
 conf.production.json
 .tmp
+gulp-cache
