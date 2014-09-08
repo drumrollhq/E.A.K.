@@ -7,9 +7,11 @@ Extra bits that make CM a better editor to learn with:
 
 */
 
-require! 'channels'
+require! {
+  'channels'
+  'game/editor/utils'
+}
 
-box-shadow = Modernizr.prefixed 'boxShadow'
 errors = undefined
 
 $.load-errors '/data/', <[all]>, (err) ->
@@ -23,7 +25,7 @@ module.exports = setup-CM-extras = (cm) ->
 
   cm.on "cursorActivity", ~>
     if last-mark isnt false
-      last-mark.data.node.style[box-shadow] = last-mark.data.shadow
+      last-mark.data.node.class-list.remove 'editing-current-active'
 
     pos = cm.get-cursor!
     posmarks = cm.find-marks-at pos
@@ -31,12 +33,7 @@ module.exports = setup-CM-extras = (cm) ->
       mark = posmarks[posmarks.length - 1]
 
       if mark.data isnt undefined
-        mark.data.shadow = mark.data.node.style[box-shadow]
-        if mark.data.shadow is ''
-          mark.data.node.style[box-shadow] = '0 0 10px rgba(30, 200, 255, 0.8)'
-        else
-          mark.data.node.style[box-shadow] += ', 0 0 10px rgba(30, 200, 255, 0.8)'
-
+        mark.data.node.class-list.add 'editing-current-active'
         show-element mark.data.node
 
         last-mark := mark
@@ -80,7 +77,7 @@ show-error = (cm, err) ->
 
   if err isnt null
     error = $ '<div></div>' .fill-error err
-    pos = get-positions err, cm
+    pos = utils.get-positions err, cm
 
     error.add-class 'annotation-widget annotation-error'
 
@@ -132,7 +129,7 @@ show-error = (cm, err) ->
 link-to-preview = (node, marks, cm) ~>
   if node.parse-info isnt undefined and node.node-type is 1
 
-    pos = get-positions node.parse-info, cm
+    pos = utils.get-positions node.parse-info, cm
 
     mark = cm.mark-text pos.start.outer, pos.end.outer
 
@@ -150,49 +147,3 @@ link-to-preview = (node, marks, cm) ~>
   for n in node.child-nodes
     link-to-preview n, marks, cm
 
-get-positions = (info, cm) ->
-  p0 = cm.pos-from-index 0
-
-  pos =
-    start:
-      outer: p0
-      inner: p0
-    end:
-      outer: p0
-      inner: p0
-
-  no-start = no-end = false
-
-  if info.open-tag isnt undefined
-    pos.start.outer = cm.pos-from-index info.open-tag.start
-    pos.start.inner = cm.pos-from-index info.open-tag.end
-  else if info.start isnt undefined
-    pos.start.inner = pos.start.outer = cm.pos-from-index info.start
-  else
-    no-start = true
-
-  if info.close-tag isnt undefined
-    pos.end.outer = cm.pos-from-index info.close-tag.end
-    pos.end.inner = cm.pos-from-index info.close-tag.start
-  else if info.end isnt undefined
-    pos.end.inner = pos.end.outer = cm.pos-from-index info.end
-  else
-    no-end = true
-
-  if no-start and not no-end
-    pos.start = pos.end
-  else if no-end and not no-start
-    pos.end = pos.start
-
-  if no-start and no-end
-    others = <[html cssBlock cssSelector cssProperty cssValue name]>
-
-    for other in others
-      if info[other] isnt undefined
-        ref = info[other]
-        break
-
-    pos.start.outer = pos.start.inner = cm.pos-from-index ref.start
-    pos.end.outer = pos.end.inner = cm.pos-from-index ref.end
-
-  return pos

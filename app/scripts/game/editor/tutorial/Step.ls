@@ -14,9 +14,11 @@ module.exports = class Step
 
     @actions = for el in $step.find 'action' .get! => new Action @start, @end, $ el
 
-  set-view: (view) ->
+  set-view: (view, editor) ->
     @view = view
     @content-container = view.$ '.content-container > .content'
+    @editor = editor
+    for action in @actions => action.set-view view, editor
 
   on-start: ~>
     @content-container.html @content.html!

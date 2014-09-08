@@ -4,9 +4,9 @@ require! {
   'game/editor/tutorial/TutorialView'
 }
 
-add-track-events = (track, steps, view) ->
+add-track-events = (track, steps, view, editor) ->
   for step in steps
-    step.set-view view
+    step.set-view view, editor
     track.code step
     step.add-track-events track
 
@@ -43,7 +43,7 @@ module.exports = class Tutorial
     step = @get-active-step-index!
     if step? and not @ended then @play-step step
 
-    add-track-events @media, @steps, @view
+    add-track-events @media, @steps, @view, editor-view
 
   detach: ->
     @media.pause!

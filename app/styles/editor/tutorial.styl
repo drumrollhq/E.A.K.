@@ -81,3 +81,25 @@
     color black
     font-size 1.5em
 
+.action-highlight
+  position absolute
+  z-index 999999
+  animation action-highlight-pulse 0.5s linear alternate infinite
+  animation-play-state running !important
+
+.highlight-action
+  animation code-highlight-pulse 0.5s ease-in-out alternate infinite
+
+@keyframes action-highlight-pulse
+  from
+    background-color rgba(eakPurple, 0.2)
+
+  to
+    background-color rgba(eakPurple, 0.5)
+
+@keyframes code-highlight-pulse
+  from
+    background-color white
+
+  to
+    background-color lighten(eakPurple, 80%)

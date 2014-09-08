@@ -35,13 +35,20 @@
     list-style decimal
     margin-left 1.5em
 
+.editing-current-active
+  outline 2px solid lighten(eakPurple, 40%)
+  outline-offset 5px
+  animation editing-outline-flash 1s ease-in-out alternate infinite
+  animation-play-state running !important
+
 .highlight-error
   color white !important
   col = lighten(eakPurple, 20%)
   background col
-  border-top 2px solid col !important
-  border-bottom 4px solid col !important
+  border-top 2px solid col
+  border-bottom 4px solid col
   animation highlight-pulse 0.3s ease-in-out alternate infinite
+
 
 @keyframes highlight-pulse
    from
@@ -51,3 +58,16 @@
    to
      background lighten(eakPurple, 60%)
      border-color lighten(eakPurple, 60%)
+
+@keyframes editing-outline-flash
+  0%
+    outline-color lighten(eakPurple, 60%)
+    outline-offset 2px
+
+  50%
+    outline-color lighten(eakPurple, 30%)
+    outline-offset 5px
+
+  100%
+    outline-color eakPurple
+    outline-offset 2px
