@@ -31,6 +31,7 @@ module.exports = class EditorView extends Backbone.View
 
     @extras = CodeMirrorExtras cm
     NiceComments cm
+    @extras.clear-cursor-marks!
 
   events:
     'tap .save': \save

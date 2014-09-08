@@ -23,9 +23,11 @@ module.exports = setup-CM-extras = (cm) ->
   marks = []
   cm.data = {}
 
+  clear-cursor-marks = ->
+    if last-mark?.data?.node? then last-mark.data.node.class-list.remove 'editing-current-active'
+
   cm.on "cursorActivity", ~>
-    if last-mark isnt false
-      last-mark.data.node.class-list.remove 'editing-current-active'
+    if last-mark isnt false then clear-cursor-marks!
 
     pos = cm.get-cursor!
     posmarks = cm.find-marks-at pos
@@ -38,24 +40,28 @@ module.exports = setup-CM-extras = (cm) ->
 
         last-mark := mark
 
-  return process: (html) ->
-    parsed = Slowparse.HTML document, html, error-detectors: [TreeInspectors.forbid-JS]
+  return {
+    process: (html) ->
+      parsed = Slowparse.HTML document, html, error-detectors: [TreeInspectors.forbid-JS]
 
-    clear-marks!
-    link-to-preview parsed.document, marks, cm
+      clear-marks!
+      link-to-preview parsed.document, marks, cm
 
-    show-error cm, parsed.error
+      show-error cm, parsed.error
 
-    # Remove JS:
-    jses = TreeInspectors.find-JS parsed.document
+      # Remove JS:
+      jses = TreeInspectors.find-JS parsed.document
 
-    for js in jses
-      if js.type is "SCRIPT_ELEMENT"
-        js.node.parent-node.remove-child js.node
-      if js.type is "EVENT_HANDLER_ATTR" or js.type is "JAVASCRIPT_URL"
-        js.node.owner-element.attributes.remove-named-item js.node.name
+      for js in jses
+        if js.type is "SCRIPT_ELEMENT"
+          js.node.parent-node.remove-child js.node
+        if js.type is "EVENT_HANDLER_ATTR" or js.type is "JAVASCRIPT_URL"
+          js.node.owner-element.attributes.remove-named-item js.node.name
 
-    return parsed
+      return parsed
+
+    clear-cursor-marks: clear-cursor-marks
+  }
 
 clear-marks = (marks) ->
   if marks isnt undefined
