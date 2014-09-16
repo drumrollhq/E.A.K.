@@ -173,6 +173,7 @@ gulp.task 'convert-audio' ->
         .audio-codec 'libmp3lame'
         .audio-channels 1
         .audio-frequency 44100
+        .audio-bitrate 64k
 
         .output output '.ogg'
         .audio-codec 'libvorbis'
