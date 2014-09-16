@@ -1,9 +1,9 @@
 require! 'channels'
 
 module.exports = class Bar extends Backbone.View
-  events: do
-    'tap .edit': \edit
-    'tap .restart': \restart
+  events:
+    'click .edit': \edit
+    'click .restart': \restart
 
   initialize: ->
     channels.key-press.filter ( .key is 'e' ) .subscribe ->

@@ -14,6 +14,8 @@ module.exports = class Router extends Backbone.Router
 
   initialize: ->
     @last-hash = '#'
+    @on 'route' ->
+      if ga? then ga 'send' 'pageview' page: location.pathname + location.search + location.hash
 
   should-prevent-route: ->
     if $ document.body .has-class \editor

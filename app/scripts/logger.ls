@@ -90,6 +90,12 @@ module.exports = {
         cleanup!
 
   send-event: (type, data, has-duration, cb) ->
+    if ga? then ga 'send' {
+      hit-type: 'event'
+      event-category: type
+      event-action: if has-duration then 'start' else 'log'
+    }
+
     post-json {
       url: "/api/v1/sessions/#{@session.id}/events"
       data: {type, data, has-duration}

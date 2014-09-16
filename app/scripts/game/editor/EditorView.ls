@@ -34,11 +34,11 @@ module.exports = class EditorView extends Backbone.View
     @extras.clear-cursor-marks!
 
   events:
-    'tap .save': \save
-    'tap .cancel': \cancel
-    'tap .undo': \undo
-    'tap .redo': \redo
-    'tap .reset': \reset
+    'click .save': \save
+    'click .cancel': \cancel
+    'click .undo': \undo
+    'click .redo': \redo
+    'click .reset': \reset
 
   handle-change: (cm) ~> @model.set \html cm.get-value!
 

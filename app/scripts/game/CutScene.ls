@@ -21,7 +21,7 @@ module.exports = class CutScene extends Backbone.View
   tag-name: 'div'
   class-name: 'cut-scene'
   events:
-    'tap .skip': 'triggerSkip'
+    'click .skip': 'triggerSkip'
 
   initialize: ({name}) ->
     @subs = []
