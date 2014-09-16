@@ -19,7 +19,8 @@
     "popcornjs": "~1.5.6",
     "font-awesome": "~4.1.0",
     "nouislider": "~6.2.0",
-    "platform": "~1.2.0"
+    "platform": "~1.2.0",
+    "fastclick": "~1.0.3"
   },
   "overrides": {
     "underscore": {
