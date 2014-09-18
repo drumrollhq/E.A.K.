@@ -1,5 +1,6 @@
 require! {
   'game/editor/utils'
+  'game/hints/HintController'
 }
 
 module.exports = class Action
@@ -99,5 +100,13 @@ actions = {
     end: ->
       actions.highlight-code.end.call this
       actions.highlight-level.end.call this
+
+  hint:
+    setup: ($el) -> @$el = $el
+
+    start: ->
+      @hc = new HintController hints: @$el
+
+    end: ->
 }
 

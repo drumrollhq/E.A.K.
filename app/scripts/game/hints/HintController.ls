@@ -29,7 +29,7 @@ module.exports = class HintController extends Backbone.Model
     hint-els.each (i, el) ~>
       $el = $ el
       obj =
-        type: el.tag-name.to-lower-case!
+        type: ($el.attr 'hint-type') or el.tag-name.to-lower-case!
         target: ($el.attr 'target') or HintController::hint-defaults.target
         name: ($el.attr 'name') or undefined
         content: $el.html! or HintController::hint-defaults.content
