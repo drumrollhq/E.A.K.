@@ -26,17 +26,17 @@
     </hints>
 
     <tutorial track="/audio/tutorials/editing-text">
-      <step duration="9">
+      <step duration="9.8">
         <content>
-          Yes! That's it! This is the HTML source code of Banana Bird Forest. <br>
+          Pink pantaloons! You've got it! This is the HTML source code of the ledges. <br>
           It describes the stuff
           shown on the screen to the right
         </content>
 
-        <action at="1" type="highlight-code" selector="p.ledge" duration="4"></action>
-        <action at="5" type="highlight-level" selector="p.ledge"></action>
+        <action at="4" type="highlight-code" selector="p.ledge" duration="2.5"></action>
+        <action at="7" type="highlight-level" selector="p.ledge"></action>
       </step>
-      <step duration="5.3">
+      <step duration="6">
         <content>
           <p>This code is the ledge you are on...</p>
           <p class="fade" in="2.5">...and this code is the ledge on the right</p>
@@ -44,7 +44,7 @@
         <action duration="2.5" type="highlight-code-and-level" selector="p.ledge:not(.right)"></action>
         <action at="2.5" type="highlight-code-and-level" selector="p.ledge.right"></action>
       </step>
-      <step duration="11">
+      <step duration="9.7">
         <content>
           <p>Each ledge starts with a <code>&lt;p ...&gt;</code> and ends with a <code>&lt;/p&gt;</code></p>
           <p class="important"><code>
@@ -58,7 +58,7 @@
         <action at="2" duration="2" type="highlight-code" selector="p.ledge" range="open"></action>
         <action at="4.7" duration="2" type="highlight-code" selector="p.ledge" range="close"></action>
       </step>
-      <step duration="10.7">
+      <step duration="5">
         <content>
           <p>The writing between the two tags <br> is the content that is shown on screen.</p>
           <p class="important"><code>
@@ -66,10 +66,22 @@
             <span class="fade" in="3">Hello!</span>
             <span>&lt;/p&gt;</span>
           </code></p>
-          <p in="6" class="fade">Try changing the words in the code above to make <br> the ledge you are standing on longer</p>
         </content>
-
-        <action at="7" type="highlight-code" selector="p.ledge:not(.right)" range="inner"></action>
+      </step>
+      <step duration="9">
+        <content>
+          <p>Try changing the words in the code above to make <br> the ledge you are standing on longer</p>
+          <p>You can write anything you want - a limerick about ledges, perhaps?</p>
+        </content>
+        <action at="1" type="highlight-code" selector="p.ledge:not(.right)" range="inner"></action>
+      </step>
+      <step duration="14">
+        <content>
+          <p>Smashing work, old chap! You picked that up faster than a squirrel on a scooter!</p>
+          <p class="fade" in="5">Go save that kitten! And watch out - <br>
+            you dont want to get on the wrong side of a banana bird...</p>
+          <p class="fade" in="11">I've heard they like to poop on thier enemies!</p>
+        </content>
       </step>
     </tutorial>
 
