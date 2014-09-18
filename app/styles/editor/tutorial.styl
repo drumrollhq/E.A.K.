@@ -48,6 +48,25 @@
       &.active
         background lighten(eakPurple, 85%)
 
+      &.locked
+        .number
+          opacity 0
+
+        .lock-sign
+          opacity 1
+
+    .lock-sign
+      position absolute
+      width 100%
+      left 0
+      top 7px
+      opacity 0
+      transition opacity 0.3s ease
+
+    .number
+      opacity 1
+      transition opacity 0.3s ease
+
     .progress
       position absolute
       left 0

@@ -61,7 +61,8 @@ module.exports = class TutorialView extends Backbone.View
   update-step-progress: (i, progress) ~> @els["step-#{i}-progress"].css 'width', "#{progress * 100}%"
 
   disable: (el, disable) ~>
-    @els[el].attr 'disabled', disable
+    | typeof el is 'string' => @disable @els[el], disable
+    | otherwise => el.attr 'disabled' disable
 
   play-pause: ~> @tutorial.play-pause!
 
@@ -82,3 +83,7 @@ module.exports = class TutorialView extends Backbone.View
   on-pause: ~>
     @els.playpause-icon.remove-class 'fa-pause' .add-class 'fa-play'
 
+  set-step-allowed: (step, allowed) ~>
+    el = @els["step-#{step}"]
+    if allowed then el.remove-class 'locked' else el.add-class 'locked'
+    @disable el, not allowed

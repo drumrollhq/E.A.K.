@@ -37,7 +37,6 @@ module.exports = class Tutorial
     @duration = time
 
   attach: (editor-view) ->
-    console.log 'attach' this
     $el = editor-view.$ '.editor-tutorial'
       ..empty!
 
@@ -54,6 +53,10 @@ module.exports = class Tutorial
 
     add-track-events @media, @steps, @view, editor-view
 
+    @setup-condition-checker editor-view
+    @check-step-conditions (editor-view.model.get 'html'), editor-view
+    editor-view.model.on 'change:html', (model, code) ~> @check-step-conditions code, editor-view
+
   detach: ->
     @media.pause!
     @audio-node.disconnect!
@@ -61,6 +64,24 @@ module.exports = class Tutorial
     tracks.blur!
     @view.remove!
     @media = null
+
+  setup-condition-checker: (editor-view) ->
+    $ = -> editor-view.render-el.find.apply editor-view.render-el, Array.prototype.slice.apply arguments
+    @_cond-checker = []
+    prev = []
+
+    check = ($, i, step, code) ~~>
+      allowed = step.allowed code, $
+      if prev[i] is allowed then return else prev[i] = allowed
+
+      @view.set-step-allowed i, allowed
+      step.set-allowed allowed
+
+    for let step, i in @steps
+      @_cond-checker[i] = _.throttle check($, i, step), 250
+
+  check-step-conditions: (code, editor-view) ->
+    for step, i in @steps => @_cond-checker[i] code
 
   get-active-step-index: ->
     unless @media? then return

@@ -4,6 +4,9 @@ require! {
 
 id-counter = 0
 
+# TODO: Find a less horrid way of doing this:
+get-allowed-fn = (cond) -> new Function 'code', '$', 'return ' + cond
+
 module.exports = class Step
   (@start, $step) ~>
     @duration = parse-float $step.attr 'duration' or throw new Error 'Step must have a duration'
@@ -11,6 +14,10 @@ module.exports = class Step
 
     @content = $step.find 'content'
     if @content.length isnt 1 then throw new Error 'Step must have one content element'
+
+    condition = $step.attr 'condition'
+    @allowed = if condition then get-allowed-fn condition else -> true
+    @locked = false
 
     @actions = for el in $step.find 'action' .get! => new Action @start, @end, $ el
 
@@ -20,11 +27,21 @@ module.exports = class Step
     @editor = editor
     for action in @actions => action.set-view view, editor
 
+  set-allowed: (allowed) ~>
+    @locked = not allowed
+    if @_waiting and allowed
+      @track.play!
+      @on-start!
+
   on-start: ~>
-    @content-container.html @content.html!
+    if @locked
+      @track.pause!
+      @_waiting = true
+    else
+      @content-container.html @content.html!
 
   on-end: ~>
-    @content-container.empty!
+    @_waiting = false
 
   content-enter: ({content-id}) ~>
     @content-container.find "[data-content-id=#content-id]" .add-class 'active'
@@ -33,6 +50,8 @@ module.exports = class Step
     @content-container.find "[data-content-id=#content-id]" .remove-class 'active'
 
   add-track-events: (track, view) ->
+    @track = track
+
     for action in @actions
       track.code action
 

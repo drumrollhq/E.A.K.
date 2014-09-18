@@ -75,7 +75,7 @@
         </content>
         <action at="1" type="highlight-code" selector="p.ledge:not(.right)" range="inner"></action>
       </step>
-      <step duration="14">
+      <step duration="14" condition="$('p.ledge.right').width() + $('p.ledge:not(.right)').width() > 600">
         <content>
           <p>Smashing work, old chap! You picked that up faster than a squirrel on a scooter!</p>
           <p class="fade" in="5">Go save that kitten! And watch out - <br>
