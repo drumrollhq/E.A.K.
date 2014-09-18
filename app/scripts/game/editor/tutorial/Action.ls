@@ -107,6 +107,47 @@ actions = {
     start: ->
       @hc = new HintController hints: @$el
 
+    end: -> # no-op
+
+  egg:
+    setup: ($el) ->
+      @dimensions = {
+        top: $el.attr 'top' or void
+        bottom: $el.attr 'bottom' or void
+        left: $el.attr 'left' or void
+        right: $el.attr 'right' or void
+      }
+
+      @enter = $el.attr 'enter' or 'fade'
+      @exit = $el.attr 'exit' or 'fade'
+      @egg-type = $el.attr 'egg' or 'normal'
+      @egg-src = {
+        normal: '/content/common/oracle.png'
+        glow: '/content/common/oracle-glow.png'
+      }[@egg-type]
+
+    start: ->
+      @el = $ '<img>'
+        ..add-class "enter-#{@enter} egg-helper egg-#{@egg-type}"
+        ..attr 'src' @egg-src
+        ..css @dimensions
+        ..append-to document.body
+
     end: ->
+      @el.remove!
+
+  egg-content:
+    setup: ($el) ->
+      @side = $el.attr 'side'
+      @other-side = {right: 'left', left: 'right'}[@side]
+      @egg = @view.$ '.content-container > .egg'
+
+    start: ->
+      @egg
+        ..remove-class "show-#{@other-side}"
+        ..add-class "show-#{@side}"
+
+    end: ->
+      @egg.remove-class "show-#{@side}"
 }
 

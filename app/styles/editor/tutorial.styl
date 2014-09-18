@@ -15,21 +15,20 @@
     text-align center
 
   .egg
-    width 150px
-    height 168px
+    height 134px
     position relative
     opacity 0
     width 0
     transition opacity 0.3s ease, width 0.3s ease
 
     img
-      width 125px
+      width 100px
       display block
       position absolute
       right 12.5px
 
     &.show-right, &.show-left
-      width 150px
+      width 125px
       opacity 1
 
     &.show-right
@@ -132,6 +131,22 @@
 
 .highlight-action
   animation code-highlight-pulse 0.5s ease-in-out alternate infinite
+
+.egg-helper
+  eggScale = 1
+  transform scale(0.75)
+  width 100px * eggScale
+  height 134px * eggScale
+  position absolute
+  margin-left -50px * eggScale
+  margin-top -67px * eggScale
+  z-index 100000000
+
+  &.egg-glow
+    width 185px * eggScale
+    height 220px * eggScale
+    margin-left -92.5px * eggScale
+    margin-top -110px * eggScale
 
 @keyframes action-highlight-pulse
   from
