@@ -39,6 +39,7 @@ module.exports = class EditorView extends Backbone.View
     'click .undo': \undo
     'click .redo': \redo
     'click .reset': \reset
+    'click .help': \help
 
   handle-change: (cm) ~> @model.set \html cm.get-value!
 
@@ -91,3 +92,5 @@ module.exports = class EditorView extends Backbone.View
   undo: ~> @cm.undo!
 
   redo: ~> @cm.redo!
+
+  help: ~> @trigger 'show-extra'

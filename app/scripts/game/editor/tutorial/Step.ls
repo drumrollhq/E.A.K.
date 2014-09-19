@@ -5,7 +5,7 @@ require! {
 id-counter = 0
 
 # TODO: Find a less horrid way of doing this:
-get-allowed-fn = (cond) -> new Function 'code', '$', 'return ' + cond
+get-allowed-fn = (cond) -> new Function 'code', '$', 'extras', 'return ' + cond
 
 module.exports = class Step
   (@start, $step) ~>
@@ -19,6 +19,11 @@ module.exports = class Step
     @allowed = if condition then get-allowed-fn condition else -> true
     @locked = false
 
+    extra = $step.attr 'extra'
+    if parse-int extra
+      @extra = that
+      @allowed = (code, $, extra-count) ~> extra-count >= @extra
+
     @actions = for el in $step.find 'action' .get! => new Action @start, @end, $ el
 
   set-view: (view, editor) ->
@@ -29,19 +34,19 @@ module.exports = class Step
 
   set-allowed: (allowed) ~>
     @locked = not allowed
-    if @_waiting and allowed
+    if @waiting and allowed
       @track.play!
       @on-start!
 
   on-start: ~>
     if @locked
       @track.pause!
-      @_waiting = true
+      @waiting = true
     else
       @content-container.html @content.html!
 
   on-end: ~>
-    @_waiting = false
+    @waiting = false
 
   content-enter: ({content-id}) ~>
     @content-container.find "[data-content-id=#content-id]" .add-class 'active'

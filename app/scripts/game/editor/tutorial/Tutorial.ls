@@ -25,6 +25,7 @@ audio-track = new Track 'tutorials'
 module.exports = class Tutorial
   ($el) ->
     @track-name = $el.attr 'track' or throw new Error 'You must specify a track'
+    @has-help = ($el.attr 'has-help')?
     @track = get-track @track-name
     @audio-node = context.create-media-element-source @track
 
@@ -35,6 +36,8 @@ module.exports = class Tutorial
       step
 
     @duration = time
+
+    @_extras-revealed = 0
 
   attach: (editor-view) ->
     $el = editor-view.$ '.editor-tutorial'
@@ -57,6 +60,11 @@ module.exports = class Tutorial
     @check-step-conditions (editor-view.model.get 'html'), editor-view
     editor-view.model.on 'change:html', (model, code) ~> @check-step-conditions code, editor-view
 
+    editor-view.on 'show-extra' ~>
+      @_extras-revealed++
+      code = editor-view.model.get 'html'
+      @check-step-conditions code, editor-view
+
   detach: ->
     @media.pause!
     @audio-node.disconnect!
@@ -71,7 +79,7 @@ module.exports = class Tutorial
     prev = []
 
     check = ($, i, step, code) ~~>
-      allowed = step.allowed code, $
+      allowed = step.allowed code, $, @_extras-revealed
       if prev[i] is allowed then return else prev[i] = allowed
 
       @view.set-step-allowed i, allowed
@@ -90,7 +98,10 @@ module.exports = class Tutorial
 
   play-pause: ->
     unless @media? then return
-    if @media.paused! then @media.play! else @media.pause!
+    if @media.paused! and not @steps[@get-active-step-index!].waiting
+      @media.play!
+    else
+      @media.pause!
 
   play-step: (i) ->
     unless @media? then return

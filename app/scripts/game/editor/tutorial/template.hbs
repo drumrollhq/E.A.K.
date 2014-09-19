@@ -12,7 +12,11 @@
     <button class="step" data-step="{{@index}}" style="flex: {{duration}}">
       <span class="number">{{inc @index}}</span>
       <div class="progress"></div>
-      <span class="fa fa-lock lock-sign"></span>
+      {{#if extra}}
+        <span class="extra">‽</span>
+      {{else}}
+        <span class="fa fa-lock lock-sign"></span>
+      {{/if}}
     </button>
   {{/each}}
   <button class="prev"><span class="fa fa-chevron-left"></span></button>
