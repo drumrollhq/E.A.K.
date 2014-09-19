@@ -37,6 +37,7 @@ module.exports =  class PointerHint extends Backbone.View
       ..append-to document.body
       ..css offset
       ..add-class \active
+      ..add-class @hint.class
       ..add-class "position-#{@hint.position}"
 
     if @hint.position in <[left right]> then @$inner.css \margin-top, -(@$el.height! / 2)

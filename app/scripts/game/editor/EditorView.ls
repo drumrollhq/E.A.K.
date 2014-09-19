@@ -93,4 +93,6 @@ module.exports = class EditorView extends Backbone.View
 
   redo: ~> @cm.redo!
 
-  help: ~> @trigger 'show-extra'
+  help: ~>
+    @trigger 'show-extra'
+    channels.game-commands.publish command: 'help'

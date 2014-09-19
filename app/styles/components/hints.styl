@@ -65,6 +65,26 @@
   &.done
     animation pointerHintOut 0.5s ease
 
+  &.small
+    margin-left -5px
+
+    > div
+      width auto
+      font-size 12px
+      background-color eakPurple
+      color white
+      box-shadow none
+      border-radius 3px
+      padding 0 5px
+
+    &:before
+      width 10px
+      height 10px
+      margin-left -5px
+      top -5px
+      background-color eakPurple
+      box-shadow none
+
 @keyframes pointerHintIn
   from
     opacity 0

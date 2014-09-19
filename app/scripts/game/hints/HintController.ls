@@ -15,6 +15,7 @@ module.exports = class HintController extends Backbone.Model
     type: \alert
     target: \.player
     content: 'You forgot to add content to your hint!'
+    class: 'normal'
     enter: \time:1
     exit: \time:4
     enter-delay: 0
@@ -33,6 +34,7 @@ module.exports = class HintController extends Backbone.Model
         target: ($el.attr 'target') or HintController::hint-defaults.target
         name: ($el.attr 'name') or undefined
         content: $el.html! or HintController::hint-defaults.content
+        class: ($el.attr 'class') or HintController::hint-defaults.class
         enter: ($el.attr 'enter') or HintController::hint-defaults.enter
         exit: ($el.attr 'exit') or HintController::hint-defaults.exit
         enter-delay: ($el.attr 'enter-delay') or HintController::hint-defaults.enter-delay
