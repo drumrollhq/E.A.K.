@@ -9,8 +9,8 @@ require! {
 add-track-events = (track, steps, view, editor) ->
   for step in steps
     step.set-view view, editor
-    track.code step
     step.add-track-events track
+    track.code step
 
 get-track = (name) ->
   $ '<audio></audio>'
@@ -51,9 +51,6 @@ module.exports = class Tutorial
 
     @view = new TutorialView el: $el, tutorial: this
 
-    step = @get-active-step-index!
-    if step? and not @ended then @play-step step
-
     add-track-events @media, @steps, @view, editor-view
 
     @setup-condition-checker editor-view
@@ -64,6 +61,9 @@ module.exports = class Tutorial
       @_extras-revealed++
       code = editor-view.model.get 'html'
       @check-step-conditions code, editor-view
+
+    step = @get-active-step-index!
+    if step? and not @ended then @play-step step
 
   detach: ->
     @media.pause!

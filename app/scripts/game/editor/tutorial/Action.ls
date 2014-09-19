@@ -52,9 +52,7 @@ actions = {
       if @selector?
         @markers = for el in @editor.render-el.find @selector when el.parse-info
           pos = utils.get-positions el.parse-info, @editor.cm
-          console.log 'before' pos
           pos = get-pos pos, @range
-          console.log 'after' pos
           @editor.cm.mark-text pos.start, pos.end, class-name: 'highlight-action'
 
     end: ->
@@ -85,7 +83,6 @@ actions = {
 
     end: ->
       for highlight in @highlights
-        console.log 'remove' highlight
         highlight.remove!
 
   highlight-code-and-level:
