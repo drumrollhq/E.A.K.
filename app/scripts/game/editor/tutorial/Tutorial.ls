@@ -63,6 +63,7 @@ module.exports = class Tutorial
       @check-step-conditions code, editor-view
 
     step = @get-active-step-index!
+    if @steps[step].locked then step--
     if step? and not @ended then @play-step step
 
   detach: ->
