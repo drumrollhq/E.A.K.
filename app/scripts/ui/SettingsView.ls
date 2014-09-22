@@ -4,14 +4,6 @@ require! {
   'translations'
 }
 
-animation-end = {
-  'WebkitAnimation': 'webkitAnimationEnd'
-  'MozAnimation': 'animationend'
-  'OAnimation': 'oanimationend'
-  'msAnimation': 'MSAnimationEnd'
-  'animation': 'animationend'
-}[Modernizr.prefixed 'animation']
-
 $body = $ document.body
 
 module.exports = class SettingsView extends Backbone.View

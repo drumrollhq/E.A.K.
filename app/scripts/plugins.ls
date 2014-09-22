@@ -11,6 +11,14 @@ window.prefixed = {
     'animation': 'animationend'}[Modernizr.prefixed 'animation']
 }
 
+window.animation-end = {
+  'WebkitAnimation': 'webkitAnimationEnd'
+  'MozAnimation': 'animationend'
+  'OAnimation': 'oanimationend'
+  'msAnimation': 'MSAnimationEnd'
+  'animation': 'animationend'
+}[Modernizr.prefixed 'animation']
+
 # This file contains mostly boring jQuery plugins. Stuff gets a little more
 # interesting near the bottom where we register some custom elements for using
 # with SlowParse

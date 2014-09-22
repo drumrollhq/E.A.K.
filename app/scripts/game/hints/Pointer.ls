@@ -1,3 +1,7 @@
+require! {
+  'ui/focus'
+}
+
 transition-end = {
   'WebkitAnimation': 'webkitAnimationEnd'
   'MozAnimation': 'animationend'
@@ -44,7 +48,10 @@ module.exports =  class PointerHint extends Backbone.View
     if @hint.position is \above then @$el.css \top offset.top - @$el.outer-height!
     if @hint.position is \left then @$el.css \left offset.left - @$el.outer-width!
 
+    if @hint.focus then focus.focus $target.0
+
   remove: ~>
+    if @hint.focus then focus.blur!
     @$el
       ..one transition-end, ~>
         super!

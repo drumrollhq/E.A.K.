@@ -3,14 +3,6 @@ require! {
   'game/hints/HintController'
 }
 
-animation-end = {
-  'WebkitAnimation': 'webkitAnimationEnd'
-  'MozAnimation': 'animationend'
-  'OAnimation': 'oanimationend'
-  'msAnimation': 'MSAnimationEnd'
-  'animation': 'animationend'
-}[Modernizr.prefixed 'animation']
-
 module.exports = class Action
   (@parent-start, @parent-end, $action) ->
     @$action = $action
@@ -137,6 +129,7 @@ actions = {
         ..attr 'src' @egg-src
         ..css @dimensions
         ..append-to document.body
+        ..one animation-end, ~> @el.remove-class "enter-#{@enter}"
 
     end: ->
       @el
