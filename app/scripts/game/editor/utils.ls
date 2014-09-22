@@ -45,6 +45,10 @@ get-positions = (info, cm) ->
 
   return pos
 
+# TODO: Find a less horrid way of doing this:
+get-allowed-fn = (cond) -> new Function 'code', '$', 'extras', 'return ' + cond
+
 module.exports = {
   get-positions
+  get-allowed-fn
 }

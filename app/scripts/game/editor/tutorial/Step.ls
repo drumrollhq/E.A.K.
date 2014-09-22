@@ -1,11 +1,9 @@
 require! {
   'game/editor/tutorial/Action'
+  'game/editor/utils'
 }
 
 id-counter = 0
-
-# TODO: Find a less horrid way of doing this:
-get-allowed-fn = (cond) -> new Function 'code', '$', 'extras', 'return ' + cond
 
 module.exports = class Step
   (@start, $step) ~>
@@ -16,13 +14,13 @@ module.exports = class Step
     if @content.length isnt 1 then throw new Error 'Step must have one content element'
 
     condition = $step.attr 'condition'
-    @allowed = if condition then get-allowed-fn condition else -> true
+    @_allowed = if condition then utils.get-allowed-fn condition else -> true
     @locked = false
 
     extra = $step.attr 'extra'
     if parse-int extra
       @extra = that
-      @allowed = (code, $, extra-count) ~> extra-count >= @extra
+      @_allowed = (code, $, extra-count) ~> extra-count >= @extra
 
     @actions = for el in $step.find 'action' .get! => new Action @start, @end, $ el
 
@@ -31,6 +29,10 @@ module.exports = class Step
     @content-container = view.$ '.content-container > .content'
     @editor = editor
     for action in @actions => action.set-view view, editor
+
+  allowed: (...args) ~>
+    for action in @actions => action.update-allowed.apply window, args
+    @_allowed.apply window, args
 
   set-allowed: (allowed) ~>
     @locked = not allowed

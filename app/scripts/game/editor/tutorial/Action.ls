@@ -25,13 +25,22 @@ module.exports = class Action
       unless actions[@type]? then throw new Error "No such action.type: #{@type}"
     else throw new Error 'You must specify action.type!'
 
+    condition = $action.attr 'condition'
+    @_allowed = if condition then utils.get-allowed-fn condition else -> true
+    @allowed = false
+
   set-view: (view, editor) ~>
     @view = view
     @editor = editor
     actions[@type].setup.call this, @$action
 
+  update-allowed: (...args) ~>
+    console.log 'update-allowed'
+    console.log "@_allowed.apply(window, [#{args.join ', '}]) => #{@_allowed} =>" @_allowed.apply window, args
+    @allowed = @_allowed.apply window, args
+
   on-start: ~>
-    actions[@type].start.call this
+    if @allowed then actions[@type].start.call this
 
   on-end: ~>
     actions[@type].end.call this
