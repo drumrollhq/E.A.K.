@@ -34,9 +34,9 @@
         </content>
 
         <action at="0" type="egg-content" side="left" duration="3"></action>
-        <action at="3" type="egg" duration="4" top="150px" left="7%" enter="up"></action>
+        <action at="3" type="egg" duration="4" top="150px" left="7%" enter="bottom" exit="right"></action>
         <action at="4" type="highlight-code" selector="p.ledge" duration="2.5"></action>
-        <action at="7" type="egg" top="55%" right="-3%" egg="glow"></action>
+        <action at="7" type="egg" top="55%" right="-3%" egg="glow" enter="left"></action>
         <action at="7" type="highlight-level" selector="p.ledge"></action>
       </step>
       <step duration="6">
@@ -44,7 +44,7 @@
           <p>This code is the ledge you are on...</p>
           <p class="fade" in="2.5">...and this code is the ledge on the right</p>
         </content>
-        <action type="egg" top="150px" left="7%"></action>
+        <action type="egg" top="150px" left="7%" enter="right" exit="bottom"></action>
         <action duration="2.5" type="highlight-code" selector="p.ledge:not(.right)"></action>
         <action at="2.5" type="highlight-code" selector="p.ledge.right"></action>
       </step>

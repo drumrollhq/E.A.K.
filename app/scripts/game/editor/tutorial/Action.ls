@@ -3,6 +3,14 @@ require! {
   'game/hints/HintController'
 }
 
+animation-end = {
+  'WebkitAnimation': 'webkitAnimationEnd'
+  'MozAnimation': 'animationend'
+  'OAnimation': 'oanimationend'
+  'msAnimation': 'MSAnimationEnd'
+  'animation': 'animationend'
+}[Modernizr.prefixed 'animation']
+
 module.exports = class Action
   (@parent-start, @parent-end, $action) ->
     @$action = $action
@@ -115,8 +123,8 @@ actions = {
         right: $el.attr 'right' or void
       }
 
-      @enter = $el.attr 'enter' or 'fade'
-      @exit = $el.attr 'exit' or 'fade'
+      @enter = $el.attr 'enter' or 'bottom'
+      @exit = $el.attr 'exit' or @enter
       @egg-type = $el.attr 'egg' or 'normal'
       @egg-src = {
         normal: '/content/common/oracle.png'
@@ -131,7 +139,11 @@ actions = {
         ..append-to document.body
 
     end: ->
-      @el.remove!
+      @el
+        ..remove-class "enter-#{@enter}"
+        ..add-class "exit-#{@exit}"
+        ..one animation-end, ~>
+          @el.remove!
 
   egg-content:
     setup: ($el) ->

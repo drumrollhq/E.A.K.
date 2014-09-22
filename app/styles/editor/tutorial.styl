@@ -169,8 +169,7 @@
   animation code-highlight-pulse 0.5s ease-in-out alternate infinite
 
 .egg-helper
-  eggScale = 1
-  transform scale(0.75)
+  eggScale = 0.75
   width 100px * eggScale
   height 134px * eggScale
   position absolute
@@ -183,6 +182,30 @@
     height 220px * eggScale
     margin-left -92.5px * eggScale
     margin-top -110px * eggScale
+
+  &.enter-top
+    animation egg-top 0.3s ease-out
+
+  &.exit-top
+    animation egg-top 0.3s ease-in reverse
+
+  &.enter-bottom
+    animation egg-bottom 0.3s ease-out
+
+  &.exit-bottom
+    animation egg-bottom 0.3s ease-in reverse
+
+  &.enter-left
+    animation egg-left 0.3s ease-out
+
+  &.exit-left
+    animation egg-left 0.3s ease-in reverse
+
+  &.enter-right
+    animation egg-right 0.3s ease-out
+
+  &.exit-right
+    animation egg-right 0.3s ease-in reverse
 
 @keyframes action-highlight-pulse
   from
@@ -229,3 +252,40 @@
   to
     opacity 0
     transform translateX(55px)
+
+eggMove = 100px
+@keyframes egg-top
+  from
+    opacity 0
+    transform translateY(- eggMove)
+
+  to
+    opacity 1
+    transform translateY(0)
+
+@keyframes egg-bottom
+  from
+    opacity 0
+    transform translateY(eggMove)
+
+  to
+    opacity 1
+    transform translateY(0)
+
+@keyframes egg-left
+  from
+    opacity 0
+    transform translateX(- eggMove)
+
+  to
+    opacity 1
+    transform translateX(0)
+
+@keyframes egg-right
+  from
+    opacity 0
+    transform translateX(eggMove)
+
+  to
+    opacity 1
+    transform translateX(0)
