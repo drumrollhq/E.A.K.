@@ -137,14 +137,14 @@ actions = {
     setup: ($el) ->
       @side = $el.attr 'side'
       @other-side = {right: 'left', left: 'right'}[@side]
-      @egg = @view.$ '.content-container > .egg'
+      @container = @view.$ '.content-container'
 
     start: ->
-      @egg
-        ..remove-class "show-#{@other-side}"
-        ..add-class "show-#{@side}"
+      @container
+        ..remove-class "egg-#{@other-side} egg-hide"
+        ..add-class "egg-#{@side}"
 
     end: ->
-      @egg.remove-class "show-#{@side}"
+      @container.add-class "egg-hide"
 }
 
