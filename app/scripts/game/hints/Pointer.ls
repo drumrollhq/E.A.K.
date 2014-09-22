@@ -14,6 +14,9 @@ module.exports =  class PointerHint extends Backbone.View
   tag-name: \div
   class-name: \pointer-hint
 
+  events:
+    'click .dismiss': 'dismiss'
+
   initialize: (hint) ->
     @$inner = $ '<div></div>'
       ..append-to @$el
@@ -56,3 +59,7 @@ module.exports =  class PointerHint extends Backbone.View
       ..one transition-end, ~>
         super!
       ..add-class \done
+
+  dismiss: (e) ~>
+    e.prevent-default!
+    @remove!
