@@ -79,15 +79,15 @@ module.exports = class Tutorial
     @_cond-checker = []
     prev = []
 
-    check = ($, i, step, code) ~~>
-      allowed = step.allowed code, $, @_extras-revealed
+    check = ($, i, step, editor-view, code) ~~>
+      allowed = step.allowed code, $, @_extras-revealed, editor-view
       if prev[i] is allowed then return else prev[i] = allowed
 
       @view.set-step-allowed i, allowed
       step.set-allowed allowed
 
     for let step, i in @steps
-      @_cond-checker[i] = _.throttle check($, i, step), 250
+      @_cond-checker[i] = _.throttle check($, i, step, editor-view), 250
 
   check-step-conditions: (code, editor-view) ->
     for step, i in @steps => @_cond-checker[i] code
