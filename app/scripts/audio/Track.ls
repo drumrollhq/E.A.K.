@@ -17,12 +17,14 @@ channels.track-volume.subscribe ({track, value}) ->
 module.exports = class Track
   (@name) ->
     @node = context.create-gain!
-    @multiplier-node = context.create-gain!
-    @node.connect @multiplier-node
-    @multiplier-node.connect nodes.master
+    @_multiplier-node = context.create-gain!
+    @node.connect @_multiplier-node
+    @_multiplier-node.connect nodes.master
+    @_mult = 1
     nodes[@name] = @node
     tracks.add @name, this
 
   fade: (value, duration = 0.5) ->
-    @multiplier-node.gain.set-value-at-time @multiplier-node.gain.value, context.current-time
-    @multiplier-node.gain.linear-ramp-to-value-at-time value, context.current-time + duration
+    @_multiplier-node.gain.set-value-at-time @_mult, context.current-time
+    @_multiplier-node.gain.linear-ramp-to-value-at-time value, context.current-time + duration
+    @_mult = value
