@@ -8,6 +8,8 @@ actions = {
   spike: (player) -> actions.kill player
 }
 
+fall-limit = 200px
+
 # Hyperlinks
 channels.parse 'contact: start: HYPERLINK + ENTITY_PLAYER' .subscribe (contact) ->
   [player, link] = contact.find 'ENTITY_PLAYER'
@@ -31,7 +33,7 @@ channels.parse 'key-down: down, s' .subscribe ->
   portal := null
 
   if player.deactivated then return
-  if player.last-fall-dist > 200px then return
+  if player.last-fall-dist > fall-limit then return
 
   player
     ..frozen = true
@@ -65,7 +67,7 @@ channels.parse 'contact: start: ENTITY_PLAYER' .subscribe (contact) ->
 # Kitten finding
 channels.parse 'contact: start: ENTITY_PLAYER + ENTITY_TARGET' .subscribe (contact) ->
   [player, kitten] = contact.find 'ENTITY_PLAYER'
-  if player.deactivated then return
+  if player.deactivated or player.last-fall-dist > fall-limit then return
 
   kitten.destroy!
 
