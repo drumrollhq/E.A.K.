@@ -34,10 +34,7 @@ module.exports = class Action
     @editor = editor
     actions[@type].setup.call this, @$action
 
-  update-allowed: (...args) ~>
-    console.log 'update-allowed'
-    console.log "@_allowed.apply(window, [#{args.join ', '}]) => #{@_allowed} =>" @_allowed.apply window, args
-    @allowed = @_allowed.apply window, args
+  update-allowed: (...args) ~> @allowed = @_allowed.apply window, args
 
   on-start: ~>
     if @allowed then actions[@type].start.call this
@@ -55,14 +52,23 @@ actions = {
   highlight-code:
     setup: ($el) ->
       @selector = $el.attr 'selector'
+      @match = if $el.attr 'match' => new RegExp that
       @range = $el.attr 'range' or 'outer'
 
     start: ->
-      if @selector?
-        @markers = for el in @editor.render-el.find @selector when el.parse-info
-          pos = utils.get-positions el.parse-info, @editor.cm
-          pos = get-pos pos, @range
-          @editor.cm.mark-text pos.start, pos.end, class-name: 'highlight-action'
+      positions =
+        case @selector?
+          for el in @editor.render-el.find @selector when el.parse-info => el.parse-info
+
+        case @match?
+          code = @editor.model.get 'html'
+          if code.match @match then [{start: that.index, end: that.index + that.0.length}] else []
+
+        default => []
+
+      @markers = positions.map (pos) ~>
+        pos = pos |> utils.get-positions _, @editor.cm |> get-pos _, @range
+        @editor.cm.mark-text pos.start, pos.end, class-name: 'highlight-action'
 
     end: ->
       for marker in @markers when marker? => marker.clear!

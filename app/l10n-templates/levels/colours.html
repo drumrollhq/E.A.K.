@@ -10,9 +10,68 @@
     <meta name="targets" value="250 275, -50 -71">
     <meta name="music" value="colours">
 
-    <hints>
-
-    </hints>
+    <tutorial track="/audio/tutorials/colours">
+      <step duration="13">
+        <content>
+          <p>The enemies of the kittens are devious beasts.</p>
+          <p class="fade" in="3.5">They've made it impossible to see the path ahead...</p>
+          <p class="fade" in="6.5">...or so they think!</p>
+          <p class="fade" in="8.5">You may not know this, but there are many different coding languages.</p>
+        </content>
+        <action type="egg-content" at="0.5" side="left"></action>
+      </step>
+      <step duration="11">
+        <content>
+          <p>You were using <code>HTML</code> before, and now you need to use <code>CSS</code>.</p>
+          <p class="fade" in="5">
+            <code>CSS</code> describes the design of a <code>HTML</code> page - <br>
+            <span class="fade" in="8.5"><span style="font-family: serif;">fonts</span>,</span>
+            <span class="fade" in="9.2"><span style="color: red;">colours</span>,</span>
+            <span class="fade" in="10">and <span style="border: 1px solid black; border-radius: 100%; padding: 0 10px; display: inline-block;">shapes</span>.</span>
+          </p>
+        </content>
+        <action type="egg-content" at="0" side="left"></action>
+      </step>
+      <step duration="11">
+        <content>
+          <p>The <code>CSS</code> is this bit here, inside the <code>&lt;style&gt;</code> tag.</p>
+          <p class="fade" in="4.5">A <code>&lt;style&gt;</code> tag is used to put <code>CSS</code> in <code>HTML</code>
+            document, so it can change the page's design.</p>
+        </content>
+        <action type="egg" at="0" top="200px" left="150px"></action>
+        <action type="highlight-code" at="0.5" duration="3" selector="style" range="inner"></action>
+        <action type="highlight-code" at="5" duration="3" selector="style" range="open"></action>
+        <action type="highlight-code" at="5" duration="3" selector="style" range="close"></action>
+      </step>
+      <step duration="18">
+        <content>
+          <p>There are three things going on in the <code>CSS</code>:</p>
+          <p class="fade" in="3.5">The word <code>body</code> tells the browser that the bits between the
+            curly brackets are for the whole page.</p>
+          <p class="fade" in="9.5"><code>background</code> is saying that we want to change the background.</p>
+          <p class="fade" in="13">And <code>hsl(...)</code> with those three numbers is a special code for a colour.</p>
+        </content>
+        <action type="egg" at="0" top="200px" left="150px"></action>
+        <action type="highlight-code" at="3.5" duration="3" match="body"></action>
+        <action type="highlight-code" at="9.5" duration="3" match="background"></action>
+        <action type="highlight-code" at="13" duration="3" match="hsl\(.*?\)"></action>
+      </step>
+      <step duration="9">
+        <content>
+          <p>Overall, this <code>CSS</code> sets the background colour of the page to bright blue...</p>
+          <p class="fade" in="5.5">Very similar to that of a malevolent dinglebat.</p>
+        </content>
+        <action type="egg-content" in="0.5" side="left"></action>
+      </step>
+      <step duration="7.5">
+        <content>
+          <p>Try changing these numbers in the <code>hsl(...)</code> part, <br>
+            To change the background colour of the level.</p>
+        </content>
+        <action type="egg" top="200px" left="150px"></action>
+        <action type="highlight-code" at="2" duration="3" match="\(.*?\)"></action>
+      </step>
+    </tutorial>
 
     <hidden>
       <div class="overlay" data-ignore></div>
@@ -56,7 +115,7 @@
         position: absolute;
         background: hsl(191, 100%, 41%);
       }
-      
+
       .overlay {
         position: absolute;
         top: 0;
@@ -69,37 +128,10 @@
     </style>
   </head>
   <body>
-    <!--
-      <p>
-        {{{comments.whatIsCss}}}
-      </p>
-    -->
-
     <style>
       body {
         background: hsl(191, 100%, 41%);
       }
     </style>
-
-    <!--
-      <p>
-        {{{comments.howManyThings}}}
-      </p>
-      <ol>
-        <li>
-          {{{comments.theFirstThing}}}
-        </li>
-        <li>
-          {{{comments.theSecondThing}}}
-        </li>
-        <li>
-          {{{comments.theThirdThing}}}
-        </li>
-      </ol>
-      <p>
-        {{{comments.changeTheThing}}}
-      </p>
-    -->
-
   </body>
 </html>
