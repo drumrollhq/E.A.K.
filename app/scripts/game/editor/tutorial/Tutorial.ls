@@ -15,10 +15,21 @@ add-track-events = (track, steps, view, editor) ->
 get-track = (name) ->
   $ '<audio></audio>'
     .attr {
-      src: "#{name}.#{context.format}"
+      src: "#{name}.#{context.format}?v=#{window.EAKVERSION}"
       preload: \auto
     }
     .get 0
+
+force-load = (track) ->
+  media = Popcorn track
+    ..volume 0
+    ..play!
+    ..on 'canplayall' ->
+      media
+        ..current-time 0
+        ..pause!
+        ..volume 1
+        ..destroy!
 
 audio-track = new Track 'tutorials'
 
@@ -30,10 +41,7 @@ module.exports = class Tutorial
     @audio-node = context.create-media-element-source @track
 
     # Force the audio to load - firefox gets upset otherwise
-    @track
-      ..load!
-      ..play!
-    set-timeout (~> @track.pause!), 0
+    force-load @track
 
     time = 0
     @steps = for el in $el.find 'step' .get!
@@ -115,4 +123,6 @@ module.exports = class Tutorial
     @media
       ..current-time @steps[i].start
       ..play!
+
+    set-timeout (~> @media.current-time @steps[i].start), 0
 
