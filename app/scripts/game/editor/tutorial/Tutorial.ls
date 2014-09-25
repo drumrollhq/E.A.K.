@@ -29,6 +29,12 @@ module.exports = class Tutorial
     @track = get-track @track-name
     @audio-node = context.create-media-element-source @track
 
+    # Force the audio to load - firefox gets upset otherwise
+    @track
+      ..load!
+      ..play!
+    set-timeout (~> @track.pause!), 0
+
     time = 0
     @steps = for el in $el.find 'step' .get!
       step = new Step time, $ el
