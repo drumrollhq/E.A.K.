@@ -255,6 +255,66 @@
     "message": "You've got a <code>&lt;h3&gt;</code>, now you just need to do the same thing for <span class=\"fade\" in=\"5.5\"><code>&lt;h4&gt;</code>,</span> <span class=\"fade\" in=\"6.5\"><code>&lt;h5&gt;</code>,</span> <span class=\"fade\" in=\"7.5\">and <code>&lt;h6&gt;</code>.</span>",
     "description": "Headings level: tutorial annotations"
   },
+  "levels/colours.html/tutorial.a.a": {
+    "message": "The enemies of the kittens are devious beasts.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.a.b": {
+    "message": "They've made it impossible to see the path ahead...",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.a.c": {
+    "message": "...or so they think!",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.a.d": {
+    "message": "You may not know this, but there are many different coding languages.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.b.a": {
+    "message": "You were using <code>HTML</code> before, and now you need to use <code>CSS</code>.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.b.b": {
+    "message": "<code>CSS</code> describes the design of a <code>HTML</code> page - <br> <span class=\"fade\" in=\"8.5\"><span style=\"font-family: serif;\">fonts</span>,</span> <span class=\"fade\" in=\"9.2\"><span style=\"color: red;\">colours</span>,</span> <span class=\"fade\" in=\"10\">and <span style=\"border: 1px solid black; border-radius: 100%; padding: 0 10px; display: inline-block;\">shapes</span>.</span>",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.c.a": {
+    "message": "The <code>CSS</code> is this bit here, inside the <code>&lt;style&gt;</code> tag.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.c.b": {
+    "message": "A <code>&lt;style&gt;</code> tag is used to put <code>CSS</code> in <code>HTML</code> document, so it can change the page's design.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.d.a": {
+    "message": "There are three things going on in the <code>CSS</code>:",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.d.b": {
+    "message": "The word <code>body</code> tells the browser that the bits between the curly brackets are for the whole page.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.d.c": {
+    "message": "<code>background</code> is saying that we want to change the background.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.d.d": {
+    "message": "And <code>hsl(...)</code> with those three numbers is a special code for a colour.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.e.a": {
+    "message": "Overall, this <code>CSS</code> sets the background colour of the page to bright blue...",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.e.b": {
+    "message": "Very similar to that of a malevolent dinglebat.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.f.a": {
+    "message": "Try changing these numbers in the <code>hsl(...)</code> part, <br> To change the background colour of the level.",
+    "description": "Colours level: tutorial annotations"
+  },
   "cutscenes/intro.html/subtitles.a": {
     "message": "Long long ago, in the times of the ancient Internet, humans lived in a world without kitten gifs.",
     "description": "Subtitle for cutscene"
