@@ -107,6 +107,78 @@
     "message": "Box?",
     "description": "Space level: content. The writing on the second box"
   },
+  "levels/creating-elements.html/tutorial.a.a": {
+    "message": "What ho! That's Shelby the Space Dragon!",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.a.b": {
+    "message": "He's spent years trying to fly in a perfect circle...",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.a.c": {
+    "message": "I'm not sure why, but he sure knows how to Waltz.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.b.a": {
+    "message": "It looks like we might need some changes here...",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.b.b": {
+    "message": "These are <code>div</code> tags.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.b.c": {
+    "message": "In HTML, a <code>div</code> tag is kind of like a box you can put stuff in.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.c.a": {
+    "message": "The first <code>&lt;div&gt;</code> is saying <em class=\"fade\" in=\"3\">\"start this box\"</em>",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.c.b": {
+    "message": "And the <code>&lt;/div&gt;</code> with the slash is saying <em class=\"fade\" in=\"7.5\">\"I've finished this box\"</em>",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.c.c": {
+    "message": "Click the light bulb whenever you need help! <a href=\"#\" class=\"dismiss\">OK</a>",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.d.a": {
+    "message": "Add two more <code>div</code> tags to reach the kitten and the portal.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.e.a": {
+    "message": "Each tag needs to have the same structure as the others.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.e.b": {
+    "message": "Howdy!",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.e.c": {
+    "message": "Start with <code>&lt;div&gt;</code>.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.e.d": {
+    "message": "Then write a word for <br> the content of your box.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.e.e": {
+    "message": "Finish the tag off with a <code>&lt;/div&gt;</code>.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.f.a": {
+    "message": "Almost all HTML elements need these opening and closing tags.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.f.b": {
+    "message": "The internet is very picky about this sort of thing...",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.f.c": {
+    "message": "...and you wouldn't want to upset it now, would you?",
+    "description": "Space level: Tutorial Annotations"
+  },
   "levels/headings.html/title": {
     "message": "Spikes!",
     "description": "Headings level: title"

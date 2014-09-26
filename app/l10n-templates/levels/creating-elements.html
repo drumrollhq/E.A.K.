@@ -20,18 +20,18 @@
     <tutorial track="/audio/tutorials/creating-elements" has-help>
       <step duration="10.5">
         <content>
-          <p>What ho! That's Shelby the Space Dragon!</p>
-          <p class="fade" in="3">He's spent years trying to fly in a perfect circle...</p>
-          <p class="fade" in="6">I'm not sure why, but he sure knows how to Waltz.</p>
+          <p>{{{tutorial.a.a}}}</p>
+          <p class="fade" in="3">{{{tutorial.a.b}}}</p>
+          <p class="fade" in="6">{{{tutorial.a.c}}}</p>
         </content>
 
         <action type="egg-content" side="left"></action>
       </step>
       <step duration="9.5">
         <content>
-          <p>It looks like we might need some changes here...</p>
-          <p class="fade" in="2.8">These are <code>div</code> tags.</p>
-          <p class="fade" in="4.8">In HTML, a <code>div</code> tag is kind of like a box you can put stuff in.</p>
+          <p>{{{tutorial.b.a}}}</p>
+          <p class="fade" in="2.8">{{{tutorial.b.b}}}</p>
+          <p class="fade" in="4.8">{{{tutorial.b.c}}}</p>
         </content>
 
         <action type="egg" at="2.2" top="175px" left="7%"></action>
@@ -39,43 +39,41 @@
       </step>
       <step duration="9.2">
         <content>
-          <p>The first <code>&lt;div&gt;</code> is saying <em class="fade" in="3">"start this box"</em></p>
-          <p class="fade" in="5">And the <code>&lt;/div&gt;</code> with the slash is saying <em class="fade" in="7.5">"I've finished this box"</em></p>
+          <p>{{{tutorial.c.a}}}</p>
+          <p class="fade" in="5">{{{tutorial.c.b}}}</p>
         </content>
         <action type="egg" top="175px" left="7%"></action>
         <action type="highlight-code" selector="div" range="open" duration="3"></action>
         <action type="highlight-code" selector="div" range="close" at="5" duration="3"></action>
-        <action type="hint" at="8.5" hint-type="pointer" target="button.help" exit="game-commands: help, edit-stop" condition="extras < 1" focus>
-          Click the light bulb whenever you need help! <a href="#" class="dismiss">OK</a>
-        </action>
+        <action type="hint" at="8.5" hint-type="pointer" target="button.help" exit="game-commands: help, edit-stop" condition="extras < 1" focus>{{{tutorial.c.c}}}</action>
       </step>
       <step duration="4" extra="1">
         <content>
-          <p>Add two more <code>div</code> tags to reach the kitten and the portal.</p>
+          <p>{{{tutorial.d.a}}}</p>
         </content>
         <action type="egg-content" side="left" at="0.5"></action>
       </step>
       <step duration="14" extra="2">
         <content>
-          <p>Each tag needs to have the same structure as the others.</p>
+          <p>{{{tutorial.e.a}}}</p>
           <p class="important"><code>
             <span class="fade" in="4">&lt;div&gt;</span>
-            <span class="fade" in="7">Howdy!</span>
+            <span class="fade" in="7">{{{tutorial.e.b}}}</span>
             <span class="fade" in="11">&lt;/div&gt;</span>
           </code></p>
           <p>
-            <span class="fade" in="4">Start with <code>&lt;div&gt;</code>.</span>
-            <span class="fade" in="7">Then write a word for <br> the content of your box.</span>
-            <span class="fade" in="11">Finish the tag off with a <code>&lt;/div&gt;</code>.</span>
+            <span class="fade" in="4">{{{tutorial.e.c}}}</span>
+            <span class="fade" in="7">{{{tutorial.e.d}}}</span>
+            <span class="fade" in="11">{{{tutorial.e.e}}}</span>
           </p>
         </content>
         <action at="0.5" type="egg-content" side="left"></action>
       </step>
       <step duration="10.8" extra="3">
         <content>
-          <p>Almost all HTML elements need these opening and closing tags.</p>
-          <p class="fade" in="5">The internet is very picky about this sort of thing...</p>
-          <p class="fade" in="8"><em>...and you wouldn't want to upset it now, would you?</em></p>
+          <p>{{{tutorial.f.a}}}</p>
+          <p class="fade" in="5">{{{tutorial.f.b}}}</p>
+          <p class="fade" in="8"><em>{{{tutorial.f.c}}}</em></p>
         </content>
         <action at="0.5" type="egg-content" side="left"></action>
       </step>
