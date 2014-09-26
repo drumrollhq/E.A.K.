@@ -31,14 +31,6 @@
     "message": "Uh Oh! You need to make the ledge longer. Click 'Edit' or press the <kbd>E</kbd> key to change the level.",
     "description": "2nd level: instructions"
   },
-  "levels/editing-text.html/comments.main": {
-    "message": "<p>\n  This is the HTML source of this level. It describes the stuff shown on screen to the right. The code below is the ledge you are on. It starts with:\n</p>\n<p>\n  <code>&lt;p ...&gt;</code> and ends with <code>&lt;/p&gt;</code>.\n</p>\n<p>\n  These <code>&lt;&gt;</code> bits are called tags. The bit that shows up on the page is the stuff <em>between</em> the tags. Try adding more writing to make the ledge longer.\n</p>",
-    "description": "2nd level: html comments. Make sure you preserve the HTML structure!"
-  },
-  "levels/editing-text.html/comments.other": {
-    "message": "This is the other ledge, on the far right. You can edit the code for this too!",
-    "description": "2nd level: html comments"
-  },
   "levels/editing-text.html/html.im-a-ledge": {
     "message": "I'm a ledge! Woohoo!",
     "description": "2nd level: level content. This must stay approximately the same length for the level to work"
@@ -55,10 +47,6 @@
     "message": "Hmmm... Looks as if we need more boxes. Try editing the level - use the <kbd>E</kbd> key or press the 'Edit' button.",
     "description": "Space level: instructions"
   },
-  "levels/creating-elements.html/comment": {
-    "message": "<p>These are <code>&lt;div&gt;</code> tags. They represent the boxes. Try to create some of your own.</p>\n<p>Remember to start with an opening <code>&lt;div&gt;</code> and a closing <code>&lt;/div&gt;</code>, with some writing in between. Don't forget the <code>/</code>!</p>",
-    "description": "Space level: code comments. Make sure you preserve the HTML structure"
-  },
   "levels/creating-elements.html/html.box-1": {
     "message": "Box!",
     "description": "Space level: content. The writing on the first box"
@@ -70,14 +58,6 @@
   "levels/headings.html/title": {
     "message": "Spikes!",
     "description": "Headings level: title"
-  },
-  "levels/headings.html/comments.main": {
-    "message": "<p>\n  These are headings. The HTML headings are a very big family - they go all the way from <code>&lt;h1&gt;</code> (the most important heading) to <code>&lt;h6&gt;</code> (the least important heading). On a web page, you might have the page title in a <code>&lt;h1&gt;</code>, and a subtitle in a <code>&lt;h2&gt;</code>, for example.\n</p>\n\n<p>\n  The first two headings got you that far down into the cave - if you created more, you might be able to reach the bottom!\n</p>",
-    "description": "Headings level: comment"
-  },
-  "levels/headings.html/comments.get-started": {
-    "message": "Try adding a <code>&lt;h3&gt;</code> element to get started. Don't forget the <code>&lt;/h3&gt;</code> at the end!",
-    "description": "Headings level: comment"
   },
   "levels/headings.html/html.h1": {
     "message": "I'M VERY IMPORTANT",
@@ -134,29 +114,5 @@
   "cutscenes/intro.html/continue": {
     "message": "Continue",
     "description": "Continue"
-  },
-  "levels/colours.html/comments.what-is-css": {
-    "message": "This is a <code>&lt;style&gt;</code> tag. You use them when you want to write CSS styles. CSS is the code inside the <code>style</code> tag, which describes the <em>design</em> of a HTML page - colours, shapes, and fonts.",
-    "description": "CSS Colours level: comment"
-  },
-  "levels/colours.html/comments.how-many-things": {
-    "message": "here are three things going on in the CSS code:",
-    "description": "CSS Colours level: comment"
-  },
-  "levels/colours.html/comments.the-first-thing": {
-    "message": "<code>body { ... }</code> tells the browser that the bits between <code>{ }</code> are for the whole page.",
-    "description": "CSS Colours level: comment"
-  },
-  "levels/colours.html/comments.the-second-thing": {
-    "message": "<code>background:</code> says that we want to change the background.",
-    "description": "CSS Colours level: comment"
-  },
-  "levels/colours.html/comments.the-third-thing": {
-    "message": "<code>hsl(191, 100%, 41%)</code> is what we want to the background to be. Here, we're using the code for a colour.",
-    "description": "CSS Colours level: comment"
-  },
-  "levels/colours.html/comments.change-the-thing": {
-    "message": "Try changing the numbers to see how they affect the level.",
-    "description": "CSS Colours level: comment"
   }
 }
