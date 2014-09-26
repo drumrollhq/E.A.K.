@@ -191,6 +191,70 @@
     "message": "ME TOO! Kinda...",
     "description": "Headings level: content"
   },
+  "levels/headings.html/tutorial.a.a": {
+    "message": "Ahhh, headings!",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.a.b": {
+    "message": "The HTML heading are a very big family...",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.a.c": {
+    "message": "They go all the way from <code>&lt;h1&gt;</code> (the most important),",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.a.d": {
+    "message": "to <code>&lt;h6&gt;</code> (the least important).",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.a.e": {
+    "message": "And between you and me, they argue like a fresh bucket of shrews before a steak-off!",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.b.a": {
+    "message": "You might have your page title as a <code>&lt;h1&gt;</code>",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.b.b": {
+    "message": "and a subtitle as a <code>&lt;h2&gt;</code>, for example",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.c.a": {
+    "message": "These first two headings didn't get you very far into the cave.",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.c.b": {
+    "message": "If you created more, you might be able to reach the bottom",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.d.a": {
+    "message": "Add a new <code>&lt;h3&gt;</code> tag at the bottom of the code.",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.e.a": {
+    "message": "Start with a <code>&lt;h3&gt;</code>.",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.e.b": {
+    "message": "Then add some text.",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.e.c": {
+    "message": "Finish it off with a <code>&lt;/h3&gt;</code> - remember the <code>/</code>!",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.e.d": {
+    "message": "Soup Party!",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.f.a": {
+    "message": "Add some more tags.",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.f.b": {
+    "message": "You've got a <code>&lt;h3&gt;</code>, now you just need to do the same thing for <span class=\"fade\" in=\"5.5\"><code>&lt;h4&gt;</code>,</span> <span class=\"fade\" in=\"6.5\"><code>&lt;h5&gt;</code>,</span> <span class=\"fade\" in=\"7.5\">and <code>&lt;h6&gt;</code>.</span>",
+    "description": "Headings level: tutorial annotations"
+  },
   "cutscenes/intro.html/subtitles.a": {
     "message": "Long long ago, in the times of the ancient Internet, humans lived in a world without kitten gifs.",
     "description": "Subtitle for cutscene"

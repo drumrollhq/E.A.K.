@@ -14,47 +14,47 @@
     <tutorial track="/audio/tutorials/headings">
       <step duration="16">
         <content>
-          <p>Ahhh, headings!</p>
+          <p>{{{tutorial.a.a}}}</p>
           <p class="fade" in="2.5">
-            The HTML heading are a very big family...
-            <span class="fade" in="5.5">They go all the way from <code>&lt;h1&gt;</code> (the most important),</span>
-            <span class="fade" in="9">to <code>&lt;h6&gt;</code> (the least important).</span>
+            {{{tutorial.a.b}}}
+            <span class="fade" in="5.5">{{{tutorial.a.c}}}</span>
+            <span class="fade" in="9">{{{tutorial.a.d}}}</span>
           </p>
-          <p class="fade" in="12">And between you and me, they argue like a fresh bucket of shrews before a steak-off!</p>
+          <p class="fade" in="12">{{{tutorial.a.e}}}</p>
         </content>
 
         <action at="0.5" type="egg-content" side="left"></action>
       </step>
       <step duration="7">
         <content>
-          <p>You might have your page title as a <code>&lt;h1&gt;</code></p>
-          <p class="fade" in="3.5">and a subtitle as a <code>&lt;h2&gt;</code>, for example</p>
+          <p>{{{tutorial.b.a}}}</p>
+          <p class="fade" in="3.5">{{{tutorial.b.b}}}</p>
         </content>
         <action type="egg-content" side="right"></action>
       </step>
       <step duration="7">
         <content>
-          <p>These first two headings didn't get you very far into the cave.</p>
-          <p class="fade" in="4">If you created more, you might be able to reach the bottom</p>
+          <p>{{{tutorial.c.a}}}</p>
+          <p class="fade" in="4">{{{tutorial.c.b}}}</p>
         </content>
         <action type="egg" top="175px" left="150px"></action>
       </step>
       <step duration="4" extra="1">
         <content>
-          <p>Add a new <code>&lt;h3&gt;</code> tag at the bottom of the code.</p>
+          <p>{{{tutorial.d.a}}}</p>
         </content>
         <action type="egg-content" side="left" at="0.5"></action>
       </step>
       <step duration="8.5" extra="2">
         <content>
           <p>
-            <span class="fade" in="0.2">Start with a <code>&lt;h3&gt;</code>.</span>
-            <span class="fade" in="3">Then add some text.</span>
-            <span class="fade" in="4.5">Finish it off with a <code>&lt;/h3&gt;</code> - remember the <code>/</code>!</span>
+            <span class="fade" in="0.2">{{{tutorial.e.a}}}</span>
+            <span class="fade" in="3">{{{tutorial.e.b}}}</span>
+            <span class="fade" in="4.5">{{{tutorial.e.c}}}</span>
           </p>
           <p class="important"><code>
             <span class="fade" in="1">&lt;h3&gt;</span>
-            <span class="fade" in="3">Soup Party!</span>
+            <span class="fade" in="3">{{{tutorial.e.d}}}</span>
             <span class="fade" in="4.5">&lt;/h3&gt;</span>
           </code></p>
         </content>
@@ -62,13 +62,8 @@
       </step>
       <step duration="8" condition="!editor.hasErrors && $('h3').length > 0">
         <content>
-          <p>Add some more tags.</p>
-          <p class="fade" in="2">You've got a <code>&lt;h3&gt;</code>, now you just need
-            to do the same thing for
-            <span class="fade" in="5.5"><code>&lt;h4&gt;</code>,</span>
-            <span class="fade" in="6.5"><code>&lt;h5&gt;</code>,</span>
-            <span class="fade" in="7.5">and <code>&lt;h6&gt;</code>.</span>
-          </p>
+          <p>{{{tutorial.f.a}}}</p>
+          <p class="fade" in="2">{{{tutorial.f.b}}}</p>
         </content>
         <action type="egg-content" side="left" at="0.5"></action>
       </step>
