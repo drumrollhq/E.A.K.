@@ -39,6 +39,58 @@
     "message": "Hey! I'm a ledge too!",
     "description": "2nd level: level content. This must stay approximately the same length for the level to work"
   },
+  "levels/editing-text.html/tutorial.a.a": {
+    "message": "Pink pantaloons! You've got it! This is the HTML source code of the ledges. <br> It describes the stuff shown on the screen to the right",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.b.a": {
+    "message": "This code is the ledge you are on...",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.b.b": {
+    "message": "and this code is the ledge on the right.",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.c.a": {
+    "message": "Each ledge starts with a <code>&lt;p ...&gt;</code> and ends with a <code>&lt;/p&gt;</code>",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.c.b": {
+    "message": "These are called tags.",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.d.a": {
+    "message": "The writing between the two tags <br> is the content that is shown on screen.",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.d.b": {
+    "message": "Hello!",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.e.a": {
+    "message": "Try changing the words in the code above to make <br> the ledge you are standing on longer",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.e.b": {
+    "message": "You can write anything you want - a limerick about ledges, perhaps?",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.f.a": {
+    "message": "Smashing work, old chap! You picked that up faster than a squirrel on a scooter!",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.f.b": {
+    "message": "Go save that kitten! And watch out - <br> you dont want to get on the wrong side of a banana bird...",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.f.c": {
+    "message": "I've heard they like to poop on thier enemies!",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.f.d": {
+    "message": "Press 'Save' to close the editor and rescue the kitten! <a class=\"dismiss\" href=\"#\">OK.</a>",
+    "description": "Tutorial annotation"
+  },
   "levels/creating-elements.html/title": {
     "message": "Arca in Space",
     "description": "Space level: title"
