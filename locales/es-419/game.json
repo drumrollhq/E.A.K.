@@ -16,7 +16,7 @@
         "description": "HTML/CSS error"
     },
     "data/errors.all.html/slowparse.unterminated-close-tag": {
-        "message": "Whuuutttt!? You need to add a <code>&gt;</code> to this closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag.",
+        "message": " Oh, what!? You need to add a <code>&gt;</code> to this closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag.",
         "description": "HTML/CSS error"
     },
     "play/index.html/loader.j": {
@@ -60,7 +60,7 @@
         "description": "Button on the bar at the top of the screen during levels. Closes the edit view, discarding the code the user entered"
     },
     "data/errors.all.html/slowparse.unterminated-open-tag": {
-        "message": "FYI, you need to add a <code>&gt;</code> to the end of this opening <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag",
+        "message": "FYI, you need to add a <code>&gt;</code> to the end of this opening <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;/{{openTag.name}}&gt;</code> tag.",
         "description": "HTML/CSS error"
     },
     "play/index.html/old-browser-msg.continue": {
@@ -236,7 +236,7 @@
         "description": "Users of old browsers can continue anyway, but we'd rather they upgraded"
     },
     "data/errors.all.html/slowparse.unquoted-attr-value": {
-        "message": "You need a <code>\"</code> after the <code>=</code> on this <code data-highlight=\"{{attribute.start}}\">{{attribute.name}}</code> attribute. Just saying.",
+        "message": "You need a <code>\"</code> after the <code>=</code> on this <code data-highlight=\"{{attribute.name.start}},{{attribute.name.end + 1}}\">{{attribute.name.value}}</code> attribute. Just saying.",
         "description": "HTML/CSS error"
     },
     "play/index.html/menu.reset": {
@@ -248,7 +248,7 @@
         "description": "loading message"
     },
     "data/errors.all.html/slowparse.self-closing-non-void-element": {
-        "message": "OI! You can't have a <code>/</code> at the end of this opening <code data-highlight=\"{{start}},{{end}}\">&lt;{{name}}&gt;</code>. It has to go in a closing <code>&lt;/{name}}&gt;</code> tag.",
+        "message": "OI! You can't have a <code>/</code> at the end of this opening <code data-highlight=\"{{start}},{{end}}\">&lt;{{name}}&gt;</code>. It has to go in a closing <code>&lt;/{{name}}&gt;</code> tag.",
         "description": "HTML/CSS error"
     },
     "data/errors.all.html/slowparse.unfinished-css-selector": {
@@ -287,6 +287,10 @@
         "message": "You need to finish this CSS comment with a <code>*/</code>! DO IT!",
         "description": "HTML/CSS error"
     },
+    "data/errors.all.html/slowparse.invalid-attr-name": {
+        "message": "There's no such thing as a <code data-highlight=\"{{start}},{{end}}\">{{attribute.name.value}}</code> attribute. The masters of HTML wouldn't allow it.",
+        "description": "HTML/CSS error"
+    },
     "play/index.html/loader.b": {
         "message": "These are some pretty heavy kittens...",
         "description": "loading message"
@@ -296,7 +300,7 @@
         "description": "for when I've not done stuff yet ;)"
     },
     "data/errors.all.html/slowparse.unterminated-attr-value": {
-        "message": "You need to add a <code>\"</code> at the end of this <code data-highlight=\"{{attribute.openTag.start}}\">&lt;{{openTag.name}}&gt;</code> tag's <code data-highlight=\"{{attribute.value.start}}\">{{attribute.name.value}}</code> attribute. Crazy, right?",
+        "message": "You need to add a <code>\"</code> at the end of this <code data-highlight=\"{{openTag.start}},{{openTag.start + openTag.name.length + 1}}\">&lt;{{openTag.name}}&gt;</code> tag's <code data-highlight=\"{{attribute.name.start}},{{attribute.value.start}}\">{{attribute.name.value}}</code> attribute. Crazy, right?",
         "description": "HTML/CSS error"
     },
     "play/index.html/language": {
@@ -315,6 +319,10 @@
         "message": "Settings",
         "description": "Title for the settings dialogue"
     },
+    "data/errors.all.html/slowparse.attribute-in-closing-tag": {
+        "message": "I thought you should know, you can't put an attribute in this closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag.",
+        "description": "HTML/CSS error"
+    },
     "play/index.html/menu.restart": {
         "message": "Reiniciar",
         "description": "Button on the bar at the top of the screen during levels. Puts the level and player back in the starting state."
@@ -324,7 +332,7 @@
         "description": "The name of the game!"
     },
     "data/errors.all.html/slowparse.mismatched-close-tag": {
-        "message": "These tags don't match! You've got a closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag, but it's trying to pair with the opening <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;/{{closeTag.name}}&gt;</code>.",
+        "message": "These tags don't match! You've got a closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag, but it's trying to pair with the opening <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code>.",
         "description": "HTML/CSS error"
     }
 }
