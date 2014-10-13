@@ -1,9 +1,7 @@
 require! {
-  es: 'event-stream'
-  exec: 'execSync'
-  ffmpeg: 'fluent-ffmpeg'
-  File: 'vinyl'
-  ProgressBar: 'progress'
+  'event-stream': es
+  'execSync': exec
+  'fluent-ffmpeg': ffmpeg
   'glob'
   'gulp'
   'gulp-changed'
@@ -24,10 +22,12 @@ require! {
   'mkdirp'
   'nib'
   'path'
-  'prelude-ls'
+  'prelude-ls': {split, first, last, initial, tail, join, map, camelize}
+  'progress': ProgressBar
   'streamqueue'
   'through2'
-  'yargs'
+  'vinyl': File
+  'yargs': {argv}
 }
 
 languages = ['en' 'es-419']
@@ -37,15 +37,12 @@ _ = {
   defaults: require 'lodash.defaults'
 }
 
-{split, first, last, initial, tail, join, map, camelize} = prelude-ls
-
 scripts = glob.sync './app/scripts/**/*.{ls,hbs}'
   |> map ( .replace /^\.\/app\/scripts\// '/js/')
   |> map ( .replace /\.(ls|hbs)$/ '.js')
   |> map -> """<script src="#it"></script>"""
   |> join '\n'
 
-{argv} = yargs
 optimized = argv.o or argv.optimized or argv.optimised or false
 console.log "Optimized?: #optimized"
 preprocess-context = {
