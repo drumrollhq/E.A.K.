@@ -1,54 +1,59 @@
 # Erase All Kittens
 
-## NOTE: This README is very out of date. I'm working on getting it into shape soon!
+[E.A.K.](http://eraseallkittens.com/) is a new open source game that teaches kids to code and create on the web. Levels are written in `HTML` and `CSS`, but most are impossible until you hack in to them and modify their source code.
 
-`Erase All Kittens` is a new open source `HTML`/`CSS` game about an _evil rebellion, intent on destroying all kittens on the Internet_. Learn to code whilst playing to help **save the kittens**, and consequently save the world!
+The story of E.A.K. is that cute animals on the Internet hate kittens, because they get all the views. They form the evil operation E.A.K. - Erase All Kittens. You must use your coding super powers to save the kittens, and consequently the entire Internet.
 
 ## Try it online
-We have an *early* demo you can play at [http://eraseallkittens.com/play.html](http://eraseallkittens.com/play.html) that we demonstrated during the [#MozFest 2013](http://mozillafestival.org/).
+We have an *early* demo you can play at [http://eraseallkittens.com/](http://eraseallkittens.com/).
 
 ![Screenshot Erase All Kittens!](screenshots-Erase-All-Kittens.png)
 
 ## Team & project
-We’re a team of one developer, one creative and one designer who are trying to **teach kids to code with the best game we can build**.
+E.A.K. is designed and built in London by [Drum Roll](http://drumrollhq.com). We're something between a games company and an ed-tech startup, and we're huge fans of the Open Web.
 
-We’ve created the story, structure and look of the game, and we’d like some help to develop it further, specifically from developers, illustrators, and level designers. Also, we need more kitten gifs.
+The aim of the project is to teach kids real, practical coding skills. After playing the game, we want people to be able to build and publish their own creations on the web.
 
-If you’re interested in what we’ve done so far or would like to help out, we’d love to hear from you. Fill out the form on [our website](http://eraseallkittens.com/), and we'll get in touch :)
+If you’re interested in what we've done so far or would like to help out, we'd love to hear from you. Fill out the form on [our website](http://eraseallkittens.com/), and we'll get in touch. If you just want to dive straight in and checkout the code, read on :)
 
 ## Installing
-Start by cloning the project:
-```bash
-git clone --recursive git@github.com:SomeHats/Erase-All-Kittens.git
-cd Erase-All-Kittens
-```
-Then install dependencies:
-```bash
-# install dependecies
-npm install
-bower install
-```
-You will also need to install [`brunch`](https://github.com/brunch/brunch) to be able to build the project:
-```bash
-# installing it globally (may require 'sudo' privileges)
-npm install -g brunch
-brunch build
+In order to build E.A.K, you'll need to be comfortable using your computer's terminal. First off, follow the instructions linked to below to install everything you need to get E.A.K. up and running.
+* [Git](http://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+* [Node.JS](http://nodejs.org/download/)
+* [Bower](http://bower.io/#install-bower)
+* [Gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
+* [FFMPEG](https://www.ffmpeg.org/download.html)
+    - Mac users, your best bet for FFMPEG is to use [Homebrew](http://brew.sh/) and run `brew install ffmpeg --with-theora --with-libogg --with-libvorbis`
+
+Next, you'll need to download E.A.K. and its dependencies. Run the following on your terminal:§
+```sh
+  git clone --recursive https://github.com/drumrollhq/E.A.K..git
+  cd E.A.K.
+  npm install
+  bower install
 ```
 
-## Usage
-If no errors happen during build a new `public/` directory would be present. So, now you can run the app with:
-```bash
-brunch watch --server
+## Building
+OK. That was a lot of stuff to install. Hopefully now, we're ready to build E.A.K.
+
+In your terminal, run:
+```sh
+gulp build
 ```
-Then, go to the app local server using [http://localhost:3333/](http://localhost:3333/). If you want to reach the game directly, add the `play.html` suffix to reach the game:
 
-    http://localhost:3333/play.html
+This will take a little while initially as it has to convert all the game assets, but should be quicker with subsequent runs.
 
-Enjoy hack-learning ;)
+As E.A.K. runs in the browser, we need to run a web server to serve the game. To start a web server on your computer:
+* If you're not so into the whole command line terminal thing:
+    1. Download [Server-Thingy](https://github.com/DecodedCo/server-thingy/releases).
+    2. Open Server-Thingy, click 'Choose Folder'. Find the `public` folder in your `E.A.K.` directory.
+    3. Open your browser, and go to http://localhost:1337/
+* If text-based interfaces are your thang:
+    1. Run `npm install -g serve` (if that doesn't work, add `sudo` to the start of the command)
+    2. From your `E.A.K.` folder, run `serve public`
+    3. Open your browser, and go to http://localhost:3000/
+* If you have some other way you like to start static webservers:
+    1. Do that. (note: E.A.K's public folder must be on the root on your web server)
 
-## Roadmap
-* More levels ;
-* More kitties >o< ;
-* …
-* Better, more contributor friendly docs & code comments
-* Localization support.
+Congratulations! You're now (probably) running E.A.K! (If your not, sorry! Please email joe [at] drumrollhq.com and I'll try and help you, and update this guide if I can.
+
