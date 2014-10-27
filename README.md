@@ -25,7 +25,7 @@ In order to build E.A.K, you'll need to be comfortable using your computer's ter
 * [FFMPEG](https://www.ffmpeg.org/download.html)
     - Mac users, your best bet for FFMPEG is to use [Homebrew](http://brew.sh/) and run `brew install ffmpeg --with-theora --with-libogg --with-libvorbis`
 
-Next, you'll need to download E.A.K. and its dependencies. Run the following on your terminal:§
+Next, you'll need to download E.A.K. and its dependencies. Run the following on your terminal:
 ```sh
   git clone --recursive https://github.com/drumrollhq/E.A.K..git
   cd E.A.K.
@@ -55,5 +55,5 @@ As E.A.K. runs in the browser, we need to run a web server to serve the game. To
 * If you have some other way you like to start static webservers:
     1. Do that. (note: E.A.K's public folder must be on the root on your web server)
 
-Congratulations! You're now (probably) running E.A.K! (If your not, sorry! Please email joe [at] drumrollhq.com and I'll try and help you, and update this guide if I can.
+Congratulations! You're now (probably) running E.A.K! If you're not, sorry! Please email joe [at] drumrollhq.com and I'll try and help you, and update this guide if I can :)
 
