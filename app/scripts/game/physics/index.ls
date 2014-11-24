@@ -1,10 +1,8 @@
 require! {
   'game/physics/collision'
   'game/physics/events'
-  'game/physics/Matrix'
   'game/physics/prepare'
   'game/physics/step'
-  'game/physics/Vector'
 }
 
 /*
@@ -29,4 +27,4 @@ Usage:
 
 */
 
-module.exports = { Vector, Matrix, prepare, step, collision, events }
+module.exports = { prepare, step, collision, events }
