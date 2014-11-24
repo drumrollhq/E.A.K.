@@ -107,7 +107,6 @@ module.exports = {
         if has-duration then @session.active-events[*] = event.id
         cb event
       error: ->
-        console.error arguments
         cb {id: null}
     }
 
@@ -124,7 +123,6 @@ module.exports = {
 
   update: (id, data, cb) ->
     unless @session and id? then return cb!
-    console.log data, JSON.stringify data
     post-json {
       url: "/api/v1/sessions/#{@session.id}/events/#{id}"
       data: data

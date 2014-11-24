@@ -6,8 +6,6 @@ class Settings extends Backbone.Model
     lang = window.location.pathname |> split '/' |> reject empty |> first
     if lang not in window.LANGUAGES then lang = 'en'
 
-    console.log ls.{mute, music-volume, effects-volume}
-
     ret = {
       lang: lang
       mute: ls.mute or false
@@ -15,11 +13,9 @@ class Settings extends Backbone.Model
       effects-volume: if ls.effects-volume? then ls.effects-volume else 0.8
     }
 
-    console.log 'ret' ret, ls.music-volume
     return ret
 
   initialize: ->
-    console.log @
     @on 'change:mute' ~> @publish-mute!
     @on 'change:musicVolume' ~> @publish-volume 'music'
     @on 'change:effectsVolume' ~> @publish-volume 'effects'
@@ -31,7 +27,6 @@ class Settings extends Backbone.Model
     @publish-volume 'effects'
 
   _save: ~>
-    console.log 'Save settings'
     data = {
       mute: @get 'mute'
       music-volume: @get 'musicVolume'

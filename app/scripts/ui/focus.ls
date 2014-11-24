@@ -20,7 +20,6 @@ $right = $el.filter '.focus-overlay-right'
 
 module.exports = {
   focus: (target) ->
-    console.log 'focus'
     rect = target.get-bounding-client-rect!
     $el.add-class 'active' .remove-class 'inactive'
     $top.css height: rect.top
@@ -29,7 +28,6 @@ module.exports = {
     $right.css top: rect.top, height: rect.height, left: rect.right
 
   blur: ->
-    console.log 'blur'
     $el
       ..remove-class 'active'
       ..add-class 'inactive'

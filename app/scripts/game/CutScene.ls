@@ -38,7 +38,6 @@ module.exports = class CutScene extends Backbone.View
         @next = $util.find 'a' .attr 'href'
         @render!
       error: ~>
-        console.log arguments
         channels.alert.publish msg: translations.cutscene.error
     }
 
