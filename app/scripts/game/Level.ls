@@ -1,17 +1,18 @@
 require! {
   'audio/music-manager'
   'channels'
-  'game/background'
+  'game/Player'
+  'game/Renderer'
+  'game/Targets'
   'game/dom/Mapper'
   'game/editor/Editor'
   'game/editor/EditorView'
   'game/editor/tutorial/Tutorial'
   'game/event-loop'
   'game/hints/HintController'
+  'game/level/background'
+  'game/level/settings'
   'game/physics'
-  'game/Player'
-  'game/Renderer'
-  'game/Targets'
   'loader/ElementLoader'
   'loader/LoaderView'
   'logger'
@@ -23,20 +24,9 @@ module.exports = class Level extends Backbone.Model
   initialize: (level) ->
     @subs = []
     @level = level
-    conf = @conf = {}
+    conf = @conf = settings.find level
 
-    # Set up the HTML/CSS for the level
-    conf.html = level.find 'body' .html!
-    conf.css = level.find 'style' |> map _, (-> $ it .text!) |> join '\n\n'
-
-    # Should we display the top bar?
-    editable-str = (level.find 'meta[name=editable]' .attr \value) or 'true'
-    if editable-str.trim!.to-lower-case! is 'false'
-      editable = false
-    else editable = true
-    @editable = editable
-
-    offs = if editable then 50 else 0
+    offs = if conf.editable then 50 else 0
     renderer = @renderer = new Renderer {
       html: conf.html
       css: conf.css
@@ -44,54 +34,15 @@ module.exports = class Level extends Backbone.Model
     }, offs
 
     # Find the background image
-    bg = if level.find 'meta[name=background]' .attr \value then that else 'white'
-    renderer.set-background bg
-    @conf.background = bg
+    renderer.set-background conf.bg
 
     # Set the level size
-    if size = level.find 'meta[name=size]' .attr \value
-      [w, h] = size / ' '
-      w = parse-float w
-      h = parse-float h
-    else
-      w = h = 100
-
-    conf.width = w
-    conf.height = h
-    renderer.set-width w
-    renderer.set-height h
-
-    # Set player coordinates
-    if player = level.find 'meta[name=player]' .attr \value
-      [x, y] = player / ' '
-      x = parse-float x
-      y = parse-float y
-    else
-      x = y = 0
-
-    # Set player colour
-    colour = (level.find 'meta[name=player-color]' .attr \value) or 'black'
-
-    conf.player = {x, y, colour}
-
-    # Find borders
-    if borders = level.find 'meta[name=borders]' .attr \value
-      borders = borders / ' '
-    else
-      borders = <[ all ]>
-
-    if borders.0 is 'all' then borders = <[ top bottom left right ]>
-    if borders.0 is 'none' then borders = []
-
-    conf.borders = borders
-
-    # Find music track:
-    music = (level.find 'meta[name=music]' .attr \value) or 'none'
+    renderer.set-width conf.width
+    renderer.set-height conf.height
 
     # add-targets is a function that adds targets to Renderer.
     add-targets = Targets renderer
-
-    if targets = level.find 'meta[name=targets]' .attr \value then add-targets targets
+    if conf.targets then add-targets conf.targets
 
     'head hidden' |> level.find |> ( .children! ) |> ( .add-class 'entity' ) |> @renderer.append
 
@@ -105,10 +56,10 @@ module.exports = class Level extends Backbone.Model
     event-loop.pause!
 
     # Load and play the music:
-    <~ music-manager.start-track music
+    <~ music-manager.start-track conf.music
 
     # Apply the blurred background image:
-    <~ background.show bg
+    <~ background.show conf.bg
     channels.game-commands.publish command: \loaded
 
     # Load sprite sheet animations:
@@ -120,7 +71,7 @@ module.exports = class Level extends Backbone.Model
       <~ set-timeout _, 600
 
       $ document.body .add-class \playing
-      unless editable then $ document.body .add-class \hide-bar
+      unless conf.editable then $ document.body .add-class \hide-bar
 
       event-loop.resume!
 
@@ -138,7 +89,7 @@ module.exports = class Level extends Backbone.Model
         $ document.body .add-class \has-tutorial
         @tutorial = new Tutorial tutorial-el
 
-      if editable
+      if conf.editable
         @subs[*] = channels.game-commands.filter ( .command is \edit ) .subscribe @start-editor
       @subs[*] = channels.game-commands.filter ( .command is \restart ) .subscribe @restart
       @subs[*] = channels.game-commands.filter ( .command is \stop ) .subscribe @complete
