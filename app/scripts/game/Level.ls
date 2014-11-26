@@ -26,32 +26,8 @@ module.exports = class Level extends Backbone.Model
     @level = level
     conf = @conf = settings.find level
 
-    offs = if conf.editable then 50 else 0
-    renderer = @renderer = new Renderer {
-      html: conf.html
-      css: conf.css
-      root: $ \#levelcontainer
-    }, offs
-
-    # Find the background image
-    renderer.set-background conf.bg
-
-    # Set the level size
-    renderer.set-width conf.width
-    renderer.set-height conf.height
-
-    # add-targets is a function that adds targets to Renderer.
-    add-targets = Targets renderer
-    if conf.targets then add-targets conf.targets
-
-    'head hidden' |> level.find |> ( .children! ) |> ( .add-class 'entity' ) |> @renderer.append
-
-    loader = new ElementLoader el: @renderer.$el
-    loader-view = new LoaderView model: loader
-    loader-view.hide-progress!
-    loader-view.$el.append-to '#main > .app'
-
-    loader-view.render!
+    @setup-renderer!
+    @setup-loader!
 
     event-loop.pause!
 
@@ -63,39 +39,67 @@ module.exports = class Level extends Backbone.Model
     channels.game-commands.publish command: \loaded
 
     # Load sprite sheet animations:
-    <~ renderer.setup-sprite-sheets
+    <~ @renderer.setup-sprite-sheets!
 
-    do
-      <~ loader.once 'done', _
-      $.hide-dialogues!
-      <~ set-timeout _, 600
+    @loader.once 'done', @start-level
+    @loader.start!
 
-      $ document.body .add-class \playing
-      unless conf.editable then $ document.body .add-class \hide-bar
+  setup-renderer: ->
+    offs = if @conf.editable then 50 else 0
+    renderer = @renderer = new Renderer {
+      html: @conf.html
+      css: @conf.css
+      root: $ \#levelcontainer
+    }, offs
 
-      event-loop.resume!
+    # Find the background image
+    renderer.set-background @conf.bg
 
-      nodes = []
-      @add-bodies-from-dom nodes
-      @add-player nodes, conf.player
-      @add-borders nodes, conf.borders
+    # Set the level size
+    renderer.set-width @conf.width
+    renderer.set-height @conf.height
 
-      state = @state = physics.prepare nodes
+    # add-targets is a function that adds targets to Renderer.
+    add-targets = Targets renderer
+    if @conf.targets then add-targets @conf.targets
 
-      @hint-controller = new HintController hints: (level.find 'head hints' .children!)
-      tutorial-el = level.find 'head tutorial'
-      @has-tutorial = !!tutorial-el.length
-      if @has-tutorial
-        $ document.body .add-class \has-tutorial
-        @tutorial = new Tutorial tutorial-el
+    @level.find 'head hidden' .children! .add-class 'entity' |> @renderer.append
 
-      if conf.editable
-        @subs[*] = channels.game-commands.filter ( .command is \edit ) .subscribe @start-editor
-      @subs[*] = channels.game-commands.filter ( .command is \restart ) .subscribe @restart
-      @subs[*] = channels.game-commands.filter ( .command is \stop ) .subscribe @complete
-      @subs[*] = channels.frame.subscribe @frame
+  setup-loader: ->
+    @loader = loader = new ElementLoader el: @renderer.$el
+    @loader-view = loader-view = new LoaderView model: loader
+    loader-view.hide-progress!
+    loader-view.$el.append-to '#main > .app'
+    loader-view.render!
 
-    loader.start!
+  start-level: ~>
+    $.hide-dialogues!
+    <~ set-timeout _, 600
+
+    $ document.body .add-class \playing
+    unless @conf.editable then $ document.body .add-class \hide-bar
+
+    event-loop.resume!
+
+    nodes = []
+    @add-bodies-from-dom nodes
+    @add-player nodes, @conf.player
+    @add-borders nodes, @conf.borders
+
+    state = @state = physics.prepare nodes
+
+    @hint-controller = new HintController hints: (@level.find 'head hints' .children!)
+    tutorial-el = @level.find 'head tutorial'
+    @has-tutorial = !!tutorial-el.length
+    if @has-tutorial
+      $ document.body .add-class \has-tutorial
+      @tutorial = new Tutorial tutorial-el
+
+    if @conf.editable
+      @subs[*] = channels.game-commands.filter ( .command is \edit ) .subscribe @start-editor
+    @subs[*] = channels.game-commands.filter ( .command is \restart ) .subscribe @restart
+    @subs[*] = channels.game-commands.filter ( .command is \stop ) .subscribe @complete
+    @subs[*] = channels.frame.subscribe @frame
 
   frame: (data) ~>
     # Run physics simulation / player input
