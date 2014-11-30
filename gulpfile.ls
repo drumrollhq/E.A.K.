@@ -203,6 +203,10 @@ gulp.task 'convert-audio' ->
         .on 'end', ->
           bar.tick 100
           cb!
+        .on 'error', (err, stdout, stderr) ->
+          console.log 'ffmpeg err:', err
+          console.log 'stdout:', stdout
+          console.log 'stderr:', stderr
         .run!
 
 gulp.task 'stylus' (cb) ->
