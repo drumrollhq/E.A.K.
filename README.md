@@ -1,4 +1,5 @@
 # Erase All Kittens
+[![Build Status](https://travis-ci.org/drumrollhq/E.A.K..svg?branch=dev)](https://travis-ci.org/drumrollhq/E.A.K.)
 
 [E.A.K.](http://eraseallkittens.com/) is a new open source game that teaches kids to code and create on the web. Levels are written in `HTML` and `CSS`, but most are impossible until you hack in to them and modify their source code.
 
