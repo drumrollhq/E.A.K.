@@ -3,6 +3,7 @@ node_js:
   - "0.10"
 
 before_script:
+  - "sudo add-apt-repository ppa:jon-severinsson/ffmpeg"
   - "sudo apt-get update"
   - "sudo apt-get install ffmpeg"
   - "npm install -g bower"
