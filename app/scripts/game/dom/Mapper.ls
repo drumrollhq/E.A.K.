@@ -140,21 +140,17 @@ module.exports = class Mapper
               x: c.x
               y: c.y
               shapes:
-                type: \rect
-                x: 0
-                y: 0
-                width: w
-                height: bounds.height
-              ,
-                type: \circle
-                x: - w/2
-                y: 0
-                radius: r
-              ,
-                type: \circle
-                x: w / 2
-                y: 0
-                radius: r
+                * type: \rect
+                  x: 0, y: 0
+                  width: w, height: bounds.height
+
+                * type: \circle
+                  x: - w/2, y: 0
+                  radius: r
+
+                * type: \circle
+                  x: w / 2, y: 0
+                  radius: r
 
           else if bounds.height > bounds.width and bounds.width is r * 2
             # Portrait Pill
@@ -162,23 +158,18 @@ module.exports = class Mapper
               type: \compound
               x: c.x
               y: c.y
-              shapes: [
-              * type: \rect
-                x: 0
-                y: 0
-                width: bounds.width
-                height: h
+              shapes:
+                * type: \rect
+                  x: 0, y: 0
+                  width: bounds.width, height: h
 
-              * type: \circle
-                x: 0
-                y: -h / 2
-                radius: r
+                * type: \circle
+                  x: 0, y: -h / 2
+                  radius: r
 
-              * type: \circle
-                x: 0
-                y: h / 2
-                radius: r
-              ]
+                * type: \circle
+                  x: 0, y: h / 2
+                  radius: r
 
           else
             # Uniform rounded rect
@@ -186,39 +177,30 @@ module.exports = class Mapper
               type: \compound
               x: c.x
               y: c.y
-              shapes: [
-              * type: \rect
-                x: 0
-                y: 0
-                width: bounds.width
-                height: h
+              shapes:
+                * type: \rect
+                  x: 0, y: 0
+                  width: bounds.width, height: h
 
-              * type: \rect
-                x: 0
-                y: 0
-                width: bounds.width
-                height: h
+                * type: \rect
+                  x: 0, y: 0
+                  width: w, height: bounds.height
 
-              * type: \circle
-                x: w/2
-                y: h/2
-                radius: r
+                * type: \circle
+                  x: w/2, y: h/2
+                  radius: r
 
-              * type: \circle
-                x: -w/2
-                y: h/2
-                radius: r
+                * type: \circle
+                  x: -w/2, y: h/2
+                  radius: r
 
-              * type: \circle
-                x: -w/2
-                y: -h/2
-                radius: r
+                * type: \circle
+                  x: -w/2, y: -h/2
+                  radius: r
 
-              * type: \circle
-                x: w/2
-                y: -h/2
-                radius: r
-              ]
+                * type: \circle
+                  x: w/2, y: -h/2
+                  radius: r
 
         else
           # TODO
