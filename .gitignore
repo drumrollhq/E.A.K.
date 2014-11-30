@@ -6,7 +6,7 @@ Vagrantfile
 node_modules
 bower_components
 public
-jstest
+.test
 *.!sync
 conf.dev.json
 conf.production.json
