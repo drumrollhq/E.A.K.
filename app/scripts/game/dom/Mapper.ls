@@ -7,7 +7,15 @@
 # - Support CSS animations
 # - Support weird combinations of border-radius
 
+browser-camelise = (str) -> camelize str .replace /^Webkit/, 'webkit'
 clone = (obj) -> {[key, value] for key, value of obj}
+clone-css = (css) ->
+  obj = clone css
+
+  for prop in css
+    obj[browser-camelise prop] = css.get-property-value prop
+
+  obj
 
 number = '(-?[0-9]+(?:\\.[0-9]+(?:e\\-?[0-9]+)?)?),?\\s?'
 matrix-regex = new RegExp "matrix\\(#{repeat 6 number}\\)$"
@@ -19,7 +27,7 @@ module.exports = class Mapper
   # across browsers.
   normalise-style: (css) ->
     # stuff from get-computed-style is immutable, so we clone it
-    css = clone css
+    css = clone-css css
 
     # Currently, this function deals mainly with border-radius related issues.
     # The border-radius value doesn't have a consistent value across values, so
@@ -27,9 +35,9 @@ module.exports = class Mapper
     br1 = br2 = ''
 
     for corner in <[ TopLeft TopRight BottomRight BottomLeft ]>
-      br = css["border#{corner}Radius"] / ' '
+      br = css["border#{corner}Radius"] .split ' '
 
-      if br.length = 1
+      if br.length is 1
         br1 += br.0
         br2 += br.0
       else
