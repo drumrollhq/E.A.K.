@@ -10,11 +10,13 @@ Extra bits that make CM a better editor to learn with:
 require! {
   'channels'
   'game/editor/utils'
+  'settings'
 }
 
 errors = undefined
 
-$.load-errors '/data/', <[all]>, (err) ->
+error-root = "/#{settings.get \lang}/data/"
+$.load-errors error-root, <[all]>, (err) ->
   if err isnt null
     channels.alert.publish msg: err
 
