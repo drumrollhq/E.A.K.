@@ -1,0 +1,366 @@
+{
+  "levels/index.html/title": {
+    "message": "La casa di Arca",
+    "description": "1st level: title. Arca is the name of the character in the game. I'm not sure if it can or should be translated. "
+  },
+  "levels/index.html/hints.left-right": {
+    "message": "Questo sei tu! Puoi muoverti a destra e sinistra con i tasti <kbd>←</kbd> e <kbd>→</kbd>.",
+    "description": "1st level: tell the player how to move about"
+  },
+  "levels/index.html/hints.jump": {
+    "message": "Salta usando lo <kbd>spazio</kbd> o il tasto <kbd>↑</kbd>.",
+    "description": "1st level: instructions. Jumping is fun!"
+  },
+  "levels/index.html/hints.target": {
+    "message": "Avvicinati al gattino per salvarlo. Dovrai salvare tutti i gattini che incontrerai!",
+    "description": "1st level: instructions. yay, kittens"
+  },
+  "levels/index.html/hints.portal": {
+    "message": "Questo è un varco. Entraci e premi il tasto <kbd>↓</kbd> per scoprire dove conduce.",
+    "description": "1st level: instructions"
+  },
+  "levels/editing-text.html/title": {
+    "message": "La Mensola",
+    "description": "2nd level: title"
+  },
+  "levels/editing-text.html/hints.jump": {
+    "message": "Cerca di saltare fino a questa mensola",
+    "description": "2nd level: instructions"
+  },
+  "levels/editing-text.html/hints.edit": {
+    "message": "Uh Oh! Hai bisogno di rendere la mensola più lunga. Clicca su 'Modifica' o premi il tasto <kbd>E</kbd> per modificare questo livello.",
+    "description": "2nd level: instructions"
+  },
+  "levels/editing-text.html/html.im-a-ledge": {
+    "message": "Sono una mensola! Whoohoo!",
+    "description": "2nd level: level content. This must stay approximately the same length for the level to work"
+  },
+  "levels/editing-text.html/html.im-a-ledge-too": {
+    "message": "Hey! Sono una mensola anche io!",
+    "description": "2nd level: level content. This must stay approximately the same length for the level to work"
+  },
+  "levels/editing-text.html/tutorial.a.a": {
+    "message": "Braghe rosa! Ce l'hai fatta! Questo è il codice HTML delle mensole. <br> Descrive quello che vedi nello schermo a destra.",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.b.a": {
+    "message": "Questo codice è la mensola su cui ti trovi ...",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.b.b": {
+    "message": "e questo codice è la mensola sulla destra.",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.c.a": {
+    "message": "Ogni mensola inizia con <code>&lt;p ...&gt;</code> e finisce con <code>&lt;/p&gt;</code>",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.c.b": {
+    "message": "Questi sono detti tag.",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.d.a": {
+    "message": "Quello che c'è tra due tag <br> è quanto viene mostrato sullo schermo.",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.d.b": {
+    "message": "Ciao!",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.e.a": {
+    "message": "Prova a cambiare le parole nel codice qui sopra per rendere <br> più lunga la mensola su cui ti trovi.",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.e.b": {
+    "message": "Puoi scrivere quello che vuoi - una filastrocca sulle mensole magari?",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.f.a": {
+    "message": "Ottimo lavoro, vecchio mio! Sei stato più rapido di uno scoiattolo su una motoretta!",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.f.b": {
+    "message": "Salva i gattini! E fai attenzione - <br> a non incontrate un uccello banana ...",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.f.c": {
+    "message": "Ho sentito che adorano fare la cacca sui loro nemici!",
+    "description": "Tutorial annotation"
+  },
+  "levels/editing-text.html/tutorial.f.d": {
+      "message": "Clicca 'Salva' per chiudere l'editor e salvare il gattino! <a class=\"dismiss\" href=\"#\">OK.</a>",
+    "description": "Tutorial annotation"
+  },
+  "levels/creating-elements.html/title": {
+    "message": "Arca nello Spazio",
+    "description": "Space level: title"
+  },
+  "levels/creating-elements.html/hint": {
+    "message": "Hmmm... Sembra che ci servano più scatole. Modifica il codice di questo livello - premi <kbd>E</kbd> o clicca sul pulsante 'Modifica'.",
+    "description": "Space level: instructions"
+  },
+  "levels/creating-elements.html/html.box-1": {
+    "message": "Scatola!",
+    "description": "Space level: content. The writing on the first box"
+  },
+  "levels/creating-elements.html/html.box-2": {
+    "message": "Scatola?",
+    "description": "Space level: content. The writing on the second box"
+  },
+  "levels/creating-elements.html/tutorial.a.a": {
+    "message": "Oh cavolo! Quello è Shelby il Drago Spaziale!",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.a.b": {
+    "message": "Ha passato anni cercando di volare facendo un cerchio perfetto ...",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.a.c": {
+    "message": "Non so perchè, ma di certo lui sa come ballare un valzer.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.b.a": {
+    "message": "Sembra che dovremo fare qualche modifica qui ...",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.b.b": {
+    "message": "Questi sono i tag <code>div</code>.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.b.c": {
+    "message": "In HTML, un tag <code>div</code> è simile ad una scatola in cui puoi metterci dentro della roba.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.c.a": {
+    "message": "Il primo <code>&lt;div&gt;</code> dice <em class=\"fade\" in=\"3\">\"Inizio scatola\"</em>",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.c.b": {
+    "message": "E <code>&lt;/div&gt;</code> con lo slash finale dice <em class=\"fade\" in=\"7.5\">\"Fine scatola this box\"</em>",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.c.c": {
+    "message": "Clicca sulla lampadina se ti serve aiuto! <a href=\"#\" class=\"dismiss\">OK</a>",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.d.a": {
+    "message": "Aggiungi due tag <code>div</code> per raggiungere il gattino ed il varco.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.e.a": {
+    "message": "Ogni taf deve avere la stessa struttura degli altri.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.e.b": {
+    "message": "Ehilà!",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.e.c": {
+    "message": "Inizia con <code>&lt;div&gt;</code>.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.e.d": {
+    "message": "Poi scrivi una parola come <br> contenuto della tua scatola.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.e.e": {
+    "message": "Completa il tag con <code>&lt;/div&gt;</code>.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.f.a": {
+    "message": "Quasi tutti gli elementi di una pagina HTML hanno bisogno di tag di apertura e chiusura.",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.f.b": {
+    "message": "Internet è molto sensibile a questo genere di dettagli ...",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/creating-elements.html/tutorial.f.c": {
+    "message": "...e tu non vuoi farla arrabbiare, vero?",
+    "description": "Space level: Tutorial Annotations"
+  },
+  "levels/headings.html/title": {
+    "message": "Punte!",
+    "description": "Headings level: title"
+  },
+  "levels/headings.html/html.h1": {
+    "message": "IO SONO MOLTO IMPORTANTE",
+    "description": "Headings level: content"
+  },
+  "levels/headings.html/html.h2": {
+    "message": "ANCHE IO! Più o meno ...",
+    "description": "Headings level: content"
+  },
+  "levels/headings.html/tutorial.a.a": {
+    "message": "Ahhh, titoli!",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.a.b": {
+    "message": "In HTML i titoli sono una famiglia molto grande ...",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.a.c": {
+    "message": "Vanno da <code>&lt;h1&gt;</code> (il più importante),",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.a.d": {
+    "message": "a <code>&lt;h6&gt;</code> (il meno importante).",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.a.e": {
+    "message": "Resti tra me e te, litigano sempre come topolini davanti ad un pezzo di formaggio!",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.b.a": {
+    "message": "Puoi dare al titolo principale della pagina un tag <code>&lt;h1&gt;</code>",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.b.b": {
+    "message": "e al sottotitolo un <code>&lt;h2&gt;</code>, per esempio.",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.c.a": {
+    "message": "Questi due titoli però non ti faranno avanzare di tanto in questa grotta.",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.c.b": {
+    "message": "Se ne crei altri, forse potrai raggiungere il fondo.",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.d.a": {
+    "message": "Aggiungi un tag <code>&lt;h3&gt;</code> alla fine del codice.",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.e.a": {
+    "message": "Inizia con <code>&lt;h3&gt;</code>.",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.e.b": {
+    "message": "Poi aggiungi del testo.",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.e.c": {
+    "message": "E finisci con <code>&lt;/h3&gt;</code> - ricordati sempre <code>/</code>!",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.e.d": {
+    "message": "Minestrone Party!",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.f.a": {
+    "message": "Aggiungi altri tag.",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/headings.html/tutorial.f.b": {
+    "message": "Hai aggiunto un <code>&lt;h3&gt;</code>, adesso fai la stessa cosa per <span class=\"fade\" in=\"5.5\"><code>&lt;h4&gt;</code>,</span> <span class=\"fade\" in=\"6.5\"><code>&lt;h5&gt;</code>,</span> <span class=\"fade\" in=\"7.5\">e <code>&lt;h6&gt;</code>.</span>",
+    "description": "Headings level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.a.a": {
+    "message": "I nemici dei gattini sono bestie subdole.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.a.b": {
+    "message": "Hanno reso impossibile vedere il sentiero davanti ...",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.a.c": {
+    "message": "...o almeno così pensano!",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.a.d": {
+    "message": "Forse non lo sai, ma ci sono molti linguaggi di programmazione.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.b.a": {
+    "message": "Prima hai utilizzato del codice <code>HTML</code>, e ora hai bisogno di usare del codice <code>CSS</code>.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.b.b": {
+    "message": "<code>CSS</code> descrive l'aspetto di una pagina <code>HTML</code> - <br> <span class=\"fade\" in=\"8.5\"><span style=\"font-family: serif;\">font tipografici</span>,</span> <span class=\"fade\" in=\"9.2\"><span style=\"color: red;\">colori</span>,</span> <span class=\"fade\" in=\"10\">and <span style=\"border: 1px solid black; border-radius: 100%; padding: 0 10px; display: inline-block;\">forme</span>.</span>",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.c.a": {
+    "message": "Il codice <code>CSS</code> è questo pezzetto qui, dentro il tag <code>&lt;style&gt;</code>.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.c.b": {
+    "message": "Il tag <code>&lt;style&gt;</code> è usato per inserire del codice <code>CSS</code> in un documento <code>HTML</code>, così che possa modificare l'aspetto e lo stile della pagina.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.d.a": {
+    "message": "Nel codice <code>CSS</code> vengono definite tre cose:",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.d.b": {
+    "message": "La parola <code>body</code> dice al browser che quel che è contenuto tra le parentesi graffe si riferisce all'intera pagina.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.d.c": {
+    "message": "<code>background</code> dice che vogliamo cambiare il colore dello sfondo.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.d.d": {
+    "message": "E <code>hsl(...)</code> con quei tre numeri è un codice che indica uno specifico colore.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.e.a": {
+    "message": "Nel complesso, questo codice <code>CSS</code> fissa il colore dello sfondo per l'intera pagina ad un blu brillante ...",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.e.b": {
+    "message": "Molto simile a quello di un malefico vampiro.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "levels/colours.html/tutorial.f.a": {
+    "message": "Prova a cambiare i numeri dentro <code>hsl(...)</code>, <br> per cambiare il colore dello sfondo di questo livello.",
+    "description": "Colours level: tutorial annotations"
+  },
+  "cutscenes/intro.html/subtitles.a": {
+    "message": "Molto molto tempo fa, agli albori di Internet, l'umanità viveva in mondo senza foto e video di gattini. ",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.b": {
+    "message": "Un giorno, nel 345BC (Before Cats, prima dei gatti), arrivò Internet.",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.c": {
+    "message": "Tutta l'umanità festeggiò!",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.d": {
+    "message": "Avevano scoperto qualcosa che portava grande felicità ed un nuovo significato nelle loro vite... animali carini e soffici",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.e": {
+      "message": "Iniziarono a cercarne altri sul web: dai panda giganti ai cagnolini giocherelloni.",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.f": {
+    "message": "Ma improvvisamente, i gattini divennero immensamente popolari e iniziarono ad apparire in tutto l'universo Internet.",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.g": {
+    "message": "Questo ti portò una grande gioia.",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.h": {
+    "message": "I gattini non si curavano del fatto che tu, Arca, fossi un emarginato ...",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.i": {
+    "message": "... rifiutato dalle creature di Internet e destinato a vivere in mezzo ad antiche rovine.",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.j": {
+    "message": "Infatti, i gattini erano i tuoi soli amici",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/subtitles.k": {
+    "message": "Finchè, uno a uno, non iniziarono a scomparire ...",
+    "description": "Subtitle for cutscene"
+  },
+  "cutscenes/intro.html/continue": {
+    "message": "Continua",
+    "description": "Continue"
+  }
+}

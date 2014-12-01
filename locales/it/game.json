@@ -1,0 +1,338 @@
+{
+  "play/index.html/language": {
+    "message": "Italiano",
+    "description": "The name of the language you're translating to, in that language."
+  },
+  "play/index.html/title": {
+    "message": "Cancella Tutti i Gattini",
+    "description": "The name of the game!"
+  },
+  "play/index.html/main-menu.new-game": {
+    "message": "Nuova Partita",
+    "description": "button on the main menu"
+  },
+  "play/index.html/main-menu.load-game": {
+    "message": "Carica il Gioco",
+    "description": "button on the main menu"
+  },
+  "play/index.html/main-menu.about": {
+    "message": "Info",
+    "description": "button on the main menu"
+  },
+  "play/index.html/about.description": {
+      "message": "Cancella Tutti i Gattini è un gioco multilivello con una peculiarità: tutti i livelli sono scritti in HTML e CSS, e l'unico modo per superarli è utilizzare le tue conoscenze di programmazione.",
+    "description": "a short description of the game"
+  },
+  "play/index.html/about.instructions": {
+    "message": "Usa la <kbd>A</kbd> e la <kbd>D</kbd> oppure le frecce <kbd>&larr;</kbd> e <kbd>&rarr;</kbd> per muoverti a destra e sinistra. Usa la <kbd>W</kbd>, lo <kbd>spazio</kbd>, o la freccia <kbd>&uarr;</kbd> per saltare.",
+    "description": "brief instructions on the 'about' page"
+  },
+  "play/index.html/about.have-fun": {
+    "message": "Divertiti!",
+    "description": "have fun or else."
+  },
+  "play/index.html/back": {
+    "message": "Indietro",
+    "description": "for a 'back' button"
+  },
+  "play/index.html/todo": {
+    "message": "Cose da fare.",
+    "description": "for when I've not done stuff yet ;)"
+  },
+  "play/index.html/loading": {
+    "message": "Caricando...",
+    "description": ""
+  },
+  "play/index.html/old-browser-msg.title": {
+    "message": "Spiacente!",
+    "description": "This is the heading for a notice that tells users on older browsers that they can't run the game"
+  },
+  "play/index.html/old-browser-msg.html": {
+    "message": "Sfortunatamente il tuo browser non supporta quanto necessario per giocare a Cancella Tutti i Gattini. Manca:",
+    "description": "Prompt users on old browsers to upgrade to a newer one"
+  },
+  "play/index.html/old-browser-msg.ignore": {
+    "message": "Puoi ignorare questo messaggio e proseguire comunque, ma probabilmente alcune cose funzioneranno male o non funzioneranno affatto. Cancella Tutti i Gattini funziona al meglio con le ultime versioni di <a href=\"http://mozilla.org/firefox\">Firefox</a> o <a href=\"http://google.com/chrome\">Chrome</a>.",
+    "description": "Users of old browsers can continue anyway, but we'd rather they upgraded"
+  },
+  "play/index.html/old-browser-msg.continue": {
+    "message": "Continua comunque &rarr;",
+    "description": "Continue"
+  },
+  "play/index.html/menu.restart": {
+    "message": "Riavvia",
+    "description": "Button on the bar at the top of the screen during levels. Puts the level and player back in the starting state."
+  },
+  "play/index.html/menu.edit": {
+    "message": "Modifica",
+    "description": "Button on the bar at the top of the screen during levels. Opens up the edit view."
+  },
+  "play/index.html/menu.save": {
+    "message": "Salva",
+    "description": "Button on the bar at the top of the screen during levels. Closes the edit view, keeping the code the user entered"
+  },
+  "play/index.html/menu.reset": {
+    "message": "Azzera",
+    "description": "Button on the bar at the top of the screen during levels. When in the edit view, this sets the code to how it was at the start of the level"
+  },
+  "play/index.html/menu.cancel": {
+    "message": "Annulla",
+    "description": "Button on the bar at the top of the screen during levels. Closes the edit view, discarding the code the user entered"
+  },
+  "play/index.html/menu.undo": {
+    "message": "Cancella",
+    "description": "Undo button for the code editor"
+  },
+  "play/index.html/menu.redo": {
+    "message": "Rifai",
+    "description": "Redo button for the code editor"
+  },
+  "play/index.html/cutscene.skip": {
+    "message": "Salta",
+    "description": "Skip the current cutscene"
+  },
+  "play/index.html/cutscene.continue": {
+    "message": "Continua",
+    "description": "Continue after the cutscene"
+  },
+  "play/index.html/cutscene.error": {
+    "message": "Oh no! Non siamo riusciti a caricare quel video ...",
+    "description": "Cutscene didn't load"
+  },
+  "play/index.html/settings.title": {
+    "message": "Configurazioni",
+    "description": "Title for the settings dialogue"
+  },
+  "play/index.html/settings.music": {
+    "message": "Volume musica",
+    "description": "Music setting"
+  },
+  "play/index.html/settings.effects": {
+    "message": "Volume effetti sonori",
+    "description": "Music setting"
+  },
+  "play/index.html/settings.language": {
+    "message": "Lingua",
+    "description": "Heading in settings page"
+  },
+  "play/index.html/settings.language-warn": {
+    "message": "Se cambi lingua, azzererai ogni progresso fatto nell'attuale livello. Sei sicuro di voler proseguire?",
+    "description": "Language change warning in settings page"
+  },
+  "play/index.html/loader.start": {
+    "message": "Sto caricando immagini di gattini...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.a": {
+    "message": "Sto ancora caricando immagini di gattini...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.b": {
+    "message": "Questi gattini sono belli pesanti...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.c": {
+    "message": "Quanti gattini da caricare...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.d": {
+    "message": "Ti stai divertendo?",
+    "description": "loading message"
+  },
+  "play/index.html/loader.e": {
+    "message": "GATTINI GATTINI GATTINI GATTINI",
+    "description": "loading message"
+  },
+  "play/index.html/loader.f": {
+    "message": "...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.g": {
+    "message": "*sbadiglio*",
+    "description": "loading message"
+  },
+  "play/index.html/loader.h": {
+    "message": "Sto scaricando i gattini dal furgone...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.i": {
+    "message": "Sto lottando contro delle faccine cattive...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.j": {
+    "message": "Sto portando l'Anello a Mordor...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.k": {
+    "message": "Sto inventando gattini...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.l": {
+    "message": "Sto giocando con un gomitolo...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.m": {
+    "message": "Oooh! Gomitoli!",
+    "description": "loading message"
+  },
+  "play/index.html/loader.n": {
+    "message": "Sto caricando altri messaggi per ingannare l'attesa...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.o": {
+    "message": "Sto cercando du Google altre immagini di gattini...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.p": {
+    "message": "Sto comprando gattini su eBay...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.q": {
+    "message": "Sto catturando starnuti di panda...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.r": {
+    "message": "E' ora di una tazza di tè...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.s": {
+    "message": "Ti va un biscotto?",
+    "description": "loading message"
+  },
+  "play/index.html/loader.t": {
+    "message": "Immagini di gattini intercettate dall'NSA...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.u": {
+    "message": "Ti restano 8 minuti di batteria...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.v": {
+    "message": "Sto contrattando sul prezzo dei gattini...",
+    "description": "loading message"
+  },
+  "play/index.html/errors.load-sprite": {
+    "message": "Oh no! Non siamo riusciti a caricare le animazioni!",
+    "description": "error message"
+  },
+  "play/index.html/errors.sound-not-found": {
+    "message": "Oh no! Non siamo riusciti a caricare i suoni!",
+    "description": "error message"
+  },
+  "play/index.html/errors.music-not-found": {
+    "message": "Oh no! Non siamo riusciti a caricare  la musica!",
+    "description": "error message"
+  },
+  "play/index.html/errors.code-errors": {
+    "message": "Ci sono degli errori nel tuo codice! Correggili prima di salvare.",
+    "description": "error message"
+  },
+  "play/index.html/errors.level-errors": {
+    "message": "Ci sono errori in quel livello!",
+    "description": "error message"
+  },
+  "data/errors.all.html/slowparse.unexpected-close-tag": {
+    "message": "Attenzione! Hai un tag di chiusura (fine) <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code>, ma nessun tag di apertura (inizio) associato ad esso.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.mismatched-close-tag": {
+    "message": "Questi tag non si combinano! Hai un tag di chiusura <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code>, ma è associato al tag di apertura <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.close-tag-for-void-element": {
+    "message": "DRAMA: Questo tag <code>&lt;{{closeTag.name}}&gt;</code> non richiede chiusura, quindi questo <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> non è necessario.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.self-closing-non-void-element": {
+    "message": "OI! Non puoi mettere <code>/</code> alla fine di questa apertura <code data-highlight=\"{{start}},{{end}}\">&lt;{{name}}&gt;</code>. Devei metterlo in un tag di chiusura <code>&lt;/{{name}}&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unclosed-tag": {
+    "message": "Oh no! Questo This <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code> ha bisogno di un tag di chiusura <code>&lt;/{{openTag.name}}&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.invalid-tag-name": {
+    "message": "Non esiste un tag così <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code>. Il Dio dell'HTML non lo permetterebbe mai.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.invalid-attr-name": {
+    "message": "Non esiste un attributo così <code data-highlight=\"{{start}},{{end}}\">{{attribute.name.value}}</code>. Il Dio dell'HTML non lo permetterebbe mai.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.lonely-angle-bracket": {
+    "message": "Questo pezzetto <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;</code> assomiglia all'apertura di un tag. Ma da solo non funziona - cancellalo o aggiungi il nome del tag e la chiusura <code>&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unterminated-attr-value": {
+    "message": "Devi aggiungere un <code>\"</code> alla fine dell'attributo <code data-highlight=\"{{attribute.name.start}},{{attribute.value.start}}\">{{attribute.name.value}}</code> di questo tag <code data-highlight=\"{{openTag.start}},{{openTag.start + openTag.name.length + 1}}\">&lt;{{openTag.name}}&gt;</code>. Pazzesco, no?",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unquoted-attr-value": {
+    "message": "Devi mettere un <code>\"</code> dopo il segno <code>=</code> in questo attributo <code data-highlight=\"{{attribute.name.start}},{{attribute.name.end + 1}}\">{{attribute.name.value}}</code>. Tanto per dire.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unterminated-close-tag": {
+    "message": " Cosa!? Devi aggiungere un <code>&gt;</code> a questo tag di chiusura <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unterminated-open-tag": {
+    "message": "Per tua informazione, devi aggiungere <code>&gt;</code> alla fine di questo tag di apertura <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;/{{openTag.name}}&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.attribute-in-closing-tag": {
+    "message": "Pensavo lo sapessi, non puoi mettere un attributo in questo tag di chiusura <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unterminated-comment": {
+    "message": "Questo commento dovrebbe terminare con <code>--&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.invalid-css-property-name": {
+    "message": "Ehi! Non esiste una cosa come <code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}</code>. Gli dei del CSS hanno deciso così. O forse hai solo sbagliato a scrivere ...",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.missing-css-selector": {
+    "message": "Devi terminare il tuo CSS con <code data-highlight=\"{{cssBlock.start}},{{cssBlock.end}}\">&lt;/style&gt;</code>!",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unfinished-css-selector": {
+    "message": "Questo selettore <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> dovrebbe terminare con <code>{</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.missing-css-property": {
+    "message": "Questo selettore <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> è vuoto! Gli serve almeno una proprietà.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unfinished-css-property": {
+    "message": "<code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}</code> non è completo! Ti serve un <code>:</code> dopo il nome della proprietà.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.missing-css-value": {
+    "message": "Devi aggiungere un valore dopo <code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}:</code>!",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unfinished-css-value": {
+    "message": "Oops! Completa il tuo valore <code data-highlight=\"{{cssValue.start}},{{cssValue.end}}\">{{cssValue.value}}</code> con un <code>;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.missing-css-block-closer": {
+    "message": "Devi completare questo blocco di CSS <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> con una <code>}</code> dopo <code data-highlight=\"{{cssValue.start}},{{cssValue.end}}\">{{cssValue.value}};</code>",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.uncaught-css-parse-error": {
+    "message": "Qualcosa è andato terribilmente storto. Probabilmente non sai cosa, e nemmeno noi, ma abbiamo trovato questo sulla scena del crimine: <code data-highlight=\"{{error.start}},{{error.end}}\">{{error.msg}}</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unterminated-css-comment": {
+    "message": "Devi terminare questo commento nel CSS con <code>*/</code>! FALLO!",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.html-code-in-css-block": {
+    "message": "No, no, no!!! Hai piazzato dell'HTML nel tuo CSS! Non è quello il suo posto ...",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.forbid-JS": {
+    "message": "Spiacente! Non puoi (ancora) usare codice JavaScript in Cancella Tutti i Gattini. Quindi non farlo. I guardiani di JavaScript ti afferrerebbero con i loro denti aguzzi ed affilati!",
+    "description": "HTML/CSS error"
+  }
+}
