@@ -77,9 +77,10 @@ channels.parse 'contact: start: ENTITY_PLAYER + ENTITY_TARGET' .subscribe (conta
 
   kitten.destroy!
 
-  unless kitten.destroyed
-    logger.log 'kitten', player: player.{v, p}
-    channels.kitten.publish {}
+  if kitten.destroyed then return
+
+  logger.log 'kitten', player: player.{v, p}
+  channels.kitten.publish {}
 
   kitten.destroyed = true
 
