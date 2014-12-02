@@ -128,7 +128,7 @@ gulp.task 'dev' <[build]> ->
   gulp.watch src.audio, ['audio']
 
 gulp.task 'clean' ->
-  gulp.src dest.all, read: false
+  gulp.src [dest.all, dest.tests], read: false
     .pipe gulp-rimraf force: true
 
 gulp.task 'clean-cache' ->
