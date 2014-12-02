@@ -85,6 +85,7 @@ module.exports = class Level extends Backbone.Model
     @add-bodies-from-dom nodes
     @add-player nodes, @conf.player
     @add-borders nodes, @conf.borders
+    @add-exits nodes, @conf.exits
 
     state = @state = physics.prepare nodes
 
@@ -214,6 +215,59 @@ module.exports = class Level extends Backbone.Model
       y: 0
       id: \BORDER_LEFT
     }
+
+  add-exits: (nodes, exits) ->
+    const t = 50px
+    const h-offs = 50px
+    const v-offs = 60px
+    const w = @renderer.width
+    const h = @renderer.height
+
+    if exits.right? then nodes[*] = {
+      type: \rect
+      width: t
+      height: h * 2
+      x: w + (t / 2) + h-offs
+      y: 0
+      id: \ENTITY_EXIT
+      data:
+        href: exits.right
+    }
+
+    if exits.left? then nodes[*] = {
+      type: \rect
+      width: t
+      height: h * 2
+      x: - (t / 2) - h-offs
+      y: 0
+      id: \ENTITY_EXIT
+      data:
+        href: exits.left
+    }
+
+    if exits.top? then nodes[*] = {
+      type: \rect
+      width: w * 2
+      height: t
+      x: 0
+      y: - (t / 2) - v-offs
+      id: \ENTITY_EXIT
+      data:
+        href: exits.top
+    }
+
+    if exits.bottom? then nodes[*] = {
+      type: \rect
+      width: w * 2
+      height: t
+      x: 0
+      y: h + (t / 2) + v-offs
+      id: \ENTITY_EXIT
+      data:
+        href: exits.bottom
+    }
+
+    console.log nodes, exits
 
   check-player-is-in-world: !~>
     pos = @player.p

@@ -18,6 +18,17 @@ to-coordinates = (str = '0 0') ->
   if parts.length isnt 2 then throw new Error 'Cannot parse coordinates. Wrong number of parts'
   parts.map parse-float
 
+to-object = (str) ->
+  pairs = str
+  |> to-list _, ','
+  |> map -> to-list it, ' '
+  |> map (pair) ->
+    key = first pair .trim!.replace /:$/m ''
+    val = tail pair .join ' '
+    [key, val]
+
+  {[(camelize pair.0), pair.1] for pair in pairs when pair.0.length > 0}
+
 function find-level-settings level
   meta = get-meta level
   conf = {}
@@ -48,6 +59,9 @@ function find-level-settings level
   if borders.0 is 'none' then borders = []
   conf.borders = borders
 
+  # How can arca exit?
+  conf.exits = meta \exits, '' |> to-object
+
   # Find music track:
   conf.music = meta \music, 'none'
 
@@ -55,4 +69,4 @@ function find-level-settings level
 
   conf
 
-module.exports = {find: find-level-settings}
+module.exports = {find: find-level-settings, get-meta, to-boolean, to-coordinates, to-list, to-object}

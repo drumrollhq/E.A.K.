@@ -64,6 +64,12 @@ channels.parse 'contact: start: ENTITY_PLAYER' .subscribe (contact) ->
   if player.last-fall-dist > 300px and not other.data?.sensor?
     channels.death.publish cause: 'fall-to-death'
 
+# Exits:
+channels.parse 'contact: start: ENTITY_PLAYER + ENTITY_EXIT' .subscribe (contact) ->
+  [player, exit] = contact.find 'ENTITY_PLAYER'
+  if player.deactivated or player.last-fall-dist > fall-limit then return
+  if exit.data.href? then window.location.href = exit.data.href
+
 # Kitten finding
 channels.parse 'contact: start: ENTITY_PLAYER + ENTITY_TARGET' .subscribe (contact) ->
   [player, kitten] = contact.find 'ENTITY_PLAYER'
