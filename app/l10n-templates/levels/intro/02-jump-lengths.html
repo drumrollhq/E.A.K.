@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Long Jump</title>
+
+    <meta name="size" value="780 585">
+    <meta name="borders" value="top left right">
+    <meta name="player" value="-350 240">
+    <meta name="background" value="white url(/content/bgs/intro-level.png) center center / cover">
+    <meta name="targets" value="-65 236">
+    <meta name="music" value="forest">
+    <meta name="editable" value="false">
+
+    <hints>
+      <pointer target=".entity-target" enter="time: 1000" position="above" exit="kitten">
+        Tap <kbd>↑</kbd> or <kbd>space</kbd> to jump a little bit. Hold down to jump higher.
+      </pointer>
+    </hints>
+
+    <style>
+      .floor {
+        position: absolute;
+        bottom: 0;
+        height: 30px;
+        background: #ccc;
+      }
+
+      .left {
+        left: 0;
+        width: 170px;
+      }
+
+      .middle {
+        left: 300px;
+        width: 50px;
+      }
+
+      .right {
+        right: 0;
+        width: 250px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="floor left"></div>
+    <div class="floor middle"></div>
+    <div class="floor right"></div>
+  </body>
+</html>
