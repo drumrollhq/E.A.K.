@@ -25,7 +25,7 @@ tidy-key = (key = '') ->
 to-object = (str) ->
   pairs = str
     |> to-list _, ','
-    |> map words
+    |> map to-list
     |> reject head >> empty
 
   keys = pairs
