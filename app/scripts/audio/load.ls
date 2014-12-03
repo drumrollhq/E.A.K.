@@ -9,7 +9,8 @@ module.exports = function fetch-audio-data url, cb
     type: \GET
     url: "#{url}.#{context.format}"
     data-type: 'arraybuffer'
-    error: (xhr, status, err) -> cb null, "Error loading #url: #status - #err"
+    error: (xhr, status, err) ->
+      cb null, "Error loading #url: #status - #err"
     success: (data) ->
       success = (audio) ->
         cache[url] = audio

@@ -49,6 +49,7 @@ class MusicManager
       channels.alert.publish msg: "#{translations.errors.music-not-found}: #err"
       return cb!
 
+
     music.play 'normal'
     @music = music
     cb!
