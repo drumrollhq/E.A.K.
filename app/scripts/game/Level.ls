@@ -168,6 +168,7 @@ module.exports = class Level extends Backbone.Model
     @add-bodies-from-dom nodes
     @add-player nodes, @conf.player
     @add-borders nodes, @conf.borders
+    @add-exits nodes, @conf.exits
 
     state = @state = physics.prepare nodes
 

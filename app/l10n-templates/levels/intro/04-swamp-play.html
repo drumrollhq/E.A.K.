@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Swamp Play</title>
+
+    <meta name="size" value="780 585">
+    <meta name="borders" value="top">
+    <meta name="exits" value="right #/play/levels/intro/03-editing-text-i.html">
+    <meta name="player" value="-350 240">
+    <meta name="background" value="white url(/content/bgs/valley-cave.png) center center / cover">
+    <meta name="targets" value="-465 236">
+    <meta name="music" value="forest">
+    <meta name="editable" value="false">
+
+    <hints>
+      <pointer target=".entity-target" enter="time: 1000" position="above" exit="kitten">
+        Tap <kbd>↑</kbd> or <kbd>space</kbd> to jump a little bit. Hold down to jump higher.
+      </pointer>
+    </hints>
+
+    <style>
+      .floor {
+        position: absolute;
+        bottom: 0;
+        height: 40px;
+        left: 0;
+        width: 100%;
+      }
+
+      .ledge {
+        position: absolute;
+        bottom: 40px;
+        width: 100%;
+      }
+
+      .a {
+        height: 40px;
+        left: 440px;
+      }
+
+      .b {
+        height: 140px;
+        left: 520px
+      }
+
+      .c {
+        height: 220px;
+        left: 620px;
+      }
+
+      .cave-top {
+        position: absolute;
+        top: 162px;
+        right: 0;
+        width: 50px;
+        height: 50px;
+      }
+
+      img {
+        position: absolute;
+        top: 184px;
+        right: 0;
+        z-index: 10010;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="floor"></div>
+    <div class="ledge a"></div>
+    <div class="ledge b"></div>
+    <div class="ledge c"></div>
+    <div class="cave-top"></div>
+    <img width="80" height="164" src="/content/bgs/valley-cave-overlay.png" data-ignore>
+  </body>
+</html>
