@@ -128,10 +128,10 @@ module.exports = class Level extends Backbone.Model
     for node, i in @state.nodes when node.from-dom-map is true
       node.destroy!
 
-  add-player: (nodes, player-conf) ~>
+  add-player: (nodes, player-conf, set-pos = true) ~>
     if @player?
       nodes[*] = @player
-      @player.prepared = false
+      # @player.prepared = false
 
     else
       player = new Player player-conf, @renderer.width, @renderer.height
@@ -141,7 +141,7 @@ module.exports = class Level extends Backbone.Model
       @player = player
 
       # Get starting positions
-      @start-pos = player: player.el.get-bounding-client-rect!
+      @start-pos = player: player.el.get-bounding-client-rect! if set-pos
 
       # Add player to physics
       nodes[*] = player
@@ -166,7 +166,7 @@ module.exports = class Level extends Backbone.Model
 
     nodes = []
     @add-bodies-from-dom nodes
-    @add-player nodes, @conf.player
+    @add-player nodes, @conf.player, @conf.reset-player-on-edit
     @add-borders nodes, @conf.borders
     @add-exits nodes, @conf.exits
 
@@ -268,8 +268,6 @@ module.exports = class Level extends Backbone.Model
         href: exits.bottom
     }
 
-    console.log nodes, exits
-
   check-player-is-in-world: !~>
     pos = @player.p
 
@@ -309,7 +307,7 @@ module.exports = class Level extends Backbone.Model
     logger.start 'edit', {}, (event) -> edit-event := event.id
 
     # Put the play back where they started
-    @player.reset!
+    if @conf.reset-player-on-edit then @player.reset!
 
     # Wait 2 frames so we can ensure that the player has reset before continuing
     <~ channels.frame.once

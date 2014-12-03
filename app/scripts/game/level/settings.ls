@@ -46,6 +46,9 @@ function find-level-settings level
   # Should we display the top bar?
   conf.editable = meta \editable, 'true' |> to-boolean
 
+  # Should we reset the player position when editing?
+  conf.reset-player-on-edit = meta \reset-player-on-edit, 'true' |> to-boolean
+
   # What's the background image for this level?
   conf.bg = meta \background, 'white'
 
