@@ -18,16 +18,23 @@ to-coordinates = (str = '0 0') ->
   if parts.length isnt 2 then throw new Error 'Cannot parse coordinates. Wrong number of parts'
   parts.map parse-float
 
+tidy-key = (key = '') ->
+  key .= replace /:$/ ''
+  camelize key
+
 to-object = (str) ->
   pairs = str
-  |> to-list _, ','
-  |> map -> to-list it, ' '
-  |> map (pair) ->
-    key = first pair .trim!.replace /:$/m ''
-    val = tail pair .join ' '
-    [key, val]
+    |> to-list _, ','
+    |> map words
+    |> reject head >> empty
 
-  {[(camelize pair.0), pair.1] for pair in pairs when pair.0.length > 0}
+  keys = pairs
+    |> map head >> tidy-key
+
+  values = pairs
+    |> map tail >> unwords >> ( .trim! )
+
+  lists-to-obj keys, values
 
 function find-level-settings level
   meta = get-meta level
