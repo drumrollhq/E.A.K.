@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Editing Text II</title>
+
+    <meta name="size" value="780 585">
+    <meta name="borders" value="top right">
+    <meta name="exits" value="left #/play/levels/intro/04-swamp-play.html, bottom #/play/levels/intro/04-swamp-play.html">
+    <meta name="player" value="-350 -160">
+    <meta name="background" value="white url(/content/bgs/cave-1.png) center center / cover">
+    <meta name="targets" value="260 20, 0 203">
+    <meta name="music" value="cave">
+    <meta name="reset-player-on-edit" value="false">
+
+    <style>
+      p, .floor, .ledge, .side-ledge {
+        font-size: 16px;
+        padding: 10px;
+        display: block;
+        background: #777;
+      }
+
+      .floor {
+        position: absolute;
+        bottom: 0;
+        height: 64px;
+        left: -50%;
+        width: 200%;
+      }
+
+      .ledge {
+        width: 100%;
+        background: #555;
+      }
+
+      p {
+        background: #999;
+        word-wrap: break-word;
+      }
+
+      .side-ledge {
+        position: absolute;
+        width: 300px;
+        right: 0;
+        top: 340px;
+      }
+
+      p {
+        margin-top: 150px;
+        width: 300px;
+      }
+    </style>
+
+    <hidden>
+      <div class="floor"></div>
+      <div class="ledge"></div>
+      <div class="side-ledge"></div>
+    </hidden>
+  </head>
+  <body>
+    <p>I can grow mossy lichen if I want. Who cares if I'm igneous?</p>
+  </body>
+</html>
