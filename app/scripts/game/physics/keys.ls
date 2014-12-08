@@ -8,15 +8,15 @@ module.exports = keys = {
 
 triggers = {
   left:
-    keys: <[ left a ]>
+    keys: <[ left a h ]>
     exclude: <[ right ]>
 
   right:
-    keys: <[ right d ]>
+    keys: <[ right d l ]>
     exclude: <[ left ]>
 
   jump:
-    keys: <[ up w space ]>
+    keys: <[ up w space k ]>
     exclude: []
 }
 
