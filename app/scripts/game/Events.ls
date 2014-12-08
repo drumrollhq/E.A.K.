@@ -27,7 +27,7 @@ channels.parse 'contact: start: PORTAL + ENTITY_PLAYER' .subscribe (contact) ->
 channels.parse 'contact: end: PORTAL + ENTITY_PLAYER' .subscribe ->
   portal := null
 
-channels.parse 'key-down: down, s' .subscribe ->
+channels.parse 'key-down: down, s, j' .subscribe ->
   unless portal then return
   portal-el = portal.el
   portal := null

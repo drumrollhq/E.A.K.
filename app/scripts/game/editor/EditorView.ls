@@ -21,6 +21,8 @@ module.exports = class EditorView extends Backbone.View
       tabsize: 2
       line-wrapping: true
       line-numbers: true
+      extra-keys:
+        Esc: @save
 
     cm.on \change @handle-change
 
@@ -32,6 +34,8 @@ module.exports = class EditorView extends Backbone.View
     @extras = CodeMirrorExtras cm
     NiceComments cm
     @extras.clear-cursor-marks!
+
+    @esc-sub = channels.parse 'key-press: esc' .subscribe @save
 
   events:
     'click .save': \save
@@ -48,6 +52,7 @@ module.exports = class EditorView extends Backbone.View
   remove: ~>
     $ document.body .remove-class \editor
     @stop-listening!
+    @esc-sub.unsubscribe!
     @cm.off \change @handle-change
     $ @cm.get-wrapper-element! .remove!
 

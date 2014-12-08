@@ -6,7 +6,7 @@ module.exports = class Bar extends Backbone.View
     'click .restart': \restart
 
   initialize: ->
-    channels.key-press.filter ( .key is 'e' ) .subscribe ->
+    channels.key-press.filter ( .key in <[ e i ]> ) .subscribe ->
       channels.game-commands.publish command: \edit
 
   edit: (e) ->
