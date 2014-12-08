@@ -17,8 +17,7 @@ create-session = (data, cb) ->
     data: data
     success: (session) -> cb session
     error: ->
-      console.error arguments
-      cb id: 'error', user: 'error'
+      cb null
   }
 
 module.exports = {
@@ -57,13 +56,16 @@ module.exports = {
     }
 
     session <~ create-session data
-    @session = session
-    @session.active-events = []
-    @setup-checkin-loop!
-    @setup-cleanup!
+    if session?
+      @session = session
+      @session.active-events = []
+      @setup-checkin-loop!
+      @setup-cleanup!
+
     cb!
 
   setup-checkin-loop: ->
+    unless @session? then return
     url = "/api/v1/sessions/#{@session.id}"
     <~ set-interval _, dt
     post-json {
@@ -73,6 +75,7 @@ module.exports = {
     }
 
   setup-cleanup: ->
+    unless @session? then return
     is-clean = false
     cleanup = !~>
       if is-clean then return
@@ -90,6 +93,7 @@ module.exports = {
         cleanup!
 
   send-event: (type, data, has-duration, cb) ->
+    unless @session? then return cb id: null
     if ga? then ga 'send' {
       hit-type: 'event'
       event-category: type
@@ -103,14 +107,14 @@ module.exports = {
         if has-duration then @session.active-events[*] = event.id
         cb event
       error: ->
-        console.error arguments
-        cb {id: 'error'}
+        cb {id: null}
     }
 
   log: (type, data = {}, cb = no-op) -> @send-event type, data, false, cb
   start: (type, data = {}, cb = no-op) -> @send-event type, data, true, cb
 
   stop: (id) ->
+    unless @session? and id? then return
     @session.active-events .= filter (it) -> it isnt id
     $.ajax {
       type: \DELETE
@@ -118,7 +122,7 @@ module.exports = {
     }
 
   update: (id, data, cb) ->
-    console.log data, JSON.stringify data
+    unless @session and id? then return cb!
     post-json {
       url: "/api/v1/sessions/#{@session.id}/events/#{id}"
       data: data

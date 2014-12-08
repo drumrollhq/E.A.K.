@@ -27,7 +27,7 @@ channels.parse 'contact: start: PORTAL + ENTITY_PLAYER' .subscribe (contact) ->
 channels.parse 'contact: end: PORTAL + ENTITY_PLAYER' .subscribe ->
   portal := null
 
-channels.parse 'key-down: down, s' .subscribe ->
+channels.parse 'key-down: down, s, j' .subscribe ->
   unless portal then return
   portal-el = portal.el
   portal := null
@@ -64,6 +64,12 @@ channels.parse 'contact: start: ENTITY_PLAYER' .subscribe (contact) ->
   if player.last-fall-dist > 300px and not other.data?.sensor?
     channels.death.publish cause: 'fall-to-death'
 
+# Exits:
+channels.parse 'contact: start: ENTITY_PLAYER + ENTITY_EXIT' .subscribe (contact) ->
+  [player, exit] = contact.find 'ENTITY_PLAYER'
+  if player.deactivated or player.last-fall-dist > fall-limit then return
+  if exit.data.href? then window.location.href = exit.data.href
+
 # Kitten finding
 channels.parse 'contact: start: ENTITY_PLAYER + ENTITY_TARGET' .subscribe (contact) ->
   [player, kitten] = contact.find 'ENTITY_PLAYER'
@@ -71,9 +77,10 @@ channels.parse 'contact: start: ENTITY_PLAYER + ENTITY_TARGET' .subscribe (conta
 
   kitten.destroy!
 
-  unless kitten.destroyed
-    logger.log 'kitten', player: player.{v, p}
-    channels.kitten.publish {}
+  if kitten.destroyed then return
+
+  logger.log 'kitten', player: player.{v, p}
+  channels.kitten.publish {}
 
   kitten.destroyed = true
 

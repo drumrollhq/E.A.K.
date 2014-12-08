@@ -110,4 +110,4 @@ module.exports = class SpriteSheet extends Backbone.View
 
   remove: ~>
     super!
-    @frame-sub.unsubscribe!
+    @frame-sub.unsubscribe! if @frame-sub._subscribed

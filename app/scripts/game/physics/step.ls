@@ -2,8 +2,8 @@ require! {
   'channels'
   'game/physics/collision'
   'game/physics/keys'
-  'game/physics/Matrix'
-  'game/physics/Vector'
+  'math/Matrix'
+  'math/Vector'
 }
 
 const max-fall-speed = 10px,

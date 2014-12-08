@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Editing Text I</title>
+
+    <meta name="size" value="780 585">
+    <meta name="borders" value="top left">
+    <meta name="exits" value="right #/play/levels/intro/04-swamp-play.html">
+    <meta name="player" value="-350 -10">
+    <meta name="background" value="white url(/content/bgs/intro-level.png) center center / cover">
+    <meta name="targets" value="285 -30">
+    <meta name="music" value="forest">
+
+    <hints>
+      <pointer name="oops"
+        target=".level p:nth-of-type(2)"
+        enter="time: 1000"
+        exit="death: fall-out-of-world; game-commands: edit">
+        Try to jump over to this ledge.
+      </pointer>
+      <pointer
+        target=".edit"
+        enter="death: fall-out-of-world"
+        exit="game-commands: edit">
+        Uh oh! You need to make the ledge longer. Click 'Edit' or press the <kbd>E</kbd> key to change the level.
+      </pointer>
+    </hints>
+
+    <tutorial track="/audio/tutorials/intro/03-editing-text-i">
+      <step duration="9.8">
+        <content>Pink pantaloons! You've got it! This is the HTML source code of the ledges.
+        It describes the stuff shown on the screen to the right.</content>
+
+        <action at="0" type="egg-content" side="left" duration="3"></action>
+        <action at="3" type="egg" duration="4" top="150px" left="7%" enter="bottom" exit="right"></action>
+        <action at="4" type="highlight-code" selector="p" duration="2.5"></action>
+        <action at="7" type="egg" top="55%" right="-3%" egg="glow" enter="left"></action>
+        <action at="7" type="highlight-level" selector="p"></action>
+      </step>
+      <step duration="6">
+        <content>
+          <p>This code is the ledge you are on...</p>
+          <p class="fade" in="2.5">and this code is the ledge on the right.</p>
+        </content>
+        <action type="egg" top="150px" left="7%" enter="right" exit="bottom"></action>
+        <action duration="2.5" type="highlight-code" selector="p:nth-of-type(1)"></action>
+        <action at="2.5" type="highlight-code" selector="p:nth-of-type(2)"></action>
+      </step>
+      <step duration="8.6">
+        <content>
+          <p>Try changing the words in the code highlighted above to make <br>
+          the ledge you are standing on longer</p>
+          <p>You can write anything you want - a limerick about ledges, perhaps?</p>
+        </content>
+        <action type="egg" top="150px" left="7%"></action>
+        <action at="1" type="highlight-code" selector="p:nth-of-type(1)" range="inner"></action>
+      </step>
+      <step duration="14" condition="$('p:nth-of-type(1)').width() + $('p:nth-of-type(2)').width() > 650">
+        <content>
+          <p>Smashing work, old chap! You picked that up faster than a squirrel on a scooter!</p>
+          <p class="fade" in="5">Go save that kitten! And watch out - <br>
+          you dont want to get on the wrong side of a banana bird...</p>
+          <p class="fade" in="11">I've heard they like to poop on thier enemies!</p>
+        </content>
+        <action at="1" type="egg-content" side="left"></action>
+        <action at="13.5" type="hint" hint-type="pointer" target="button.save" exit="game-commands: edit-stop">
+          Press save to close the editor and rescue the kitten. <a href="#" class="dismiss">OK</a></action>
+      </step>
+    </tutorial>
+
+    <hidden>
+      <div class="cloud-a" style="top: 30px; left: 140px;" data-ignore></div>
+      <div class="cloud-b" style="top: 20px; left: 250px;" data-ignore></div>
+      <div class="scale-8">
+        <div class="birdicorn" style="top: 30px; right: 80px" data-ignore>
+          <div class="birdicorn-body"></div>
+          <div class="birdicorn-wing-1"></div>
+          <div class="birdicorn-wing-2"></div>
+        </div>
+      </div>
+    </hidden>
+
+    <style>
+      p {
+        font-size: 16px;
+        padding: 10px;
+        display: block;
+        background: #ddd;
+        float: left;
+        clear: both;
+      }
+
+      p:nth-of-type(1), p:nth-of-type(2) {
+        position: absolute;
+        left: 0;
+        top: 280px;
+      }
+
+      p:nth-of-type(2) {
+        left: auto;
+        right: -100px;
+        padding-right: 110px;
+      }
+
+      p:nth-of-type(3) {
+        margin-top: 345px
+        }
+
+      .right {
+        right: 20px;
+        left: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <p>I'm a ledge! Woohoo!</p>
+    <p>Hey! I'm a ledge too!</p>
+  </body>
+</html>

@@ -3,4 +3,4 @@
 	url = https://github.com/visionmedia/rework.git
 [submodule "vendor/slowparse"]
 	path = vendor/slowparse
-	url = https://github.com/SomeHats/eak-slowparse.git
+	url = https://github.com/drumrollhq/slowparse.git

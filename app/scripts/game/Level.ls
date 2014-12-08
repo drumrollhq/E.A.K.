@@ -1,17 +1,18 @@
 require! {
   'audio/music-manager'
   'channels'
-  'game/background'
+  'game/Player'
+  'game/Renderer'
+  'game/Targets'
   'game/dom/Mapper'
   'game/editor/Editor'
   'game/editor/EditorView'
   'game/editor/tutorial/Tutorial'
   'game/event-loop'
   'game/hints/HintController'
+  'game/level/background'
+  'game/level/settings'
   'game/physics'
-  'game/Player'
-  'game/Renderer'
-  'game/Targets'
   'loader/ElementLoader'
   'loader/LoaderView'
   'logger'
@@ -23,128 +24,83 @@ module.exports = class Level extends Backbone.Model
   initialize: (level) ->
     @subs = []
     @level = level
-    conf = @conf = {}
+    conf = @conf = settings.find level
 
-    # Set up the HTML/CSS for the level
-    conf.html = level.find 'body' .html!
-    conf.css = level.find 'style' |> map _, (-> $ it .text!) |> join '\n\n'
-
-    # Should we display the top bar?
-    editable-str = (level.find 'meta[name=editable]' .attr \value) or 'true'
-    if editable-str.trim!.to-lower-case! is 'false'
-      editable = false
-    else editable = true
-    @editable = editable
-
-    offs = if editable then 50 else 0
-    renderer = @renderer = new Renderer {
-      html: conf.html
-      css: conf.css
-      root: $ \#levelcontainer
-    }, offs
-
-    # Find the background image
-    bg = if level.find 'meta[name=background]' .attr \value then that else 'white'
-    renderer.set-background bg
-    @conf.background = bg
-
-    # Set the level size
-    if size = level.find 'meta[name=size]' .attr \value
-      [w, h] = size / ' '
-      w = parse-float w
-      h = parse-float h
-    else
-      w = h = 100
-
-    conf.width = w
-    conf.height = h
-    renderer.set-width w
-    renderer.set-height h
-
-    # Set player coordinates
-    if player = level.find 'meta[name=player]' .attr \value
-      [x, y] = player / ' '
-      x = parse-float x
-      y = parse-float y
-    else
-      x = y = 0
-
-    # Set player colour
-    colour = (level.find 'meta[name=player-color]' .attr \value) or 'black'
-
-    conf.player = {x, y, colour}
-
-    # Find borders
-    if borders = level.find 'meta[name=borders]' .attr \value
-      borders = borders / ' '
-    else
-      borders = <[ all ]>
-
-    if borders.0 is 'all' then borders = <[ top bottom left right ]>
-    if borders.0 is 'none' then borders = []
-
-    conf.borders = borders
-
-    # Find music track:
-    music = (level.find 'meta[name=music]' .attr \value) or 'none'
-
-    # add-targets is a function that adds targets to Renderer.
-    add-targets = Targets renderer
-
-    if targets = level.find 'meta[name=targets]' .attr \value then add-targets targets
-
-    'head hidden' |> level.find |> ( .children! ) |> ( .add-class 'entity' ) |> @renderer.append
-
-    loader = new ElementLoader el: @renderer.$el
-    loader-view = new LoaderView model: loader
-    loader-view.hide-progress!
-    loader-view.$el.append-to '#main > .app'
-
-    loader-view.render!
+    @setup-renderer!
+    @setup-loader!
 
     event-loop.pause!
 
     # Load and play the music:
-    <~ music-manager.start-track music
+    <~ music-manager.start-track conf.music
 
     # Apply the blurred background image:
-    <~ background.show bg
+    <~ background.show conf.bg
     channels.game-commands.publish command: \loaded
 
     # Load sprite sheet animations:
-    <~ renderer.setup-sprite-sheets
+    <~ @renderer.setup-sprite-sheets!
 
-    do
-      <~ loader.once 'done', _
-      $.hide-dialogues!
-      <~ set-timeout _, 600
+    @loader.once 'done', @start-level
+    @loader.start!
 
-      $ document.body .add-class \playing
-      unless editable then $ document.body .add-class \hide-bar
+  setup-renderer: ->
+    offs = if @conf.editable then 50 else 0
+    renderer = @renderer = new Renderer {
+      html: @conf.html
+      css: @conf.css
+      root: $ \#levelcontainer
+    }, offs
 
-      event-loop.resume!
+    # Find the background image
+    renderer.set-background @conf.bg
 
-      nodes = []
-      @add-bodies-from-dom nodes
-      @add-player nodes, conf.player
-      @add-borders nodes, conf.borders
+    # Set the level size
+    renderer.set-width @conf.width
+    renderer.set-height @conf.height
 
-      state = @state = physics.prepare nodes
+    # add-targets is a function that adds targets to Renderer.
+    add-targets = Targets renderer
+    if @conf.targets then add-targets @conf.targets
 
-      @hint-controller = new HintController hints: (level.find 'head hints' .children!)
-      tutorial-el = level.find 'head tutorial'
-      @has-tutorial = !!tutorial-el.length
-      if @has-tutorial
-        $ document.body .add-class \has-tutorial
-        @tutorial = new Tutorial tutorial-el
+    @level.find 'head hidden' .children! .add-class 'entity' |> @renderer.append
 
-      if editable
-        @subs[*] = channels.game-commands.filter ( .command is \edit ) .subscribe @start-editor
-      @subs[*] = channels.game-commands.filter ( .command is \restart ) .subscribe @restart
-      @subs[*] = channels.game-commands.filter ( .command is \stop ) .subscribe @complete
-      @subs[*] = channels.frame.subscribe @frame
+  setup-loader: ->
+    @loader = loader = new ElementLoader el: @renderer.$el
+    @loader-view = loader-view = new LoaderView model: loader
+    loader-view.hide-progress!
+    loader-view.$el.append-to '#main > .app'
+    loader-view.render!
 
-    loader.start!
+  start-level: ~>
+    $.hide-dialogues!
+    <~ set-timeout _, 600
+
+    $ document.body .add-class \playing
+    unless @conf.editable then $ document.body .add-class \hide-bar
+
+    event-loop.resume!
+
+    nodes = []
+    @add-bodies-from-dom nodes
+    @add-player nodes, @conf.player
+    @add-borders nodes, @conf.borders
+    @add-exits nodes, @conf.exits
+
+    state = @state = physics.prepare nodes
+
+    @hint-controller = new HintController hints: (@level.find 'head hints' .children!)
+    tutorial-el = @level.find 'head tutorial'
+    @has-tutorial = !!tutorial-el.length
+    if @has-tutorial
+      $ document.body .add-class \has-tutorial
+      @tutorial = new Tutorial tutorial-el
+
+    if @conf.editable
+      @subs[*] = channels.game-commands.filter ( .command is \edit ) .subscribe @start-editor
+    @subs[*] = channels.game-commands.filter ( .command is \restart ) .subscribe @restart
+    @subs[*] = channels.game-commands.filter ( .command is \stop ) .subscribe @complete
+    @subs[*] = channels.frame.subscribe @frame
 
   frame: (data) ~>
     # Run physics simulation / player input
@@ -172,10 +128,10 @@ module.exports = class Level extends Backbone.Model
     for node, i in @state.nodes when node.from-dom-map is true
       node.destroy!
 
-  add-player: (nodes, player-conf) ~>
+  add-player: (nodes, player-conf, set-pos = true) ~>
     if @player?
       nodes[*] = @player
-      @player.prepared = false
+      # @player.prepared = false
 
     else
       player = new Player player-conf, @renderer.width, @renderer.height
@@ -185,7 +141,7 @@ module.exports = class Level extends Backbone.Model
       @player = player
 
       # Get starting positions
-      @start-pos = player: player.el.get-bounding-client-rect!
+      @start-pos = player: player.el.get-bounding-client-rect! if set-pos
 
       # Add player to physics
       nodes[*] = player
@@ -210,8 +166,9 @@ module.exports = class Level extends Backbone.Model
 
     nodes = []
     @add-bodies-from-dom nodes
-    @add-player nodes, @conf.player
+    @add-player nodes, @conf.player, @conf.reset-player-on-edit
     @add-borders nodes, @conf.borders
+    @add-exits nodes, @conf.exits
 
     state = @state = physics.prepare nodes
 
@@ -260,6 +217,57 @@ module.exports = class Level extends Backbone.Model
       id: \BORDER_LEFT
     }
 
+  add-exits: (nodes, exits) ->
+    const t = 50px
+    const h-offs = 50px
+    const v-offs = 60px
+    const w = @renderer.width
+    const h = @renderer.height
+
+    if exits.right? then nodes[*] = {
+      type: \rect
+      width: t
+      height: h * 2
+      x: w + (t / 2) + h-offs
+      y: 0
+      id: \ENTITY_EXIT
+      data:
+        href: exits.right
+    }
+
+    if exits.left? then nodes[*] = {
+      type: \rect
+      width: t
+      height: h * 2
+      x: - (t / 2) - h-offs
+      y: 0
+      id: \ENTITY_EXIT
+      data:
+        href: exits.left
+    }
+
+    if exits.top? then nodes[*] = {
+      type: \rect
+      width: w * 2
+      height: t
+      x: 0
+      y: - (t / 2) - v-offs
+      id: \ENTITY_EXIT
+      data:
+        href: exits.top
+    }
+
+    if exits.bottom? then nodes[*] = {
+      type: \rect
+      width: w * 2
+      height: t
+      x: 0
+      y: h + (t / 2) + v-offs
+      id: \ENTITY_EXIT
+      data:
+        href: exits.bottom
+    }
+
   check-player-is-in-world: !~>
     pos = @player.p
 
@@ -299,7 +307,7 @@ module.exports = class Level extends Backbone.Model
     logger.start 'edit', {}, (event) -> edit-event := event.id
 
     # Put the play back where they started
-    @player.reset!
+    if @conf.reset-player-on-edit then @player.reset!
 
     # Wait 2 frames so we can ensure that the player has reset before continuing
     <~ channels.frame.once

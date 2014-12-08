@@ -2,6 +2,7 @@ require! {
   'audio/context'
   'audio/Sound'
   'audio/Track'
+  'audio/on-ended'
 }
 
 unless Track then return module.exports = class MockMusic
@@ -48,7 +49,7 @@ module.exports = class Music
     layer = @layers[@playing]
     layer.gain.set-value-at-time 1, context.current-time
     layer.gain.linear-ramp-to-value-at-time 0, context.current-time + duration
-    @playing-sound.on-ended = cb
+    @playing-sound.on-ended = on-ended duration, cb
     @playing-sound.stop context.current-time + duration
 
   switch-to: (name) ~>

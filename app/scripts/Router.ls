@@ -76,5 +76,4 @@ module.exports = class Router extends Backbone.Router
     if @should-prevent-route! then return @prevent-route!
     <- @stop-game
     <- $.hide-dialogues
-    console.log {path}
     channels.stage.publish type: 'cutscene', url: path

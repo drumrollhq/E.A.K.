@@ -18,12 +18,14 @@ require! {
   'gulp-uglify'
   'gulp-wrap'
   'handlebars'
+  'karma'
   'main-bower-files'
   'mkdirp'
   'nib'
   'path'
   'prelude-ls': {split, first, last, initial, tail, join, map, camelize}
   'progress': ProgressBar
+  'run-sequence'
   'streamqueue'
   'through2'
   'vinyl': File
@@ -75,6 +77,7 @@ src = {
   locale-data: './locales/**/*.json'
   locale-templates: './app/l10n-templates/**/*'
   lsc: './app/scripts/**/*.ls'
+  tests: './test/**/*.ls'
   vendor: ['./vendor/*.js' './vendor/rework/rework.js', './vendor/slowparse/slowparse.js',
     './vendor/slowparse/tree-inspectors.js', './vendor/slowparse/spec/errors.jquery.js']
   workers-static: ['./bower_components/underscore/underscore.js'
@@ -94,6 +97,7 @@ dest = {
   fonts: './public/fonts'
   images: './app/assets'
   js: './public/js'
+  tests: './.test'
   vendor: './public/lib'
 }
 
@@ -103,15 +107,20 @@ tmp = {
 
 script-root = new RegExp "^#{path.resolve './' .replace /\\/g, '\\\\'}(/|\\\\)app(/|\\\\)(scripts|workers)(/|\\\\)"
 
+karma-config = path.resolve 'karma.conf.js'
+
 gulp.task 'default' <[dev]>
 
-gulp.task 'build' <[clean]> ->
+gulp.task 'build' (done) ->
   scripts = if optimized then \optimized-scripts else \scripts
-  gulp.start scripts, \assets \stylus \l10n \vendor \audio \fonts
+  run-sequence 'clean', [scripts, \assets \stylus \l10n \vendor \audio \fonts], done
 
+karma-server = null
 gulp.task 'dev' <[build]> ->
+  karma.server.start config-file: karma-config
   gulp.watch src.assets, ['assets']
-  gulp.watch src.lsc, ['livescript']
+  gulp.watch src.lsc, ['app-livescript']
+  gulp.watch src.tests, ['test-livescript']
   gulp.watch src.hbs, ['handlebars']
   gulp.watch src.css-all, ['stylus']
   gulp.watch [src.locale-data, src.locale-templates], ['l10n']
@@ -119,14 +128,15 @@ gulp.task 'dev' <[build]> ->
   gulp.watch src.audio, ['audio']
 
 gulp.task 'clean' ->
-  gulp.src dest.all, read: false
+  gulp.src [dest.all, dest.tests], read: false
     .pipe gulp-rimraf force: true
 
 gulp.task 'clean-cache' ->
   gulp.src dest.cache, read: false
     .pipe gulp-rimraf force: true
 
-gulp.task 'scripts' ['livescript' 'workers' 'handlebars']
+gulp.task 'scripts' (done) ->
+  run-sequence ['livescript' 'workers' 'handlebars'], done
 
 gulp.task 'optimized-scripts' ['scripts'] ->
   gulp.src ['./public/js/**/*.js', '!**/{worker,app,vendor}.js']
@@ -193,6 +203,10 @@ gulp.task 'convert-audio' ->
         .on 'end', ->
           bar.tick 100
           cb!
+        .on 'error', (err, stdout, stderr) ->
+          console.log 'ffmpeg err:', err
+          console.log 'stdout:', stdout
+          console.log 'stderr:', stderr
         .run!
 
 gulp.task 'stylus' (cb) ->
@@ -202,13 +216,23 @@ gulp.task 'stylus' (cb) ->
     .pipe if optimized then gulp-minify-css! else noop!
     .pipe gulp.dest dest.css
 
-gulp.task 'livescript' ->
+gulp.task 'livescript' (done) ->
+  run-sequence ['app-livescript', 'test-livescript'], done
+
+gulp.task 'app-livescript' ->
   gulp.src src.lsc
     .pipe gulp-changed dest.js, extension: '.js'
     .pipe gulp-livescript bare: true
     .on 'error' -> throw it
     .pipe wrap-commonjs!
     .pipe gulp.dest dest.js
+
+gulp.task 'test-livescript' ->
+  gulp.src src.tests
+    .pipe gulp-changed dest.tests, extension: '.js'
+    .pipe gulp-livescript bare: true
+    .on 'error' -> throw it
+    .pipe gulp.dest dest.tests
 
 gulp.task 'handlebars' ->
   gulp.src src.hbs
@@ -240,6 +264,12 @@ gulp.task 'workers' ->
     .pipe gulp-footer ';require(\'base\');'
     .pipe if optimized then gulp-uglify! else noop!
     .pipe gulp.dest dest.js
+
+gulp.task 'test' (done) ->
+  karma.server.start {
+    config-file: karma-config
+    single-run: true
+  }, done
 
 # Custom plugins:
 function wrap-commonjs

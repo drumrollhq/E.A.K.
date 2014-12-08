@@ -6,7 +6,7 @@ raf = window.request-animation-frame or window.moz-request-animation-frame or
 window.request-animation-frame = raf
 
 key-dict = {
-  8: \backspace, 9: \tab, 13: \enter, 16: \shift, 17: \ctrl,
+  0: \esc, 8: \backspace, 9: \tab, 13: \enter, 16: \shift, 17: \ctrl,
   19: \pausebreak, 18: \alt, 20: \capslock, 27: \escape, 32: \space, 33: \pageup,
   34: \pagedown, 35: \end, 36: \home, 37: \left, 38: \up, 39: \right,
   40: \down, 45: \insert, 46: \delete

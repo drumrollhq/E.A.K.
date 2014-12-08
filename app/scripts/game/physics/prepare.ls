@@ -1,7 +1,7 @@
 require! {
   'game/physics/collision'
-  'game/physics/Matrix'
-  'game/physics/Vector'
+  'math/Matrix'
+  'math/Vector'
 }
 
 prepare-one = ->
