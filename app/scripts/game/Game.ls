@@ -3,6 +3,7 @@ require! {
   'game/CutScene'
   'game/Events'
   'game/Level'
+  'game/area/Area'
   'logger'
   'translations'
   'ui/Bar'
@@ -27,6 +28,7 @@ module.exports = class Game extends Backbone.Model
 
     channels.stage.filter ( .type is 'level' ) .subscribe ({url}) ~> @start-level url
     channels.stage.filter ( .type is 'cutscene' ) .subscribe ({url}) ~> @start-cutscene url
+    channels.stage.filter ( .type is 'area' ) .subscribe ({url}) ~> @start-area url
 
   defaults: level: '/levels/index.html'
 
@@ -63,6 +65,14 @@ module.exports = class Game extends Backbone.Model
     cs.on 'skip' ->
       console.log 'cs skip'
       logger.log 'skip'
+
+  start-area: (url) ~>
+    event <~ logger.start 'level', {level: url}
+    l = prefix + url + "?#{Date.now!}"
+    conf <~ $.get-JSON l
+    area = new Area conf: conf, event-id: event.id, prefix: prefix
+    area.on 'done' -> logger.stop event.id
+    area.start!
 
   save: ~> @attributes |> _.clone |> JSON.stringify |> local-storage.set-item Game::savefile, _
 

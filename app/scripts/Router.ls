@@ -7,6 +7,7 @@ module.exports = class Router extends Backbone.Router
   routes:
     'about': 'about'
     'play/levels/*path': 'playLocalLevel'
+    'play/area/*path': 'playLocalArea'
     'play/cutscene/*path': 'playCutScene'
     'load': 'load'
     'home': 'goHome'
@@ -71,6 +72,12 @@ module.exports = class Router extends Backbone.Router
     <- @stop-game
     <- $.hide-dialogues
     channels.stage.publish type: 'level', url: "/levels/#path"
+
+  play-local-area: (path) ~>
+    if @should-prevent-route! then return @prevent-route!
+    <- @stop-game
+    <- $.hide-dialogues
+    channels.stage.publish type: 'area', url: "/levels/#path"
 
   play-cut-scene: (path) ~>
     if @should-prevent-route! then return @prevent-route!

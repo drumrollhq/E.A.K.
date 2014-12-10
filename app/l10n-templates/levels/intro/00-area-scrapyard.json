@@ -1,0 +1,26 @@
+{
+  "width": 3620,
+  "height": 1085,
+  "background": "/content/bgs/area-mock.png",
+  "music": "forest",
+  "levels": [
+    {
+      "url": "levels/intro/01-control-arca.html",
+      "x": 250,
+      "y": 250
+    }, {
+      "url": "levels/intro/02-jump-lengths.html",
+      "x": 1030,
+      "y": 250
+    }, {
+      "url": "levels/intro/03-editing-text-i.html",
+      "x": 1810,
+      "y": 250
+    }, {
+      "url": "levels/intro/04-swamp-play.html",
+      "x": 2590,
+      "y": 250
+    }
+  ]
+}
+
