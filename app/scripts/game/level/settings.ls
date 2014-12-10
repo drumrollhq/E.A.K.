@@ -43,6 +43,9 @@ function find-level-settings level
   conf.html = level.find 'body' .html!
   conf.css = level.find 'style' |> map (-> $ it .text!) |> join '\n\n'
 
+  # Find hidden elements:
+  conf.hidden = level.find 'head hidden' .children!
+
   # Should we display the top bar?
   conf.editable = meta \editable, 'true' |> to-boolean
 

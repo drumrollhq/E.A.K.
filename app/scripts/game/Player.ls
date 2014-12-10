@@ -24,25 +24,21 @@ module.exports = class Player extends Backbone.View
   tag-name: \div
   class-name: 'player entity'
 
-  initialize: (start = {x: 0, y: 0, colour: 'white'}, w = 100, h = 100) ->
+  initialize: (start = {x: 0, y: 0, colour: 'white'}) ->
     @el.width = 33px
     @el.height = 54px
     @subs = []
-
-    @ <<< {start, w, h}
+    @ <<< {start}
 
     @$el.add-class "player-colour-#{start.colour}"
-
     @$el.html player-html
-
     @$inner-el = @$el.find '.player-inner'
 
     @$el.attr \data-ignore true
-
     @$el.css {
       position: \absolute
-      left: start.x + w/2 - @el.width/2
-      top: start.y + h/2 - @el.height/2
+      left: start.x - @el.width/2
+      top: start.y - @el.height/2
     }
 
     @last-classes = []
@@ -52,8 +48,8 @@ module.exports = class Player extends Backbone.View
     # Data for physics engine:
     @ <<< {
       type: 'rect'
-      x: start.x + w/2
-      y: start.y + h/2
+      x: start.x
+      y: start.y
       width: @el.width
       height: @el.height
       rotation: 0
@@ -68,10 +64,10 @@ module.exports = class Player extends Backbone.View
     @subs[*] = channels.death.subscribe (death) ~>
       logger.log 'death', {cause: death.cause, data: death.data, player: @{p, v}}
 
-  reset: (start = @start, w = @w, h = @h) ~>
+  reset: (start = @start) ~>
     @ <<< {
-      x: start.x + w/2
-      y: start.y + h/2
+      x: start.x
+      y: start.y
       rotation: 0
       prepared: false
     }

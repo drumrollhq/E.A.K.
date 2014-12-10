@@ -63,7 +63,7 @@ module.exports = class Level extends Backbone.Model
     add-targets = Targets renderer
     if @conf.targets then add-targets @conf.targets
 
-    @level.find 'head hidden' .children! .add-class 'entity' |> @renderer.append
+    @renderer.append @conf.hidden.add-class 'entity'
 
   setup-loader: ->
     @loader = loader = new ElementLoader el: @renderer.$el

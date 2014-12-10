@@ -50,7 +50,7 @@ module.exports = class Mapper
     css.border-radius = "#{br1.trim!} / #{br2.trim!}"
 
     # Normalize transform:
-    transform = css.transform or css.webkit-transform or css.moz-transform
+    transform = css.transform or css.webkit-transform or css.moz-transform or 'none'
     if transform is 'none'
       css.rotate = 0
     else
@@ -77,7 +77,8 @@ module.exports = class Mapper
     window.scroll-to 0, 0
 
     # Make sure we don't get errors due to offset
-    offset = @el.get-bounding-client-rect!.{top, left}
+    # offset = @el.get-bounding-client-rect!.{top, left}
+    offset = top: 0, left: 0
 
     map = []
     nodes = @el.children

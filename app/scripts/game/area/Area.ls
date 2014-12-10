@@ -1,27 +1,55 @@
 require! {
+  'audio/music-manager'
   'game/area/AreaView'
+  'game/event-loop'
+  'game/level/background'
+  'game/physics'
   'loader/ElementLoader'
   'loader/LoaderView'
-  'game/level/background'
-  'audio/music-manager'
+  'channels'
 }
 
 module.exports = class Area extends Backbone.Model
   initialize: ({conf, @event-id, @prefix}) ->
+    @subs = []
     @set conf.{width, height, background, music}
     @view = new AreaView model: this
     @levels = conf.levels
 
   start: ->
+    event-loop.pause!
     <~ @load!
     @view.$el.append-to \#levelcontainer
     @view.render!
+    @setup!
+    @subscribe!
+    event-loop.resume!
 
   load: (cb) ~>
     @setup-loader!
     err <~ async.parallel [@load-levels, @load-background, @load-music]
     <- @hide-loader!
     cb err
+
+  setup: ->
+    @view.add-levels!
+    nodes = @nodes = @view.create-map!
+    nodes[*] = @view.add-player!
+    @state = physics.prepare nodes
+
+  subscribe: ->
+    @subs[*] = channels.frame.subscribe @frame
+
+  frame: (data) ~>
+    @state = physics.step @state, data.t
+    physics.events @state, channels.contact
+    @check-player-is-in-world!
+
+  const world-pad = 100
+  check-player-is-in-world: !~>
+    pos = @view.player.p
+    unless (-world-pad < pos.x < world-pad + @get 'width') and (-world-pad < pos.y < world-pad + @get 'height')
+      channels.death.publish cause: 'fall-out-of-world'
 
   load-levels: (cb) ~> async.each @levels, @load-level-source, cb
   load-background: (cb) ~> background.show (@get 'background'), cb
@@ -65,4 +93,4 @@ parse-src = (src) ->
   for node in parsed.document.child-nodes
     if typeof! node is 'HTMLHtmlElement' then $level = $ node
 
-  return [null, @level]
+  return [null, $level]
