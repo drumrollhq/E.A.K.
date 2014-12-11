@@ -6,6 +6,8 @@ require! {
   'animation/SpriteSheet'
 }
 
+$body = $ document.body
+
 create-level-container = (parent) ->
   $ '<div></div>'
     ..add-class 'area-level-container'
@@ -26,14 +28,17 @@ module.exports = class AreaView extends CameraScene
   render: ->
     @update-size!
     @update-background!
-    $ document.body .add-class \playing
+    $ document.body .add-class 'playing playing-area hide-bar'
 
   switch-level-focus: (index) ->
-    {x, y} = @levels[index].conf.player
-    x += @levels[index].conf.x
-    y += @levels[index].conf.y
-    console.log @player.origin, {x, y}
+    level = @levels[index]
+
+    {x, y} = level.conf.player
+    x += level.conf.x
+    y += level.conf.y
     @player.origin <<< {x, y}
+
+    if level.conf.editable then $body.remove-class \hide-bar else $body.add-class \hide-bar
 
   add-levels: ->
     @level-container ?= create-level-container @$el
