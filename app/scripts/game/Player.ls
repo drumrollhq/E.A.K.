@@ -28,7 +28,8 @@ module.exports = class Player extends Backbone.View
     @el.width = 33px
     @el.height = 54px
     @subs = []
-    @ <<< {start}
+    @start = start
+    @origin = start.{x, y}
 
     @$el.add-class "player-colour-#{start.colour}"
     @$el.html player-html
@@ -64,12 +65,17 @@ module.exports = class Player extends Backbone.View
     @subs[*] = channels.death.subscribe (death) ~>
       logger.log 'death', {cause: death.cause, data: death.data, player: @{p, v}}
 
-  reset: (start = @start) ~>
+  reset: (origin = @origin) ~>
     @ <<< {
-      x: start.x
-      y: start.y
+      x: origin.x
+      y: origin.y
       rotation: 0
       prepared: false
+    }
+
+    @$el.css {
+      left: origin.x - @el.width/2
+      top: origin.y - @el.height/2
     }
 
     @prepare!

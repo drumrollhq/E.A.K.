@@ -19,10 +19,21 @@ module.exports = class AreaView extends CameraScene
     options.track-channel = channels.player-position
     super options
 
+  initialize: (options) ->
+    super options
+    @model.on 'change:playerLevel', (_, level) ~> @switch-level-focus level
+
   render: ->
     @update-size!
     @update-background!
     $ document.body .add-class \playing
+
+  switch-level-focus: (index) ->
+    {x, y} = @levels[index].conf.player
+    x += @levels[index].conf.x
+    y += @levels[index].conf.y
+    console.log @player.origin, {x, y}
+    @player.origin <<< {x, y}
 
   add-levels: ->
     @level-container ?= create-level-container @$el
@@ -64,3 +75,8 @@ module.exports = class AreaView extends CameraScene
       background-image: "url(#{@model.get 'background'})"
       background-size: "#{@model.get 'width'}px #{@model.get 'height'}px"
     }
+
+  get-player-level: ->
+    {x, y} = @player.p
+    for level, i in @levels
+      if level.contains x, y then return i

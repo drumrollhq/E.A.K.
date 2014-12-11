@@ -47,6 +47,12 @@ module.exports = class Area extends Backbone.Model
     @state = physics.step @state, data.t
     physics.events @state, channels.contact
     @check-player-is-in-world!
+    @update-player-level!
+
+  update-player-level: ->
+    l = @view.get-player-level!
+    if l? and l isnt @get 'playerLevel'
+      @set 'playerLevel', l
 
   const world-pad = 100
   check-player-is-in-world: !~>

@@ -60,3 +60,6 @@ module.exports = class AreaLevel extends Backbone.View
       ..rewrite-hover '.PLAYER_CONTACT'
 
     css.to-string!
+
+  contains: (x, y) ->
+    @conf.x < x < @conf.x + @conf.width and @conf.y < y < @conf.y + @conf.height
