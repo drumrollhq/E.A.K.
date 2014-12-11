@@ -67,7 +67,6 @@ module.exports = class Channel
       throw new TypeError "Cannot publish on read-only channel #{@id}"
 
     @_check data
-    <~ set-timeout _, 0
     @_publish data
 
   publish-sync: (data) ~>

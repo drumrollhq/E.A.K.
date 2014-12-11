@@ -3,7 +3,6 @@ require! {
   'channels'
   'game/Player'
   'game/Renderer'
-  'game/Targets'
   'game/dom/Mapper'
   'game/editor/Editor'
   'game/editor/EditorView'
@@ -13,6 +12,7 @@ require! {
   'game/level/background'
   'game/level/settings'
   'game/physics'
+  'game/targets'
   'loader/ElementLoader'
   'loader/LoaderView'
   'logger'
@@ -60,7 +60,7 @@ module.exports = class Level extends Backbone.Model
     renderer.set-height @conf.height
 
     # add-targets is a function that adds targets to Renderer.
-    add-targets = Targets renderer
+    add-targets = targets renderer.el
     if @conf.targets then add-targets @conf.targets
 
     @renderer.append @conf.hidden.add-class 'entity'

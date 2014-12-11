@@ -1,7 +1,8 @@
 require! {
-  'game/level/settings'
-  'game/lang/CSS'
   'game/dom/Mapper'
+  'game/lang/CSS'
+  'game/level/settings'
+  'game/targets'
 }
 
 counter = 0
@@ -34,6 +35,8 @@ module.exports = class AreaLevel extends Backbone.View
 
   add-hidden: ->
     @$el.append @conf.hidden.add-class 'entity'
+
+  add-targets: -> targets @el, @conf.targets
 
   set-HTML-CSS: (html, css) ->
     @$el.html html

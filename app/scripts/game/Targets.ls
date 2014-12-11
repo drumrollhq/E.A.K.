@@ -35,13 +35,9 @@ blink-sprite = ->
     }
     ..add-class 'box-blink'
 
-module.exports = (container, targets) -->
-  cx = container.width / 2
-  cy = container.height / 2
-
+module.exports = (el, targets) -->
   for target in targets
-
-    el = $ '<div></div>'
+    $ '<div></div>'
       ..add-class 'entity entity-target'
       ..attr {
         'data-sensor': true
@@ -50,9 +46,9 @@ module.exports = (container, targets) -->
 
       }
       ..css do
-        left: target.x + cx
-        top: target.y + cy
+        left: target.x
+        top: target.y
       ..append random-kitten-el!
       ..append box-burst-sprite!
       ..append blink-sprite!
-      ..append-to container.el
+      ..append-to el

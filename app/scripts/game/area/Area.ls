@@ -21,7 +21,7 @@ module.exports = class Area extends Backbone.Model
     <~ @load!
     @view.$el.append-to \#levelcontainer
     @view.render!
-    @setup!
+    <~ @setup!
     @subscribe!
     event-loop.resume!
 
@@ -31,11 +31,14 @@ module.exports = class Area extends Backbone.Model
     <- @hide-loader!
     cb err
 
-  setup: ->
+  setup: (cb) ->
     @view.add-levels!
+    @view.add-targets!
+    <~ @view.setup-sprite-sheets
     nodes = @nodes = @view.create-map!
     nodes[*] = @view.add-player!
     @state = physics.prepare nodes
+    cb!
 
   subscribe: ->
     @subs[*] = channels.frame.subscribe @frame

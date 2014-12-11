@@ -3,6 +3,7 @@ require! {
   'game/Player'
   'game/area/AreaLevel'
   'game/renderer/CameraScene'
+  'animation/SpriteSheet'
 }
 
 create-level-container = (parent) ->
@@ -50,6 +51,11 @@ module.exports = class AreaView extends CameraScene
       ..$el.append-to @$el
       ..$el.attr id: "#{@el.id}-player"
       ..id = "#{@el.id}-player"
+
+  add-targets: -> for level in @levels => level.add-targets!
+
+  setup-sprite-sheets: (done) ->
+    async.each (@$el.find '[data-sprite]'), SpriteSheet.create, done
 
   update-size: -> @set-size (@model.get 'width'), (@model.get 'height')
 

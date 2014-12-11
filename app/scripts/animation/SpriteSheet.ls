@@ -4,6 +4,8 @@ require! {
 }
 
 module.exports = class SpriteSheet extends Backbone.View
+  @create = (el, cb) -> new SpriteSheet {el, cb}
+
   initialize: ({cb}) ->
     @$el.data 'sprite-controller', this
 

@@ -324,7 +324,7 @@ function locale-data-cache
 
 function vendor-wrapper
   es.map (file, cb) ->
-    unless file.path.replace /\\/g '/' .match /slowparse|handlebars/
+    unless file.path.replace /\\/g '/' .match /slowparse|handlebars|stats/
       file.contents = Buffer.concat [
         new Buffer ';(function(){'
         file.contents
