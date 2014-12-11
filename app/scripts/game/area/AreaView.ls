@@ -43,6 +43,9 @@ module.exports = class AreaView extends CameraScene
     {x, y} = @levels.0.conf.player
     x += @levels.0.conf.x
     y += @levels.0.conf.y
+
+    @move {x, y}
+
     @player = player = new Player {x, y}
       ..$el.append-to @$el
       ..$el.attr id: "#{@el.id}-player"

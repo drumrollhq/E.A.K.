@@ -46,7 +46,6 @@ module.exports = class CameraScene extends Backbone.View
     console.log {actual-width, actual-height, el-width, el-height, win-width, win-height}
 
     scrolling = x: no, y: no
-    @last-position = x: 0, y: 0 unless @last-position?
 
     if win-width < el-width
       scrolling.x = win-width
@@ -76,9 +75,12 @@ module.exports = class CameraScene extends Backbone.View
     @resize!
 
   move: ({x, y}) ~>
-    lx = @last-position.x
-    ly = @last-position.y
-
+    if @last-position?
+      lx = @last-position.x
+      ly = @last-position.y
+    else
+      lx = x
+      ly = y
 
     t = {
       x: lx + (x - lx) / damping
