@@ -6,7 +6,7 @@ transform = prefixed.transform
 counter = 0
 
 const pad = 30
-const damping = 10
+const speed = 0.2
 
 range = (min1, max1, min2, max2, x) -->
   n = (x - min1) / (max1 - min1)
@@ -16,6 +16,8 @@ constrain = (min, max, x) -->
   | x < min => min
   | x > max => max
   | otherwise => x
+
+lerp = (a, b, x) --> a + x * (b - a)
 
 module.exports = class CameraScene extends Backbone.View
   tag-name: \div
@@ -75,40 +77,45 @@ module.exports = class CameraScene extends Backbone.View
     @resize!
 
   move: ({x, y}) ~>
-    if @last-position?
-      lx = @last-position.x
-      ly = @last-position.y
-    else
-      lx = x
-      ly = y
-
-    t = {
-      x: lx + (x - lx) / damping
-      y: ly + (y - ly) / damping
-    }
-
-    @last-position = t
-    @move-direct t
-
-  move-direct: (position, scroll = false) ~>
     s = @scrolling
     w = @el-width - (s.x - margin * 2)
     h = @el-height - (s.y - margin * 2)
 
-    x = position.x |> range margin, @width - margin, 0, w |> constrain 0, w
-    y = position.y |> range margin, @height - margin, 0, h |> constrain 0, h
+    x = x |> range margin, @width - margin, 0, w |> constrain 0, w
+    y = y |> range margin, @height - margin, 0, h |> constrain 0, h
 
-    t = {
-      x: if s.x then x else 0
-      y: if s.y then y else 0
-    }
+    if @p?
+      px = @p.x
+      py = @p.y
+    else
+      @p = {}
+      px = x
+      py = y
 
-    @el.style[transform] = if t.x is 0 and t.y is 0 then '' else
-      "translate3d(#{-t.x}px, #{-t.y}px, 0)"
+    if @q?
+      qx = @q.x
+      qy = @q.y
+    else
+      @q = {}
+      qx = px
+      qy = py
+
+    px1 = lerp px, x, speed
+    py1 = lerp py, y, speed
+    qx1 = lerp qx, px1, speed
+    qy1 = lerp qy, py1, speed
+
+    @p <<< {x: px1, y: py1}
+    @q <<< {x: qx1, y: qy1}
+    @move-direct if s.x then qx1 else 0, if s.y then qy1 else 0
+
+  move-direct: (x, y) ~>
+    @el.style[transform] = if x is 0 and y is 0 then '' else
+      "translate3d(#{-x}px, #{-y}px, 0)"
 
   clear-position: ~>
     @el.style[transform] = 'translate3d(0, 0, 0)'
-    @last-position = x: 0, y: 0
+    @p = x: 0, y: 0
 
   $window: $ window
 
