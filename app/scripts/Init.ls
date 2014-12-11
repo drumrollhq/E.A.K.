@@ -1,13 +1,14 @@
 require! {
+  'Router'
   'audio/effects'
-  'game/event-loop'
   'game/Game'
+  'game/event-loop'
   'logger'
   'plugins'
-  'Router'
   'settings'
-  'ui/alert'
+  'stats'
   'ui/SettingsView'
+  'ui/alert'
 }
 
 module.exports = class Init extends Backbone.View
