@@ -30,6 +30,7 @@ get-aabb = (obj) ->
   switch
   # A rectangle with no rotation is its own bounding box. Easy!
   | obj.type is 'rect' and obj.rotation is 0
+    # ALLOC
     {
       left: x - width / 2
       right: x + width / 2
@@ -42,6 +43,7 @@ get-aabb = (obj) ->
     aabb-width = height * sint + width * cost
     aabb-height = width * sint + height * cost
 
+    # ALLOC
     {
       left: x - aabb-width / 2
       right: x + aabb-width / 2
@@ -51,6 +53,7 @@ get-aabb = (obj) ->
 
   # A circle's aabb is the same regardless of rotation
   | obj.type is 'circle'
+    # ALLOC
     {
       left: x - radius
       right: x + radius
@@ -77,6 +80,7 @@ find-bbox-intersects = (shape-a, shape-b) -->
 # Get a list of potential contacts between one node and a list of nodes
 get-contacts = (node, nodes) ->
   # Currently, this is a very naive implementation
+  # ALLOC
   filter (find-bbox-intersects node), nodes
 
 module.exports = { get-aabb, find-bbox-intersects, get-contacts }

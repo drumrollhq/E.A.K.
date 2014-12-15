@@ -22,7 +22,7 @@ class Effects
 
   play: (name) ~>
     unless @ready then return
-    sound = @_sounds[camelize name]
+    sound = @_sounds[name]
     unless sound? then throw new Error "#{translations.errors.sound-not-found} #name"
 
     sound.start!
@@ -42,6 +42,7 @@ class Effects
 
   setup-triggers: (triggers) ->
     for let trigger, sound of triggers
+      sound = camelize sound
       channels.parse trigger .subscribe ~> @play sound
 
 module.exports = new Effects {

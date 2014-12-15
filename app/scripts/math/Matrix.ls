@@ -13,4 +13,5 @@ module.exports = class Matrix
   # Transform a vector by this matrix:
   # ⎡a b⎤⎡x⎤ = ⎡x·a + y·b⎤
   # ⎣c d⎦⎣y⎦   ⎣x·c + y·d⎦
+  # ALLOC
   transform: ({x, y}) ~> new Vector x * @a + y * @b, x * @c + y * @d

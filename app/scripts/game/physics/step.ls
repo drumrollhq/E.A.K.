@@ -23,6 +23,7 @@ trails = false
 update-el = (obj) ->
   if obj.data.player then channels.player-position.publish obj.p.{x, y}
 
+  # ALLOC
   t = "translate3d(#{obj.p.x - obj.x}px, #{obj.p.y - obj.y}px, 0)"
   if obj._lt is t then return
 
@@ -48,25 +49,33 @@ find-state = (obj, nodes) ->
   obj.prev-contacts = obj.contacts
   obj.contacts = contacts
 
+  # ALLOC
   contacts = contacts |> reject -> it.data?.ignore? or it.data?.sensor?
 
   # Find contacts we appear to be on top of (naive)
+  # ALLOC
   above-contacts = contacts.filter -> is-contact-above obj
 
   if above-contacts.length
     contact = head above-contacts
+    # ALLOC
     obj.state = 'contact'
+    # ALLOC
     return {
       type: 'contact'
       thing: contact
     }
 
   if obj.jump-frames > 0
+    # ALLOC
     obj.state = 'jumping'
+    # ALLOC
     return type: 'jumping'
 
+  # ALLOC
   obj.state = 'falling'
 
+  # ALLOC
   {type: 'falling'}
 
 target = 1000 / 60 # Aim for 60fps
@@ -85,6 +94,7 @@ module.exports = step = (state, t) ->
 
   # If we had to remove stuff, regenerate the list of dynamics
   if destroyed.length > 0
+    # ALLOC
     dynamics = nodes |> filter -> it.data?.player? or it.data?.dynamic?
 
   # Keep track of the time-deltas between each iteration. We use a moving average to
@@ -99,12 +109,14 @@ module.exports = step = (state, t) ->
   for obj in dynamics when not obj.frozen
 
     # Calculate a change in position using speed and time. ∆s = v · ∆t
+    # ALLOC
     v = {
       x: obj.v.x * dt
       y: obj.v.y * dt
     }
 
     obj <<< {
+      # ALLOC
       last-v: new Vector obj.v
       last-state: obj.state
       last-fall-dist: obj.fall-dist
@@ -120,9 +132,11 @@ module.exports = step = (state, t) ->
     contacts = obj.contacts
     for contact in contacts when contact.sensor is false
       switch
+      # ALLOC
       | contact.type is 'circle'
         'none'
 
+      # ALLOC
       | contact.type is 'rect' and contact.rotation is 0
         p = obj.aabb
         c = contact.aabb
@@ -150,6 +164,7 @@ module.exports = step = (state, t) ->
 
             # Is the obj on top of the thing?
             if on-top-of-thing
+              # ALLOC
               obj.state = 'on-thing'
 
           else
@@ -165,8 +180,10 @@ module.exports = step = (state, t) ->
 
           # Is the obj on top of the thing?
           if on-top-of-thing
+            # ALLOC
             obj.state = 'on-thing'
 
+      # ALLOC
       | contact.type is 'rect' and contact.rotation isnt 0
         collide = false
         for point in obj.poly when point.in-poly contact.poly
@@ -179,6 +196,7 @@ module.exports = step = (state, t) ->
             break
 
         if collide
+          # ALLOC
           obj.el.style.background = "rgb(#{255 * Math.random!}, #{255 * Math.random!}, #{255 * Math.random!})"
 
     if obj.v.y > 0
@@ -187,6 +205,7 @@ module.exports = step = (state, t) ->
       obj.fall-start = obj.p.y
 
     switch obj.state
+    # ALLOC
     | 'falling', 'contact', 'jumping' =>
       if obj.v.y >= max-fall-speed
         obj.v.y = max-fall-speed
@@ -195,6 +214,7 @@ module.exports = step = (state, t) ->
 
       if obj.handle-input then handle-input obj, dt
 
+    # ALLOC
     | 'on-thing' =>
       # obj.v.y = 0
       # obj.p.y = state.thing.aabb.top - obj.height / 2
@@ -207,6 +227,7 @@ module.exports = step = (state, t) ->
 
     update-el obj
 
+  # ALLOC
   {nodes, dynamics}
 
 # Manage user input on a player:
@@ -214,6 +235,7 @@ handle-input = (node, scale) ->
   # Moving right:
   if keys.right && !node.deactivated
     # If the object is on a thing, move with standard acceleration. If not, move with in-air acceleration
+    # ALLOC
     node.v.x += if node.state is 'on-thing'
       if node.v.x > 0
         move-acc * scale
@@ -228,6 +250,7 @@ handle-input = (node, scale) ->
 
   # Moving left. Same as moving right, but the other way
   else if keys.left && !node.deactivated
+    # ALLOC
     node.v.x -= if node.state is 'on-thing'
       if node.v.x < 0
         move-acc * scale
@@ -244,6 +267,7 @@ handle-input = (node, scale) ->
     # If the object is moving right:
     if node.v.x > 0
       # Slow it down. The rate depends on if it's on the ground or not
+      # ALLOC
       node.v.x -= if node.state is 'on-thing' then move-damp else move-damp-in-air
 
       # If it slows down so much it starts going the other way, stop it
@@ -251,6 +275,7 @@ handle-input = (node, scale) ->
 
     # Repeat for moving left:
     else if node.v.x < 0
+      # ALLOC
       node.v.x += if node.state is 'on-thing' then move-damp else move-damp-in-air
       if node.v.x > 0 then node.v.x = 0
 
@@ -262,20 +287,26 @@ handle-input = (node, scale) ->
   # If the jump key is pressed and (the player is on the ground or mid-jump):
   {jump-state, state, jump-frames} = node
   jump-key = if node.deactivated then false else keys.jump
+  # ALLOC
   if jump-key and jump-state is \ready and state is \on-thing
     node.v.y = -jump-speed
     node.jump-frames = max-jump-frames
+    # ALLOC
     node.jump-state = \jumping
     node.fall-dist = 0
 
+  # ALLOC
   else if jump-key and jump-state is \jumping and state in <[jumping contact]> and jump-frames > 0
     node.v.y = -jump-speed
     node.jump-frames -= scale
+    # ALLOC
     node.jump-state = \jumping
     node.fall-dist = 0
 
   else if jump-key and jump-frames <= 0
+    # ALLOC
     node.jump-state = \stop
 
   else
+    # ALLOC
     node.jump-state = \ready

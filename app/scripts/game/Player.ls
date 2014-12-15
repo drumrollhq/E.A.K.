@@ -63,6 +63,7 @@ module.exports = class Player extends Backbone.View
     @subs[*] = channels.death.filter ( .cause is 'fall-to-death' ) .subscribe @fall-to-death
     @subs[*] = channels.post-frame.subscribe @calc-classes
     @subs[*] = channels.death.subscribe (death) ~>
+      # ALLOC
       logger.log 'death', {cause: death.cause, data: death.data, player: @{p, v}}
 
   reset: (origin = @origin) ~>
@@ -73,6 +74,7 @@ module.exports = class Player extends Backbone.View
       prepared: false
     }
 
+    # ALLOC
     @$el.css {
       left: origin.x - @el.width/2
       top: origin.y - @el.height/2
@@ -88,11 +90,13 @@ module.exports = class Player extends Backbone.View
     unless @classes-disabled
       classes = []
 
+      # ALLOC
       classes[*] = @last-direction =
         | @v.x > 0.7 => 'left'
         | @v.x < -0.7 => 'right'
         | otherwise => @last-direction
 
+      # ALLOC
       classes[*] =
         | @state is 'on-thing' and 0.7 < abs @v.x => 'running'
         | @state is 'on-thing' and (keys.right or keys.left) => 'running'
@@ -105,22 +109,28 @@ module.exports = class Player extends Backbone.View
 
   apply-classes: (classes) ~>
     for classname in @last-classes
+      # ALLOC
       if classname not in classes then @$el.remove-class "player-#classname"
 
     for classname in classes
+      # ALLOC
       if classname not in @last-classes then @$el.add-class "player-#classname"
 
     @last-classes := classes
 
   draw: ->
+    # ALLOC
     @apply-classes []
+    # ALLOC
     @$el.css prefixed.transform, "translate3d(#{@p.x - @x}px, #{@p.y - @y}px, 0)"
 
 
   fall-to-death: ~>
+    # ALLOC
     @apply-classes ['squish' @last-direction]
     @deactivated = true
     @classes-disabled = true
+    # ALLOC
     <~ set-timeout _, 1500
     @classes-disabled = false
     @deactivated = false

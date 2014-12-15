@@ -25,6 +25,9 @@ tracks = {
     glitch: '/audio/music/colours-glitch'
 }
 
+const none = 'none'
+const normal = 'normal'
+
 class MusicManager
   (@tracks) ->
     @tracks.none = false
@@ -40,7 +43,7 @@ class MusicManager
     if @playing is name then return cb!
     @playing = name
 
-    if name is \none then return @stop cb
+    if name is none then return @stop cb
 
     music = new Music name, @tracks[name]
     err <~ async.parallel [music.load, @stop]
@@ -50,7 +53,7 @@ class MusicManager
       return cb!
 
 
-    music.play 'normal'
+    music.play normal
     @music = music
     cb!
 

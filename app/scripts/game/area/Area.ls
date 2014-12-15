@@ -9,6 +9,10 @@ require! {
   'channels'
 }
 
+const player-level = 'playerLevel'
+const width = 'width'
+const height = 'height'
+
 module.exports = class Area extends Backbone.Model
   initialize: ({conf, @event-id, @prefix}) ->
     @subs = []
@@ -60,13 +64,14 @@ module.exports = class Area extends Backbone.Model
 
   update-player-level: ->
     l = @view.get-player-level!
-    if l? and l isnt @get 'playerLevel'
-      @set 'playerLevel', l
+    if l? and l isnt @get player-level
+      @set player-level, l
 
   const world-pad = 100
   check-player-is-in-world: !~>
     pos = @view.player.p
-    unless (-world-pad < pos.x < world-pad + @get 'width') and (-world-pad < pos.y < world-pad + @get 'height')
+    unless (-world-pad < pos.x < world-pad + @get width) and (-world-pad < pos.y < world-pad + @get height)
+      # ALLOC
       channels.death.publish cause: 'fall-out-of-world'
 
   load-levels: (cb) ~> async.each @levels, @load-level-source, cb

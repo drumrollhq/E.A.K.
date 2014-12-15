@@ -3,6 +3,8 @@ require! 'channels/Subscription'
 id = 0
 debug = false
 
+const undef = 'undefined'
+
 checker = (channel) ->
   allowed-keys = keys channel.schema
   props = [{...prop, name: key} for key, prop of channel.schema]
@@ -21,7 +23,7 @@ checker = (channel) ->
       actual = (typeof! data[prop.name]).to-lower-case!
       extpected = prop.type
       if actual isnt extpected
-        unless prop.optional and actual is 'undefined'
+        unless prop.optional and actual is undef
           throw new TypeError "Expected type of '#{prop.name}' to be '#extpected', but got '#actual' in channel '#{channel.name}'"
 
 module.exports = class Channel
@@ -58,8 +60,11 @@ module.exports = class Channel
     @_unsub handler
 
   _publish: (data) ~>
+    # ALLOC
     todo = @_handlers ++ @_onces
+    # ALLOC
     @_onces = []
+    # ALLOC
     [handler data for handler in todo]
 
   publish: (data) ~>

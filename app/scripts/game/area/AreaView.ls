@@ -261,12 +261,14 @@ module.exports = class AreaView extends CameraScene
     else
       margin-top = (height - el-height) / 2 - el-pos-y + bar-height
 
+    # ALLOC
     {margin-top, margin-left}
 
   edit-resize: ->
     children = @$el.children!
     margins = @get-edit-margins!
     children.css margins
+    # ALLOC
     @$el.css 'background-position', "#{margins.margin-left}px #{margins.margin-top}px"
 
   setup-sprite-sheets: (done) ->

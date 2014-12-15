@@ -30,8 +30,11 @@ class EventLoop
     @last = now
 
     unless @paused
+      # ALLOC
       channels.pre-frame.publish-sync t: diff
+      # ALLOC
       channels.frame.publish-sync t: diff
+      # ALLOC
       channels.post-frame.publish-sync t: diff
 
     window.request-animation-frame @frame-driver
@@ -40,10 +43,12 @@ class EventLoop
     $window .on 'keypress keyup keydown' (e) ->
       unless @paused
         key = key-dict[e.which] or (String.from-char-code e.which .to-lower-case!)
+        # ALLOC
         key-channels[e.type].publish code: e.which, key: key
 
   setup-window-events: ~>
     $window .on 'resize' (e) ->
+      # ALLOC
       channels.window-size.publish width: $body.width!, height: $body.height!
 
   pause: ~> @paused = true

@@ -11,6 +11,7 @@ module.exports = class Vector
   # ⎡a⎤ + ⎡c⎤ = ⎡a + c⎤
   # ⎣b⎦   ⎣d⎦   ⎣b + d⎦
   add: (v) ~>
+    # ALLOC
     new Vector @x + v.x, @y + v.y
 
   # [operation]-eq is the equivalent of += in or -= etc. in JS. They modify the Vector instead of returning a new one.
@@ -20,6 +21,7 @@ module.exports = class Vector
     @
 
   minus: (v) ~>
+    # ALLOC
     new Vector @x - v.x, @y - v.y
 
   minus-eq: (v) ~>
