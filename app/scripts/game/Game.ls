@@ -2,7 +2,6 @@ require! {
   'channels'
   'game/CutScene'
   'game/Events'
-  'game/Level'
   'game/area/Area'
   'logger'
   'translations'
