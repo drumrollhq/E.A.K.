@@ -54,8 +54,9 @@ module.exports = class Area extends Backbone.Model
     @check-player-is-in-world!
     @update-player-level!
 
-  game-command: ({command}) ~>
+  game-command: ({command, payload}) ~>
     | command is 'edit' and @view.is-editable! => @view.start-editor!
+    | command is 'stop' => @complete payload
 
   update-player-level: ->
     l = @view.get-player-level!
@@ -96,6 +97,22 @@ module.exports = class Area extends Backbone.Model
     @loader-view.remove!
     @loader = null
     @loader-view = null
+    cb!
+
+  complete: (payload = {handled: false, callback: -> null}) ->
+    payload.handled = true
+    cb = payload.callback or -> null
+
+    if @stopped then return
+    @stopped = true
+
+    @trigger 'done'
+    $ document.body .remove-class 'playing hide-bar has-tutorial playing-area'
+    @view.remove!
+    delete @state
+    channels.game-commands.publish command: \level-out
+    for sub in @subs => sub.unsubscribe!
+    @stop-listening!
     cb!
 
 parse-src = (src) ->

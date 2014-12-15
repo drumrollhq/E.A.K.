@@ -32,8 +32,9 @@ module.exports = class CameraScene extends Backbone.View
     @resize!
 
   remove: ~>
-    for sub in @subs => @sub.unsubscribe!
+    for sub in @subs => sub.unsubscribe!
     @subs = null
+    super!
 
   const margin = 250
 

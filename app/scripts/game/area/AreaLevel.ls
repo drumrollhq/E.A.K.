@@ -1,5 +1,4 @@
 require! {
-  'channels'
   'game/dom/Mapper'
   'game/editor/Editor'
   'game/editor/EditorView'
@@ -41,6 +40,11 @@ module.exports = class AreaLevel extends Backbone.View
       left: @conf.x
     }
 
+  remove: ->
+    @hint-controller.destroy!
+    if @tutorial then @tutorial.destroy!
+    super!
+
   activate: ->
     @hint-controller ?= new HintController hints: @conf.hints, scope: @$el
 
@@ -71,7 +75,12 @@ module.exports = class AreaLevel extends Backbone.View
       $style = $ style
       $style.text! |> @preprocess-css |> $style.text
 
+    @add-el-ids!
+
     css |> @preprocess-css |> @style.text
+
+  add-el-ids: ->
+    @$ '[data-exit]' .attr 'data-id', 'ENTITY_EXIT'
 
   create-map: ~>
     @mapper.build!

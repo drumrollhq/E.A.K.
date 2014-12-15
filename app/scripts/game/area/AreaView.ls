@@ -95,6 +95,12 @@ module.exports = class AreaView extends CameraScene
 
   add-targets: -> for level in @levels => level.add-targets!
 
+  remove: ->
+    for level in @levels => level.remove!
+    @player.remove!
+    background.clear!
+    super!
+
   start-editor: ->
     if @model.get 'editing' then return
     @model.set 'editing' true

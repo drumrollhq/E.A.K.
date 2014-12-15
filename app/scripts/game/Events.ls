@@ -66,9 +66,11 @@ channels.parse 'contact: start: ENTITY_PLAYER' .subscribe (contact) ->
 
 # Exits:
 channels.parse 'contact: start: ENTITY_PLAYER + ENTITY_EXIT' .subscribe (contact) ->
+  console.log {contact}
   [player, exit] = contact.find 'ENTITY_PLAYER'
   if player.deactivated or player.last-fall-dist > fall-limit then return
-  if exit.data.href? then window.location.href = exit.data.href
+  href = exit.data.href or exit.el.href
+  if href? then window.location.href = href
 
 # Kitten finding
 channels.parse 'contact: start: ENTITY_PLAYER + ENTITY_TARGET' .subscribe (contact) ->
