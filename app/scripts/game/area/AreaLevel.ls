@@ -3,6 +3,7 @@ require! {
   'game/dom/Mapper'
   'game/editor/Editor'
   'game/editor/EditorView'
+  'game/editor/tutorial/Tutorial'
   'game/hints/HintController'
   'game/lang/CSS'
   'game/level/settings'
@@ -28,6 +29,9 @@ module.exports = class AreaLevel extends Backbone.View
 
     @style = create-style!
     @set-HTML-CSS conf.html, conf.css
+
+    if conf.has-tutorial
+      @tutorial = new Tutorial conf.tutorial
 
   render: ->
     @$el.css {
@@ -81,6 +85,7 @@ module.exports = class AreaLevel extends Backbone.View
     css.to-string!
 
   start-editor: ->
+    if @conf.has-tutorial then $ document.body .add-class 'has-tutorial'
     editor = new Editor {
       renderer: this
       original-HTML: @conf.html
@@ -96,6 +101,7 @@ module.exports = class AreaLevel extends Backbone.View
 
   stop-editor: (editor, editor-view) ->
     if @tutorial then @tutorial.detach!
+    $ document.body .remove-class 'has-tutorial'
     editor-view.restore-entities!
     editor-view.remove!
     @redraw-from (editor.get \html), (editor.get \css)

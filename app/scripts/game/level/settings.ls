@@ -43,11 +43,11 @@ function find-level-settings level
   conf.html = level.find 'body' .html!
   conf.css = level.find 'style' |> map (-> $ it .text!) |> join '\n\n'
 
-  # Find hidden elements:
+  # Hidden elements, hints, and tutorials:
   conf.hidden = level.find 'head hidden' .children!
-
-  # Hints
   conf.hints = level.find 'head hints' .children!
+  conf.tutorial = level.find 'head tutorial'
+  conf.has-tutorial = !!conf.tutorial.length
 
   # Should we display the top bar?
   conf.editable = meta \editable, 'true' |> to-boolean

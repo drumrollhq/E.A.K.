@@ -40,6 +40,7 @@ module.exports = class AreaView extends CameraScene
   initialize: (options) ->
     super options
     @model.on 'change:playerLevel', (_, level) ~> @switch-level-focus level
+    $ document.body .remove-class 'has-tutorial'
 
   render: ->
     @blurred-bg ?= create-blurred-bg @$el, (@model.get 'width'), (@model.get 'height')
@@ -117,8 +118,8 @@ module.exports = class AreaView extends CameraScene
       <- logger.update edit-event, html: (editor.get \html), css: (editor.get \css)
       logger.stop edit-event
 
-    <~ @unfocus-level-for-editor!
     channels.game-commands.publish command: 'edit-stop'
+    <~ @unfocus-level-for-editor!
     @model.set 'editing' false
     @clear-position!
     @create-maps!
