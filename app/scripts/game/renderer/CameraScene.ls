@@ -27,7 +27,7 @@ module.exports = class CameraScene extends Backbone.View
   initialize: ({track-channel}) ->
     this <<< {track-channel}
     @subs = []
-    @subs[*] = channels.window-size.subscribe @resize
+    @subs[*] = channels.window-size.subscribe ~> @resize!
     @subs[*] = track-channel.subscribe @move
     @resize!
 
@@ -44,8 +44,6 @@ module.exports = class CameraScene extends Backbone.View
     el-height = @el-height = actual-height - margin*2
     win-width = @$window.width!
     win-height = @$window.height!
-
-    console.log {actual-width, actual-height, el-width, el-height, win-width, win-height}
 
     scrolling = x: no, y: no
 
@@ -77,6 +75,11 @@ module.exports = class CameraScene extends Backbone.View
     @resize!
 
   move: ({x, y}) ~>
+    p = @get-position x, y
+    q = @tween-position p.x, p.y
+    @set-transform if @scrolling.x then -q.x else 0, if @scrolling.y then -q.y else 0
+
+  get-position: (x, y) ->
     s = @scrolling
     w = @el-width - (s.x - margin * 2)
     h = @el-height - (s.y - margin * 2)
@@ -84,6 +87,9 @@ module.exports = class CameraScene extends Backbone.View
     x = x |> range margin, @width - margin, 0, w |> constrain 0, w
     y = y |> range margin, @height - margin, 0, h |> constrain 0, h
 
+    {x, y}
+
+  tween-position: (x, y) ->
     if @p?
       px = @p.x
       py = @p.y
@@ -107,15 +113,15 @@ module.exports = class CameraScene extends Backbone.View
 
     @p <<< {x: px1, y: py1}
     @q <<< {x: qx1, y: qy1}
-    @move-direct if s.x then qx1 else 0, if s.y then qy1 else 0
+    @q
 
-  move-direct: (x, y) ~>
+  set-transform: (x, y) ->
     @el.style[transform] = if x is 0 and y is 0 then '' else
-      "translate3d(#{-x}px, #{-y}px, 0)"
+      "translate3d(#{x}px, #{y}px, 0)"
 
   clear-position: ~>
     @el.style[transform] = 'translate3d(0, 0, 0)'
-    @p = x: 0, y: 0
+    @p = @q = null
 
   $window: $ window
 

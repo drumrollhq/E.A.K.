@@ -112,6 +112,11 @@ module.exports = class Player extends Backbone.View
 
     @last-classes := classes
 
+  draw: ->
+    @apply-classes []
+    @$el.css prefixed.transform, "translate3d(#{@p.x - @x}px, #{@p.y - @y}px, 0)"
+
+
   fall-to-death: ~>
     @apply-classes ['squish' @last-direction]
     @deactivated = true

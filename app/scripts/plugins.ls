@@ -9,6 +9,11 @@ window.prefixed = {
     'OAnimation': 'oanimationend'
     'msAnimation': 'MSAnimationEnd'
     'animation': 'animationend'}[Modernizr.prefixed 'animation']
+  transition-end: {
+    'WebkitTransition': 'webkitTransitionEnd'
+    'MozTransition': 'transitionend'
+    'transition': 'transitionend'
+  }[Modernizr.prefixed 'transition']
   transform: Modernizr.prefixed 'transform'
 }
 

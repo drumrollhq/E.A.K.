@@ -44,7 +44,7 @@ class EventLoop
 
   setup-window-events: ~>
     $window .on 'resize' (e) ->
-      unless @paused then channels.window-size.publish width: $body.width!, height: $body.height!
+      channels.window-size.publish width: $body.width!, height: $body.height!
 
   pause: ~> @paused = true
   resume: ~> @paused = false

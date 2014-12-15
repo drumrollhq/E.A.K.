@@ -1,5 +1,35 @@
 .area-view
+  &.trans
+    transition all editTransitionLength ease
+
+  .area-level-container
+    position absolute
+
   .area-level
     position absolute
     overflow hidden
     // outline 1px solid lime
+    opacity 1
+    z-index 10
+    transition opacity editTransitionLength ease, box-shadow editTransitionLength ease
+
+    &.hidden
+      opacity 0
+
+    &.focused
+      overflow visible
+      box-shadow 0 0 30px rgba(0, 0, 0, 0.5)
+
+  .area-level-blurred-bg
+    opacity 0
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+    background-size 100% 100%
+    z-index 5
+    transition opacity editTransitionLength ease
+
+    &.active
+      opacity 1
