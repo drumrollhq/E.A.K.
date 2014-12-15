@@ -1,4 +1,5 @@
 require! {
+  'channels'
   'game/dom/Mapper'
   'game/editor/Editor'
   'game/editor/EditorView'
@@ -46,6 +47,11 @@ module.exports = class AreaLevel extends Backbone.View
 
   add-targets: -> targets @el, @conf.targets
 
+  redraw-from: (html, css) ->
+    entities = @$el.children '.entity' .detach!
+    @set-HTML-CSS html, css
+    entities.append-to @$el
+
   set-HTML-CSS: (html, css) ->
     @current-HTML = html
     @current-CSS = css
@@ -58,8 +64,6 @@ module.exports = class AreaLevel extends Backbone.View
       $style.text! |> @preprocess-css |> $style.text
 
     css |> @preprocess-css |> @style.text
-
-    @create-map!
 
   create-map: ~>
     @mapper.build!
@@ -83,7 +87,17 @@ module.exports = class AreaLevel extends Backbone.View
     editor-view = new EditorView model: editor, render-el: @$el, el: $ '#editor'
       ..render!
 
-    if @level!.tutorial then @tutorial.attach editor-view
+    if @tutorial then @tutorial.attach editor-view
+
+    editor.once \save, ~> @stop-editor editor, editor-view
+
+  stop-editor: (editor, editor-view) ->
+    if @tutorial then @tutorial.detach!
+    editor-view.restore-entities!
+    editor-view.remove!
+    @redraw-from (editor.get \html), (editor.get \css)
+
+    @trigger 'stop-editor'
 
   contains: (x, y) ->
     @conf.x < x < @conf.x + @conf.width and @conf.y < y < @conf.y + @conf.height

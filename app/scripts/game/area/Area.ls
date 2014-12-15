@@ -35,10 +35,16 @@ module.exports = class Area extends Backbone.Model
     @view.add-levels!
     @view.add-targets!
     <~ @view.setup-sprite-sheets
-    nodes = @nodes = @view.create-map!
-    nodes[*] = @view.add-player!
-    @state = physics.prepare nodes
+    @view.create-maps!
+    @build-map!
     cb!
+
+  build-map: ->
+    console.log 'state before:', @state and @state.nodes.map -> it.{x, y, width, height}
+    nodes = @view.assemble-map!
+    nodes[*] = @view.player or @view.add-player!
+    @state = physics.prepare nodes
+    console.log 'state after:', JSON.stringify (@state.nodes.map -> it.{x, y, width, height}), null, 2
 
   subscribe: ->
     @subs[*] = channels.frame.subscribe @frame

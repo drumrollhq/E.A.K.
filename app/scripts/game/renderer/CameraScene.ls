@@ -120,7 +120,7 @@ module.exports = class CameraScene extends Backbone.View
       "translate3d(#{x}px, #{y}px, 0)"
 
   clear-position: ~>
-    @el.style[transform] = 'translate3d(0, 0, 0)'
+    @set-transform 0 0
     @p = @q = null
 
   $window: $ window

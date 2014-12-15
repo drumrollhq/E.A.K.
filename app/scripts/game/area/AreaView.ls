@@ -70,13 +70,14 @@ module.exports = class AreaView extends CameraScene
       level.$el.append-to @level-container
       level.render!
 
-  create-map: ->
+  create-maps: ->
     @$el.css top: 0, left: 0, margin-top: 0, margin-left: 0
-    nodes = @levels |> map ( .create-map! ) |> flatten
+    for level in @levels => level.create-map!
     @resize!
-    nodes
 
-  add-player: (player-conf, set-pos = true) ->
+  assemble-map: -> @levels |> map ( .map ) |> flatten
+
+  add-player: ->
     if @player? then return @player
 
     {x, y} = @levels.0.conf.player
@@ -97,8 +98,8 @@ module.exports = class AreaView extends CameraScene
     @model.set 'editing' true
 
     channels.game-commands.publish command: 'edit-start'
-    edit-event = null
-    logger.start 'edit', {}, (event) -> edit-event := event.id
+    @edit-event = null
+    logger.start 'edit', {}, (event) -> @edit-event = event.id
 
     if @level!.conf.reset-player-on-edit then @player.reset!
     event-loop.pause!
@@ -106,11 +107,51 @@ module.exports = class AreaView extends CameraScene
 
     level = @level!
 
-    @focus-level!
+    @focus-level-for-editor!
     level.start-editor!
+    level.once 'stop-editor' ~> @stop-editor!
 
-  focus-level: (cb = -> null) ->
+  stop-editor: ->
+    if @edit-event
+      <- logger.update edit-event, html: (editor.get \html), css: (editor.get \css)
+      logger.stop edit-event
+
+    <~ @unfocus-level-for-editor!
+    channels.game-commands.publish command: 'edit-stop'
+    @model.set 'editing' false
+    @clear-position!
+    @create-maps!
+    @model.build-map!
+    event-loop.resume!
+
+  focus-level-for-editor: (cb = -> null) ->
     level = @level!
+    @focus-level level
+
+    pos = @level-edit-pos level
+    <~ @transition-to pos.x, pos.y
+    @clear-position!
+
+    @set-edit-css level
+    @override-resize!
+    cb!
+
+  unfocus-level-for-editor: (cb = -> null) ->
+    level = @level!
+    @unfocus-level level
+
+    @remove-edit-css!
+    @restore-resize!
+
+    pos = @level-edit-pos level
+    @set-transform pos.x, pos.y
+    <~ set-timeout _, 0
+    {x, y} = @get-position @player.p.x, @player.p.y
+    unless @scrolling.x then x = 0
+    unless @scrolling.y then y = 0
+    @transition-to -x, -y, cb
+
+  focus-level: (level) ->
     for other-level in @levels when other-level isnt level => other-level.hide!
     @blurred-bg.add-class 'active'
     level.$el
@@ -121,9 +162,33 @@ module.exports = class AreaView extends CameraScene
         background-position: "#{-level.conf.x}px #{-level.conf.y}px"
       }
 
-    <~ @transition-level-focus!
-    @clear-position!
+  unfocus-level: (level) ->
+    for lvl in @levels => lvl.show!
+    @blurred-bg.remove-class 'active'
+    level.$el.remove-class 'focused'
 
+  level-edit-pos: (level) ->
+    win-width = @$window.width!
+    win-height = @$window.height!
+    el-width = level.conf.width + 2 * edit-margin
+    el-height = level.conf.height + 2 * edit-margin
+    margin-top = parse-float @$el.css 'margin-top'
+    margin-left = parse-float @$el.css 'margin-left'
+
+    if margin-left is 0 then x = win-width / 2 else x = margin-left
+    if margin-top is 0 then y = 0 else y = -win-height / 2 - margin-top
+
+    x += edit-margin - level.conf.x
+    y += edit-margin - level.conf.y + bar-height
+
+    width = win-width / 2
+    height = win-height - bar-height
+    if el-height < height then y += (height - el-height) / 2
+    if el-width < width then x += (width - el-width) / 2
+
+    {x, y}
+
+  set-edit-css: (level) ->
     @$el.css {
       width: '100%'
       height: '100%'
@@ -135,58 +200,38 @@ module.exports = class AreaView extends CameraScene
       margin-left: 0
     }
 
-    @$el.parent().css {
+    @$el.parent!.css {
       left: '50%'
       width: '50%'
       overflow: 'auto'
     }
 
-    @override-resize!
-    cb!
-
-  transition-level-focus: (cb = -> null) ->
-    level = @level!
-    win-width = @$window.width!
-    win-height = @$window.height!
-    el-width = level.conf.width + 2 * edit-margin
-    el-height = level.conf.height + 2 * edit-margin
-    margin-top = parse-float @$el.css 'margin-top'
-    margin-left = parse-float @$el.css 'margin-left'
-    console.log {win-width, win-height, margin-top, margin-left, el-width, el-height}
-
-    if margin-left is 0
-      x = win-width / 2
-    else
-      x = margin-left
-
-    if margin-top is 0
-      y = 0
-    else
-      y = -win-height / 2 - margin-top
-
-    x += edit-margin - level.conf.x
-    y += edit-margin - level.conf.y + bar-height
-
-    width = win-width / 2
-    height = win-height - bar-height
-    if el-height < height then y += (height - el-height) / 2
-    if el-width < width then x += (width - el-width) / 2
-
-    finish = (e) ~>
-      unless e.target is @el then return
-      console.log 'transitionend', arguments
-      @$el.off 'transitionend', finish
-      @$el.remove-class 'trans'
-      cb!
-    @$el.add-class 'trans'
-    @$el.on prefixed.transition-end, finish
-
-    @set-transform x, y
+  remove-edit-css: ->
+    @update-size!
+    @$el.css min-width: '', min-height: '', background-position: '0 0'
+    @$el.parent!.css left: '', width: '', overflow: ''
+    @$el.children!.css margin-top: '', margin-left: ''
 
   override-resize: ->
     @normal-resize = @resize
     @resize = @edit-resize
     @resize!
+
+  restore-resize: ->
+    @resize = @normal-resize
+    @resize!
+
+  transition-to: (x, y, cb) ->
+    finish = (e) ~>
+      unless e.target is @el then return
+      @$el.off 'transitionend', finish
+      @$el.remove-class 'trans'
+      cb!
+
+    @$el.add-class 'trans'
+    @$el.on prefixed.transition-end, finish
+
+    @set-transform x, y
 
   get-edit-margins: ->
     level = @level!
