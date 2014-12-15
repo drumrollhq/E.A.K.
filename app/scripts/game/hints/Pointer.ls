@@ -2,14 +2,6 @@ require! {
   'ui/focus'
 }
 
-transition-end = {
-  'WebkitAnimation': 'webkitAnimationEnd'
-  'MozAnimation': 'animationend'
-  'OAnimation': 'oanimationend'
-  'msAnimation': 'MSAnimationEnd'
-  'animation': 'animationend'
-}[Modernizr.prefixed 'animation']
-
 module.exports =  class PointerHint extends Backbone.View
   tag-name: \div
   class-name: \pointer-hint
@@ -24,7 +16,10 @@ module.exports =  class PointerHint extends Backbone.View
     @hint = hint
 
   render: ~>
-    $target = $ @hint.target
+    scope = if @hint.scope then $ @hint.scope else $ document.body
+    $target = scope.find @hint.target
+
+    parent = scope.0.get-bounding-client-rect!
     bbox = $target.0.get-bounding-client-rect!
     bbox <<< {
       center-x: (bbox.left + bbox.right) / 2
@@ -37,11 +32,16 @@ module.exports =  class PointerHint extends Backbone.View
     | \above => top: bbox.top, left: bbox.center-x
     | \left => top: bbox.center-y, left: bbox.left
 
+    console.log {parent, bbox}
+
+    offset.top -= parent.top
+    offset.left -= parent.left
+
     if @hint.position in <[above below]> and offset.left < 195px
       @$inner.css \margin-left 195px - offset.left
 
     @$el
-      ..append-to document.body
+      ..append-to scope
       ..css offset
       ..add-class \active
       ..add-class @hint.class
@@ -56,7 +56,7 @@ module.exports =  class PointerHint extends Backbone.View
   remove: ~>
     if @hint.focus then focus.blur!
     @$el
-      ..one transition-end, ~>
+      ..one prefixed.animation-end, ~>
         super!
       ..add-class \done
 

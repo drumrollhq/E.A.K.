@@ -41,6 +41,8 @@ module.exports = class HintController extends Backbone.Model
         enter-delay: ($el.attr 'enter-delay') or HintController::hint-defaults.enter-delay
         exit-delay: ($el.attr 'exit-delay') or HintController::hint-defaults.exit-delay
         position: ($el.attr 'position') or HintController::hint-defaults.position
+        scoped: ($el.attr 'scoped')?
+        scope: $el.attr 'scope'
         focus: ($el.attr 'focus')?
 
       @hints.push obj
@@ -53,6 +55,8 @@ module.exports = class HintController extends Backbone.Model
     HintController::hint-defaults.name = "hint-#{id-counter}"
 
     hint = _.defaults hint, HintController::hint-defaults
+
+    if hint.scoped and not hint.scope? then hint.scope = @get 'scope'
 
     view = new hint-types[hint.type] hint
 

@@ -40,11 +40,9 @@ module.exports = class Area extends Backbone.Model
     cb!
 
   build-map: ->
-    console.log 'state before:', @state and @state.nodes.map -> it.{x, y, width, height}
     nodes = @view.assemble-map!
     nodes[*] = @view.player or @view.add-player!
     @state = physics.prepare nodes
-    console.log 'state after:', JSON.stringify (@state.nodes.map -> it.{x, y, width, height}), null, 2
 
   subscribe: ->
     @subs[*] = channels.frame.subscribe @frame
@@ -105,7 +103,6 @@ parse-src = (src) ->
 
   if parsed.error
     console.log src, parsed.error
-    console.log translations
     channels.alert.publish msg: translations.errors.level-errors + "[#{level.url}]"
     return [parsed.error]
 

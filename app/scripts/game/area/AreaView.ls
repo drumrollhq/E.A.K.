@@ -20,7 +20,6 @@ create-level-container = (parent) ->
     ..append-to parent
 
 create-blurred-bg = (parent, width, height) ->
-  console.log background
   $ '<div></div>'
     ..add-class 'area-level-blurred-bg'
     ..css {
@@ -57,6 +56,8 @@ module.exports = class AreaView extends CameraScene
     x += level.conf.x
     y += level.conf.y
     @player.origin <<< {x, y}
+
+    level.activate!
 
     if level.conf.editable then $body.remove-class \hide-bar else $body.add-class \hide-bar
 

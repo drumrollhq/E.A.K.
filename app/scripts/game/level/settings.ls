@@ -46,6 +46,9 @@ function find-level-settings level
   # Find hidden elements:
   conf.hidden = level.find 'head hidden' .children!
 
+  # Hints
+  conf.hints = level.find 'head hints' .children!
+
   # Should we display the top bar?
   conf.editable = meta \editable, 'true' |> to-boolean
 

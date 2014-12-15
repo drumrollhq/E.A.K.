@@ -3,6 +3,7 @@ require! {
   'game/dom/Mapper'
   'game/editor/Editor'
   'game/editor/EditorView'
+  'game/hints/HintController'
   'game/lang/CSS'
   'game/level/settings'
   'game/targets'
@@ -35,6 +36,9 @@ module.exports = class AreaLevel extends Backbone.View
       top: @conf.y
       left: @conf.x
     }
+
+  activate: ->
+    @hint-controller ?= new HintController hints: @conf.hints, scope: @$el
 
   hide: ->
     @$el.add-class 'hidden'
@@ -77,7 +81,6 @@ module.exports = class AreaLevel extends Backbone.View
     css.to-string!
 
   start-editor: ->
-    console.log 'start editor'
     editor = new Editor {
       renderer: this
       original-HTML: @conf.html

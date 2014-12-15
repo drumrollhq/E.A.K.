@@ -13,7 +13,7 @@
     <meta name="music" value="forest">
 
     <hints>
-      <pointer name="leftright"
+      <pointer scope=".area-view" name="leftright"
         target=".player"
         enter="time: 1000"
         exit="key-down: left, right, a, d"
@@ -21,26 +21,19 @@
         position="above">
         This is you! You can move left and right with the <kbd>←</kbd> and <kbd>→</kbd> keys.
       </pointer>
-      <pointer name="jump"
+      <pointer scoped name="jump"
         target=".computer-junk"
         enter="hint: leftright:exit"
         exit="key-down: up, space, w"
         position="right">
         Jump using the <kbd>space</kbd> or <kbd>↑</kbd> keys.
       </pointer>
-      <pointer name="target"
-        target=".level .entity-target"
+      <pointer scoped name="target"
+        target=".entity-target"
         enter="hint: jump:exit"
         exit="contact: start: ENTITY_PLAYER + ENTITY_TARGET"
         position="right">
         Move over to this kitten to rescue it. You need to rescue all the kittens you find!
-      </pointer>
-      <pointer
-        target=".level .hint-helper"
-        enter="hint: target:exit"
-        exit="contact: start: ENTITY_PLAYER + PORTAL"
-        position="left">
-        Walk off the right of this level to get to the next one
       </pointer>
     </hints>
 
