@@ -200,32 +200,18 @@
 
   <script>
   (function () {
+    var root = 'http://api.eraseallkittens.com/v1';
     function loadKittenCount() {
       var r = new XMLHttpRequest();
-      r.open('GET', '/api/v1/count/alltime?types=kitten&_v=' + Date.now());
+      r.open('GET', root + '/count/alltime?types=kitten&_v=' + Date.now());
       r.onreadystatechange = function () {
         if (r.readyState !== 4 || r.status !== 200) {
           return;
         }
 
         document.querySelector('.kitten-count').innerHTML = JSON.parse(r.response).alltime.kitten;
-        attemptWebsocketCount();
       };
       r.send();
-    }
-
-    function attemptWebsocketCount() {
-      if (!window.WebSocket) return;
-
-      var wsOrigin = window.location.origin.replace(/^http/, 'ws'),
-        socket = new WebSocket(wsOrigin + '/api/v1/sockets/kitten-count');
-
-      socket.onmessage = function(msg) {
-        var data = JSON.parse(msg.data);
-        if (data.count) {
-          document.querySelector('.kitten-count').innerHTML = data.count;
-        }
-      };
     }
 
     function languageSelect() {
