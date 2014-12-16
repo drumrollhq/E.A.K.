@@ -4,6 +4,7 @@ require! {
   'game/physics/keys'
   'math/Matrix'
   'math/Vector'
+  'memory/object-pool'
 }
 
 const max-fall-speed = 10px,
@@ -60,23 +61,16 @@ find-state = (obj, nodes) ->
     contact = head above-contacts
     # ALLOC
     obj.state = 'contact'
-    # ALLOC
-    return {
-      type: 'contact'
-      thing: contact
-    }
+    return object-pool.tmp! <<< type: 'contact', thing: contact
 
   if obj.jump-frames > 0
     # ALLOC
     obj.state = 'jumping'
-    # ALLOC
-    return type: 'jumping'
+    return object-pool.tmp! <<< type: 'jumping'
 
   # ALLOC
   obj.state = 'falling'
-
-  # ALLOC
-  {type: 'falling'}
+  return object-pool.tmp! <<< type: 'falling'
 
 target = 1000 / 60 # Aim for 60fps
 
@@ -85,6 +79,7 @@ ts = replicate 30 1
 module.exports = step = (state, t) ->
   # Get the useful stuff out of the state:
   {nodes, dynamics} = state
+  if state.free? then state.free!
 
   # Find a list of indexes of bodies destroyed between this frame and the last
   destroyed = [i for node, i in nodes when node._destroyed]
@@ -109,21 +104,19 @@ module.exports = step = (state, t) ->
   for obj in dynamics when not obj.frozen
 
     # Calculate a change in position using speed and time. ∆s = v · ∆t
-    # ALLOC
-    v = {
+    v = object-pool.tmp! <<< {
       x: obj.v.x * dt
       y: obj.v.y * dt
     }
 
     obj <<< {
-      # ALLOC
-      last-v: new Vector obj.v
       last-state: obj.state
       last-fall-dist: obj.fall-dist
     }
 
     obj.p.add-eq v
 
+    if obj.aabb?free? then obj.aabb.free!
     obj.aabb = get-aabb obj
 
     state = find-state obj, nodes
@@ -228,7 +221,7 @@ module.exports = step = (state, t) ->
     update-el obj
 
   # ALLOC
-  {nodes, dynamics}
+  object-pool.alloc! <<< {nodes, dynamics}
 
 # Manage user input on a player:
 handle-input = (node, scale) ->

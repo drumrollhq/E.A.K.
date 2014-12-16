@@ -1,3 +1,4 @@
+require! 'memory/object-pool'
 # aabb: Axis Aligned Bounding Box. E.G:
 #
 # This:
@@ -30,8 +31,7 @@ get-aabb = (obj) ->
   switch
   # A rectangle with no rotation is its own bounding box. Easy!
   | obj.type is 'rect' and obj.rotation is 0
-    # ALLOC
-    {
+    object-pool.alloc! <<< {
       left: x - width / 2
       right: x + width / 2
       top: y - height / 2

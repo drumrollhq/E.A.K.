@@ -1,3 +1,5 @@
+require! 'memory/Pool'
+
 # Simple 2D Vector library.
 # Vectors are in the form:
 # ⎡x⎤
@@ -7,12 +9,14 @@ module.exports = class Vector
     | typeof x is 'object' => @{x, y} = x.{x, y}
     | otherwise => @ <<< {x, y}
 
+  init: constructor
+
   # Addition, subtraction:
   # ⎡a⎤ + ⎡c⎤ = ⎡a + c⎤
   # ⎣b⎦   ⎣d⎦   ⎣b + d⎦
   add: (v) ~>
     # ALLOC
-    new Vector @x + v.x, @y + v.y
+    Vector.pool.alloc!.init @x + v.x, @y + v.y
 
   # [operation]-eq is the equivalent of += in or -= etc. in JS. They modify the Vector instead of returning a new one.
   add-eq: (v) ~>
@@ -21,8 +25,7 @@ module.exports = class Vector
     @
 
   minus: (v) ~>
-    # ALLOC
-    new Vector @x - v.x, @y - v.y
+    Vector.pool.alloc!.init @x - v.x, @y - v.y
 
   minus-eq: (v) ~>
     @x -= v.x
@@ -54,3 +57,7 @@ module.exports = class Vector
         c = !c
 
     c
+
+create-vector = -> new Vector 0, 0
+reset-vector = (v) -> v.x = v.y = 0
+Vector.pool = new Pool 'Vector', create-vector, reset-vector

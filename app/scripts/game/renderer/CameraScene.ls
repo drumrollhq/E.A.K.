@@ -1,5 +1,6 @@
 require! {
   'channels'
+  'memory/object-pool'
 }
 
 transform = prefixed.transform
@@ -46,24 +47,23 @@ module.exports = class CameraScene extends Backbone.View
     win-width = @$window.width!
     win-height = @$window.height!
 
-    # ALLOC
-    scrolling = x: no, y: no
+    scrolling = (@scrolling or {}) <<< x: no, y: no
 
+    css-obj = object-pool.alloc!
     if win-width < el-width
       scrolling.x = win-width
-      # ALLOC
-      @$el.css left: 0, margin-left: 0
+      css-obj <<< left: 0, margin-left: 0
     else
-      # ALLOC
-      @$el.css left: '50%', margin-left: - actual-width / 2
+      css-obj <<< left: '50%', margin-left: - actual-width / 2
 
     if win-height < el-height
       scrolling.y = win-height
-      # ALLOC
-      @$el.css top: 0, margin-top: 0
+      css-obj <<< top: 0, margin-top: 0
     else
-      # ALLOC
-      @$el.css top: '50%', margin-top: - actual-height / 2
+      css-obj <<< top: '50%', margin-top: - actual-height / 2
+
+    @$el.css css-obj
+    css-obj.free!
 
     @scrolling = scrolling
 
@@ -83,6 +83,7 @@ module.exports = class CameraScene extends Backbone.View
   move: ({x, y}) ~>
     p = @get-position x, y
     q = @tween-position p.x, p.y
+    p.free! if p.free?
     @set-transform if @scrolling.x then -q.x else 0, if @scrolling.y then -q.y else 0
 
   get-position: (x, y) ->
@@ -93,15 +94,13 @@ module.exports = class CameraScene extends Backbone.View
     x = x |> range margin, @width - margin, 0, w |> constrain 0, w
     y = y |> range margin, @height - margin, 0, h |> constrain 0, h
 
-    # ALLOC
-    {x, y}
+    object-pool.alloc! <<< {x, y}
 
   tween-position: (x, y) ->
     if @p?
       px = @p.x
       py = @p.y
     else
-      # ALLOC
       @p = {}
       px = x
       py = y
@@ -110,7 +109,6 @@ module.exports = class CameraScene extends Backbone.View
       qx = @q.x
       qy = @q.y
     else
-      # ALLOC
       @q = {}
       qx = px
       qy = py
