@@ -1,11 +1,20 @@
 const dt = 15000ms
 
+root = if window.location.host.match /eraseallkittens\.com/
+  'http://api.eraseallkittens.com/v1'
+else
+  'http://localhost:3000/v1'
+
+$.ajax-setup {
+  xhr-fields: with-credentials: true
+}
+
 no-op = -> null
 post-json = ({url, data, success, error}) ->
   $.ajax {
     method: \POST
     content-type: 'application/json'
-    url: url
+    url: "#root/#url"
     data: JSON.stringify data
     success: success
     error: error
@@ -13,7 +22,7 @@ post-json = ({url, data, success, error}) ->
 
 create-session = (data, cb) ->
   post-json {
-    url: '/api/v1/sessions'
+    url: 'sessions'
     data: data
     success: (session) -> cb session
     error: ->
@@ -66,7 +75,7 @@ module.exports = {
 
   setup-checkin-loop: ->
     unless @session? then return
-    url = "/api/v1/sessions/#{@session.id}"
+    url = "sessions/#{@session.id}"
     <~ set-interval _, dt
     post-json {
       url: url
@@ -81,7 +90,7 @@ module.exports = {
       if is-clean then return
       $.ajax {
         type: \DELETE
-        url: "/api/v1/sessions/#{@session.id}"
+        url: "#root/sessions/#{@session.id}"
         async: false
         success: -> is-clean := true
       }
@@ -101,7 +110,7 @@ module.exports = {
     }
 
     post-json {
-      url: "/api/v1/sessions/#{@session.id}/events"
+      url: "sessions/#{@session.id}/events"
       data: {type, data, has-duration}
       success: (event) ~>
         if has-duration then @session.active-events[*] = event.id
@@ -118,13 +127,13 @@ module.exports = {
     @session.active-events .= filter (it) -> it isnt id
     $.ajax {
       type: \DELETE
-      url: "/api/v1/sessions/#{@session.id}/events/#{id}"
+      url: "#root/sessions/#{@session.id}/events/#{id}"
     }
 
   update: (id, data, cb) ->
     unless @session and id? then return cb!
     post-json {
-      url: "/api/v1/sessions/#{@session.id}/events/#{id}"
+      url: "sessions/#{@session.id}/events/#{id}"
       data: data
       success: -> cb!
       error: -> cb!

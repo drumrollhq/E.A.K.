@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Editing Text II</title>
+    <title>Editing Text III</title>
 
     <meta name="size" value="780 585">
-    <meta name="borders" value="top right">
-    <meta name="exits" value="left #/play/levels/intro/04-swamp-play.html, bottom #/play/levels/intro/04-swamp-play.html">
-    <meta name="player" value="-350 -160">
-    <meta name="background" value="white url(/content/bgs/cave-1.png) center center / cover">
+    <meta name="borders" value="left bottom">
+    <meta name="exits" value="right #/play/levels/intro/07-portals.html">
+    <meta name="player" value="-250 -360">
+    <meta name="background" value="white url(/content/bgs/cave-2.png) center center / cover">
     <meta name="targets" value="260 20, 0 203">
     <meta name="music" value="cave">
     <meta name="reset-player-on-edit" value="false">
@@ -36,6 +36,8 @@
       p {
         background: #999;
         word-wrap: break-word;
+        margin-top: 150px;
+        width: 300px;
       }
 
       .side-ledge {
@@ -45,9 +47,12 @@
         top: 340px;
       }
 
-      p {
-        margin-top: 150px;
-        width: 300px;
+      .right-border {
+        position: absolute;
+        width: 50px;
+        right: -50px;
+        top: 0;
+        height: 340px;
       }
     </style>
 
@@ -55,6 +60,7 @@
       <div class="floor"></div>
       <div class="ledge"></div>
       <div class="side-ledge"></div>
+      <div class="right-border"></div>
     </hidden>
   </head>
   <body>
