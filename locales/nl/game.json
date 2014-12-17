@@ -1,6 +1,6 @@
 {
     "play/index.html/main-menu.about": {
-        "message": "About",
+        "message": "Over",
         "description": "button on the main menu"
     },
     "play/index.html/old-browser-msg.title": {
@@ -8,115 +8,115 @@
         "description": "This is the heading for a notice that tells users on older browsers that they can't run the game"
     },
     "play/index.html/loader.v": {
-        "message": "Haggling over the price of kittens...",
+        "message": "Afdingen op de prijs van de katjes...",
         "description": "loading message"
     },
     "data/errors.all.html/slowparse.close-tag-for-void-element": {
-        "message": "DRAMA: <code>&lt;{{closeTag.name}}&gt;</code> tags don't have closing tags, so this <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> isn't needed.",
+        "message": "DRAMA: <code>&lt;{{closeTag.name}}&gt;</code> tags hebben geen einde, dus <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> is niet nodig.",
         "description": "HTML/CSS error"
     },
     "data/errors.all.html/slowparse.unterminated-close-tag": {
-        "message": " Oh, what!? You need to add a <code>&gt;</code> to this closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag.",
+        "message": " Hola?! Je hebt een <code>&gt;</code> nodig bij deze eind <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag.",
         "description": "HTML/CSS error"
     },
     "play/index.html/loader.j": {
-        "message": "Taking the Ring to Mordor...",
+        "message": "Op de Weg naar Mordor...",
         "description": "loading message"
     },
     "data/errors.all.html/slowparse.unterminated-comment": {
-        "message": "This comment should end with a <code>--&gt;</code>.",
+        "message": "Dit commentaar moet eindigen op <code>--&gt;</code>.",
         "description": "HTML/CSS error"
     },
     "play/index.html/main-menu.new-game": {
-        "message": "New Game",
+        "message": "Nieuw Spel",
         "description": "button on the main menu"
     },
     "data/errors.all.html/slowparse.invalid-css-property-name": {
-        "message": "Hey! There's no such thing as <code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}</code>. The CSS gods decided it wasn't meant to be. Or perhaps you spelled it wrong...",
+        "message": "Hey! Er bestaat geen <code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}</code>. De CSS goden hebben zo beslist. Ofwel heb je een foutje getypt...",
         "description": "HTML/CSS error"
     },
     "data/errors.all.html/slowparse.uncaught-css-parse-error": {
-        "message": "Something's gone terribly wrong. You probably don't know what, and neither do we, but we found this at the scene of the crime: <code data-highlight=\"{{error.start}},{{error.end}}\">{{error.msg}}</code>.",
+        "message": "Er gaat iets helemaal fout. Je weet waarschijnlijk niet wat, en wij eigenlijk ook niet, maar we hebben dit gevonden: <code data-highlight=\"{{error.start}},{{error.end}}\">{{error.msg}}</code>.",
         "description": "HTML/CSS error"
     },
     "play/index.html/settings.music": {
-        "message": "Music Volume",
+        "message": "Muziek Volume",
         "description": "Music setting"
     },
     "play/index.html/cutscene.error": {
-        "message": "Oh no! We couldn't load that cutscene...",
+        "message": "Oh nee! We konden die scene niet laden...",
         "description": "Cutscene didn't load"
     },
     "play/index.html/settings.effects": {
-        "message": "Sound Effects Volume",
+        "message": "Geluidseffecten Volume",
         "description": "Music setting"
     },
     "data/errors.all.html/slowparse.html-code-in-css-block": {
-        "message": "EWWWW!!! You've got HTML in your CSS! It doesn't belong there...",
+        "message": "EWWWW!!! Je hebt HTML in je CSS! Dat hoort daar niet thuis...",
         "description": "HTML/CSS error"
     },
     "play/index.html/menu.cancel": {
-        "message": "Cancel",
+        "message": "Stop",
         "description": "Button on the bar at the top of the screen during levels. Closes the edit view, discarding the code the user entered"
     },
     "data/errors.all.html/slowparse.unterminated-open-tag": {
-        "message": "FYI, you need to add a <code>&gt;</code> to the end of this opening <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;/{{openTag.name}}&gt;</code> tag.",
+        "message": "Ter info, je hebt een <code>&gt;</code> nodig op het einde van deze start <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;/{{openTag.name}}&gt;</code> tag.",
         "description": "HTML/CSS error"
     },
     "play/index.html/old-browser-msg.continue": {
-        "message": "Continue anyway &rarr;",
+        "message": "Toch doorgaan &rarr;",
         "description": "Continue"
     },
     "data/errors.all.html/slowparse.unexpected-close-tag": {
-        "message": "Watch out! You've got a closing (end) <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag, but no opening (start) tag to go with it.",
+        "message": "Pas op! Je hebt een sluit (eind) <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag, maar geen opening (start) tag die er bij past.",
         "description": "HTML/CSS error"
     },
     "play/index.html/loading": {
-        "message": "Loading...",
+        "message": "Aan het laden...",
         "description": ""
     },
     "play/index.html/errors.sound-not-found": {
-        "message": "Oh no! We couldn't load the sound!",
+        "message": "Ah nee! We konden de geluidjes niet laden!",
         "description": "error message"
     },
     "play/index.html/errors.music-not-found": {
-        "message": "Oh no! We couldn't load the music!",
+        "message": "Oh nee! We konden de muziek niet laden!",
         "description": "error message"
     },
     "play/index.html/about.instructions": {
-        "message": "Use the <kbd>A</kbd> and <kbd>D</kbd> or <kbd>&larr;</kbd> and <kbd>&rarr;</kbd> keys to go left and right. Use <kbd>W</kbd>, <kbd>space</kbd>, or <kbd>&uarr;</kbd> to jump.",
+        "message": "Gebruik de <kbd>A</kbd> en <kbd>D</kbd> of <kbd>&larr;</kbd> en <kbd>&rarr;</kbd> toetsen om links en rechts te gaan. Gebruik <kbd>W</kbd>, <kbd>spatie</kbd>, of <kbd>&uarr;</kbd> om te springen.",
         "description": "brief instructions on the 'about' page"
     },
     "play/index.html/loader.a": {
-        "message": "Still loading kitten gifs...",
+        "message": "Nog altijd katjes GIFs aan het laden...",
         "description": "loading message"
     },
     "data/errors.all.html/slowparse.missing-css-value": {
-        "message": "You need to add a value after <code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}:</code>!",
+        "message": "Je moet een waarde toevoegen achter de <code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}:</code>!",
         "description": "HTML/CSS error"
     },
     "data/errors.all.html/slowparse.missing-css-block-closer": {
-        "message": "You need to finish this <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> CSS block with a <code>}</code> after <code data-highlight=\"{{cssValue.start}},{{cssValue.end}}\">{{cssValue.value}};</code>",
+        "message": "Je moet deze <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> CSS block beëindigen met een <code>}</code> achter de <code data-highlight=\"{{cssValue.start}},{{cssValue.end}}\">{{cssValue.value}};</code>",
         "description": "HTML/CSS error"
     },
     "play/index.html/about.have-fun": {
-        "message": "Have fun!",
+        "message": "Veel plezier!",
         "description": "have fun or else."
     },
     "play/index.html/old-browser-msg.html": {
-        "message": "Unfortunately, your browser doesn't support everything we need for E.A.K. to run well. You seem to be missing:",
+        "message": "Jammer, je browser kan niet alles doen wat E.A.K. nodig heeft om te werken. Dit missen we: ",
         "description": "Prompt users on old browsers to upgrade to a newer one"
     },
     "play/index.html/menu.edit": {
-        "message": "Edit",
+        "message": "Wijzig",
         "description": "Button on the bar at the top of the screen during levels. Opens up the edit view."
     },
     "play/index.html/loader.m": {
-        "message": "Oooh! Yarn!",
+        "message": "Oooh! Draadjes!",
         "description": "loading message"
     },
     "play/index.html/loader.u": {
-        "message": "8 minutes of battery life remaining...",
+        "message": "Nog 8 minuten batterij over...",
         "description": "loading message"
     },
     "play/index.html/menu.redo": {
@@ -124,27 +124,27 @@
         "description": "Redo button for the code editor"
     },
     "data/errors.all.html/slowparse.lonely-angle-bracket": {
-        "message": "This lonely <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;</code> looks like the start of a tag. It doesn't work on its own - delete it, or add the tag name and closing <code>&gt;</code>.",
+        "message": "Deze eenzame <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;</code> lijkt op een start tag. Het werkt niet alleen - verwijder het, of voeg de tag naam toe en eind <code>&gt;</code>.",
         "description": "HTML/CSS error"
     },
     "play/index.html/about.description": {
-        "message": "Erase All Kittens is a platform game with a difference: the levels are written in HTML and CSS, and the only way to get past them is to use your coding skills to hack the level.",
+        "message": "Elimineer Alle Katjes is een ander soort platform spel: de levels zijn geschreven in HTML en CSS, en de enige manier om verder te raken is je programmeer talent.",
         "description": "a short description of the game"
     },
     "play/index.html/settings.language-warn": {
-        "message": "If you change language, you'll lose any progress you made on your current level. Are you sure you want to continue?",
+        "message": "Als je de taal wijzigt, verlies je al je wijzigingen van dit level. Ben je zeker dat je wilt doorgaan?",
         "description": "Language change warning in settings page"
     },
     "play/index.html/loader.h": {
-        "message": "Unloading kittens from the lorry...",
+        "message": "Katjes van de vrachtwagen aan het laden...",
         "description": "loading message"
     },
     "play/index.html/loader.q": {
-        "message": "Capturing panda-sneezes...",
+        "message": "Panda-nies aan het vangen...",
         "description": "loading message"
     },
     "play/index.html/loader.r": {
-        "message": "Time for a cup of tea...",
+        "message": "Tijd voor een kopje thee...",
         "description": "loading message"
     },
     "play/index.html/loader.f": {
@@ -152,7 +152,7 @@
         "description": "loading message"
     },
     "play/index.html/errors.code-errors": {
-        "message": "There are errors in your code! Fix them before saving.",
+        "message": "Er zitten foutjes in je code! Los ze op voor je het bewaart.",
         "description": "error message"
     },
     "play/index.html/menu.undo": {
@@ -160,83 +160,83 @@
         "description": "Undo button for the code editor"
     },
     "play/index.html/cutscene.continue": {
-        "message": "Continue",
+        "message": "Doorgaan",
         "description": "Continue after the cutscene"
     },
     "play/index.html/loader.i": {
-        "message": "Fighting off malicious smileys...",
+        "message": "Gemene smileys aan het wegslaan...",
         "description": "loading message"
     },
     "play/index.html/loader.g": {
-        "message": "*yawns*",
+        "message": "*geeuw*",
         "description": "loading message"
     },
     "play/index.html/loader.c": {
-        "message": "So many kittens to load...",
+        "message": "Zo veel katjes om te laden...",
         "description": "loading message"
     },
     "play/index.html/loader.e": {
-        "message": "KITTENS KITTENS KITTENS KITTENS",
+        "message": "KATJES KATJES KATJES KATJES",
         "description": "loading message"
     },
     "play/index.html/errors.load-sprite": {
-        "message": "Oh no! We couldn't load the animations!",
+        "message": "Oh nee! We konden de animaties niet laden!",
         "description": "error message"
     },
     "play/index.html/loader.k": {
-        "message": "Inventing kittens...",
+        "message": "Katjes aan het uitvinden...",
         "description": "loading message"
     },
     "play/index.html/loader.start": {
-        "message": "Loading kitten gifs...",
+        "message": "Katjes GIFs laden...",
         "description": "loading message"
     },
     "data/errors.all.html/slowparse.unfinished-css-value": {
-        "message": "Oops! Finish your value <code data-highlight=\"{{cssValue.start}},{{cssValue.end}}\">{{cssValue.value}}</code> with a <code>;</code>.",
+        "message": "Oops! Eindig je waarde <code data-highlight=\"{{cssValue.start}},{{cssValue.end}}\">{{cssValue.value}}</code> met een <code>;</code>.",
         "description": "HTML/CSS error"
     },
     "data/errors.all.html/slowparse.unclosed-tag": {
-        "message": "Oh no! This <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code> needs a closing <code>&lt;/{{openTag.name}}&gt;</code> tag.",
+        "message": "Oh nee! Deze <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code> heeft een eind <code>&lt;/{{openTag.name}}&gt;</code> tag nodig.",
         "description": "HTML/CSS error"
     },
     "data/errors.all.html/slowparse.unfinished-css-property": {
-        "message": "<code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}</code> isn't finished! You need a <code>:</code> after the property's name.",
+        "message": "<code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}</code> is niet klaar! Je hebt een <code>:</code> nodig na de naam van de property.",
         "description": "HTML/CSS error"
     },
     "play/index.html/loader.s": {
-        "message": "Would you like a biscuit?",
+        "message": "Wil je een koekje?",
         "description": "loading message"
     },
     "play/index.html/loader.n": {
-        "message": "Loading more loading messages...",
+        "message": "Nog meer laadberichtjes aan het laden...",
         "description": "loading message"
     },
     "data/errors.all.html/slowparse.invalid-tag-name": {
-        "message": "There's no such thing as a <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code> tag. The masters of HTML wouldn't allow it.",
+        "message": "Er is geen <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code> tag. De HTML bazen laten dit niet toe.",
         "description": "HTML/CSS error"
     },
     "play/index.html/cutscene.skip": {
-        "message": "Skip",
+        "message": "Overslaan",
         "description": "Skip the current cutscene"
     },
     "play/index.html/back": {
-        "message": "Back",
+        "message": "Terug",
         "description": "for a 'back' button"
     },
     "play/index.html/loader.l": {
-        "message": "Playing with yarn...",
+        "message": "Aan het spelen met een bol wol...",
         "description": "loading message"
     },
     "data/errors.all.html/slowparse.forbid-JS": {
-        "message": "Sorry! You can't use JavaScript in E.A.K. (yet). So don't. The JavaScript police will get you with their sharp pointy teeth!",
+        "message": "Sorry! Je kan (nog) geen JavaScript in E.A.K. gebruiken, Dus niet doen. De JavaScript politie zal je te pakken krijgen!",
         "description": "HTML/CSS error"
     },
     "play/index.html/old-browser-msg.ignore": {
-        "message": "You can ignore this message and continue anyway, but things are likely to be broken or not work at all. E.A.K. runs best in the latest <a href=\"http://mozilla.org/firefox\">Firefox</a> or <a href=\"http://google.com/chrome\">Chrome</a>.",
+        "message": "Je kan dit bericht negeren en toch doorgaan, maar de dingen zullen niet werken zoals verwacht. E.A.K. werkt best in <a href=\"http://mozilla.org/firefox\">Firefox</a> of <a href=\"http://google.com/chrome\">Chrome</a>.",
         "description": "Users of old browsers can continue anyway, but we'd rather they upgraded"
     },
     "data/errors.all.html/slowparse.unquoted-attr-value": {
-        "message": "You need a <code>\"</code> after the <code>=</code> on this <code data-highlight=\"{{attribute.name.start}},{{attribute.name.end + 1}}\">{{attribute.name.value}}</code> attribute. Just saying.",
+        "message": "Je hebt een <code>\"</code> nodig achter de <code>=</code> bij dit <code data-highlight=\"{{attribute.name.start}},{{attribute.name.end + 1}}\">{{attribute.name.value}}</code> attribuut. Kleine tip...",
         "description": "HTML/CSS error"
     },
     "play/index.html/menu.reset": {
@@ -244,95 +244,95 @@
         "description": "Button on the bar at the top of the screen during levels. When in the edit view, this sets the code to how it was at the start of the level"
     },
     "play/index.html/loader.d": {
-        "message": "Are you having a nice day?",
+        "message": "Heb je een leuke dag?",
         "description": "loading message"
     },
     "data/errors.all.html/slowparse.self-closing-non-void-element": {
-        "message": "OI! You can't have a <code>/</code> at the end of this opening <code data-highlight=\"{{start}},{{end}}\">&lt;{{name}}&gt;</code>. It has to go in a closing <code>&lt;/{{name}}&gt;</code> tag.",
+        "message": "OepsI! Je kan geen <code>/</code> hebben aan het eind van deze start <code data-highlight=\"{{start}},{{end}}\">&lt;{{name}}&gt;</code>. Het moet in een eind <code>&lt;/{{name}}&gt;</code> tag.",
         "description": "HTML/CSS error"
     },
     "data/errors.all.html/slowparse.unfinished-css-selector": {
-        "message": "This selector <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> should end with a <code>{</code>.",
+        "message": "Deze selector <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> moet eindigen met een <code>{</code>.",
         "description": "HTML/CSS error"
     },
     "data/errors.all.html/slowparse.missing-css-property": {
-        "message": "This <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> is empty! It needs a property.",
+        "message": "Deze <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> is leeg! Het heeft een property nodig.",
         "description": "HTML/CSS error"
     },
     "play/index.html/loader.t": {
-        "message": "Kitten gifs intercepted by the NSA...",
+        "message": "Katjes GIFs werden onderschept door de NSA...",
         "description": "loading message"
     },
     "play/index.html/main-menu.load-game": {
-        "message": "Load Game",
+        "message": "Spel Laden",
         "description": "button on the main menu"
     },
     "play/index.html/loader.p": {
-        "message": "Buying kittens off ebay...",
+        "message": "Katjes aan het kopen op eBay...",
         "description": "loading message"
     },
     "play/index.html/settings.language": {
-        "message": "Language",
+        "message": "Taal",
         "description": "Heading in settings page"
     },
     "data/errors.all.html/slowparse.missing-css-selector": {
-        "message": "You need to finish your CSS with a <code data-highlight=\"{{cssBlock.start}},{{cssBlock.end}}\">&lt;/style&gt;</code> tag!",
+        "message": "Je moet je CSS afsluiten met een <code data-highlight=\"{{cssBlock.start}},{{cssBlock.end}}\">&lt;/style&gt;</code> tag!",
         "description": "HTML/CSS error"
     },
     "play/index.html/errors.level-errors": {
-        "message": "There are errors in that level!",
+        "message": "Er zitten fouten in dat level!",
         "description": "error message"
     },
     "data/errors.all.html/slowparse.unterminated-css-comment": {
-        "message": "You need to finish this CSS comment with a <code>*/</code>! DO IT!",
+        "message": "Je moet deze CSS commentaar beëindigen met <code>*/</code>! DOE HET!",
         "description": "HTML/CSS error"
     },
     "data/errors.all.html/slowparse.invalid-attr-name": {
-        "message": "There's no such thing as a <code data-highlight=\"{{start}},{{end}}\">{{attribute.name.value}}</code> attribute. The masters of HTML wouldn't allow it.",
+        "message": "Er bestaat geen <code data-highlight=\"{{start}},{{end}}\">{{attribute.name.value}}</code> attribuut. De HTML meesters laten het niet toe.",
         "description": "HTML/CSS error"
     },
     "play/index.html/loader.b": {
-        "message": "These are some pretty heavy kittens...",
+        "message": "Dit zijn behoorlijk zware katjes...",
         "description": "loading message"
     },
     "play/index.html/todo": {
-        "message": "To do.",
+        "message": "Te doen.",
         "description": "for when I've not done stuff yet ;)"
     },
     "data/errors.all.html/slowparse.unterminated-attr-value": {
-        "message": "You need to add a <code>\"</code> at the end of this <code data-highlight=\"{{openTag.start}},{{openTag.start + openTag.name.length + 1}}\">&lt;{{openTag.name}}&gt;</code> tag's <code data-highlight=\"{{attribute.name.start}},{{attribute.value.start}}\">{{attribute.name.value}}</code> attribute. Crazy, right?",
+        "message": "Je moet een <code>\"</code> toevoegen aan het eind van deze <code data-highlight=\"{{openTag.start}},{{openTag.start + openTag.name.length + 1}}\">&lt;{{openTag.name}}&gt;</code> tag <code data-highlight=\"{{attribute.name.start}},{{attribute.value.start}}\">{{attribute.name.value}}</code> attributen. Zotjes he?",
         "description": "HTML/CSS error"
     },
     "play/index.html/language": {
-        "message": "English",
+        "message": "Engels",
         "description": "The name of the language you're translating to, in that language."
     },
     "play/index.html/menu.save": {
-        "message": "Save",
+        "message": "Bewaren",
         "description": "Button on the bar at the top of the screen during levels. Closes the edit view, keeping the code the user entered"
     },
     "play/index.html/loader.o": {
-        "message": "Googleing more kitten gifs...",
+        "message": "Maar katjes GIFs aan het googlen...",
         "description": "loading message"
     },
     "play/index.html/settings.title": {
-        "message": "Settings",
+        "message": "Instellingen",
         "description": "Title for the settings dialogue"
     },
     "data/errors.all.html/slowparse.attribute-in-closing-tag": {
-        "message": "I thought you should know, you can't put an attribute in this closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag.",
+        "message": "Ik dacht dat je dit al wist, je kan geen attribuut in deze eind <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag gebruiken.",
         "description": "HTML/CSS error"
     },
     "play/index.html/menu.restart": {
-        "message": "Restart",
+        "message": "Opnieuw",
         "description": "Button on the bar at the top of the screen during levels. Puts the level and player back in the starting state."
     },
     "play/index.html/title": {
-        "message": "Erase All Kittens",
+        "message": "Elimineer Alle Katjes",
         "description": "The name of the game!"
     },
     "data/errors.all.html/slowparse.mismatched-close-tag": {
-        "message": "These tags don't match! You've got a closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag, but it's trying to pair with the opening <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code>.",
+        "message": "De tags passen niet! Je hebt een eind <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag, maar het probeert te passen met de start <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code>.",
         "description": "HTML/CSS error"
     }
 }
