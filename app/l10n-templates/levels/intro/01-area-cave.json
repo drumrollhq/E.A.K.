@@ -1,0 +1,22 @@
+{
+  "width": 2349,
+  "height": 1964,
+  "background": "/content/bgs/area-cave.png",
+  "music": "cave",
+  "levels": [
+    {
+      "url": "levels/intro/05-editing-text-ii.html",
+      "x": 250,
+      "y": 250
+    }, {
+      "url": "levels/intro/06-editing-text-iii.html",
+      "x": 538,
+      "y": 835
+    }, {
+      "url": "levels/intro/07-portals.html",
+      "x": 1318,
+      "y": 1128
+    }
+  ]
+}
+

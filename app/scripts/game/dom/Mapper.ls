@@ -84,8 +84,10 @@ module.exports = class Mapper
     nodes = @el.children
 
     for node in nodes
+      # The user can tweak the map slightly with data-extend-{top,left,bottom,right} attributes:
+      extenders = get-extends node
       # Fetch measurements from the browser
-      bounds = node.get-bounding-client-rect!
+      bounds = get-bounds node, extenders
       style-attr = node.get-attribute \style
       style = node |> window.get-computed-style |> @normalise-style
 
@@ -105,7 +107,7 @@ module.exports = class Mapper
         node.style.transform = node.style.webkit-transform = node.style.moz-transform = 'none'
 
         # Use a new bounding box for subsequent measurements:
-        bounds = node.get-bounding-client-rect!
+        bounds = get-bounds node, extenders
 
       if style.border-radius isnt "0px 0px 0px 0px / 0px 0px 0px 0px"
         # There are some rounded corners
@@ -241,3 +243,18 @@ module.exports = class Mapper
       if data.ignore is undefined then map.push obj
 
     @map = map
+
+extend-attr = (node, dir) -> (parse-float node.get-attribute "data-extend-#dir") or 0
+
+get-extends = (node) -> {[dir, extend-attr node, dir] for dir in <[top left bottom right]>}
+
+get-bounds = (node, extend) ->
+  bounds = {} <<< node.get-bounding-client-rect!
+  bounds.top -= extend.top
+  bounds.left -= extend.left
+  bounds.bottom -= extend.bottom
+  bounds.right -= extend.right
+  bounds.width += extend.left + extend.right
+  bounds.height += extend.top + extend.bottom
+  bounds
+

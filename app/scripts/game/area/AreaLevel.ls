@@ -5,6 +5,7 @@ require! {
   'game/editor/tutorial/Tutorial'
   'game/hints/HintController'
   'game/lang/CSS'
+  'game/level/el-modify'
   'game/level/settings'
   'game/targets'
 }
@@ -83,6 +84,7 @@ module.exports = class AreaLevel extends Backbone.View
     @$ '[data-exit]' .attr 'data-id', 'ENTITY_EXIT'
 
   create-map: ~>
+    el-modify @$el
     @mapper.build!
     @map = @mapper.map
 

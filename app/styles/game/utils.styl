@@ -8,3 +8,25 @@ entity(img, w, h)
   height h
   background-image url(img)
   background-size 100% 100%
+
+perspective-top(colour, height, slope = height, padding-top = 0)
+  padding-left slope
+  padding-right slope
+
+  &::before
+    display block
+    content ' '
+    height 0
+    width 100%
+
+    // CSS Border witchcraft
+    border slope solid transparent
+    border-bottom height solid colour
+    border-top none
+
+    // Correctly positioned element:
+    position relative
+    top -1 * (height + padding-top)
+    left 0
+    margin-bottom -1 * height
+    margin-left -1 * slope

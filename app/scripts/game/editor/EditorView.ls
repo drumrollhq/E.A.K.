@@ -2,6 +2,7 @@ require! {
   'channels'
   'game/editor/CodeMirrorExtras'
   'game/editor/NiceComments'
+  'game/level/el-modify'
   'translations'
 }
 
@@ -24,7 +25,7 @@ module.exports = class EditorView extends Backbone.View
       extra-keys:
         Esc: @save
 
-    cm.on \change @handle-change
+    cm.on \change _.throttle @handle-change, 250
 
     @ <<< {cm}
     @has-errors = false
@@ -72,6 +73,8 @@ module.exports = class EditorView extends Backbone.View
       $style |> ( .text! ) |> @renderer.preprocess-css |> $style.text
 
     @entities.append-to e
+
+    el-modify e
 
   restore-entities: ~>
     @render-el.children \.entity .detach!
