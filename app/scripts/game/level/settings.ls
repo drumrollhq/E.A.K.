@@ -45,6 +45,8 @@ function find-level-settings level
   if borders.0 is 'none' then borders = []
   conf.borders = borders
 
+  conf.border-contract = meta \border-contract, '0' |> parse-float
+
   # How can arca exit?
   conf.exits = meta \exits, '' |> to-object
 
