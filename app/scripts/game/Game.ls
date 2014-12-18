@@ -3,6 +3,7 @@ require! {
   'game/CutScene'
   'game/Events'
   'game/area/Area'
+  'lib/parse'
   'logger'
   'translations'
   'ui/Bar'
@@ -44,10 +45,11 @@ module.exports = class Game extends Backbone.Model
       logger.log 'skip'
 
   start-area: (url) ~>
+    {url, player-coords} = parse-url url
     event <~ logger.start 'level', {level: url}
     l = prefix + url + "?#{Date.now!}"
     conf <~ $.get-JSON l
-    area = new Area conf: conf, event-id: event.id, prefix: prefix
+    area = new Area conf: conf, event-id: event.id, prefix: prefix, player-coords: player-coords
     area.on 'done' -> logger.stop event.id
     area.start!
 
@@ -56,3 +58,9 @@ module.exports = class Game extends Backbone.Model
   load: ~> Game::savefile |> local-storage.get-item |> JSON.parse |> @set
 
   savefile: \kittenquest-savegame
+
+parse-url = (url) ->
+  parts = url.split '#'
+  url = parts.0
+  player-coords = if parts.1? then parse.to-coordinates parts.1, ',' else null
+  {url, player-coords}

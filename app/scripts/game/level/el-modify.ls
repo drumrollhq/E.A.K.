@@ -1,11 +1,11 @@
-require! 'game/level/settings'
+require! 'lib/parse'
 
 strip-quotes = (str) -> str.replace /^['"]|['"]$/g, ''
 
 parse-content = (el) ->
   content = window.get-computed-style el .content.trim!
   if content and content isnt \none
-    content |> strip-quotes |> settings.to-object
+    content |> strip-quotes |> parse.to-object
   else
     null
 

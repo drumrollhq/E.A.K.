@@ -10,7 +10,7 @@ require! {
 }
 
 module.exports = class Area extends Backbone.Model
-  initialize: ({conf, @event-id, @prefix}) ->
+  initialize: ({conf, @event-id, @prefix, @player-coords}) ->
     @subs = []
     @set conf.{width, height, background, music}
     @view = new AreaView model: this
@@ -41,7 +41,7 @@ module.exports = class Area extends Backbone.Model
 
   build-map: ->
     nodes = @view.assemble-map!
-    nodes[*] = @view.player or @view.add-player!
+    nodes[*] = @view.player or @view.add-player @player-coords
     @state = physics.prepare nodes
 
   subscribe: ->
