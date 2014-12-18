@@ -1,6 +1,6 @@
 get-meta = (level) ->
   (name, default-value = null) ->
-    level.find "meta[name=\"#{name}\"]" .attr \value or default-value
+    level.find "meta[name=\"#{name}\"]" .attr \content or default-value
 
 to-boolean = (str) ->
   str = str.trim!.to-lower-case!
