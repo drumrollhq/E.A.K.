@@ -32,7 +32,7 @@ require! {
   'yargs': {argv}
 }
 
-languages = ['en' 'es-419']
+languages = ['en' 'es-419' 'nl']
 
 _ = {
   merge: require 'lodash.merge'
