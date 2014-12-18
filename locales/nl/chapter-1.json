@@ -76,7 +76,7 @@
         "description": "Tutorial annotation"
     },
     "levels/index.html/hints.portal": {
-        "message": "Dit is een doorgang. <kbd>↓</kbd> toets om te kijken waar het je naartoe leidt.",
+        "message": "Dit is een portaal. <kbd>↓</kbd> toets om te kijken waar het je naartoe leidt.",
         "description": "1st level: instructions"
     },
     "levels/headings.html/title": {
@@ -108,7 +108,7 @@
         "description": "Headings level: tutorial annotations"
     },
     "levels/headings.html/html.h1": {
-        "message": "IK BEN ZEER BELANGRIJK",
+        "message": "IK BEN BELANGRIJK",
         "description": "Headings level: content"
     },
     "levels/creating-elements.html/tutorial.c.c": {
@@ -144,7 +144,7 @@
         "description": "Colours level: tutorial annotations"
     },
     "cutscenes/intro.html/subtitles.e": {
-        "message": "Ze zochten op het weg naar meer en meer, van gigantische panda's, tot speelse puppies.",
+        "message": "Ze zochten op het internet naar meer en meer, van Reuzenpanda's, tot speelse puppies.",
         "description": "Subtitle for cutscene"
     },
     "levels/colours.html/tutorial.d.d": {
@@ -156,7 +156,7 @@
         "description": "Subtitle for cutscene"
     },
     "levels/editing-text.html/tutorial.f.d": {
-        "message": "Druk 'Save' om de editor te sluiten en het katje te redden! <a class=\"dismiss\" href=\"#\">OK.</a>",
+        "message": "Druk 'Bewaren' om de editor te sluiten en het katje te redden! <a class=\"dismiss\" href=\"#\">OK.</a>",
         "description": "Tutorial annotation"
     },
     "levels/headings.html/tutorial.a.e": {
@@ -196,7 +196,7 @@
         "description": "2nd level: level content. This must stay approximately the same length for the level to work"
     },
     "levels/headings.html/html.h2": {
-        "message": "IK OOK! Ongeveer...",
+        "message": "IK OOK! Soort van...",
         "description": "Headings level: content"
     },
     "levels/headings.html/tutorial.f.a": {
@@ -228,7 +228,7 @@
         "description": "Subtitle for cutscene"
     },
     "levels/index.html/hints.target": {
-        "message": "Beweeg over dit katje om het te redden. Je moet alle katjes redden die je kunt vinden!",
+        "message": "Ga naar dit katje om het te redden. Je moet alle katjes redden die je kunt vinden!",
         "description": "1st level: instructions. yay, kittens"
     },
     "levels/creating-elements.html/tutorial.d.a": {

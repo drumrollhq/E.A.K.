@@ -312,7 +312,7 @@
         "description": "Button on the bar at the top of the screen during levels. Closes the edit view, keeping the code the user entered"
     },
     "play/index.html/loader.o": {
-        "message": "Maar katjes GIFs aan het googlen...",
+        "message": "Meer katjes GIFs aan het googlen...",
         "description": "loading message"
     },
     "play/index.html/settings.title": {
