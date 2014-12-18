@@ -30,3 +30,9 @@ perspective-top(colour, height, slope = height, padding-top = 0)
     left 0
     margin-bottom -1 * height
     margin-left -1 * slope
+
+  &.perspective-trim-right::before
+    border-right-color colour
+
+  &.perspective-trim-left::before
+    border-left-color colour
