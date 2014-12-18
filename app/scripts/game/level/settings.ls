@@ -70,7 +70,7 @@ function find-level-settings level
   conf.player = {x, y, colour}
 
   # Find borders
-  borders = meta \borders, 'all' |> to-list
+  borders = meta \borders, 'none' |> to-list
   if borders.0 is 'all' then borders = <[ top bottom left right ]>
   if borders.0 is 'none' then borders = []
   conf.borders = borders

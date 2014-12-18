@@ -60,6 +60,38 @@ module.exports = class AreaLevel extends Backbone.View
 
   add-targets: -> targets @el, @conf.targets
 
+  add-borders: (nodes) ->
+    const thickness = 50px
+    {width, height, x, y, borders} = @conf
+
+    if \top in borders
+      nodes[*] = {
+        type: \rect, id: \BORDER_TOP
+        width: width, height: thickness
+        x: x + width/2, y: y - thickness/2
+      }
+
+    if \left in borders
+      nodes[*] = {
+        type: \rect, id: \BORDER_LEFT
+        width: thickness, height: height
+        x: x - thickness/2, y: y + height/2
+      }
+
+    if \bottom in borders
+      nodes[*] = {
+        type: \rect, id: \BORDER_BOTTOM
+        width: width, height: thickness
+        x: x + width/2, y: y + height + thickness/2
+      }
+
+    if \right in borders
+      nodes[*] = {
+        type: \rect, id: \BORDER_RIGHT
+        width: thickness, height: height
+        x: x + width + thickness/2, y: y + height/2
+      }
+
   redraw-from: (html, css) ->
     entities = @$el.children '.entity' .detach!
     @set-HTML-CSS html, css
@@ -87,6 +119,8 @@ module.exports = class AreaLevel extends Backbone.View
     el-modify @$el
     @mapper.build!
     @map = @mapper.map
+    @add-borders @map
+    @map
 
   preprocess-css: (source) ->
     css = new CSS source
