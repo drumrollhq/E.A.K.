@@ -3,23 +3,25 @@
   <head>
     <title>Portals</title>
 
-    <meta name="size" content="780 585">
+    <meta name="size" content="780 836">
     <meta name="player" content="50 222">
-    <meta name="targets" content="740 322, 390 495">
+    <meta name="targets" content="740 321, 390 491">
     <meta name="editable" content="false">
 
     <style>
       .ledge {
+        content: 'class: perspective-lighten-2-small, data-extend-top: 3';
         font-size: 16px;
-        padding: 10px;
+        padding: 5px 10px;
         display: block;
         background: rgba(255, 255, 255, 0.1);
         position: absolute;
         width: 100px;
+        height: 20px;
       }
 
       .a {
-        left: 0;
+        left: 40px;
         top: 250px;
       }
 
@@ -58,9 +60,19 @@
         top: 150px;
         width: 140px;
       }
+
+      .overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+      }
     </style>
   </head>
   <body>
+    <img class="overlay" src="/content/common/overlay/07-portals.png" data-ignore>
     <div class="ledge a"></div>
     <div class="ledge b"></div>
     <div class="ledge c"></div>
