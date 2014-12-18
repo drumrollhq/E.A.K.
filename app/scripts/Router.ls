@@ -6,7 +6,6 @@ require! {
 module.exports = class Router extends Backbone.Router
   routes:
     'about': 'about'
-    'play/levels/*path': 'playLocalLevel'
     'play/area/*path': 'playLocalArea'
     'play/cutscene/*path': 'playCutScene'
     'load': 'load'
@@ -64,14 +63,6 @@ module.exports = class Router extends Backbone.Router
     if @should-prevent-route! then return @prevent-route!
     <- logger.log 'finish', {}
     location.href = 'https://docs.google.com/forms/d/1gMg8FcbDmVH-FPYvAaiO33mVp5EaHndu1W3l97RN00s/viewform?usp=send_form'
-
-  # Plays a local ('official') level from the repo. TODO: Playing levels from
-  # Thimble, and maybe even arbitrary URLs
-  play-local-level: (path) ~>
-    if @should-prevent-route! then return @prevent-route!
-    <- @stop-game
-    <- $.hide-dialogues
-    channels.stage.publish type: 'level', url: "/levels/#path"
 
   play-local-area: (path) ~>
     if @should-prevent-route! then return @prevent-route!

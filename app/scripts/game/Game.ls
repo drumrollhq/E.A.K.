@@ -31,28 +31,6 @@ module.exports = class Game extends Backbone.Model
 
   defaults: level: '/levels/index.html'
 
-  start-level: (level-url) ~>
-    event <~ logger.start 'level', {level: level-url}
-    l = prefix + level-url + "?#{Date.now!}"
-    level-source <~ $.get l, _
-    parsed = Slowparse.HTML document, level-source, [TreeInspectors.forbidJS]
-
-    if parsed.error isnt null
-      console.log parsed.error
-      channels.alert.publish msg: translations.errors.level-errors
-      return
-
-    for node in parsed.document.child-nodes
-      if typeof! node is 'HTMLHtmlElement' then $level = $ node
-
-    @$level-name.text ($level.find 'title' .text! or '')
-
-    <~ $.hide-dialogues
-
-    level = new Level $level
-    level.event-id = event.id
-    level.on 'done' -> logger.stop event.id
-
   start-cutscene: (name) ~>
     cs = new CutScene {name: "#prefix/cutscenes/#name"}
     cs.$el.append-to document.body
