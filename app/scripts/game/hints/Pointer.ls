@@ -1,6 +1,4 @@
-require! {
-  'ui/focus'
-}
+require! 'ui/focus'
 
 module.exports =  class PointerHint extends Backbone.View
   tag-name: \div

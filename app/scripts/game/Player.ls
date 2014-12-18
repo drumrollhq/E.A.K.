@@ -1,6 +1,6 @@
 require! {
-  'channels'
-  'game/physics/keys'
+  'lib/channels'
+  'lib/keys'
   'logger'
 }
 

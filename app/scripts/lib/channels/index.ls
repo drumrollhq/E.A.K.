@@ -1,11 +1,11 @@
-require! 'channels/Channel'
+require! 'lib/channels/Channel'
 
 schemas = <[frame pre-frame post-frame key-press key-up key-down game-commands player-position
   stage window-size alert death hint contact kitten track-volume]>
 
 id = 0
 get-channel = (file) ->
-  channel = require "channels/schema/#file"
+  channel = require "lib/channels/schema/#file"
   new Channel channel
 
 to-obj-by = (fn, xs) --> {[(fn x), x] for x in xs}

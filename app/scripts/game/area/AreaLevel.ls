@@ -1,13 +1,13 @@
 require! {
-  'game/dom/Mapper'
+  'game/area/el-modify'
+  'game/area/settings'
   'game/editor/Editor'
   'game/editor/EditorView'
   'game/editor/tutorial/Tutorial'
   'game/hints/HintController'
-  'game/lang/CSS'
-  'game/level/el-modify'
-  'game/level/settings'
   'game/targets'
+  'lib/dom/Mapper'
+  'lib/lang/CSS'
 }
 
 counter = 0

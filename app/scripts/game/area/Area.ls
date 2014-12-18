@@ -1,12 +1,12 @@
 require! {
   'audio/music-manager'
   'game/area/AreaView'
+  'game/area/background'
   'game/event-loop'
-  'game/level/background'
-  'game/physics'
+  'lib/channels'
+  'lib/physics'
   'loader/ElementLoader'
   'loader/LoaderView'
-  'channels'
 }
 
 module.exports = class Area extends Backbone.Model

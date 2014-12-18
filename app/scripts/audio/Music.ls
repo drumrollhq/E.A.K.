@@ -1,7 +1,7 @@
 require! {
-  'audio/context'
   'audio/Sound'
   'audio/Track'
+  'audio/context'
   'audio/on-ended'
 }
 

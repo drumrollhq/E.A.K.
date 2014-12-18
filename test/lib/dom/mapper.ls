@@ -1,8 +1,8 @@
 require! {
-  'game/dom/Mapper'
+  'lib/dom/Mapper'
 }
 
-describe 'game/dom/Mapper' ->
+describe 'lib/dom/Mapper' ->
   el = null
   document.body.style.font-size = '20px'
 

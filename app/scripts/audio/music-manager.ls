@@ -1,6 +1,6 @@
 require! {
   'audio/Music'
-  'channels'
+  'lib/channels'
 }
 
 tracks = {

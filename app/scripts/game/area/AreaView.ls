@@ -1,11 +1,11 @@
 require! {
   'animation/SpriteSheet'
-  'channels'
   'game/Player'
   'game/area/AreaLevel'
+  'game/area/CameraScene'
+  'game/area/background'
   'game/event-loop'
-  'game/level/background'
-  'game/renderer/CameraScene'
+  'lib/channels'
   'logger'
 }
 

@@ -1,4 +1,4 @@
-require! 'channels'
+require! 'lib/channels'
 
 raf = window.request-animation-frame or window.moz-request-animation-frame or
   window.webkit-request-animation-frame or window.ms-request-animation-frame or

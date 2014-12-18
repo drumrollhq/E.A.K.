@@ -1,5 +1,5 @@
 require! {
-  'channels'
+  'lib/channels'
   'logger'
 }
 

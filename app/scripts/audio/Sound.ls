@@ -1,7 +1,7 @@
 require! {
-  'channels'
   'audio/context'
   'audio/load'
+  'lib/channels'
 }
 
 module.exports = class Sound

@@ -1,8 +1,8 @@
 require! {
-  'channels'
   'game/CutScene'
   'game/Events'
   'game/area/Area'
+  'lib/channels'
   'lib/parse'
   'logger'
   'translations'

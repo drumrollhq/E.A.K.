@@ -1,4 +1,4 @@
-require! 'channels'
+require! 'lib/channels'
 
 channels.parse 'key-press: f' .subscribe ->
   unless stats-showing then show!

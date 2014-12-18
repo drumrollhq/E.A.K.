@@ -1,8 +1,8 @@
 require! {
-  'channels'
+  'game/area/el-modify'
   'game/editor/CodeMirrorExtras'
   'game/editor/NiceComments'
-  'game/level/el-modify'
+  'lib/channels'
   'translations'
 }
 

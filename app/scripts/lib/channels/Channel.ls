@@ -1,4 +1,4 @@
-require! 'channels/Subscription'
+require! 'lib/channels/Subscription'
 
 id = 0
 debug = false

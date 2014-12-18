@@ -1,6 +1,4 @@
-require! {
-  'game/editor/tutorial/template'
-}
+require! 'game/editor/tutorial/template'
 
 module.exports = class TutorialView extends Backbone.View
   initialize: ({@tutorial}) ->

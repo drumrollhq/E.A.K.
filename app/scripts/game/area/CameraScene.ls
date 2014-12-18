@@ -1,6 +1,4 @@
-require! {
-  'channels'
-}
+require! 'lib/channels'
 
 transform = prefixed.transform
 counter = 0

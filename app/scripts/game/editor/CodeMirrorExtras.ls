@@ -8,8 +8,8 @@ Extra bits that make CM a better editor to learn with:
 */
 
 require! {
-  'channels'
   'game/editor/utils'
+  'lib/channels'
   'settings'
 }
 

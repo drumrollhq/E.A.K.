@@ -1,6 +1,6 @@
 require! {
-  'audio/context'
   'audio/Track'
+  'audio/context'
   'audio/tracks'
   'game/editor/tutorial/Step'
   'game/editor/tutorial/TutorialView'

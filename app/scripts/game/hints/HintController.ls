@@ -1,7 +1,7 @@
 require! {
-  'channels'
   'game/hints/Alert'
   'game/hints/Pointer'
+  'lib/channels'
 }
 
 hint-types = pointer: Pointer, alert: Alert

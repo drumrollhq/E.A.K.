@@ -1,8 +1,8 @@
 require! {
-  'game/physics/collision'
-  'game/physics/events'
-  'game/physics/prepare'
-  'game/physics/step'
+  'lib/physics/collision'
+  'lib/physics/events'
+  'lib/physics/prepare'
+  'lib/physics/step'
 }
 
 /*

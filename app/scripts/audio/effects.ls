@@ -1,7 +1,7 @@
 require! {
   'audio/Sound'
   'audio/Track'
-  'channels'
+  'lib/channels'
   'translations'
 }
 

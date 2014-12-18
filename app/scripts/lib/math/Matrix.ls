@@ -1,4 +1,4 @@
-require! 'math/Vector'
+require! 'lib/math/Vector'
 
 # Basic 2D-matrix class.
 # Matrices are in the form:

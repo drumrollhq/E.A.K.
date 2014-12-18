@@ -1,4 +1,4 @@
-require! 'channels'
+require! 'lib/channels'
 
 module.exports = keys = {
   left: false
