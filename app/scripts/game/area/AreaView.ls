@@ -139,6 +139,7 @@ module.exports = class AreaView extends CameraScene
     @focus-level level
 
     pos = @level-edit-pos level
+    console.log pos
     <~ @transition-to pos.x, pos.y
     @clear-position!
 
@@ -185,8 +186,8 @@ module.exports = class AreaView extends CameraScene
     margin-top = parse-float @$el.css 'margin-top'
     margin-left = parse-float @$el.css 'margin-left'
 
-    if margin-left is 0 then x = win-width / 2 else x = margin-left
-    if margin-top is 0 then y = 0 else y = -win-height / 2 - margin-top
+    if margin-left is 0 then x = win-width/2 else x = - margin-left
+    if margin-top is 0 then y = 0 else y = -win-height/2 - margin-top
 
     x += edit-margin - level.conf.x
     y += edit-margin - level.conf.y
@@ -208,6 +209,7 @@ module.exports = class AreaView extends CameraScene
       left: 0
       margin-top: 0
       margin-left: 0
+      background: 'transparent'
     }
 
     @$el.parent!.css {
@@ -218,6 +220,7 @@ module.exports = class AreaView extends CameraScene
 
   remove-edit-css: ->
     @update-size!
+    @update-background!
     @$el.css min-width: '', min-height: '', background-position: '0 0'
     @$el.parent!.css left: '', width: '', overflow: ''
     @$el.children!.css margin-top: '', margin-left: ''

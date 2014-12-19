@@ -51,7 +51,7 @@ class Background
   # Get the background image onto the page
   apply-current-background: ~>
     if @current-background.ready
-      # @$body.css \background-image, @current-background.value
+      @$body.css \background-image, @current-background.value
       @current-background.ready = false
 
   # Find a URL from a background image
