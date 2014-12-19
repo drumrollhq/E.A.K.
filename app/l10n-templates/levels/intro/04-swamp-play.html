@@ -5,7 +5,7 @@
 
     <meta name="size" content="780 335">
     <meta name="player" content="40 232">
-    <meta name="targets" content="570 376">
+    <meta name="targets" content="570 123">
     <meta name="editable" content="false">
 
     <style>
@@ -40,18 +40,28 @@
 
       .cave-top {
         position: absolute;
-        top: 162px;
-        right: 0;
-        width: 50px;
+        top: -88px;
+        right: -200px;
+        width: 250px;
         height: 50px;
       }
 
       img {
         position: absolute;
-        top: 184px;
-        right: 0;
-        z-index: 10010;
+        top: -71px;
+        right: -126px;
+        z-index: 110;
       }
+
+      .exit {
+        position: absolute;
+        top: -37px;
+        right: -90px;
+        width: 50px;
+        height: 111px;
+        z-index: 120;
+      }
+
     </style>
   </head>
   <body>
@@ -60,6 +70,7 @@
     <div class="ledge b"></div>
     <div class="ledge c"></div>
     <div class="cave-top"></div>
-    <img width="80" height="164" src="/content/bgs/valley-cave-overlay.png" data-ignore>
+    <img width="206" height="152" src="/content/bgs/valley-cave-overlay.png" data-ignore>
+    <a class="exit" data-exit href="#/play/area/intro/01-area-cave.json"></a>
   </body>
 </html>
