@@ -12,7 +12,6 @@ require! {
 $body = $ document.body
 
 const edit-margin = 50px
-const bar-height = 50px
 
 create-level-container = (parent) ->
   $ '<div></div>'
@@ -190,10 +189,10 @@ module.exports = class AreaView extends CameraScene
     if margin-top is 0 then y = 0 else y = -win-height / 2 - margin-top
 
     x += edit-margin - level.conf.x
-    y += edit-margin - level.conf.y + bar-height
+    y += edit-margin - level.conf.y
 
     width = win-width / 2
-    height = win-height - bar-height
+    height = win-height
     if el-height < height then y += (height - el-height) / 2
     if el-width < width then x += (width - el-width) / 2
 
@@ -204,7 +203,7 @@ module.exports = class AreaView extends CameraScene
       width: '100%'
       height: '100%'
       min-width: level.conf.width + 2 * edit-margin
-      min-height: level.conf.height + 2 * edit-margin + bar-height
+      min-height: level.conf.height + 2 * edit-margin
       top: 0
       left: 0
       margin-top: 0
@@ -248,7 +247,7 @@ module.exports = class AreaView extends CameraScene
     level = @level!
 
     width = @$window.width! / 2
-    height = @$window.height! - bar-height
+    height = @$window.height!
     el-width = level.conf.width + 2 * edit-margin
     el-height = level.conf.height + 2 * edit-margin
     el-pos-x = level.conf.x - edit-margin
@@ -260,9 +259,9 @@ module.exports = class AreaView extends CameraScene
       margin-left = (width - el-width ) / 2 - el-pos-x
 
     if height < el-height
-      margin-top = -el-pos-y + bar-height
+      margin-top = -el-pos-y
     else
-      margin-top = (height - el-height) / 2 - el-pos-y + bar-height
+      margin-top = (height - el-height) / 2 - el-pos-y
 
     {margin-top, margin-left}
 
