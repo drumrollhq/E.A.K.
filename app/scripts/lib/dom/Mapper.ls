@@ -88,6 +88,7 @@ module.exports = class Mapper
       extenders = get-extends node
       # Fetch measurements from the browser
       bounds = get-bounds node, extenders
+      console.log {extenders, bounds}
       style-attr = node.get-attribute \style
       style = node |> window.get-computed-style |> @normalise-style
 
@@ -249,7 +250,7 @@ extend-attr = (node, dir) -> (parse-float node.get-attribute "data-extend-#dir")
 get-extends = (node) -> {[dir, extend-attr node, dir] for dir in <[top left bottom right]>}
 
 get-bounds = (node, extend) ->
-  bounds = {} <<< node.get-bounding-client-rect!
+  bounds = node.get-bounding-client-rect!{top, left, bottom, right, width, height}
   bounds.top -= extend.top
   bounds.left -= extend.left
   bounds.bottom -= extend.bottom
