@@ -1,36 +1,8 @@
+require! 'api'
 const dt = 15000ms
 
-root = if window.location.host.match /eraseallkittens\.com/
-  'http://api.eraseallkittens.com/v1'
-else
-  'http://localhost:3000/v1'
-
-$.ajax-setup {
-  xhr-fields: with-credentials: true
-}
-
-no-op = -> null
-post-json = ({url, data, success, error}) ->
-  $.ajax {
-    method: \POST
-    content-type: 'application/json'
-    url: "#root/#url"
-    data: JSON.stringify data
-    success: success
-    error: error
-  }
-
-create-session = (data, cb) ->
-  post-json {
-    url: 'sessions'
-    data: data
-    success: (session) -> cb session
-    error: ->
-      cb null
-  }
-
 module.exports = {
-  setup: (missing-features, cb = no-op) ->
+  setup: (missing-features, cb = -> null) ->
     # Send session data:
     first-path = window.location.pathname.replace /^\//, '' .split '/' .0
     if first-path in window.LANGUAGES then lang = first-path else lang = 'default'
@@ -64,7 +36,7 @@ module.exports = {
       missing-features: missing-features or false
     }
 
-    session <~ create-session data
+    session <~ api.sessions.create data
     if session?
       @session = session
       @session.active-events = []
@@ -77,23 +49,14 @@ module.exports = {
     unless @session? then return
     url = "sessions/#{@session.id}"
     <~ set-interval _, dt
-    post-json {
-      url: url
-      data:
-        ids: @session.active-events
-    }
+    api.sessions.checkin @session.id, @session.active-events
 
   setup-cleanup: ->
     unless @session? then return
     is-clean = false
     cleanup = !~>
       if is-clean then return
-      $.ajax {
-        type: \DELETE
-        url: "#root/sessions/#{@session.id}"
-        async: false
-        success: -> is-clean := true
-      }
+      api.sessions.stop @session.id, false
 
     $ window
       ..on 'unload' ~>
@@ -101,7 +64,7 @@ module.exports = {
       ..on 'beforeunload' ~>
         cleanup!
 
-  send-event: (type, data, has-duration, cb) ->
+  send-event: (type, data, has-duration, cb = -> null) ->
     unless @session? then return cb id: null
     if ga? then ga 'send' {
       hit-type: 'event'
@@ -109,34 +72,21 @@ module.exports = {
       event-action: if has-duration then 'start' else 'log'
     }
 
-    post-json {
-      url: "sessions/#{@session.id}/events"
-      data: {type, data, has-duration}
-      success: (event) ~>
-        if has-duration then @session.active-events[*] = event.id
-        cb event
-      error: ->
-        cb {id: null}
-    }
+    err, event <~ api.sessions.create-event @session.id, type, data, has-duration
+    if err then return cb id: null
+    if has-duration then @session.active-events[*] = event.id
+    cb event
 
-  log: (type, data = {}, cb = no-op) -> @send-event type, data, false, cb
-  start: (type, data = {}, cb = no-op) -> @send-event type, data, true, cb
+  log: (type, data = {}, cb) -> @send-event type, data, false, cb
+  start: (type, data = {}, cb) -> @send-event type, data, true, cb
 
   stop: (id) ->
     unless @session? and id? then return
     @session.active-events .= filter (it) -> it isnt id
-    $.ajax {
-      type: \DELETE
-      url: "#root/sessions/#{@session.id}/events/#{id}"
-    }
+    api.sessions.stop-event @session-id, id
 
   update: (id, data, cb) ->
     unless @session and id? then return cb!
-    post-json {
-      url: "sessions/#{@session.id}/events/#{id}"
-      data: data
-      success: -> cb!
-      error: -> cb!
-    }
+    api.sessions.update-event @session-id, @event-id, data, -> cb!
 }
 
