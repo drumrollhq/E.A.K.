@@ -20,5 +20,5 @@ channels.alert.subscribe ({msg, timeout = 5000ms}) ->
   <- set-timeout _, timeout
   $alert.add-class \hidden
 
-  <- $alert.on window.prefixed.animation-end
+  <- $alert.on prefixed.animation-end
   $alert.remove!

@@ -7,6 +7,7 @@ require! {
   'plugins'
   'settings'
   'stats'
+  'ui/Bar'
   'ui/SettingsView'
   'ui/alert'
   'user'
@@ -28,8 +29,10 @@ module.exports = class Init extends Backbone.View
       logger.setup lacking
       return
 
-    new SettingsView model: settings, el: $ '#bar-options'
-    new UserView model: user, el: $ '#user'
+    new Bar el: ($ '#bar'), views: {
+      settings: new SettingsView model: settings, el: $ '#settings'
+      user: new UserView model: user, el: $ '#user'
+    }
 
     <~ effects.load!
 

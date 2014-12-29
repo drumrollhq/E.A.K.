@@ -36,7 +36,7 @@ check-paused = ->
 
 pause = ->
   $body.add-class 'paused'
-  event-loop-resume = not event-loop.paused
+  event-loop-resume := not event-loop.paused
   event-loop.pause!
   paused := true
 

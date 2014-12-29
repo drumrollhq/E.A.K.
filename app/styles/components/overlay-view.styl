@@ -1,56 +1,32 @@
-#bar-options
-  display block
+#overlay-views
   position absolute
   top 0
-  right 0
+  left 0
+  width 100%
+  height 100%
   z-index 100001
+  display none
 
-  .square
-    width 50px
-    height 50px
+  &.active
     display block
-    float right
-    background none
-    border none
-    font-size 28px
-    line-height 38px
-    cursor pointer
 
-    &:before, & span:before
-      color white
-      text-shadow 0 0 10px rgba(0, 0, 0, 0.7)
+#overlay-views > *
+  display none
+  position absolute
+  top 75px
+  left 0
+  right 0
+  opacity 0
 
-  .settings-button
-    span
-      display block
-      position absolute
-      margin-top -16px
-      margin-left 13px
-      transform rotate(0deg)
-      transition all 0.4s ease
+  &.active
+    display block
+    opacity 1
+    animation dialogue-in 0.4s ease
 
-    .icon-inactive
-      opacity 1
-
-    .icon-active
-      opacity 0
-
-    &.active
-      span
-        transform translate(2px, 2px) rotate(90deg)
-        &:before
-          color white
-
-      .icon-inactive
-        opacity 0
-
-      .icon-active
-        opacity 1
-
-  .login
-    @extend .overlay-button
-    margin-top 10px
-    margin-right 10px
+  &.inactive
+    display block
+    opacity 0
+    animation dialogue-out 0.4s ease
 
 #settings
   display none

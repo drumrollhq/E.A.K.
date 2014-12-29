@@ -7,7 +7,6 @@ require! {
   'lib/parse'
   'logger'
   'translations'
-  'ui/Bar'
 }
 
 first-path = window.location.pathname |> split '/' |> reject empty |> first
@@ -24,8 +23,6 @@ module.exports = class Game extends Backbone.Model
     @$level-title = $ \.levelname
     @$level-no = @$level-title.find \span
     @$level-name = @$level-title.find \h4
-
-    bar-view = new Bar el: $ \#bar
 
     channels.stage.filter ( .type is 'level' ) .subscribe ({url}) ~> @start-level url
     channels.stage.filter ( .type is 'cutscene' ) .subscribe ({url}) ~> @start-cutscene url

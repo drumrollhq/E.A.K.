@@ -63,22 +63,22 @@
   </div>
 
   <div id="bar" class="topbar">
-    <div class="debug-data right"></div>
     <div class="left">
-      <button class="edit">{{menu.edit}}</button>
+      <button class="edit overlay-button">{{menu.edit}}</button>
+    </div>
+    <div class="right">
+      <button class="settings-button square">
+        <span class="fa fa-wrench icon-inactive"></span>
+        <span class="fa fa-times icon-active"></span>
+      </button>
+      <button class="fa fa-volume-up mute square"></button>
+      <button class="login overlay-button">
+        Login
+      </button>
     </div>
   </div>
 
-  <div id="bar-options">
-    <button class="fa fa-volume-up mute square"></button>
-    <button class="settings-button square">
-      <span class="fa fa-wrench icon-inactive"></span>
-      <span class="fa fa-times icon-active"></span>
-    </button>
-    <button class="login">
-      Login
-    </button>
-
+  <div id="overlay-views">
     <div id="settings">
       <div class="cont">
         <h2>{{settings.title}}</h2>
@@ -101,9 +101,9 @@
         </div>
       </div>
     </div>
+    <div id="user"></div>
   </div>
 
-  <div id="user"></div>
 
   <div id="editor">
     <header class="topbar">

@@ -7,49 +7,18 @@
   .right
     float right
 
-  button
-    height 50px
-    min-width 50px
-    background none
-    border none
-    border-left 1px solid lighten(black, 90%)
-    margin-right -0.5em
-    padding 0 15px
-    vertical-align top
-    transition all 0.3s ease
-    cursor pointer
-    font-family font
-    font-size 16px
-
-    &:last-child
-      margin-right 0
-      border-right 1px solid lighten(black, 90%)
-
-    &:hover
-      box-shadow inset 0 2px 3px rgba(0, 0, 0, 0.2)
-
   .fa, .fa:before
     font-size 22px
     color black
 
 #bar
-  position fixed
-  top 0
-  left 0
-  right 0
-  z-index 40
   background transparent
   border none
 
   display none
 
-  button
-    @extend .overlay-button
-    margin-top 10px
-
   .playing-area &
     display block
-    transform translateY(-50px)
     opacity 0
     transition all 1s ease
 
@@ -57,21 +26,69 @@
     display block
 
   .playing-area:not(.hide-bar) &
-    transform translateY(0)
     opacity 1
 
-  .levelname
-    margin-right 7px
-    text-align right
+  .overlay-button
+    margin-top 10px
+    margin-right 10px
 
-    h2
-      font-size 22px
-      margin-top 3px
+  .right
+    position absolute
+    top 0
+    right 0
+    z-index 100002
 
-    h4
-      font-size 16px
-      margin-top -10px
+  .right > *
+    float right
 
-  .debug-data
-    line-height 45px
-    margin-right 30px
+  .left
+    position absolute
+    top 0
+    left 0
+    z-index 10000
+    padding-left 10px
+
+  .left > *
+    z-index 10000
+    float left
+
+  .square
+    width 50px
+    height 50px
+    display block
+    background none
+    border none
+    font-size 28px
+    line-height 38px
+    cursor pointer
+
+    &:before, & span:before
+      color white
+      text-shadow 0 0 10px rgba(0, 0, 0, 0.7)
+
+  .settings-button
+    span
+      display block
+      position absolute
+      margin-top -12px
+      margin-left 6px
+      transform rotate(0deg)
+      transition all 0.4s ease
+
+    .icon-inactive
+      opacity 1
+
+    .icon-active
+      opacity 0
+
+    &.active
+      span
+        transform translate(2px, 2px) rotate(90deg)
+        &:before
+          color white
+
+      .icon-inactive
+        opacity 0
+
+      .icon-active
+        opacity 1

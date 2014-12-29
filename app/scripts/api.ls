@@ -32,7 +32,19 @@ module.exports = api = {
   version: 'v1'
   url: (...segments) -> "#{api.root}/#{api.version}/#{(flatten segments).join '/'}"
 
-  sessions: {
+  users:
+    url: (...segments) -> api.url 'users', flatten segments
+
+    me: (cb = no-op) ->
+      $.ajax {
+        method: GET
+        url: api.users.url 'me'
+        data-type: \json
+        success: (data) -> cb null data
+        error: (xhr, status, err) -> cb err
+      }
+
+  sessions:
     url: (...segments) -> api.url 'sessions', flatten segments
 
     create: (data, cb = no-op) ->
@@ -78,5 +90,4 @@ module.exports = api = {
         data: data
         cb: cb
       }
-  }
 }

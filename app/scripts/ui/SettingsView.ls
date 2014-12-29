@@ -9,11 +9,7 @@ $body = $ document.body
 
 module.exports = class SettingsView extends Backbone.View
   initialize: ->
-    @model.on 'change' @render
-
-    @$mute-button = @$ '.mute'
-    @$settings-button = @$ '.settings-button'
-    @$overlay = $ '#overlay, #settings'
+    @model.on 'change:lang' @render
     @$lang-buttons = @$ '.lang'
 
     @$ '.range' .each (i, el) ~>
@@ -30,32 +26,16 @@ module.exports = class SettingsView extends Backbone.View
             postfix: '%'
       }
 
-    @modal-active = false
-
     @render!
 
-    # <~ set-timeout _, 500
-    # @toggleSettings!
-
   events:
-    'click .mute': 'toggleMute'
-    'click .settings-button': 'toggleSettings'
     'slide .range': 'changeSlider'
     'set .range': 'changeSlider'
     'click .lang': 'changeLanguage'
-    'click .login': 'login'
 
   render: ~>
     @$lang-buttons.remove-class 'disabled'
     @$ ".lang[data-lang=#{@model.get 'lang'}]" .add-class 'disabled'
-
-    if @model.get 'mute'
-      @$mute-button.remove-class 'fa-volume-up' .add-class 'fa-volume-off'
-    else
-      @$mute-button.remove-class 'fa-volume-off' .add-class 'fa-volume-up'
-
-  toggle-mute: ~>
-    @model.set 'mute', not @model.get 'mute'
 
   change-slider: (e, v) ~>
     prop = $ e.current-target .data 'prop'
@@ -68,30 +48,3 @@ module.exports = class SettingsView extends Backbone.View
 
     if confirm translations.settings.language-warn
       @model.set 'lang' lang
-
-  login: -> channels.game-commands.publish command: \start-login
-
-  toggle-settings: ~>
-    if @modal-active
-      @$settings-button.remove-class 'active'
-
-      @$overlay.remove-class 'active' .add-class 'inactive'
-      @$overlay.one animation-end, ~>
-        channels.game-commands.publish command: 'resume'
-        @$overlay.remove-class 'inactive'
-
-      @modal-active = false
-
-      if @settings-event
-        logger.stop @settings-event
-        @settings-event = false
-
-    else
-      @$settings-button.add-class 'active'
-      @$overlay.add-class 'active'
-
-      channels.game-commands.publish command: 'pause'
-      @modal-active = true
-      event <~ logger.start 'page' type: 'settings'
-      unless @modal-active then logger.stop event.id
-      @settings-event = event.id
