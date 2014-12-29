@@ -3,7 +3,6 @@ require! 'lib/channels'
 module.exports = class Bar extends Backbone.View
   events:
     'click .edit': \edit
-    'click .restart': \restart
 
   initialize: ->
     channels.key-press.filter ( .key in <[ e i ]> ) .subscribe ->
@@ -13,10 +12,4 @@ module.exports = class Bar extends Backbone.View
     e.prevent-default!
     e.stop-propagation!
     channels.game-commands.publish command: \edit
-    e.target.blur!
-
-  restart: (e) ->
-    e.prevent-default!
-    e.stop-propagation!
-    channels.game-commands.publish command: \restart
     e.target.blur!
