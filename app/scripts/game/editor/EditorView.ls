@@ -37,6 +37,9 @@ module.exports = class EditorView extends Backbone.View
     @extras.clear-cursor-marks!
 
     @esc-sub = channels.parse 'key-press: esc' .subscribe @save
+    @comm-cub = channels.game-commands.subscribe @game-commands
+
+    @block-if-paused <[save cancel undo redo reset help handle-change remove on-change]>
 
   events:
     'click .save': \save
@@ -104,3 +107,16 @@ module.exports = class EditorView extends Backbone.View
   help: ~>
     @trigger 'show-extra'
     channels.game-commands.publish command: 'help'
+
+  block-if-paused: (fns) ~>
+    block = (fn, ths) -> ->
+      if ths.paused then return
+      fn.apply this, arguments
+
+    for name in fns
+      fn = this[name]
+      this[name] = block fn, this
+
+  game-commands: ({command}) ~>
+    | command is 'force-pause' => @paused = true
+    | command is 'force-resume' => @paused = false

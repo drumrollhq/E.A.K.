@@ -6,7 +6,6 @@ channels.parse 'key-press: f' .subscribe ->
 stats-showing = false
 
 show = ->
-  console.log 'show'
   stats = new Stats!
   stats.dom-element.style <<< position: \absolute, bottom: 0, right: 0
   document.body.append-child stats.dom-element

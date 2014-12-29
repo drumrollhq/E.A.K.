@@ -1,4 +1,5 @@
 require! {
+  'lib/channels'
   'game/event-loop'
   'logger'
   'translations'
@@ -42,6 +43,7 @@ module.exports = class SettingsView extends Backbone.View
     'slide .range': 'changeSlider'
     'set .range': 'changeSlider'
     'click .lang': 'changeLanguage'
+    'click .login': 'login'
 
   render: ~>
     @$lang-buttons.remove-class 'disabled'
@@ -67,15 +69,16 @@ module.exports = class SettingsView extends Backbone.View
     if confirm translations.settings.language-warn
       @model.set 'lang' lang
 
+  login: -> channels.game-commands.publish command: \start-login
+
   toggle-settings: ~>
     if @modal-active
       @$settings-button.remove-class 'active'
 
       @$overlay.remove-class 'active' .add-class 'inactive'
       @$overlay.one animation-end, ~>
+        channels.game-commands.publish command: 'resume'
         @$overlay.remove-class 'inactive'
-        unless @was-paused then event-loop.resume!
-        $body.remove-class 'paused'
 
       @modal-active = false
 
@@ -87,10 +90,7 @@ module.exports = class SettingsView extends Backbone.View
       @$settings-button.add-class 'active'
       @$overlay.add-class 'active'
 
-      $body.add-class 'paused'
-      @was-paused = event-loop.paused
-      event-loop.pause!
-
+      channels.game-commands.publish command: 'pause'
       @modal-active = true
       event <~ logger.start 'page' type: 'settings'
       unless @modal-active then logger.stop event.id

@@ -4,6 +4,7 @@ require! {
   'audio/tracks'
   'game/editor/tutorial/Step'
   'game/editor/tutorial/TutorialView'
+  'lib/channels'
 }
 
 add-track-events = (track, steps, view, editor) ->
@@ -57,6 +58,8 @@ module.exports = class Tutorial
     $el = editor-view.$ '.editor-tutorial'
       ..empty!
 
+    @command-sub = channels.game-commands.subscribe @game-commands
+
     @media = Popcorn @track
     @media.on 'ended' ~> @ended = true
     @media.on 'play' ~> tracks.focus 'tutorials'
@@ -88,6 +91,7 @@ module.exports = class Tutorial
     tracks.blur!
     @view.remove!
     @media = null
+    @command-sub.unsubscribe!
 
   setup-condition-checker: (editor-view) ->
     $ = -> editor-view.render-el.find.apply editor-view.render-el, Array.prototype.slice.apply arguments
@@ -114,16 +118,26 @@ module.exports = class Tutorial
 
   play-pause: ->
     unless @media? then return
-    if @media.paused! and not @steps[@get-active-step-index!].waiting
+    if @media.paused! and not @steps[@get-active-step-index!].waiting and not @force-pause
       @media.play!
     else
       @media.pause!
 
   play-step: (i) ->
     unless @media? then return
+    @_playing-at-last-force-pause = true
     @media
       ..current-time @steps[i].start
-      ..play!
+      ..play! if not @force-pause
 
     set-timeout (~> @media.current-time @steps[i].start), 0
+
+  game-commands: ({command}) ~>
+    if command is 'force-pause'
+      @force-pause = true
+      @_playing-at-last-force-pause = @media.paused!
+      @media.pause!
+    else if command is 'force-resume'
+      @force-pause = false
+      if @_playing-at-last-force-pause then @media.play!
 

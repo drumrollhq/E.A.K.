@@ -9,6 +9,8 @@ require! {
   'stats'
   'ui/SettingsView'
   'ui/alert'
+  'user'
+  'user/UserView'
 }
 
 module.exports = class Init extends Backbone.View
@@ -27,6 +29,7 @@ module.exports = class Init extends Backbone.View
       return
 
     new SettingsView model: settings, el: $ '#bar-options'
+    new UserView model: user, el: $ '#user'
 
     <~ effects.load!
 

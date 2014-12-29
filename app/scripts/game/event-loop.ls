@@ -37,9 +37,10 @@ class EventLoop
     window.request-animation-frame @frame-driver
 
   setup-keys: ~>
-    $window .on 'keypress keyup keydown' (e) ->
+    $window .on 'keypress keyup keydown' (e) ~>
       unless @paused
         key = key-dict[e.which] or (String.from-char-code e.which .to-lower-case!)
+        console.log e.type, key
         key-channels[e.type].publish code: e.which, key: key
 
   setup-window-events: ~>

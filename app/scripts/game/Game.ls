@@ -2,6 +2,7 @@ require! {
   'game/CutScene'
   'game/Events'
   'game/area/Area'
+  'game/pauser'
   'lib/channels'
   'lib/parse'
   'logger'
