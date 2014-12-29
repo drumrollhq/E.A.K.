@@ -88,7 +88,6 @@ module.exports = class Mapper
       extenders = get-extends node
       # Fetch measurements from the browser
       bounds = get-bounds node, extenders
-      console.log {extenders, bounds}
       style-attr = node.get-attribute \style
       style = node |> window.get-computed-style |> @normalise-style
 
