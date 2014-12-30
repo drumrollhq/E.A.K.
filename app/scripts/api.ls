@@ -13,19 +13,22 @@ else
 
 no-op = -> null
 
-post-json = ({url, data, success, error, cb}) ->
+json-req = (method, {url, data, success, error, cb}) -->
   if cb?
     success = (data) -> cb null, data
     error = (err) -> cb err, null
 
   $.ajax {
-    method: POST
+    method: method
     content-type: 'application/json'
     url: url
-    data: JSON.stringify data
+    data: JSON.stringify data if data?
     success: success
     error: error
   }
+
+post-json = json-req POST
+get-json = json-req GET
 
 module.exports = api = {
   root: root
@@ -40,18 +43,11 @@ module.exports = api = {
 
   users:
     url: (...segments) -> api.url 'users', flatten segments
-
-    me: (cb = no-op) ->
-      $.ajax {
-        method: GET
-        url: api.users.url 'me'
-        data-type: \json
-        success: (data) -> cb null data
-        error: (xhr, status, err) -> cb err
-      }
+    me: (cb = no-op) -> get-json cb: cb, url: api.users.url 'me'
 
   auth:
     url: (...segments) -> api.url 'auth', flatten segments
+    logout: (cb = no-op) -> get-json cb: cb, url: api.auth.url 'logout'
 
   sessions:
     url: (...segments) -> api.url 'sessions', flatten segments

@@ -15,4 +15,12 @@ class User extends Backbone.Model
   set-user: (user) ->
     @set logged-in: true, user: user
 
+  display-name: ->
+    user = @get 'user'
+    user.username or user.first-name
+
+  logout: ->
+    api.auth.logout!
+    @set logged-in: false, user: null
+
 module.exports = new User!

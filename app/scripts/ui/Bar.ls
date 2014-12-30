@@ -14,20 +14,43 @@ module.exports = class Bar extends Backbone.View
     'click .mute': \toggleMute
     'click .settings-button': \toggleSettings
     'click .login': \login
+    'click .logout': \logout
 
   initialize: ({views}) ->
     @views = views
     channels.key-press.filter ( .key in <[ e i ]> ) .subscribe @start-edit
     @$mute-button = @$ '.mute'
     @$settings-button = @$ '.settings-button'
+    @$user-bits = @$ '.bar-user-item'
+    @$user-button = @$ '.user-button'
+    @$login-button = @$ '.login'
+    @$logout-button = @$ '.logout'
     settings.on 'change:mute', @render, this
+    user.on 'change', @render, this
     @render!
 
   render: ->
+    console.log 'BAR RENDER'
     if settings.get 'mute'
       @$mute-button.remove-class 'fa-volume-up' .add-class 'fa-volume-off'
     else
       @$mute-button.remove-class 'fa-volume-off' .add-class 'fa-volume-up'
+
+    if user.get 'available'
+      @$user-bits.remove-class 'hidden'
+      if user.get 'loggedIn'
+        console.log 'LOGGED IN'
+        @$user-button.html user.display-name! .remove-class 'hidden'
+        @$login-button.add-class 'hidden'
+        @$logout-button.remove-class 'hidden'
+      else
+        console.log 'NOT LOGGED IN'
+        console.log @{$user-button, $login-button, $logout-button}
+        @$user-button.add-class 'hidden'
+        @$login-button.remove-class 'hidden'
+        @$logout-button.add-class 'hidden'
+    else
+      @$user-bits.add-class 'hidden'
 
   edit: (e) ~>
     e.prevent-default!
@@ -43,6 +66,7 @@ module.exports = class Bar extends Backbone.View
 
   toggle-settings: -> if @active-view then @deactivate! else @activate 'settings'
   login: -> @activate 'login'
+  logout: -> user.logout!
 
   activate: (view) ->
     if @active-view is view then return
