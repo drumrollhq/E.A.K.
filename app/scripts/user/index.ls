@@ -12,4 +12,7 @@ class User extends Backbone.Model
     data.available = true
     @set data
 
+  set-user: (user) ->
+    @set logged-in: true, user: user
+
 module.exports = new User!

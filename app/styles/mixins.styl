@@ -8,3 +8,10 @@ calc()
     s('calc(%s)', arguments)
   else
       error('calc() must be used within a property')
+
+button-color(col)
+  background col
+  box-shadow 0 0.2em 0 lighten(col, 30%)
+
+  &:hover
+    background lighten(col, 20%)

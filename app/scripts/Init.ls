@@ -11,7 +11,7 @@ require! {
   'ui/SettingsView'
   'ui/alert'
   'user'
-  'user/UserView'
+  'user/LoginView'
 }
 
 module.exports = class Init extends Backbone.View
@@ -31,7 +31,7 @@ module.exports = class Init extends Backbone.View
 
     new Bar el: ($ '#bar'), views: {
       settings: new SettingsView model: settings, el: $ '#settings'
-      user: new UserView model: user, el: $ '#user'
+      login: new LoginView model: user, el: $ '#login'
     }
 
     <~ effects.load!

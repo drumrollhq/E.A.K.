@@ -30,7 +30,13 @@ post-json = ({url, data, success, error, cb}) ->
 module.exports = api = {
   root: root
   version: 'v1'
-  url: (...segments) -> "#{api.root}/#{api.version}/#{(flatten segments).join '/'}"
+  url: (...segments) ->
+    segments = flatten segments
+    if typeof (last segments) isnt 'string'
+      query = '?' + $.param last segments
+      segments = initial segments
+    else query = ''
+    "#{api.root}/#{api.version}/#{segments.join '/'}#{query}"
 
   users:
     url: (...segments) -> api.url 'users', flatten segments
@@ -43,6 +49,9 @@ module.exports = api = {
         success: (data) -> cb null data
         error: (xhr, status, err) -> cb err
       }
+
+  auth:
+    url: (...segments) -> api.url 'auth', flatten segments
 
   sessions:
     url: (...segments) -> api.url 'sessions', flatten segments

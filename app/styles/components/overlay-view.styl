@@ -10,47 +10,32 @@
   &.active
     display block
 
-#overlay-views > *
-  display none
-  position absolute
-  top 75px
-  left 0
-  right 0
-  opacity 0
-
-  &.active
-    display block
-    opacity 1
-    animation dialogue-in 0.4s ease
-
-  &.inactive
-    display block
+  > *
+    display none
+    position absolute
+    top 75px
+    left 0
+    right 0
     opacity 0
-    animation dialogue-out 0.4s ease
 
-#settings
-  display none
-  position fixed
-  top 75px
-  left 0
-  right 0
-  opacity 0
+    &.active
+      display block
+      opacity 1
+      animation dialogue-in 0.4s ease
 
-  &.active
-    display block
-    opacity 1
-    animation dialogue-in 0.4s ease
+    &.inactive
+      display block
+      opacity 0
+      animation dialogue-out 0.4s ease
 
-  &.inactive
-    display block
-    opacity 0
-    animation dialogue-out 0.4s ease
-
-  .cont
+  .cont, .cont-wide
     width 100%
     max-width 400px
     margin auto
     color white
+
+  .cont-wide
+    max-width 640px
 
   h2
     text-align center
@@ -92,3 +77,44 @@
         opacity 0.5
         pointer-events none
         cursor normal
+
+.sso
+  @extend .btn
+  width 100%
+  height 50px
+  display block
+  margin-bottom 15px
+  position relative
+  padding-left 50px
+  font-family font
+  font-size 20px
+  font-weight 300
+
+  &::before
+    display inline-block
+    font-family 'FontAwesome'
+    position absolute
+    top 0
+    left 0
+    width 50px
+    height 50px
+    border-right 1px solid rgba(255, 255, 255, 0.3)
+    color white
+    font-size 28px
+    line-height 2em
+
+.sso-google
+  button-color #dd4b39
+
+  &::before
+    content "\f0d5"
+
+.sso-facebook
+  button-color #3b5998
+
+  &::before
+    content "\f09a"
+
+.sign-in
+  margin-top 30px
+

@@ -13,7 +13,7 @@ module.exports = class Bar extends Backbone.View
     'click .edit': \edit
     'click .mute': \toggleMute
     'click .settings-button': \toggleSettings
-    'click .login': \showLogin
+    'click .login': \login
 
   initialize: ({views}) ->
     @views = views
@@ -42,7 +42,6 @@ module.exports = class Bar extends Backbone.View
     settings.set 'mute', not settings.get 'mute'
 
   toggle-settings: -> if @active-view then @deactivate! else @activate 'settings'
-
   login: -> @activate 'login'
 
   activate: (view) ->
@@ -53,13 +52,16 @@ module.exports = class Bar extends Backbone.View
       channels.game-commands.publish command: \pause
 
     @active-view = view
-    @get-active-view!.$el.add-class 'active'
+    active-view = @get-active-view!
+    active-view.$el.add-class 'active'
+    active-view.once 'close', @deactivate, this
     $overlay.add-class 'active'
     $overlay-views.add-class 'active'
     @$settings-button.add-class 'active'
 
   deactivate: (overlay = true, resume = true) ->
     old-view = @get-active-view!
+    old-view.off 'close', @deactivate, this
     @active-view = null
 
     to-deactivate = if overlay then [old-view.$el, $overlay] else [old-view.$el]
