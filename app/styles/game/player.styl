@@ -1,7 +1,13 @@
 .player.entity
-  width 33px
-  height 54px
+  font-size 100px
+  width 0.33em
+  height 0.54em
   z-index 100
+
+  &.spinner
+    font-size 200px
+    margin auto
+    margin-top 60px
 
   *
     position absolute
@@ -9,72 +15,72 @@
     background-repeat no-repeat
 
   .player-inner
-    width 39px
-    height 54px
-    margin-left -3px
-    margin-top -6px
+    width 0.39em
+    height 0.54em
+    margin-left -0.03em
+    margin-top -0.06em
 
     *
       animation 1s anim-null linear infinite
 
   .player-body
     background-image url('/content/common/arca/front/body.png')
-    width 31px
-    height 33px
-    top 22px
-    left 4px
+    width 0.31em
+    height 0.33em
+    top 0.22em
+    left 0.04em
     transform-origin 50% 30%
     z-index 1
 
   .player-head
-    width 35px
-    height 30px
-    top 5px
-    left 2px
+    width 0.35em
+    height 0.30em
+    top 0.05em
+    left 0.02em
     z-index 2
 
   .player-face
     background-image url('/content/common/arca/front/head.png')
-    width 35px
-    height 30px
+    width 0.35em
+    height 0.30em
 
   .player-ear-left
     background-image url('/content/common/arca/front/ear-left.png')
-    width 23px
-    height 24px
-    top -5px
-    left -2px
+    width 0.23em
+    height 0.24em
+    top -0.05em
+    left -0.02em
     transform-origin 80% 80%
 
   .player-ear-right
     background-image url('/content/common/arca/front/ear-right.png')
-    width 23px
-    height 24px
-    top -5px
-    left 14px
+    width 0.23em
+    height 0.24em
+    top -0.05em
+    left 0.14em
     transform-origin 20% 80%
 
   .player-eyes
     background-image url('/content/common/arca/front/eye-01.png')
-    width 21px
-    height 7px
-    top 18px
-    left 6.5px
+    width 0.21em
+    height 0.07em
+    top 0.18em
+    left 0.065em
 
   .player-leg-left
     background-image url('/content/common/arca/front/leg-left.png')
-    width 6px
-    height 13px
-    top 47px
-    left 11px
+    width 0.06em
+    height 0.13em
+    top 0.47em
+    left 0.11em
     transform-origin 50% 30%
 
   .player-leg-right
     background-image url('/content/common/arca/front/leg-left.png')
-    width 6px
-    height 13px
-    top 47px
-    left 22px
+    width 0.06em
+    height 0.13em
+    top 0.47em
+    left 0.22em
     transform-origin 50% 30%
 
   &.player-left .player-inner
@@ -85,10 +91,10 @@
 
     /* These assets are the wrong way round, so we reverse them: */
     .player-inner
-      width 31px
-      height 60px
-      margin-top -8px
-      margin-left 1px
+      width 0.31em
+      height 0.60em
+      margin-top -0.08em
+      margin-left 0.01em
       transform scaleX(-1) translateZ(0)
 
     &.player-left .player-inner
@@ -96,63 +102,63 @@
 
     .player-body
       background-image url('/content/common/arca/side/body.png')
-      width 31px
-      height 33px
-      top 24px
-      left 0px
+      width 0.31em
+      height 0.33em
+      top 0.24em
+      left 0em
       z-index 1
 
     .player-head
-      width 30px
-      height 30px
-      top 8px
-      left 1px
+      width 0.30em
+      height 0.30em
+      top 0.08em
+      left 0.01em
       z-index 2
 
     .player-face
       background-image url('/content/common/arca/side/head.png')
-      width 30px
-      height 30px
+      width 0.30em
+      height 0.30em
       z-index 2
 
     .player-ear-left
       background-image url('/content/common/arca/side/ear-front.png')
-      width 15px
-      height 16px
-      top -6px
-      left 1.7px
+      width 0.15em
+      height 0.16em
+      top -0.06em
+      left 0.017em
       transform-origin 20% 80%
       z-index 3
 
     .player-ear-right
       background-image url('/content/common/arca/side/ear-back.png')
-      width 17px
-      height 19px
-      top -8px
-      left 7px
+      width 0.17em
+      height 0.19em
+      top -0.08em
+      left 0.07em
       z-index 1
 
     .player-eyes
       background-image url('/content/common/arca/side/eye-01.png')
-      width 6px
-      height 8px
-      top 16px
-      left 20px
+      width 0.06em
+      height 0.08em
+      top 0.16em
+      left 0.20em
       z-index 2
 
     .player-leg-left
       background-image url('/content/common/arca/side/leg-front.png')
-      width 7px
-      height 14px
-      top 49px
-      left 11px
+      width 0.07em
+      height 0.14em
+      top 0.49em
+      left 0.11em
 
     .player-leg-right
       background-image url('/content/common/arca/side/leg-back.png')
-      width 5px
-      height 14px
-      top 49px
-      left 16px
+      width 0.05em
+      height 0.14em
+      top 0.49em
+      left 0.16em
 
 
   &.player-idle
@@ -391,20 +397,20 @@
     transform translate(0, 0) rotate(0)
 
   50%
-    transform translate(1px, -1px) rotate(1.5deg)
+    transform translate(0.01em, -0.01em) rotate(1.5deg)
 
   100%
-    transform translate(2px, 0) rotate(3deg)
+    transform translate(0.02em, 0) rotate(3deg)
 
 @keyframes player-head-run
   0%
     transform translate(0, 0) rotate(5deg)
 
   50%
-    transform translate(1px, -1px) rotate(2.5deg)
+    transform translate(0.01em, -0.01em) rotate(2.5deg)
 
   100%
-    transform translate(2px, 0) rotate(0deg)
+    transform translate(0.02em, 0) rotate(0deg)
 
 @keyframes player-ear-left-run
   from
@@ -454,16 +460,16 @@
     transform rotate(0)
 
   20%
-    transform translate(12px, 5px) rotate(40deg)
+    transform translate(0.12em, 0.05em) rotate(40deg)
 
   40%
-    transform translate(24px, 13px) rotate(80deg)
+    transform translate(0.24em, 0.13em) rotate(80deg)
 
   60%
-    transform translate(35px, 30px) rotate(119deg)
+    transform translate(0.35em, 0.3em) rotate(119deg)
 
   100%
-    transform translate(35px, 30px) rotate(119deg)
+    transform translate(0.35em, 0.3em) rotate(119deg)
 
 @keyframes player-leg-right-squish
   0%
@@ -499,10 +505,10 @@
     transform rotate(10deg)
 
   60%
-    transform translate(-12px, 7px) rotate(-40deg)
+    transform translate(-0.12em, 0.07em) rotate(-40deg)
 
   100%
-    transform translate(-12px, 7px) rotate(-40deg)
+    transform translate(-0.12em, 0.07em) rotate(-40deg)
 
 @keyframes player-ear-right-squish
   0%
