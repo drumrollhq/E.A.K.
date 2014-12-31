@@ -17,7 +17,15 @@ class User extends Backbone.Model
 
   display-name: ->
     user = @get 'user'
-    user.username or user.first-name
+    if user.username then "@#{user.username}" else user.first-name
+
+  login: (username, password, cb = -> null) ->
+    err, user <~ api.auth.login username, password
+    if err
+      cb err
+    else
+      @set user
+      cb!
 
   logout: ->
     api.auth.logout!

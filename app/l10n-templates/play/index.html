@@ -73,8 +73,7 @@
       </button>
       <button class="fa fa-volume-up mute square"></button>
       <button class="bar-user-item login overlay-button hidden">Sign in to save</button>
-      <button class="bar-user-item user-button overlay-button hidden"></button>
-      <button class="bar-user-item logout overlay-button hidden">Sign out</button>
+      <button class="bar-user-item logout overlay-button hidden">Sign out - <span class="display-name"></span></button>
     </div>
   </div>
 
@@ -101,14 +100,33 @@
         </div>
       </div>
     </div>
+
     <div id="login">
       <div class="cont">
         <h2>Sign In</h2>
         <div class="sign-in">
           <button class="sso sso-google">Sign in with Google</button>
           <button class="sso sso-facebook">Sign in with Facebook</button>
+          <div class="hr">or</div>
+          <form>
+            <div class="form-errors hidden"></div>
+            <label class="text-field">
+              <span>Username or email</span>
+              <input type="text" class="username" required>
+            </label>
+            <label class="text-field">
+              <span>Password</span>
+              <input type="password" class="password" required>
+            </label>
+            <button type="submit" class="btn pull-right">Sign In &rarr;</button>
+          </form>
         </div>
       </div>
+    </div>
+
+    <div class="login-loader">
+      <h2>Signing In...</h2>
+      <div class="insert-arca-spinner"></div>
     </div>
   </div>
 

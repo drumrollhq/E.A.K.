@@ -29,9 +29,11 @@ module.exports = class Init extends Backbone.View
       logger.setup lacking
       return
 
+    overlay-views = $ '#overlay-views'
     new Bar el: ($ '#bar'), views: {
       settings: new SettingsView model: settings, el: $ '#settings'
       login: new LoginView model: user, el: $ '#login'
+      login-loader: new Backbone.View el: overlay-views.find '.login-loader'
     }
 
     <~ effects.load!

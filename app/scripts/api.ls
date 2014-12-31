@@ -16,7 +16,7 @@ no-op = -> null
 json-req = (method, {url, data, success, error, cb}) -->
   if cb?
     success = (data) -> cb null, data
-    error = (err) -> cb err, null
+    error = (xhr, _, err) -> if xhr.response-JSON then cb that, null else cb err, null
 
   $.ajax {
     method: method
@@ -48,6 +48,13 @@ module.exports = api = {
   auth:
     url: (...segments) -> api.url 'auth', flatten segments
     logout: (cb = no-op) -> get-json cb: cb, url: api.auth.url 'logout'
+
+    login: (username, password, cb = no-op) ->
+      post-json {
+        url: api.auth.url 'login'
+        data: {username, password}
+        cb: cb
+      }
 
   sessions:
     url: (...segments) -> api.url 'sessions', flatten segments

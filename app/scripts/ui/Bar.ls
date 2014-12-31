@@ -18,11 +18,12 @@ module.exports = class Bar extends Backbone.View
 
   initialize: ({views}) ->
     @views = views
+    @setup-views!
     channels.key-press.filter ( .key in <[ e i ]> ) .subscribe @start-edit
     @$mute-button = @$ '.mute'
     @$settings-button = @$ '.settings-button'
     @$user-bits = @$ '.bar-user-item'
-    @$user-button = @$ '.user-button'
+    @$display-name = @$ '.display-name'
     @$login-button = @$ '.login'
     @$logout-button = @$ '.logout'
     settings.on 'change:mute', @render, this
@@ -30,7 +31,6 @@ module.exports = class Bar extends Backbone.View
     @render!
 
   render: ->
-    console.log 'BAR RENDER'
     if settings.get 'mute'
       @$mute-button.remove-class 'fa-volume-up' .add-class 'fa-volume-off'
     else
@@ -39,14 +39,10 @@ module.exports = class Bar extends Backbone.View
     if user.get 'available'
       @$user-bits.remove-class 'hidden'
       if user.get 'loggedIn'
-        console.log 'LOGGED IN'
-        @$user-button.html user.display-name! .remove-class 'hidden'
+        @$display-name.html user.display-name!
         @$login-button.add-class 'hidden'
         @$logout-button.remove-class 'hidden'
       else
-        console.log 'NOT LOGGED IN'
-        console.log @{$user-button, $login-button, $logout-button}
-        @$user-button.add-class 'hidden'
         @$login-button.remove-class 'hidden'
         @$logout-button.add-class 'hidden'
     else
@@ -76,12 +72,14 @@ module.exports = class Bar extends Backbone.View
       channels.game-commands.publish command: \pause
 
     @active-view = view
-    active-view = @get-active-view!
-    active-view.$el.add-class 'active'
-    active-view.once 'close', @deactivate, this
+    active = @get-active-view!
+      ..$el.add-class 'active'
+      ..once 'close', @deactivate, this
+
     $overlay.add-class 'active'
     $overlay-views.add-class 'active'
     @$settings-button.add-class 'active'
+    active.activate! if active.activate?
 
   deactivate: (overlay = true, resume = true) ->
     old-view = @get-active-view!
@@ -101,3 +99,7 @@ module.exports = class Bar extends Backbone.View
     if overlay then @$settings-button.remove-class 'active'
 
   get-active-view: -> @views[@active-view] or null
+
+  setup-views: ->
+    for name, view of @views
+      view.parent = this

@@ -6,6 +6,7 @@
   height 100%
   z-index 100001
   display none
+  color white
 
   &.active
     display block
@@ -32,7 +33,6 @@
     width 100%
     max-width 400px
     margin auto
-    color white
 
   .cont-wide
     max-width 640px
@@ -78,6 +78,25 @@
         pointer-events none
         cursor normal
 
+  .hr
+    margin-bottom 15px
+    text-align center
+    color rgba(255, 255, 255, 0.5)
+
+    &::before, &::after
+      content ' '
+      display inline-block
+      width 100px
+      height 0
+      margin 0 10px
+      vertical-align middle
+      border-top 1px solid rgba(255, 255, 255, 0.3)
+
+  .form-errors
+    margin-bottom 15px
+    margin-top 0
+    color lighten(red, 20%)
+
 .sso
   @extend .btn
   width 100%
@@ -118,3 +137,27 @@
 .sign-in
   margin-top 30px
 
+.text-field
+  display block
+  margin-bottom 15px
+
+  span
+    display block
+    font-family brandFont
+    font-weight normal
+
+  input
+    display block
+    width 100%
+    height 40px
+    padding 0 10px
+    border-radius 5px
+    border 2px solid rgba(lighten(eakPurple, 30%), 0.4)
+    background rgba(lighten(eakPurple, 40%), 0.2)
+    color white
+    font-size inherit
+    font-family inherit
+    transition all 0.3s ease
+
+    &:hover
+      border-color rgba(lighten(eakPurple, 50%), 0.6)

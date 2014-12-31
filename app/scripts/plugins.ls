@@ -67,7 +67,8 @@ unless window.performance?
 $ document .on \click '.level a[href]' (e) -> e.prevent-default!
 
 # Prevent accidentally going 'back' a page when editing with the backspace key:
-$ document.body .on 'keydown' (e) -> if e.which is 8 then e.prevent-default!
+$ document.body .on 'keydown' (e) ->
+  if e.which is 8 and e.target.tag-name.to-lower-case! isnt 'input' then e.prevent-default!
 
 # Custom elements for KQ levels:
 extras = <[ target hints pointer alert hidden tutorial step action content ]>
@@ -78,3 +79,20 @@ extras |> each _, (-> Slowparse.HTMLParser::html-elements.push it)
 Handlebars.register-helper \inc (value) -> 1 + parse-float value
 
 FastClick.attach document.body
+
+# Little Arca spinner icon
+$ '.insert-arca-spinner'
+  ..add-class 'player entity spinner player-left player-running'
+  ..html '''
+    <div class="player-inner">
+      <div class="player-head">
+        <div class="player-ear-left"></div>
+        <div class="player-ear-right"></div>
+        <div class="player-face"></div>
+        <div class="player-eyes"></div>
+      </div>
+      <div class="player-body"></div>
+      <div class="player-leg-left"></div>
+      <div class="player-leg-right"></div>
+    </div>
+  '''
