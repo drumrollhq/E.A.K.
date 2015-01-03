@@ -9,9 +9,10 @@ calc()
   else
       error('calc() must be used within a property')
 
-button-color(col)
+button-color(col, shadow=30%, highlight=20%, shadow-size=0.2em)
   background col
-  box-shadow 0 0.2em 0 lighten(col, 30%)
+  box-shadow 0 shadow-size 0 darken(col, shadow)
 
   &:hover
-    background lighten(col, 20%)
+    background lighten(col, highlight)
+    box-shadow 0 shadow-size 0 lighten(darken(col, shadow), highlight)

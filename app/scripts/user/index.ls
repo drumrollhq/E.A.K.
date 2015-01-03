@@ -1,5 +1,6 @@
 require! {
   'api'
+  'lib/channels'
 }
 
 class User extends Backbone.Model
@@ -8,12 +9,19 @@ class User extends Backbone.Model
     if err
       console.error err
       @set 'available' false
-    console.log data
-    data.available = true
-    @set data
 
-  set-user: (user) ->
-    @set logged-in: true, user: user
+    @set available: true
+    @set device: data.device
+
+    if data.logged-in
+      @set-user data.user
+    else
+      @set logged-in: false
+
+  set-user: (user, logged-in = true) ->
+    console.log 'set-user' user
+    if user.status is 'creating' then channels.page.publish name: 'signupNext'
+    @set logged-in: logged-in, user: user
 
   display-name: ->
     user = @get 'user'
@@ -24,7 +32,7 @@ class User extends Backbone.Model
     if err
       cb err
     else
-      @set user
+      @set-user user.user
       cb!
 
   logout: ->

@@ -17,7 +17,7 @@ $window = $ window
 $body = $ document.body
 
 class EventLoop
-  init: ~>
+  ->
     @paused = false
     @last = window.performance.now!
     window.request-animation-frame @frame-driver

@@ -17,13 +17,13 @@ module.exports = class Area extends Backbone.Model
     @levels = conf.levels
 
   start: ->
-    event-loop.pause!
+    channels.game-commands.publish command: \pause
     <~ @load!
     @view.$el.append-to \#levelcontainer
     @view.render!
     <~ @setup!
     @subscribe!
-    event-loop.resume!
+    channels.game-commands.publish command: \resume
 
   load: (cb) ~>
     @setup-loader!

@@ -19,15 +19,19 @@ module.exports = class Bar extends Backbone.View
   initialize: ({views}) ->
     @views = views
     @setup-views!
-    channels.key-press.filter ( .key in <[ e i ]> ) .subscribe @start-edit
+
     @$mute-button = @$ '.mute'
     @$settings-button = @$ '.settings-button'
     @$user-bits = @$ '.bar-user-item'
     @$display-name = @$ '.display-name'
     @$login-button = @$ '.login'
     @$logout-button = @$ '.logout'
+
+    channels.key-press.filter ( .key in <[ e i ]> ) .subscribe @start-edit
+    channels.page.subscribe ({name}) ~> @activate name
     settings.on 'change:mute', @render, this
     user.on 'change', @render, this
+
     @render!
 
   render: ->

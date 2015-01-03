@@ -4,9 +4,13 @@
   left 0
   width 100%
   height 100%
+  padding-top 75px
+  padding-bottom 75px
   z-index 100001
   display none
   color white
+  overflow-x hidden
+  overflow-y auto
 
   &.active
     display block
@@ -14,10 +18,12 @@
   > *
     display none
     position absolute
-    top 75px
+    top 0
     left 0
     right 0
     opacity 0
+    padding-top 75px
+    padding-bottom 75px
 
     &.active
       display block
@@ -37,14 +43,49 @@
   .cont-wide
     max-width 640px
 
+  .hidden
+    display none !important
+
+  ul.list
+    list-style disc
+    padding-left 3em
+
   h2
     text-align center
     font-family brandFont
     font-size 36px
     line-height 1.5em
 
+  h3
+    font-weight 300
+    font-size 20px
+    text-align center
+    margin-bottom 15px
+
   h4
     font-family brandFont
+
+  .sub
+    display block
+    font-size 0.7em
+    line-height 1em
+
+  .two-up
+    margin-top 15px
+    width 100%
+
+  .two-up-col
+    width 50%
+    float left
+    padding-top 15px
+    padding-right 15px
+    padding-left 15px
+
+    &:last-child
+      border-left 1px solid rgba(255, 255, 255, 0.3)
+
+  .pull-right, .pull-left
+    margin-bottom 15px
 
   .range
     display block
@@ -61,6 +102,27 @@
       clear both
       position relative
       top 5px
+
+  .button-list
+    padding-bottom 15px
+
+    &::after
+      content ' '
+      clear both
+      width 0
+      height 0
+      display block
+
+  .button-list .btn
+    float left
+    margin-right 10px
+    margin-bottom 15px
+
+  .button-list-little .btn
+    font-family font
+    font-size 0.8em
+    padding 0.3em
+    margin-bottom 10px
 
   .lang-select
     margin-top 30px
@@ -137,7 +199,7 @@
 .sign-in
   margin-top 30px
 
-.text-field
+.text-field, .radio-group
   display block
   margin-bottom 15px
 
@@ -146,6 +208,11 @@
     font-family brandFont
     font-weight normal
 
+.text-field-plain span, .radio-group-plain span
+    font-family font
+    font-weight 300
+
+.text-field
   input
     display block
     width 100%
@@ -161,3 +228,45 @@
 
     &:hover
       border-color rgba(lighten(eakPurple, 50%), 0.6)
+
+.radio-group-radios
+  display table
+  table-layout fixed
+  width 100%
+  height 40px
+
+  input[type=radio]
+    display none
+
+  label
+    @extend .btn
+    display table-cell
+    padding-top 10px
+    border-radius 0
+    border-left 1px solid rgba(white, 0.3)
+
+    &:nth-of-type(1)
+      border-top-left-radius 0.3em
+      border-bottom-left-radius 0.3em
+      border-left none
+
+    &:last-child
+      border-top-right-radius 0.3em
+      border-bottom-right-radius 0.3em
+
+    &::before
+      font-family 'FontAwesome'
+      content "\f096" // fa-square-o
+      float left
+      display inline-block
+      width 1em
+      padding-left 4px
+      font-size 20px
+      text-align left
+      color white
+
+  input:checked + label
+    button-color lighten(eakPurple, 25%), 20%, 20%, 0.3em
+
+    &::before
+      content "\f046" // fa-check-square-o

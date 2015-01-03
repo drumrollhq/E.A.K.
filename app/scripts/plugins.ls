@@ -58,6 +58,12 @@ $.hide-dialogues = (fn = -> void) ->
   set-timeout fn, d
   @
 
+$.fn.attention-grab = ->
+  @one prefixed.animation-end, ~> @remove-class 'attention-grab'
+  @add-class 'attention-grab'
+
+$.fn.serialize-object = -> {[name, value] for {name, value} in @serialize-array!}
+
 # performance.now polyfill
 first = Date.now!
 unless window.performance?
@@ -82,7 +88,7 @@ FastClick.attach document.body
 
 # Little Arca spinner icon
 $ '.insert-arca-spinner'
-  ..add-class 'player entity spinner player-left player-running'
+  ..add-class 'player entity spinner player-silhouette-white player-left player-running'
   ..html '''
     <div class="player-inner">
       <div class="player-head">

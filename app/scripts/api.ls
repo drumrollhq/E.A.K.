@@ -45,16 +45,23 @@ module.exports = api = {
     url: (...segments) -> api.url 'users', flatten segments
     me: (cb = no-op) -> get-json cb: cb, url: api.users.url 'me'
 
+    usernames: (query, cb = no-op) -> get-json cb: cb, url: api.users.url 'usernames', query
+
   auth:
     url: (...segments) -> api.url 'auth', flatten segments
     logout: (cb = no-op) -> get-json cb: cb, url: api.auth.url 'logout'
 
-    login: (username, password, cb = no-op) ->
-      post-json {
-        url: api.auth.url 'login'
-        data: {username, password}
-        cb: cb
-      }
+    login: (username, password, cb = no-op) -> post-json {
+      url: api.auth.url 'login'
+      data: {username, password}
+      cb: cb
+    }
+
+    register: (user, cb = no-op) -> post-json {
+      cb: cb
+      data: user
+      url: api.auth.url 'register'
+    }
 
   sessions:
     url: (...segments) -> api.url 'sessions', flatten segments

@@ -8,10 +8,9 @@ require! {
   'settings'
   'stats'
   'ui/Bar'
-  'ui/SettingsView'
   'ui/alert'
+  'ui/overlay-views'
   'user'
-  'user/LoginView'
 }
 
 module.exports = class Init extends Backbone.View
@@ -29,17 +28,12 @@ module.exports = class Init extends Backbone.View
       logger.setup lacking
       return
 
-    overlay-views = $ '#overlay-views'
-    new Bar el: ($ '#bar'), views: {
-      settings: new SettingsView model: settings, el: $ '#settings'
-      login: new LoginView model: user, el: $ '#login'
-      login-loader: new Backbone.View el: overlay-views.find '.login-loader'
-    }
+    $overlay-views = $ '#overlay-views'
+    new Bar el: ($ '#bar'), views: overlay-views {settings, user, $overlay-views}
 
     <~ effects.load!
 
     <~ logger.setup false
-    event-loop.init!
 
     # Hide the loader and start up the game.
     @$ \.loader .hide-dialogue!

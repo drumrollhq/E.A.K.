@@ -1,11 +1,45 @@
+player-theme(name, front = true)
+  root = '/content/common/' + name
+
+  bg(selector, name, ext = 'png')
+    .{selector}
+      background-image url(root + '/' + name + '.' + ext)
+
+  bg 'player-body' 'body'
+  bg 'player-face' 'head'
+  bg 'player-eyes' 'eye-01'
+
+  if front
+    bg 'player-ear-left' 'ear-left'
+    bg 'player-ear-right' 'ear-right'
+    bg 'player-leg-left' 'leg-left'
+    bg 'player-leg-right' 'leg-right'
+  else
+    bg 'player-ear-left' 'ear-front'
+    bg 'player-ear-right' 'ear-back'
+    bg 'player-leg-left' 'leg-front'
+    bg 'player-leg-right' 'leg-back'
+
 .player.entity
   font-size 100px
   width 0.33em
   height 0.54em
   z-index 100
 
+  // Themeing Options
+  player-theme 'arca/front'
+
+  &.player-running, &.player-jumping
+    player-theme 'arca/side', false
+
+  &.player-silhouette-white
+    player-theme 'arca/silhouette-white/front'
+
+    &.player-running, &.player-jumping
+      player-theme 'arca/silhouette-white/side', false
+
   &.spinner
-    font-size 200px
+    font-size 150px
     margin auto
     margin-top 60px
 
@@ -24,7 +58,6 @@
       animation 1s anim-null linear infinite
 
   .player-body
-    background-image url('/content/common/arca/front/body.png')
     width 0.31em
     height 0.33em
     top 0.22em
@@ -40,12 +73,10 @@
     z-index 2
 
   .player-face
-    background-image url('/content/common/arca/front/head.png')
     width 0.35em
     height 0.30em
 
   .player-ear-left
-    background-image url('/content/common/arca/front/ear-left.png')
     width 0.23em
     height 0.24em
     top -0.05em
@@ -53,7 +84,6 @@
     transform-origin 80% 80%
 
   .player-ear-right
-    background-image url('/content/common/arca/front/ear-right.png')
     width 0.23em
     height 0.24em
     top -0.05em
@@ -61,14 +91,12 @@
     transform-origin 20% 80%
 
   .player-eyes
-    background-image url('/content/common/arca/front/eye-01.png')
     width 0.21em
     height 0.07em
     top 0.18em
     left 0.065em
 
   .player-leg-left
-    background-image url('/content/common/arca/front/leg-left.png')
     width 0.06em
     height 0.13em
     top 0.47em
@@ -76,7 +104,6 @@
     transform-origin 50% 30%
 
   .player-leg-right
-    background-image url('/content/common/arca/front/leg-left.png')
     width 0.06em
     height 0.13em
     top 0.47em
@@ -101,7 +128,6 @@
       transform translateZ(0)
 
     .player-body
-      background-image url('/content/common/arca/side/body.png')
       width 0.31em
       height 0.33em
       top 0.24em
@@ -116,13 +142,11 @@
       z-index 2
 
     .player-face
-      background-image url('/content/common/arca/side/head.png')
       width 0.30em
       height 0.30em
       z-index 2
 
     .player-ear-left
-      background-image url('/content/common/arca/side/ear-front.png')
       width 0.15em
       height 0.16em
       top -0.06em
@@ -131,7 +155,6 @@
       z-index 3
 
     .player-ear-right
-      background-image url('/content/common/arca/side/ear-back.png')
       width 0.17em
       height 0.19em
       top -0.08em
@@ -139,7 +162,6 @@
       z-index 1
 
     .player-eyes
-      background-image url('/content/common/arca/side/eye-01.png')
       width 0.06em
       height 0.08em
       top 0.16em
@@ -147,14 +169,12 @@
       z-index 2
 
     .player-leg-left
-      background-image url('/content/common/arca/side/leg-front.png')
       width 0.07em
       height 0.14em
       top 0.49em
       left 0.11em
 
     .player-leg-right
-      background-image url('/content/common/arca/side/leg-back.png')
       width 0.05em
       height 0.14em
       top 0.49em
