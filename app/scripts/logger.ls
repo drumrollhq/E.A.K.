@@ -1,9 +1,9 @@
 const dt = 15000ms
 
 root = if window.location.host.match /eraseallkittens\.com/
-  'http://api.eraseallkittens.com/v1'
+  '//api.eraseallkittens.com/v1'
 else
-  'http://localhost:3000/v1'
+  '//localhost:3000/v1'
 
 $.ajax-setup {
   xhr-fields: with-credentials: true
