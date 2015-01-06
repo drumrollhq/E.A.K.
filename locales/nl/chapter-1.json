@@ -196,7 +196,7 @@
         "description": "2nd level: level content. This must stay approximately the same length for the level to work"
     },
     "levels/headings.html/html.h2": {
-        "message": "IK OOK! Soort van...",
+        "message": "IK OOK! Een beetje...",
         "description": "Headings level: content"
     },
     "levels/headings.html/tutorial.f.a": {
