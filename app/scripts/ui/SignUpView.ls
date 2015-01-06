@@ -28,4 +28,4 @@ module.exports = class SignUpView extends SSOView
       assume-adult: parse.to-boolean data.over-thirteen
     }, false
 
-    @parent.activate 'signupNext'
+    window.location.hash = '#/app/signup-next'

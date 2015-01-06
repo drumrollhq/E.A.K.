@@ -24,11 +24,16 @@ module.exports = class Game extends Backbone.Model
     @$level-no = @$level-title.find \span
     @$level-name = @$level-title.find \h4
 
-    channels.stage.filter ( .type is 'level' ) .subscribe ({url}) ~> @start-level url
-    channels.stage.filter ( .type is 'cutscene' ) .subscribe ({url}) ~> @start-cutscene url
-    channels.stage.filter ( .type is 'area' ) .subscribe ({url}) ~> @start-area url
+    channels.stage.filter ( .type in <[cutscene area]> ) .subscribe ({type, url}) ~> @start type, url
 
   defaults: level: '/levels/index.html'
+
+  start: (type, url) ->
+    if @current isnt url
+      @current = url
+      switch type
+      | \cutscene => @start-cutscene url
+      | \area => @start-area url
 
   start-cutscene: (name) ~>
     cs = new CutScene {name: "#prefix/cutscenes/#name"}

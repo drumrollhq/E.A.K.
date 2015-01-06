@@ -13,7 +13,6 @@ module.exports = class Bar extends Backbone.View
     'click .edit': \edit
     'click .mute': \toggleMute
     'click .settings-button': \toggleSettings
-    'click .login': \login
     'click .logout': \logout
 
   initialize: ({views}) ->
@@ -28,7 +27,7 @@ module.exports = class Bar extends Backbone.View
     @$logout-button = @$ '.logout'
 
     channels.key-press.filter ( .key in <[ e i ]> ) .subscribe @start-edit
-    channels.page.subscribe ({name}) ~> @activate name
+    channels.page.subscribe ({name, prev}) ~> @activate name, prev
     settings.on 'change:mute', @render, this
     user.on 'change', @render, this
 
@@ -64,16 +63,22 @@ module.exports = class Bar extends Backbone.View
   toggle-mute: ->
     settings.set 'mute', not settings.get 'mute'
 
-  toggle-settings: -> if @active-view then @deactivate! else @activate 'settings'
+  toggle-settings: ->
+    if @active-view then @deactivate! else window.location.hash = '#/app/settings'
   login: -> @activate 'login'
   logout: -> user.logout!
 
-  activate: (view) ->
+  activate: (view, prev) ->
+    if view is \none then return @deactivate!
     if @active-view is view then return
     if @active-view
       @deactivate false, false
     else
       channels.game-commands.publish command: \pause
+
+    if prev
+      console.log 'set prev to' prev
+      @prev = prev
 
     @active-view = view
     active = @get-active-view!
@@ -87,6 +92,7 @@ module.exports = class Bar extends Backbone.View
 
   deactivate: (overlay = true, resume = true) ->
     old-view = @get-active-view!
+    unless old-view then return
     old-view.off 'close', @deactivate, this
     @active-view = null
 
@@ -97,6 +103,7 @@ module.exports = class Bar extends Backbone.View
       el.remove-class 'inactive'
       if el is $overlay then $overlay-views.remove-class 'active'
       if resume
+        if @prev then window.location.hash = @prev
         channels.game-commands.publish command: \resume
         resume := false
 

@@ -41,7 +41,7 @@ module.exports = class Init extends Backbone.View
     game = new Game false
 
     # Start up the Backbone router
-    router = new Router!
+    router = new Router game: game
 
     Backbone.history.start root: window.location.pathname
 
