@@ -7,9 +7,9 @@ POST = 'POST'
 DELETE = 'DELETE'
 
 root = if window.location.host.match /eraseallkittens\.com/
-  'http://api.eraseallkittens.com'
+  '//api.eraseallkittens.com'
 else
-  'http://localhost:3000'
+  '//localhost:3000'
 
 no-op = -> null
 
