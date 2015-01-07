@@ -221,6 +221,9 @@ module.exports = class AreaView extends CameraScene
   remove-edit-css: ->
     @update-size!
     @update-background!
+    @$el.parent!
+      ..scroll-top 0
+      ..scroll-left 0
     @$el.css min-width: '', min-height: '', background-position: '0 0'
     @$el.parent!.css left: '', width: '', overflow: ''
     @$el.children!.css margin-top: '', margin-left: ''
