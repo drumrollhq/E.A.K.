@@ -45,7 +45,7 @@ module.exports = class AreaView extends CameraScene
     @blurred-bg ?= create-blurred-bg @$el, (@model.get 'width'), (@model.get 'height')
     @update-size!
     @update-background!
-    $ document.body .add-class 'playing playing-area hide-bar'
+    $ document.body .add-class 'playing playing-area hide-edit'
 
   level: -> @levels[@model.get 'playerLevel']
 
@@ -59,7 +59,7 @@ module.exports = class AreaView extends CameraScene
 
     level.activate!
 
-    if level.conf.editable then $body.remove-class \hide-bar else $body.add-class \hide-bar
+    if level.conf.editable then $body.remove-class \hide-edit else $body.add-class \hide-edit
 
   is-editable: -> @level!.conf.editable
 

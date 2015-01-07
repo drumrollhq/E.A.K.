@@ -15,18 +15,13 @@
   background transparent
   border none
 
-  /* disable bar hiding for now. TODO: Restore for 'edit' button.
-  .playing-area &
-    display block
+  .edit
+    transform tranlateY(0)
+    transition all 0.4s ease
+
+  .hide-edit & .edit, body:not(.playing) & .edit
     opacity 0
-    transition all 1s ease
-
-  .playing:not(.hide-bar) &
-    display block
-
-  .playing-area:not(.hide-bar) &
-    opacity 1
-  */
+    transform translateY(-50px)
 
   .overlay-button
     margin-top 10px
@@ -45,11 +40,11 @@
     position absolute
     top 0
     left 0
-    z-index 10000
+    z-index 5000
     padding-left 10px
 
   .left > *
-    z-index 10000
+    z-index 5000
     float left
 
   .hidden
