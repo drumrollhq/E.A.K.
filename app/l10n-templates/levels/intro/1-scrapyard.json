@@ -5,19 +5,19 @@
   "music": "forest",
   "levels": [
     {
-      "url": "levels/intro/01-control-arca.html",
+      "url": "levels/intro/1.1-control-arca.html",
       "x": 250,
       "y": 250
     }, {
-      "url": "levels/intro/02-jump-lengths.html",
+      "url": "levels/intro/1.2-jump-lengths.html",
       "x": 1030,
       "y": 250
     }, {
-      "url": "levels/intro/03-editing-text-i.html",
+      "url": "levels/intro/1.3-editing-text-i.html",
       "x": 1810,
       "y": 250
     }, {
-      "url": "levels/intro/04-swamp-play.html",
+      "url": "levels/intro/1.4-swamp-play.html",
       "x": 2590,
       "y": 250
     }
