@@ -23,7 +23,7 @@ function find-level-settings level
   conf.editable = meta \editable, 'true' |> to-boolean
 
   # Should we reset the player position when editing?
-  conf.reset-player-on-edit = meta \reset-player-on-edit, 'true' |> to-boolean
+  conf.reset-player-on-edit = meta \reset-player-on-edit, 'false' |> to-boolean
 
   # What's the background image for this level?
   conf.bg = meta \background, 'white'
