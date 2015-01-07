@@ -1,0 +1,46 @@
+{
+  "width": 3430,
+  "height": 1820,
+  "background": "/content/bgs/area-spaceship.png",
+  "music": "space",
+  "levels": [
+    {
+      "url": "levels/intro/3.1-space-play-i.html",
+      "x": 250,
+      "y": 400
+    }, {
+      "url": "levels/intro/3.2-creating-elements-i.html",
+      "x": 770,
+      "y": 985
+    }, {
+      "url": "levels/intro/3.3-creating-elements-ii.html",
+      "x": 1550,
+      "y": 985
+    }, {
+      "url": "levels/intro/3.4-glitch-access.html",
+      "x": 2330,
+      "y": 400
+    }, {
+      "url": "levels/intro/3.5-creating-glitch-i.html",
+      "x": 2730,
+      "y": 1150
+    }, {
+      "url": "levels/intro/3.6-creating-glitch-ii.html",
+      "x": 2730,
+      "y": 850
+    }, {
+      "url": "levels/intro/3.7-creating-glitch-iii.html",
+      "x": 2730,
+      "y": 550
+    }, {
+      "url": "levels/intro/3.8-creating-glitch-iv.html",
+      "x": 2730,
+      "y": 250
+    }, {
+     "url": "levels/intro/3.9-space-play-ii.html",
+     "x": 1030,
+     "y": 400
+    }
+  ]
+}
+
