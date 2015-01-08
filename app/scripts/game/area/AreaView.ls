@@ -281,7 +281,7 @@ module.exports = class AreaView extends CameraScene
 
   update-background: ->
     @$el.css {
-      background-image: "url(#{@model.get 'background'})"
+      background-image: "url(#{@model.get 'background'}?_v=#{EAKVERSION})"
       background-size: "#{@model.get 'width'}px #{@model.get 'height'}px"
       background-position: '0 0'
     }
