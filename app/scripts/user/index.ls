@@ -9,6 +9,7 @@ class User extends Backbone.Model
     if err
       console.error err
       @set 'available' false
+      return
 
     @set available: true
     @set device: data.device

@@ -5,7 +5,7 @@ module.exports = on-ended = (duration, cb) ->
   called = false
   callback = (...args) ->
     if called then return
-    called = true
+    called := true
     clear-timeout timeout
     cb.apply this, args
 

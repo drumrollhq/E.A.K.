@@ -16,7 +16,9 @@ no-op = -> null
 json-req = (method, {url, data, success, error, cb}) -->
   if cb?
     success = (data) -> cb null, data
-    error = (xhr, _, err) -> if xhr.response-JSON then cb that, null else cb err, null
+    error = (xhr, msg, err) ->
+      console.log arguments
+      if xhr.response-JSON then cb that, null else cb (err or msg), null
 
   $.ajax {
     method: method
