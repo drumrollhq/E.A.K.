@@ -2,6 +2,7 @@ require! {
   'audio/music-manager'
   'game/area/AreaView'
   'game/area/background'
+  'game/area/el-modify'
   'game/event-loop'
   'lib/channels'
   'lib/physics'
@@ -81,7 +82,7 @@ module.exports = class Area extends Backbone.Model
     loader-view.render!
 
   load-level-source: (level, cb) ~>
-    $.ajax "#{@prefix}/#{level.url}?#{Date.now!}", {
+    $.ajax "#{@prefix}/#{level.url}?_v=#{EAKVERSION}", {
       error: (jq, status, err) -> cb err
       success: (src) ->
         [err, $level] = parse-src src
@@ -125,5 +126,7 @@ parse-src = (src) ->
 
   for node in parsed.document.child-nodes
     if typeof! node is 'HTMLHtmlElement' then $level = $ node
+
+  el-modify $level
 
   return [null, $level]

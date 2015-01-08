@@ -26,7 +26,7 @@ function find-level-settings level
   conf.reset-player-on-edit = meta \reset-player-on-edit, 'false' |> to-boolean
 
   # What's the background image for this level?
-  conf.bg = meta \background, 'white'
+  conf.bg = meta \background 'white'
 
   # Find the level size
   [conf.width, conf.height] = meta \size |> to-coordinates

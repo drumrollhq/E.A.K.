@@ -20,4 +20,10 @@ module.exports = el-modify = ($el) ->
     content = parse-content el
     apply-changes $el, content if content?
 
+    if el.tag-name is 'IMG'
+      src = $el.attr 'src'
+      unless src.match /_v=/
+        src += "?_v=#{EAKVERSION}"
+        $el.attr src: src
+
     el-modify $el.children!

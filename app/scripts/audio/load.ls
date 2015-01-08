@@ -7,7 +7,7 @@ module.exports = function fetch-audio-data url, cb
 
   $.ajax {
     type: \GET
-    url: "#{url}.#{context.format}"
+    url: "#{url}.#{context.format}?_v=#{EAKVERSION}"
     data-type: 'arraybuffer'
     error: (xhr, status, err) ->
       cb null, "Error loading #url: #status - #err"

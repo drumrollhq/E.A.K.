@@ -50,7 +50,7 @@ module.exports = class Game extends Backbone.Model
   start-area: (url) ~>
     {url, player-coords} = parse-url url
     event <~ logger.start 'level', {level: url}
-    l = prefix + url + "?#{Date.now!}"
+    l = prefix + url + "?_v=#{EAKVERSION}"
     conf <~ $.get-JSON l
     area = new Area conf: conf, event-id: event.id, prefix: prefix, player-coords: player-coords
     area.on 'done' -> logger.stop event.id
