@@ -30,7 +30,7 @@ module.exports = class CutScene extends Backbone.View
     @subs[*] = channels.game-commands.filter ( .command is \stop ) .subscribe @finish
     @html = translations.cutscene.loading
     $.ajax {
-      url: "#{name}.html"
+      url: "#{name}.html?_v=#{EAKVERSION}"
       success: (html) ~>
         @html = html
         $util.html @html
@@ -47,7 +47,7 @@ module.exports = class CutScene extends Backbone.View
     # Prevent strange video loading bug in chrome
     @$el.find 'source' .each ->
       $el = $ this
-      $el.attr 'src', "#{$el.attr 'src'}?#{Date.now!}"
+      $el.attr 'src', "#{$el.attr 'src'}?_v=#{EAKVERSION}"
 
     @$video-cont = @$el.find '.cutscene-vid'
     @$video = @$video-cont.find 'video'

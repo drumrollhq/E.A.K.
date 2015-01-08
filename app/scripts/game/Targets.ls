@@ -1,6 +1,6 @@
 map = (fn, arr) --> _.map arr, fn
 
-const available-kittens = 5
+const available-kittens = 147
 
 random-kitten = ->
   "url('/content/kittens/kitten-#{ (Math.random! * available-kittens |> Math.floor) + 1 }.gif')"

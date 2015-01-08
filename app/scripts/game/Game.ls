@@ -32,7 +32,7 @@ module.exports = class Game extends Backbone.Model
 
   start-level: (level-url) ~>
     event <~ logger.start 'level', {level: level-url}
-    l = prefix + level-url + "?#{Date.now!}"
+    l = prefix + level-url + "?_v=#{EAKVERSION}"
     level-source <~ $.get l, _
     parsed = Slowparse.HTML document, level-source, [TreeInspectors.forbidJS]
 

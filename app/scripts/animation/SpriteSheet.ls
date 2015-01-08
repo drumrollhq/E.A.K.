@@ -87,7 +87,7 @@ module.exports = class SpriteSheet extends Backbone.View
       channels.alert.publish {msg: "#{translations.errors.load-sprite} #{@url}"}
       done e
 
-    img.src = @url
+    img.src = "#{@url}?_v=#{EAKVERSION}"
 
   frame: ~>
     elapsed = performance.now! - @_start-time
