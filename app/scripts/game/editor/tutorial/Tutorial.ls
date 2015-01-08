@@ -16,7 +16,7 @@ add-track-events = (track, steps, view, editor) ->
 get-track = (name) ->
   $ '<audio></audio>'
     .attr {
-      src: "#{name}.#{context.format}?v=#{window.EAKVERSION}"
+      src: "#{name}.#{context.format}?_v=#{EAKVERSION}"
       preload: \auto
     }
     .get 0

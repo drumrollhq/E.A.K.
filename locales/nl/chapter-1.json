@@ -1,0 +1,366 @@
+{
+    "levels/editing-text.html/tutorial.e.a": {
+        "message": "Probeer de worden te veranderen in de code hierboven <br> om de richel waar je op staat langer te maken",
+        "description": "Tutorial annotation"
+    },
+    "levels/creating-elements.html/html.box-2": {
+        "message": "Blok?",
+        "description": "Space level: content. The writing on the second box"
+    },
+    "levels/creating-elements.html/html.box-1": {
+        "message": "Blok!",
+        "description": "Space level: content. The writing on the first box"
+    },
+    "levels/headings.html/tutorial.a.c": {
+        "message": "Ze gaan helemaal van <code>&lt;h1&gt;</code> (de belangrijkste),",
+        "description": "Headings level: tutorial annotations"
+    },
+    "levels/creating-elements.html/tutorial.a.c": {
+        "message": "Ik weet niet waarom, maar hij weet hoe hij moet walsen.",
+        "description": "Space level: Tutorial Annotations"
+    },
+    "levels/creating-elements.html/tutorial.e.d": {
+        "message": "Schrijf daarna een woord voor <br> de inhoud van de doos.",
+        "description": "Space level: Tutorial Annotations"
+    },
+    "levels/colours.html/tutorial.d.b": {
+        "message": "Het woord <code>body</code> zegt aan de browser dat de dingen tussen de gekrulde haakjes voor de hele pagina zijn.",
+        "description": "Colours level: tutorial annotations"
+    },
+    "levels/creating-elements.html/tutorial.f.c": {
+        "message": "...en je wil het toch niet kwaad maken he?",
+        "description": "Space level: Tutorial Annotations"
+    },
+    "levels/colours.html/tutorial.b.a": {
+        "message": "Tot nu toe gebruikte je <code>HTML</code>, maar vanaf nu heb je <code>CSS</code> nodig.",
+        "description": "Colours level: tutorial annotations"
+    },
+    "levels/creating-elements.html/tutorial.a.b": {
+        "message": "Hij heeft jaren geoefend om in een perfecte circel te vliegen...",
+        "description": "Space level: Tutorial Annotations"
+    },
+    "levels/creating-elements.html/tutorial.c.a": {
+        "message": "De eerste <code>&lt;div&gt;</code> zegt <em class=\"fade\" in=\"3\">\"start deze doos\"</em>",
+        "description": "Space level: Tutorial Annotations"
+    },
+    "levels/headings.html/tutorial.e.a": {
+        "message": "Start met een <code>&lt;h3&gt;</code>.",
+        "description": "Headings level: tutorial annotations"
+    },
+    "levels/editing-text.html/tutorial.d.a": {
+        "message": "De tekst tussen de twee tags <br> is hetgeen je op het scherm te zien krijgt.",
+        "description": "Tutorial annotation"
+    },
+    "levels/index.html/hints.left-right": {
+        "message": "Dit ben jij! Je kan links en rechts bewegen met de <kbd>←</kbd> en <kbd>→</kbd> toetsen.",
+        "description": "1st level: tell the player how to move about"
+    },
+    "levels/colours.html/tutorial.e.a": {
+        "message": "Deze <code>CSS</code> zet het achtergrondkleur van de pagina in felblauw...",
+        "description": "Colours level: tutorial annotations"
+    },
+    "levels/colours.html/tutorial.c.b": {
+        "message": "Een <code>&lt;style&gt;</code> tag wordt gebruikt om <code>CSS</code> aan een <code>HTML</code> pagina toe te voegen zodat ze de layout kan veranderen.",
+        "description": "Colours level: tutorial annotations"
+    },
+    "levels/colours.html/tutorial.e.b": {
+        "message": "Lijkt erg op die kwaadwillige slingervleermuis.",
+        "description": "Colours level: tutorial annotations"
+    },
+    "levels/editing-text.html/tutorial.b.b": {
+        "message": "En dit is de code van de richel rechts.",
+        "description": "Tutorial annotation"
+    },
+    "levels/editing-text.html/tutorial.f.b": {
+        "message": "Ga dat katje redden! En kijk uit - <br> je wil niet aan de verkeerde kant van de banaan vogel komen...",
+        "description": "Tutorial annotation"
+    },
+    "levels/index.html/hints.portal": {
+        "message": "Dit is een portaal. <kbd>↓</kbd> toets om te kijken waar het je naartoe leidt.",
+        "description": "1st level: instructions"
+    },
+    "levels/headings.html/title": {
+        "message": "Stekels!",
+        "description": "Headings level: title"
+    },
+    "levels/editing-text.html/hints.edit": {
+        "message": "Oh ow! Je moet deze richel langer maken. Click op 'Wijzig' of de <kbd>E</kbd> toets om het niveau te wijzigen.",
+        "description": "2nd level: instructions"
+    },
+    "levels/colours.html/tutorial.a.b": {
+        "message": "Ze hebben het onmogelijk gemaakt om het verdere pad te zien...",
+        "description": "Colours level: tutorial annotations"
+    },
+    "cutscenes/intro.html/subtitles.d": {
+        "message": "Ze ontdekten iets dat grote vreugde en betekenis in hun leven bracht... schattige, donzige beestjes.",
+        "description": "Subtitle for cutscene"
+    },
+    "cutscenes/intro.html/subtitles.b": {
+        "message": "Toen, in 345VK (voor katjes), ontstond het internet.",
+        "description": "Subtitle for cutscene"
+    },
+    "levels/creating-elements.html/title": {
+        "message": "Arca  in de Ruimte",
+        "description": "Space level: title"
+    },
+    "levels/headings.html/tutorial.d.a": {
+        "message": "Voeg een nieuwe <code>&lt;h3&gt;</code> tag toe onderaan de code.",
+        "description": "Headings level: tutorial annotations"
+    },
+    "levels/headings.html/html.h1": {
+        "message": "IK BEN BELANGRIJK",
+        "description": "Headings level: content"
+    },
+    "levels/creating-elements.html/tutorial.c.c": {
+        "message": "Klik op de lamp als je hulp nodig hebt! <a href=\"#\" class=\"dismiss\">OK</a>",
+        "description": "Space level: Tutorial Annotations"
+    },
+    "cutscenes/intro.html/subtitles.c": {
+        "message": "De volledige mensheid vierde feest.",
+        "description": "Subtitle for cutscene"
+    },
+    "levels/headings.html/tutorial.e.b": {
+        "message": "Voeg daarna wat tekst toe.",
+        "description": "Headings level: tutorial annotations"
+    },
+    "levels/editing-text.html/hints.jump": {
+        "message": "Probeer over deze richel te springen.",
+        "description": "2nd level: instructions"
+    },
+    "levels/editing-text.html/tutorial.e.b": {
+        "message": "Je kan schrijven wat je wil - een limerick over richels misschien?",
+        "description": "Tutorial annotation"
+    },
+    "levels/creating-elements.html/tutorial.b.c": {
+        "message": "In HTML, een <code>div</code> tag is zoals een doos waar je dingen kan insteken.",
+        "description": "Space level: Tutorial Annotations"
+    },
+    "levels/headings.html/tutorial.e.c": {
+        "message": "Eindig met een <code>&lt;/h3&gt;</code> - vergeet de <code>/</code> niet!",
+        "description": "Headings level: tutorial annotations"
+    },
+    "levels/colours.html/tutorial.a.c": {
+        "message": "...dat denken ze toch!",
+        "description": "Colours level: tutorial annotations"
+    },
+    "cutscenes/intro.html/subtitles.e": {
+        "message": "Ze zochten op het internet naar meer en meer, van Reuzenpanda's, tot speelse puppies.",
+        "description": "Subtitle for cutscene"
+    },
+    "levels/colours.html/tutorial.d.d": {
+        "message": "En <code>hsl(...)</code> met de drie nummertjes is een speciale code voor een kleur.",
+        "description": "Colours level: tutorial annotations"
+    },
+    "cutscenes/intro.html/subtitles.j": {
+        "message": "Eigenlijk waren de katjes je enige vrienden.",
+        "description": "Subtitle for cutscene"
+    },
+    "levels/editing-text.html/tutorial.f.d": {
+        "message": "Druk 'Bewaren' om de editor te sluiten en het katje te redden! <a class=\"dismiss\" href=\"#\">OK.</a>",
+        "description": "Tutorial annotation"
+    },
+    "levels/headings.html/tutorial.a.e": {
+        "message": "En tussen jou en mij, ze bekvechten als een grote familie broers en zussen!",
+        "description": "Headings level: tutorial annotations"
+    },
+    "levels/creating-elements.html/tutorial.e.c": {
+        "message": "Start met<code>&lt;div&gt;</code>.",
+        "description": "Space level: Tutorial Annotations"
+    },
+    "levels/colours.html/tutorial.a.d": {
+        "message": "Misschien weet je dit niet, maar er zijn verschillende programmeertalen.",
+        "description": "Colours level: tutorial annotations"
+    },
+    "levels/headings.html/tutorial.c.a": {
+        "message": "De eerste twee brachten je niet ver in de grot.",
+        "description": "Headings level: tutorial annotations"
+    },
+    "levels/headings.html/tutorial.f.b": {
+        "message": "Je hebt een <code>&lt;h3&gt;</code>, nu moet je alleen nog hetzelfde doen voor <span class=\"fade\" in=\"5.5\"><code>&lt;h4&gt;</code>,</span> <span class=\"fade\" in=\"6.5\"><code>&lt;h5&gt;</code>,</span> <span class=\"fade\" in=\"7.5\"> en <code>&lt;h6&gt;</code>.</span>",
+        "description": "Headings level: tutorial annotations"
+    },
+    "levels/creating-elements.html/tutorial.e.a": {
+        "message": "Iedere tag moet dezelfde structuur hebben als de andere.",
+        "description": "Space level: Tutorial Annotations"
+    },
+    "levels/creating-elements.html/tutorial.f.b": {
+        "message": "Het internet is zeer kieskeuring over dit soort dingen...",
+        "description": "Space level: Tutorial Annotations"
+    },
+    "levels/index.html/title": {
+        "message": "Arca's Huis",
+        "description": "1st level: title. Arca is the name of the character in the game. I'm not sure if it can or should be translated. "
+    },
+    "levels/editing-text.html/html.im-a-ledge": {
+        "message": "Ik ben een richel! Jiepie!",
+        "description": "2nd level: level content. This must stay approximately the same length for the level to work"
+    },
+    "levels/headings.html/html.h2": {
+        "message": "IK OOK! Een beetje...",
+        "description": "Headings level: content"
+    },
+    "levels/headings.html/tutorial.f.a": {
+        "message": "Voeg wat tags toe.",
+        "description": "Headings level: tutorial annotations"
+    },
+    "levels/creating-elements.html/tutorial.b.b": {
+        "message": "Dit zijn <code>div</code> tags.",
+        "description": "Space level: Tutorial Annotations"
+    },
+    "levels/creating-elements.html/hint": {
+        "message": "Hmmm... We hebben meer blokken  nodig. Wijzig het level - gebruik de <kbd>E</kbd> toets of klik op de 'Wijzig' knop.",
+        "description": "Space level: instructions"
+    },
+    "levels/headings.html/tutorial.b.a": {
+        "message": "Voor je pagina titel kan je <code>&lt;h1&gt;</code> gebruiken.",
+        "description": "Headings level: tutorial annotations"
+    },
+    "levels/headings.html/tutorial.c.b": {
+        "message": "Als je er meer gebruikt, bereik je misschien de bodem",
+        "description": "Headings level: tutorial annotations"
+    },
+    "levels/creating-elements.html/tutorial.b.a": {
+        "message": "Het lijkt er op dat we hier wat wijzigingen nodig hebben...",
+        "description": "Space level: Tutorial Annotations"
+    },
+    "cutscenes/intro.html/subtitles.i": {
+        "message": "...afgewezen door de internet figuren, and verdoemd om te leven in de oude ruïnes.",
+        "description": "Subtitle for cutscene"
+    },
+    "levels/index.html/hints.target": {
+        "message": "Ga naar dit katje om het te redden. Je moet alle katjes redden die je kunt vinden!",
+        "description": "1st level: instructions. yay, kittens"
+    },
+    "levels/creating-elements.html/tutorial.d.a": {
+        "message": "Voeg twee <code>div</code> tags toe om bij het katje en de poort te komen.",
+        "description": "Space level: Tutorial Annotations"
+    },
+    "cutscenes/intro.html/continue": {
+        "message": "Doorgaan",
+        "description": "Continue"
+    },
+    "levels/headings.html/tutorial.a.d": {
+        "message": "tot <code>&lt;h6&gt;</code> (de minst belangrijke).",
+        "description": "Headings level: tutorial annotations"
+    },
+    "levels/editing-text.html/tutorial.a.a": {
+        "message": "Joehoe, je hebt het gevonden! Dit is de HTML bron code van de richels. <br> Het beschrijft de dingen die je rechts op het scherm ziet.",
+        "description": "Tutorial annotation"
+    },
+    "levels/editing-text.html/tutorial.f.c": {
+        "message": "Ik heb gehoord dat ze graag poepen op hun vijanden!",
+        "description": "Tutorial annotation"
+    },
+    "levels/colours.html/tutorial.b.b": {
+        "message": "<code>CSS</code> beschrijft hoe de <code>HTML</code> pagina er uitziet - <br> <span class=\"fade\" in=\"8.5\"><span style=\"font-family: serif;\">lettertypes</span>,</span> <span class=\"fade\" in=\"9.2\"><span style=\"color: red;\">kleuren</span>,</span> <span class=\"fade\" in=\"10\">en <span style=\"border: 1px solid black; border-radius: 100%; padding: 0 10px; display: inline-block;\">vormen</span>.</span>",
+        "description": "Colours level: tutorial annotations"
+    },
+    "levels/editing-text.html/tutorial.d.b": {
+        "message": "Hallo!",
+        "description": "Tutorial annotation"
+    },
+    "levels/editing-text.html/tutorial.c.a": {
+        "message": "Iedere richel start met  <code>&lt;p ...&gt;</code> en eindigt met <code>&lt;/p&gt;</code>",
+        "description": "Tutorial annotation"
+    },
+    "levels/creating-elements.html/tutorial.e.e": {
+        "message": "Sluit de tag af met <code>&lt;/div&gt;</code>.",
+        "description": "Space level: Tutorial Annotations"
+    },
+    "levels/editing-text.html/tutorial.c.b": {
+        "message": "Deze worden tags genoemd.",
+        "description": "Tutorial annotation"
+    },
+    "cutscenes/intro.html/subtitles.k": {
+        "message": "Tot ze plots één voor één begonnen te verdwijnen...",
+        "description": "Subtitle for cutscene"
+    },
+    "levels/colours.html/tutorial.c.a": {
+        "message": "De <code>CSS</code> is dit stuk hier, binnen de <code>&lt;style&gt;</code> tag.",
+        "description": "Colours level: tutorial annotations"
+    },
+    "levels/editing-text.html/html.im-a-ledge-too": {
+        "message": "Hey! Ik ben ook een richel!",
+        "description": "2nd level: level content. This must stay approximately the same length for the level to work"
+    },
+    "cutscenes/intro.html/subtitles.a": {
+        "message": "Lang lang geleden, in de tijd van het prehistorische internet, leefden mensen in een wereld zonder katjes GIFs.",
+        "description": "Subtitle for cutscene"
+    },
+    "levels/editing-text.html/tutorial.b.a": {
+        "message": "Dit is de code van de richel waar je op staat...",
+        "description": "Tutorial annotation"
+    },
+    "cutscenes/intro.html/subtitles.h": {
+        "message": "De katjes hadden er geen probleem mee dat jij, Arca, een buitenstaander bent...",
+        "description": "Subtitle for cutscene"
+    },
+    "levels/editing-text.html/title": {
+        "message": "De Richel",
+        "description": "2nd level: title"
+    },
+    "levels/headings.html/tutorial.a.b": {
+        "message": "De HTML hoofdingen zijn een grote familie...",
+        "description": "Headings level: tutorial annotations"
+    },
+    "levels/colours.html/tutorial.a.a": {
+        "message": "De vijanden van de katjes zijn slinkse beesten.",
+        "description": "Colours level: tutorial annotations"
+    },
+    "levels/editing-text.html/tutorial.f.a": {
+        "message": "Schitterend werk! Dat heb je sneller gedaan dan een eekhoorn op een brommer!",
+        "description": "Tutorial annotation"
+    },
+    "levels/creating-elements.html/tutorial.f.a": {
+        "message": "Bijna alle HTML elementen hebben zo'n begin- en eindtags.",
+        "description": "Space level: Tutorial Annotations"
+    },
+    "levels/creating-elements.html/tutorial.a.a": {
+        "message": "Wat nu? Dat is Shelby de Ruimtedraak!",
+        "description": "Space level: Tutorial Annotations"
+    },
+    "levels/headings.html/tutorial.e.d": {
+        "message": "Soep feestje!",
+        "description": "Headings level: tutorial annotations"
+    },
+    "levels/creating-elements.html/tutorial.e.b": {
+        "message": "Hey hallo!",
+        "description": "Space level: Tutorial Annotations"
+    },
+    "levels/colours.html/tutorial.d.c": {
+        "message": "<code>background</code> zegt wat we willen doen met de achtergrond.",
+        "description": "Colours level: tutorial annotations"
+    },
+    "levels/colours.html/tutorial.f.a": {
+        "message": "Probeer de nummers te veranderen in het <code>hsl(...)</code> stuk, <br> zo verander je het achtergrondkleur van dit level.",
+        "description": "Colours level: tutorial annotations"
+    },
+    "cutscenes/intro.html/subtitles.f": {
+        "message": "Plotseling werden katjes steeds populairder en begonnen over heel het internet universum te verschijnen.",
+        "description": "Subtitle for cutscene"
+    },
+    "cutscenes/intro.html/subtitles.g": {
+        "message": "Ze brachten ons veel plezier.",
+        "description": "Subtitle for cutscene"
+    },
+    "levels/headings.html/tutorial.b.b": {
+        "message": "en een ondertitel als <code>&lt;h2&gt;</code>, bijvoorbeeld",
+        "description": "Headings level: tutorial annotations"
+    },
+    "levels/colours.html/tutorial.d.a": {
+        "message": "Er gebeuren drie dingen in de <code>CSS</code>:",
+        "description": "Colours level: tutorial annotations"
+    },
+    "levels/headings.html/tutorial.a.a": {
+        "message": "Ahhhh, hoofdingen!",
+        "description": "Headings level: tutorial annotations"
+    },
+    "levels/index.html/hints.jump": {
+        "message": "Spring met de <kbd>spatiebalk</kbd> of <kbd>↑</kbd> toets.",
+        "description": "1st level: instructions. Jumping is fun!"
+    },
+    "levels/creating-elements.html/tutorial.c.b": {
+        "message": "En <code>&lt;/div&gt;</code> met de schuine streep zegt <em class=\"fade\" in=\"7.5\">\"Dit is het einde van deze box\"</em>",
+        "description": "Space level: Tutorial Annotations"
+    }
+}

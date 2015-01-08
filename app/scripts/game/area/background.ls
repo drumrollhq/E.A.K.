@@ -43,7 +43,7 @@ class Background
     , false
 
     # Kick off image load
-    img.src = background
+    img.src = "#{background}?_v=#{EAKVERSION}"
 
   # reset bg image
   clear: ~> @$body.css \background-image, 'none'

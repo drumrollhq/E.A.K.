@@ -30,7 +30,7 @@ module.exports = class WebWorker extends Backbone.Model
 
   initialize: ~>
     # Creata a native WebWorker
-    @worker = new Worker "/js/worker.js"
+    @worker = new Worker "/js/worker.js?_v=#{EAKVERSION}"
 
     # When we get a message from the worker, trigger an event with the name and
     # data the should have been sent with it
