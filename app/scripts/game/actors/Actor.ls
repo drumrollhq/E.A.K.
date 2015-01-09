@@ -27,11 +27,11 @@ module.exports = class Actor extends Backbone.View
       width: width
       height: height
       rotation: 0
-      data:
-        id: "ENTITY_#{@actor-type!to-upper-case!}"
+      data: {}
     } <<< (@physics or {})
 
-    @{}data.actor = true
+    @data.id = "ENTITY_#{@actor-type!to-upper-case!}"
+    @data.actor = true
 
   actor-type: -> Object.get-prototype-of this .constructor.display-name.to-lower-case!
 

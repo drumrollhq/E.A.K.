@@ -53,6 +53,14 @@ find-state = (obj, nodes) ->
 
   {type: 'falling'}
 
+put-on-thing = (obj, thing) ->
+  obj.state = 'on-thing'
+  if thing.data?.dynamic? or thing.data?.actor?
+    obj.fixed-to = {
+      target: thing
+      pos: thing.p .minus obj.p
+    }
+
 target = 1000 / 60 # Aim for 60fps
 
 ts = replicate 30 1
@@ -69,7 +77,7 @@ module.exports = step = (state, t) ->
 
   # If we had to remove stuff, regenerate the list of dynamics
   if destroyed.length > 0
-    dynamics = nodes |> filter -> it.data?.dynamic?
+    dynamics = nodes |> filter -> it.data?.dynamic? or it.data?.actor?
 
   # Keep track of the time-deltas between each iteration. We use a moving average to
   # smoothly adjust to slower run times
@@ -94,6 +102,11 @@ module.exports = step = (state, t) ->
       last-fall-dist: obj.fall-dist
     }
 
+    if obj.fixed-to
+      obj.p <<< obj.fixed-to.target.p .minus obj.fixed-to.pos .{x, y}
+      obj.p.y = obj.fixed-to.target.aabb.top - obj.height / 2
+      obj.fixed-to = null
+
     obj.p.add-eq v
 
     obj.aabb = get-aabb obj
@@ -101,69 +114,66 @@ module.exports = step = (state, t) ->
     state = find-state obj, nodes
 
     # Handle general collisions:
-    contacts = obj.contacts
-    for contact in contacts when contact.sensor is false
-      switch
-      | contact.type is 'circle'
-        'none'
+    unless obj.data.ignore-others
+      contacts = obj.contacts
+      for contact in contacts when contact.sensor is false
+        switch
+        | contact.type is 'circle'
+          'none'
 
-      | contact.type is 'rect' and contact.rotation is 0
-        p = obj.aabb
-        c = contact.aabb
+        | contact.type is 'rect' and contact.rotation is 0
+          p = obj.aabb
+          c = contact.aabb
 
-        # Vertical collision
-        on-top-of-thing = false
-        if (p.bottom >= c.top and p.top <= c.bottom) then
-          if obj.p.y < contact.p.y
-            y-ofs = (c.top - obj.height / 2) - obj.p.y
-            on-top-of-thing = true
-          else
-            y-ofs = (c.bottom + obj.height / 2 + pad) - obj.p.y
+          # Vertical collision
+          on-top-of-thing = false
+          if (p.bottom >= c.top and p.top <= c.bottom) then
+            if obj.p.y < contact.p.y
+              y-ofs = (c.top - obj.height / 2) - obj.p.y
+            else
+              y-ofs = (c.bottom + obj.height / 2 + pad) - obj.p.y
 
-        # Horizontal collision
-        if (p.right >= c.left and p.left <= c.right) then
-          if obj.p.x < contact.p.x
-            x-ofs = (c.left - obj.width / 2 - pad) - obj.p.x
-          else
-            x-ofs = (c.right + obj.width / 2 + pad) - obj.p.x
+          # Horizontal collision
+          if (p.right >= c.left and p.left <= c.right) then
+            if obj.p.x < contact.p.x
+              x-ofs = (c.left - obj.width / 2 - pad) - obj.p.x
+            else
+              x-ofs = (c.right + obj.width / 2 + pad) - obj.p.x
 
-        if x-ofs? and y-ofs?
-          if (Math.abs x-ofs) > (Math.abs y-ofs)
-            obj.p.y += y-ofs
-            obj.v.y = 0
+          if x-ofs? and y-ofs?
+            if (Math.abs x-ofs) > (Math.abs y-ofs)
+              obj.p.y += y-ofs
+              obj.v.y = 0
+              if y-ofs <= 0 then on-top-of-thing = true
 
-            # Is the obj on top of the thing?
-            if on-top-of-thing
-              obj.state = 'on-thing'
+            else
+              obj.p.x += x-ofs
+              obj.v.x = 0
 
-          else
+          else if x-ofs?
             obj.p.x += x-ofs
             obj.v.x = 0
-
-        else if x-ofs?
-          obj.p.x += x-ofs
-          obj.v.x = 0
-        else if y-ofs?
-          obj.p.y += y-ofs
-          obj.v.y = 0
+          else if y-ofs?
+            obj.p.y += y-ofs
+            obj.v.y = 0
+            if y-ofs <= 0 then on-top-of-thing = true
 
           # Is the obj on top of the thing?
-          if on-top-of-thing
-            obj.state = 'on-thing'
+          if on-top-of-thing => put-on-thing obj, contact
 
-      | contact.type is 'rect' and contact.rotation isnt 0
-        collide = false
-        for point in obj.poly when point.in-poly contact.poly
-          collide := true
-          break
-
-        unless collide
-          for point in contact.poly when point.in-poly obj.poly
+        | contact.type is 'rect' and contact.rotation isnt 0
+          collide = false
+          for point in obj.poly when point.in-poly contact.poly
             collide := true
             break
 
-        if collide
-          obj.el.style.background = "rgb(#{255 * Math.random!}, #{255 * Math.random!}, #{255 * Math.random!})"
+          unless collide
+            for point in contact.poly when point.in-poly obj.poly
+              collide := true
+              break
+
+          if collide
+            obj.el.style.background = "rgb(#{255 * Math.random!}, #{255 * Math.random!}, #{255 * Math.random!})"
 
     if obj.v.y > 0
       obj.fall-dist = obj.p.y - obj.fall-start

@@ -87,6 +87,8 @@ module.exports = class Player extends Actor
         | 3 > abs @v.x => 'jumping-forward'
         | otherwise => 'jumping'
 
+      if @state is 'on-thing' => classes[*] = 'on-thing'
+
       @apply-classes classes
 
   apply-classes: (classes) ~>
@@ -166,6 +168,7 @@ module.exports = class Player extends Actor
     {jump-state, state, jump-frames} = this
     jump-key = if @deactivated then false else keys.jump
     if jump-key and jump-state is \ready and state is \on-thing
+      @fixed-to = null
       @v.y = -jump-speed
       @jump-frames = max-jump-frames
       @jump-state = \jumping

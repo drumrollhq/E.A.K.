@@ -23,6 +23,11 @@ module.exports = class Mover extends Actor
       ease: ease
     }
 
+  physics: {
+    data:
+      ignore-others: true
+  }
+
   initialize: (start = {x: 0, y: 0, speed: 2, repeat: 'alternate', path: [[0, 0] [100 100]]}) ->
     super start
     offset-vector = new Vector @offset

@@ -36,9 +36,7 @@ module.exports = class Path
   at: (dist) ->
     length = @length!
     if 0 <= dist <= length
-      before = dist
       dist = length * (ease[@ease] dist / length)
-      console.log "map #{before/length} -> #{dist/length}"
       so-far = 0
       i = 0
       while so-far < dist, i++
