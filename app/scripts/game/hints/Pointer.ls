@@ -30,8 +30,6 @@ module.exports =  class PointerHint extends Backbone.View
     | \above => top: bbox.top, left: bbox.center-x
     | \left => top: bbox.center-y, left: bbox.left
 
-    console.log {parent, bbox}
-
     offset.top -= parent.top
     offset.left -= parent.left
 

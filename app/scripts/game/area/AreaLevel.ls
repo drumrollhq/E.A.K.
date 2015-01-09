@@ -1,4 +1,5 @@
 require! {
+  'game/actors'
   'game/area/el-modify'
   'game/area/settings'
   'game/editor/Editor'
@@ -60,10 +61,11 @@ module.exports = class AreaLevel extends Backbone.View
 
   add-targets: -> targets @el, @conf.targets
 
+  add-actors: -> @actors ?= for actor-el in @$ '[data-actor]' => actors.from-el actor-el, @conf.{x, y}
+
   add-borders: (nodes) ->
     const thickness = 50px
     {width, height, x, y, borders, border-contract} = @conf
-    console.log {border-contract}
 
     if \top in borders
       nodes[*] = {
@@ -121,6 +123,7 @@ module.exports = class AreaLevel extends Backbone.View
     @mapper.build!
     @map = @mapper.map
     @add-borders @map
+    @map = @map ++ @actors
     @map
 
   preprocess-css: (source) ->
