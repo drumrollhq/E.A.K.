@@ -1,8 +1,14 @@
 module.exports = class Actor extends Backbone.View
+  @from-el = ($el, args, offset) -> new Actor el: $el.0, args: args, offset: offset
+
+  physics-ignore: true
+
   initialize: (start = {x: 0, y: 0}) ->
     @subs = []
     @start = start
+    @args = start.args if start.args
     @origin = start.{x, y}
+    @offset = start.offset or {x: 0, y: 0}
     width = @$el.width!
     height = @$el.height!
 
@@ -49,4 +55,4 @@ module.exports = class Actor extends Backbone.View
     for sub in @subs => sub.unsubscribe!
 
   draw: ->
-    @$el.css prefixed.transform, "translate3d(#{@p.x - @x}px, #{@p.y - @y}px, 0)"
+    @$el.css prefixed.transform, "translate3d(#{@p.x - @x - @offset.x}px, #{@p.y - @y - @offset.y}px, 0)"

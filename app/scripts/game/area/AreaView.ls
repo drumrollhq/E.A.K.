@@ -96,6 +96,7 @@ module.exports = class AreaView extends CameraScene
       ..id = "#{@el.id}-player"
 
   add-targets: -> for level in @levels => level.add-targets!
+  add-actors: -> for level in @levels => level.add-actors!
 
   remove: ->
     for level in @levels => level.remove!

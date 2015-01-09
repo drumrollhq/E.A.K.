@@ -73,13 +73,13 @@ prepare = (nodes) ->
 
   sort-points = (obj) ->
     p = 0
-    if obj.data?.player? then p -= 10
+    if obj.data?.actor? then p -= 10
     if obj.data?.dynamic? then p += 1
     p
 
   nodes = nodes.sort (a, b) -> (sort-points a) - (sort-points b)
 
-  dynamics = nodes |> filter -> it.data?.player? or it.data?.dynamic?
+  dynamics = nodes |> filter -> it.data?.actor? or it.data?.dynamic?
 
   {dynamics, nodes}
 
