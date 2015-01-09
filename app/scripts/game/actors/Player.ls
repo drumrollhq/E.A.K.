@@ -101,7 +101,6 @@ module.exports = class Player extends Actor
     @last-classes := classes
 
   draw: ->
-    @apply-classes []
     super!
     channels.player-position.publish @p.{x, y}
 
