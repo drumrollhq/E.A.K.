@@ -1,6 +1,6 @@
 require! {
   'animation/SpriteSheet'
-  'game/Player'
+  'game/actors/Player'
   'game/area/AreaLevel'
   'game/area/CameraScene'
   'game/area/background'
