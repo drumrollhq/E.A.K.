@@ -33,9 +33,9 @@ module.exports = class Path
   lengths: -> @_lengths or @calc-lengths!
   calc-lengths: -> @lines |> map ( .length )
 
-  at: (dist) ->
+  at: (dist, prevent-recursion = false) ->
     length = @length!
-    if 0 <= dist <= length
+    if prevent-recursion or 0 <= dist <= length
       dist = length * (ease[@ease] dist / length)
       so-far = 0
       i = 0
@@ -43,9 +43,10 @@ module.exports = class Path
         line = @lines[i]
         so-far += line.length
 
+      line ?= @lines[@lines.length - 1]
       line.at dist - (so-far - line.length)
     else
       if @alternate # At end, alternate
-        @at length - (abs (abs dist) % (2 * length) - length)
+        @at length - (abs (abs dist) % (2 * length) - length), true
       else # At end, revese
-        @at dist - length * (floor dist / length)
+        @at dist - length * (floor dist / length), true

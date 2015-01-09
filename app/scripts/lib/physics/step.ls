@@ -59,6 +59,7 @@ put-on-thing = (obj, thing) ->
     obj.fixed-to = {
       target: thing
       pos: thing.p .minus obj.p
+      target-pos: new Vector thing.p
     }
 
 target = 1000 / 60 # Aim for 60fps
@@ -103,8 +104,16 @@ module.exports = step = (state, t) ->
     }
 
     if obj.fixed-to
-      obj.p <<< obj.fixed-to.target.p .minus obj.fixed-to.pos .{x, y}
-      obj.p.y = obj.fixed-to.target.aabb.top - obj.height / 2
+      fixed-target = obj.fixed-to.target
+      if (obj.fixed-to.target-pos .dist-sq fixed-target.p) < 250
+        console.log 'close-enough', {
+          t-old: obj.fixed-to.target-pos.{x, y}
+          t-new: fixed-target.p.{x, y}
+          dist: (obj.fixed-to.target-pos .dist-sq fixed-target.p)
+        }
+        obj.p <<< fixed-target.p .minus obj.fixed-to.pos .{x, y}
+        target-y = fixed-target.aabb.top - obj.height / 2
+        obj.p.y = target-y if (Math.abs target-y - obj.p.y) < 20
       obj.fixed-to = null
 
     obj.p.add-eq v
