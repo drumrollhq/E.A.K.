@@ -4,21 +4,53 @@
     <title>Long Jump</title>
 
     <meta name="size" content="780 585">
-    <meta name="player" content="40 532">
-    <meta name="targets" content="335 470">
+    <meta name="player" content="95 532">
+    <meta name="targets" content="700 175">
     <meta name="editable" content="true">
+    <meta name="borders" content="bottom">
 
     <style>
       .floor {
         position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 30px;
+        width: 100px;
+        height: 20px;
         background: #aaa;
       }
+
+      .ledge, p {
+        position: absolute;
+        right: 0;
+        padding: 10px;
+        background: #aaa;
+      }
+
+      p {
+        z-index: 1;
+        top: 300px;
+        margin: 0;
+      }
+
+      .outline {
+        position: absolute;
+        width: 250px;
+        height: 47px;
+        top: 300px;
+        right: 0;
+        border: 2px dashed rgba(0, 0, 0, 0.5);
+        border-right: none;
+      }
     </style>
+
+    <hidden>
+      <div class="floor" style="right: -20px; top: 200px; height: 385px; width: 20px; background: transparent;"></div>
+      <div class="floor" style="width: 300px; height: 25px; bottom: 0; left: -55px;"></div>
+      <div class="floor" style="width: 100px; height: 110px;" data-actor="mover 2 alternate sin" data-path="20 510, 20 600"></div>
+      <div class="floor" style="width: 100px; height: 110px;" data-actor="mover 2 alternate sin" data-path="170 600, 170 510"></div>
+      <div class="ledge" style="top: 400px;">Space ledge! That is what I am! OOOOHhh, yeah!</div>
+      <div class="ledge" style="top: 200px;">I'm a space stub :(</div>
+      <div class="outline"></div>
+    </hidden>
   </head>
   <body>
-    <div class="floor a"></div>
   </body>
 </html>
