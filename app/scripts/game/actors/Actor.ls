@@ -43,6 +43,9 @@ module.exports = class Actor extends Backbone.View
       prepared: false
     }
 
+    # Stop the actor from continuing to track moving platforms after it has reset
+    @fixed-to = null
+
     @$el.css {
       left: origin.x - @width/2
       top: origin.y - @height/2
