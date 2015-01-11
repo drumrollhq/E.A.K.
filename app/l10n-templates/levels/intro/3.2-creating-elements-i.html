@@ -4,21 +4,66 @@
     <title>Long Jump</title>
 
     <meta name="size" content="780 585">
-    <meta name="player" content="40 532">
-    <meta name="targets" content="335 470">
+    <meta name="player" content="50 140">
+    <meta name="targets" content="350 345, 575 535">
     <meta name="editable" content="true">
+    <meta name="borders" content="left bottom">
 
     <style>
       .floor {
         position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 30px;
+        width: 100px;
+        height: 20px;
         background: #aaa;
       }
+
+      p {
+        position: relative;
+        z-index: 1;
+        float: left;
+        width: 100px;
+        height: 90px;
+        padding: 10px;
+        margin: 0;
+        margin-bottom: 10px;
+        background: #aaa;
+        text-align: center;
+      }
+
+      p:nth-of-type(1) {
+        float: none;
+        margin-left: 0;
+        margin-top: 170px;
+      }
+
+      p:nth-of-type(2) {
+        float: none;
+        margin-left: 150px;
+      }
+
+      p:nth-of-type(3) {
+        margin-left: 300px;
+      }
+
+      .outline {
+        position: absolute;
+        width: 100px;
+        height: 90px;
+        border: 2px dashed rgba(0, 0, 0, 0.5);
+      }
     </style>
+
+    <hidden>
+      <div class="floor" style="width: 20px; height: 120px; left: -20px; top: 0;"></div>
+      <div class="floor" style="width: 20px; height: 120px; left: 180px; top: 0;"></div>
+      <div class="floor" style="width: 300px; height: 25px; bottom: 0; left: 425px;"></div>
+      <div class="floor" style="width: 100px; height: 110px;" data-actor="mover 2 alternate sin" data-path="500 510, 500 600"></div>
+      <div class="floor" style="width: 100px; height: 110px;" data-actor="mover 2 alternate sin" data-path="650 600, 650 510"></div>
+      <div class="outline" style="top: 270px; left: 150px"></div>
+      <div class="outline" style="top: 370px; left: 300px"></div>
+    </hidden>
   </head>
   <body>
-    <div class="floor a"></div>
+    <p>Woah! Space!</p>
   </body>
 </html>
