@@ -6,6 +6,7 @@ require! {
   'game/event-loop'
   'lib/channels'
   'lib/physics'
+  'lib/tree-inspectors'
   'loader/ElementLoader'
   'loader/LoaderView'
 }
@@ -118,7 +119,7 @@ module.exports = class Area extends Backbone.Model
     cb!
 
 parse-src = (src) ->
-  parsed = Slowparse.HTML document, src, [TreeInspectors.forbidJS]
+  parsed = Slowparse.HTML document, src, [tree-inspectors.forbidJS]
 
   if parsed.error
     console.log src, parsed.error

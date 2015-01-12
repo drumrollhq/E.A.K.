@@ -78,8 +78,7 @@ src = {
   locale-templates: './app/l10n-templates/**/*'
   lsc: './app/scripts/**/*.ls'
   tests: './test/**/*.ls'
-  vendor: ['./vendor/*.js' './vendor/rework/rework.js', './vendor/slowparse/slowparse.js',
-    './vendor/slowparse/tree-inspectors.js', './vendor/slowparse/spec/errors.jquery.js']
+  vendor: ['./vendor/*.js' './vendor/rework/rework.js', './vendor/slowparse/slowparse.js']
   workers-static: ['./bower_components/underscore/underscore.js'
                    './app/workers/**/*.js'
                    './vendor/require.js']
