@@ -9,6 +9,7 @@ require! {
   'lib/tree-inspectors'
   'loader/ElementLoader'
   'loader/LoaderView'
+  'translations'
 }
 
 module.exports = class Area extends Backbone.Model
@@ -87,7 +88,7 @@ module.exports = class Area extends Backbone.Model
     $.ajax "#{@prefix}/#{level.url}?_v=#{EAKVERSION}", {
       error: (jq, status, err) -> cb err
       success: (src) ->
-        [err, $level] = parse-src src
+        [err, $level] = parse-src src, level
         if err then return cb err
 
         level.src = src
@@ -118,13 +119,14 @@ module.exports = class Area extends Backbone.Model
     @stop-listening!
     cb!
 
-parse-src = (src) ->
+parse-src = (src, level) ->
   parsed = Slowparse.HTML document, src, [tree-inspectors.forbidJS]
 
   if parsed.error
-    console.log src, parsed.error
-    channels.alert.publish msg: translations.errors.level-errors + "[#{level.url}]"
-    return [parsed.error]
+    unless parsed.document.query-selector 'meta[name=glitch]'
+      console.log src, parsed.error
+      channels.alert.publish msg: translations.errors.level-errors + "[#{level.url}]"
+      return [parsed.error]
 
   for node in parsed.document.child-nodes
     if typeof! node is 'HTMLHtmlElement' then $level = $ node
