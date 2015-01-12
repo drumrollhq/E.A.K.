@@ -61,10 +61,6 @@ module.exports = class Mapper
       # ( c d y )
       [a, b, c, d] = matrix |> tail |> map parse-float
 
-      # Check it's only rotation:
-      unless a is d and b is -c
-        alert 'Uh oh. We can only do rotations at the moment...'
-
       # Save the rotation, in radians:
       css.rotate = asin b
 

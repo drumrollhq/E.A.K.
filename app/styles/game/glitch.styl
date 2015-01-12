@@ -1,0 +1,15 @@
+.show-glitch[data-has-slowparse-error]
+  animation 1.4s linear glitch infinite
+
+random(min = 0, max = 1)
+  return min + math(0, 'random') * (max - min)
+
+random-transform(amt = 0.3, trans = 10px)
+  transform matrix(1 + random(- amt, amt), random(- amt, amt), random(- amt, amt), 1 + random(- amt, amt), random(- trans, trans), random(- trans, trans))
+
+@keyframes glitch
+  for i in (0..100)
+    {i + '%'}
+      opacity random(0.4, 1)
+      random-transform()
+
