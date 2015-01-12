@@ -8,17 +8,17 @@ Extra bits that make CM a better editor to learn with:
 */
 
 require! {
+  'game/editor/Errors'
   'game/editor/utils'
   'lib/channels'
+  'lib/tree-inspectors'
   'settings'
 }
 
-errors = undefined
-
 error-root = "/#{settings.get \lang}/data/"
-$.load-errors error-root, <[all]>, (err) ->
-  if err isnt null
-    channels.alert.publish msg: err
+errors = new Errors error-root
+errors.load <[all]>, (err) ->
+  if err? then channels.alert.publish msg: err
 
 module.exports = setup-CM-extras = (cm) ->
   last-mark = false
@@ -44,7 +44,7 @@ module.exports = setup-CM-extras = (cm) ->
 
   return {
     process: (html) ->
-      parsed = Slowparse.HTML document, html, error-detectors: [TreeInspectors.forbid-JS]
+      parsed = Slowparse.HTML document, html, error-detectors: [tree-inspectors.forbid-JS]
 
       clear-marks!
       link-to-preview parsed.document, marks, cm
@@ -52,7 +52,7 @@ module.exports = setup-CM-extras = (cm) ->
       show-error cm, parsed.error
 
       # Remove JS:
-      jses = TreeInspectors.find-JS parsed.document
+      jses = tree-inspectors.find-JS parsed.document
 
       for js in jses
         if js.type is "SCRIPT_ELEMENT"
@@ -84,7 +84,7 @@ show-error = (cm, err) ->
     clear-marks cm.data.tmp-markers
 
   if err isnt null
-    error = $ '<div></div>' .fill-error err
+    error = errors.get-error err
     pos = utils.get-positions err, cm
 
     error.add-class 'annotation-widget annotation-error'
