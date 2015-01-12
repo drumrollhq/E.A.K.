@@ -7,7 +7,9 @@ to-boolean = (str) ->
   | otherwise => false
 
 to-list = (str = '', delimeter = ' ') ->
-  str.trim!.split delimeter
+  str.trim!
+  |> split delimeter
+  |> reject empty
 
 to-coordinates = (str = '0 0', delimeter = ' ') ->
   parts = to-list str, delimeter
