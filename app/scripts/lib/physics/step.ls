@@ -106,11 +106,6 @@ module.exports = step = (state, t) ->
     if obj.fixed-to
       fixed-target = obj.fixed-to.target
       if (obj.fixed-to.target-pos .dist-sq fixed-target.p) < 250
-        console.log 'close-enough', {
-          t-old: obj.fixed-to.target-pos.{x, y}
-          t-new: fixed-target.p.{x, y}
-          dist: (obj.fixed-to.target-pos .dist-sq fixed-target.p)
-        }
         obj.p <<< fixed-target.p .minus obj.fixed-to.pos .{x, y}
         target-y = fixed-target.aabb.top - obj.height / 2
         obj.p.y = target-y if (Math.abs target-y - obj.p.y) < 20

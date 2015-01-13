@@ -81,7 +81,6 @@ module.exports = {
   start: (type, data = {}, cb) -> @send-event type, data, true, cb
 
   stop: (id) ->
-    console.log @, @session
     unless @session? and id? then return
     @session.active-events .= filter (it) -> it isnt id
     api.sessions.stop-event @session.id, id

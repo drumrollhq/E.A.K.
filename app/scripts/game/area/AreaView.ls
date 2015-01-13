@@ -140,7 +140,6 @@ module.exports = class AreaView extends CameraScene
     @focus-level level
 
     pos = @level-edit-pos level
-    console.log pos
     <~ @transition-to pos.x, pos.y
     @clear-position!
 

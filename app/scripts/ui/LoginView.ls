@@ -43,13 +43,11 @@ module.exports = class LoginView extends SSOView
       @parent.deactivate!
 
   hide-error: ->
-    console.log 'hide-err'
     @$errors
       ..html ''
       ..add-class 'hidden'
 
   show-error: (msg) ->
-    console.log 'show-err' msg
     @$errors
       ..html msg
       ..remove-class 'hidden'

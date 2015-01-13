@@ -13,16 +13,13 @@ module.exports = class ElementLoader extends Backbone.Model
     , 1500 + (Math.random! * 500)
 
     m, to-load <~ @on \change:toLoad
-    console.log "change to-load. #{to-load}"
 
     if to-load is 0
-      console.log 'loader done'
       @trigger \done
       @set \stage ''
       clear-interval int
 
   start: ~>
-    console.log 'starting loader'
     $el = @get \el
     $images = $el.find \img
     to-load = 0
@@ -32,7 +29,6 @@ module.exports = class ElementLoader extends Backbone.Model
         to-load++
 
         img.add-event-listener \load (e) ~>
-          console.log "Loaded #{img.src}"
           @set \toLoad (@get \toLoad) - 1
 
     @set \toLoad to-load

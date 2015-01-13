@@ -40,12 +40,8 @@ module.exports = class Game extends Backbone.Model
     cs.$el.append-to document.body
     cs.render!
     event <~ logger.start 'cutscene', {name: name}
-    cs.on 'finish' ->
-      console.log 'cs finish'
-      logger.stop event.id
-    cs.on 'skip' ->
-      console.log 'cs skip'
-      logger.log 'skip'
+    cs.on 'finish' -> logger.stop event.id
+    cs.on 'skip' -> logger.log 'skip'
 
   start-area: (url) ~>
     {url, player-coords} = parse-url url

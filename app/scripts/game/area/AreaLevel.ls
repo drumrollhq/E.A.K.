@@ -102,12 +102,10 @@ module.exports = class AreaLevel extends Backbone.View
     entities.append-to @$el
 
   set-HTML-CSS: (html-src, css-src) ->
-    console.log 'set-html' html-src
     @current-HTML = html-src
     @current-CSS = css-src
 
     parsed = html.to-dom html-src
-    console.log parsed
     @$el.empty!.append parsed.document
     @add-hidden!
 

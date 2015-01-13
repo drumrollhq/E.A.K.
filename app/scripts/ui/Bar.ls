@@ -76,9 +76,7 @@ module.exports = class Bar extends Backbone.View
     else
       channels.game-commands.publish command: \pause
 
-    if prev
-      console.log 'set prev to' prev
-      @prev = prev
+    if prev then @prev = prev
 
     @active-view = view
     active = @get-active-view!

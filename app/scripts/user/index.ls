@@ -20,7 +20,6 @@ class User extends Backbone.Model
       @set logged-in: false
 
   set-user: (user, logged-in = true) ->
-    console.log 'set-user' user
     if user.status is 'creating' then channels.page.publish name: 'signupNext'
     @set logged-in: logged-in, user: user
 
