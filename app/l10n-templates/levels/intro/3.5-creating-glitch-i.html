@@ -29,10 +29,24 @@
         text-align: center;
         content: 'data-ignore: true, class: show-glitch';
       }
+
+      .symbol {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background: lime;
+      }
+
+      body.has-errors .symbol {
+        background: red;
+      }
     </style>
 
     <hidden>
-      <div class="floor a"></div>
+      <div class="floor"></div>
+      <div class="symbol" data-ignore></div>
     </hidden>
   </head>
   <body>

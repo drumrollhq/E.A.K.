@@ -78,6 +78,7 @@ module.exports = class EditorView extends Backbone.View
     @entities.append-to e
 
     el-modify e
+    @renderer.check-errors!
 
   restore-entities: ~>
     @render-el.children \.entity .detach!

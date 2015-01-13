@@ -11,6 +11,7 @@ require! {
   'game/editor/Errors'
   'game/editor/utils'
   'lib/channels'
+  'lib/lang/html'
   'lib/tree-inspectors'
   'settings'
 }
@@ -43,8 +44,8 @@ module.exports = setup-CM-extras = (cm) ->
         last-mark := mark
 
   return {
-    process: (html) ->
-      parsed = Slowparse.HTML document, html, error-detectors: [tree-inspectors.forbid-JS]
+    process: (html-src) ->
+      parsed = html.to-dom html-src
 
       clear-marks!
       link-to-preview parsed.document, marks, cm

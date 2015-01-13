@@ -6,7 +6,7 @@ require! {
   'game/event-loop'
   'lib/channels'
   'lib/physics'
-  'lib/tree-inspectors'
+  'lib/lang/html'
   'loader/ElementLoader'
   'loader/LoaderView'
   'translations'
@@ -120,7 +120,7 @@ module.exports = class Area extends Backbone.Model
     cb!
 
 parse-src = (src, level) ->
-  parsed = Slowparse.HTML document, src, [tree-inspectors.forbidJS]
+  parsed = html.to-dom src
 
   if parsed.error
     unless parsed.document.query-selector 'meta[name=glitch]'
@@ -131,6 +131,7 @@ parse-src = (src, level) ->
   for node in parsed.document.child-nodes
     if typeof! node is 'HTMLHtmlElement' then $level = $ node
 
+  $level.source = src
   el-modify $level
 
   return [null, $level]

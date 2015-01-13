@@ -9,6 +9,7 @@ require! {
   'game/targets'
   'lib/dom/Mapper'
   'lib/lang/CSS'
+  'lib/lang/html'
 }
 
 counter = 0
@@ -100,11 +101,14 @@ module.exports = class AreaLevel extends Backbone.View
     @set-HTML-CSS html, css
     entities.append-to @$el
 
-  set-HTML-CSS: (html, css) ->
-    @current-HTML = html
-    @current-CSS = css
+  set-HTML-CSS: (html-src, css-src) ->
+    console.log 'set-html' html-src
+    @current-HTML = html-src
+    @current-CSS = css-src
 
-    @$el.html html
+    parsed = html.to-dom html-src
+    console.log parsed
+    @$el.empty!.append parsed.document
     @add-hidden!
 
     @$el.find 'style' .each (i, style) ~>
@@ -112,8 +116,15 @@ module.exports = class AreaLevel extends Backbone.View
       $style.text! |> @preprocess-css |> $style.text
 
     @add-el-ids!
+    css-src |> @preprocess-css |> @style.text
 
-    css |> @preprocess-css |> @style.text
+    @check-errors!
+
+  check-errors: ->
+    if @conf.glitch and @$ '[data-has-slowparse-error]' .length
+      @$el.add-class 'has-errors'
+    else
+      @$el.remove-class 'has-errors'
 
   add-el-ids: ->
     @$ '[data-exit]' .attr 'data-id', 'ENTITY_EXIT'

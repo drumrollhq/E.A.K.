@@ -4,7 +4,7 @@
 random(min = 0, max = 1)
   return min + math(0, 'random') * (max - min)
 
-random-transform(amt = 0.3, trans = 10px)
+random-transform(amt = 0.3, trans = 10)
   transform matrix(1 + random(- amt, amt), random(- amt, amt), random(- amt, amt), 1 + random(- amt, amt), random(- trans, trans), random(- trans, trans))
 
 @keyframes glitch

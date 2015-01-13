@@ -6,11 +6,16 @@ get-meta = (level) ->
   (name, default-value = null) ->
     level.find "meta[name=\"#{name}\"]" .attr \content or default-value
 
+parse-body = (src) -> src.match /<body>([\s\S]+)<\/body>/i .1.trim!
+
 function find-level-settings level
   meta = get-meta level
   conf = {}
+
+  conf.glitch = (level.find 'meta[name=glitch]' .0)?
+
   # Set up the HTML/CSS for the level
-  conf.html = level.find 'body' .html!
+  conf.html = if conf.glitch then parse-body level.source else level.find 'body' .html!
   conf.css = level.find 'style' |> map (-> $ it .text!) |> join '\n\n'
 
   # Hidden elements, hints, and tutorials:
