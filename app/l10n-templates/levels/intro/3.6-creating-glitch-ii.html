@@ -28,11 +28,37 @@
         font-family: 'Consolas', 'Menlo', monospace;
         text-align: center;
         content: 'data-ignore: true, class: show-glitch';
+        color: #7DF9FF;
+        text-shadow: 0 0 10px #7DF9FF;
+      }
+
+      .symbol {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background: lime;
+      }
+
+      body.has-errors .symbol {
+        background: red;
+      }
+
+      body.has-errors p {
+        color: red;
+        text-shadow: 0 0 10px red;
+        content: 'data-ignore: true, class: show-glitch force-slowparse-error'
+      }
+
+      body.has-errors p p {
+        display: none;
       }
     </style>
 
     <hidden>
-      <div class="floor a"></div>
+      <div class="floor"></div>
+      <div class="symbol" data-ignore></div>
     </hidden>
   </head>
   <body>

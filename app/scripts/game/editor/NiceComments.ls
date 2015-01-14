@@ -1,17 +1,18 @@
 # Hide comments from the source, replace them with line widgets that
 # are clearly not code, beautifying the code in the process.
-module.exports = NiceComments = (cm) ->
+module.exports = NiceComments = (cm, beautify = true) ->
   html = cm.get-value!
-  html-data = pre-process-HTML html
+  html-data = pre-process-HTML html, beautify
   cm.set-value html-data.html
   add-widgets cm, html-data.comments
 
 # Beautify HTML and extract comments.
-pre-process-HTML = (stream) ->
+pre-process-HTML = (stream, beautify = true) ->
+  console.log 'pre-process-HTML' {stream, beautify}
   if stream.length <= 1
     return html: stream, comments: []
 
-  stream = html_beautify stream, {
+  if beautify then stream = html_beautify stream, {
     indent_size: 2
     indent_char: ' '
     preserve_newlines: false

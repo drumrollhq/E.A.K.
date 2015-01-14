@@ -33,13 +33,14 @@ module.exports = class EditorView extends Backbone.View
     @listen-to @model, \change:html @on-change
 
     @extras = CodeMirrorExtras cm
-    NiceComments cm
+    NiceComments cm, not @renderer.conf.glitch
     @extras.clear-cursor-marks!
 
     @esc-sub = channels.parse 'key-press: esc' .subscribe @save
     @comm-cub = channels.game-commands.subscribe @game-commands
 
     @block-if-paused <[save cancel undo redo reset help handle-change remove on-change]>
+    set-timeout (~> @on-change @model, @model.get 'html'), 0
 
   events:
     'click .save': \save
@@ -77,8 +78,8 @@ module.exports = class EditorView extends Backbone.View
 
     @entities.append-to e
 
+    @renderer.set-error parsed.error
     el-modify e
-    @renderer.check-errors!
 
   restore-entities: ~>
     @render-el.children \.entity .detach!

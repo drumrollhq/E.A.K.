@@ -28,6 +28,8 @@
         font-family: 'Consolas', 'Menlo', monospace;
         text-align: center;
         content: 'data-ignore: true, class: show-glitch';
+        color: #7DF9FF;
+        text-shadow: 0 0 10px #7DF9FF;
       }
 
       .symbol {
@@ -41,6 +43,11 @@
 
       body.has-errors .symbol {
         background: red;
+      }
+
+      body.has-errors p {
+        color: red;
+        text-shadow: 0 0 10px red;
       }
     </style>
 

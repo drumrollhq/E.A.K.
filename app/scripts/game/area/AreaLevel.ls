@@ -116,10 +116,10 @@ module.exports = class AreaLevel extends Backbone.View
     @add-el-ids!
     css-src |> @preprocess-css |> @style.text
 
-    @check-errors!
+    @set-error parsed.error
 
-  check-errors: ->
-    if @conf.glitch and @$ '[data-has-slowparse-error]' .length
+  set-error: (error) ->
+    if error?
       @$el.add-class 'has-errors'
     else
       @$el.remove-class 'has-errors'
