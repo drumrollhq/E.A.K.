@@ -5,10 +5,6 @@
   "music": "space",
   "levels": [
     {
-      "url": "levels/intro/3.5-creating-glitch-i.html",
-      "x": 2730,
-      "y": 1250
-    }, {
       "url": "levels/intro/3.1-space-play-i.html",
       "x": 250,
       "y": 350
@@ -24,6 +20,10 @@
       "url": "levels/intro/3.4-glitch-access.html",
       "x": 2330,
       "y": 450
+    }, {
+      "url": "levels/intro/3.5-creating-glitch-i.html",
+      "x": 2730,
+      "y": 1250
     }, {
       "url": "levels/intro/3.6-creating-glitch-ii.html",
       "x": 2730,
