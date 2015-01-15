@@ -5,6 +5,7 @@ require! {
   'user'
 }
 
+$body = $ document.body
 $overlay = $ '#overlay'
 $overlay-views = $ '#overlay-views'
 
@@ -112,3 +113,6 @@ module.exports = class Bar extends Backbone.View
   setup-views: ->
     for name, view of @views
       view.parent = this
+
+  show: -> $body.remove-class 'hide-bar'
+  hide: -> $body.add-class 'hide-bar'

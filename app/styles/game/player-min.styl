@@ -1,0 +1,131 @@
+.loading-spinner-player
+  font-size 150px
+  width 0.33em
+  height 0.54em
+  margin auto
+  margin-top 60px
+
+  player-theme 'arca/silhouette-white/side', false
+
+  *
+    position absolute
+    background-size 100% 100%
+    background-repeat no-repeat
+
+  /* These assets are the wrong way round, so we reverse them: */
+  .player-inner
+    width 0.31em
+    height 0.60em
+    margin-top -0.08em
+    margin-left 0.01em
+
+  .player-body
+    animation player-body-run 0.3s ease-in-out alternate infinite
+    width 0.31em
+    height 0.33em
+    top 0.24em
+    left 0em
+    transform-origin 50% 30%
+    z-index 1
+
+  .player-head
+    animation player-head-run 0.3s ease-in-out alternate infinite
+    width 0.30em
+    height 0.30em
+    top 0.08em
+    left 0.01em
+    z-index 2
+
+  .player-face
+    width 0.30em
+    height 0.30em
+    z-index 2
+
+  .player-ear-left
+    animation player-ear-left-run 0.3s ease-in-out alternate infinite
+    width 0.15em
+    height 0.16em
+    top -0.06em
+    left 0.017em
+    transform-origin 20% 80%
+    z-index 3
+
+  .player-ear-right
+    animation player-ear-right-run 0.3s ease-in-out alternate infinite
+    width 0.17em
+    height 0.19em
+    top -0.08em
+    left 0.07em
+    z-index 1
+
+  .player-eyes
+    width 0.06em
+    height 0.08em
+    top 0.16em
+    left 0.20em
+    z-index 2
+
+  .player-leg-left
+    animation player-leg-left-run 0.2s ease-in alternate infinite
+    width 0.07em
+    height 0.14em
+    top 0.49em
+    left 0.11em
+    transform-origin 50% 30%
+
+  .player-leg-right
+    animation player-leg-right-run 0.2s ease-out alternate infinite
+    width 0.05em
+    height 0.14em
+    top 0.49em
+    left 0.16em
+    transform-origin 50% 30%
+
+/* Running */
+@keyframes player-leg-left-run
+  from
+    transform rotate(10deg)
+
+  to
+    transform rotate(-20deg)
+
+@keyframes player-leg-right-run
+  from
+    transform rotate(-20deg)
+
+  to
+    transform rotate(10deg)
+
+@keyframes player-body-run
+  0%
+    transform translate(0, 0) rotate(0)
+
+  50%
+    transform translate(0.01em, -0.01em) rotate(1.5deg)
+
+  100%
+    transform translate(0.02em, 0) rotate(3deg)
+
+@keyframes player-head-run
+  0%
+    transform translate(0, 0) rotate(5deg)
+
+  50%
+    transform translate(0.01em, -0.01em) rotate(2.5deg)
+
+  100%
+    transform translate(0.02em, 0) rotate(0deg)
+
+@keyframes player-ear-left-run
+  from
+    transform rotate(0deg)
+
+  to
+    transform rotate(5deg)
+
+@keyframes player-ear-right-run
+  from
+    transform rotate(5deg)
+
+  to
+    transform rotate(0deg)
