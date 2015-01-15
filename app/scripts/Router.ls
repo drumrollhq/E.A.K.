@@ -1,4 +1,5 @@
 require! {
+  'user'
   'lib/channels'
   'logger'
 }
@@ -7,13 +8,14 @@ $body = $ document.body
 
 module.exports = class Router extends Backbone.Router
   routes:
+    'autoload': 'autoload'
     'about': 'about'
     'play/area/*path': 'playLocalArea'
     'play/cutscene/*path': 'playCutScene'
     'load': 'load'
     'home': 'goHome'
     'app/:name': 'app'
-    '*default': 'menu'
+    '*default': 'default'
 
   initialize: ({game}) ->
     @game = game
@@ -50,27 +52,15 @@ module.exports = class Router extends Backbone.Router
 
     unless payload.handled => callback!
 
-  # Show the main menu
-  menu: ~>
-    @last-non-overlay = null
-    if @should-prevent-route! then return @prevent-route!
-    <- @stop-game
-    logger.log 'page' type: 'menu'
-    $ '#main .menu' .make-only-shown-dialogue!
+  default: -> window.location.hash = '#/app/menu'
 
-  # Show the about page
-  about: ~>
-    @last-non-overlay = null
-    if @should-prevent-route! then return @prevent-route!
-    <- @stop-game
-    logger.log 'page' type: 'about'
-    $ '#main .about' .make-only-shown-dialogue!
-
-  # TODO: Loading
-  load: ~>
-    @last-non-overlay = null
-    if @should-prevent-route! then return @prevent-route!
-    channels.alert.publish msg: 'I haven\'t implemented loading yet. Sorry!'
+  autoload: ->
+    <- user.ensure-loaded
+    game <- user.get-game
+    /* if game.get 'activeArea'
+      window.location.hash = "#/play/area/#{game.get 'activeArea'}"
+    else
+      window.location.hash = '#/play/cutscene/intro'*/
 
   # TODO: Add a proper screen for reaching the end of the game. At the moment,
   # we just redirect to a feedback form.

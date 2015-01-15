@@ -20,7 +20,9 @@
     "popcornjs": "~1.5.6",
     "prelude-ls": "~1.1.1",
     "stats.js": "*",
-    "underscore": "latest"
+    "underscore": "latest",
+    "backbone-deep-model": "master",
+    "localforage": "~1.2.1"
   },
   "overrides": {
     "underscore": {
@@ -72,6 +74,9 @@
     },
     "handlebars": {
       "main": "handlebars.runtime.min.js"
+    },
+    "backbone-deep-model": {
+      "main": "distribution/deep-model.js"
     }
   }
 }

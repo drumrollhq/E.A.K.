@@ -18,6 +18,8 @@ json-req = (method, {url, data, success, error, cb}) -->
     success = (data) -> cb null, data
     error = (xhr, msg, err) -> if xhr.response-JSON then cb that, null else cb (err or msg), null
 
+  console.log {url}
+
   $.ajax {
     method: method
     content-type: 'application/json'
@@ -35,7 +37,7 @@ module.exports = api = {
   version: 'v1'
   url: (...segments) ->
     segments = flatten segments
-    if typeof (last segments) isnt 'string'
+    if typeof (last segments) is 'object'
       query = '?' + $.param last segments
       segments = initial segments
     else query = ''
@@ -61,6 +63,20 @@ module.exports = api = {
       cb: cb
       data: user
       url: api.auth.url 'register'
+    }
+
+  games:
+    url: (...segments) -> api.url 'games', flatten segments
+
+    create: (data, cb) -> post-json {
+      url: api.games.url!
+      data: data
+      cb: cb
+    }
+
+    get: (id, cb) -> get-json {
+      url: api.games.url id
+      cb: cb
     }
 
   sessions:

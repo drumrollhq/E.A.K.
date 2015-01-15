@@ -44,7 +44,6 @@ module.exports = class Init extends Backbone.View
     router = new Router game: game
 
     Backbone.history.start root: window.location.pathname
-    @bar.show!
 
   # Uses modernizr to check that all the browser features that EAK requires are present. Returns true
   # if they are, false if not.

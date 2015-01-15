@@ -1,14 +1,17 @@
 require! {
   'api'
   'lib/channels'
+  'user/Game'
 }
 
-class User extends Backbone.Model
+class User extends Backbone.DeepModel
   initialize: ->
     err, data <~ api.users.me!
+    @loaded = true
     if err
       console.error err
       @set 'available' false
+      @_loaded!
       return
 
     @set available: true
@@ -19,9 +22,18 @@ class User extends Backbone.Model
     else
       @set logged-in: false
 
+    @_loaded!
+
   set-user: (user, logged-in = true) ->
     if user.status is 'creating' then channels.page.publish name: 'signupNext'
     @set logged-in: logged-in, user: user
+
+  ensure-loaded: (cb) ->
+    if @loaded then cb this
+    @[]_waiting[*] = cb
+
+  _loaded: ->
+    for cb in @[]_waiting => cb this
 
   display-name: ->
     user = @get 'user'
@@ -38,5 +50,22 @@ class User extends Backbone.Model
   logout: ->
     api.auth.logout!
     @set logged-in: false, user: null
+    localforage.remove-item 'resume-id'
+
+  get-game: (cb) ->
+    <~ @ensure-loaded
+    if @current-game then return cb @current-game
+    if @get 'loggedIn'
+      can-resume <- Game.can-resume!
+      if can-resume
+        @current-game = Game.resume cb
+      else
+        has-local <- Game.has-local!
+        if has-local
+          Game.create-from-local cb
+        else
+          Game.create cb
+    else
+      @current-game = Game.init-local cb
 
 module.exports = new User!

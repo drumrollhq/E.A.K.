@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>{{title}}</title>
   <link rel="stylesheet" href="/css/min.css?<!-- @echo version -->">
-  <!-- @if !optimized -- >
+  <!-- @if !optimized -->
     <link rel="stylesheet" href="/css/app.css?<!-- @echo version -->">
   <!-- @endif -->
 </head>
@@ -40,6 +40,15 @@
       <p>{{{oldBrowserMsg.ignore}}}</p>
       <button class="btn btn-main">{{{oldBrowserMsg.continue}}}</button>
     </div>
+
+    <div id="app">
+      <div id="main-menu">
+        <div class="cont">
+          <h2>E.A.K.</h2>
+          <button class="btn">{{mainMenu.newGame}}</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div id="bar" class="topbar">
@@ -58,12 +67,6 @@
   </div>
 
   <div id="overlay-views">
-    <div id="main-menu">
-      <div class="cont">
-        <h2>{{title}}</h2>
-        <button class="btn">{{mainMenu.newGame}}</button>
-      </div>
-    </div>
     <div id="settings">
       <div class="cont">
         <h2>{{settings.title}}</h2>

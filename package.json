@@ -42,7 +42,7 @@
     "karma-notify-reporter": "^0.1.1",
     "lodash.defaults": "^2.4.1",
     "lodash.merge": "^2.4.1",
-    "main-bower-files": "^2.0.0",
+    "main-bower-files": "^2.5.0",
     "mkdirp": "^0.5.0",
     "mocha": "^2.0.1",
     "nib": "^1.0.3",
