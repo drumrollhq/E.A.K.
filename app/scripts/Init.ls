@@ -1,4 +1,5 @@
 require! {
+  'App'
   'Router'
   'audio/effects'
   'game/Game'
@@ -27,6 +28,9 @@ module.exports = class Init extends Backbone.View
 
       logger.setup lacking
       return
+
+    @app = new App!
+    return
 
     $overlay-views = $ '#overlay-views'
     @bar = new Bar el: ($ '#bar'), views: overlay-views {settings, user, $overlay-views}

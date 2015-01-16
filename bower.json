@@ -22,7 +22,10 @@
     "stats.js": "*",
     "underscore": "latest",
     "backbone-deep-model": "master",
-    "localforage": "~1.2.1"
+    "localforage": "~1.2.1",
+    "backbone-fsm": "~0.0.1",
+    "backbone.statemachine": "~0.2.5",
+    "bluebird": "~2.7.1"
   },
   "overrides": {
     "underscore": {
@@ -77,6 +80,12 @@
     },
     "backbone-deep-model": {
       "main": "distribution/deep-model.js"
+    },
+    "backbone.statemachine": {
+      "main": "backbone.statemachine.js",
+      "dependencies": {
+        "backbone": "*"
+      }
     }
   }
 }

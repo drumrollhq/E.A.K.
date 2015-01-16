@@ -1,0 +1,25 @@
+digraph {
+  // use $ dot -Tpng -o save-game-fsm.png save-game-fsm.dot
+  // or  $ dot -Tpng -o save-game-fsm.png save-game-fsm.dot && open save-game-fsm.png
+  rankdir=LR;
+  nodesep=1;
+  fontsize = 14;
+  node[fontname = "Open Sans Light"];
+  edge[fontname = "Open Sans Light"];
+  node[shape=rect, style=rounded];
+  node[penwidth = 0.5];
+  // edge[color="#808080"];
+
+  // States:
+  loading
+  unavailable
+  loggedIn
+  loggedOut
+
+  // Transitions
+  loading -> unavailable [label=apiUnavailable]
+  loading -> loggedIn [label=login]
+  loading -> loggedOut [label=logout]
+  loggedIn -> loggedOut [label=logout]
+  loggedOut -> loggedIn [label=login]
+}
