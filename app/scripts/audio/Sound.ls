@@ -11,11 +11,8 @@ module.exports = class Sound
     @gain-node.connect track.node
     @gain = @gain-node.gain
 
-  load: (cb) ~>
-    buffer, err <~ load @_path
-    if err then return cb err
-    @_buffer = buffer
-    cb!
+  load: ~>
+    load @_path .then (buffer) -> @_buffer = buffer
 
   start: (wh = context.current-time, offset = 0, duration) ~>
     unless duration? then duration = @_buffer.duration - (offset % @_buffer.duration)

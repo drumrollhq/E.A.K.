@@ -2,25 +2,17 @@ require! 'audio/context'
 
 cache = {}
 
-module.exports = function fetch-audio-data url, cb
+module.exports = function fetch-audio-data url
   if cache[url]? then return cb cache[url], null
 
-  $.ajax {
-    type: \GET
-    url: "#{url}.#{context.format}?_v=#{EAKVERSION}"
-    data-type: 'arraybuffer'
-    error: (xhr, status, err) ->
-      cb null, "Error loading #url: #status - #err"
-    success: (data) ->
-      success = (audio) ->
-        cache[url] = audio
-        cb audio, null
-
-      err = (err) ->
-        cb null, err
-
-      context.decode-audio-data data, success, err
-  }
+  Promise
+    .resolve $.ajax {
+      type: \GET
+      url: "#{url}.#{context.format}?_v=#{EAKVERSION}"
+      data-type: \arraybuffer
+    }
+    .then context.decode-audio-data-async
+    .tap (audio) -> cache[url] = audio
 
 # jQuery tweaks so we can load arraybuffers.
 # From http://www.artandlogic.com/blog/2013/11/jquery-ajax-blobs-and-array-buffers/

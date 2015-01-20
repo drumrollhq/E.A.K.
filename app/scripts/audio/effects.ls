@@ -8,9 +8,9 @@ require! {
 unless Track then return module.exports = new class MockEffects
   -> @ready = false
   play: -> null
-  load: (cb) ~>
+  load: ~>
     @ready = true
-    cb!
+    Promise.resolve!
 
 track = new Track 'effects'
 
@@ -27,18 +27,15 @@ class Effects
 
     sound.start!
 
-  load: (cb) ~>
+  load: ~>
     files = [{name: key, path: value} for key, value of @_files]
-    err, sounds <~ async.map files, (file, cb) ->
-      sound = new Sound file.path, track
-      err <- sound.load
-      cb err, {name: file.name, sound}
-
-    if err then return cb err
-
-    @_sounds = {[sound.name, sound.sound] for sound in sounds}
-    @ready = true
-    cb!
+    Promise
+      .map files, (file) ->
+        sound = new Sound file.path, track
+        sound.load! .then -> [file.name, sound]
+      .then (sounds) ~>
+        @_sounds = pairs-to-obj sounds
+        @ready = true
 
   setup-triggers: (triggers) ->
     for let trigger, sound of triggers

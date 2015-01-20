@@ -7,10 +7,10 @@ require! {
 
 unless Track then return module.exports = class MockMusic
   -> @playing = false
-  load: (cb) -> cb!
+  load: -> Promise.resolve!
   play: -> null
   stop: -> null
-  fade-out: (d, cb = -> null) -> cb!
+  fade-out: (d) -> Promise.resolve!
   switch-to: -> null
   fade-to: -> null
 
@@ -20,18 +20,14 @@ module.exports = class Music
   (@name, @_layers) ->
     @playing = false
 
-  load: (cb) ~>
+  load: ~>
     layers = [{name: key, path: value} for key, value of @_layers]
-    err, layers <~ async.map layers, (layer, cb) ->
-      sound = new Sound layer.path, track
-      sound.loop = true
-      err <~ sound.load
-
-      cb err, {name: layer.name, sound}
-
-    if err then return cb err
-    @layers = {[layer.name, layer.sound] for layer in layers}
-    cb!
+    Promise
+      .map layers, (layer) ->
+        sound = new Sound layer.path, track
+        sound.loop = true
+        sound.load! .then -> [layer.name, sound]
+      .then (layers) -> @layers = pairs-to-obj layers
 
   play: (name, offset = 0) ~>
     if @playing then return
@@ -45,11 +41,11 @@ module.exports = class Music
     @playing-sound.stop!
     @playing = false
 
-  fade-out: (duration = 1, cb = -> null) ~>
+  fade-out: (duration = 1) ~> new Promise (resolve) ~>
     layer = @layers[@playing]
     layer.gain.set-value-at-time 1, context.current-time
     layer.gain.linear-ramp-to-value-at-time 0, context.current-time + duration
-    @playing-sound.on-ended = on-ended duration, cb
+    @playing-sound.on-ended = on-ended duration, resolve
     @playing-sound.stop context.current-time + duration
 
   switch-to: (name) ~>

@@ -2,7 +2,7 @@ require! 'api'
 const dt = 15000ms
 
 module.exports = {
-  setup: (missing-features, cb = -> null) ->
+  setup: (missing-features, logged-in-user) ->
     # Send session data:
     first-path = window.location.pathname.replace /^\//, '' .split '/' .0
     if first-path in window.LANGUAGES then lang = first-path else lang = 'default'
@@ -34,16 +34,15 @@ module.exports = {
       entry-hash: window.location.hash
       domain: window.location.host
       missing-features: missing-features or false
+      logged-in-user: logged-in-user or false
     }
 
-    session <~ api.sessions.create data
-    if session?
-      @session = session
-      @session.active-events = []
-      @setup-checkin-loop!
-      @setup-cleanup!
-
-    cb!
+    api.sessions.create data
+      .then (session) ~>
+        if session?
+          @session = session
+          @session.active-events = []
+          @setup-checkin-loop!
 
   setup-checkin-loop: ->
     unless @session? then return
@@ -51,42 +50,28 @@ module.exports = {
     <~ set-interval _, dt
     api.sessions.checkin @session.id, @session.active-events
 
-  setup-cleanup: ->
-    unless @session? then return
-    is-clean = false
-    cleanup = !~>
-      if is-clean then return
-      api.sessions.stop @session.id, false
-
-    $ window
-      ..on 'unload' ~>
-        cleanup!
-      ..on 'beforeunload' ~>
-        cleanup!
-
-  send-event: (type, data, has-duration, cb = -> null) ->
-    unless @session? then return cb id: null
+  send-event: (type, data, has-duration) ->
+    unless @session? then return Promise.resolve id: null
     if ga? then ga 'send' {
       hit-type: 'event'
       event-category: type
       event-action: if has-duration then 'start' else 'log'
     }
 
-    err, event <~ api.sessions.create-event @session.id, type, data, has-duration
-    if err then return cb id: null
-    if has-duration then @session.active-events[*] = event.id
-    cb event
+    api.sessions.create-event @session.id, type, data, has-duration
+      .tap (event) -> if has-duration then @session.active-events[*] = event.id
+      .catch -> Promise.resolve id: null
 
-  log: (type, data = {}, cb) -> @send-event type, data, false, cb
-  start: (type, data = {}, cb) -> @send-event type, data, true, cb
+  log: (type, data = {}) -> @send-event type, data, false
+  start: (type, data = {}) -> @send-event type, data, true
 
   stop: (id) ->
     unless @session? and id? then return
     @session.active-events .= filter (it) -> it isnt id
     api.sessions.stop-event @session.id, id
 
-  update: (id, data, cb) ->
-    unless @session and id? then return cb!
-    api.sessions.update-event @session.id, @event-id, data, -> cb!
+  update: (id, data) ->
+    unless @session and id? then return Promise.resolve!
+    api.sessions.update-event @session.id, @event-id, data
 }
 

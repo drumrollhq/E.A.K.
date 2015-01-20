@@ -13,24 +13,17 @@ else
 
 no-op = -> null
 
-json-req = (method, {url, data, success, error, cb}) -->
-  if cb?
-    success = (data) -> cb null, data
-    error = (xhr, msg, err) -> if xhr.response-JSON then cb that, null else cb (err or msg), null
-
-  console.log {url}
-
-  $.ajax {
+json-req = (method, url, data) -->
+  Promise.resolve $.ajax {
     method: method
-    content-type: 'application/json'
     url: url
     data: JSON.stringify data if data?
-    success: success
-    error: error
+    content-type: 'application/json'
   }
 
-post-json = json-req POST
-get-json = json-req GET
+post-json = (url, data) -> json-req POST, url, data
+get-json = (url, data) -> json-req GET, url, data
+delete-json = (url, data) -> json-req DELETE, url, data
 
 module.exports = api = {
   root: root
@@ -45,84 +38,36 @@ module.exports = api = {
 
   users:
     url: (...segments) -> api.url 'users', flatten segments
-    me: (cb = no-op) -> get-json cb: cb, url: api.users.url 'me'
-
-    usernames: (query, cb = no-op) -> get-json cb: cb, url: api.users.url 'usernames', query
+    me: -> get-json api.users.url 'me'
+    usernames: (query) -> get-json api.users.url 'usernames', query
 
   auth:
     url: (...segments) -> api.url 'auth', flatten segments
-    logout: (cb = no-op) -> get-json cb: cb, url: api.auth.url 'logout'
-
-    login: (username, password, cb = no-op) -> post-json {
-      url: api.auth.url 'login'
-      data: {username, password}
-      cb: cb
-    }
-
-    register: (user, cb = no-op) -> post-json {
-      cb: cb
-      data: user
-      url: api.auth.url 'register'
-    }
+    logout: -> get-json api.auth.url 'logout'
+    login: (username, password) -> post-json (api.auth.url 'login'), {username, password}
+    register: (user) -> post-json (api.auth.url 'register'), user
 
   games:
     url: (...segments) -> api.url 'games', flatten segments
-
-    create: (data, cb) -> post-json {
-      url: api.games.url!
-      data: data
-      cb: cb
-    }
-
-    get: (id, cb) -> get-json {
-      url: api.games.url id
-      cb: cb
-    }
+    create: (data) -> post-json api.games.url!, data
+    get: (id) -> get-json api.games.url id
 
   sessions:
     url: (...segments) -> api.url 'sessions', flatten segments
+    create: (data) -> post-json api.sessions.url!, data
+    checkin: (session-id, event-ids) -> post-json (api.sessions.url session-id), ids: event-ids
+    stop: (id, async = true) -> Promise.resolve $.ajax {
+      method: DELETE
+      url: api.sessions.url id
+      async: async
+    }
 
-    create: (data, cb = no-op) ->
-      post-json {
-        url: api.sessions.url!
-        data: data
-        success: (session) -> cb session
-        error: -> cb null
-      }
+    create-event: (session-id, type, data, has-duration) ->
+      post-json (api.sessions.url session-id, 'events'), {type, data, has-duration}
 
-    checkin: (session-id, event-ids, cb = no-op) ->
-      post-json {
-        url: api.sessions.url session-id
-        data: ids: event-ids
-        cb: cb
-      }
+    stop-event: (session-id, event-id) ->
+      delete-json api.sessions.url session-id, 'events', event-id
 
-    stop: (id, async = true, cb = no-op) ->
-      $.ajax {
-        method: DELETE
-        url: api.sessions.url id
-        async: async
-        success: cb
-      }
-
-    create-event: (session-id, type, data, has-duration, cb = no-op) ->
-      post-json {
-        url: api.sessions.url session-id, 'events'
-        data: {type, data, has-duration}
-        cb: cb
-      }
-
-    stop-event: (session-id, event-id, cb = no-op) ->
-      $.ajax {
-        method: DELETE
-        url: api.sessions.url session-id, 'events', event-id
-        cb: cb
-      }
-
-    update-event: (session-id, event-id, data, cb = no-op) ->
-      post-json {
-        url: api.sessions.url session-id, 'events', event-id
-        data: data
-        cb: cb
-      }
+    update-event: (session-id, event-id, data) ->
+      post-json (api.sessions.url session-id, 'events', event-id), data
 }

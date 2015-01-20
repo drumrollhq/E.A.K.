@@ -1,17 +1,6 @@
 require! {
   'App'
-  'Router'
-  'audio/effects'
-  'game/Game'
-  'game/event-loop'
-  'logger'
   'plugins'
-  'settings'
-  'stats'
-  'ui/Bar'
-  'ui/alert'
-  'ui/overlay-views'
-  'user'
 }
 
 module.exports = class Init extends Backbone.View
@@ -30,24 +19,6 @@ module.exports = class Init extends Backbone.View
       return
 
     @app = new App!
-    return
-
-    $overlay-views = $ '#overlay-views'
-    @bar = new Bar el: ($ '#bar'), views: overlay-views {settings, user, $overlay-views}
-
-    <~ effects.load!
-
-    <~ logger.setup false
-
-    # Hide the loader and start up the game.
-    @$ \.loader .hide-dialogue!
-
-    game = new Game false
-
-    # Start up the Backbone router
-    router = new Router game: game
-
-    Backbone.history.start root: window.location.pathname
 
   # Uses modernizr to check that all the browser features that EAK requires are present. Returns true
   # if they are, false if not.

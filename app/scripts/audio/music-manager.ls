@@ -35,33 +35,27 @@ class MusicManager
     channels.parse 'game-commands: edit-start' .subscribe ~> @switch-track 'glitch'
     channels.parse 'game-commands: edit-stop' .subscribe ~> @switch-track 'normal'
 
-  start-track: (name, cb = ->) ~>
+  start-track: (name) ~>
     unless @tracks[name]? then throw new Error 'Cannot find track called ' + name
-    if @playing is name then return cb!
+    if @playing is name then return Promise.resolve!
     @playing = name
 
-    if name is \none then return @stop cb
+    if name is \none then return @stop!
 
     music = new Music name, @tracks[name]
-    err <~ async.parallel [music.load, @stop]
+    Promise.all [music.load!, @stop!]
+      .then ->
+        music.play \normal
+        @music = music
 
-    if err?
-      channels.alert.publish msg: "#{translations.errors.music-not-found}: #err"
-      return cb!
-
-
-    music.play 'normal'
-    @music = music
-    cb!
-
-  stop: (cb) ~>
-    unless @music then return cb!
-    @music.fade-out 0.5, cb
+  stop: ~>
+    unless @music then return Promise.resolve!
+    music = @music
     @music = null
+    music.fade-out 0.5
 
   switch-track: (track) ~>
     unless @music? then return
     @music.fade-to track, 0.5
-
 
 module.exports = new MusicManager tracks
