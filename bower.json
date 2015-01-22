@@ -24,8 +24,8 @@
     "backbone-deep-model": "master",
     "localforage": "~1.2.1",
     "backbone-fsm": "~0.0.1",
-    "backbone.statemachine": "~0.2.5",
-    "bluebird": "~2.7.1"
+    "bluebird": "~2.7.1",
+    "backbone.asyncstatemachine": "~0.3.0"
   },
   "overrides": {
     "underscore": {
@@ -81,10 +81,11 @@
     "backbone-deep-model": {
       "main": "distribution/deep-model.js"
     },
-    "backbone.statemachine": {
-      "main": "backbone.statemachine.js",
+    "backbone.asyncstatemachine": {
+      "main": "backbone.asyncstatemachine.js",
       "dependencies": {
-        "backbone": "*"
+        "backbone": "*",
+        "bluebird": "*"
       }
     }
   }

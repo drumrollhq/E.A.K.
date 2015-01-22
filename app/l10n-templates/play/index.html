@@ -11,6 +11,15 @@
 </head>
 <body class="hide-bar">
   <div id="main" class="html">
+    <div id="app">
+      <div id="main-menu" class="dialogue">
+        <div class="cont">
+          <h1>E.A.K.</h1>
+          <a href="#/cutscene/intro" class="btn btn-major">{{mainMenu.newGame}}</a>
+        </div>
+      </div>
+    </div>
+
     <div class="loader dialogue active">
       <div class="loading-spinner-player">
         <div class="player-inner">
@@ -39,15 +48,6 @@
       <ul></ul>
       <p>{{{oldBrowserMsg.ignore}}}</p>
       <button class="btn btn-main">{{{oldBrowserMsg.continue}}}</button>
-    </div>
-
-    <div id="app">
-      <div id="main-menu" class="dialogue">
-        <div class="cont">
-          <h2>E.A.K.</h2>
-          <button class="btn">{{mainMenu.newGame}}</button>
-        </div>
-      </div>
     </div>
   </div>
 

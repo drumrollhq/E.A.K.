@@ -16,13 +16,19 @@
     display block
 
   > *
+    padding-top 75px
     display none
+
+#app > *
+  padding-top 50px
+
+#overlay-views, #app
+  > *
     position absolute
     top 0
     left 0
     right 0
     opacity 0
-    padding-top 75px
     padding-bottom 75px
 
     &.active
@@ -50,11 +56,14 @@
     list-style disc
     padding-left 3em
 
-  h2
+  h1, h2
     text-align center
     font-family brandFont
-    font-size 36px
+    font-size 48px
     line-height 1.5em
+
+  h2
+    font-size 36px
 
   h3
     font-weight 300
@@ -102,6 +111,12 @@
       clear both
       position relative
       top 5px
+
+  .btn-major
+    display block
+    width 100%
+    font-size 1.1em
+    margin-top 30px
 
   .button-list
     padding-bottom 15px

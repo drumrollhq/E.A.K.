@@ -6,62 +6,72 @@ require! {
 const vw = 960px
 const vh = 720px
 const v-aspect = vh / vw
+const sleep-timeout = 3000ms
 
 template = ({next, html}) -> """
   <div class="cutscene-vid">
     #html
     <div class="cutscene-subtitle" id="cutscene-subtitle"></div>
   </div>
-  <a href="#next" class="skip">#{translations.cutscene.skip} &rarr;</a>
+  <a href="#next" class="btn skip">#{translations.cutscene.skip} &rarr;</a>
 """
 
 $util = $ '<div></div>'
 
 module.exports = class CutScene extends Backbone.View
-  tag-name: 'div'
-  class-name: 'cut-scene'
+  tag-name: \div
+  class-name: \cut-scene
   events:
     'click .skip': 'triggerSkip'
+    'mousemove': 'wakeup'
 
   initialize: ({name}) ->
-    @subs = []
     @name = name
-    @subs[*] = channels.window-size.subscribe @resize
-    @subs[*] = channels.game-commands.filter ( .command is \stop ) .subscribe @finish
-    @html = translations.cutscene.loading
-    $.ajax {
-      url: "#{name}.html?_v=#{EAKVERSION}"
-      success: (html) ~>
+    @subs = []
+
+  load: ->
+    Promise.resolve $.ajax url: "#{@name}.html?_v=#{EAKVERSION}"
+      .then (html) ~>
         @html = html
-        $util.html @html
+        $util.html html
         $util.find 'source' .attr 'src', '' .remove!
         @next = $util.find 'a' .attr 'href'
-        @render!
-      error: ~>
-        channels.alert.publish msg: translations.cutscene.error
-    }
+      .catch (e) ->
+        console.error e
+        throw new Error translations.cutscene.error
+
+  start: ->
+    @render!
+    @attach!
+    @resize!
+    @setup-video!
+    @wakeup!
+
+  cleanup: ->
+    for sub in @subs => sub.unsubscribe!
+    @remove!
 
   render: ->
     @$el.html template this.{html, next}
 
-    # Prevent strange video loading bug in chrome
+    # prevent strange video loading bug in chrome
     @$el.find 'source' .each ->
       $el = $ this
       $el.attr 'src', "#{$el.attr 'src'}?_v=#{EAKVERSION}"
 
     @$video-cont = @$el.find '.cutscene-vid'
+    @$skip = @$el.find 'a.skip'
     @$video = @$video-cont.find 'video'
     if @$video.length > 0
       @video = @$video .get 0 |> Popcorn
-      @resize!
 
-      @start-video!
+  attach: ->
+    @$el.append-to document.body
+    @subs[*] = channels.window-size.subscribe @resize
+    @subs[*] = channels.game-commands.filter ( .command is \stop ) .subscribe @finish
 
-  remove: ->
-    for sub in @subs => sub.unsubscribe!
-    super!
-
-  start-video: ~>
+  setup-video: ~>
+    debugger
     @video.on 'ended' @finish
 
     # Set up subtitles:
@@ -83,11 +93,20 @@ module.exports = class CutScene extends Backbone.View
 
   finish: ~>
     @trigger 'finish'
-    @remove!
     window.location.href = @next
 
-  trigger-skip: ~>
-    @trigger 'skip'
+  wakeup: ->
+    if @_sleep-timeout then clear-timeout @_sleep-timeout
+    @_sleep-timeout = set-timeout @sleep, sleep-timeout
+    if @asleep then @_wakeup!
+
+  _wakeup: ->
+    @asleep = false
+    @$skip.remove-class 'asleep'
+
+  sleep: ~>
+    @asleep = true
+    @$skip.add-class 'asleep'
 
   resize: ~>
     w = @$el.width!
@@ -114,10 +133,20 @@ module.exports = class CutScene extends Backbone.View
       left: (w - vw) / 2
     }
 
+    @$skip.css {
+      top: 15 + (h - vh) / 2
+      left: 15 + (w - vw) / 2
+    }
+
   scaled-resize: (scale, w, h) ~>
     @$video-cont.css {
       width: scale * vw
       height: scale * vh
       top: (h - scale * vh) / 2
       left: (w - scale * vw) / 2
+    }
+
+    @$skip.css {
+      top: 15 + (h - scale * vh) / 2
+      left: 15 + (w - scale * vw) / 2
     }
