@@ -27,7 +27,7 @@ module.exports = class Music
         sound = new Sound layer.path, track
         sound.loop = true
         sound.load! .then -> [layer.name, sound]
-      .then (layers) -> @layers = pairs-to-obj layers
+      .then (layers) ~> @layers = pairs-to-obj layers
 
   play: (name, offset = 0) ~>
     if @playing then return

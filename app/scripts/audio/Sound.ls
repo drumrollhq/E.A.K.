@@ -12,7 +12,7 @@ module.exports = class Sound
     @gain = @gain-node.gain
 
   load: ~>
-    load @_path .then (buffer) -> @_buffer = buffer
+    load @_path .then (buffer) ~> @_buffer = buffer
 
   start: (wh = context.current-time, offset = 0, duration) ~>
     unless duration? then duration = @_buffer.duration - (offset % @_buffer.duration)

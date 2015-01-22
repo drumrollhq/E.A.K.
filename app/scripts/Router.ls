@@ -25,3 +25,6 @@ module.exports = class Router extends Backbone.Router
 
   play-cutscene: (path) ->
     @app.load \cutscene, path
+
+  play-area: (path) ->
+    @app.load \area, path

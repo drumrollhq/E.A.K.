@@ -3,7 +3,7 @@ require! 'audio/context'
 cache = {}
 
 module.exports = function fetch-audio-data url
-  if cache[url]? then return cb cache[url], null
+  if cache[url]? then return Promise.resolve cache[url]
 
   Promise
     .resolve $.ajax {

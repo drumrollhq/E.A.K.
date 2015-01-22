@@ -5,15 +5,15 @@
   "music": "cave",
   "levels": [
     {
-      "url": "levels/intro/2.1-editing-text-ii.html",
+      "url": "2.1-editing-text-ii.html",
       "x": 250,
       "y": 250
     }, {
-      "url": "levels/intro/2.2-editing-text-iii.html",
+      "url": "2.2-editing-text-iii.html",
       "x": 538,
       "y": 835
     }, {
-      "url": "levels/intro/2.3-portals.html",
+      "url": "2.3-portals.html",
       "x": 1318,
       "y": 1128
     }

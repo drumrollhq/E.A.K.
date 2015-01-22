@@ -44,7 +44,7 @@ class MusicManager
 
     music = new Music name, @tracks[name]
     Promise.all [music.load!, @stop!]
-      .then ->
+      .then ~>
         music.play \normal
         @music = music
 

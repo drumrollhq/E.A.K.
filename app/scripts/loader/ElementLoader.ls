@@ -1,17 +1,10 @@
 require! 'translations'
 
-messages = translations.loading.messages
-
 module.exports = class ElementLoader extends Backbone.Model
   defaults:
-    stage: translations.loading.start
     progress: null
 
   initialize: ->
-    int = set-interval ~>
-      messages[Math.floor Math.random! * messages.length] |> @set \stage, _
-    , 1500 + (Math.random! * 500)
-
     m, to-load <~ @on \change:toLoad
 
     if to-load is 0

@@ -1,13 +1,15 @@
 require! {
-  'settings'
   'Router'
   'audio/effects'
-  'game/Game'
+  'audio/music-manager'
+  'game/area/background'
   'game/load'
   'lib/channels'
+  'loader/LoaderView'
   'logger'
-  'ui/alert'
+  'settings'
   'ui/Bar'
+  'ui/alert'
   'ui/overlay-views'
   'user'
 }
@@ -17,7 +19,7 @@ const level-types = <[cutscene area]>
 module.exports = class App
   states:
     init: {leave: <[initialized]>}
-    menus: {enter: <[cleanupPlaying showActiveMenu]>, leave: <[hideActiveMenu]>}
+    menus: {enter: <[cleanupPlaying showActiveMenu cleanupPlayingRemains]>, leave: <[hideActiveMenu]>}
     menus-overlay: {enter: <[showOverlay cleanupPlaying]>, leave: <[hideOverlay]>}
     loading: {enter: <[cleanupPlaying startLoader]>}
     playing: {enter: <[startEventLoop]>, leave: <[stopEventLoop]>}
@@ -75,7 +77,6 @@ module.exports = class App
         user.fetch! .then (user) -> logger.setup false, user.id
       ]
       .then ~>
-        @game = new Game false
         @router = new Router app: this
         Backbone.history.start root: window.location.pathname
       .catch (e) ->
@@ -109,7 +110,6 @@ module.exports = class App
 
     # Hide the loader and start up the game.
     $ \.loader .hide-dialogue!
-    @game = new Game false
     @_menus = {
       main: $ '#main-menu'
     }
@@ -121,28 +121,46 @@ module.exports = class App
       @_level = null
       that.cleanup!
 
+  cleanup-playing-remains: ->
+    # Get rid of the last few bits of a playing session. We leave backgrounds and
+    # music in place in a normal cleanup in case they are used again.
+    background.clear!
+    music-manager.start-track 'none'
+
   start-loader: ({type, path}) !->
     unless type in level-types then throw new Error "Bad level type #type!"
+    @show-loader!
     @_current-loader = load[type] path, this
       .cancellable!
       .then (level) ~>
         @_level = level
         @trigger \start
         level.start!
+      .catch Promise.CancellationError, ->
       .catch (e) ~>
         console.error e
         channels.alert.publish msg: e.message
         window.location.href = '#/menu'
-      .finally ~> @_current-loader = null
+      .finally ~>
+        @_current-loader = null
+        @hide-loader!
 
   cancel-loader: ~>
     if @_current-loader then @_current-loader.cancel!
+
+  show-loader: ~>
+    @loader-view ?= new LoaderView el: $ '.loader'
+    @loader-view.show!
+
+  hide-loader: ~>
+    if @loader-view then @loader-view.hide!
 
   show-active-menu: ->
     @_menus[@_active-menu]?.make-only-shown-dialogue!
 
   hide-active-menu: ->
     @_menus[@_active-menu]?.hide-dialogue!
+    @_active-menu = null
 
   hide-overlay: ->
   show-overlay: ->

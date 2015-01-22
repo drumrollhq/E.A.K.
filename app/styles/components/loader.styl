@@ -23,20 +23,23 @@
 
   .stages
     height 15px
+    text-align center
+    :not(.active)&
+      display none
 
   .stage
-    position absolute
+    height 0
 
     &.next
-      transform translate(-30px, 0) translateZ(0)
+      transform translate(0, -10px) scale(0.8) translateZ(0)
       opacity 0
 
     &.current
-      transition all 0.2s 0.075s ease-out
+      transition all 0.2s 0.1s ease-out
       transform translate(0, 0) translateZ(0)
       opacity 1
 
     &.prev
       transition all 0.2s ease-in
-      transform translate(30px, 0) translateZ(0)
+      transform translate(0, 20px) scale(0.8) translateZ(0)
       opacity 0
