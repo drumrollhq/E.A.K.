@@ -4,7 +4,6 @@ require! {
   'game/area/AreaLevel'
   'game/area/CameraScene'
   'game/area/background'
-  'game/event-loop'
   'lib/channels'
   'logger'
 }
@@ -110,44 +109,40 @@ module.exports = class AreaView extends CameraScene
 
     channels.game-commands.publish command: 'edit-start'
     @edit-event = null
-    logger.start 'edit', {}, (event) -> @edit-event = event.id
+    logger.start 'edit', {}, .then (event) -> @edit-event = event.id
 
     if @level!.conf.reset-player-on-edit then @player.reset!
-    event-loop.pause!
     @player.draw!
 
     level = @level!
 
     @focus-level-for-editor!
     level.start-editor!
-    level.once 'stop-editor' ~> @stop-editor!
+    level.once 'stop-editor' ~> @trigger 'stop-editor'
 
   stop-editor: ->
     if @edit-event
-      <- logger.update edit-event, html: (editor.get \html), css: (editor.get \css)
-      logger.stop edit-event
+      logger.update @edit-event, html: (editor.get \html), css: (editor.get \css) .then -> logger.stop @edit-event
 
     channels.game-commands.publish command: 'edit-stop'
-    <~ @unfocus-level-for-editor!
-    @model.set 'editing' false
-    @clear-position!
-    @create-maps!
-    @model.build-map!
-    event-loop.resume!
+    @unfocus-level-for-editor! .then ~>
+      @model.set 'editing' false
+      @clear-position!
+      @create-maps!
+      @model.build-map!
 
-  focus-level-for-editor: (cb = -> null) ->
+  focus-level-for-editor: ->
     level = @level!
     @focus-level level
 
     pos = @level-edit-pos level
-    <~ @transition-to pos.x, pos.y
-    @clear-position!
+    @transition-to pos.x, pos.y .then ~>
+      @clear-position!
 
-    @set-edit-css level
-    @override-resize!
-    cb!
+      @set-edit-css level
+      @override-resize!
 
-  unfocus-level-for-editor: (cb = -> null) ->
+  unfocus-level-for-editor: ->
     level = @level!
     @unfocus-level level
 
@@ -156,11 +151,11 @@ module.exports = class AreaView extends CameraScene
 
     pos = @level-edit-pos level
     @set-transform pos.x, pos.y
-    <~ set-timeout _, 0
-    {x, y} = @get-position @player.p.x, @player.p.y
-    unless @scrolling.x then x = 0
-    unless @scrolling.y then y = 0
-    @transition-to -x, -y, cb
+    Promise.delay 0 .then ~>
+      {x, y} = @get-position @player.p.x, @player.p.y
+      unless @scrolling.x then x = 0
+      unless @scrolling.y then y = 0
+      @transition-to -x, -y
 
   focus-level: (level) ->
     for other-level in @levels when other-level isnt level => other-level.hide!
@@ -237,15 +232,18 @@ module.exports = class AreaView extends CameraScene
     @resize = @normal-resize
     @resize!
 
-  transition-to: (x, y, cb) ->
+  transition-to: (x, y) -> new Promise (resolve, reject) ~>
     finish = (e) ~>
-      unless e.target is @el then return
-      @$el.off 'transitionend', finish
+      if e and e.target isnt @el then return
+      console.log @$el
+      @$el.off prefixed.transition-end, finish
       @$el.remove-class 'trans'
-      cb!
+      clear-timeout finish-timeout # TODO: remove this. Hack.
+      resolve!
 
     @$el.add-class 'trans'
     @$el.on prefixed.transition-end, finish
+    finish-timeout = set-timeout finish, 700
 
     @set-transform x, y
 

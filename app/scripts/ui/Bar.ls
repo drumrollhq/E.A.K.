@@ -1,5 +1,6 @@
 require! {
   'game/event-loop'
+  'game/Events'
   'lib/channels'
   'settings'
   'user'
@@ -26,7 +27,7 @@ module.exports = class Bar extends Backbone.View
     @$login-button = @$ '.login'
     @$logout-button = @$ '.logout'
 
-    channels.key-press.filter ( .key in <[ e i ]> ) .subscribe @start-edit
+    channels.key-press.filter ( .key in <[ e i ]> ) .subscribe @edit
     channels.page.subscribe ({name, prev}) ~> @activate name, prev
     settings.on 'change:mute', @render, this
     user.on 'change', @render, this
@@ -52,13 +53,11 @@ module.exports = class Bar extends Backbone.View
       @$user-bits.add-class 'hidden'
 
   edit: (e) ~>
-    e.prevent-default!
-    e.stop-propagation!
-    @start-edit!
-    e.target.blur!
-
-  start-edit: ~>
-    unless event-loop.paused then channels.game-commands.publish command: \edit
+    if e.prevent-default
+      e.prevent-default!
+      e.stop-propagation!
+      e.target.blur!
+    channels.game-commands.publish command: \edit
 
   toggle-mute: ->
     settings.set 'mute', not settings.get 'mute'

@@ -7,7 +7,6 @@ $body = $ document.body
 
 channels.game-commands.subscribe ({command}) ->
   if command in <[pause resume]> then console.error 'Event-loop pause commands are deprecated!'
-  console.log command
   switch command
   | 'pause' => req-pause!
   | 'resume' => req-resume!

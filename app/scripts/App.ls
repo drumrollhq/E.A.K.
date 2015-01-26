@@ -52,7 +52,9 @@ module.exports = class App
     playing:
       load: \loading
       pause: \paused
-      edit: \editing
+      edit:
+        enter-state: \editing
+        callbacks: <[showEditor]>
       quit: \menus
 
     paused:
@@ -60,7 +62,9 @@ module.exports = class App
       quit: \menus
 
     editing:
-      edit-finished: \playing
+      edit-finished:
+        enter-state: \playing
+        callbacks: <[hideEditor]>
       quit: \menus
       load: \loading
       pause: \editingPaused
@@ -120,6 +124,8 @@ module.exports = class App
       main: $ '#main-menu'
     }
 
+    channels.game-commands.filter ( .command is \edit ) .subscribe ~> @edit!
+
     return Promise.delay 400
 
   show-app-overlay: (name = 'settings') ->
@@ -143,6 +149,10 @@ module.exports = class App
       @bar.activate name
 
   overlay-active: -> @current-state in <[menusOverlay paused editingPaused]>
+
+  edit: ->
+    if @_level and @_level.is-editable! and @current-state is \playing
+      @trigger-async 'edit'
 
   cleanup-playing: ->
     @_active-play = null
@@ -209,3 +219,13 @@ module.exports = class App
 
   stop-event-loop: ->
     channels.game-commands.publish command: \force-pause
+
+  show-editor: ->
+    if @_level and @_level.is-editable!
+      debugger
+      @_level.edit!
+      @_level.once 'stop-editor' ~> @trigger \editFinished
+
+  hide-editor: ->
+    console.log 'hide-editor'
+    if @_level then @_level.hide-editor!

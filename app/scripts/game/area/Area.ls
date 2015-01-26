@@ -46,7 +46,6 @@ module.exports = class Area extends Backbone.Model
 
   subscribe: ->
     @subs[*] = channels.frame.subscribe @frame
-    @subs[*] = channels.game-commands.subscribe @game-command
 
   frame: (data) ~>
     @state = physics.step @state, data.t
@@ -54,8 +53,15 @@ module.exports = class Area extends Backbone.Model
     @check-player-is-in-world!
     @update-player-level!
 
-  game-command: ({command, payload}) ~>
-    | command is 'edit' and @view.is-editable! => @view.start-editor!
+  edit: ->
+    @view.start-editor!
+    @view.once 'stop-editor' ~>
+      console.log 'stop-editor'
+      @trigger 'stop-editor'
+
+  hide-editor: -> @view.stop-editor!
+
+  is-editable: -> @view.is-editable!
 
   update-player-level: ->
     l = @view.get-player-level!

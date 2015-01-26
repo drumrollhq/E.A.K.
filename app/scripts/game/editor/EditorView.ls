@@ -37,7 +37,7 @@ module.exports = class EditorView extends Backbone.View
     @extras.clear-cursor-marks!
 
     @esc-sub = channels.parse 'key-press: esc' .subscribe @save
-    @comm-cub = channels.game-commands.subscribe @game-commands
+    @comm-sub = channels.game-commands.subscribe @game-commands
 
     @block-if-paused <[save cancel undo redo reset help handle-change remove on-change]>
     set-timeout (~> @on-change @model, @model.get 'html'), 0
