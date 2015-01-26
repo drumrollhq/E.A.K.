@@ -6,7 +6,6 @@ require! {
 }
 
 $body = $ document.body
-$overlay = $ '#overlay'
 $overlay-views = $ '#overlay-views'
 
 module.exports = class Bar extends Backbone.View
@@ -65,17 +64,19 @@ module.exports = class Bar extends Backbone.View
     settings.set 'mute', not settings.get 'mute'
 
   toggle-settings: ->
-    if @active-view then @deactivate! else window.location.hash = '#/app/settings'
+    if @active-view
+      @trigger 'dismiss'
+    else
+      window.location.hash = '#/app/settings'
+
   login: -> @activate 'login'
   logout: -> user.logout!
 
   activate: (view, prev) ->
-    if view is \none then return @deactivate!
+    if view in [\none null] then return @deactivate!
     if @active-view is view then return
     if @active-view
-      @deactivate false, false
-    else
-      channels.game-commands.publish command: \pause
+      @deactivate false
 
     if prev then @prev = prev
 
@@ -84,29 +85,21 @@ module.exports = class Bar extends Backbone.View
       ..$el.add-class 'active'
       ..once 'close', @deactivate, this
 
-    $overlay.add-class 'active'
     $overlay-views.add-class 'active'
     @$settings-button.add-class 'active'
     active.activate! if active.activate?
 
-  deactivate: (overlay = true, resume = true) ->
+  deactivate: (all = true) ->
     old-view = @get-active-view!
     unless old-view then return
     old-view.off 'close', @deactivate, this
     @active-view = null
 
-    to-deactivate = if overlay then [old-view.$el, $overlay] else [old-view.$el]
-    to-deactivate.for-each (el) ~>
-      el.remove-class 'active' .add-class 'inactive'
-      <~ el.one prefixed.animation-end
-      el.remove-class 'inactive'
-      if el is $overlay then $overlay-views.remove-class 'active'
-      if resume
-        if @prev then window.location.hash = @prev
-        channels.game-commands.publish command: \resume
-        resume := false
-
-    if overlay then @$settings-button.remove-class 'active'
+    el = old-view.$el
+    el.remove-class 'active' .add-class 'inactive'
+    <~ el.one prefixed.animation-end
+    el.remove-class 'inactive'
+    $overlay-views.remove-class 'active' if all
 
   get-active-view: -> @views[@active-view] or null
 

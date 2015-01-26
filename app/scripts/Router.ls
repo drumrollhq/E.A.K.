@@ -18,10 +18,10 @@ module.exports = class Router extends Backbone.Router
   initialize: (options) ->
     @app = options.app
 
-  default: -> window.location.hash = '#/menu'
+  default: -> @menu!
 
   menu: -> @app.show-menu!
-  overlay: ({name}) -> @app.show-overlay name
+  overlay: (name) -> @app.show-app-overlay name
 
   play-cutscene: (path) ->
     @app.load \cutscene, path

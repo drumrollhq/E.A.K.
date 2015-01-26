@@ -3,6 +3,7 @@ require! {
   'audio/effects'
   'audio/music-manager'
   'game/area/background'
+  'game/pauser'
   'game/load'
   'lib/channels'
   'loader/LoaderView'
@@ -15,6 +16,8 @@ require! {
 }
 
 const level-types = <[cutscene area]>
+$overlay = $ '#overlay'
+$settings-button = $ '#bar .settings-button'
 
 module.exports = class App
   states:
@@ -87,26 +90,29 @@ module.exports = class App
   show-menu: (menu = 'main') ->
     @switch-menu menu
 
+    console.log @current-state
     switch @current-state
     | \init => @trigger-async \init
-    | \menusOverlay => @trigger-async \pause
+    | \menusOverlay => @trigger-async \resume
     | otherwise => @trigger-async \quit
 
   load: (type, path) ->
-    p = if @current-state in <[menusOverlay paused editingPaused]>
+    p = if @overlay-active!
       @trigger-async \resume
     else if @current-state is \loading
       @trigger-async \quit
     else Promise.delay 0
 
-    p.finally ~> @trigger-async \load, {type, path}
+    p.finally ~>
+      @trigger-async \load, {type, path} unless @_active-play === {type, path}
 
   switch-menu: (name) -> @_active-menu = name
 
   initialized: ~>
     $overlay-views = $ '#overlay-views'
     @bar = new Bar el: ($ '#bar'), views: overlay-views {settings, user, $overlay-views}
-    @bar.show!
+      ..show!
+      ..on \dismiss, ~> @dismiss-app-overlay!
 
     # Hide the loader and start up the game.
     $ \.loader .hide-dialogue!
@@ -116,7 +122,30 @@ module.exports = class App
 
     return Promise.delay 400
 
+  show-app-overlay: (name = 'settings') ->
+    @switch-overlay name
+    switch @current-state
+    | \init, \menus, \playing, \editing => @trigger-async \pause
+    | \loading => @trigger-async \quit .then ~> @show-app-overlay name
+    | \menusOverlay, \paused, \editing-paused => # Already there, do nothing
+
+  dismiss-app-overlay: ->
+    if @_active-play
+      {type, path} = @_active-play
+      window.location.hash = "#/#{type}/#{path}"
+    else
+      window.location.hash = '#/menu'
+
+  switch-overlay: (name = @_active-overlay) ->
+    console.log "switch overlay #{@_active-overlay} -> #name"
+    @_active-overlay = name
+    if @overlay-active!
+      @bar.activate name
+
+  overlay-active: -> @current-state in <[menusOverlay paused editingPaused]>
+
   cleanup-playing: ->
+    @_active-play = null
     if @_level
       @_level = null
       that.cleanup!
@@ -130,6 +159,7 @@ module.exports = class App
   start-loader: ({type, path}) !->
     unless type in level-types then throw new Error "Bad level type #type!"
     @show-loader!
+    @_active-play = {type, path}
     @_current-loader = load[type] path, this
       .cancellable!
       .then (level) ~>
@@ -162,7 +192,20 @@ module.exports = class App
     @_menus[@_active-menu]?.hide-dialogue!
     @_active-menu = null
 
-  hide-overlay: ->
   show-overlay: ->
+    $overlay.add-class 'active'
+    $settings-button.add-class 'active'
+    @switch-overlay!
+
+  hide-overlay: ->
+    @switch-overlay \none
+    $settings-button.remove-class 'active'
+    $overlay.remove-class 'active' .add-class 'inactive'
+    <~ $overlay.one prefixed.animation-end
+    $overlay.remove-class 'inactive'
+
   start-event-loop: ->
+    channels.game-commands.publish command: \force-resume
+
   stop-event-loop: ->
+    channels.game-commands.publish command: \force-pause

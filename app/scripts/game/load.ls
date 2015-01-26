@@ -22,6 +22,7 @@ export cutscene = (name, app) ->
       cutscene
 
 export area = (name, app) ->
+  <~ Promise.delay 500 .then # Delay to prevent nasty lockups
   {url, player-coords} = parse-url name
   logger.start \level {level: url}
     .then (event) -> Promise.all [event, $.get-JSON "#{prefix}/areas/#{url}/area.json?_v=#{EAKVERSION}"]

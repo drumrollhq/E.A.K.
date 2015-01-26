@@ -6,10 +6,13 @@ require! {
 $body = $ document.body
 
 channels.game-commands.subscribe ({command}) ->
-  | command is 'pause' => req-pause!
-  | command is 'resume' => req-resume!
-  | command is 'force-pause' => pause!
-  | command is 'force-resume' => resume!
+  if command in <[pause resume]> then console.error 'Event-loop pause commands are deprecated!'
+  console.log command
+  switch command
+  | 'pause' => req-pause!
+  | 'resume' => req-resume!
+  | 'force-pause' => pause!
+  | 'force-resume' => resume!
 
 # Keep track of the number of times the game has been paused or resumed.
 # This way, we can recieve multiple pause requests, but will only resume
