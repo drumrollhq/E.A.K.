@@ -6,6 +6,7 @@ require! {
   'gulp'
   'gulp-changed'
   'gulp-concat'
+  'gulp-connect'
   'gulp-footer'
   'gulp-handlebars'
   'gulp-header'
@@ -114,8 +115,10 @@ gulp.task 'build' (done) ->
   scripts = if optimized then \optimized-scripts else \scripts
   run-sequence 'clean', [scripts, \assets \stylus \l10n \vendor \audio \fonts], done
 
+gulp.task 'dev' <[watch server]>
+
 karma-server = null
-gulp.task 'dev' <[build]> ->
+gulp.task 'watch' <[build]> ->
   karma.server.start config-file: karma-config
   gulp.watch src.assets, ['assets']
   gulp.watch src.lsc, ['app-livescript']
@@ -125,6 +128,12 @@ gulp.task 'dev' <[build]> ->
   gulp.watch [src.locale-data, src.locale-templates], ['l10n']
   gulp.watch src.vendor, ['vendor']
   gulp.watch src.audio, ['audio']
+
+gulp.task 'server' ->
+  gulp-connect.server {
+    root: 'public'
+    port: 4000
+  }
 
 gulp.task 'clean' ->
   gulp.src [dest.all, dest.tests], read: false
