@@ -74,33 +74,32 @@ module.exports = class SignUpNextView extends Backbone.View
       unless data.email then return @$email.attention-grab!
       user-data.email = data.email
 
-    data.subscribed-newsletter = parse.to-boolean data.subscribed-newsletter
+    data.subscribed-newsletter = parse.to-boolean(data.subscribed-newsletter or 'false')
     user-data <<< data.{username, subscribed-newsletter}
     user-data.gender ?= data.gender
 
     @parent.activate 'signupLoader'
-    <~ set-timeout _, 300
-    err, user-data <~ api.auth.register user-data
-    if err?
-      @parent.activate 'signupNext'
-      if err.reason is 'Validation error'
-        @show-errors err.details
-      else
-        @show-errors ["Something's gone wrong... #{err.details or err}. That's all we know. Crazy, huh?"]
-    else
-      user.set-user user-data
-      @parent.deactivate!
+    Promise.delay 300
+      .then ~> api.auth.register user-data
+      .then (user-data) ~>
+        user.set-user user-data
+        @parent.deactivate!
+      .catch (err) ~>
+        @parent.activate 'signupNext'
+        if err.response-JSON?.reason is 'Validation error'
+          @show-errors err.response-JSON?.details
+        else
+          @show-errors ["Something's gone wrong... #{err.response-JSON?.details or err.text-status or err}. That's all we know. Crazy, huh?"]
 
   get-usernames: (replace-input) ->
     replace-input = replace-input is true
     count = @$username-conts.length
     if replace-input then count += 1
 
-    err, usernames <~ api.users.usernames n: count, unused: true
-    if err? then return
-
-    @$username-conts.html (i) -> usernames[i]
-    if replace-input then @$username-input.val last usernames
+    api.users.usernames n: count, unused: true
+      .then (usernames) ~>
+        @$username-conts.html (i) -> usernames[i]
+        if replace-input then @$username-input.val last usernames
 
   set-username-from-el: (e) ->
     $el = $ e.target

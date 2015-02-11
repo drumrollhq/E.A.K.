@@ -72,6 +72,7 @@ module.exports = class Bar extends Backbone.View
   logout: -> user.logout!
 
   activate: (view, prev) ->
+    view = camelize view
     if view in [\none null] then return @deactivate!
     if @active-view is view then return
     if @active-view
@@ -89,6 +90,7 @@ module.exports = class Bar extends Backbone.View
     active.activate! if active.activate?
 
   deactivate: (all = true) ->
+    console.log 'deactivate' arguments
     old-view = @get-active-view!
     unless old-view then return
     old-view.off 'close', @deactivate, this
@@ -98,7 +100,9 @@ module.exports = class Bar extends Backbone.View
     el.remove-class 'active' .add-class 'inactive'
     <~ el.one prefixed.animation-end
     el.remove-class 'inactive'
-    $overlay-views.remove-class 'active' if all
+    if all
+      $overlay-views.remove-class 'active' if all
+      @trigger \dismiss
 
   get-active-view: -> @views[@active-view] or null
 

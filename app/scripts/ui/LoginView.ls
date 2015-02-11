@@ -31,16 +31,17 @@ module.exports = class LoginView extends SSOView
     @$password-field.val ''
 
     @parent.activate 'loginLoader'
-    <~ set-timeout _, 500
-    err <~ user.login username, password
-
-    if err?
-      @parent.activate 'login'
-      @show-error (err.details or err)
-    else
-      @$username-field.val ''
-      @$password-field.val ''
-      @parent.deactivate!
+    Promise.delay 300
+      .then ~> user.login username, password
+      .then ~>
+        console.log 'loggedIn'
+        @$username-field.val ''
+        @$password-field.val ''
+        @trigger \close
+      .catch (err) ~>
+        console.error err
+        @parent.activate 'login'
+        @show-error (err.response-JSON?.details or err.status-text or err)
 
   hide-error: ->
     @$errors

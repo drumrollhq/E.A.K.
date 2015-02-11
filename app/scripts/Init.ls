@@ -15,6 +15,7 @@ module.exports = class Init extends Backbone.View
           window.session-storage.set-item 'eak-ignore-compatibility' true
           window.location.reload!
 
+      @$ '.loader' .hide!
       logger.setup lacking
       return
 

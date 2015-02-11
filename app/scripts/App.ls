@@ -81,7 +81,7 @@ module.exports = class App
     Promise
       .all [
         effects.load!
-        user.fetch! .then (user) -> logger.setup false, user.id
+        user.fetch! .then (user) -> logger.setup false, user?.id
       ]
       .then ~>
         @router = new Router app: this

@@ -12,12 +12,15 @@ class User extends Backbone.DeepModel
         @set device: data.device
 
         if data.logged-in then @set-user data.user else @set logged-in: false
-      .catch -> console.log 'user error:' arguments
+      .catch (xhr) ~>
+        @set available: xhr.status is 401
+        @set-user null, false
+        null
 
   fetch: ~> @_user-promise
 
   set-user: (user, logged-in = true) ->
-    if user.status is 'creating' then channels.page.publish name: 'signupNext'
+    if user?.status is 'creating' then channels.page.publish name: 'signupNext'
     @set logged-in: logged-in, user: user
 
   display-name: ->
@@ -26,7 +29,7 @@ class User extends Backbone.DeepModel
 
   login: (username, password) ->
     api.auth.login username, password
-      .then (user) -> @set-user user.user
+      .then (user) ~> @set-user user.user
 
   logout: ->
     api.auth.logout!
