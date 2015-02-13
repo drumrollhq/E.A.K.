@@ -3,13 +3,14 @@ require! {
   'audio/effects'
   'audio/music-manager'
   'game/area/background'
-  'game/pauser'
   'game/load'
+  'game/pauser'
   'lib/channels'
   'loader/LoaderView'
   'logger'
   'settings'
   'ui/Bar'
+  'ui/MainMenuView'
   'ui/alert'
   'ui/overlay-views'
   'user'
@@ -88,8 +89,8 @@ module.exports = class App
         Backbone.history.start root: window.location.pathname
       .catch (e) ->
         console.error e
-        throw e
         channels.alert.publish msg: 'Error loading: ' + e.message
+        throw e
 
   show-menu: (menu = 'main') ->
     @switch-menu menu
@@ -110,6 +111,9 @@ module.exports = class App
     p.finally ~>
       @trigger-async \load, {type, path} unless @_active-play === {type, path}
 
+  error: (msg) ->
+    window.alert msg
+
   switch-menu: (name) -> @_active-menu = name
 
   initialized: ~>
@@ -121,7 +125,7 @@ module.exports = class App
     # Hide the loader and start up the game.
     $ \.loader .hide-dialogue!
     @_menus = {
-      main: $ '#main-menu'
+      main: new MainMenuView app: this, el: $ '#main-menu'
     }
 
     channels.game-commands.filter ( .command is \edit ) .subscribe ~> @edit!
@@ -138,7 +142,7 @@ module.exports = class App
   dismiss-app-overlay: ->
     if @_active-play
       {type, path} = @_active-play
-      window.location.hash = "#/#{type}/#{path}"
+      window.location.hash = "#/playing"
     else
       window.location.hash = '#/menu'
 
@@ -196,10 +200,10 @@ module.exports = class App
     if @loader-view then @loader-view.hide!
 
   show-active-menu: ->
-    @_menus[@_active-menu]?.make-only-shown-dialogue!
+    @_menus[@_active-menu]?.$el.make-only-shown-dialogue!
 
   hide-active-menu: ->
-    @_menus[@_active-menu]?.hide-dialogue!
+    @_menus[@_active-menu]?.$el.hide-dialogue!
     @_active-menu = null
 
   show-overlay: ->

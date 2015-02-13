@@ -4,43 +4,28 @@ require! {
 }
 
 module.exports = class Game extends Backbone.DeepModel
-  url: -> api.games.url @id
-
-  @can-resume = (cb) ->
-    err, id <- localforage.get-item \resume-id
-    if err then return cb null
-    cb id?
-
-  @has-local = (cb) ->
-    err, data <- localforage.get-item \autosave
-    if err then return cb null
-    cb data?
-
-  @create = (cb) ->
+  @new = ({store, user, options}) ->
     game = new Game!
-    do ->
-      err, data <~ api.games.create {}
-      if err? then return user.current-game = Game.init-local cb
-      game.set data
-      game.change-id data.id
-      cb game
+    game.set-store store
+    game.set-user user
+    game.setup options
 
-    return game
+  setup: ({start}) ->
+    @store.create game: (@get \game), area: {type: start.0, url: start.1}
+      .then ({game, area}) ~>
+        @set \id, game.id
+        @set \game, game
+        @set \area, area
+      .then ~> @setup-autosave!
+      .then ~> this
+      .catch (e) ->
+        console.log e
+        throw e
 
-  @resume = (cb) ->
-    game = new Game!
-    do ->
-      err, id <~ localforage.get-item \resume-id
-      if err then user.current-game = Game.init-local cb
-      err, data <~ api.games.get id
-      if err then return user.current-game = Game.init-local cb
-      game.set data
-      game.change-id data.id
-      cb game
+  set-store: (store) -> @store = store
+  set-user: (user) ->
+    user = if typeof user is \object then user.id else user
+    @set \game.userId, user
 
-    return game
-
-  change-id: (id) ->
-    @set 'id' id
-    @id = id
-    localforage.set-item \resume-id id
+  setup-autosave: ->
+    # TODO

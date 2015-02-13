@@ -71,7 +71,6 @@ module.exports = class CutScene extends Backbone.View
     @subs[*] = channels.game-commands.filter ( .command is \stop ) .subscribe @finish
 
   setup-video: ~>
-    debugger
     @video.on 'ended' @finish
 
     # Set up subtitles:

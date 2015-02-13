@@ -86,6 +86,9 @@ Handlebars.register-helper \inc (value) -> 1 + parse-float value
 
 FastClick.attach document.body
 
+# use livescript style to-json rather than toJSON:
+Backbone.Model.prototype.to-json = Backbone.Model.prototype.to-JSON
+
 # Little Arca spinner icon
 $ '.insert-arca-spinner'
   ..add-class 'player entity spinner player-silhouette-white player-left player-running'

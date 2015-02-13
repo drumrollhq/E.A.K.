@@ -9,9 +9,6 @@ $body = $ document.body
 module.exports = class Router extends Backbone.Router
   routes:
     'app/:name': 'appOverlay'
-    'area/*path': 'playArea'
-    'autoplay': 'autoplay'
-    'cutscene/*path': 'playCutscene'
     'menu': 'menu'
     '*default': 'default'
 
@@ -23,9 +20,3 @@ module.exports = class Router extends Backbone.Router
   menu: -> @app.show-menu!
 
   app-overlay: (name) -> @app.show-app-overlay name
-
-  play-cutscene: (path) ->
-    @app.load \cutscene, path
-
-  play-area: (path) ->
-    @app.load \area, path
