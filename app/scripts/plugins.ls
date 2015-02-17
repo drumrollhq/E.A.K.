@@ -81,13 +81,23 @@ extras = <[ target hints pointer alert hidden tutorial step action content ]>
 extras |> each _, (-> document.create-element it)
 extras |> each _, (-> Slowparse.HTMLParser::html-elements.push it)
 
-# Number increment hbs helper:
+# HBS helpers:
 Handlebars.register-helper \inc (value) -> 1 + parse-float value
+
+Handlebars.register-helper \date (date, fmt) -> moment date .format fmt
 
 FastClick.attach document.body
 
 # use livescript style to-json rather than toJSON:
 Backbone.Model.prototype.to-json = Backbone.Model.prototype.to-JSON
+Backbone.Collection.prototype.to-json = Backbone.Collection.prototype.to-JSON
+
+# Extract message from error:
+window.error-message = (e) ->
+  e.response-JSON?.details or
+    e.message or
+    e.status-text or
+    e
 
 # Little Arca spinner icon
 $ '.insert-arca-spinner'

@@ -82,9 +82,13 @@ module.exports = class App
     Promise
       .all [
         effects.load!
-        user.fetch! .then (user) -> logger.setup false, user?.id
+        user.fetch! .then (user-data) -> Promise.all [
+          user.recent-games!
+          logger.setup false, user-data?.id
+        ]
       ]
-      .then ~>
+      .spread (_, [save-games])~>
+        @save-games = save-games
         @router = new Router app: this
         Backbone.history.start root: window.location.pathname
       .catch (e) ->
@@ -118,14 +122,14 @@ module.exports = class App
 
   initialized: ~>
     $overlay-views = $ '#overlay-views'
-    @bar = new Bar el: ($ '#bar'), views: overlay-views {settings, user, $overlay-views}
+    @bar = new Bar el: ($ '#bar'), views: overlay-views {settings, user, $overlay-views, save-games: @save-games}
       ..show!
       ..on \dismiss, ~> @dismiss-app-overlay!
 
     # Hide the loader and start up the game.
     $ \.loader .hide-dialogue!
     @_menus = {
-      main: new MainMenuView app: this, el: $ '#main-menu'
+      main: new MainMenuView app: this, collection: @save-games, el: $ '#main-menu'
     }
 
     channels.game-commands.filter ( .command is \edit ) .subscribe ~> @edit!

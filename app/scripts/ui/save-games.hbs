@@ -1,0 +1,24 @@
+<ul>
+  {{#each games}}
+    <li data-game="{{id}}" class="savegame">
+      <div class="savegame-info">
+        <div class="name text-field savegame-info-name">
+          <input type="text" value="{{#if name}}{{name}}{{/if}}" placeholder="Auto-save {{id}}">
+        </div>
+        <div class="savegame-info-lastplayed">
+          Last played: {{date updatedAt "MMMM Do YYYY, h:mm a"}}
+        </div>
+        <div class="savegame-info-started">
+          Started: {{date createdAt "l"}}
+        </div>
+      </div>
+      <div class="savegame-actions">
+        <button class="savegame-actions-play btn">Play</button>
+        <button class="savegame-actions-delete btn" data-game="{{id}}">Delete</button>
+      </div>
+      <div class="savegame-status-deleting">
+        Deleting...
+      </div>
+    </li>
+  {{/each}}
+</ul>

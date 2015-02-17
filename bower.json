@@ -25,7 +25,8 @@
     "localforage": "~1.2.1",
     "backbone-fsm": "~0.0.1",
     "bluebird": "~2.7.1",
-    "backbone.asyncstatemachine": "~0.3.0"
+    "backbone.asyncstatemachine": "~0.3.0",
+    "moment": "~2.9.0"
   },
   "overrides": {
     "underscore": {

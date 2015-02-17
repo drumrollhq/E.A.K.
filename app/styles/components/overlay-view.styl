@@ -285,3 +285,72 @@
 
     &::before
       content "\f046" // fa-check-square-o
+
+#save-games
+  .savegame
+    clearfix()
+    position relative
+    margin-top 30px
+    font-weight 300
+
+  .savegame-info
+    float left
+    width 60%
+
+  .savegame-info-started
+    font-size 0.7em
+
+  .savegame-actions
+    float right
+    padding-left 30px
+    width 30%
+
+  .savegame-actions-delete,
+  .savegame-actions-play
+    display block
+    width 100%
+    margin-bottom 15px
+
+  .savegame-actions-delete
+    float right
+    width auto
+    padding 0.1em 0.3em
+    font-size 0.8em
+    font-family font
+    font-weight 300
+
+  .savegame-status-deleting
+    display none
+
+  .savegame.deleting
+    > *
+      opacity 0.2
+      pointer-events none
+
+    .savegame-status-deleting
+      display block
+      opacity 1
+      position absolute
+      width 100%
+      margin-top 5px
+      text-align center
+
+  .savegame.removing
+    overflow hidden
+    animation savegame-remove 0.5s ease both
+
+@keyframes savegame-remove
+  0%
+    height 110px
+    margin-top 30px
+    opacity 1
+
+  50%
+    height 110px
+    margin-top 30px
+    opacity 0
+
+  100%
+    height 0
+    margin-top 0
+    opacity 0

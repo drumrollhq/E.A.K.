@@ -2,7 +2,8 @@ require! {
   'api'
   'lib/channels'
   'user/Game'
-  'user/local-game-store'
+  'user/SaveGames'
+  'user/game-store'
 }
 
 class User extends Backbone.DeepModel
@@ -40,8 +41,13 @@ class User extends Backbone.DeepModel
     localforage.remove-item 'resume-id'
 
   new-game: (options) ->
-    store = if @logged-in! then api.games else local-game-store
-    Game.new store: store, user: (@get \user), options: options
+    Game.new store: game-store!, user: (@get \user), options: options
       .tap (game) ~> @game = game
+
+  recent-games: (limit = 10) ->
+    game-store!
+      .list {limit}
+      .then (games) ->
+        new SaveGames games
 
 module.exports = new User!

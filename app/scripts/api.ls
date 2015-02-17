@@ -19,6 +19,7 @@ json-req = (method, url, data) -->
     url: url
     data: JSON.stringify data if data?
     content-type: 'application/json'
+    timeout: 10_000ms
   }
 
 post-json = (url, data) -> json-req POST, url, data
@@ -51,6 +52,8 @@ module.exports = api = {
     url: (...segments) -> api.url 'games', flatten segments
     create: (data) -> post-json api.games.url!, data
     get: (id) -> get-json api.games.url id
+    list: (options) -> get-json (api.games.url 'mine'), options
+    delete: (id) -> delete-json api.games.url id
 
   sessions:
     url: (...segments) -> api.url 'sessions', flatten segments

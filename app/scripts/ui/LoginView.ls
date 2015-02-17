@@ -41,7 +41,7 @@ module.exports = class LoginView extends SSOView
       .catch (err) ~>
         console.error err
         @parent.activate 'login'
-        @show-error (err.response-JSON?.details or err.status-text or err)
+        @show-error error-message err
 
   hide-error: ->
     @$errors
