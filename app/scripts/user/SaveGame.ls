@@ -14,3 +14,7 @@ module.exports = class SaveGame extends Backbone.Model
 
   delete: ->
     game-store!.delete @id
+
+  patch: (attrs) ->
+    @set attrs
+    game-store!.patch @id, attrs

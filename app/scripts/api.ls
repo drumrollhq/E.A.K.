@@ -5,6 +5,7 @@ $.ajax-setup {
 GET = 'GET'
 POST = 'POST'
 DELETE = 'DELETE'
+PUT = 'PUT'
 
 root = if window.location.host.match /eraseallkittens\.com/
   '//api.eraseallkittens.com'
@@ -25,6 +26,7 @@ json-req = (method, url, data) -->
 post-json = (url, data) -> json-req POST, url, data
 get-json = (url, data) -> json-req GET, url, data
 delete-json = (url, data) -> json-req DELETE, url, data
+put-json = (url, data) -> json-req PUT, url, data
 
 module.exports = api = {
   root: root
@@ -54,6 +56,7 @@ module.exports = api = {
     get: (id) -> get-json api.games.url id
     list: (options) -> get-json (api.games.url 'mine'), options
     delete: (id) -> delete-json api.games.url id
+    patch: (id, data) -> put-json (api.games.url id), data
 
   sessions:
     url: (...segments) -> api.url 'sessions', flatten segments

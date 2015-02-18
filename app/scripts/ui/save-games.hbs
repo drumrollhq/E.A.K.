@@ -3,7 +3,9 @@
     <li data-game="{{id}}" class="savegame">
       <div class="savegame-info">
         <div class="name text-field savegame-info-name">
-          <input type="text" value="{{#if name}}{{name}}{{/if}}" placeholder="Auto-save {{id}}">
+          <input type="text" value="{{#if name}}{{name}}{{/if}}" placeholder="Auto-save {{id}}" data-game="{{id}}">
+          <div class="savegame-status-input savegame-status-saving">Saving...</div>
+          <div class="savegame-status-input savegame-status-saved">Saved</div>
         </div>
         <div class="savegame-info-lastplayed">
           Last played: {{date updatedAt "MMMM Do YYYY, h:mm a"}}
