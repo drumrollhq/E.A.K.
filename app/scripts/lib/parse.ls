@@ -34,4 +34,20 @@ to-object = (str) ->
 
   lists-to-obj keys, values
 
-module.exports = {to-boolean, to-bool: to-boolean, to-list, to-coordinates, to-object, tidy-key}
+# Naive query-string parsing
+query-string = (q) ->
+  pairs = q.replace /^\?/ ''
+  |> split '&'
+  |> map split '='
+
+  {[(tidy-key pair.0), pair.1] for pair in pairs}
+
+a-tag = document.create-element \a
+url = (str) ->
+  a-tag.href = str
+  url = a-tag.{protocol, hostname, port, pathname, search, hash, host}
+  url.query = query-string url.search
+  url.pathname .= replace /^\/\// ''
+  url
+
+module.exports = {to-boolean, to-bool: to-boolean, to-list, to-coordinates, to-object, tidy-key, url, query-string}

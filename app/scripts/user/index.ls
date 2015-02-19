@@ -44,6 +44,10 @@ class User extends Backbone.DeepModel
     Game.new store: game-store!, user: (@get \user), options: options
       .tap (game) ~> @game = game
 
+  load-game: (game) ->
+    Game.load store: game-store!, user: (@get \user), id: game.id || game
+      .tap (game) ~> @game = game
+
   recent-games: (limit = 10) ->
     game-store!
       .list {limit}

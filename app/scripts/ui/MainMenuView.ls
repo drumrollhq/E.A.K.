@@ -5,6 +5,7 @@ require! {
 module.exports = class MainMenuView extends Backbone.View
   events:
     'click .new-game': \newGame
+    'click .resume': \resume
 
   initialize: ({app}) ->
     @app = app
@@ -55,6 +56,11 @@ module.exports = class MainMenuView extends Backbone.View
     user.new-game start: <[cutscene intro]>
       .then (game) ~>
         console.log 'done' game.to-json!
+        console.log user.game
         # @app.load 'cutscene' 'intro'
       .catch (err) ~>
         @app.error "Error starting new game: #{error-message err}"
+
+  resume: ->
+    user.load-game @collection.latest!
+      .then @app.play-user-game

@@ -6,6 +6,7 @@ require! {
   'game/load'
   'game/pauser'
   'lib/channels'
+  'lib/parse'
   'loader/LoaderView'
   'logger'
   'settings'
@@ -105,7 +106,11 @@ module.exports = class App
     | \menusOverlay => @trigger-async \resume
     | otherwise => @trigger-async \quit
 
-  load: (type, path) ->
+  play-user-game: ~>
+    area = user.game.active-area!
+    @load area.type, area.url
+
+  load: (type, path, options) ->
     p = if @overlay-active!
       @trigger-async \resume
     else if @current-state is \loading
@@ -113,7 +118,14 @@ module.exports = class App
     else Promise.delay 0
 
     p.finally ~>
-      @trigger-async \load, {type, path} unless @_active-play === {type, path}
+      window.location.hash = '/play'
+      @trigger-async \load, {type, path, options} unless @_active-play === {type, path}
+
+  load-path: (path) ->
+    url = parse.url path
+    if url.protocol isnt 'eak:' then throw new Error 'non-eak url!' # TODO: figure out what happens here
+    [type, path] = url.pathname.split '/'
+    @load type, path, url.query
 
   error: (msg) ->
     window.alert msg
@@ -174,21 +186,24 @@ module.exports = class App
     background.clear!
     music-manager.start-track 'none'
 
-  start-loader: ({type, path}) !->
+  start-loader: ({type, path, options}) !->
     unless type in level-types then throw new Error "Bad level type #type!"
     @show-loader!
     @_active-play = {type, path}
-    @_current-loader = load[type] path, this
+    @_current-loader = user.game.find-or-create-area type, path, true
+      .then (area) -> load[type] path, this, area, options
       .cancellable!
       .then (level) ~>
         @_level = level
         @trigger \start
+        level.once \next, (path) ~> @load-path path
         level.start!
       .catch Promise.CancellationError, ->
       .catch (e) ~>
         console.error e
-        channels.alert.publish msg: e.message
+        channels.alert.publish msg: error-message e
         window.location.href = '#/menu'
+        throw e
       .finally ~>
         @_current-loader = null
         @hide-loader!

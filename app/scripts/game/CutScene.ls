@@ -13,7 +13,7 @@ template = ({next, html}) -> """
     #html
     <div class="cutscene-subtitle" id="cutscene-subtitle"></div>
   </div>
-  <a href="#next" class="btn skip">#{translations.cutscene.skip} &rarr;</a>
+  <button class="btn skip">#{translations.cutscene.skip} &rarr;</button>
 """
 
 $util = $ '<div></div>'
@@ -60,7 +60,7 @@ module.exports = class CutScene extends Backbone.View
       $el.attr 'src', "#{$el.attr 'src'}?_v=#{EAKVERSION}"
 
     @$video-cont = @$el.find '.cutscene-vid'
-    @$skip = @$el.find 'a.skip'
+    @$skip = @$el.find '.skip'
     @$video = @$video-cont.find 'video'
     if @$video.length > 0
       @video = @$video .get 0 |> Popcorn
@@ -91,8 +91,12 @@ module.exports = class CutScene extends Backbone.View
     @video.play!
 
   finish: ~>
-    @trigger 'finish'
-    window.location.href = @next
+    @trigger \finish
+    @trigger \next @next
+
+  trigger-skip: ~>
+    @trigger \skip
+    @finish!
 
   wakeup: ->
     if @_sleep-timeout then clear-timeout @_sleep-timeout

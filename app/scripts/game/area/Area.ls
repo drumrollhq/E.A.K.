@@ -12,7 +12,7 @@ require! {
 }
 
 module.exports = class Area extends Backbone.Model
-  initialize: ({conf, @event-id, @prefix, @player-coords, @url}) ->
+  initialize: ({conf, @event-id, @prefix, @player-coords, @name}) ->
     @subs = []
     @set conf.{width, height, background, music}
     @view = new AreaView model: this
@@ -86,7 +86,7 @@ module.exports = class Area extends Backbone.Model
     loader-view.render!
 
   load-level-source: (level) ~>
-    Promise.resolve $.ajax "#{@prefix}/areas/#{@url}/#{level.url}?_v=#{EAKVERSION}"
+    Promise.resolve $.ajax "#{@prefix}/areas/#{@name}/#{level.url}?_v=#{EAKVERSION}"
       .then (src) ->
         [err, $level] = parse-src src, level
         if err then throw err

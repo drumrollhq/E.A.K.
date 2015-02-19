@@ -57,6 +57,7 @@ module.exports = api = {
     list: (options) -> get-json (api.games.url 'mine'), options
     delete: (id) -> delete-json api.games.url id
     patch: (id, data) -> put-json (api.games.url id), data
+    find-or-create-area: (id, data) -> post-json (api.games.url id, 'areas'), data
 
   sessions:
     url: (...segments) -> api.url 'sessions', flatten segments

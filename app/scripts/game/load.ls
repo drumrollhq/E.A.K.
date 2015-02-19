@@ -9,7 +9,7 @@ if first-path in window.LANGUAGES
   prefix = "/#first-path"
 else prefix = ''
 
-export cutscene = (name, app) ->
+export cutscene = (name, app, area) ->
   log = logger.start \cutscene name: name
 
   cutscene = new CutScene {name: "#prefix/cutscenes/#name"}
@@ -21,18 +21,12 @@ export cutscene = (name, app) ->
 
       cutscene
 
-export area = (name, app) ->
+export area = (name, app, area) ->
   <~ Promise.delay 500 .then # Delay to prevent nasty lockups
-  {url, player-coords} = parse-url name
-  logger.start \level {level: url}
-    .then (event) -> Promise.all [event, $.get-JSON "#{prefix}/areas/#{url}/area.json?_v=#{EAKVERSION}"]
+  player-coords = if area.player-x? and area.player-y? then [area.player-x, area.player-y] else null
+  logger.start \level {level: name}
+    .then (event) -> Promise.all [event, $.get-JSON "#{prefix}/areas/#{name}/area.json?_v=#{EAKVERSION}"]
     .spread (event, conf) ->
-      area = new Area {conf, prefix, player-coords, url, event-id: event.id}
+      area = new Area {conf, prefix, player-coords, name, event-id: event.id}
       area.on \done -> logger.stop event.id
       area.load!
-
-parse-url = (url) ->
-  parts = url.split '#'
-  url = parts.0
-  player-coords = if parts.1 then parse.to-coordinates parts.1, ',' else null
-  {url, player-coords}
