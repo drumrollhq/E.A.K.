@@ -6,10 +6,10 @@ require! {
   'ui/SignUpView'
 }
 
-module.exports = ({user, settings, $overlay-views, save-games}) -> {
+module.exports = ({user, settings, $overlay-views, save-games, app}) -> {
   login-loader: new Backbone.View el: $overlay-views.find '.login-loader'
   login: new LoginView el: $ '#login'
-  my-games: new SaveGamesView collection: save-games, el: $overlay-views.find '#save-games'
+  my-games: new SaveGamesView collection: save-games, app: app, el: $overlay-views.find '#save-games'
   settings: new SettingsView model: settings, el: '#settings'
   signup-loader: new Backbone.View el: $overlay-views.find '.signup-loader'
   signup-next: new SignUpNextView el: $ '#signup-next'

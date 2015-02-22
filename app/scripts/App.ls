@@ -107,8 +107,18 @@ module.exports = class App
     | otherwise => @trigger-async \quit
 
   play-user-game: ~>
+    @_active-play = null
     area = user.game.active-area!
     @load area.type, area.url
+
+  load-game: (game) ->
+    @show-loader!
+    user.load-game game
+      .then @play-user-game
+      .catch (e) ->
+        channels.alert.publish msg: error-message e
+        @hide-loader!
+        @show-menu!
 
   load: (type, path, options) ->
     p = if @overlay-active!
@@ -134,7 +144,7 @@ module.exports = class App
 
   initialized: ~>
     $overlay-views = $ '#overlay-views'
-    @bar = new Bar el: ($ '#bar'), views: overlay-views {settings, user, $overlay-views, save-games: @save-games}
+    @bar = new Bar el: ($ '#bar'), views: overlay-views {settings, user, $overlay-views, save-games: @save-games, app: this}
       ..show!
       ..on \dismiss, ~> @dismiss-app-overlay!
 
@@ -158,7 +168,7 @@ module.exports = class App
   dismiss-app-overlay: ->
     if @_active-play
       {type, path} = @_active-play
-      window.location.hash = "#/playing"
+      window.location.hash = "#/play"
     else
       window.location.hash = '#/menu'
 

@@ -26,6 +26,7 @@ module.exports = class Router extends Backbone.Router
     @app.show-app-overlay name
 
   play: ->
-    if @app.current-state is \init
-      user.load-game @app.save-games.latest!
-        .then @app.play-user-game
+    if @app.current-state in <[init menus]>
+      @app.load-game @app.save-games.latest!
+    else if @app._active-play
+      @app.load @app._active-play.type, @app._active-play.path

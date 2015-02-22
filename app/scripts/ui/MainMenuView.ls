@@ -54,13 +54,10 @@ module.exports = class MainMenuView extends Backbone.View
     @app.show-loader!
 
     user.new-game start: <[cutscene intro]>
-      .then (game) ~>
-        console.log 'done' game.to-json!
-        console.log user.game
-        # @app.load 'cutscene' 'intro'
+      .then @app.play-user-game
       .catch (err) ~>
+        .then @app.play-user-game
         @app.error "Error starting new game: #{error-message err}"
 
   resume: ->
-    user.load-game @collection.latest!
-      .then @app.play-user-game
+    @app.load-game @collection.latest!

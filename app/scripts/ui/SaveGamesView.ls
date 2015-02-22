@@ -1,14 +1,17 @@
 require! {
   'ui/save-games': template
+  'user'
 }
 
 module.exports = class SaveGamesView extends Backbone.View
   events:
     'click .savegame-actions-delete': \delete
+    'click .savegame-actions-play': \play
     'keyup .savegame-info-name input': \nameChange
     'change .savegame-info-name input': \nameChange
 
-  initialize: ->
+  initialize: ({app}) ->
+    @app = app
     # @listen-to @collection, \change, @render
     @_delayed = {}
     @listen-to @collection, \all, -> console.log.apply console, ['collection event:'].concat arguments
@@ -30,6 +33,10 @@ module.exports = class SaveGamesView extends Backbone.View
   game-el: (game) ->
     id = game.id or game
     @$ ".savegame[data-game=#{id}]"
+
+  play: (e) ->
+    game-id = $ e.target .data \game
+    @app.load-game game-id
 
   delete: (e) ->
     game-id = $ e.target .data \game
