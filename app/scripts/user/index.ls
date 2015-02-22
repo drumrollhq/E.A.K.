@@ -40,8 +40,8 @@ class User extends Backbone.DeepModel
     @set logged-in: false, user: null
     localforage.remove-item 'resume-id'
 
-  new-game: (options) ->
-    Game.new store: game-store!, user: (@get \user), options: options
+  new-game: (stage-defaults) ->
+    Game.new store: game-store!, user: (@get \user), stage-defaults: stage-defaults
       .tap (game) ~> @game = game
 
   load-game: (game) ->

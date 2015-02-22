@@ -95,7 +95,7 @@ module.exports = class App
       .catch (e) ->
         console.error e
         channels.alert.publish msg: 'Error loading: ' + e.message
-        throw e
+        Promise.reject e
 
   show-menu: (menu = 'main') ->
     @switch-menu menu
@@ -115,10 +115,11 @@ module.exports = class App
     @show-loader!
     user.load-game game
       .then @play-user-game
-      .catch (e) ->
+      .catch (e) ~>
         channels.alert.publish msg: error-message e
         @hide-loader!
         @show-menu!
+        Promise.reject e
 
   load: (type, path, options) ->
     p = if @overlay-active!
@@ -214,7 +215,6 @@ module.exports = class App
     @_current-loader = load[type] path, this, options # First, we load the stage
       .cancellable!
       .then (stage) ~>
-        #
         @_stage = stage
         user.game.find-or-create-stage stage.save-defaults!, true
       .then (saved-stage) ~>
@@ -226,7 +226,7 @@ module.exports = class App
         console.error e
         channels.alert.publish msg: error-message e
         window.location.href = '#/menu'
-        throw e
+        Promise.reject e
       .finally ~>
         @_current-loader = null
         @hide-loader!
@@ -268,7 +268,6 @@ module.exports = class App
 
   show-editor: ->
     if @_stage and @_stage.is-editable!
-      debugger
       @_stage.edit!
       @_stage.once 'stop-editor' ~> @trigger \editFinished
 

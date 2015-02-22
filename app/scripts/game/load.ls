@@ -12,7 +12,7 @@ else prefix = ''
 export cutscene = (name, app, area) ->
   log = logger.start \cutscene name: name
 
-  cutscene = new CutScene {name: "#prefix/cutscenes/#name"}
+  cutscene = new CutScene {url: "#prefix/cutscenes/#name", name}
   Promise.all [log, cutscene.load!]
     .then ([event]) ->
       cutscene
@@ -21,12 +21,11 @@ export cutscene = (name, app, area) ->
 
       cutscene
 
-export area = (name, app, area) ->
-  <~ Promise.delay 500 .then # Delay to prevent nasty lockups
-  player-coords = if area.player-x? and area.player-y? then [area.player-x, area.player-y] else null
+export area = (name, app) ->
+  # <~ Promise.delay 500 .then # Delay to prevent nasty lockups
   logger.start \level {level: name}
     .then (event) -> Promise.all [event, $.get-JSON "#{prefix}/areas/#{name}/area.json?_v=#{EAKVERSION}"]
     .spread (event, conf) ->
-      area = new Area {conf, prefix, player-coords, name, event-id: event.id}
+      area = new Area {conf, prefix, name, event-id: event.id}
       area.on \done -> logger.stop event.id
       area.load!

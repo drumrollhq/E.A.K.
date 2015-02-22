@@ -12,7 +12,7 @@ require! {
 }
 
 module.exports = class Area extends Backbone.Model
-  initialize: ({conf, @event-id, @prefix, @player-coords, @name}) ->
+  initialize: ({conf, @event-id, @prefix, @name}) ->
     @subs = []
     @set conf.{width, height, background, music}
     @view = new AreaView model: this
@@ -30,6 +30,13 @@ module.exports = class Area extends Backbone.Model
       .then @setup
       .then ~> this
 
+  save-defaults: -> {
+    type: \area
+    url: @name
+    state: player-coords: @view.initial-player-pos!
+    levels: @levels.map -> url: it.url, state: {}
+  }
+
   cleanup: ->
     @complete!
 
@@ -41,7 +48,7 @@ module.exports = class Area extends Backbone.Model
 
   build-map: ->
     nodes = @view.assemble-map!
-    nodes[*] = @view.player or @view.add-player @player-coords
+    nodes[*] = @view.player or @view.add-player!
     @state = physics.prepare nodes
 
   subscribe: ->

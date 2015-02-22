@@ -77,18 +77,17 @@ module.exports = class AreaView extends CameraScene
 
   assemble-map: -> @levels |> map ( .map ) |> flatten
 
-  add-player: (coords) ->
+  initial-player-pos: ->
+    {x, y} = @levels.0.conf.player
+    x += @levels.0.conf.x
+    y += @levels.0.conf.y
+    {x, y}
+
+  add-player: ->
     if @player? then return @player
 
-    if coords?
-      [x, y] = coords
-    else
-      {x, y} = @levels.0.conf.player
-      x += @levels.0.conf.x
-      y += @levels.0.conf.y
-
+    {x, y} = @initial-player-pos!
     @move {x, y}
-
     @player = player = new Player {x, y}
       ..$el.append-to @$el
       ..$el.attr id: "#{@el.id}-player"

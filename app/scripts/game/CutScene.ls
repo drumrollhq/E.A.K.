@@ -25,12 +25,11 @@ module.exports = class CutScene extends Backbone.View
     'click .skip': 'triggerSkip'
     'mousemove': 'wakeup'
 
-  initialize: ({name}) ->
-    @name = name
+  initialize: ({@name, @url}) ->
     @subs = []
 
   load: ->
-    Promise.resolve $.ajax url: "#{@name}.html?_v=#{EAKVERSION}"
+    Promise.resolve $.ajax url: "#{@url}.html?_v=#{EAKVERSION}"
       .then (html) ~>
         @html = html
         $util.html html
@@ -39,6 +38,12 @@ module.exports = class CutScene extends Backbone.View
       .catch (e) ->
         console.error e
         throw new Error translations.cutscene.error
+
+  save-defaults: -> {
+    type: \cutscene
+    url: @name
+    state: {}
+  }
 
   start: ->
     @render!

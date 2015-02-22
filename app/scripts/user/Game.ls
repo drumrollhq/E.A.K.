@@ -4,17 +4,16 @@ require! {
 }
 
 module.exports = class Game extends Backbone.DeepModel
-  @new = ({store, user, options}) ->
-    start = options.[]start
-    store.create game: {user-id: user.id}, area: {type: start.0, url: start.1}
-      .then ({game, area}) -> new Game {id: game.id, game, area}
+  @new = ({store, user}) ->
+    store.create game: {user-id: user.id}
+      .then ({game}) -> new Game {id: game.id, game}
       .tap (game) ->
         game.set-store store
         game.setup-autosave!
 
   @load = ({store, id, user}) ->
     store.get id
-      .then (game) -> new Game id: game.id, game: game, area: game.active-area
+      .then (game) -> new Game id: game.id, game: game, stage: game.active-stage
       .tap (game) ->
         game.set-store store
         game.setup-autosave!
@@ -32,18 +31,20 @@ module.exports = class Game extends Backbone.DeepModel
     @unset key
     @set key, value
 
-  active-area: ->
-    @get \area
+  active-stage: ->
+    @get \stage
 
-  set-active-area: (area, persist = true) ->
-    Promise.resolve (if persist then @store.patch @id, active-area: area.id)
+  set-active-stage: (stage, persist = true) ->
+    Promise.resolve (if persist then @store.patch @id, active-stage: stage.id)
       .then ~>
-        @set 'game.activeArea': area.id
-        @reset 'area' area
+        @set 'game.activeStage': stage.id
+        @reset 'stage' stage
       .then ~> this
 
-  find-or-create-area: (type, url, activate = false) ->
-    active-area = @get \area
-    if active-area.type is type and active-area.url is url then return Promise.resolve this
-    @store.find-or-create-area @id, {type, url, activate}
-      .tap (area) ~> if activate then @set-active-area area, false
+  find-or-create-stage: (default-data, activate = false) ->
+    active-stage = @get \stage or {}
+    if active-stage.type is default-data.type and active-stage.url is default-data.url then return Promise.resolve this
+
+    default-data.activate = activate
+    @store.find-or-create-stage @id, default-data
+      .tap (stage) ~> if activate then @set-active-stage stage, false

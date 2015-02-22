@@ -53,10 +53,9 @@ module.exports = class MainMenuView extends Backbone.View
     @$el.hide-dialogue!
     @app.show-loader!
 
-    user.new-game start: <[cutscene intro]>
-      .then @app.play-user-game
+    user.new-game!
+      .then ~> @app.load \cutscene \intro
       .catch (err) ~>
-        .then @app.play-user-game
         @app.error "Error starting new game: #{error-message err}"
 
   resume: ->
