@@ -17,7 +17,7 @@ require! {
   'user'
 }
 
-const level-types = <[cutscene area]>
+const stage-types = <[cutscene area]>
 $overlay = $ '#overlay'
 $settings-button = $ '#bar .settings-button'
 
@@ -108,8 +108,8 @@ module.exports = class App
 
   play-user-game: ~>
     @_active-play = null
-    area = user.game.active-area!
-    @load area.type, area.url
+    saved-stage = user.game.active-stage!
+    @load saved-stage.type, saved-stage.url
 
   load-game: (game) ->
     @show-loader!
@@ -181,33 +181,46 @@ module.exports = class App
   overlay-active: -> @current-state in <[menusOverlay paused editingPaused]>
 
   edit: ->
-    if @_level and @_level.is-editable! and @current-state is \playing
+    if @_stage and @_stage.is-editable! and @current-state is \playing
       @trigger-async 'edit'
 
   cleanup-playing: ->
     @_active-play = null
-    if @_level
-      @_level = null
+    if @_stage
+      @_stage = null
       that.cleanup!
 
+  # After a stage is completed, we leave behind the background and music in case
+  # they are reused. This function cleans those up, and is used when transitioning
+  # to menus.
   cleanup-playing-remains: ->
-    # Get rid of the last few bits of a playing session. We leave backgrounds and
-    # music in place in a normal cleanup in case they are used again.
     background.clear!
     music-manager.start-track 'none'
 
+  # Load and set up a new stage of the game.
+  # Type is the type of stage - either area or cutscene.
+  # Path is the path to that stage
+  # Options is passed into the stage
   start-loader: ({type, path, options}) !->
-    unless type in level-types then throw new Error "Bad level type #type!"
+    unless type in stage-types then throw new Error "Bad stage type #type!"
     @show-loader!
+
+    # Keep track of what stage is currently playing. This lets us return from menus
+    # and overlays without having to reload everything.
     @_active-play = {type, path}
-    @_current-loader = user.game.find-or-create-area type, path, true
-      .then (area) -> load[type] path, this, area, options
+
+    # Keep track of the currently loading game, to make sure only one thing can be
+    # loaded at once
+    @_current-loader = load[type] path, this, options # First, we load the stage
       .cancellable!
-      .then (level) ~>
-        @_level = level
+      .then (stage) ~>
+        #
+        @_stage = stage
+        user.game.find-or-create-stage stage.save-defaults!, true
+      .then (saved-stage) ~>
+        @_stage.once \next, (path) ~> @load-path path
         @trigger \start
-        level.once \next, (path) ~> @load-path path
-        level.start!
+        @_stage.start saved-stage
       .catch Promise.CancellationError, ->
       .catch (e) ~>
         console.error e
@@ -254,11 +267,11 @@ module.exports = class App
     channels.game-commands.publish command: \force-pause
 
   show-editor: ->
-    if @_level and @_level.is-editable!
+    if @_stage and @_stage.is-editable!
       debugger
-      @_level.edit!
-      @_level.once 'stop-editor' ~> @trigger \editFinished
+      @_stage.edit!
+      @_stage.once 'stop-editor' ~> @trigger \editFinished
 
   hide-editor: ->
     console.log 'hide-editor'
-    if @_level then @_level.hide-editor!
+    if @_stage then @_stage.hide-editor!
