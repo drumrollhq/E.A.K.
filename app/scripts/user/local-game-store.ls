@@ -1,32 +1,29 @@
-id = (prefix = '') -> "#{prefix}_#{Date.now!}"
+id = (prefix = '') -> "#{prefix}_#{Date.now!}_#{_.unique-id!}"
 
 module.exports = {
   create: (data) ->
     game-id = id \game
-    area-id = id \area
     game = {
       id: game-id
       user-id: data.game.user
       created-at: new Date!
       updated-at: new Date!
       state: {}
-      active-area: area-id
+      active-stage: null
     }
 
-    area = {
-      id: area-id
-      game-id: game-id
-      url: data.area.url
-      type: data.area.type
-      created-at: new Date!
-      updated-at: new Date!
-      state: {}
-      player-x: null
-      player-y: null
-    }
+    @save game .then -> {game}
 
-    Promise.all [@save game, @save area]
-      .then -> {game, area}
+  get: (id) ->
+    (Promise.resolve localforage.get-item id)
+      .then (game) ->
+        Promise.all [
+          game
+          if game.active-stage then localforage.get-item that
+        ]
+      .spread (game, active-stage) ->
+        game.active-stage = active-stage
+        game
 
   list: ->
     @find {
@@ -36,10 +33,55 @@ module.exports = {
       asc: false
     }
 
+  find-or-create-stage: (game-id, stage-data) ->
+    game = null
+    activate = stage-data.activate or false
+    levels = stage-data.levels
+    delete stage-data.activate
+    delete stage-data.levels
+
+    @get game-id
+      .then (game-data) ~>
+        game := game-data
+        stage-data.game-id = game-id
+        @find-one where: (stage) ->
+          (stage.id.match /^stage/) and
+            stage.{game-id, url, type} === stage-data.{game-id, url, type}
+      .catch @LocalNotFoundError, ~>
+        stage-data.id = id \stage
+        @save stage-data .then -> stage-data
+      .then (stage) ~>
+        Promise.all [
+          stage
+          if levels then @find-or-create-levels stage, levels
+          if activate then @patch game-id, active-stage: stage.id
+        ]
+      .spread (stage, levels) ->
+        if levels then stage.levels = levels
+        stage
+
+  find-or-create-levels: (stage, levels) ->
+    Promise.map levels, (level) ~> @find-or-create-level stage, level
+
+  find-or-create-level: (stage, level) ->
+    @find-one {
+      where: (level) ->
+        (level.id.match /^level/) and
+          level.{stage-id, url} === {stage-id: stage.id, url: level.url} }
+      .catch LocalNotFoundError, ~>
+        level.stage-id = stage.id
+        level.id = id \level
+        @save level .then -> level
+
+  patch: (id, patch) ->
+    @get id .then (data) ~>
+      data <<< patch
+      @save data
+
   # Save an object, using it's id as the key
   save: (data) ->
     key = data.id
-    localforage.set-item key, data
+    Promise.resolve localforage.set-item key, data
 
   # Find objects from the store that match a certain function.
   # Options:
@@ -57,4 +99,15 @@ module.exports = {
           if options.asc is false then results := results.reverse!
           if options.limit then results := take options.limit, results
           results
+
+  find-one: (options) ->
+    options.limit = 1
+    @find options
+      .then ([item]) ~>
+        if item
+          Promise.resolve item
+        else
+          Promise.reject new @LocalNotFoundError 'local-game-store item not found'
+
+  LocalNotFoundError: class LocalNotFoundError extends Error
 }

@@ -27,6 +27,9 @@ module.exports = class Router extends Backbone.Router
 
   play: ->
     if @app.current-state in <[init menus]>
-      @app.load-game @app.save-games.latest!
+      latest = @app.save-games.latest!
+      if latest
+        @app.load-game latest
+      else window.location.hash = '/menu'
     else if @app._active-play
       @app.load @app._active-play.type, @app._active-play.path

@@ -5,7 +5,7 @@ require! {
 
 module.exports = class Game extends Backbone.DeepModel
   @new = ({store, user}) ->
-    store.create game: {user-id: user.id}
+    store.create game: {user-id: user?.id}
       .then ({game}) -> new Game {id: game.id, game}
       .tap (game) ->
         game.set-store store
