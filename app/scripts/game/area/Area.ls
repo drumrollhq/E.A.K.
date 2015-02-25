@@ -16,32 +16,34 @@ module.exports = class Area extends Backbone.Model
     @subs = []
     @set conf.{width, height, background, music}
     @view = new AreaView model: this
+    for level in conf.levels => level.url = "#{@name}/#{level.url}"
     @levels = conf.levels
 
-  start: ->
-    @view.$el.append-to \#levelcontainer
-    @view.render!
-    @subscribe!
-    @view.create-maps!
-    @build-map!
+  start: (stage) ->
+    @save-stage = stage
+    @setup stage .then ~>
+      @view.$el.append-to \#levelcontainer
+      @view.render!
+      @subscribe!
+      @view.create-maps!
+      @build-map!
 
   load: ~>
     Promise.all [@load-levels!, @load-background!, @load-music!]
-      .then @setup
       .then ~> this
 
   save-defaults: -> {
     type: \area
     url: @name
-    state: player-coords: @view.initial-player-pos!
+    state: {}
     levels: @levels.map -> url: it.url, state: {}
   }
 
   cleanup: ->
     @complete!
 
-  setup: ~>
-    @view.add-levels!
+  setup: (stage) ~>
+    @view.add-levels stage
     @view.add-targets!
     @view.add-actors!
     @view.setup-sprite-sheets!
@@ -93,7 +95,7 @@ module.exports = class Area extends Backbone.Model
     loader-view.render!
 
   load-level-source: (level) ~>
-    Promise.resolve $.ajax "#{@prefix}/areas/#{@name}/#{level.url}?_v=#{EAKVERSION}"
+    Promise.resolve $.ajax "#{@prefix}/areas/#{level.url}?_v=#{EAKVERSION}"
       .then (src) ->
         [err, $level] = parse-src src, level
         if err then throw err

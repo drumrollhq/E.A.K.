@@ -58,6 +58,7 @@ module.exports = api = {
     delete: (id) -> delete-json api.games.url id
     patch: (id, data) -> put-json (api.games.url id), data
     find-or-create-stage: (id, data) -> post-json (api.games.url id, 'stages'), data
+    save-kitten: (game-id, level-id, kitten) -> post-json (api.games.url game-id, 'levels', level-id, 'kittens'), {kitten}
 
   sessions:
     url: (...segments) -> api.url 'sessions', flatten segments

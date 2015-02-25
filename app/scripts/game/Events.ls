@@ -1,6 +1,7 @@
 require! {
   'lib/channels'
   'logger'
+  'user'
 }
 
 actions = {
@@ -81,7 +82,9 @@ channels.parse 'contact: start: ENTITY_PLAYER + ENTITY_TARGET' .subscribe (conta
 
   if kitten.destroyed then return
 
-  logger.log 'kitten', player: player.{v, p}
+  logger.log 'kitten', player: player.{v, p}, kitten: kitten.data.id
+  # debugger
+  user.game.save-kitten kitten.data.targetlevel, kitten.data.targetid
   channels.kitten.publish {}
 
   kitten.destroyed = true

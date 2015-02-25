@@ -4,7 +4,7 @@ require! {
 }
 
 module.exports = class SpriteSheet extends Backbone.View
-  @create = (el, cb) -> new SpriteSheet {el, cb}
+  @create = (el) -> new SpriteSheet {el} .load!
 
   initialize: ({cb}) ->
     @$el.data 'sprite-controller', this
@@ -14,7 +14,7 @@ module.exports = class SpriteSheet extends Backbone.View
     size = @$el.attr 'data-sprite-size'
     frames = @$el.attr 'data-sprite-frames'
     start-frame = @$el.attr 'data-sprite-start-frame' or '0'
-    state = @$el.attr 'data-sprite-state' or 'play'
+    @state = @$el.attr 'data-sprite-state' or 'play'
     loop-times = @$el.attr 'data-sprite-loop' or '0'
     delay-range = @$el.attr 'data-sprite-delay' or '0'
 
@@ -44,16 +44,16 @@ module.exports = class SpriteSheet extends Backbone.View
     @$el.add-class 'sprite-anim'
     @$el.css @size.{width, height}
 
-    err <~ @load-image!
-    cb err
-    if err? then return
 
-    @setup-renderer!
-    @frame-sub = channels.frame.subscribe @frame
-    @_start-time = performance.now!
-    @render-frame @start-frame
+  load: ->
+    @load-image! .then ~>
+      @setup-renderer!
+      @frame-sub = channels.frame.subscribe @frame
+      @_start-time = performance.now!
+      @render-frame @start-frame
 
-    if state.to-lower-case! is 'paused' then @stop!
+      if @state.to-lower-case! is 'paused' then @stop!
+      this
 
   stop: ~>
     @frame-sub.pause!
@@ -78,16 +78,16 @@ module.exports = class SpriteSheet extends Backbone.View
     @ctx = @canvas.get-context '2d'
     @$el.append @canvas
 
-  load-image: (done) ~>
+  load-image: ~> new Promise (resolve, reject) ~>
     @img = img = new Image!
     $img = $ img
     $img.on 'load' (e) ~>
       @scale-factor = img.height / @size.height
-      done!
+      resolve img
 
     $img.on 'error' (e) ~>
       channels.alert.publish {msg: "#{translations.errors.load-sprite} #{@url}"}
-      done e
+      reject e
 
     img.src = "#{@url}?_v=#{EAKVERSION}"
 

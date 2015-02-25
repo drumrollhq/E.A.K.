@@ -48,6 +48,10 @@ module.exports = class AreaView extends CameraScene
 
   level: -> @levels[@model.get 'playerLevel']
 
+  set-save-stage: (stage) ->
+    @save-stage = stage
+    for level in @levels => level.set-save-stage stage
+
   switch-level-focus: (index) ->
     level = @levels[index]
 
@@ -62,9 +66,9 @@ module.exports = class AreaView extends CameraScene
 
   is-editable: -> @level!.conf.editable
 
-  add-levels: ->
+  add-levels: (stage) ->
     @level-container ?= create-level-container @$el
-    @levels = @model.levels.map (level) -> new AreaLevel level
+    @levels = @model.levels.map (level) -> new AreaLevel {level, stage}
 
     for level in @levels
       level.$el.append-to @level-container
@@ -274,8 +278,8 @@ module.exports = class AreaView extends CameraScene
     children.css margins
     @$el.css 'background-position', "#{margins.margin-left}px #{margins.margin-top}px"
 
-  setup-sprite-sheets: (done) ->
-    async.each (@$el.find '[data-sprite]'), SpriteSheet.create, done
+  setup-sprite-sheets: ->
+    Promise.map (@$el.find '[data-sprite]' .to-array!), SpriteSheet.create
 
   update-size: -> @set-size (@model.get 'width'), (@model.get 'height')
 

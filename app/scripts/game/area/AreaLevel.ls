@@ -22,8 +22,10 @@ module.exports = class AreaLevel extends Backbone.View
   class-name: 'area-level'
   id: -> "arealevel-#{counter++}-#{Date.now!}"
 
-  initialize: (level) ->
+  initialize: ({level, stage}) ->
     @level = level
+    @save-stage = stage
+    @save-level = stage.scope-level level.url
     conf = @conf = settings.find level.$el
     conf <<< level.{x, y}
 
@@ -60,7 +62,13 @@ module.exports = class AreaLevel extends Backbone.View
   add-hidden: ->
     @$el.append @conf.hidden.add-class 'entity'
 
-  add-targets: -> targets @el, @conf.targets
+  add-targets: ->
+    @conf.targets
+      .map ({x, y}, i) ~> {x, y, id: "#{@level.url.replace /[^a-zA-Z0-9]/g ''}##{i}", level: @save-level.id}
+      |> reject ({id}) ~>
+        console.log id, @save-level.get 'state.kittens'
+        (@save-level.get 'state.kittens' or {})[id]
+      |> targets @el
 
   add-actors: -> @actors ?= for actor-el in @$ '[data-actor]' => actors.from-el actor-el, @conf.{x, y}
 

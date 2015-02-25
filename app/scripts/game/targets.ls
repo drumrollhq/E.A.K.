@@ -43,7 +43,8 @@ module.exports = (el, targets) -->
         'data-sensor': true
         'data-id': 'ENTITY_TARGET'
         'data-target': true
-
+        'data-targetid': target.id
+        'data-targetlevel': target.level
       }
       ..css do
         left: target.x

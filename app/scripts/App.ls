@@ -220,7 +220,7 @@ module.exports = class App
       .then (saved-stage) ~>
         @_stage.once \next, (path) ~> @load-path path
         @trigger \start
-        @_stage.start saved-stage
+        @_stage.start user.game
       .catch Promise.CancellationError, ->
       .catch (e) ~>
         console.error e
