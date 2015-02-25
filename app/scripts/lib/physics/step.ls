@@ -55,7 +55,7 @@ find-state = (obj, nodes) ->
 
 put-on-thing = (obj, thing) ->
   obj.state = 'on-thing'
-  if thing.data?.dynamic? or thing.data?.actor?
+  if thing.data?.dynamic or (thing.data?.actor and thing.is-dynamic!)
     obj.fixed-to = {
       target: thing
       pos: thing.p .minus obj.p
@@ -78,7 +78,7 @@ module.exports = step = (state, t) ->
 
   # If we had to remove stuff, regenerate the list of dynamics
   if destroyed.length > 0
-    dynamics = nodes |> filter -> it.data?.dynamic? or it.data?.actor?
+    dynamics = nodes |> filter -> it.data?.dynamic or (it.data?.actor and it.is-dynamic!)
 
   # Keep track of the time-deltas between each iteration. We use a moving average to
   # smoothly adjust to slower run times

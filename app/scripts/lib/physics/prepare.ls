@@ -79,7 +79,7 @@ prepare = (nodes) ->
 
   nodes = nodes.sort (a, b) -> (sort-points a) - (sort-points b)
 
-  dynamics = nodes |> filter -> it.data?.actor? or it.data?.dynamic?
+  dynamics = nodes |> filter -> it.data?.dynamic or (it.data?.actor and it.is-dynamic!)
 
   {dynamics, nodes}
 

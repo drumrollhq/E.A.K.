@@ -9,6 +9,7 @@ module.exports = class Actor extends Backbone.View
     @args = start.args if start.args
     @origin = start.{x, y}
     @offset = start.offset or {x: 0, y: 0}
+    @level-store = start.store
     width = @$el.width!
     height = @$el.height!
 
@@ -34,6 +35,7 @@ module.exports = class Actor extends Backbone.View
     @data.actor = true
 
   actor-type: -> Object.get-prototype-of this .constructor.display-name.to-lower-case!
+  is-dynamic: -> @data.dynamic
 
   reset: (origin = @origin) ~>
     @ <<< {

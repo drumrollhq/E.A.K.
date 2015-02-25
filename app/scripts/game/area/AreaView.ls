@@ -73,6 +73,7 @@ module.exports = class AreaView extends CameraScene
     for level in @levels
       level.$el.append-to @level-container
       level.render!
+      level.setup!
 
   create-maps: ->
     @$el.css top: 0, left: 0, margin-top: 0, margin-left: 0
@@ -96,9 +97,6 @@ module.exports = class AreaView extends CameraScene
       ..$el.append-to @$el
       ..$el.attr id: "#{@el.id}-player"
       ..id = "#{@el.id}-player"
-
-  add-targets: -> for level in @levels => level.add-targets!
-  add-actors: -> for level in @levels => level.add-actors!
 
   remove: ->
     for level in @levels => level.remove!

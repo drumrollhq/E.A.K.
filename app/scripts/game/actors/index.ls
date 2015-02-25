@@ -2,11 +2,14 @@ require! {
   'lib/parse'
 }
 
-actors = <[Actor Mover]>
+actors = <[Actor Mover KittenBox]>
 
-module.exports = actors = {[name.to-lower-case!, require "game/actors/#{name}"] for name in actors}
+module.exports = actors = {[(dasherize name), require "game/actors/#{name}"] for name in actors}
 
-module.exports.from-el = (el, offset) ->
+module.exports.from-el = (el, offset, level-store) ->
   $el = $ el
   [actor, ...args] = $el.attr 'data-actor' |> parse.to-list
-  actors[actor].from-el $el, args, offset
+  unless actors[actor] then throw new Error "No such actor: #{actor}"
+  a = actors[actor].from-el $el, args, offset, level-store
+  $el.data 'actor', a
+  a

@@ -25,6 +25,7 @@ module.exports = class Mover extends Actor
 
   physics: {
     data:
+      dynamic: true
       ignore-others: true
   }
 

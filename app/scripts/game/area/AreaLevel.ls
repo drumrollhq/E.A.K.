@@ -6,7 +6,6 @@ require! {
   'game/editor/EditorView'
   'game/editor/tutorial/Tutorial'
   'game/hints/HintController'
-  'game/targets'
   'lib/dom/Mapper'
   'lib/lang/CSS'
   'lib/lang/html'
@@ -20,7 +19,7 @@ create-style = ->
 
 module.exports = class AreaLevel extends Backbone.View
   class-name: 'area-level'
-  id: -> "arealevel-#{counter++}-#{Date.now!}"
+  id: -> _.unique-id 'arealevel-'
 
   initialize: ({level, stage}) ->
     @level = level
@@ -31,6 +30,7 @@ module.exports = class AreaLevel extends Backbone.View
 
     @mapper = new Mapper @el
 
+    @targets-to-actors!
     @style = create-style!
     @set-HTML-CSS conf.html, conf.css
 
@@ -44,6 +44,10 @@ module.exports = class AreaLevel extends Backbone.View
       top: @conf.y
       left: @conf.x
     }
+
+  setup: ->
+    # @targets-to-actors!
+    @add-actors!
 
   remove: ->
     @hint-controller.destroy!
@@ -62,15 +66,19 @@ module.exports = class AreaLevel extends Backbone.View
   add-hidden: ->
     @$el.append @conf.hidden.add-class 'entity'
 
-  add-targets: ->
-    @conf.targets
+  targets-to-actors: ->
+    targets = @conf.targets
       .map ({x, y}, i) ~> {x, y, id: "#{@level.url.replace /[^a-zA-Z0-9]/g ''}##{i}", level: @save-level.id}
-      |> reject ({id}) ~>
-        console.log id, @save-level.get 'state.kittens'
-        (@save-level.get 'state.kittens' or {})[id]
-      |> targets @el
+      |> reject ({id}) ~> (@save-level.get 'state.kittens' or {})[id]
+      |> map (target) ~>
+        $ """
+          <div class="entity-target" data-actor="kitten-box #{target.x} #{target.y} #{target.id}"></div>
+        """
 
-  add-actors: -> @actors ?= for actor-el in @$ '[data-actor]' => actors.from-el actor-el, @conf.{x, y}
+    for target in targets => @conf.hidden .= add target
+
+  add-actors: ->
+    @actors ?= for actor-el in @$ '[data-actor]' => actors.from-el actor-el, @conf.{x, y}, @save-level
 
   add-borders: (nodes) ->
     const thickness = 50px
@@ -79,7 +87,7 @@ module.exports = class AreaLevel extends Backbone.View
     if \top in borders
       nodes[*] = {
         type: \rect, id: \BORDER_TOP
-        width: width, height: thickness
+        width: width, heieht: thickness
         x: x + width/2, y: y - thickness/2 + border-contract
       }
 

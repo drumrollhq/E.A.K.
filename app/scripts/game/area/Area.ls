@@ -44,8 +44,6 @@ module.exports = class Area extends Backbone.Model
 
   setup: (stage) ~>
     @view.add-levels stage
-    @view.add-targets!
-    @view.add-actors!
     @view.setup-sprite-sheets!
 
   build-map: ->

@@ -73,35 +73,3 @@ channels.parse 'contact: start: ENTITY_PLAYER + ENTITY_EXIT' .subscribe (contact
   href = exit.data.href or exit.el.href
   if href? then window.location.href = href
 
-# Kitten finding
-channels.parse 'contact: start: ENTITY_PLAYER + ENTITY_TARGET' .subscribe (contact) ->
-  [player, kitten] = contact.find 'ENTITY_PLAYER'
-  if player.deactivated or player.last-fall-dist > fall-limit then return
-
-  kitten.destroy!
-
-  if kitten.destroyed then return
-
-  logger.log 'kitten', player: player.{v, p}, kitten: kitten.data.id
-  # debugger
-  user.game.save-kitten kitten.data.targetlevel, kitten.data.targetid
-  channels.kitten.publish {}
-
-  kitten.destroyed = true
-
-  $el = $ kitten.el
-  blink = $el.find '.box-blink'
-  blink.css 'display' 'none'
-  blink-controller = blink.data 'sprite-controller'
-
-  burst = $el.find '.box-burst'
-  burst.css 'display' 'block'
-  burst-controller = burst.data 'sprite-controller'
-
-  burst-controller.restart!
-  $el.find '.kitten-anim' .one prefixed.animation-end, ->
-    burst-controller.remove!
-    blink-controller.remove!
-    $el.remove!
-
-  $el.add-class 'found'
