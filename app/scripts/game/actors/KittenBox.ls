@@ -84,7 +84,7 @@ module.exports = class KittenBox extends Actor
     # Log data and update save-game
     logger.log \kitten, player: player.{v, p}
     channels.kitten.publish {}
-    @level-store.save-kitten @kitten-id
+    @store.save-kitten @kitten-id
 
     # Hide blink animation
     blink = @$ \.box-blink

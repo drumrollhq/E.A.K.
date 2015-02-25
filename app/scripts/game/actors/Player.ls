@@ -13,7 +13,7 @@ const max-move-speed = 4px
   jump-speed = 5.4px
   max-jump-frames = 10
   fall-limit = 200px
-  fall-to-death-limit = 100px
+  fall-to-death-limit = 300px
 
 player-html = '''
   <div class="player-inner">
@@ -71,7 +71,9 @@ module.exports = class Player extends Actor
     @subs[*] = channels.post-frame.subscribe @calc-classes
     @subs[*] = channels.death.subscribe (death) ~>
       logger.log 'death', {cause: death.cause, data: death.data, player: @{p, v}}
+
     @listen-to this, 'contact:start', @contact-start
+    @listen-to this, 'set:origin', @origin-updated
 
     # Constants:
     this <<< {max-move-speed, move-acc, move-acc-in-air, move-damp, move-damp-in-air, jump-speed, max-jump-frames, fall-limit}
@@ -125,6 +127,11 @@ module.exports = class Player extends Actor
     @classes-disabled = false
     @deactivated = false
     @reset!
+
+  # Save player position when origin updated:
+  origin-updated: (current, prev) ->
+    unless current === @store.get \stage.state.playerPos
+      @store.patch-stage-state \playerPos, current
 
   # Handle input:
   step: (dt) ->

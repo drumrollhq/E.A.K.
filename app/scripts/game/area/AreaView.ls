@@ -48,17 +48,13 @@ module.exports = class AreaView extends CameraScene
 
   level: -> @levels[@model.get 'playerLevel']
 
-  set-save-stage: (stage) ->
-    @save-stage = stage
-    for level in @levels => level.set-save-stage stage
-
   switch-level-focus: (index) ->
     level = @levels[index]
 
     {x, y} = level.conf.player
     x += level.conf.x
     y += level.conf.y
-    @player.origin <<< {x, y}
+    @player.set-origin x, y
 
     level.activate!
 
@@ -67,6 +63,7 @@ module.exports = class AreaView extends CameraScene
   is-editable: -> @level!.conf.editable
 
   add-levels: (stage) ->
+    @save-stage = stage
     @level-container ?= create-level-container @$el
     @levels = @model.levels.map (level) -> new AreaLevel {level, stage}
 
@@ -91,9 +88,9 @@ module.exports = class AreaView extends CameraScene
   add-player: ->
     if @player? then return @player
 
-    {x, y} = @initial-player-pos!
+    {x, y} = (@save-stage.get \stage.state.playerPos) or @initial-player-pos!
     @move {x, y}
-    @player = player = new Player {x, y}
+    @player = player = new Player {x, y, store: @save-stage}
       ..$el.append-to @$el
       ..$el.attr id: "#{@el.id}-player"
       ..id = "#{@el.id}-player"
