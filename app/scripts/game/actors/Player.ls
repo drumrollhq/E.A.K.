@@ -5,13 +5,15 @@ require! {
   'logger'
 }
 
-const max-move-speed = 4px,
-  move-acc = 0.3px,
+const max-move-speed = 4px
+  move-acc = 0.3px
   move-acc-in-air = 0.2px
-  move-damp = 0.7px,
+  move-damp = 0.7px
   move-damp-in-air = 0.01px
-  jump-speed = 5.4px,
-  max-jump-frames = 10,
+  jump-speed = 5.4px
+  max-jump-frames = 10
+  fall-limit = 200px
+  fall-to-death-limit = 100px
 
 player-html = '''
   <div class="player-inner">
@@ -69,6 +71,10 @@ module.exports = class Player extends Actor
     @subs[*] = channels.post-frame.subscribe @calc-classes
     @subs[*] = channels.death.subscribe (death) ~>
       logger.log 'death', {cause: death.cause, data: death.data, player: @{p, v}}
+    @listen-to this, 'contact:start', @contact-start
+
+    # Constants:
+    this <<< {max-move-speed, move-acc, move-acc-in-air, move-damp, move-damp-in-air, jump-speed, max-jump-frames, fall-limit}
 
   calc-classes: ~>
     unless @classes-disabled
@@ -103,6 +109,13 @@ module.exports = class Player extends Actor
   draw: ->
     super!
     channels.player-position.publish @p.{x, y}
+
+  contact-start: (other) ->
+    if @deactivated then return
+
+    # Check for falling to death:
+    if @last-fall-dist > fall-to-death-limit and not other.data?.sensor?
+      channels.death.publish cause: 'fall-to-death'
 
   fall-to-death: ~>
     @apply-classes ['squish' @last-direction]

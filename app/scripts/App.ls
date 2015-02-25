@@ -3,6 +3,7 @@ require! {
   'audio/effects'
   'audio/music-manager'
   'game/area/background'
+  'game/event-loop'
   'game/load'
   'game/pauser'
   'lib/channels'

@@ -1,6 +1,4 @@
 require! {
-  'game/event-loop'
-  'game/Events'
   'lib/channels'
   'settings'
   'user'
