@@ -37,7 +37,7 @@ module.exports = class AreaView extends CameraScene
 
   initialize: (options) ->
     super options
-    @model.on 'change:playerLevel', (_, level) ~> @switch-level-focus level
+    @model.on 'change:playerLevel', (_, level) ~> @switch-level-focus level, @model.previous \playerLevel
     $ document.body .remove-class 'has-tutorial'
 
   render: ->
@@ -48,7 +48,7 @@ module.exports = class AreaView extends CameraScene
 
   level: -> @levels[@model.get 'playerLevel']
 
-  switch-level-focus: (index) ->
+  switch-level-focus: (index, previous) ->
     level = @levels[index]
 
     {x, y} = level.conf.player
@@ -56,6 +56,7 @@ module.exports = class AreaView extends CameraScene
     y += level.conf.y
     @player.set-origin x, y
 
+    if previous? then @levels[previous].deactivate!
     level.activate!
 
     if level.conf.editable then $body.remove-class \hide-edit else $body.add-class \hide-edit

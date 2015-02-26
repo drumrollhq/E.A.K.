@@ -1,5 +1,5 @@
 module.exports = class Subscription
-  (@channel, @handler) ->
+  (@channel, @handler, @once = false) ->
     if typeof @handler isnt \function then throw new TypeError "Handler should be a function, not #{typeof @handler}"
     @_resub!
 
@@ -7,7 +7,7 @@ module.exports = class Subscription
     @channel._unsub @handler
     @_subscribed = false
   _resub: ~>
-    @channel._sub @handler
+    @channel._sub @handler, @once
     @_subscribed = true
 
   unsubscribe: ~>

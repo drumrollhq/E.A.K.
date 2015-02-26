@@ -55,7 +55,11 @@ module.exports = class AreaLevel extends Backbone.View
     super!
 
   activate: ->
-    @hint-controller ?= new HintController hints: @conf.hints, scope: @$el
+    @hint-controller ?= new HintController hints: @conf.hints, scope: @$el, store: @save-level
+    @hint-controller.activate!
+
+  deactivate: ->
+    if @hint-controller then @hint-controller.deactivate!
 
   hide: ->
     @$el.add-class 'hidden'

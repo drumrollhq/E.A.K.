@@ -49,6 +49,16 @@ module.exports = class HintController extends Backbone.Model
 
     [@setup hint for hint in @hints]
 
+  activate: ->
+    for hint in @hints
+      if hint.start-sub?.resume? => hint.start-sub.resume!
+      if hint.stop-sub?.resume? => hint.stop-sub.resume!
+
+  deactivate: ->
+    for hint in @hints
+      if hint.start-sub?.pause? => hint.start-sub.pause!
+      if hint.stop-sub?.pause? => hint.stop-sub.pause!
+
   setup: (hint) ->
     id-counter += 1
 
@@ -61,15 +71,15 @@ module.exports = class HintController extends Backbone.Model
     view = new hint-types[hint.type] hint
 
     hint <<< {view}
-    {enter, exit} = hint
 
-    <~ @on-event hint.enter, hint.enter-delay
-    view.render!
-    channels.hint.publish {type: \enter, name: hint.name}
+    hint.start-sub = @on-event hint.enter, hint.enter-delay, ~>
+      view.render!
+      channels.hint.publish {type: \enter, name: hint.name}
 
-    <~ @on-event hint.exit, hint.exit-delay
-    view.remove!
-    channels.hint.publish {type: \exit, name: hint.name}
+      hint.stop-sub = @on-event hint.exit, hint.exit-delay, ~>
+        view.remove!
+        channels.hint.publish {type: \exit, name: hint.name}
+
 
   on-event: (ev, delay = 0, cb = -> null) ~>
     fn = -> set-timeout cb, parse-int delay

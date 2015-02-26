@@ -32,8 +32,8 @@ module.exports = class Channel
     @_handlers = []
     @_onces = []
 
-  _sub: (handler) ~>
-    @_handlers[*] = handler
+  _sub: (handler, once = false) ~>
+    if once then @_onces[*] = handler else @_handlers[*] = handler
     if debug then console.log '_sub:' @id, (new Error()).stack
 
   _unsub: (handler) ~>
@@ -43,7 +43,7 @@ module.exports = class Channel
     if debug then console.log '_unsub:' @id, (new Error()).stack
 
   subscribe: (handler) ~> new Subscription this, handler
-  once: (handler) ~> @_onces[*] = handler
+  once: (handler) ~> new Subscription this, handler, true
 
   unsubscribe: (arg) ~>
     if typeof! arg isnt 'Function'
@@ -59,6 +59,7 @@ module.exports = class Channel
 
   _publish: (data) ~>
     todo = @_handlers ++ @_onces
+    for once in @_onces => @_unsub once
     @_onces = []
     [handler data for handler in todo]
 
