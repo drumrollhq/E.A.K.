@@ -25,6 +25,7 @@ module.exports = class HintController extends Backbone.Model
 
   initialize: ->
     hint-els = @get \hints
+    @store = @get \store
 
     @hints = []
 
@@ -45,6 +46,8 @@ module.exports = class HintController extends Backbone.Model
         scope: $el.attr 'scope'
         focus: ($el.attr 'focus')?
 
+      obj.id = "hint_#{obj.type}_#i"
+      obj.disabled = !! @store.get "state.hints.#{obj.id}"
       @hints.push obj
 
     [@setup hint for hint in @hints]
@@ -73,12 +76,13 @@ module.exports = class HintController extends Backbone.Model
     hint <<< {view}
 
     hint.start-sub = @on-event hint.enter, hint.enter-delay, ~>
-      view.render!
+      view.render! unless hint.disabled
       channels.hint.publish {type: \enter, name: hint.name}
 
       hint.stop-sub = @on-event hint.exit, hint.exit-delay, ~>
-        view.remove!
+        view.remove! unless hint.disabled
         channels.hint.publish {type: \exit, name: hint.name}
+        @store.patch-state {hints: "#{hint.id}": true}
 
 
   on-event: (ev, delay = 0, cb = -> null) ~>

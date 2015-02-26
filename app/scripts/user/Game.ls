@@ -77,6 +77,11 @@ module.exports = class Game extends Backbone.DeepModel
         | typeof! key is \String => @set (scope-path key), value, options
         | otherwise => throw new TypeError "Bad key type: #{typeof! key}"
 
+      patch-state: (patch, value) ~>
+        if typeof patch is \string then patch = {"#patch": value}
+        lvl.set state: patch
+        @store.patch-level-state @id, level.id, patch
+
       save-kitten: (kitten) ~> @save-kitten level.id, kitten
     }
 
