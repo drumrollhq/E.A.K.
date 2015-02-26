@@ -32,7 +32,8 @@ module.exports = class AreaLevel extends Backbone.View
 
     @targets-to-actors!
     @style = create-style!
-    @set-HTML-CSS conf.html, conf.css
+    html = @save-level.get \state.code.html or conf.html
+    @set-HTML-CSS html, conf.css
 
     if conf.has-tutorial
       @tutorial = new Tutorial conf.tutorial
@@ -182,6 +183,7 @@ module.exports = class AreaLevel extends Backbone.View
     $ document.body .remove-class 'has-tutorial'
     editor-view.restore-entities!
     editor-view.remove!
+    @save-level.patch-state code: html: editor.get \html
     @redraw-from (editor.get \html), (editor.get \css)
 
     @trigger 'stop-editor'
