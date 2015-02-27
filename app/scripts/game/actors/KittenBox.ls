@@ -104,4 +104,6 @@ module.exports = class KittenBox extends Actor
     @$el.find \.kitten-anim .one prefixed.animation-end, ~>
       burst-controller.remove!
       blink-controller.remove!
-      @$el.remove!
+      @$el
+        ..empty!
+        ..remove!

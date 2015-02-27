@@ -21,6 +21,7 @@ module.exports = class Actor extends Backbone.View
     }
 
     @$el.data 'actor' this
+    @$el.add-class "actor-#{@actor-type!}"
 
     # Data for physics
     this <<< {

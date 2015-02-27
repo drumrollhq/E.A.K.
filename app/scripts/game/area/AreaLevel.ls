@@ -86,13 +86,13 @@ module.exports = class AreaLevel extends Backbone.View
     @actors ?= for actor-el in @$ '[data-actor]' => actors.from-el actor-el, @conf.{x, y}, @save-level
 
   add-borders: (nodes) ->
-    const thickness = 50px
+    const thickness = 30px
     {width, height, x, y, borders, border-contract} = @conf
 
     if \top in borders
       nodes[*] = {
         type: \rect, id: \BORDER_TOP
-        width: width, heieht: thickness
+        width: width, height: thickness
         x: x + width/2, y: y - thickness/2 + border-contract
       }
 

@@ -42,12 +42,15 @@ query-string = (q) ->
 
   {[(tidy-key pair.0), pair.1] for pair in pairs}
 
-a-tag = document.create-element \a
 url = (str) ->
-  a-tag.href = str
-  url = a-tag.{protocol, hostname, port, pathname, search, hash, host}
-  url.query = query-string url.search
-  url.pathname .= replace /^\/\// ''
-  url
+  [url, ...qs] = str.split '?'
+  qs .= join '?'
+  [protocol, host] = url.split '//'
+  [host, path] = host.split '/'
+  {
+    protocol, host, path,
+    query: query-string qs
+    search: qs
+  }
 
 module.exports = {to-boolean, to-bool: to-boolean, to-list, to-coordinates, to-object, tidy-key, url, query-string}

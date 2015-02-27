@@ -72,8 +72,10 @@ module.exports = class Player extends Actor
     @subs[*] = channels.death.subscribe (death) ~>
       logger.log 'death', {cause: death.cause, data: death.data, player: @{p, v}}
 
-    @listen-to this, 'contact:start', @contact-start
-    @listen-to this, 'set:origin', @origin-updated
+    # @listen-to this, 'all', console.log.bind console
+    @listen-to this, \contact:start, @contact-start
+    @listen-to this, \contact:end, @contact-end
+    @listen-to this, \set:origin, @origin-updated
 
     # Constants:
     this <<< {max-move-speed, move-acc, move-acc-in-air, move-damp, move-damp-in-air, jump-speed, max-jump-frames, fall-limit}
@@ -113,11 +115,15 @@ module.exports = class Player extends Actor
     channels.player-position.publish @p.{x, y}
 
   contact-start: (other) ->
+    if other.el then other.el.class-list.add \PLAYER_CONTACT
     if @deactivated then return
 
     # Check for falling to death:
     if @last-fall-dist > fall-to-death-limit and not other.data?.sensor?
       channels.death.publish cause: 'fall-to-death'
+
+  contact-end: (other) ->
+    if other.el then other.el.class-list.remove \PLAYER_CONTACT
 
   fall-to-death: ~>
     @apply-classes ['squish' @last-direction]

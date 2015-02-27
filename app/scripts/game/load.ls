@@ -9,7 +9,7 @@ if first-path in window.LANGUAGES
   prefix = "/#first-path"
 else prefix = ''
 
-export cutscene = (name, app, area) ->
+export cutscene = (name, app, options) ->
   log = logger.start \cutscene name: name
 
   cutscene = new CutScene {url: "#prefix/cutscenes/#name", name}
@@ -21,11 +21,11 @@ export cutscene = (name, app, area) ->
 
       cutscene
 
-export area = (name, app) ->
+export area = (name, app, options) ->
   # <~ Promise.delay 500 .then # Delay to prevent nasty lockups
   logger.start \level {level: name}
     .then (event) -> Promise.all [event, $.get-JSON "#{prefix}/areas/#{name}/area.json?_v=#{EAKVERSION}"]
     .spread (event, conf) ->
-      area = new Area {conf, prefix, name, event-id: event.id}
+      area = new Area {conf, prefix, name, options, event-id: event.id}
       area.on \done -> logger.stop event.id
       area.load!

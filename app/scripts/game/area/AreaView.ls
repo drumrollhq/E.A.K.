@@ -37,6 +37,7 @@ module.exports = class AreaView extends CameraScene
 
   initialize: (options) ->
     super options
+    @options = options.options
     @model.on 'change:playerLevel', (_, level) ~> @switch-level-focus level, @model.previous \playerLevel
     $ document.body .remove-class 'has-tutorial'
 
@@ -89,7 +90,9 @@ module.exports = class AreaView extends CameraScene
   add-player: ->
     if @player? then return @player
 
-    {x, y} = (@save-stage.get \stage.state.playerPos) or @initial-player-pos!
+    {x, y} = (if @options?.x? then @options.{x, y}) or (@save-stage.get \stage.state.playerPos) or @initial-player-pos!
+    x = parse-float x
+    y = parse-float y
     @move {x, y}
     @player = player = new Player {x, y, store: @save-stage}
       ..$el.append-to @$el

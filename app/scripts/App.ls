@@ -136,8 +136,7 @@ module.exports = class App
   load-path: (path) ->
     url = parse.url path
     if url.protocol isnt 'eak:' then throw new Error 'non-eak url!' # TODO: figure out what happens here
-    [type, path] = url.pathname.split '/'
-    @load type, path, url.query
+    @load url.host, url.path, url.query
 
   error: (msg) ->
     window.alert msg

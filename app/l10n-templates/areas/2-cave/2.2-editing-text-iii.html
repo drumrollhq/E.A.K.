@@ -12,7 +12,7 @@
     <meta name="border-contract" content="5">
 
     <style>
-      p, .floor, .side-ledge {
+      p, .floor, .side-ledge, .ledge-step {
         font-size: 16px;
         padding: 10px 16px;
         display: block;
@@ -69,11 +69,20 @@
         left: 0;
         z-index: 150;
       }
+
+      .ledge-step {
+        background: #2E2B2A;
+        position: absolute;
+        left: 0px;
+        height: 68px;
+      }
     </style>
 
     <hidden>
       <img src="/content/common/overlay/06-editing-text-iii.png" class="overlay" data-ignore>
       <img class="ledge" src="/content/common/brick-row.png">
+      <div class="ledge ledge-step perspective-cave-b-medium perspective-trim-left" data-extend-top="5" style="top: 82px; width: 180px;"></div>
+      <div class="ledge ledge-step perspective-cave-b-medium perspective-trim-left" data-extend-top="5" style="top: 14px; width: 90px;"></div>
       <div class="side-ledge perspective-cave-c-medium perspective-trim-right" data-extend-top="5"></div>
       <div class="floor perspective-cave-d-medium perspective-trim-left" data-extend-top="5"></div>
       <div class="right-border"></div>

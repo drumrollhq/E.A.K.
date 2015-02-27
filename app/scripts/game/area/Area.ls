@@ -12,10 +12,10 @@ require! {
 }
 
 module.exports = class Area extends Backbone.Model
-  initialize: ({conf, @event-id, @prefix, @name}) ->
+  initialize: ({conf, @event-id, @prefix, @name, @options}) ->
     @subs = []
     @set conf.{width, height, background, music}
-    @view = new AreaView model: this
+    @view = new AreaView model: this, options: @options
     for level in conf.levels => level.url = "#{@name}/#{level.url}"
     @levels = conf.levels
 
