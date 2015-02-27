@@ -157,6 +157,7 @@ module.exports = class App
     }
 
     channels.game-commands.filter ( .command is \edit ) .subscribe ~> @edit!
+    channels.stage.subscribe ({url}) ~> @load-path url
 
     return Promise.delay 400
 

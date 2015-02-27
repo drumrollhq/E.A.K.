@@ -68,18 +68,27 @@ prepare-one = ->
   it
 
 prepare = (nodes) ->
+  # Match up Actors with their corresponding measured elements
+  actors = nodes.filter ( .actor )
+  for actor in actors
+    measured-el = nodes |> find-index -> it isnt actor and it.el is actor.el
+    if measured-el isnt undefined
+      actor <<< nodes[measured-el]{aabb, width, height, x, y, rotation, type, radius, shapes}
+      actor.data = {} <<< nodes[measured-el].data <<< actor.data
+      nodes.splice measured-el, 1
+
   # Map the nodes to their prepared versions.
   nodes = nodes |> map prepare-one
 
   sort-points = (obj) ->
     p = 0
-    if obj.data?.actor? then p -= 10
+    if obj.actor? then p -= 10
     if obj.data?.dynamic? then p += 1
     p
 
   nodes = nodes.sort (a, b) -> (sort-points a) - (sort-points b)
 
-  dynamics = nodes |> filter -> it.data?.dynamic or (it.data?.actor and it.is-dynamic!)
+  dynamics = nodes |> filter -> it.data?.dynamic or (it.actor and it.is-dynamic!)
 
   {dynamics, nodes}
 

@@ -1,7 +1,7 @@
 module.exports = class Actor extends Backbone.View
   @from-el = ($el, args, offset) -> new Actor el: $el.0, args: args, offset: offset
 
-  physics-ignore: true
+  mapper-ignore: true
 
   initialize: (start = {x: 0, y: 0}) ->
     @subs = []
@@ -13,12 +13,14 @@ module.exports = class Actor extends Backbone.View
     width = @$el.width!
     height = @$el.height!
 
-    if @physics-ignore then @$el.attr \data-ignore true
+    if @mapper-ignore then @$el.attr \data-ignore true
     @$el.css {
       position: \absolute
       left: start.x - width / 2
       top: start.y - height / 2
     }
+
+    @$el.data 'actor' this
 
     # Data for physics
     this <<< {
@@ -32,7 +34,7 @@ module.exports = class Actor extends Backbone.View
     } <<< (@physics or {})
 
     @data.id = "ENTITY_#{@actor-type!to-upper-case!}"
-    @data.actor = true
+    @data.actor = @actor = true
 
   actor-type: -> Object.get-prototype-of this .constructor.display-name.to-lower-case!
   is-dynamic: -> @data.dynamic
