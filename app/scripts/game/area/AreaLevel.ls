@@ -21,22 +21,40 @@ module.exports = class AreaLevel extends Backbone.View
   class-name: 'area-level'
   id: -> _.unique-id 'arealevel-'
 
-  initialize: ({level, stage}) ->
-    @level = level
-    @save-stage = stage
-    @save-level = stage.scope-level level.url
-    conf = @conf = settings.find level.$el
-    conf <<< level.{x, y}
-
+  initialize: ({@level, @prefix}) ->
     @mapper = new Mapper @el
 
-    @targets-to-actors!
-    @style = create-style!
-    html = @save-level.get \state.code.html or conf.html
-    @set-HTML-CSS html, conf.css
+  load: ~>
+    (Promise.resolve $.ajax "#{@prefix}/areas/#{@level.url}?_v=#{EAKVERSION}")
+      .then (src) ~>
+        [err, $level] = parse-src src, @level
+        if err then throw err
+        @level.src = src
+        @level.$el = $level
+        @conf = conf = settings.find @level.$el
+        conf <<< @level.{x, y}
 
-    if conf.has-tutorial
-      @tutorial = new Tutorial conf.tutorial
+        if conf.has-tutorial
+          @tutorial = new Tutorial conf.tutorial
+
+        this
+
+  setup: (stage) ~>
+    @stage-store = stage
+    @level-store = stage.scope-level @level.url
+    @$el.css {
+      position: \absolute
+      left: @conf.x
+      top: @conf.y
+      width: @conf.width
+      height: @conf.height
+    }
+
+    @targets-to-actors!
+    @add-actors!
+    @style = create-style!
+    html = @level-store.get \state.code.html or @conf.html
+    @set-HTML-CSS html, @conf.css
 
   render: ->
     @$el.css {
@@ -46,17 +64,13 @@ module.exports = class AreaLevel extends Backbone.View
       left: @conf.x
     }
 
-  setup: ->
-    # @targets-to-actors!
-    @add-actors!
-
   remove: ->
-    @hint-controller.destroy!
-    if @tutorial then @tutorial.destroy!
+    @hint-controller?.destroy!
+    # @tutorial?.remove!
     super!
 
   activate: ->
-    @hint-controller ?= new HintController hints: @conf.hints, scope: @$el, store: @save-level
+    @hint-controller ?= new HintController hints: @conf.hints, scope: @$el, store: @level-store
     @hint-controller.activate!
 
   deactivate: ->
@@ -73,8 +87,8 @@ module.exports = class AreaLevel extends Backbone.View
 
   targets-to-actors: ->
     targets = @conf.targets
-      .map ({x, y}, i) ~> {x, y, id: "#{@level.url.replace /[^a-zA-Z0-9]/g ''}##{i}", level: @save-level.id}
-      |> reject ({id}) ~> (@save-level.get 'state.kittens' or {})[id]
+      .map ({x, y}, i) ~> {x, y, id: "#{@level.url.replace /[^a-zA-Z0-9]/g ''}##{i}"}
+      |> reject ({id}) ~> (@level-store.get 'state.kittens' or {})[id]
       |> map (target) ~>
         $ """
           <div class="entity-target" data-actor="kitten-box #{target.x} #{target.y} #{target.id}"></div>
@@ -83,7 +97,7 @@ module.exports = class AreaLevel extends Backbone.View
     for target in targets => @conf.hidden .= add target
 
   add-actors: ->
-    @actors ?= for actor-el in @$ '[data-actor]' => actors.from-el actor-el, @conf.{x, y}, @save-level
+    @actors ?= for actor-el in @$ '[data-actor]' => actors.from-el actor-el, @conf.{x, y}, @level-store
 
   add-borders: (nodes) ->
     const thickness = 30px
@@ -134,7 +148,6 @@ module.exports = class AreaLevel extends Backbone.View
       $style = $ style
       $style.text! |> @preprocess-css |> $style.text
 
-    @add-el-ids!
     css-src |> @preprocess-css |> @style.text
 
     @set-error parsed.error
@@ -145,12 +158,9 @@ module.exports = class AreaLevel extends Backbone.View
     else
       @$el.remove-class 'has-errors'
 
-  add-el-ids: ->
-    @$ '[data-exit]' .attr 'data-id', 'ENTITY_EXIT'
-
-  create-map: ~>
+  create-map: (offset-top, offset-left) ~>
     el-modify @$el
-    @mapper.build!
+    @mapper.build offset-top, offset-left
     @map = @mapper.map
     @add-borders @map
     @map = @map ++ @actors
@@ -183,10 +193,28 @@ module.exports = class AreaLevel extends Backbone.View
     $ document.body .remove-class 'has-tutorial'
     editor-view.restore-entities!
     editor-view.remove!
-    @save-level.patch-state code: html: editor.get \html
+    @level-store.patch-state code: html: editor.get \html
     @redraw-from (editor.get \html), (editor.get \css)
 
     @trigger 'stop-editor'
 
   contains: (x, y) ->
     @conf.x < x < @conf.x + @conf.width and @conf.y < y < @conf.y + @conf.height
+
+
+parse-src = (src, level) ->
+  parsed = html.to-dom src
+
+  if parsed.error
+    unless parsed.document.query-selector 'meta[name=glitch]'
+      console.log src, parsed.error
+      channels.alert.publish msg: translations.errors.level-errors + "[#{level.url}]"
+      return [parsed.error]
+
+  for node in parsed.document.child-nodes
+    if typeof! node is 'HTMLHtmlElement' then $level = $ node
+
+  $level.source = src
+  el-modify $level
+
+  return [null, $level]

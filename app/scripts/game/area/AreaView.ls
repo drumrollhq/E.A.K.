@@ -3,7 +3,6 @@ require! {
   'game/actors/Player'
   'game/area/AreaLevel'
   'game/area/CameraScene'
-  'game/area/background'
   'lib/channels'
   'logger'
 }
@@ -17,17 +16,7 @@ create-level-container = (parent) ->
     ..add-class 'area-level-container'
     ..append-to parent
 
-create-blurred-bg = (parent, width, height) ->
-  $ '<div></div>'
-    ..add-class 'area-level-blurred-bg'
-    ..css {
-      background-image: background.current-background.value
-      width: width
-      height: height
-    }
-    ..append-to parent
-
-module.exports = class AreaView extends CameraScene
+module.exports = class AreaView extends Backbone.View
   tag-name: 'div'
   class-name: 'area-view'
 
@@ -42,7 +31,6 @@ module.exports = class AreaView extends CameraScene
     $ document.body .remove-class 'has-tutorial'
 
   render: ->
-    @blurred-bg ?= create-blurred-bg @$el, (@model.get 'width'), (@model.get 'height')
     @update-size!
     @update-background!
     $ document.body .add-class 'playing playing-area hide-edit'
@@ -102,7 +90,6 @@ module.exports = class AreaView extends CameraScene
   remove: ->
     for level in @levels => level.remove!
     @player.remove!
-    background.clear!
     super!
 
   start-editor: ->
@@ -164,11 +151,6 @@ module.exports = class AreaView extends CameraScene
     @blurred-bg.add-class 'active'
     level.$el
       ..add-class 'focused'
-      ..css {
-        background-image: "url(#{@model.get 'background'})"
-        background-size: "#{@model.get 'width'}px #{@model.get 'height'}px"
-        background-position: "#{-level.conf.x}px #{-level.conf.y}px"
-      }
 
   unfocus-level: (level) ->
     for lvl in @levels => lvl.show!
@@ -206,7 +188,6 @@ module.exports = class AreaView extends CameraScene
       left: 0
       margin-top: 0
       margin-left: 0
-      background: 'transparent'
     }
 
     @$el.parent!.css {
@@ -221,7 +202,7 @@ module.exports = class AreaView extends CameraScene
     @$el.parent!
       ..scroll-top 0
       ..scroll-left 0
-    @$el.css min-width: '', min-height: '', background-position: '0 0'
+    @$el.css min-width: '', min-height: ''
     @$el.parent!.css left: '', width: '', overflow: ''
     @$el.children!.css margin-top: '', margin-left: ''
 
@@ -275,7 +256,6 @@ module.exports = class AreaView extends CameraScene
     children = @$el.children!
     margins = @get-edit-margins!
     children.css margins
-    @$el.css 'background-position', "#{margins.margin-left}px #{margins.margin-top}px"
 
   setup-sprite-sheets: ->
     Promise.map (@$el.find '[data-sprite]' .to-array!), SpriteSheet.create
@@ -283,11 +263,6 @@ module.exports = class AreaView extends CameraScene
   update-size: -> @set-size (@model.get 'width'), (@model.get 'height')
 
   update-background: ->
-    @$el.css {
-      background-image: "url(#{@model.get 'background'}?_v=#{EAKVERSION})"
-      background-size: "#{@model.get 'width'}px #{@model.get 'height'}px"
-      background-position: '0 0'
-    }
 
   get-player-level: ->
     {x, y} = @player.p

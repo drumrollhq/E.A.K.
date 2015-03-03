@@ -68,13 +68,10 @@ module.exports = class Mapper
 
   # Build is the main function we expose. It returns the map, and sets this.map
   # to the map.
-  build: ->
-    # Measurements are relative to the position in the window, not the document
-    window.scroll-to 0, 0
-
+  build: (offset-top = 0, offset-left = 0) ->
     # Make sure we don't get errors due to offset
     # offset = @el.get-bounding-client-rect!.{top, left}
-    offset = top: 0, left: 0
+    offset = top: offset-top, left: offset-left
 
     map = []
     nodes = @el.children

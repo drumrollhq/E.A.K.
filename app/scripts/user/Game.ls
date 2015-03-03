@@ -24,7 +24,7 @@ module.exports = class Game extends Backbone.DeepModel
     @set \game.userId, user
 
   setup-autosave: ->
-    @on \all -> console.log 'Game:', arguments
+    # @on \all -> console.log 'Game:', arguments
     # TODO
 
   reset: (key, value) ->
@@ -69,7 +69,6 @@ module.exports = class Game extends Backbone.DeepModel
       id: level.id
       url: url
       get: (sub-path) ~>
-        console.log 'get', sub-path, scope-path sub-path
         @get scope-path sub-path
 
       set: (key, value, options) ~>

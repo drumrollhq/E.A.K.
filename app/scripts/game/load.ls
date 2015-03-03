@@ -1,6 +1,6 @@
 require! {
   'game/CutScene'
-  'game/area/Area'
+  'game/area/Area2'
   'lib/parse'
   'logger'
 }
@@ -26,6 +26,6 @@ export area = (name, app, options) ->
   logger.start \level {level: name}
     .then (event) -> Promise.all [event, $.get-JSON "#{prefix}/areas/#{name}/area.json?_v=#{EAKVERSION}"]
     .spread (event, conf) ->
-      area = new Area {conf, prefix, name, options, event-id: event.id}
+      area = new Area2 {conf, prefix, name, options, event-id: event.id}
       area.on \done -> logger.stop event.id
-      area.load!
+      area.load! .then -> area

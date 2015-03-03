@@ -27,6 +27,14 @@ module.exports = class Vector
     @y -= v.y
     @
 
+  mult: (n) ->
+    new Vector @x * n, @y * n
+
+  mult-eq: (n) ->
+    @x *= n
+    @y *= n
+    @
+
   # Distance squared & distance.
   # ⎢⎡a⎤ - ⎡c⎤⎥ = √[ (a - c)² + (b - d)² ]
   # ⎢⎣b⎦   ⎣d⎦⎥

@@ -25,12 +25,14 @@ checker = (channel) ->
           throw new TypeError "Expected type of '#{prop.name}' to be '#extpected', but got '#actual' in channel '#{channel.name}'"
 
 module.exports = class Channel
-  ({name = '!anonymous', @schema = {}, @parse}, @_read-only = false) ->
+  ({name = '!anonymous', @schema = {}, @parse, default-value}, @_read-only = false) ->
     @name = camelize name
     @_check = checker this
     @id = "#{id++}/#{@name}"
     @_handlers = []
     @_onces = []
+    @value = null
+    if default-value then @publish default-value
 
   _sub: (handler, once = false) ~>
     if once then @_onces[*] = handler else @_handlers[*] = handler
@@ -58,6 +60,7 @@ module.exports = class Channel
     @_unsub handler
 
   _publish: (data) ~>
+    @value = data
     todo = @_handlers ++ @_onces
     for once in @_onces => @_unsub once
     @_onces = []
@@ -85,4 +88,5 @@ module.exports = class Channel
   filter: (fn) ~>
     new-chan = new Channel {}, true
     @subscribe (data) -> if fn data then new-chan._publish data
+    new-chan._publish @value
     new-chan
