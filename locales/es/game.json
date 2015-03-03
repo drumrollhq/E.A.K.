@@ -1,0 +1,338 @@
+{
+  "play/index.html/language": {
+    "message": "Español",
+    "description": "The name of the language you're translating to, in that language."
+  },
+  "play/index.html/title": {
+    "message": "Erase All Kittens (Borra a Todos los Gatitos)",
+    "description": "The name of the game!"
+  },
+  "play/index.html/main-menu.new-game": {
+    "message": "Nuevo Juego",
+    "description": "button on the main menu"
+  },
+  "play/index.html/main-menu.load-game": {
+    "message": "Cargar Juego",
+    "description": "button on the main menu"
+  },
+  "play/index.html/main-menu.about": {
+    "message": "Acerca de",
+    "description": "button on the main menu"
+  },
+  "play/index.html/about.description": {
+    "message": "Erase All Kittens es plataforma de juegos diferente: los niveles están escritos en HTML y CSS, y el único modo de superarlos es usando tus habilidades para escribir código.",
+    "description": "a short description of the game"
+  },
+  "play/index.html/about.instructions": {
+    "message": "Usa las teclas <kbd>A</kbd>y <kbd>D</kbd> o las teclas <kbd>&larr;</kbd> y <kbd>&rarr;</kbd> para moverte a la izquierda y derecha.Usa <kbd>W</kbd>, <kbd>espacio</kbd>, o <kbd>&uarr;</kbd> para saltar",    
+    "description": "brief instructions on the 'about' page"
+  },
+  "play/index.html/about.have-fun": {
+    "message": "¡Diviértete!",
+    "description": "have fun or else."
+  },
+  "play/index.html/back": {
+    "message": "Atrás",
+    "description": "for a 'back' button"
+  },
+  "play/index.html/todo": {
+    "message": "Por hacer.",
+    "description": "for when I've not done stuff yet ;)"
+  },
+  "play/index.html/loading": {
+    "message": "Cargando...",
+    "description": ""
+  },
+  "play/index.html/old-browser-msg.title": {
+    "message": "¡Lo sentimos!",
+    "description": "This is the heading for a notice that tells users on older browsers that they can't run the game"
+  },
+  "play/index.html/old-browser-msg.html": {
+    "message": "Desafortunadamente, tu navegador no soporta todo lo necesario para que E.A.K. funcione correctamente. Parece que te faltan:",
+    "description": "Prompt users on old browsers to upgrade to a newer one"
+  },
+  "play/index.html/old-browser-msg.ignore": {
+    "message": "Puedes ingnorar este mensaje y seguir adelante, pero seguramente el juego no funcionará o estaŕa roto. E.A.K. funciona mejor con las últimas versiones de <a href=\"http://mozilla.org/firefox\">Firefox</a> o <a href=\"http://google.com/chrome\">Chrome</a>.",
+    "description": "Users of old browsers can continue anyway, but we'd rather they upgraded"
+  },
+  "play/index.html/old-browser-msg.continue": {
+    "message": "Continuar de todos modos &rarr;",
+    "description": "Continue"
+  },
+  "play/index.html/menu.restart": {
+    "message": "Reiniciar",
+    "description": "Button on the bar at the top of the screen during levels. Puts the level and player back in the starting state."
+  },
+  "play/index.html/menu.edit": {
+    "message": "Editar",
+    "description": "Button on the bar at the top of the screen during levels. Opens up the edit view."
+  },
+  "play/index.html/menu.save": {
+    "message": "Guardar",
+    "description": "Button on the bar at the top of the screen during levels. Closes the edit view, keeping the code the user entered"
+  },
+  "play/index.html/menu.reset": {
+    "message": "Resetear",
+    "description": "Button on the bar at the top of the screen during levels. When in the edit view, this sets the code to how it was at the start of the level"
+  },
+  "play/index.html/menu.cancel": {
+    "message": "Cancelar",
+    "description": "Button on the bar at the top of the screen during levels. Closes the edit view, discarding the code the user entered"
+  },
+  "play/index.html/menu.undo": {
+    "message": "Deshacer",
+    "description": "Undo button for the code editor"
+  },
+  "play/index.html/menu.redo": {
+    "message": "Rehacer",
+    "description": "Redo button for the code editor"
+  },
+  "play/index.html/cutscene.skip": {
+    "message": "Saltar",
+    "description": "Skip the current cutscene"
+  },
+  "play/index.html/cutscene.continue": {
+    "message": "Continuar",
+    "description": "Continue after the cutscene"
+  },
+  "play/index.html/cutscene.error": {
+    "message": "¡Oh no! No hemos podido cargar la Intro...",
+    "description": "Cutscene didn't load"
+  },
+  "play/index.html/settings.title": {
+    "message": "Configuración",
+    "description": "Title for the settings dialogue"
+  },
+  "play/index.html/settings.music": {
+    "message": "Volumen Música",
+    "description": "Music setting"
+  },
+  "play/index.html/settings.effects": {
+    "message": "Volumen Efectos Sonido",
+    "description": "Music setting"
+  },
+  "play/index.html/settings.language": {
+    "message": "Idioma",
+    "description": "Heading in settings page"
+  },
+  "play/index.html/settings.language-warn": {
+    "message": "Si cambias el idioma, perderdás el progreso que has hecho hasta ahora en este nivel. ¿Estás seguro de que quieres continuar?",
+    "description": "Language change warning in settings page"
+  },
+  "play/index.html/loader.start": {
+    "message": "Cargando imágenes de gatitos...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.a": {
+    "message": "Seguimos cargando imágenes de gatitos...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.b": {
+    "message": "Estos gatitos pesan bastante...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.c": {
+    "message": "Hay muchos gatitos que cargar...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.d": {
+    "message": "¿Estás teniendo un buen día?",
+    "description": "loading message"
+  },
+  "play/index.html/loader.e": {
+    "message": "GATITOS GATITOS GATITOS GATITOS",
+    "description": "loading message"
+  },
+  "play/index.html/loader.f": {
+    "message": "...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.g": {
+    "message": "*bostezos*",
+    "description": "loading message"
+  },
+  "play/index.html/loader.h": {
+    "message": "Descargando los gatitos del camión...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.i": {
+    "message": "Luchando contra los malvados emoticonos...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.j": {
+    "message": "Llevando el Anilló único a Mordor...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.k": {
+    "message": "Inventando gatitos...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.l": {
+    "message": "Jugando con un ovillo de lana...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.m": {
+    "message": "Oooh! Lana!",
+    "description": "loading message"
+  },
+  "play/index.html/loader.n": {
+    "message": "Cargando más mensajes de espera...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.o": {
+    "message": "Googleando más imágenes de gatitos...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.p": {
+    "message": "Buying kittens off ebay...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.q": {
+    "message": "Capturando los estornudos del oso panda...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.r": {
+    "message": "Tiempo de una copa de té...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.s": {
+    "message": "¿Te gustaría una galleta?",
+    "description": "loading message"
+  },
+  "play/index.html/loader.t": {
+    "message": "Las imágenes de gatitos han sido interceptados por la NSA...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.u": {
+    "message": "8 minutos de bateria restante...",
+    "description": "loading message"
+  },
+  "play/index.html/loader.v": {
+    "message": "Regateando sobre el precio de los gatitos...",
+    "description": "loading message"
+  },
+  "play/index.html/errors.load-sprite": {
+    "message": "¡Oh no! ¡No podemos cargar las animaciones!",
+    "description": "error message"
+  },
+  "play/index.html/errors.sound-not-found": {
+    "message": "¡Oh no! ¡No podemos cargar el sonido!",
+    "description": "error message"
+  },
+  "play/index.html/errors.music-not-found": {
+    "message": "¡Oh no! ¡No podemos cargar la música!",
+    "description": "error message"
+  },
+  "play/index.html/errors.code-errors": {
+    "message": "¡Existen errores en tu código! Corrígelos antes de guardar.",
+    "description": "error message"
+  },
+  "play/index.html/errors.level-errors": {
+    "message": "¡Existen errores en este nivel!",
+    "description": "error message"
+  },
+  "data/errors.all.html/slowparse.unexpected-close-tag": {
+    "message": "¡Cuidado! Has escrito una etiqueta de cierre <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code>, pero no has escrito la etiqueta de apertura.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.mismatched-close-tag": {
+    "message": "¡Estas etiquetas no coinciden! Tienes una etiqueta de cierre <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code>, que está tratando de cerrar la etiqueta de apertura <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.close-tag-for-void-element": {
+    "message": "DRAMA: <code>&lt;{{closeTag.name}}&gt;</code> no necesita etiquetas de cierre, por lo que esto <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> no es necesario.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.self-closing-non-void-element": {
+    "message": "OI! No puedes escribir una <code>/</code> al final de esta etiqueta de apertura <code data-highlight=\"{{start}},{{end}}\">&lt;{{name}}&gt;</code>. Debe ir en una etiqueta de cierre <code>&lt;/{{name}}&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unclosed-tag": {
+    "message": "¡Oh no! Esto <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code> necesita una etiqueta de cierre <code>&lt;/{{openTag.name}}&gt;</code> tag.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.invalid-tag-name": {
+    "message": "No existe ninguna etiqueta como esta <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code>. Los maestros del HTML no lo permitirían.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.invalid-attr-name": {
+    "message": "No existe ningún atributo como este <code data-highlight=\"{{start}},{{end}}\">{{attribute.name.value}}</code>. Los maestros del HTML no lo permitirían.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.lonely-angle-bracket": {
+    "message": "Este código solitario <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;</code> se parece al inicio de una etiqueta. Esto no funciona por sí mismo - bórralo, o agrega el nombre de la etiqueta y el código de cierre <code>&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unterminated-attr-value": {
+    "message": "Necesitas agregar esto <code>\"</code> al final de los atributos <code data-highlight=\"{{attribute.name.start}},{{attribute.value.start}}\">{{attribute.name.value}}</code> de estas etiquetas <code data-highlight=\"{{openTag.start}},{{openTag.start + openTag.name.length + 1}}\">&lt;{{openTag.name}}&gt;</code>. Un locura, ¿Verdad?",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unquoted-attr-value": {
+    "message": "Necesitas poner <code>\"</code> después del <code>=</code> en este <code data-highlight=\"{{attribute.name.start}},{{attribute.name.end + 1}}\">{{attribute.name.value}}</code> atributo. Solo digo eso.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unterminated-close-tag": {
+    "message": " Oh, ¿¡qué!? Necesitas agregar un <code>&gt;</code> a esta etiqueta de cierre <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unterminated-open-tag": {
+    "message": "Para tu información, necesitas agregar un <code>&gt;</code> al final de esta etiqueta de apertura <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;/{{openTag.name}}&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.attribute-in-closing-tag": {
+    "message": "Creo que deberías saber que no puedes poner un atributo en esta etiqueta de cierre <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unterminated-comment": {
+    "message": "Este comentario debería terminar con un <code>--&gt;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.invalid-css-property-name": {
+    "message": "Hey! No existe nada parecido a <code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}</code>. Los dioses de las CSS decidieron que eso es posible. O tal vez lo has escrito incorrectamente...",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.missing-css-selector": {
+    "message": "Debes terminar tus CSS con una etiqueta <code data-highlight=\"{{cssBlock.start}},{{cssBlock.end}}\">&lt;/style&gt;</code> !",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unfinished-css-selector": {
+    "message": "Este selector <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> debe terminar con un <code>{</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.missing-css-property": {
+    "message": "¡Este <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> está vacio! Necesita una propiedad.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unfinished-css-property": {
+    "message": "¡<code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}</code> no está finalizado! Necesitas un <code>:</code> después del nombre de la propiedad.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.missing-css-value": {
+    "message": "Necesitas agregar un valor después de <code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}:</code>!",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unfinished-css-value": {
+    "message": "Oops! Finaliza el valor <code data-highlight=\"{{cssValue.start}},{{cssValue.end}}\">{{cssValue.value}}</code> con un <code>;</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.missing-css-block-closer": {
+    "message": "Necesitas terminar este bloque CSS <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> con un <code>}</code> after <code data-highlight=\"{{cssValue.start}},{{cssValue.end}}\">{{cssValue.value}};</code>",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.uncaught-css-parse-error": {
+    "message": "Algo fue terriblemente mal. Probablemente no sepas el qué, y nosotros tampoco, pero encontramos esto en la escena del crimen: <code data-highlight=\"{{error.start}},{{error.end}}\">{{error.msg}}</code>.",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.unterminated-css-comment": {
+    "message": "Necesitas terminar este comentario CSS con un <code>*/</code>! DO IT!",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.html-code-in-css-block": {
+    "message": "EWWWW!!! ¡Has escrito código HTML en las CSS! Esto no va ahí...",
+    "description": "HTML/CSS error"
+  },
+  "data/errors.all.html/slowparse.forbid-JS": {
+    "message": "¡Lo sentimos! No puedes usar JavaScript en E.A.K. (de momento). Por lo que no lo uses. ¡La policía JavaScript te atrapará con sus afilados y puntiagudos dientes!",
+    "description": "HTML/CSS error"
+  }
+}
