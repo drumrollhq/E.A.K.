@@ -51,10 +51,10 @@ module.exports = class AreaLevel extends Backbone.View
     }
 
     @targets-to-actors!
-    @add-actors!
     @style = create-style!
     html = @level-store.get \state.code.html or @conf.html
     @set-HTML-CSS html, @conf.css
+    @add-actors!
 
   render: ->
     @$el.css {

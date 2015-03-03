@@ -88,6 +88,8 @@ module.exports = step = (state, t) ->
   ts.push dt
   dt = mean ts
 
+  for node in nodes when node.before-physics? then node.before-physics!
+
   # We only need to process physics stuff for dynamic stuff: things that can move
   for obj in dynamics when not obj.frozen
 
@@ -206,4 +208,5 @@ module.exports = step = (state, t) ->
 
     update-el obj
 
+  for node in nodes when node.after-physics? then node.after-physics!
   {nodes, dynamics}

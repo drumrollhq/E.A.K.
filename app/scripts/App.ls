@@ -220,8 +220,8 @@ module.exports = class App
         user.game.find-or-create-stage stage.save-defaults!, true
       .then (saved-stage) ~>
         @_stage.once \next, (path) ~> @load-path path
-        @trigger \start
         @_stage.start user.game
+      .then ~> @trigger \start
       .catch Promise.CancellationError, ->
       .catch (e) ~>
         console.error e

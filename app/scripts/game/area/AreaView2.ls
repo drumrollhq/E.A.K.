@@ -1,4 +1,5 @@
 require! {
+  'animation/SpriteSheet'
   'game/actors/Player'
   'game/area/AreaLevel'
   'game/scene/BackgroundLayer'
@@ -37,12 +38,16 @@ module.exports = class AreaView2 extends Backbone.View
         @levels-layer.add level.el, level.conf.{x, y}
 
   # Start playing with the state in 'store'
-  start: (store) !->
+  start: (store) ->
     @stage-store = store
     for level in @levels => level.setup store
     @add-player!
     @$el.append @scene.el
-    @$el.add-class \active
+    @setup-sprite-sheets! .then ~>
+      @$el.add-class \active
+
+  setup-sprite-sheets: ->
+    Promise.map (@$ '[data-sprite]' .to-array!), SpriteSheet.create
 
   remove: ->
     @window-sub.unsubscribe!

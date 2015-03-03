@@ -22,9 +22,10 @@ module.exports = class Area
 
   start: (stage) ->
     @stage-store = stage
-    @view.start stage
-    @physics-state = physics.prepare @view.build-map!
-    @frame-sub = channels.frame.subscribe ({t}) ~> @on-frame t
+    @view.start stage .then ~>
+      @physics-state = physics.prepare @view.build-map!
+      @frame-sub = channels.frame.subscribe ({t}) ~> @on-frame t
+      console.log 'ready to go'
 
   save-defaults: -> {
     type: \area

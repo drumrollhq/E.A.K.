@@ -4,7 +4,9 @@ require! {
 }
 
 module.exports = class SpriteSheet extends Backbone.View
-  @create = (el) -> new SpriteSheet {el} .load!
+  @create = (el) ->
+    ss = new SpriteSheet {el}
+    ss.load!.then -> ss
 
   initialize: ({cb}) ->
     @$el.data 'sprite-controller', this
@@ -53,7 +55,6 @@ module.exports = class SpriteSheet extends Backbone.View
       @render-frame @start-frame
 
       if @state.to-lower-case! is 'paused' then @stop!
-      this
 
   stop: ~>
     @frame-sub.pause!

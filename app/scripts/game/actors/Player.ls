@@ -68,7 +68,6 @@ module.exports = class Player extends Actor
 
     @subs[*] = channels.death.filter ( .cause is 'fall-out-of-world' ) .subscribe ~> @reset!
     @subs[*] = channels.death.filter ( .cause is 'fall-to-death' ) .subscribe @fall-to-death
-    @subs[*] = channels.post-frame.subscribe @calc-classes
     @subs[*] = channels.death.subscribe (death) ~>
       logger.log 'death', {cause: death.cause, data: death.data, player: @{p, v}}
 
@@ -79,6 +78,9 @@ module.exports = class Player extends Actor
 
     # Constants:
     this <<< {max-move-speed, move-acc, move-acc-in-air, move-damp, move-damp-in-air, jump-speed, max-jump-frames, fall-limit}
+
+  after-physics: ->
+    @calc-classes!
 
   calc-classes: ~>
     unless @classes-disabled
