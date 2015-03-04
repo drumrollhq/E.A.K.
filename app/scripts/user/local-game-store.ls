@@ -1,7 +1,10 @@
 id = (prefix = '') -> "#{prefix}_#{Date.now!}_#{_.unique-id!}"
 
+_tx = {}
+
 module.exports = {
   create: (data) ->
+    console.log \CREATE data
     game-id = id \game
     game = {
       id: game-id
@@ -22,7 +25,7 @@ module.exports = {
           if game.active-stage then localforage.get-item that
         ]
       .spread (game, active-stage) ->
-        game.active-stage = active-stage
+        if active-stage then game.active-stage = active-stage
         game
 
   list: ->
@@ -32,6 +35,8 @@ module.exports = {
       limit: 1 # Only one local save-game allowed
       asc: false
     }
+
+  delete: -> ...
 
   find-or-create-stage: (game-id, stage-data) ->
     game = null
@@ -46,7 +51,7 @@ module.exports = {
         stage-data.game-id = game-id
         @find-one where: (stage) ->
           (stage.id.match /^stage/) and
-            stage.{game-id, url, type} === stage-data.{game-id, url, type}
+            stage.{game-id, url, type} === {game-id, stage-data.url, stage-data.type}
       .catch @LocalNotFoundError, ~>
         stage-data.id = id \stage
         @save stage-data .then -> stage-data
@@ -61,27 +66,58 @@ module.exports = {
         stage
 
   find-or-create-levels: (stage, levels) ->
+    console.log \find-or-create-levels, stage, levels
     Promise.map levels, (level) ~> @find-or-create-level stage, level
+      .tap (levels) -> console.log \found-levels levels
 
   find-or-create-level: (stage, level) ->
     @find-one {
-      where: (level) ->
-        (level.id.match /^level/) and
-          level.{stage-id, url} === {stage-id: stage.id, url: level.url} }
+      where: (doc) ->
+        (doc.id.match /^level/) and
+          doc.{stage-id, url} === {stage-id: stage.id, url: level.url} }
       .catch LocalNotFoundError, ~>
         level.stage-id = stage.id
         level.id = id \level
         @save level .then -> level
 
+  save-kitten: (game-id, level-id, kitten) ->
+    Promise.all [
+      @_increment-kitten-counter game-id
+      @_mark-kitten-saved level-id, kitten
+    ]
+
+  _increment-kitten-counter: (game-id) ->
+    @get game-id .then (game) ~>
+      game.{}state.kitten-count = if game.state.kitten-count then that + 1 else 1
+      @save game
+
+  _mark-kitten-saved: (level-id, kitten) ->
+    @patch-state level-id, {kittens: "#{kitten}": new Date!}
+
   patch: (id, patch) ->
-    @get id .then (data) ~>
-      data <<< patch
-      @save data
+    @tx id, (data) -> _.merge data, patch
+
+  patch-state: (id, patch) ->
+    @tx id, (data) -> data = _.merge data, state: patch
+
+  patch-stage-state: (game-id, stage-id, patch) -> @patch-state stage-id, patch
+
+  patch-level-state: (game-id, level-id, patch) -> @patch-state level-id, patch
 
   # Save an object, using it's id as the key
   save: (data) ->
     key = data.id
+    if data.active-stage?.id? then data.active-stage = data.active-stage.id
+    console.log '__SAVE' key, data
     Promise.resolve localforage.set-item key, data
+
+  tx: (id, fn) ->
+    _tx[id] = Promise.resolve _tx[id]
+      .tap (tx) -> if tx then console.log 'TX AWAIT' id
+      .then ~> @get id
+      .then fn
+      .then (data) ~> @save data
+      .tap ~> _tx[id] = null
 
   # Find objects from the store that match a certain function.
   # Options:

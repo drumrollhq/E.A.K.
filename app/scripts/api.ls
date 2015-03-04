@@ -15,13 +15,16 @@ else
 no-op = -> null
 
 json-req = (method, url, data) -->
-  Promise.resolve $.ajax {
-    method: method
-    url: url
-    data: JSON.stringify data if data?
-    content-type: 'application/json'
-    timeout: 10_000ms
-  }
+  Promise.resolve do
+    xhr = $.ajax {
+      method: method
+      url: url
+      data: JSON.stringify data if data?
+      content-type: 'application/json'
+      timeout: 10_000ms
+    }
+    xhr.url = url
+    xhr
 
 post-json = (url, data) -> json-req POST, url, data
 get-json = (url, data) -> json-req GET, url, data

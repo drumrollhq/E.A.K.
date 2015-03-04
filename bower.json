@@ -20,22 +20,22 @@
     "popcornjs": "~1.5.6",
     "prelude-ls": "~1.1.1",
     "stats.js": "*",
-    "underscore": "latest",
-    "backbone-deep-model": "master",
     "localforage": "~1.2.1",
     "backbone-fsm": "~0.0.1",
     "bluebird": "~2.7.1",
     "backbone.asyncstatemachine": "~0.3.0",
-    "moment": "~2.9.0"
+    "moment": "~2.9.0",
+    "lodash": "~3.3.1",
+    "backbone-deep-model": "https://github.com/kahwee/backbone-deep-model.git#~1.0.0"
   },
   "overrides": {
     "underscore": {
-      "main": "underscore.js"
+      "ignore": true
     },
     "backbone": {
       "main": "backbone.js",
       "dependencies": {
-        "underscore": "*",
+        "lodash": "*",
         "jquery": "*"
       }
     },
@@ -80,7 +80,10 @@
       "main": "handlebars.runtime.min.js"
     },
     "backbone-deep-model": {
-      "main": "distribution/deep-model.js"
+      "main": "dist/backbone-deep-model.js",
+      "dependencies": {
+        "backbone": "*"
+      }
     },
     "backbone.asyncstatemachine": {
       "main": "backbone.asyncstatemachine.js",
