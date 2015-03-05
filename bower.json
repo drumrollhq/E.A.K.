@@ -26,7 +26,8 @@
     "backbone.asyncstatemachine": "~0.3.0",
     "moment": "~2.9.0",
     "lodash": "~3.3.1",
-    "backbone-deep-model": "https://github.com/kahwee/backbone-deep-model.git#~1.0.0"
+    "backbone-deep-model": "https://github.com/kahwee/backbone-deep-model.git#~1.0.0",
+    "pixi": "~2.2.7"
   },
   "overrides": {
     "underscore": {
