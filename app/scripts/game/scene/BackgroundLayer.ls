@@ -1,8 +1,8 @@
 require! {
-  'game/scene/DomLayer'
+  'game/scene/WebglLayer'
 }
 
-module.exports = class BackgroundLayer extends DomLayer
+module.exports = class BackgroundLayer extends WebglLayer
   initialize: (options) ->
     super options
     @background = options.background
@@ -11,7 +11,7 @@ module.exports = class BackgroundLayer extends DomLayer
     @_load-img @background .then (img) ~>
       @img = img
       img <<< @{width, height}
-      @$el.append img
+      # @$el.append img
 
   _load-img: (src) -> new Promise (resolve, reject) ~>
     img = document.create-element \img
