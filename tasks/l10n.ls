@@ -78,8 +78,8 @@ function locale-data-cache
 function relative-path file
   path.relative file.base, file.path
 
-function country-code path
-  path |> split path.sep |> first
+function country-code dir
+  dir |> split path.sep |> first
 
 function get-locale-data lang, file
   default-lang = first languages

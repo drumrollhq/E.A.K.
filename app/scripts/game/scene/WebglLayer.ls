@@ -8,11 +8,13 @@ module.exports = class WebglLayer extends Layer
     super options
     @_viewport-width = 300
     @_viewport-height = 300
-    @stage = new PIXI.Stage 0xCCCCCC
+    @_stage = new PIXI.Stage 0xCCCCCC
+    @stage = new PIXI.DisplayObjectContainer!
+    @_stage.add-child @stage
     @renderer = new PIXI.WebGLRenderer @_viewport-width, @_viewport-height, {
       view: @el
       transparent: true
-      resolution: window.device-pixel-ratio or 1
+      resolution: 1
     }
 
   render: ->
@@ -21,6 +23,9 @@ module.exports = class WebglLayer extends Layer
   set-viewport: (x, y, width, height) ->
     if @_viewport-width isnt width or @_viewport-height isnt height
       @_update-viewport-size width, height
+
+    @stage.position.x = -x
+    @stage.position.y = -y
 
     @render!
 

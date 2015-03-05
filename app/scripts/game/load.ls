@@ -26,6 +26,7 @@ export area = (name, app, options) ->
   logger.start \level {level: name}
     .then (event) -> Promise.all [event, $.get-JSON "#{prefix}/areas/#{name}/area.json?_v=#{EAKVERSION}"]
     .spread (event, conf) ->
+      conf.name = name
       area = new Area2 {conf, prefix, name, options, event-id: event.id}
       area.on \done -> logger.stop event.id
       area.load! .then -> area

@@ -15,7 +15,7 @@ module.exports = class AreaView2 extends Backbone.View
     @levels = @conf.levels.map (level) ~> new AreaLevel {level, @prefix}
 
     @camera = new Camera @conf.{width, height}, 0.2, 250
-    @background-layer = new BackgroundLayer @conf.{width, height, background}
+    @background-layer = new BackgroundLayer @conf.{width, height, name}
     @player-layer = new DomLayer @conf.{width, height}
     @levels-layer = new DomLayer @conf.{width, height}
 
