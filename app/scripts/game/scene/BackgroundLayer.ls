@@ -42,6 +42,19 @@ module.exports = class BackgroundLayer extends WebglLayer
 
     return
 
+  render: ->
+    # hide tiles that aren't visible
+    const pad = 10px
+    for x til @tiles.length
+      for y til @tiles[x].length
+        xc = x * tile-width
+        yc = y * tile-height
+        @tiles[x][y].visible = @blurred-tiles[x][y].visible =
+          @left - tile-width - pad <= xc <= @right + pad and
+          @top - tile-height - pad <= yc <= @bottom + pad
+
+    super!
+
   _tile-image-urls: (suffix = '') ->
     x-tiles = Math.ceil @width / tile-width
     y-tiles = Math.ceil @height / tile-height
