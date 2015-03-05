@@ -1,6 +1,9 @@
 # Globally expose prelude-ls:
 window <<< window.prelude-ls
 
+window.$window = $ window
+window.$body = $ document.body
+
 # Prefixes:
 window.prefixed = {
   animation-end: {

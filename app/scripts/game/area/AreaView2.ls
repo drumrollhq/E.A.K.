@@ -35,7 +35,7 @@ module.exports = class AreaView2 extends Backbone.View
   _load-levels: ->
     Promise.map @levels, (level) ~>
       level.load! .then ~>
-        @levels-layer.add level.el, level.conf.{x, y}
+        @levels-layer.add level, level.conf.{x, y}
 
   # Start playing with the state in 'store'
   start: (store) ->
@@ -76,7 +76,7 @@ module.exports = class AreaView2 extends Backbone.View
     x = parse-float x
     y = parse-float y
     @player = new Player {x, y, store: @stage-store}
-    @player-layer.add @player.el, {x, y}
+    @player-layer.add @player, {x, y}
     @camera.track @player
 
   build-map: ->

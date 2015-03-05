@@ -7,9 +7,11 @@ module.exports = class DomLayer extends Layer
     super options
     @$el.css options.{width, height}
 
-  add: (el, {x, y}) ->
-    super el, {x, y}
-    @$el.append el
+  add: (object, {x, y}) ->
+    super object, {x, y}
+    @$el.append object.el
 
   set-viewport: (x, y, width, height) ->
     @$el.css prefixed.transform, "translate3d(#{-x}px, #{-y}px, 0)"
+
+    return null

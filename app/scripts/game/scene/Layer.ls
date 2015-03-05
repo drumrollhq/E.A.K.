@@ -1,3 +1,6 @@
+contains-by = (fn, obj, arr) -->
+  undefined isnt find-index (-> obj isnt fn it), arr
+
 module.exports = class Layer extends Backbone.View
   class-name: -> "layer #{@layer-type!}"
   layer-type: -> dasherize(Object.get-prototype-of this .constructor.display-name)
@@ -11,13 +14,14 @@ module.exports = class Layer extends Backbone.View
     @trigger \add obj
 
   object-at: ({x, y}) ->
-    for object in @_display-objects when typeof object.contains is \function
+    for {object} in @_display-objects when typeof object.contains is \function
       if object.contains x, y then return object
 
     return null
 
   activate: (display-object) ->
-    unless display-object in @_display-objects then @add display-object
+    unless contains-by ( .object ), display-object, @_display-objects
+      @add display-object
 
     if @_activated? then @_activated.deactivate!
     display-object.activate!
