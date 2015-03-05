@@ -43,6 +43,7 @@ module.exports = {
           @session = session
           @session.active-events = []
           @setup-checkin-loop!
+      .catch ~> null
 
   setup-checkin-loop: ->
     unless @session? then return
