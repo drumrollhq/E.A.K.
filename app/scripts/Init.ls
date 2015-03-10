@@ -19,7 +19,7 @@ module.exports = class Init extends Backbone.View
       logger.setup lacking
       return
 
-    @app = new App!
+    window.app = new App!
 
   # Uses modernizr to check that all the browser features that EAK requires are present. Returns true
   # if they are, false if not.

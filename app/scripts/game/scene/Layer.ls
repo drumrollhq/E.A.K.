@@ -1,3 +1,7 @@
+require! {
+  'lib/channels'
+}
+
 contains-by = (fn, obj, arr) -->
   undefined isnt find-index (-> obj isnt fn it), arr
 
@@ -32,3 +36,18 @@ module.exports = class Layer extends Backbone.View
     @_activated = null
 
   set-viewport: (x, y, width, height) -> ...
+
+  render: -> ...
+
+  animate: (duration, fn) -> new Promise (resolve, reject) ~>
+    start = performance.now!
+    anim = ~>
+      amt = (performance.now! - start) / duration
+      if amt > 1
+        amt = 1
+        anim-sub.unsubscribe!
+        resolve!
+
+      fn amt
+
+    anim-sub = channels.post-frame.subscribe anim

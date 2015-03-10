@@ -1,33 +1,12 @@
-.area-view
-  &.trans
-    transition all editTransitionLength ease
+.area-level
+  position absolute
+  // outline 1px solid lime
+  opacity 1
+  transition opacity editTransitionLength ease, box-shadow editTransitionLength ease
 
-  .area-level-container
-    position absolute
-
-  .area-level
-    position absolute
-    // outline 1px solid lime
-    opacity 1
-    transition opacity editTransitionLength ease, box-shadow editTransitionLength ease
-
-    &.hidden
-      opacity 0
-
-    &.focused
-      overflow visible
-      box-shadow 0 0 30px rgba(0, 0, 0, 0.5)
-
-  .area-level-blurred-bg
+  &.hidden
     opacity 0
-    position absolute
-    top 0
-    left 0
-    width 100%
-    height 100%
-    background-size 100% 100%
-    transition opacity editTransitionLength ease
-    z-index -1
 
-    &.active
-      opacity 1
+  &.focused
+    overflow visible
+    box-shadow 0 0 30px rgba(0, 0, 0, 0.5)

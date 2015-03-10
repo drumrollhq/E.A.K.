@@ -82,6 +82,12 @@ module.exports = class AreaLevel extends Backbone.View
   show: ->
     @$el.remove-class 'hidden'
 
+  focus: ->
+    @$el.add-class \focused
+
+  unfocus: ->
+    @$el.remove-class \focused
+
   add-hidden: ->
     @$el.append @conf.hidden.add-class 'entity'
 
@@ -200,7 +206,6 @@ module.exports = class AreaLevel extends Backbone.View
 
   contains: (x, y) ->
     @conf.x < x < @conf.x + @conf.width and @conf.y < y < @conf.y + @conf.height
-
 
 parse-src = (src, level) ->
   parsed = html.to-dom src

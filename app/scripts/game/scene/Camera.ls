@@ -19,6 +19,13 @@ module.exports = class Camera
   track: (display-object) ->
     @_tracking = display-object
 
+  pause-tracking: ->
+    @_last-tracked = @_tracking
+    @_tracking = null
+
+  resume-tracking: ->
+    @_tracking = @_last-tracked
+
   set-viewport: (width, height) ->
     @_viewport-width = width
     @_viewport-height = height
@@ -39,6 +46,14 @@ module.exports = class Camera
   step: ->
     if @_tracking then @set-subject @_tracking.p
 
+    [@target-x, @target-y] =
+      if @_editing then @get-editing-position! else @get-target-position!
+
+    p = @tween-position @target-x, @target-y, @speed
+    @offset-x = p.x
+    @offset-y = p.y
+
+  get-target-position: ->
     max-x = @scene-width - @_viewport-width
     max-y = @scene-height - @_viewport-height
     target-x = if @_lock-x? then @_lock-x
@@ -46,15 +61,38 @@ module.exports = class Camera
     target-y = if @_lock-y? then @_lock-y
       else constrain 0, max-y, @_subject-y - @_viewport-height / 2
 
-    p = @tween-position target-x, target-y, @speed
-    @offset-x = p.x
-    @offset-y = p.y
+    [target-x, target-y]
+
+  start-edit-mode: (rect, duration, frame-driver) -> new Promise (resolve, reject) ~>
+    @_editing = true
+    @_edit-rect = rect
+    @_normal-speed = @speed
+    @speed = 100/duration
+
+    sub = frame-driver.subscribe ~>
+      @step!
+      dx = @target-x - @offset-x
+      dy = @target-y - @offset-y
+      dist = dx * dx + dy * dy
+      if dist < 10
+        sub.unsubscribe!
+        @speed = 1
+        resolve!
+
+  get-editing-position: ->
+    const pad = 30px
+    {top, left, height, width} = @_edit-rect
+    target-x = if @_viewport-width/2 < pad + pad + width
+      left - @_viewport-width/2 - pad
+    else left - @_viewport-width*0.75 + width/2
+    target-y = top - @_viewport-height/2 + height/2
+    [target-x, target-y]
 
   tween-position: (x, y, speed) ->
-    px = @_px or x
-    py = @_py or y
-    qx = @_qx or px
-    qy = @_qy or py
+    px = @_px or 0.1
+    py = @_py or 0.1
+    qx = @_qx or 0.1
+    qy = @_qy or 0.1
 
     px1 = lerp px, x, speed
     py1 = lerp py, y, speed

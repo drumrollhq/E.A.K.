@@ -28,7 +28,7 @@ module.exports = class App
     menus: {enter: <[cleanupPlaying showActiveMenu cleanupPlayingRemains]>, leave: <[hideActiveMenu]>}
     menus-overlay: {enter: <[showOverlay cleanupPlaying]>, leave: <[hideOverlay]>}
     loading: {enter: <[cleanupPlaying startLoader]>}
-    playing: {enter: <[startEventLoop]>, leave: <[stopEventLoop]>}
+    playing: {enter: <[startEventLoop showPlaying]>, leave: <[stopEventLoop hidePlaying]>}
     paused: {enter: <[showOverlay]>, leave: <[hideOverlay]>}
     editing: {}
     editing-paused: {enter: <[showOverlay]>, leave: <[hideOverlay]>}
@@ -275,3 +275,9 @@ module.exports = class App
   hide-editor: ->
     console.log 'hide-editor'
     if @_stage then @_stage.hide-editor!
+
+  show-playing: ->
+    $body.add-class \playing
+
+  hide-playing: ->
+    $body.remove-class \playing

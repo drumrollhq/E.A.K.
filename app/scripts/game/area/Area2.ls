@@ -42,8 +42,13 @@ module.exports = class Area
     physics.events @physics-state, channels.contact
     @view.step!
 
-  is-editable: -> ...
-  edit: -> ...
+  is-editable: ->
+    @view.is-editable!
+
+  edit: ->
+    # @editor = @create-editor @view.player-level
+    @view.editor-focus 5000ms
+
   hide-editor: -> ...
 
   load-music: ->

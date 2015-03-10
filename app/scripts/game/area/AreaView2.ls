@@ -97,6 +97,7 @@ module.exports = class AreaView2 extends Backbone.View
 
   update-player-level: ->
     level = @levels-layer.object-at @player.p
+    @check-edit-button level
     if level? and level isnt @player-level
       @player-level = level
       {x, y} = level.conf.player
@@ -104,4 +105,48 @@ module.exports = class AreaView2 extends Backbone.View
       y += level.conf.y
       @player.set-origin x, y
       @levels-layer.activate level
-      if level.conf.editable then $body.remove-class \hide-edit else $body.add-class \hide-edit
+
+  check-edit-button: (level) ->
+    if level? and level.conf.editable
+      @show-edit-button!
+    else
+      @hide-edit-button!
+
+  show-edit-button: ->
+    if @_edit-showing is true then return
+    $body.remove-class \hide-edit
+    @_edit-showing = true
+
+  hide-edit-button: ->
+    if @_edit-showing is false then return
+    $body.add-class \hide-edit
+    @_edit-showing = false
+
+  is-editable: ->
+    unless @player-level? then return false
+    @player-level.conf.editable
+
+  editor-focus: (duration) ->
+    for level in @levels when level isnt @player-level => level.hide!
+    @player-level.focus!
+    rect = {
+      left: @player-level.conf.x
+      top: @player-level.conf.y
+      right: @player-level.conf.x + @player-level.conf.width
+      bottom: @player-level.conf.y + @player-level.conf.height
+      width: @player-level.conf.width
+      height: @player-level.conf.height
+    }
+
+    frame-sub = channels.post-frame.subscribe ~> @scene.step!
+
+    Promise.all [
+      @background-layer.focus rect, duration
+      @camera.start-edit-mode rect, duration, channels.post-frame
+    ]
+      .then ~>
+        frame-sub.unsubscribe!
+        @_edit-window-sub = channels.window-size.subscribe ({width, height}) ~>
+          @camera.set-viewport width, height
+          @camera.step!
+          @scene.step!
