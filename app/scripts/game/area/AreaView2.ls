@@ -10,6 +10,8 @@ require! {
   'lib/channels'
 }
 
+const pad = 30px
+
 module.exports = class AreaView2 extends Backbone.View
   initialize: ({@conf, @options, @prefix}) ->
     @levels = @conf.levels.map (level) ~> new AreaLevel {level, @prefix}
@@ -146,7 +148,48 @@ module.exports = class AreaView2 extends Backbone.View
     ]
       .then ~>
         frame-sub.unsubscribe!
-        @_edit-window-sub = channels.window-size.subscribe ({width, height}) ~>
-          @camera.set-viewport width, height
-          @camera.step!
-          @scene.step!
+        @lock-edit-mode!
+
+  editor-unfocus: (duration) ->
+    @unlock-edit-mode!
+    for level in @levels => level.show!
+    @player-level.unfocus!
+
+    frame-sub = channels.post-frame.subscribe ~> @scene.step!
+
+    Promise.all [
+      @background-layer.unfocus duration
+      @camera.stop-edit-mode duration, channels.post-frame
+    ]
+      .then ~>
+        frame-sub.unsubscribe!
+
+  lock-edit-mode: ->
+    @_edit-window-sub = channels.window-size.subscribe ({width, height}) ~>
+      @camera.step!
+      @scene.step!
+      @$el.css left: \50%, overflow: \auto, width: width/2
+      @scene.$el.css margin-left: -width / 2, overflow: \hidden
+
+      scene-width = width/2 + Math.max @player-level.conf.width + 2*pad, width/2
+      scene-height = Math.max @player-level.conf.height + 2*pad, height
+
+      @scene.set-viewport-size scene-width, scene-height
+      @camera.set-viewport width, height
+      @scene.step!
+
+    @_edit-window-sub.handler channels.window-size.value
+
+  unlock-edit-mode: ->
+    @_edit-window-sub.unsubscribe!
+    @_edit-window-sub = null
+    @$el
+      ..scroll-top 0
+      ..scroll-left 0
+      ..css left: '', overflow: '', width: ''
+    @scene.$el.css margin-left: '', overflow: ''
+
+    {width, height} = channels.window-size.value
+    @scene.set-viewport-size width, height
+    @camera.set-viewport width, height
+    @scene.step!

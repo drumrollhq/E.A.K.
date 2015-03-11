@@ -116,6 +116,17 @@ module.exports = class BackgroundLayer extends WebglLayer
     @render!
     @animate duration, (amt) ~> @_blur-filter.blur = 30 * amt
 
+  unfocus: (duration) ->
+    @animate duration, (amt) ~> @_blur-filter.blur = 30 * (1 - amt)
+      .then ~>
+        @container.mask = null
+        @container.visible = false
+        @stage.remove-child @_focus-mask
+        @_focus-mask = null
+        @blurable-container.filters = null
+        @_blur-filter = null
+        @render!
+
   _tile-image-urls: (suffix = '') ->
     x-tiles = Math.ceil @width / tile-width
     y-tiles = Math.ceil @height / tile-height

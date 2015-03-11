@@ -155,7 +155,10 @@ module.exports = class App
       main: new MainMenuView app: this, collection: @save-games, el: $ '#main-menu'
     }
 
-    channels.game-commands.filter ( .command is \edit ) .subscribe ~> @edit!
+    channels.game-commands.subscribe ({command}) ~>
+      | command is \edit => @edit!
+      | command is \stop-edit => @stop-edit!
+
     channels.stage.subscribe ({url}) ~> @load-path url
 
     return Promise.delay 400
@@ -184,7 +187,10 @@ module.exports = class App
 
   edit: ->
     if @_stage and @_stage.is-editable! and @current-state is \playing
-      @trigger-async 'edit'
+      @trigger-async \edit
+
+  stop-edit: ->
+    @trigger-async \editFinished
 
   cleanup-playing: ->
     @_active-play = null

@@ -6,6 +6,7 @@ require! {
   'game/editor/EditorView'
   'game/editor/tutorial/Tutorial'
   'game/hints/HintController'
+  'lib/channels'
   'lib/dom/Mapper'
   'lib/lang/CSS'
   'lib/lang/html'
@@ -202,7 +203,7 @@ module.exports = class AreaLevel extends Backbone.View
     @level-store.patch-state code: html: editor.get \html
     @redraw-from (editor.get \html), (editor.get \css)
 
-    @trigger 'stop-editor'
+    channels.game-commands.publish command: \stop-edit
 
   contains: (x, y) ->
     @conf.x < x < @conf.x + @conf.width and @conf.y < y < @conf.y + @conf.height

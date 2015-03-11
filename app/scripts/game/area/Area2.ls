@@ -5,6 +5,8 @@ require! {
   'lib/physics'
 }
 
+const edit-transition-duration = 500ms
+
 module.exports = class Area
   ({@conf, @prefix, @name, @options}) ->
     _.extend this, Backbone.Events
@@ -46,10 +48,20 @@ module.exports = class Area
     @view.is-editable!
 
   edit: ->
-    # @editor = @create-editor @view.player-level
-    @view.editor-focus 5000ms
+    @frame-sub.pause!
+    @editor = @create-editor @view.player-level
+    @view.editor-focus edit-transition-duration
 
-  hide-editor: -> ...
+  create-editor: (level) ->
+    level.start-editor!
+
+  hide-editor: ->
+    @view.editor-unfocus edit-transition-duration
+      .then ~>
+        console.log \state-before @physics-state
+        @physics-state = physics.prepare @view.build-map!
+        console.log \state-after @physics-state
+        @frame-sub.resume!
 
   load-music: ->
     music-manager.start-track @conf.music

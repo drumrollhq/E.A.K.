@@ -10,19 +10,19 @@ module.exports = class Vector
   # Addition, subtraction:
   # ⎡a⎤ + ⎡c⎤ = ⎡a + c⎤
   # ⎣b⎦   ⎣d⎦   ⎣b + d⎦
-  add: (v) ~>
+  add: (v) ->
     new Vector @x + v.x, @y + v.y
 
   # [operation]-eq is the equivalent of += in or -= etc. in JS. They modify the Vector instead of returning a new one.
-  add-eq: (v) ~>
+  add-eq: (v) ->
     @x += v.x
     @y += v.y
     @
 
-  minus: (v) ~>
+  minus: (v) ->
     new Vector @x - v.x, @y - v.y
 
-  minus-eq: (v) ~>
+  minus-eq: (v) ->
     @x -= v.x
     @y -= v.y
     @
@@ -38,16 +38,16 @@ module.exports = class Vector
   # Distance squared & distance.
   # ⎢⎡a⎤ - ⎡c⎤⎥ = √[ (a - c)² + (b - d)² ]
   # ⎢⎣b⎦   ⎣d⎦⎥
-  dist-sq: (v) ~>
+  dist-sq: (v) ->
     (v.x - @x) * (v.x - @x) + (v.y - @y) * (v.y - @y)
 
-  dist: (v) ~> sqrt @dist-sq v
+  dist: (v) -> sqrt @dist-sq v
 
-  length: ~> Math.sqrt @x * @x + @y * @y
+  length: -> Math.sqrt @x * @x + @y * @y
 
   # Point in polygon by ray-casting.
   # See http://en.wikipedia.org/wiki/Point_in_polygon
-  in-poly: (p) ~>
+  in-poly: (p) ->
     {x, y} = @
     c = no
     for i from p.length-1 to 0 by -1

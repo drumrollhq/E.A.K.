@@ -40,3 +40,6 @@ module.exports = class Scene extends Backbone.View
 
   contains: (x, y, pad = 0) ->
     -pad < x < @size.width + pad and -pad < y < @size.height + pad
+
+  render: ->
+    for layer in @_layers when layer.render? => layer.render!

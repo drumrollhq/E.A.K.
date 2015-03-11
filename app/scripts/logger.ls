@@ -52,6 +52,7 @@ module.exports = {
     api.sessions.checkin @session.id, @session.active-events
 
   send-event: (type, data, has-duration) ->
+    console.time-stamp type
     unless @session? then return Promise.resolve id: null
     if ga? then ga 'send' {
       hit-type: 'event'

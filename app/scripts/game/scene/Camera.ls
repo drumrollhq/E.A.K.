@@ -9,6 +9,8 @@ constrain = (min, max, x) -->
 
 lerp = (a, b, x) --> a + x * (b - a)
 
+duration-to-speed = (duration) -> (Math.E * Math.E * 16.6) / duration
+
 module.exports = class Camera
   (size, @speed, @padding) ->
     @scene-width = size.width
@@ -67,7 +69,7 @@ module.exports = class Camera
     @_editing = true
     @_edit-rect = rect
     @_normal-speed = @speed
-    @speed = 100/duration
+    @speed = duration-to-speed duration
 
     sub = frame-driver.subscribe ~>
       @step!
@@ -75,17 +77,35 @@ module.exports = class Camera
       dy = @target-y - @offset-y
       dist = dx * dx + dy * dy
       if dist < 10
+        console.log 'REACHED TARGET'
         sub.unsubscribe!
         @speed = 1
+        resolve!
+
+  stop-edit-mode: (duration, frame-driver) -> new Promise (resolve, reject) ~>
+    @_editing = false
+    @_edit-rect = null
+    @speed = duration-to-speed duration
+    sub = frame-driver.subscribe ~>
+      @step!
+      dx = @target-x - @offset-x
+      dy = @target-y - @offset-y
+      dist = dx * dx + dy * dy
+      if dist < 10
+        console.log 'REACHED TARGET'
+        sub.unsubscribe!
+        @speed = @_normal-speed
         resolve!
 
   get-editing-position: ->
     const pad = 30px
     {top, left, height, width} = @_edit-rect
-    target-x = if @_viewport-width/2 < pad + pad + width
+    target-x = if @_viewport-width/2 < 2*pad + width
       left - @_viewport-width/2 - pad
     else left - @_viewport-width*0.75 + width/2
-    target-y = top - @_viewport-height/2 + height/2
+    target-y = if @_viewport-height < 2*pad + height
+      top - pad
+    else top - @_viewport-height/2 + height/2
     [target-x, target-y]
 
   tween-position: (x, y, speed) ->

@@ -37,8 +37,6 @@ module.exports = class Layer extends Backbone.View
 
   set-viewport: (x, y, width, height) -> ...
 
-  render: -> ...
-
   animate: (duration, fn) -> new Promise (resolve, reject) ~>
     start = performance.now!
     anim = ~>

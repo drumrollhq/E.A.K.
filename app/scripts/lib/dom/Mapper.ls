@@ -85,15 +85,15 @@ module.exports = class Mapper
       style = node |> window.get-computed-style |> @normalise-style
 
       aabb =
-        top: bounds.top - offset.top
-        left: bounds.left - offset.left
-        bottom: bounds.bottom - offset.top
-        right: bounds.right - offset.left
+        top: bounds.top + offset.top
+        left: bounds.left + offset.left
+        bottom: bounds.bottom + offset.top
+        right: bounds.right + offset.left
 
       # Find the center of the element
       c =
-        x: ((bounds.left + bounds.right) / 2) - offset.left
-        y: ((bounds.top + bounds.bottom) / 2) - offset.top
+        x: ((bounds.left + bounds.right) / 2) + offset.left
+        y: ((bounds.top + bounds.bottom) / 2) + offset.top
 
       # If there's a rotation, unapply the transform:
       if style.rotate isnt 0
