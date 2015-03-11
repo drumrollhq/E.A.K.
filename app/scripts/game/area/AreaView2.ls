@@ -18,11 +18,10 @@ module.exports = class AreaView2 extends Backbone.View
 
     @camera = new Camera @conf.{width, height}, 0.2, 250
     @background-layer = new BackgroundLayer @conf.{width, height, name}
-    @player-layer = new DomLayer @conf.{width, height}
     @levels-layer = new DomLayer @conf.{width, height}
 
     @scene = new Scene @conf.{width, height}, @camera
-    @scene.add-layers @background-layer, @levels-layer, @player-layer
+    @scene.add-layers @background-layer, @levels-layer
 
     @window-sub = channels.window-size.subscribe ({width, height}) ~> @scene.set-viewport-size width, height
     @scene.set-viewport-size channels.window-size.value.width, channels.window-size.value.height
@@ -78,7 +77,7 @@ module.exports = class AreaView2 extends Backbone.View
     x = parse-float x
     y = parse-float y
     @player = new Player {x, y, store: @stage-store}
-    @player-layer.add @player, {x, y}
+    @levels-layer.add @player, {x, y}
     @camera.track @player
 
   build-map: ->

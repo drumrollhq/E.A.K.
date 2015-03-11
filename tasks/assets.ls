@@ -28,7 +28,7 @@ gulp.task 'fonts' ->
     .pipe gulp.dest dest.fonts
 
 gulp.task 'backgrounds' (cb) ->
-  run-sequence ['blur-backgrounds', 'cache-backgrounds'], 'tile-backgrounds', 'min-tiles', 'copy-tiles', cb
+  run-sequence 'cache-backgrounds', 'tile-backgrounds', 'min-tiles', 'copy-tiles', cb
 
 gulp.task 'blur-backgrounds' ->
   gulp.src src.bgs
@@ -43,7 +43,7 @@ gulp.task 'cache-backgrounds' ->
 gulp.task 'tile-backgrounds' ->
   gulp.src src.bg-cache
     .pipe gulp-changed dest.bg-tile-cache, extension: '.t0-0.png'
-    .pipe tile 1024 1024 dest.bg-tile-cache
+    .pipe tile 512 512 dest.bg-tile-cache
 
 gulp.task 'copy-tiles' ->
   gulp.src src.bg-tile-cache

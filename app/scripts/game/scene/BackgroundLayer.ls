@@ -2,8 +2,8 @@ require! {
   'game/scene/WebglLayer'
 }
 
-const tile-width = 512
-  tile-height = 512
+const tile-width = 256
+  tile-height = 256
 
 module.exports = class BackgroundLayer extends WebglLayer
   initialize: (options) ->
@@ -11,7 +11,7 @@ module.exports = class BackgroundLayer extends WebglLayer
     @name = options.name
 
   load: ->
-    urls = @_tile-image-urls! ++ @_tile-image-urls '.blur'
+    urls = @_tile-image-urls!
     Promise.map urls, @_load-texture
       .then ~> @setup!
 
