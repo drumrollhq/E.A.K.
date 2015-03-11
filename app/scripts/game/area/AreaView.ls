@@ -12,7 +12,7 @@ require! {
 
 const pad = 30px
 
-module.exports = class AreaView2 extends Backbone.View
+module.exports = class AreaView extends Backbone.View
   initialize: ({@conf, @options, @prefix}) ->
     @levels = @conf.levels.map (level) ~> new AreaLevel {level, @prefix}
 

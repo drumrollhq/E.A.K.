@@ -1,6 +1,6 @@
 require! {
   'audio/music-manager'
-  'game/area/AreaView2'
+  'game/area/AreaView'
   'lib/channels'
   'lib/physics'
 }
@@ -12,7 +12,7 @@ module.exports = class Area
     _.extend this, Backbone.Events
     for level in @conf.levels => level.url = "#{@name}/#{level.url}"
     @levels = @conf.levels
-    @view = new AreaView2 {
+    @view = new AreaView {
       el: $ \#levelcontainer .empty!
       conf: @conf
       options: @options
