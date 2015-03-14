@@ -6,10 +6,10 @@ actors = <[Actor Mover KittenBox Exit Spike Portal]>
 
 module.exports = actors = {[(dasherize name), require "game/actors/#{name}"] for name in actors}
 
-module.exports.from-el = (el, offset, level-store) ->
+module.exports.from-el = (el, offset, level-store, area-view) ->
   $el = $ el
   [actor, ...args] = $el.attr 'data-actor' |> parse.to-list
   unless actors[actor] then throw new Error "No such actor: #{actor}"
-  a = actors[actor].from-el $el, args, offset, level-store
+  a = actors[actor].from-el $el, args, offset, level-store, area-view
   $el.data 'actor', a
   a

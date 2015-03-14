@@ -5,6 +5,7 @@ require! {
   'game/editor/Editor'
   'game/editor/EditorView'
   'game/editor/tutorial/Tutorial'
+  'game/effects/SpriteSheet'
   'game/hints/HintController'
   'lib/channels'
   'lib/dom/Mapper'
@@ -40,7 +41,7 @@ module.exports = class AreaLevel extends Backbone.View
 
         this
 
-  setup: (stage) ~>
+  setup: (stage, @area-view) ~>
     @stage-store = stage
     @level-store = stage.scope-level @level.url
     @$el.css {
@@ -56,6 +57,13 @@ module.exports = class AreaLevel extends Backbone.View
     html = @level-store.get \state.code.html or @conf.html
     @set-HTML-CSS html, @conf.css
     @add-actors!
+    Promise.all @actors.map ( .load! )
+
+  setup-sprite-sheets: ->
+    Promise.map (@$ '[data-sprite]').to-array!, (el) ~>
+      sprite = SpriteSheet.from-el el, @conf.x, @conf.y
+      layer = $ el .attr \data-layer or \effects
+      sprite.load! .then -> [sprite, layer]
 
   render: ->
     @$el.css {
@@ -104,7 +112,8 @@ module.exports = class AreaLevel extends Backbone.View
     for target in targets => @conf.hidden .= add target
 
   add-actors: ->
-    @actors ?= for actor-el in @$ '[data-actor]' => actors.from-el actor-el, @conf.{x, y}, @level-store
+    @actors ?= for actor-el in @$ '[data-actor]'
+      actors.from-el actor-el, @conf.{x, y}, @level-store, @area-view
 
   add-borders: (nodes) ->
     const thickness = 30px

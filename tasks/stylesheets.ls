@@ -1,6 +1,7 @@
 require! {
   'event-stream': es
   'gulp-stylus'
+  'gulp-minify-css'
   '../node_modules/gulp-stylus/node_modules/stylus'
   'gulp'
   'path'

@@ -1,5 +1,6 @@
 require! {
   'game/actors/Actor'
+  'game/effects/SpriteSheet'
   'logger'
   'lib/channels'
 }
@@ -14,33 +15,21 @@ random-kitten-el = ->
     ..css 'background-image', random-kitten!
     ..add-class 'kitten-anim'
 
-box-burst-sprite = ->
-  $ '<div></div>'
-    ..attr {
-      'data-sprite': '/content/sprites/kitten-box-burst.png'
-      'data-sprite-start-frame': 0
-      'data-sprite-frames': 14
-      'data-sprite-loop': 1
-      'data-sprite-state': 'paused'
-      'data-sprite-size': '48x52'
-      'data-sprite-speed': '0.025'
-    }
-    ..css 'display' 'none'
-    ..add-class 'box-burst'
+box-burst-sprite = (av, x, y) ->
+  sprite = new SpriteSheet '/content/sprites/kitten-box-burst.png', 14, 48, 52, x - 24, y - 26, {
+    speed: 30
+    loop-times: 1
+    state: \paused
+  }
 
-blink-sprite = ->
-  $ '<div></div>'
-    ..attr {
-      'data-sprite': '/content/sprites/kitten-box-blink.png'
-      'data-sprite-frames': 10
-      'data-sprite-size': '48x52'
-      'data-sprite-speed': '0.025'
-      'data-sprite-delay': '0.1-6'
-    }
-    ..add-class 'box-blink'
+blink-sprite = (av, x, y) ->
+  sprite = new SpriteSheet '/content/sprites/kitten-box-blink.png', 10, 48, 52, x - 24, y - 26, {
+    speed: 30
+    delay: [0.1, 6]
+  }
 
 module.exports = class KittenBox extends Actor
-  @from-el = ($el, [x, y, kitten-id], offset = {x: 0, y: 0}, save-level) ->
+  @from-el = ($el, [x, y, kitten-id], offset = {x: 0, y: 0}, save-level, area-view) ->
     new KittenBox {
       x: offset.x + parse-float x
       y: offset.y + parse-float y
@@ -48,6 +37,7 @@ module.exports = class KittenBox extends Actor
       offset: offset
       store: save-level
       kitten-id: kitten-id
+      area-view: area-view
     }
 
   physics:
@@ -60,6 +50,8 @@ module.exports = class KittenBox extends Actor
   initialize: (options) ->
     super options
     @kitten-id = options.kitten-id
+    console.log {options}
+    @area-view = options.area-view
     @render!
     @listen-to this, \contact:start:ENTITY_PLAYER, @touch-player
 
@@ -67,8 +59,18 @@ module.exports = class KittenBox extends Actor
     @$el
       ..css left: @x - @offset.x, top: @y - @offset.y
       ..append random-kitten-el!
-      ..append box-burst-sprite!
-      ..append blink-sprite!
+
+    @box-burst-sprite = box-burst-sprite @area-view, @x, @y
+    @box-burst-sprite.visible = true
+    @blink-sprite = blink-sprite @area-view, @x, @y
+
+  load: ->
+    Promise.all [
+      @box-burst-sprite.load!
+      @blink-sprite.load!
+    ] .then ~>
+      @area-view.effects-layer.add @box-burst-sprite
+      @area-view.effects-layer.add @blink-sprite
 
   touch-player: (player) ->
     unless @_saved then @save-me player
@@ -87,23 +89,19 @@ module.exports = class KittenBox extends Actor
     @store.save-kitten @kitten-id
 
     # Hide blink animation
-    blink = @$ \.box-blink
-    blink.css display: \none
-    blink-controller = blink.data \sprite-controller
+    @blink-sprite.stop!
+    @blink-sprite.visible = false
 
     # Show box-burst animation
-    burst = @$ \.box-burst
-    burst.css display: \block
-    burst-controller = burst.data \sprite-controller
-
-    # Show burst animation
-    burst-controller.restart!
+    @box-burst-sprite.visible = true
+    @box-burst-sprite.goto-and-play 0
     @$el.add-class \found
+    Promise.delay 1000
+      .then ~> @box-burst-sprite.animate 1000, (amt) -> @alpha = 1 - amt
+      .then ~> @box-burst-sprite.visible = false
 
     # Clean up after animations
     @$el.find \.kitten-anim .one prefixed.animation-end, ~>
-      burst-controller.remove!
-      blink-controller.remove!
       @$el
         ..empty!
         ..remove!

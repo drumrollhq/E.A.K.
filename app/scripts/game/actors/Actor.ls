@@ -37,6 +37,8 @@ module.exports = class Actor extends Backbone.View
     @data.id = "ENTITY_#{@actor-type!to-upper-case!}"
     @data.actor = @actor = true
 
+  load: -> Promise.resolve!
+
   actor-type: -> Object.get-prototype-of this .constructor.display-name.to-lower-case!
   is-dynamic: -> @data.dynamic
 

@@ -17,6 +17,10 @@ module.exports = class WebglLayer extends Layer
       resolution: 1
     }
 
+  add: (object) ->
+    super object, x: 0, y: 0
+    @stage.add-child object
+
   render: ->
     @renderer.render @stage
 

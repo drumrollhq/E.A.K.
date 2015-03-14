@@ -16,6 +16,7 @@ module.exports = class Layer extends Backbone.View
   add: (display-object, {x = 0, y = 0}) ->
     obj = @_display-objects[*] = {object: display-object, x: x, y: y}
     @trigger \add obj
+    if typeof obj.trigger is \function then obj.trigger \add this
 
   object-at: ({x, y}) ->
     for {object} in @_display-objects when typeof object.contains is \function

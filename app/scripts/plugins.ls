@@ -90,6 +90,27 @@ Handlebars.register-helper \inc (value) -> 1 + parse-float value
 
 Handlebars.register-helper \date (date, fmt) -> moment date .format fmt
 
+# Promised texture loading for pixi:
+PIXI.load-texture = (url) -> new Promise (resolve, reject) ~>
+  texture = PIXI.Texture.from-image url, false
+  if texture.base-texture.has-loaded
+    resolve texture
+  else
+    texture.base-texture.on \loaded, -> resolve texture
+    texture.base-texture.on \error, -> reject "Error loading sprite #url"
+
+# PIXI Animate function:
+PIXI.DisplayObjectContainer.prototype.animate = (duration, fn) -> new Promise (resolve, reject) ~>
+  old-update-transform = @update-transform
+  start = performance.now!
+  @update-transform = ->
+    old-update-transform.apply this, arguments
+    t = min 1, (performance.now! - start) / duration
+    fn.call this, t
+    if t is 1
+      @update-transform = old-update-transform
+      resolve!
+
 FastClick.attach document.body
 
 # use livescript style to-json rather than toJSON:

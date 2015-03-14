@@ -12,7 +12,7 @@ module.exports = class BackgroundLayer extends WebglLayer
 
   load: ->
     urls = @_tile-image-urls!
-    Promise.map urls, @_load-texture
+    Promise.map urls, PIXI.load-texture
       .then ~> @setup!
 
   setup: ->
@@ -135,10 +135,3 @@ module.exports = class BackgroundLayer extends WebglLayer
   _tile-image-url: (x, y, suffix = '') ->
     "/content/bg-tiles/#{@name}#suffix.t#x-#y.png?_v=#{EAKVERSION}"
 
-  _load-texture: (url) -> new Promise (resolve, reject) ~>
-    texture = PIXI.Texture.from-image url, false
-    if texture.base-texture.has-loaded
-      resolve texture
-    else
-      texture.base-texture.on \loaded, -> resolve texture
-      texture.base-texture.on \error, -> reject "Error loading sprite #url"

@@ -1,5 +1,4 @@
 require! {
-  'animation/SpriteSheet'
   'game/actors/Player'
   'game/area/AreaLevel'
   'game/scene/BackgroundLayer'
@@ -7,6 +6,7 @@ require! {
   'game/scene/DomLayer'
   'game/scene/PlayerLayer'
   'game/scene/Scene'
+  'game/scene/WebglLayer'
   'lib/channels'
 }
 
@@ -19,9 +19,12 @@ module.exports = class AreaView extends Backbone.View
     @camera = new Camera @conf.{width, height}, 0.2, 250
     @background-layer = new BackgroundLayer @conf.{width, height, name}
     @levels-layer = new DomLayer @conf.{width, height}
+    @effects-layer = new WebglLayer @conf.{width, height}
+
+    @layers = background: @background-layer, effects: @effects-layer, levels: @levels-layer
 
     @scene = new Scene @conf.{width, height}, @camera
-    @scene.add-layers @background-layer, @levels-layer
+    @scene.add-layers @background-layer, @levels-layer, @effects-layer
 
     @window-sub = channels.window-size.subscribe ({width, height}) ~> @scene.set-viewport-size width, height
     @scene.set-viewport-size channels.window-size.value.width, channels.window-size.value.height
@@ -41,14 +44,18 @@ module.exports = class AreaView extends Backbone.View
   # Start playing with the state in 'store'
   start: (store) ->
     @stage-store = store
-    for level in @levels => level.setup store
-    @add-player!
-    @$el.append @scene.el
-    @setup-sprite-sheets! .then ~>
-      @$el.add-class \active
+    Promise.map @levels, (level) ~> level.setup store, this
+      .then ~>
+        @add-player!
+        @$el.append @scene.el
+        @setup-sprite-sheets!
+      .then ~> @$el.add-class \active
 
   setup-sprite-sheets: ->
-    Promise.map (@$ '[data-sprite]' .to-array!), SpriteSheet.create
+    Promise.map @levels, ( .setup-sprite-sheets! )
+      .reduce (a, b) -> a.concat b
+      .each ([sprite-sheet, layer-name]) ~>
+        @layers[layer-name].add sprite-sheet
 
   remove: ->
     @window-sub.unsubscribe!
