@@ -11,6 +11,13 @@ lerp = (a, b, x) --> a + x * (b - a)
 
 duration-to-speed = (duration) -> (Math.E * Math.E * 16.6) / duration
 
+const VISUAL_CAMERA_DEBUG = false
+  TARGET_VEL_SCALE_X = 80
+  TARGET_VEL_SCALE_Y = 0
+  CAMERA_MAX_BOUND_X = 400px
+  CAMERA_MAX_BOUND_Y = 150px
+  CAMERA_PAD = 20px
+
 module.exports = class Camera
   (size, @speed, @padding) ->
     @scene-width = size.width
@@ -55,13 +62,51 @@ module.exports = class Camera
     @offset-x = p.x
     @offset-y = p.y
 
+  dbg: new PIXI.Graphics!
+
   get-target-position: ->
+    if @_tracking and @_tracking.v
+      vel-adj-x = @_tracking.v.x * TARGET_VEL_SCALE_X
+      vel-adj-y = @_tracking.v.y * TARGET_VEL_SCALE_Y
+    else vel-adj-x = vel-adj-y = 0
+
+    current-camera-x = (@offset-x or @_subject-x) + @_viewport-width/2
+    current-camera-y = (@offset-y or @_subject-y) + @_viewport-height/2
+    box-width = Math.min CAMERA_MAX_BOUND_X, 0.8 * @_viewport-width
+    box-height = Math.min CAMERA_MAX_BOUND_Y, 0.5 * @_viewport-height
+    box-left = current-camera-x - box-width / 2
+    box-top = current-camera-y - box-height / 2
+    camera-target-x = @_subject-x + vel-adj-x
+    camera-target-y = @_subject-y + vel-adj-y
+
+    adjust-left = if camera-target-x < box-left
+      camera-target-x - box-left - CAMERA_PAD
+    else if camera-target-x > box-left + box-width
+      camera-target-x - (box-left + box-width) + CAMERA_PAD
+    else 0
+    adjust-top = if camera-target-y < box-top
+      camera-target-y - box-top - CAMERA_PAD
+    else if camera-target-y > box-top + box-height
+      camera-target-y - (box-top + box-height) + CAMERA_PAD
+    else 0
+
+    if VISUAL_CAMERA_DEBUG
+      eak._stage.view.effects-layer.stage.add-child @dbg
+      @dbg
+        ..clear!
+        ..line-style 3, 0xFF00FF .draw-ellipse @_subject-x, @_subject-y, 5, 5
+        ..line-style 1, 0xFFFF00 .draw-ellipse current-camera-x, current-camera-y, 5, 5
+        ..line-style 1, 0x00FFFF .draw-ellipse current-camera-x + vel-adj-x, current-camera-y + vel-adj-y, 8, 8
+        ..line-style 3, 0x00FF00 .draw-rect box-left, box-top, box-width, box-height
+        ..line-style 1, 0xFF0000 .draw-rect box-left + adjust-left, box-top + adjust-top, box-width, box-height
+        ..line-style 1, 0xFF0000 .draw-rect camera-target-x - 5, camera-target-y - 5, 10, 10
+
     max-x = @scene-width - @_viewport-width
     max-y = @scene-height - @_viewport-height
     target-x = if @_lock-x? then @_lock-x
-      else constrain 0, max-x, @_subject-x - @_viewport-width / 2
+      else constrain 0, max-x, current-camera-x + adjust-left - @_viewport-width / 2
     target-y = if @_lock-y? then @_lock-y
-      else constrain 0, max-y, @_subject-y - @_viewport-height / 2
+      else constrain 0, max-y, current-camera-y + adjust-top - @_viewport-height / 2
 
     [target-x, target-y]
 
