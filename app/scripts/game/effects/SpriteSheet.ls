@@ -52,7 +52,7 @@ module.exports = class SpriteSheet extends PIXI.MovieClip
     loop-times: 0
     delay: 0
 
-  (src, frames, @_initial-width, @_initial-height, @_x, @_y, options) ->
+  (src, frames, @_initial-width, @_initial-height, @_x, @_y, options = {}) ->
     _.mixin this, Backbone.Events
     @options = _.defaults options, SpriteSheet::defaults
     @_texture-promise = PIXI.load-texture src

@@ -223,6 +223,7 @@ module.exports = class App
       .cancellable!
       .then (stage) ~>
         @_stage = stage
+        @view = stage.view if stage.view? # Expose view for easier tweaking in the console
         user.game.find-or-create-stage stage.save-defaults!, true
       .then (saved-stage) ~>
         @_stage.once \next, (path) ~> @load-path path

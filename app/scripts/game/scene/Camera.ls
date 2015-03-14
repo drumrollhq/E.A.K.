@@ -11,14 +11,14 @@ lerp = (a, b, x) --> a + x * (b - a)
 
 duration-to-speed = (duration) -> (Math.E * Math.E * 16.6) / duration
 
-const VISUAL_CAMERA_DEBUG = false
-  TARGET_VEL_SCALE_X = 80
-  TARGET_VEL_SCALE_Y = 0
-  CAMERA_MAX_BOUND_X = 400px
-  CAMERA_MAX_BOUND_Y = 150px
-  CAMERA_PAD = 20px
-
 module.exports = class Camera
+  @VISUAL_DEBUG = false
+  @TARGET_VEL_SCALE_X = 80
+  @TARGET_VEL_SCALE_Y = 0
+  @MAX_BOUND_X = 400px
+  @MAX_BOUND_Y = 150px
+  @PAD = 20px
+
   (size, @speed, @padding) ->
     @scene-width = size.width
     @scene-height = size.height
@@ -66,31 +66,31 @@ module.exports = class Camera
 
   get-target-position: ->
     if @_tracking and @_tracking.v
-      vel-adj-x = @_tracking.v.x * TARGET_VEL_SCALE_X
-      vel-adj-y = @_tracking.v.y * TARGET_VEL_SCALE_Y
+      vel-adj-x = @_tracking.v.x * Camera.TARGET_VEL_SCALE_X
+      vel-adj-y = @_tracking.v.y * Camera.TARGET_VEL_SCALE_Y
     else vel-adj-x = vel-adj-y = 0
 
     current-camera-x = (@offset-x or @_subject-x) + @_viewport-width/2
     current-camera-y = (@offset-y or @_subject-y) + @_viewport-height/2
-    box-width = Math.min CAMERA_MAX_BOUND_X, 0.8 * @_viewport-width
-    box-height = Math.min CAMERA_MAX_BOUND_Y, 0.5 * @_viewport-height
+    box-width = Math.min Camera.MAX_BOUND_X, 0.8 * @_viewport-width
+    box-height = Math.min Camera.MAX_BOUND_Y, 0.5 * @_viewport-height
     box-left = current-camera-x - box-width / 2
     box-top = current-camera-y - box-height / 2
     camera-target-x = @_subject-x + vel-adj-x
     camera-target-y = @_subject-y + vel-adj-y
 
     adjust-left = if camera-target-x < box-left
-      camera-target-x - box-left - CAMERA_PAD
+      camera-target-x - box-left - Camera.PAD
     else if camera-target-x > box-left + box-width
-      camera-target-x - (box-left + box-width) + CAMERA_PAD
+      camera-target-x - (box-left + box-width) + Camera.PAD
     else 0
     adjust-top = if camera-target-y < box-top
-      camera-target-y - box-top - CAMERA_PAD
+      camera-target-y - box-top - Camera.PAD
     else if camera-target-y > box-top + box-height
-      camera-target-y - (box-top + box-height) + CAMERA_PAD
+      camera-target-y - (box-top + box-height) + Camera.PAD
     else 0
 
-    if VISUAL_CAMERA_DEBUG
+    if Camera.VISUAL_DEBUG
       eak._stage.view.effects-layer.stage.add-child @dbg
       @dbg
         ..clear!

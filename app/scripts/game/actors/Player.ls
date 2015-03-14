@@ -5,16 +5,6 @@ require! {
   'logger'
 }
 
-const max-move-speed = 4px
-  move-acc = 0.3px
-  move-acc-in-air = 0.2px
-  move-damp = 0.7px
-  move-damp-in-air = 0.01px
-  jump-speed = 5.4px
-  max-jump-frames = 10
-  fall-limit = 200px
-  fall-to-death-limit = 300px
-
 player-html = '''
   <div class="player-inner">
     <div class="player-head">
@@ -35,6 +25,15 @@ module.exports = class Player extends Actor
   tag-name: \div
   class-name: 'player entity'
   physics-ignore: true
+
+  @MAX_MOVE_SPEED = 4px
+  @MOVE_ACC = 0.3px
+  @MOVE_ACC_IN_AIR = 0.2px
+  @FRICTION = 0.7px
+  @FRICTION_IN_AIR = 0.01px
+  @JUMP_SPEED = 5.4px
+  @MAX_JUMP_FRAMES = 10
+  @FALL_TO_DEATH_LIMIT = 300px
 
   initialize: (start = {x: 0, y: 0, colour: 'white'}) ->
     @el.width = 33px
@@ -75,9 +74,6 @@ module.exports = class Player extends Actor
     @listen-to this, \contact:start, @contact-start
     @listen-to this, \contact:end, @contact-end
     @listen-to this, \set:origin, @origin-updated
-
-    # Constants:
-    this <<< {max-move-speed, move-acc, move-acc-in-air, move-damp, move-damp-in-air, jump-speed, max-jump-frames, fall-limit}
 
   after-physics: ->
     @calc-classes!
@@ -121,7 +117,7 @@ module.exports = class Player extends Actor
     if @deactivated then return
 
     # Check for falling to death:
-    if @last-fall-dist > fall-to-death-limit and not other.data?.sensor?
+    if @last-fall-dist > Player.FALL_TO_DEATH_LIMIT and not other.data?.sensor?
       channels.death.publish cause: 'fall-to-death'
 
   contact-end: (other) ->
@@ -148,42 +144,42 @@ module.exports = class Player extends Actor
       # If the object is on a thing, move with standard acceleration. If not, move with in-air acceleration
       @v.x += if @state is 'on-thing'
         if @v.x > 0
-          move-acc * dt
+          Player.MOVE_ACC * dt
         else
-          move-damp * dt
+          Player.FRICTION * dt
       else
-        move-acc-in-air * dt
+        Player.MOVE_ACC_IN_AIR * dt
 
       # Constrain speed
-      if @v.x >= max-move-speed
-        @v.x = max-move-speed
+      if @v.x >= Player.MAX_MOVE_SPEED
+        @v.x = Player.MAX_MOVE_SPEED
 
     # Moving left. Same as moving right, but the other way
     else if keys.left && !@deactivated
       @v.x -= if @state is 'on-thing'
         if @v.x < 0
-          move-acc * dt
+          Player.MOVE_ACC * dt
         else
-          move-damp * dt
+          Player.FRICTION * dt
       else
-        move-acc-in-air * dt
+        Player.MOVE_ACC_IN_AIR * dt
 
-      if @v.x <= - max-move-speed
-        @v.x = - max-move-speed
+      if @v.x <= - Player.MAX_MOVE_SPEED
+        @v.x = - Player.MAX_MOVE_SPEED
 
     # Not moving.
     else
       # If the object is moving right:
       if @v.x > 0
         # Slow it down. The rate depends on if it's on the ground or not
-        @v.x -= if @state is 'on-thing' then move-damp else move-damp-in-air
+        @v.x -= if @state is 'on-thing' then Player.FRICTION else Player.FRICTION_IN_AIR
 
         # If it slows down so much it starts going the other way, stop it
         if @v.x < 0 then @v.x = 0
 
       # Repeat for moving left:
       else if @v.x < 0
-        @v.x += if @state is 'on-thing' then move-damp else move-damp-in-air
+        @v.x += if @state is 'on-thing' then Player.FRICTION else Player.FRICTION_IN_AIR
         if @v.x > 0 then @v.x = 0
 
     # Jumping:
@@ -196,13 +192,13 @@ module.exports = class Player extends Actor
     jump-key = if @deactivated then false else keys.jump
     if jump-key and jump-state is \ready and state is \on-thing
       @fixed-to = null
-      @v.y = -jump-speed
-      @jump-frames = max-jump-frames
+      @v.y = -Player.JUMP_SPEED
+      @jump-frames = Player.MAX_JUMP_FRAMES
       @jump-state = \jumping
       @fall-dist = 0
 
     else if jump-key and jump-state is \jumping and state in <[jumping contact]> and jump-frames > 0
-      @v.y = -jump-speed
+      @v.y = -Player.JUMP_SPEED
       @jump-frames -= dt
       @jump-state = \jumping
       @fall-dist = 0
