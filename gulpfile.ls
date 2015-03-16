@@ -2,13 +2,22 @@ require! {
   'gulp'
   'yargs': {argv}
   'require-dir'
+  'git-rev'
+  'bluebird': Promise
 }
-
-global.languages = ['en' 'es-419' 'nl']
-global.default-lang = 'en'
 
 global.optimized = argv.o or argv.optimized or argv.optimised or false
 console.log "Optimized?: #optimized"
+
+global.eak-version = new Promise (resolve, reject) ->
+  tag <- git-rev.tag!
+  branch <- git-rev.branch!
+  hash <- git-rev.short!
+
+  resolve "#{tag}-#{branch}-#{hash}"
+
+global.languages = ['en' 'es-419' 'nl']
+global.default-lang = 'en'
 
 global.src = {
   assets: './app/assets/**/*'

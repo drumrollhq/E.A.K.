@@ -6,7 +6,6 @@ require! {
   'gulp-preprocess'
   'gulp'
   'prelude-ls': {map, join, split, first, initial, camelize, last, tail}
-  'execSync': exec
   'handlebars'
   'lodash.merge': merge
   'lodash.defaults': defaults
@@ -20,7 +19,6 @@ scripts = glob.sync './app/scripts/**/*.{ls,hbs}'
 
 preprocess-context = {
   optimized: optimized
-  version: exec.exec 'git rev-parse HEAD' .stdout.trim!
   scripts: scripts
   languages: languages |> map (-> "'#it'") |> join ',' |> (-> "[#it]")
 }
@@ -30,10 +28,13 @@ gulp.task 'l10n-data' ->
     .pipe locale-data-cache! .on 'error' -> throw it
 
 gulp.task 'l10n' ['l10n-data'] ->
-  gulp.src src.locale-templates
-    .pipe gulp-preprocess context: preprocess-context
-    .pipe localize! .on 'error' -> throw it
-    .pipe gulp.dest dest.assets
+  eak-version.then (v) ->
+    console.log 'Version:' v
+    preprocess-context.version = v
+    gulp.src src.locale-templates
+      .pipe gulp-preprocess context: preprocess-context
+      .pipe localize! .on 'error' -> throw it
+      .pipe gulp.dest dest.assets
 
 function localize
   default-lang = first languages
