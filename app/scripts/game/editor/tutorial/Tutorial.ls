@@ -32,14 +32,21 @@ force-load = (track) ->
         ..volume 1
         ..destroy!
 
-audio-track = new Track 'tutorials'
+audio-track = if Track
+  new Track 'tutorials'
+else {
+  node: {}
+}
 
 module.exports = class Tutorial
   ($el) ->
     @track-name = $el.attr 'track' or throw new Error 'You must specify a track'
     @has-help = ($el.attr 'has-help')?
     @track = get-track @track-name
-    @audio-node = context.create-media-element-source @track
+    @audio-node = if context then
+      context.create-media-element-source @track
+    else
+      {connect: -> null, disconnect: -> null}
 
     # Force the audio to load - firefox gets upset otherwise
     force-load @track

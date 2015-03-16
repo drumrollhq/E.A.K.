@@ -1,6 +1,7 @@
 require! {
   'App'
   'plugins'
+  'logger'
 }
 
 module.exports = class Init extends Backbone.View
