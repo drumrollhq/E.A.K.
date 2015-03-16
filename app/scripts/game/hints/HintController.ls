@@ -78,12 +78,14 @@ module.exports = class HintController extends Backbone.Model
     hint.start-sub = @on-event hint.enter, hint.enter-delay, ~>
       view.render! unless hint.disabled
       channels.hint.publish {type: \enter, name: hint.name}
+      if hint.start-sub.unsubscribe then hint.start-sub.unsubscribe!
 
       hint.stop-sub = @on-event hint.exit, hint.exit-delay, ~>
         view.remove! unless hint.disabled
         channels.hint.publish {type: \exit, name: hint.name}
         @store.patch-state {hints: "#{hint.id}": true}
-
+        if hint.stop-sub.unsubscribe then hint.stop-sub.unsubscribe!
+        hint.disabled = true
 
   on-event: (ev, delay = 0, cb = -> null) ~>
     fn = -> set-timeout cb, parse-int delay

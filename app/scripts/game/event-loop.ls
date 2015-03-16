@@ -40,6 +40,7 @@ class EventLoop
   setup-keys: ~>
     $window .on 'keypress keyup keydown' (e) ~>
       unless @paused
+        if e.which in [8 32 37 38 39 40] then e.prevent-default!
         key = key-dict[e.which] or (String.from-char-code e.which .to-lower-case!)
         key-channels[e.type].publish code: e.which, key: key
 

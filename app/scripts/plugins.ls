@@ -78,7 +78,7 @@ $ document .on \click '.level a[href]' (e) -> e.prevent-default!
 # Prevent accidentally going 'back' a page when editing with the backspace key,
 # and scrolling with the space bar
 $ document.body .on 'keydown' (e) ->
-  if e.which in [8 32] and e.target.tag-name.to-lower-case! isnt 'input' then e.prevent-default!
+  if e.which is 8 and e.target.tag-name.to-lower-case! isnt 'input' then e.prevent-default!
 
 # Custom elements for KQ levels:
 extras = <[ target hints pointer alert hidden tutorial step action content ]>
