@@ -2,7 +2,7 @@ require! {
   'lib/parse'
 }
 
-actors = <[Actor Mover KittenBox Exit Spike Portal]>
+actors = <[Actor Mover KittenBox Exit Spike Portal Particles]>
 
 module.exports = actors = {[(dasherize name), require "game/actors/#{name}"] for name in actors}
 
