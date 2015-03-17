@@ -25,6 +25,8 @@ In order to build E.A.K, you'll need to be comfortable using your computer's ter
 * [Gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
 * [FFMPEG](https://www.ffmpeg.org/download.html)
     - Mac users, your best bet for FFMPEG is to use [Homebrew](http://brew.sh/) and run `brew install ffmpeg --with-theora --with-libogg --with-libvorbis`
+* [ImageMagick](http://www.imagemagick.org/script/binary-releases.php)
+    - Again, brew is the best bet for mac users
 
 Next, you'll need to download E.A.K. and its dependencies. Run the following on your terminal:
 ```sh
@@ -44,17 +46,11 @@ gulp build
 
 This will take a little while initially as it has to convert all the game assets, but should be quicker with subsequent runs.
 
-As E.A.K. runs in the browser, we need to run a web server to serve the game. To start a web server on your computer:
-* If you're not so into the whole command line terminal thing:
-    1. Download [Server-Thingy](https://github.com/DecodedCo/server-thingy/releases).
-    2. Open Server-Thingy, click 'Choose Folder'. Find the `public` folder in your `E.A.K.` directory.
-    3. Open your browser, and go to http://localhost:1337/
-* If text-based interfaces are your thang:
-    1. Run `npm install -g serve` (if that doesn't work, add `sudo` to the start of the command)
-    2. From your `E.A.K.` folder, run `serve public`
-    3. Open your browser, and go to http://localhost:3000/
-* If you have some other way you like to start static webservers:
-    1. Do that. (note: E.A.K's public folder must be on the root on your web server)
+To get E.A.K. running in the browser, run `gulp`. This will:
+
+- Run `gulp build`
+- Watch for changes to E.A.K. source and rebuild when needed
+- Start a webserver on port 4000. Go to http://localhost:4000/ in your web browser!
 
 Congratulations! You're now (probably) running E.A.K! If you're not, sorry! Please email joe [at] drumrollhq.com and I'll try and help you, and update this guide if I can :)
 
