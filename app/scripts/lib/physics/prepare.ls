@@ -73,8 +73,10 @@ prepare = (nodes) ->
   for actor in actors
     measured-el = nodes |> find-index -> it isnt actor and it.el is actor.el
     if measured-el isnt undefined
+      console.log 'MERGE ACTOR' actor, nodes[measured-el]
       actor <<< nodes[measured-el]{aabb, width, height, x, y, rotation, type, radius, shapes}
       actor.data = {} <<< nodes[measured-el].data <<< actor.data
+      if actor.on-prepare? then actor.on-prepare!
       nodes.splice measured-el, 1
 
   # Map the nodes to their prepared versions.

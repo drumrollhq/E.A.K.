@@ -16,8 +16,8 @@ module.exports = class BackgroundLayer extends WebglLayer
       .then ~> @setup!
 
   setup: ->
-    @container = new PIXI.DisplayObjectContainer!
-    @blurable-container = new PIXI.DisplayObjectContainer!
+    @container = new PIXI.Container!
+    @blurable-container = new PIXI.Container!
     @tiles = []
     @blurable-tiles = []
     for x til Math.ceil @width / tile-width
@@ -48,7 +48,7 @@ module.exports = class BackgroundLayer extends WebglLayer
   edge-sprite: (cont, sprite, x, y, width = sprite.texture.width, height = sprite.texture.height, x-ref, y-ref) ->
     if x < 0 then x = width - x
     if y < 0 then y = height - y
-    crop = new PIXI.Rectangle x, y, width, height
+    crop = new PIXI.math.Rectangle x, y, width, height
     tex = new PIXI.Texture sprite.texture, crop
     sprite = new PIXI.Sprite tex
     sprite.width = if typeof x-ref is \string then @width else tile-width

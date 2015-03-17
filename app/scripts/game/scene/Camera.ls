@@ -59,8 +59,8 @@ module.exports = class Camera
       if @_editing then @get-editing-position! else @get-target-position!
 
     p = @tween-position @target-x, @target-y, @speed
-    @offset-x = p.x
-    @offset-y = p.y
+    @offset-x = p.x .|. 0
+    @offset-y = p.y .|. 0
 
   dbg: new PIXI.Graphics!
 

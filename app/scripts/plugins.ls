@@ -90,6 +90,7 @@ Handlebars.register-helper \inc (value) -> 1 + parse-float value
 
 Handlebars.register-helper \date (date, fmt) -> moment date .format fmt
 
+PIXI.DisplayObject.prototype.interactive-children = false
 # Promised texture loading for pixi:
 PIXI.load-texture = (url) -> new Promise (resolve, reject) ~>
   texture = PIXI.Texture.from-image url, false
@@ -100,7 +101,7 @@ PIXI.load-texture = (url) -> new Promise (resolve, reject) ~>
     texture.base-texture.on \error, -> reject "Error loading sprite #url"
 
 # PIXI Animate function:
-PIXI.DisplayObjectContainer.prototype.animate = (duration, fn) -> new Promise (resolve, reject) ~>
+PIXI.Container.prototype.animate = (duration, fn) -> new Promise (resolve, reject) ~>
   old-update-transform = @update-transform
   start = performance.now!
   @update-transform = ->

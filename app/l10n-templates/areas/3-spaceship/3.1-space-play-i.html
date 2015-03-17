@@ -10,27 +10,35 @@
     <meta name="borders" content="top left">
 
     <style>
-      .floor {
+      .platform {
         position: absolute;
         width: 100px;
         height: 20px;
-        background: #aaa;
+        /* background: #aaa; */
+      }
+
+      .floor {
+        position: absolute;
+        bottom: 0;
+        height: 30px;
       }
     </style>
   </head>
   <body>
-    <div class="floor" style="top: 150px; left: 0; width: 200px;"></div>
-    <div class="floor" style="width: 100px;" data-actor="mover 1 alternate sin" data-path="350 160, 350 360"></div>
-    <div class="floor" style="top: 350px; left: 500px; width: 200px;"></div>
-    <div class="floor" style="top: 620px; left: 400px; width: 400px;"></div>
-    <div class="floor" style="width: 100px;" data-actor="mover 1 alternate sin" data-path="950 560, 950 360"></div>
-    <div class="floor" style="top: 420px; left: 1060px; width: 140px;"></div>
-    <div class="floor" style="width: 100px;" data-actor="mover 1 repeat linear" data-path="350 890, 350 630, 450 630"></div>
-    <div class="floor" style="bottom: 0; left: 0; width: 520px;"></div>
-    <div class="floor" style="bottom: 0; left: 500px; height: 60px; width: 20px;"></div>
-    <div class="floor" style="bottom: 0; left: 700px; width: 500px"></div>
-    <div class="floor" style="bottom: 0; left: 700px; height: 60px; width: 20px;"></div>
+    <div class="platform" style="top: 150px; left: 3px; width: 194px;"></div>
+    <div class="moving-platform-space" data-actor="mover 1 alternate sin" data-path="350 160, 350 360"></div>
+    <div class="platform" style="top: 350px; left: 503px; width: 194px;"></div>
+    <div class="platform" style="top: 620px; left: 403px; width: 394px;"></div>
+    <div class="moving-platform-space" data-actor="mover 1 alternate sin" data-path="950 560, 950 360"></div>
+    <div class="platform" style="top: 423px; left: 1060px; width: 140px;"></div>
+    <div class="moving-platform-space" data-actor="mover 1 alternate sin" data-path="250 800, 250 600"></div>
+    <div class="floor" style="left: 0; width: 515px;"></div>
+    <div class="floor" style="left: 515px; height: 60px; width: 20px;"></div>
+    <div class="floor" style="left: 625px; height: 60px; width: 20px;"></div>
+    <div class="floor" style="left: 645px; width: 555px"></div>
     <div data-actor="portal eak://area/2-cave?x=2030&y=1250" style="top: 45px; left: 30px;"></div>
     <div data-actor="portal" style="top: 315px; right: 30px;"></div>
+    <img src="/content/3-spaceship/pipe-outside.png" width="120" height="150" style="position: absolute; top: 839px; left: 520px; z-index: 300;" data-ignore>
+    <div data-sprite="/content/3-spaceship/control-panel" data-sprite-count="3" data-sprite-size="143x149" data-sprite-pos="456 361" data-layer="background" data-ignore></div>
   </body>
 </html>

@@ -36,7 +36,8 @@ module.exports = class Player extends Actor
   @FALL_TO_DEATH_LIMIT = 300px
 
   initialize: (start = {x: 0, y: 0, colour: 'white'}) ->
-    @el.width = 33px
+    actual-width = 33px
+    @el.width = 20px
     @el.height = 54px
 
     @$el.add-class "player-colour-#{start.colour}"
@@ -57,6 +58,7 @@ module.exports = class Player extends Actor
 
     @$el.attr \data-ignore true
     @$el.css {
+      margin-left: (@el.width - actual-width) / 2
       left: start.x - @el.width/2
       top: start.y - @el.height/2
     }

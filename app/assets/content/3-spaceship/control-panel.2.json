@@ -1,0 +1,246 @@
+{"frames": {
+
+"control-panel-0049.png":
+{
+	"frame": {"x":2,"y":2,"w":271,"h":298},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0050.png":
+{
+	"frame": {"x":2,"y":302,"w":271,"h":298},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0051.png":
+{
+	"frame": {"x":2,"y":602,"w":271,"h":298},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0052.png":
+{
+	"frame": {"x":2,"y":902,"w":271,"h":298},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0053.png":
+{
+	"frame": {"x":275,"y":2,"w":271,"h":298},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0054.png":
+{
+	"frame": {"x":275,"y":302,"w":271,"h":298},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0061.png":
+{
+	"frame": {"x":548,"y":2,"w":271,"h":298},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0062.png":
+{
+	"frame": {"x":275,"y":575,"w":271,"h":298},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0063.png":
+{
+	"frame": {"x":2,"y":1175,"w":271,"h":298},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0064.png":
+{
+	"frame": {"x":2,"y":1448,"w":271,"h":298},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0065.png":
+{
+	"frame": {"x":2,"y":1721,"w":271,"h":298},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0066.png":
+{
+	"frame": {"x":302,"y":848,"w":271,"h":298},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0073.png":
+{
+	"frame": {"x":302,"y":1148,"w":271,"h":298},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0074.png":
+{
+	"frame": {"x":302,"y":1448,"w":271,"h":298},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0075.png":
+{
+	"frame": {"x":302,"y":1721,"w":271,"h":298},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0076.png":
+{
+	"frame": {"x":575,"y":275,"w":271,"h":298},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0077.png":
+{
+	"frame": {"x":575,"y":575,"w":271,"h":298},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0078.png":
+{
+	"frame": {"x":575,"y":875,"w":271,"h":298},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0085.png":
+{
+	"frame": {"x":575,"y":1175,"w":271,"h":298},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0086.png":
+{
+	"frame": {"x":602,"y":1448,"w":271,"h":298},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0087.png":
+{
+	"frame": {"x":848,"y":2,"w":271,"h":298},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0088.png":
+{
+	"frame": {"x":848,"y":302,"w":271,"h":298},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0089.png":
+{
+	"frame": {"x":848,"y":602,"w":271,"h":298},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0090.png":
+{
+	"frame": {"x":848,"y":902,"w":271,"h":298},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0097.png":
+{
+	"frame": {"x":875,"y":1175,"w":271,"h":298},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"control-panel-0098.png":
+{
+	"frame": {"x":875,"y":1475,"w":271,"h":298},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":298},
+	"sourceSize": {"w":286,"h":298},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "control-panel.2.png",
+	"format": "RGBA8888",
+	"size": {"w":1148,"h":1994},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:9976454b774f548833b87372d9987727:8c3e16bcfecefa58283f2f3545f1eb33:05114cd46c0f9663ff8cb60a80f2b19d$"
+}
+}

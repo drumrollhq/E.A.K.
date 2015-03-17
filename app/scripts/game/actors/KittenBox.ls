@@ -16,14 +16,14 @@ random-kitten-el = ->
     ..add-class 'kitten-anim'
 
 box-burst-sprite = (av, x, y) ->
-  sprite = new SpriteSheet '/content/sprites/kitten-box-burst.png', 14, 48, 52, x - 24, y - 26, {
+  sprite = new SpriteSheet '/content/sprites/kitten-box-burst', 48, 52, x - 24, y - 26, {
     speed: 30
     loop-times: 1
     state: \paused
   }
 
 blink-sprite = (av, x, y) ->
-  sprite = new SpriteSheet '/content/sprites/kitten-box-blink.png', 10, 48, 52, x - 24, y - 26, {
+  sprite = new SpriteSheet '/content/sprites/kitten-box-blink', 48, 52, x - 24, y - 26, {
     speed: 30
     delay: [0.1, 6]
   }
