@@ -210,6 +210,8 @@ module.exports = class Mapper
           y: c.y
           width: bounds.width
           height: bounds.height
+          actual-width: bounds.actual-width
+          actual-height: bounds.actual-height
 
       # Reapply rotation:
       node.set-attribute \style style-attr
@@ -247,6 +249,8 @@ get-bounds = (node, extend) ->
   bounds.left -= extend.left
   bounds.bottom -= extend.bottom
   bounds.right -= extend.right
+  bounds.actual-width = bounds.width
+  bounds.actual-height = bounds.height
   bounds.width += extend.left + extend.right
   bounds.height += extend.top + extend.bottom
   bounds

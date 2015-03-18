@@ -13,6 +13,7 @@ module.exports = class Actor extends Backbone.View
     width = @$el.width!
     height = @$el.height!
 
+    console.log @actor-type!, '@mapper-ignore' @mapper-ignore
     if @mapper-ignore then @$el.attr \data-ignore true
     @$el.css {
       position: \absolute
