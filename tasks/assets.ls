@@ -46,14 +46,14 @@ gulp.task 'tile-backgrounds' ->
     .pipe tile 512 512 dest.bg-tile-cache
 
 gulp.task 'copy-tiles' ->
-  gulp.src src.bg-tile-cache
+  gulp.src src.bg-tile-min-cache
     .pipe gulp.dest dest.bg-tiles
 
 gulp.task 'min-tiles' ->
   gulp.src src.bg-tile-cache
-    .pipe gulp-changed dest.bg-tile-cache
+    .pipe gulp-changed dest.bg-tile-min-cache
     .pipe gulp-imagemin!
-    .pipe gulp.dest dest.bg-tile-cache
+    .pipe gulp.dest dest.bg-tile-min-cache
 
 function blur dest
   through2.obj (file, enc, cb) ->

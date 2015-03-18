@@ -26,6 +26,7 @@ global.src = {
   bgs: './app/assets/content/bgs/**/*'
   bg-cache: './gulp-cache/bgs/**/*'
   bg-tile-cache: './gulp-cache/bg-tiles/**/*'
+  bg-tile-min-cache: './gulp-cache/bg-tiles-min/**/*'
   css-all: './app/styles/**/*.styl'
   css: ['./app/styles/app.styl', './app/styles/min.styl']
   fonts: './bower_components/font-awesome/fonts/*'
@@ -49,6 +50,7 @@ global.dest = {
   audio-cache: './gulp-cache/audio'
   bg-cache: './gulp-cache/bgs'
   bg-tile-cache: './gulp-cache/bg-tiles'
+  bg-tile-min-cache: './gulp-cache/bg-tiles-min'
   bg-tiles: './public/content/bg-tiles'
   cache: './gulp-cache/'
   css: './public/css'

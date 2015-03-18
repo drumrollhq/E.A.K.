@@ -1,6 +1,6 @@
 {
-  "width": 3620,
-  "height": 1085,
+  "width": 5515,
+  "height": 1300,
   "music": "forest",
   "levels": [
     {
@@ -19,6 +19,14 @@
       "url": "1.4-swamp-play.html",
       "x": 2590,
       "y": 250
+    }, {
+      "url": "1.5-editing-text-ii.html",
+      "x": 3700,
+      "y": 170
+    }, {
+      "url": "1.6-portals.html",
+      "x": 4480,
+      "y": 475
     }
   ]
 }

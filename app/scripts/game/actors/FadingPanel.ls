@@ -55,16 +55,16 @@ module.exports = class FadingPanel extends Actor
     if @effects then @_prepare @effects
 
   _prepare: (sprite) ->
-    sprite.anchor <<< {x: 0.5, y: 0.5}
-    sprite.position <<< @p.{x, y}
-    sprite <<< @{width: actual-width, height: actual-height}
+    sprite.position <<< @bounds.original.{x: left, y: top}
+    sprite <<< @bounds.original.{width, height}
     console.log \display-type @display-type
     sprite.visible = @display-type isnt \show
 
   show: ~>
     @_last-anim = @_last-anim.then ~>
-      (if @background then @_show that) or
-        (if @effects then @_show that)
+      b = if @background then @_show that
+      e = if @effects then @_show that
+      b or e
 
   _show: (sprite) ->
     sprite.visible = true
@@ -73,8 +73,9 @@ module.exports = class FadingPanel extends Actor
 
   hide: ~>
     @_last-anim = @_last-anim.then ~>
-      (if @background then @_hide that) or
-        (if @effects then @_hide that)
+      b = if @background then @_hide that
+      e = if @effects then @_hide that
+      b or e
 
   _hide: (sprite) ->
     sprite.alpha = 1

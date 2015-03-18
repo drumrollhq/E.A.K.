@@ -75,7 +75,7 @@ prepare = (nodes) ->
   for actor in actors
     measured-el = nodes |> find-index -> it isnt actor and it.el is actor.el
     if measured-el isnt undefined
-      actor <<< nodes[measured-el]{aabb, width, height, actual-width, actual-height, x, y, rotation, type, radius, shapes}
+      actor <<< nodes[measured-el]{aabb, width, height, bounds, x, y, rotation, type, radius, shapes}
       actor.data = {} <<< nodes[measured-el].data <<< actor.data
       nodes.splice measured-el, 1
 

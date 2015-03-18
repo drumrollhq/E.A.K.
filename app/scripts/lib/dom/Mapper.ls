@@ -81,6 +81,7 @@ module.exports = class Mapper
       extenders = get-extends node
       # Fetch measurements from the browser
       bounds = get-bounds node, extenders
+      node.bounds = bounds
       style-attr = node.get-attribute \style
       style = node |> window.get-computed-style |> @normalise-style
 
@@ -210,8 +211,6 @@ module.exports = class Mapper
           y: c.y
           width: bounds.width
           height: bounds.height
-          actual-width: bounds.actual-width
-          actual-height: bounds.actual-height
 
       # Reapply rotation:
       node.set-attribute \style style-attr
@@ -223,6 +222,7 @@ module.exports = class Mapper
 
       # Save bounding box
       obj.aabb = aabb
+      obj.bounds = bounds
 
       # Pull out all the data-* attributes, and add them to a data object on obj
       data = {}
@@ -245,12 +245,11 @@ get-extends = (node) -> {[dir, extend-attr node, dir] for dir in <[top left bott
 
 get-bounds = (node, extend) ->
   bounds = node.get-bounding-client-rect!{top, left, bottom, right, width, height}
+  bounds.original = bounds.{top, left, bottom, right, width, height}
   bounds.top -= extend.top
   bounds.left -= extend.left
-  bounds.bottom -= extend.bottom
-  bounds.right -= extend.right
-  bounds.actual-width = bounds.width
-  bounds.actual-height = bounds.height
+  bounds.bottom += extend.bottom
+  bounds.right += extend.right
   bounds.width += extend.left + extend.right
   bounds.height += extend.top + extend.bottom
   bounds

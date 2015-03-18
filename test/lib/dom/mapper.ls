@@ -56,11 +56,12 @@ describe 'lib/dom/Mapper' ->
       mapper = new Mapper el
         ..build!
 
+      delete mapper.map.0.bounds
+
       expect mapper.map .to.deep.equal [
         type: \rect
         x: 250px, y: 50px
         width: 100px, height: 40px
-        actual-width: 100px, actual-height: 40px
         rotation: 0
         el: el.children.0, data: {}
         aabb: {top: 30px, bottom: 70px, left: 200px, right: 300px}
@@ -75,6 +76,8 @@ describe 'lib/dom/Mapper' ->
 
       mapper = new Mapper el
         ..build!
+
+      delete mapper.map.0.bounds
 
       expect mapper.map .to.deep.equal [
         type: \circle
@@ -93,6 +96,8 @@ describe 'lib/dom/Mapper' ->
 
       mapper = new Mapper el
         ..build!
+
+      delete mapper.map.0.bounds
 
       expect mapper.map .to.deep.equal [
         type: \compound
@@ -122,6 +127,8 @@ describe 'lib/dom/Mapper' ->
       mapper = new Mapper el
         ..build!
 
+      delete mapper.map.0.bounds
+
       expect mapper.map .to.deep.equal [
         type: \compound
         x: 225px, y: 250px
@@ -149,6 +156,8 @@ describe 'lib/dom/Mapper' ->
 
       mapper = new Mapper el
         ..build!
+
+      delete mapper.map.0.bounds
 
       expect mapper.map .to.deep.equal [
         type: \compound
@@ -187,11 +196,12 @@ describe 'lib/dom/Mapper' ->
       mapper = new Mapper el
         ..build!
 
+      delete mapper.map.0.bounds
+
       expect mapper.map .to.deep.equal [
         type: \rect
         x: 150px, y: 150px
         width: 100px, height: 100px
-        actual-width: 100px, actual-height: 100px
         aabb: {top: 100px, left: 100px, right: 200px, bottom: 200px}
         rotation: 0, el: el.children.0
         data:
@@ -212,11 +222,12 @@ describe 'lib/dom/Mapper' ->
       mapper = new Mapper el
         ..build!
 
+      delete mapper.map.0.bounds
+
       expect mapper.map .to.deep.equal [
         type: \rect
         x: 150px, y: 150px
         width: 100px, height: 100px
-        actual-width: 100px, actual-height: 100px
         aabb: {top: 100px, left: 100px, right: 200px, bottom: 200px}
         rotation: 0, el: el.children.1
         data: {}
