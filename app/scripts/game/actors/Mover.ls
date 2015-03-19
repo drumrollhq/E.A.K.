@@ -6,19 +6,20 @@ require! {
 }
 
 module.exports = class Mover extends Actor
-  @from-el = ($el, [speed = '2000', repeat = 'alternate', ease = 'linear'], offset = {x: 0, y: 0}) ->
+  @from-el = ($el, [speed = '2000', repeat = 'alternate', ease = 'linear'], offset = {x: 0, y: 0}, store, area-view) ->
     speed = parse-float speed
     path = $el.attr 'data-path'
       |> parse.to-list _, ','
       |> map parse.to-coordinates
 
-    new Mover {
+    new this {
       speed: speed
       repeat: repeat
       path: path
       el: $el.0
       offset: offset
       ease: ease
+      area-view: area-view
     }
 
   physics: {
@@ -34,8 +35,8 @@ module.exports = class Mover extends Actor
     offset-vector = new Vector @offset
     path = start.path |> map ([x, y]) -> offset-vector .add new Vector x, y
     @path = new Path path, start.repeat is \alternate, start.ease
-    @speed = start.speed
     @total-time = 0
+    @speed = start.speed
 
   on-prepare: ->
     @$el.css left: @offset.x, top: @offset.y

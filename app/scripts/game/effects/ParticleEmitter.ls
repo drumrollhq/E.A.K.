@@ -9,13 +9,15 @@ random-range = (range) ->
   | typeof! range is \Array => rand-between range[0], range[1]
   | typeof! range is \Function => range
 
-module.exports = class ParticleEmitter extends PIXI.ParticleContainer
+module.exports = class ParticleEmitter extends PIXI.Container
   (@emitter, options) ->
     super!
     @options = options
     @_emit-timer = 0
     @_pool = []
-    @emit-rate = 1000ms / options.rate
+    rate-range = random-range options.rate
+    @emit-rate = -> 1000ms / rate-range!
+    @_next-emit-time = @emit-rate!
 
     @_urls = flatten [options.url]
     @_load = Promise.map @_urls, PIXI.load-texture
@@ -27,8 +29,9 @@ module.exports = class ParticleEmitter extends PIXI.ParticleContainer
 
   step: (dt) ->
     @_emit-timer += dt
-    if @_emit-timer > @emit-rate
-      @_emit-timer = @_emit-timer % @emit-rate
+    if @_emit-timer > @_next-emit-time
+      @_emit-timer = @_emit-timer % @_next-emit-time
+      @_next-emit-time = @emit-rate!
       @emit!
 
     {x, y, scale-x, scale-y, alpha} = @options
