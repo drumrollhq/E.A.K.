@@ -4,39 +4,39 @@
   "music": "space",
   "levels": [
     {
-      "url": "3.1-space-play-i.html",
+      "url": "2.1-space-play-i.html",
       "x": 250,
       "y": 350
     }, {
-      "url": "3.2-creating-elements-i.html",
+      "url": "2.2-creating-elements-i.html",
       "x": 770,
       "y": 1250
     }, {
-      "url": "3.3-creating-elements-ii.html",
+      "url": "2.3-creating-elements-ii.html",
       "x": 1550,
       "y": 1250
     }, {
-      "url": "3.4-glitch-access.html",
+      "url": "2.4-glitch-access.html",
       "x": 2330,
       "y": 450
     }, {
-      "url": "3.5-creating-glitch-i.html",
+      "url": "2.5-creating-glitch-i.html",
       "x": 2730,
       "y": 1250
     }, {
-      "url": "3.6-creating-glitch-ii.html",
+      "url": "2.6-creating-glitch-ii.html",
       "x": 2730,
       "y": 930
     }, {
-      "url": "3.7-creating-glitch-iii.html",
+      "url": "2.7-creating-glitch-iii.html",
       "x": 2730,
       "y": 610
     }, {
-      "url": "3.8-creating-glitch-iv.html",
+      "url": "2.8-creating-glitch-iv.html",
       "x": 2730,
       "y": 290
     }, {
-     "url": "3.9-space-play-ii.html",
+     "url": "2.9-space-play-ii.html",
      "x": 1450,
      "y": 450
     }

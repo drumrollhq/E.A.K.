@@ -4,6 +4,8 @@ require! {
 
 const tile-width = 256
   tile-height = 256
+  blur-amount = 50px
+  blur-passes = 13
 
 module.exports = class BackgroundLayer extends WebglLayer
   initialize: (options) ->
@@ -112,12 +114,13 @@ module.exports = class BackgroundLayer extends WebglLayer
 
     @_blur-filter = new PIXI.BlurFilter!
       ..blur = 0
+      ..passes = blur-passes
     @blurable-container.filters = [@_blur-filter]
     @render!
-    @animate duration, (amt) ~> @_blur-filter.blur = 30 * amt
+    @animate duration, (amt) ~> @_blur-filter.blur = blur-amount * amt
 
   unfocus: (duration) ->
-    @animate duration, (amt) ~> @_blur-filter.blur = 30 * (1 - amt)
+    @animate duration, (amt) ~> @_blur-filter.blur = blur-amount * (1 - amt)
       .then ~>
         @container.mask = null
         @container.visible = false
