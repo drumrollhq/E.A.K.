@@ -16,7 +16,7 @@ module.exports = class ParticleEmitter extends PIXI.Container
     @_emit-timer = 0
     @_pool = []
 
-    @_urls = flatten [options.url]
+    @_urls = flatten [options.url] |> map -> "#{it}?_v=#{EAKVERSION}"
     @_load = Promise.map @_urls, PIXI.load-texture
     @sprite-url = random-picker @_urls
 

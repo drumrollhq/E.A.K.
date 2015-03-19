@@ -11,13 +11,13 @@ require! {
 stylus-conf = {
   use: [nib!]
   define: {}
-  paths: [path.resolve '/app/assets/']
+  paths: [path.resolve './app/assets/']
   'include css': true
 }
 
-if optimized then stylus-conf.define.url = stylus.url!
 
 gulp.task 'stylus' (cb) ->
+  if optimized then stylus-conf.define.url = stylus.url! else stylus-conf.define = {}
   gulp.src src.css
     .pipe gulp-stylus stylus-conf
     .on 'error' -> throw it

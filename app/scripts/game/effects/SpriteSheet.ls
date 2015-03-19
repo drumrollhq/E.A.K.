@@ -74,8 +74,8 @@ module.exports = class SpriteSheet extends PIXI.MovieClip
   _load-frames: (url) ->
     tex = null
     Promise.all [
-      $.get-JSON "#{url}.json"
-      PIXI.load-texture "#{url}.png"
+      $.get-JSON "#{url}.json?_v=#{EAKVERSION}"
+      PIXI.load-texture "#{url}.png?_v=#{EAKVERSION}"
     ] .spread ({frames}, _tex) ->
       tex := _tex
       frames |> obj-to-pairs
