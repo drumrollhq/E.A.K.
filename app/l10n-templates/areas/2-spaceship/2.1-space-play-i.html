@@ -40,5 +40,8 @@
     <div data-actor="portal" style="top: 315px; right: 30px;"></div>
     <img src="/content/2-spaceship/pipe-outside.png" width="120" height="150" style="position: absolute; top: 839px; left: 520px; z-index: 300;" data-ignore>
     <div data-sprite="/content/2-spaceship/control-panel" data-sprite-count="3" data-sprite-size="143x149" data-sprite-pos="456 361" data-layer="background" data-ignore></div>
+    <!-- Hack: these pipes are part of 2.2 and 2.3, but can't got there because those
+      levels need overflow: hidden for the pistons to display correctly -->
+    <img src="/content/2-spaceship/pipes-overlay.png" style="position: absolute; top: 900px; left: 890px; width: 1052px; height: 585px; z-index: 120;" data-ignore>
   </body>
 </html>
