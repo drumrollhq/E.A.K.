@@ -28,7 +28,6 @@ module.exports = class Particles extends Actor
     @emitter = particles.get-emitter @options.effect-name, @options.offset
     @emitter.load! .then ~>
       @options.area-view.layers[@options.layer].add @emitter
-      console.log eak.view
       @frame-sub = channels.post-frame.subscribe ({t}) ~> @step t
 
   step: (t) ->

@@ -88,7 +88,6 @@ module.exports = class Bar extends Backbone.View
     active.activate! if active.activate?
 
   deactivate: (all = true) ->
-    console.log 'deactivate' arguments
     old-view = @get-active-view!
     unless old-view then return
     old-view.off 'close', @deactivate, this

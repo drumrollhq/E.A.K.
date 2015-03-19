@@ -50,7 +50,6 @@ module.exports = class KittenBox extends Actor
   initialize: (options) ->
     super options
     @kitten-id = options.kitten-id
-    console.log {options}
     @area-view = options.area-view
     @render!
     @listen-to this, \contact:start:ENTITY_PLAYER, @touch-player
@@ -76,7 +75,6 @@ module.exports = class KittenBox extends Actor
     unless @_saved then @save-me player
 
   save-me: (player) ->
-    console.log 'save-me', @_saved
     @_saved = true
     if player.deactivated or player.last-fall-dist > player.fall-limit then return
 

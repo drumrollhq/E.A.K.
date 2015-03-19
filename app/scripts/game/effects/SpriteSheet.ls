@@ -68,8 +68,6 @@ module.exports = class SpriteSheet extends PIXI.MovieClip
       .then sort-by ( .id )
       .then @_setup
 
-    @on \add, (layer) ~> console.log \ADD layer
-
   load: ->
     @_texture-promise
 

@@ -8,7 +8,6 @@ module.exports = NiceComments = (cm, beautify = true) ->
 
 # Beautify HTML and extract comments.
 pre-process-HTML = (stream, beautify = true) ->
-  console.log 'pre-process-HTML' {stream, beautify}
   if stream.length <= 1
     return html: stream, comments: []
 

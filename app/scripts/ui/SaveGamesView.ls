@@ -14,7 +14,6 @@ module.exports = class SaveGamesView extends Backbone.View
     @app = app
     # @listen-to @collection, \change, @render
     @_delayed = {}
-    @listen-to @collection, \all, -> console.log.apply console, ['collection event:'].concat arguments
     @listen-to @collection, \remove @remove
     @$cont = @$ \.games
     @render!
@@ -27,7 +26,6 @@ module.exports = class SaveGamesView extends Backbone.View
     @_delayed[ns] = delayed
 
   render: ->
-    console.log @$cont
     {games: @collection.to-json!} |> template |> @$cont.html
 
   game-el: (game) ->
@@ -64,7 +62,6 @@ module.exports = class SaveGamesView extends Backbone.View
   update-name: (game, name) ~>
     game = @collection.get game
     if name is game.get \name then return
-    console.log 'update-name' {game, name}
     $el = @game-el game
     $el.remove-class \saved .add-class \saving
 

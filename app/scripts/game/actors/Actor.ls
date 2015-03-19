@@ -63,7 +63,7 @@ module.exports = class Actor extends Backbone.View
       top: origin.y - @height/2
     }
 
-    @prepare!
+    @prepare true
 
   remove: ~>
     super!

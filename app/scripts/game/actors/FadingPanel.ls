@@ -50,14 +50,12 @@ module.exports = class FadingPanel extends Actor
           @area-view.effects-layer.add @effects
 
   on-prepare: ->
-    console.log \FadingPanel \prepare
     if @background then @_prepare @background
     if @effects then @_prepare @effects
 
   _prepare: (sprite) ->
     sprite.position <<< @bounds.original.{x: left, y: top}
     sprite <<< @bounds.original.{width, height}
-    console.log \display-type @display-type
     sprite.visible = @display-type isnt \show
 
   show: ~>

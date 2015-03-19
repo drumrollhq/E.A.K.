@@ -122,7 +122,6 @@ module.exports = class Camera
       dy = @target-y - @offset-y
       dist = dx * dx + dy * dy
       if dist < 10
-        console.log 'REACHED TARGET'
         sub.unsubscribe!
         @speed = 1
         resolve!
@@ -137,7 +136,6 @@ module.exports = class Camera
       dy = @target-y - @offset-y
       dist = dx * dx + dy * dy
       if dist < 10
-        console.log 'REACHED TARGET'
         sub.unsubscribe!
         @speed = @_normal-speed
         resolve!

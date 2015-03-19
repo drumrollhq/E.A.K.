@@ -34,7 +34,6 @@ module.exports = class LoginView extends SSOView
     Promise.delay 300
       .then ~> user.login username, password
       .then ~>
-        console.log 'loggedIn'
         @$username-field.val ''
         @$password-field.val ''
         @trigger \close

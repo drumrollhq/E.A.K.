@@ -4,7 +4,6 @@ _tx = {}
 
 module.exports = {
   create: (data) ->
-    console.log \CREATE data
     game-id = id \game
     game = {
       id: game-id
@@ -66,9 +65,7 @@ module.exports = {
         stage
 
   find-or-create-levels: (stage, levels) ->
-    console.log \find-or-create-levels, stage, levels
     Promise.map levels, (level) ~> @find-or-create-level stage, level
-      .tap (levels) -> console.log \found-levels levels
 
   find-or-create-level: (stage, level) ->
     @find-one {
@@ -108,12 +105,10 @@ module.exports = {
   save: (data) ->
     key = data.id
     if data.active-stage?.id? then data.active-stage = data.active-stage.id
-    console.log '__SAVE' key, data
     Promise.resolve localforage.set-item key, data
 
   tx: (id, fn) ->
     _tx[id] = Promise.resolve _tx[id]
-      .tap (tx) -> if tx then console.log 'TX AWAIT' id
       .then ~> @get id
       .then fn
       .then (data) ~> @save data

@@ -33,7 +33,7 @@ module.exports = class Player extends Actor
   @FRICTION_IN_AIR = 0.01px
   @JUMP_SPEED = 5.4px
   @MAX_JUMP_FRAMES = 10
-  @FALL_TO_DEATH_LIMIT = 300px
+  @FALL_TO_DEATH_LIMIT = 350px
 
   initialize: (start = {x: 0, y: 0, colour: 'white'}) ->
     actual-width = 33px

@@ -27,7 +27,6 @@ module.exports = class Area
     @view.start stage .then ~>
       @physics-state = physics.prepare @view.build-map!
       @frame-sub = channels.frame.subscribe ({t}) ~> @on-frame t
-      console.log 'ready to go'
 
   save-defaults: -> {
     type: \area
@@ -59,9 +58,7 @@ module.exports = class Area
   hide-editor: ->
     @view.editor-unfocus edit-transition-duration
       .then ~>
-        console.log \state-before @physics-state
         @physics-state = physics.prepare @view.build-map!
-        console.log \state-after @physics-state
         @frame-sub.resume!
 
   load-music: ->

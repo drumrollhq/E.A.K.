@@ -4,11 +4,11 @@ require! {
   'lib/physics/collision'
 }
 
-prepare-one = ->
+prepare-one = (it, reset = false) ->
   unless it.prepared and not it.actor
     it.prepared = true
     obj = it
-    it.prepare = -> prepare-one obj
+    it.prepare = (reset) -> prepare-one obj, reset
     it.destroy = -> obj._destroyed = true
 
     # Save ids:
@@ -24,13 +24,15 @@ prepare-one = ->
     it.ids = ids
 
     # Initialize velocity, position, and jump-frames (used to control height of jump)
-    it.v ?= new Vector 0 0
-    it.last-v ?= it.v
-    it.p ?= new Vector it.{x, y}
-    it.fall-start ?= y
-    it.jump-frames ?= 0
-    it.fall-dist ?= 0
-    it.jump-state ?= \ready
+    set = (name, value) ->
+      it[name] = (reset and value) or (it[name] or value)
+    set \v new Vector 0 0
+    set \lastV it.v
+    set \p new Vector it.{x, y}
+    set \fallStart it.y
+    set \jumpFrames 0
+    set \fallDist 0
+    set \jumpState \ready
 
     # Is this a sensor?
     if it.data?.sensor? then it.sensor = true else it.sensor = false

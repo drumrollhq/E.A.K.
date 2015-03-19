@@ -101,7 +101,6 @@ module.exports = class App
   show-menu: (menu = 'main') ->
     @switch-menu menu
 
-    console.log @current-state
     switch @current-state
     | \init => @trigger-async \init
     | \menusOverlay => @trigger-async \resume
@@ -178,7 +177,6 @@ module.exports = class App
       window.location.hash = '#/menu'
 
   switch-overlay: (name = @_active-overlay) ->
-    console.log "switch overlay #{@_active-overlay} -> #name"
     @_active-overlay = name
     if @overlay-active!
       @bar.activate name
@@ -280,7 +278,6 @@ module.exports = class App
       @_stage.once 'stop-editor' ~> @trigger \editFinished
 
   hide-editor: ->
-    console.log 'hide-editor'
     if @_stage then @_stage.hide-editor!
 
   show-playing: ->

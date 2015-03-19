@@ -18,7 +18,6 @@ module.exports = class MainMenuView extends Backbone.View
     @render!
 
   render: ->
-    console.log \render @collection.length
     switch
     | @collection.length is 0 => @render-no-saves!
     | @collection.length is 1 => @render-one-save!
