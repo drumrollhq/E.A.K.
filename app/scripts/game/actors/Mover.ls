@@ -32,15 +32,19 @@ module.exports = class Mover extends Actor
 
   initialize: (start = {speed: 2, repeat: 'alternate', path: [[0, 0] [100 100]]}) ->
     super start
-    offset-vector = new Vector @offset
+    offset-vector = new Vector 0 0 # @offset
     path = start.path |> map ([x, y]) -> offset-vector .add new Vector x, y
     @path = new Path path, start.repeat is \alternate, start.ease
     @total-time = 0
     @speed = start.speed
+    @$el.css top: 0, left: 0
 
   on-prepare: ->
-    @$el.css left: @offset.x, top: @offset.y
+    @x = @width/2
+    @y = @height/2
 
   step: (dt) ->
     @total-time += dt
     @p <<< @path.at @total-time * @speed .{x, y}
+    @p.x += @offset.x
+    @p.y += @offset.y

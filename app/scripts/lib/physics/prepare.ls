@@ -5,7 +5,7 @@ require! {
 }
 
 prepare-one = ->
-  unless it.prepared
+  unless it.prepared and not it.actor
     it.prepared = true
     obj = it
     it.prepare = -> prepare-one obj
@@ -24,11 +24,13 @@ prepare-one = ->
     it.ids = ids
 
     # Initialize velocity, position, and jump-frames (used to control height of jump)
-    it.v = it.last-v = new Vector 0, 0
-    it.p = new Vector it.{x, y}
-    it.fall-start = y
-    it.jump-frames = it.fall-dist = 0
-    it.jump-state = \ready
+    it.v ?= new Vector 0 0
+    it.last-v ?= it.v
+    it.p ?= new Vector it.{x, y}
+    it.fall-start ?= y
+    it.jump-frames ?= 0
+    it.fall-dist ?= 0
+    it.jump-state ?= \ready
 
     # Is this a sensor?
     if it.data?.sensor? then it.sensor = true else it.sensor = false
