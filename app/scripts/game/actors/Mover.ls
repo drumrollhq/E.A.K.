@@ -35,6 +35,7 @@ module.exports = class Mover extends Actor
     offset-vector = new Vector 0 0 # @offset
     path = start.path |> map ([x, y]) -> offset-vector .add new Vector x, y
     @path = new Path path, start.repeat is \alternate, start.ease
+    @area-view = start.area-view
     @total-time = 0
     @speed = start.speed
     @$el.css top: 0, left: 0

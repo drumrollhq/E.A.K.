@@ -17,10 +17,6 @@ particle-def = {
 }
 
 module.exports = class SpacePlatform extends Mover
-  initialize: (options) ->
-    super options
-    @area-view = options.area-view
-
   load: ->
     @emitters = [
       new ParticleEmitter new Vector!, particle-def
@@ -35,6 +31,6 @@ module.exports = class SpacePlatform extends Mover
   step: (t) ->
     super t
     for emitter, i in @emitters
-      emitter.step t * 16.6
+      emitter.step t
       emitter.emitter.x = @p.x + (i - 1) * 37px
       emitter.emitter.y = @p.y + 10px
