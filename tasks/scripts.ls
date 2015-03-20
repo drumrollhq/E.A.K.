@@ -18,8 +18,8 @@ gulp.task 'scripts' (done) ->
   run-sequence ['livescript' 'workers' 'handlebars'], done
 
 gulp.task 'optimized-scripts' ['scripts'] ->
-  gulp.src ['./public/js/**/*.js', '!**/{worker,app,vendor}.js']
-    .pipe gulp-concat 'app.js'
+  gulp.src ['./public/js/**/*.js', '!**/{worker,eak,vendor}.js']
+    .pipe gulp-concat 'eak.js'
     .pipe gulp-uglify!
     .pipe gulp.dest dest.js
 
