@@ -50,8 +50,10 @@ module.exports = class FadingPanel extends Actor
           @area-view.effects-layer.add @effects
 
   on-prepare: ->
+    if @_already-prepared then return
     if @background then @_prepare @background
     if @effects then @_prepare @effects
+    @_already-prepared = true
 
   _prepare: (sprite) ->
     sprite.position <<< @bounds.original.{x: left, y: top}
