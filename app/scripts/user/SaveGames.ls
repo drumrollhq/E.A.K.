@@ -6,6 +6,10 @@ require! {
 module.exports = class SaveGames extends Backbone.Collection
   model: SaveGame
 
+  initialize: (models, options) ->
+    if options.user
+      console.log 'SAVE GAMES' options.user
+
   latest: -> first @recent!
   recent: (limit = 10, offset = 0) ->
     @models

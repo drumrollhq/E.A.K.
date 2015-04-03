@@ -25,11 +25,11 @@ class User extends Backbone.DeepModel
 
   set-user: (user, logged-in = true) ->
     if user?.status is 'creating' then channels.page.publish name: 'signupNext'
-    @set logged-in: logged-in, user: user
+    @set logged-in: logged-in, user: user, id: user?.id
 
   display-name: ->
     user = @get 'user'
-    if user.username then "@#{user.username}" else user.first-name
+    if user.first-name then user.first-name else "@#{user.username}"
 
   login: (username, password) ->
     api.auth.login username, password
@@ -51,7 +51,7 @@ class User extends Backbone.DeepModel
   recent-games: (limit = 10) ->
     game-store!
       .list {limit}
-      .then (games) ->
-        new SaveGames games
+      .then (games) ~>
+        new SaveGames games, user: this
 
 module.exports = new User!

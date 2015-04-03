@@ -9,6 +9,11 @@ require! {
 global.optimized = argv.o or argv.optimized or argv.optimised or false
 console.log "Optimized?: #optimized"
 
+try
+  global.config = require './config.js'
+catch e
+  global.config = {}
+
 global.eak-version = new Promise (resolve, reject) ->
   tag <- git-rev.tag!
   branch <- git-rev.branch!

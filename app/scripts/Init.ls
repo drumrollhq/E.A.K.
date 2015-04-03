@@ -2,6 +2,7 @@ require! {
   'App'
   'plugins'
   'logger'
+  'zzish'
 }
 
 module.exports = class Init extends Backbone.View
@@ -19,6 +20,9 @@ module.exports = class Init extends Backbone.View
       @$ '.loader' .hide!
       logger.setup lacking
       return
+
+    if EAK_CONFIG.ZZISH
+      zzish.setup EAK_CONFIG.ZZISH
 
     @app = new App!
 

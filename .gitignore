@@ -12,3 +12,4 @@ conf.dev.json
 conf.production.json
 .tmp
 gulp-cache
+config.js
