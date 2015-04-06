@@ -1,0 +1,255 @@
+{"frames": {
+
+"octobaby-blink-0001.png":
+{
+	"frame": {"x":122,"y":1287,"w":69,"h":80},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":25,"w":69,"h":80},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0002.png":
+{
+	"frame": {"x":114,"y":349,"w":191,"h":106},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":191,"h":106},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0003.png":
+{
+	"frame": {"x":113,"y":547,"w":189,"h":108},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":0,"w":189,"h":108},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0004.png":
+{
+	"frame": {"x":2,"y":547,"w":194,"h":109},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":0,"w":194,"h":109},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0005.png":
+{
+	"frame": {"x":2,"y":349,"w":196,"h":110},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":0,"w":196,"h":110},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0006.png":
+{
+	"frame": {"x":2,"y":2,"w":195,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":0,"w":195,"h":112},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0007.png":
+{
+	"frame": {"x":2,"y":116,"w":194,"h":113},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":0,"w":194,"h":113},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0008.png":
+{
+	"frame": {"x":2,"y":743,"w":192,"h":114},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":0,"w":192,"h":114},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0009.png":
+{
+	"frame": {"x":2,"y":231,"w":191,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":0,"w":191,"h":116},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0010.png":
+{
+	"frame": {"x":2,"y":937,"w":189,"h":117},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":0,"w":189,"h":117},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0011.png":
+{
+	"frame": {"x":2,"y":1128,"w":188,"h":118},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":14,"y":0,"w":188,"h":118},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0012.png":
+{
+	"frame": {"x":2,"y":1318,"w":188,"h":118},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":14,"y":0,"w":188,"h":118},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0013.png":
+{
+	"frame": {"x":2,"y":1508,"w":188,"h":118},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":14,"y":0,"w":188,"h":118},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0014.png":
+{
+	"frame": {"x":118,"y":738,"w":184,"h":118},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":14,"y":0,"w":184,"h":118},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0015.png":
+{
+	"frame": {"x":122,"y":1106,"w":179,"h":117},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":0,"w":179,"h":117},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0016.png":
+{
+	"frame": {"x":121,"y":924,"w":180,"h":116},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":12,"y":0,"w":180,"h":116},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0017.png":
+{
+	"frame": {"x":122,"y":1627,"w":58,"h":87},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":28,"w":58,"h":87},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0018.png":
+{
+	"frame": {"x":195,"y":231,"w":59,"h":87},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":27,"w":59,"h":87},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0019.png":
+{
+	"frame": {"x":122,"y":1539,"w":60,"h":86},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":27,"w":60,"h":86},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0020.png":
+{
+	"frame": {"x":193,"y":1287,"w":61,"h":85},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":27,"w":61,"h":85},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0021.png":
+{
+	"frame": {"x":191,"y":1374,"w":63,"h":85},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":26,"w":63,"h":85},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0022.png":
+{
+	"frame": {"x":122,"y":1453,"w":64,"h":84},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":26,"w":64,"h":84},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0023.png":
+{
+	"frame": {"x":182,"y":1628,"w":65,"h":83},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":26,"w":65,"h":83},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0024.png":
+{
+	"frame": {"x":188,"y":1461,"w":66,"h":82},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":26,"w":66,"h":82},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0025.png":
+{
+	"frame": {"x":122,"y":1369,"w":67,"h":82},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":25,"w":67,"h":82},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0026.png":
+{
+	"frame": {"x":184,"y":1545,"w":68,"h":81},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":25,"w":68,"h":81},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"octobaby-blink-0027.png":
+{
+	"frame": {"x":122,"y":1287,"w":69,"h":80},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":25,"w":69,"h":80},
+	"sourceSize": {"w":202,"h":118},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "octobaby-blink.png",
+	"format": "RGBA8888",
+	"size": {"w":256,"h":1716},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:51d44f1f8f3deff78a2edb7423ba7ddc:ad48f6358c50b5548303ed4c42b8e9c9:14428a0a2843fe4761a19512fc5fcc4d$"
+}
+}

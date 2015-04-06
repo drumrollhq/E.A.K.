@@ -29,10 +29,12 @@ module.exports = class ParticleEmitter extends PIXI.Container
       @initial-scale = random-range options.scale
       delete options.scale
 
-    if options.v-x then @initial-v-x = random-range options.v-x
-    if options.v-y then @initial-v-y = random-range options.v-y
-    if options.a-x then @initial-a-x = random-range options.a-x
-    if options.a-y then @initial-a-y = random-range options.a-y
+    if options.v-x? then @initial-v-x = random-range options.v-x
+    if options.v-y? then @initial-v-y = random-range options.v-y
+    if options.v-r? then @initial-v-r = random-range options.v-r
+    if options.a-x? then @initial-a-x = random-range options.a-x
+    if options.a-y? then @initial-a-y = random-range options.a-y
+    if options.blend-mode? then @blend-mode = options.blend-mode
 
   step: (dt) ->
     @_emit-timer += dt * 16.6
@@ -48,7 +50,7 @@ module.exports = class ParticleEmitter extends PIXI.Container
       particle = this.children[i]
       i++
 
-      {age, lifetime, v-x, v-y, a-x, a-y} = particle
+      {age, lifetime, v-r, v-x, v-y, a-x, a-y} = particle
       if age > lifetime
         @kill particle
         len--
@@ -61,6 +63,7 @@ module.exports = class ParticleEmitter extends PIXI.Container
       if alpha then particle.alpha = alpha age, lifetime, particle
       if v-x then particle.position.x += v-x * dt
       if v-y then particle.position.y += v-y * dt
+      if v-r then particle.rotation += v-r * dt
       if a-x then particle.v-x += a-x * dt
       if a-y then particle.v-y += a-y * dt
       particle.age += dt * 16.6
@@ -71,6 +74,7 @@ module.exports = class ParticleEmitter extends PIXI.Container
     else
       new PIXI.Sprite.from-image @sprite-url!
 
+    particle.blend-mode = this.blend-mode if this.blend-mode?
     particle.age = 0
     particle.lifetime = @particle-lifetime!
     particle.x = particle.start-x = @emitter.x
@@ -79,6 +83,7 @@ module.exports = class ParticleEmitter extends PIXI.Container
     particle.anchor.y = 0.5
     particle.v-x = @initial-v-x! if @initial-v-x
     particle.v-y = @initial-v-y! if @initial-v-y
+    particle.v-r = @initial-v-r! if @initial-v-r
     particle.a-x = @initial-a-x! if @initial-a-x
     particle.a-y = @initial-a-y! if @initial-a-y
     particle.scale.x = particle.scale.y = @initial-scale! if @initial-scale

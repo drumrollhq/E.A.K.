@@ -6,7 +6,7 @@ require! {
 }
 
 module.exports = class Particles extends Actor
-  @from-el = (el, [effect-name], offset, save-level, area-view) ->
+  @from-el = (el, [effect-name, x, y], offset, save-level, area-view) ->
     layer = el.attr \data-layer or \effects
     new Particles {
       effect-name
@@ -14,6 +14,9 @@ module.exports = class Particles extends Actor
       offset
       area-view
       layer
+      position:
+        x: parse-float x
+        y: parse-float y
       store: save-level
     }
 
@@ -29,7 +32,7 @@ module.exports = class Particles extends Actor
     @emitter.load! .then ~>
       @options.area-view.layers[@options.layer].add @emitter
       @frame-sub = channels.post-frame.subscribe ({t}) ~> @step t
+      @emitter.emitter = new Vector @options.position .add @options.offset
 
   step: (t) ->
-    if eak.view.player?.p? then @emitter.emitter = eak.view.player.p
     @emitter.step t

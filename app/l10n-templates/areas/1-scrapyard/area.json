@@ -28,6 +28,17 @@
       "x": 4480,
       "y": 475
     }
+  ],
+  "commonAssets": [
+    "content/1-spaceship/**/*.*",
+    "content/bg-tiles/1-scrapyard.*.png"
+  ],
+  "l10nAssets": [
+    "areas/1-scrapyard/*.html"
+  ],
+  "audio": [
+    "audio/music/forest",
+    "audio/music/forest-glitch"
   ]
 }
 
