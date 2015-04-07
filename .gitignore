@@ -13,3 +13,4 @@ conf.production.json
 .tmp
 gulp-cache
 config.js
+*.swp
