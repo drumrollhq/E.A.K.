@@ -5,14 +5,15 @@ require! {
 defs = {
   fire: {
     url: '/content/particles/orange-triangle.png'
-    rate: 60
-    lifetime: 10000
+    rate: 1
+    lifetime: 9000
     alpha: (age, lifetime) ->
+      midpoint = 0.2
       d = age / lifetime
-      0.6 * if d < 0.1
-        d / 0.1
+      if d < midpoint
+        Math.sin (Math.PI/2) * (d/midpoint)
       else
-        1 - (d - 0.1) / 0.9
+        Math.sin ((d + 1 - midpoint*2) / (1 - midpoint)) * Math.PI / 2
 
     scale: (age, lifetime) ->
       0.3 * Math.sin (age/lifetime) * Math.PI
