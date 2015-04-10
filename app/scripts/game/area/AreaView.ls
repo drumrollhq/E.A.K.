@@ -1,6 +1,7 @@
 require! {
   'game/actors/Player'
   'game/area/AreaLevel'
+  'game/scene/AreaOverlay'
   'game/scene/BackgroundLayer'
   'game/scene/Camera'
   'game/scene/DomLayer'
@@ -26,6 +27,10 @@ module.exports = class AreaView extends Backbone.View
     @scene = new Scene @conf.{width, height}, @camera
     @scene.add-layers @background-layer, @levels-layer, @effects-layer
 
+    if @conf.overlay
+      @overlay = new AreaOverlay @conf.name, @conf.overlay, @conf.width, @conf.height
+      @effects-layer.add @overlay, 5, true
+
     @window-sub = channels.window-size.subscribe ({width, height}) ~> @scene.set-viewport-size width, height
     @scene.set-viewport-size channels.window-size.value.width, channels.window-size.value.height
 
@@ -34,6 +39,7 @@ module.exports = class AreaView extends Backbone.View
     Promise.all [
       @_load-levels!
       @background-layer.load!
+      if @overlay then @overlay.load!
     ]
 
   _load-levels: ->

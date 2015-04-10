@@ -11,18 +11,23 @@ module.exports = class WebglLayer extends Layer
     @_stage = new PIXI.Container!
     @stage = new PIXI.Container!
     @_stage.add-child @stage
+    @_layers = [new PIXI.Container! for i to 6]
+    for layer in @_layers => @stage.add-child layer
+    @_needs-viewport = []
     @renderer = new PIXI.WebGLRenderer @_viewport-width, @_viewport-height, {
       view: @el
       transparent: true
       resolution: 1
     }
 
-  add: (object) ->
+  add: (object, at = 3, needs-viewport = false) ->
     super object, x: 0, y: 0
-    @stage.add-child object
+    @_layers[at].add-child object
+    if needs-viewport then @_needs-viewport[*] = object
 
   render: ->
-    @renderer.render @stage
+    for obj in @_needs-viewport => obj.set-viewport @left, @top, @width, @bottom
+    @renderer.render @_stage
 
   set-viewport: (x, y, width, height) ->
     if @_viewport-width isnt width or @_viewport-height isnt height
