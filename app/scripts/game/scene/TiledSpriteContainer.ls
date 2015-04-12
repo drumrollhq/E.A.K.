@@ -37,7 +37,6 @@ module.exports = class TiledSpriteContainer extends PIXI.Container
 
   # Add sprites extending the edge-pixel of the background image
   add-edge-sprites: (grid) ->
-    console.log 'add-edge-sprites' grid
     width = grid.length
     height = grid.0.length
     tl-corner = @edge-sprite grid.0.0, 0, 0, 1, 1, \l \t

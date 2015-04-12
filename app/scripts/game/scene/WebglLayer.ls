@@ -26,7 +26,7 @@ module.exports = class WebglLayer extends Layer
     if needs-viewport then @_needs-viewport[*] = object
 
   render: ->
-    for obj in @_needs-viewport => obj.set-viewport @left, @top, @width, @bottom
+    for obj in @_needs-viewport => obj.set-viewport @left, @top, @right, @bottom
     @renderer.render @_stage
 
   set-viewport: (x, y, width, height) ->
