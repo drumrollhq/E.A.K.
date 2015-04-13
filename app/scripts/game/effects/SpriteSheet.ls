@@ -9,7 +9,7 @@ split-texture = (texture, frames) ->
     rect = new PIXI.math.Rectangle width * i, 0, width, texture.height
     new PIXI.Texture texture, rect
 
-module.exports = class SpriteSheet extends PIXI.MovieClip
+module.exports = class SpriteSheet extends PIXI.extras.MovieClip
   @from-el = (el, offset-x, offset-y) ->
     $el = $ el
     url = $el.attr \data-sprite
@@ -99,7 +99,7 @@ module.exports = class SpriteSheet extends PIXI.MovieClip
 
 
   _setup: (textures) ~>
-    PIXI.MovieClip.call this, textures
+    PIXI.extras.MovieClip.call this, textures
     @_texture = textures[0]
     delete @on-complete # pixi sets on-complete to null
     @children = []
