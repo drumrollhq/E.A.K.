@@ -1,4 +1,5 @@
 require! {
+  'lib/channels'
   'lib/parse'
 }
 
@@ -97,7 +98,6 @@ module.exports = class SpriteSheet extends PIXI.extras.MovieClip
       texture.id = id
       texture
 
-
   _setup: (textures) ~>
     PIXI.extras.MovieClip.call this, textures
     @_texture = textures[0]
@@ -114,6 +114,8 @@ module.exports = class SpriteSheet extends PIXI.extras.MovieClip
       @goto-and-play @options.start-frame
     else @goto-and-stop @options.start-frame
 
+    @_sub = channels.frame.subscribe ({t}) ~> @update t / 16.666
+
   on-complete: ->
     @_loop-count++
     unless @options.loop-times > 0 and @_loop-count >= @options.loop-times
@@ -124,3 +126,17 @@ module.exports = class SpriteSheet extends PIXI.extras.MovieClip
     if typeof delay is \number then return Promise.delay delay * 1000
     [min, max] = delay
     return Promise.delay (min + Math.random! * (max - min)) * 1000
+
+  update: (dt) ->
+    unless @playing then return
+    console.log dt
+    super dt
+
+  stop: ->
+    @playing = false
+
+  play: ->
+    @playing = true
+
+  remove: ->
+    @_sub.unsubscribe!

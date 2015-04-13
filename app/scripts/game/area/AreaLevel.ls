@@ -60,10 +60,12 @@ module.exports = class AreaLevel extends Backbone.View
     Promise.all @actors.map ( .load! )
 
   setup-sprite-sheets: ->
-    Promise.map (@$ '[data-sprite]').to-array!, (el) ~>
-      sprite = SpriteSheet.from-el el, @conf.x, @conf.y
-      layer = $ el .attr \data-layer or \effects
-      sprite.load! .then -> [sprite, layer]
+    Promise
+      .map (@$ '[data-sprite]').to-array!, (el) ~>
+        sprite = SpriteSheet.from-el el, @conf.x, @conf.y
+        layer = $ el .attr \data-layer or \effects
+        sprite.load! .then -> [sprite, layer]
+      .tap (sprites) ~> @sprites = sprites
 
   render: ->
     @$el.css {
@@ -75,6 +77,7 @@ module.exports = class AreaLevel extends Backbone.View
 
   remove: ->
     @hint-controller?.destroy!
+    for sprite in @sprites => @sprite.remove!
     # @tutorial?.remove!
     super!
 

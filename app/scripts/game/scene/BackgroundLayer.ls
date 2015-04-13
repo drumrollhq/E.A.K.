@@ -36,7 +36,7 @@ module.exports = class BackgroundLayer extends WebglLayer
     @container.mask = @_focus-mask
     @container.visible = true
 
-    @_blur-filter = new PIXI.BlurFilter!
+    @_blur-filter = new PIXI.filters.BlurFilter!
       ..blur = 0
       ..passes = blur-passes
     @blurable-container.filters = [@_blur-filter]
