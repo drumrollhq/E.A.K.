@@ -129,7 +129,6 @@ module.exports = class SpriteSheet extends PIXI.extras.MovieClip
 
   update: (dt) ->
     unless @playing then return
-    console.log dt
     super dt
 
   stop: ->

@@ -27,8 +27,7 @@
     "moment": "~2.9.0",
     "lodash": "~3.3.1",
     "backbone-deep-model": "https://github.com/kahwee/backbone-deep-model.git#~1.0.0",
-    "pixi": "3.0.0-rc2",
-    "pixi.js": "v3.0.0-rc4"
+    "pixi": "v3.0.0-rc4"
   },
   "overrides": {
     "underscore": {
@@ -97,8 +96,5 @@
     "pixi": {
       "main": "bin/pixi.js"
     }
-  },
-  "resolutions": {
-    "pixi.js": "v3.0.0-rc4"
   }
 }
