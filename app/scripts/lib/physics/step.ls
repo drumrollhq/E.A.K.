@@ -70,14 +70,18 @@ module.exports = step = (state, t) ->
   # Get the useful stuff out of the state:
   {nodes, dynamics} = state
 
-  # Find a list of indexes of bodies destroyed between this frame and the last
-  destroyed = [i for node, i in nodes when node._destroyed]
-
-  # Remove the destroyed indexes
-  for i in destroyed => nodes.splice i, 1
+  # Remove stuff destroyed between this frame and the last
+  i = 0
+  has-destroyed = false
+  while i < nodes.length
+    if nodes[i]._destroyed
+      has-destroyed = true
+      nodes.splice i, 1
+    else
+      i++
 
   # If we had to remove stuff, regenerate the list of dynamics
-  if destroyed.length > 0
+  if has-destroyed
     dynamics = nodes |> filter -> it.data?.dynamic or (it.actor and it.is-dynamic!)
 
   # Keep track of the time-deltas between each iteration. We use a moving average to
