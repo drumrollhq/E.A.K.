@@ -1,4 +1,5 @@
 require! {
+  'ui/templates/login': template
   'api'
   'user'
   'ui/SSOView'
@@ -7,6 +8,7 @@ require! {
 module.exports = class LoginView extends SSOView
   initialize: ->
     super!
+    @render!
 
     @$username-field = @$ '.sign-in .username'
     @$password-field = @$ '.sign-in .password'
@@ -16,6 +18,9 @@ module.exports = class LoginView extends SSOView
     'click .sso': 'ssoButtonClick'
     'click .sign-up': 'signup'
     'submit': 'submit'
+
+  render: ->
+    @$el.html template!
 
   with-google: -> @sso 'google'
   with-facebook: -> @sso 'facebook'

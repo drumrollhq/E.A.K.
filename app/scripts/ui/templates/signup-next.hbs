@@ -1,0 +1,70 @@
+<div id="signup-next">
+  <div class="cont-wide">
+    <h2>Sign Up</h2>
+    <form>
+      <h3>Surprise! Have some more bits to fill out:</h3>
+      <div class="form-errors hidden">
+        Ugh. There's some crazy sign-up form drama going on right now:
+        <ul class="list"></ul>
+      </div>
+      <div class="two-up">
+        <div class="two-up-col">
+          <div class="username">
+            <label class="text-field text-field-plain">
+              <span>Pick a username:</span>
+              <input type="text" name="username">
+            </label>
+            <span>Or, pick one of these:</span>
+            <ul class="button-list button-list-little">
+              <li><button type="button" class="btn username-cont"></button></li>
+              <li><button type="button" class="btn username-cont"></button></li>
+              <li><button type="button" class="btn username-cont"></button></li>
+              <li><button type="button" class="btn username-more">Get more...</button></li>
+            </ul>
+          </div>
+          <div class="password clear">
+            <label class="text-field text-field-plain pw-initial">
+              <span>Choose a password:</span>
+              <input type="password" name="password">
+            </label>
+            <label class="text-field text-field-plain pw-confirm">
+              <span>Confirm the password. I dare you.</span>
+              <input type="password" name="passwordConfirm">
+            </label>
+          </div>
+        </div>
+        <div class="two-up-col">
+          <label class="text-field email text-field-plain">
+            <span class="for-adult">Please enter your email:</span>
+            <span class="for-child">Please enter your parent's email:</span>
+            <input type="text" name="email">
+            <span class="sub for-adult">We won't send you spam, or share your email with anyone else :)</span>
+            <span class="sub for-child">We won't send them spam, or share thier email with anyone else :)</span>
+          </label>
+          <div class="radio-group gender radio-group-plain">
+            <span>Genders! Yay! Any of these you?</span>
+            <div class="radio-group-radios">
+              <input id="gender-male" type="radio" name="gender" value="male">
+              <label for="gender-male">Boy</label>
+              <input id="gender-female" type="radio" name="gender" value="female">
+              <label for="gender-female">Girl</label>
+              <input id="gender-nope" type="radio" name="gender" value="nope">
+              <label for="gender-nope">Nope</label>
+            </div>
+          </div>
+          <div class="radio-group radio-group-plain subscribe">
+            <span>Would you like to recieve infrequent updates about E.A.K?</span>
+            <div class="radio-group-radios">
+              <input id="sub-yes" type="radio" name="subscribedNewsletter" value="true">
+              <label for="sub-yes">Yes</label>
+              <input id="sub-no" type="radio" name="subscribedNewsletter" value="false">
+              <label for="sub-no">No</label>
+            </div>
+          </div>
+
+          <button class="btn btn-block btn-finish">Finish</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

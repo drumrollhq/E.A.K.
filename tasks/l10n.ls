@@ -87,7 +87,11 @@ function get-locale-data lang, file
   data = _locale-cache{}[lang]{}[file]
 
   default-data = _locale-cache[default-lang][file]
-  merge data, default-data, defaults
+  d = merge data, default-data, defaults
+  unless file is \app
+    d.app-translations = JSON.stringify get-locale-data lang, \app
+
+  d
 
 function set-path obj, path, val
   switch

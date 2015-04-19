@@ -1,4 +1,5 @@
 require! {
+  'ui/templates/settings': template
   'lib/channels'
   'game/event-loop'
   'logger'
@@ -9,6 +10,7 @@ $body = $ document.body
 
 module.exports = class SettingsView extends Backbone.View
   initialize: ->
+    @$el.html template!
     @model.on 'change:lang' @render
     @$lang-buttons = @$ '.lang'
 

@@ -2,11 +2,13 @@ require! {
   'lib/parse'
   'user'
   'ui/SSOView'
+  'ui/templates/signup': template
 }
 
 module.exports = class SignUpView extends SSOView
   initialize: ->
     super!
+    @$el.html template!
     @$form = @$ 'form'
     @$first-name = @$ '.first-name'
     @$over-thirteen = @$ '.over-thirteen'

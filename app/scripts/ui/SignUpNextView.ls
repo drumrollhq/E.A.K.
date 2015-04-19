@@ -2,10 +2,12 @@ require! {
   'api'
   'lib/parse'
   'user'
+  'ui/templates/signup-next': template
 }
 
 module.exports = class SignUpNextView extends Backbone.View
   initialize: ->
+    @$el.html template!
     @$for-adult = @$ '.for-adult'
     @$for-child = @$ '.for-child'
     @$form = @$ 'form'
