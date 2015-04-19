@@ -34,8 +34,8 @@ module.exports = class FadingPanel extends Actor
     @area-view = options.area-view
     delete @layers.background unless @layers.background
     delete @layers.effects unless @layers.effects
-    @listen-to this, \contact:start:ENTITY_PLAYER, if @display-type is \show then @show else @hide
-    @listen-to this, \contact:end:ENTITY_PLAYER, if @display-type is \show then @hide else @show
+    @listen-to this, \contact:start:PLAYER, if @display-type is \show then @show else @hide
+    @listen-to this, \contact:end:PLAYER, if @display-type is \show then @hide else @show
     @_last-anim = Promise.resolve!
 
   load: ->

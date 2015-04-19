@@ -49,7 +49,6 @@ module.exports = class Player extends Actor
       height: @el.height
       data:
         player: true
-        id: 'ENTITY_PLAYER'
         dynamic: true
         use-gravity: true
     }

@@ -27,6 +27,12 @@ module.exports = class AreaLevel extends Backbone.View
     @mapper = new Mapper @el
 
   load: ~>
+    Promise.all [
+      @_load-html!
+      @_load-js!
+    ]
+
+  _load-html: ~>
     (Promise.resolve $.ajax "#{@prefix}/areas/#{@level.url}?_v=#{EAKVERSION}")
       .then (src) ~>
         [err, $level] = parse-src src, @level
@@ -40,6 +46,15 @@ module.exports = class AreaLevel extends Backbone.View
           @tutorial = new Tutorial conf.tutorial
 
         this
+
+  _load-js: ~>
+    if @level.js and typeof @level.js is \boolean then @level.js = @level.url.replace /\.\w+$/, '.js'
+    if @level.js
+      Promise.resolve($.ajax "#{@prefix}/areas/#{@level.js}?_v=#{EAKVERSION}", data-type: \text)
+        .then (src) ~>
+          @js = new Function \game \area \level \levels, src
+    else
+      Promise.resolve false
 
   setup: (stage, @area-view) ~>
     @stage-store = stage
@@ -58,6 +73,10 @@ module.exports = class AreaLevel extends Backbone.View
     @set-HTML-CSS html, @conf.css
     @add-actors!
     Promise.all @actors.map ( .load! )
+
+  run-js: (area, view) ->
+    unless @js then return
+    @js window.eak, area, this, view.find-level, view
 
   setup-sprite-sheets: ->
     Promise
@@ -219,6 +238,12 @@ module.exports = class AreaLevel extends Backbone.View
 
   contains: (x, y) ->
     @conf.x < x < @conf.x + @conf.width and @conf.y < y < @conf.y + @conf.height
+
+  find: (selector) ->
+    first @find-all selector
+
+  find-all: (selector) ->
+    @map.filter ({ids}) -> selector in ids
 
 parse-src = (src, level) ->
   parsed = html.to-dom src

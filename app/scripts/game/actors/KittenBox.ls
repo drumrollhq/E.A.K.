@@ -52,7 +52,7 @@ module.exports = class KittenBox extends Actor
     @kitten-id = options.kitten-id
     @area-view = options.area-view
     @render!
-    @listen-to this, \contact:start:ENTITY_PLAYER, @touch-player
+    @listen-to this, \contact:start:PLAYER, @touch-player
 
   render: ->
     @$el

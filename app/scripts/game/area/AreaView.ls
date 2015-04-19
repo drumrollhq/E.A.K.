@@ -14,7 +14,7 @@ require! {
 const pad = 30px
 
 module.exports = class AreaView extends Backbone.View
-  initialize: ({@conf, @options, @prefix}) ->
+  initialize: ({@conf, @options, @prefix, @area}) ->
     @levels = @conf.levels.map (level) ~> new AreaLevel {level, @prefix}
 
     @camera = new Camera @conf.{width, height}, 0.1, 250
@@ -55,6 +55,7 @@ module.exports = class AreaView extends Backbone.View
         @add-player!
         @$el.append @scene.el
         @setup-sprite-sheets!
+      .then ~> for level in @levels => level.run-js @area, this
       .then ~> @$el.add-class \active
 
   setup-sprite-sheets: ->
@@ -205,3 +206,7 @@ module.exports = class AreaView extends Backbone.View
     @scene.set-viewport-size width, height
     @camera.set-viewport width, height
     @scene.step!
+
+  find-level: (str) ->
+    for level in @levels when level.level.url.index-of str isnt -1
+      return level

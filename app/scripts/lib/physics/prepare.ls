@@ -15,6 +15,8 @@ prepare-one = (it, reset = false) ->
     ids = ['*']
     if it.id then ids[*] = that
     if it.data?.id then ids[*] = that
+    if it.ids then ids = ids.concat it.ids
+    if it.data?.ids then ids = ids.concat it.data.ids
 
     if it.el?
       if it.el.id then ids[*] = '#' + that

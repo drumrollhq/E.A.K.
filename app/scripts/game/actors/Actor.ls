@@ -34,7 +34,7 @@ module.exports = class Actor extends Backbone.View
       data: {}
     } <<< (@physics or {})
 
-    @data.id = "ENTITY_#{@actor-type!to-upper-case!}"
+    @data.ids = ['ACTOR' @actor-type!to-upper-case!]
     @data.actor = @actor = true
 
   load: -> Promise.resolve!

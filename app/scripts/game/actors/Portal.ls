@@ -23,8 +23,8 @@ module.exports = class Portal extends Actor
     @href = options.href
     @down-sub = channels.parse 'key-down: j, s, down' .subscribe @go
     @down-sub.pause!
-    @listen-to this, \contact:start:ENTITY_PLAYER, ~> @down-sub.resume!
-    @listen-to this, \contact:end:ENTITY_PLAYER, ~> @down-sub.pause!
+    @listen-to this, \contact:start:PLAYER, ~> @down-sub.resume!
+    @listen-to this, \contact:end:PLAYER, ~> @down-sub.pause!
 
   go: ~>
     channels.stage.publish url: @href

@@ -5,6 +5,7 @@
   "levels": [
     {
       "url": "2.1-space-play-i.html",
+      "js": true,
       "x": 250,
       "y": 350
     }, {

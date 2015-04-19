@@ -20,7 +20,7 @@ module.exports = class Exit extends Actor
   initialize: (options) ->
     super options
     @href = options.href
-    @listen-to this, \contact:start:ENTITY_PLAYER, @go
+    @listen-to this, \contact:start:PLAYER, @go
 
   go: ->
     channels.stage.publish url: @href

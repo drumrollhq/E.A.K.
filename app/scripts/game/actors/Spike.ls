@@ -23,7 +23,7 @@ module.exports = class Spike extends Actor
     super options
     this <<< options.{style, direction}
     @render!
-    @listen-to this, \contact:start:ENTITY_PLAYER, @kill
+    @listen-to this, \contact:start:PLAYER, @kill
 
   render: ->
     @$el.add-class "spike #{@style}-#{@direction}"
