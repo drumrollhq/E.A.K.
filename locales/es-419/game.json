@@ -1,4 +1,8 @@
 {
+    "app/loader.messages.13": {
+        "message": "Loading more loading messages...",
+        "description": "loading message"
+    },
     "play/index.html/main-menu.about": {
         "message": "Acerca de",
         "description": "button on the main menu"
@@ -7,25 +11,29 @@
         "message": "¡Lo siento!",
         "description": "This is the heading for a notice that tells users on older browsers that they can't run the game"
     },
-    "play/index.html/loader.v": {
-        "message": "Haggling over the price of kittens...",
-        "description": "loading message"
-    },
     "data/errors.all.html/slowparse.close-tag-for-void-element": {
         "message": "DRAMA: <code>&lt;{{closeTag.name}}&gt;</code> tags don't have closing tags, so this <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> isn't needed.",
         "description": "HTML/CSS error"
+    },
+    "app/errors.music-not-found": {
+        "message": "Oh no! We couldn't load the music!",
+        "description": "error message"
+    },
+    "app/errors.code-errors": {
+        "message": "There are errors in your code! Fix them before saving.",
+        "description": "error message"
     },
     "data/errors.all.html/slowparse.unterminated-close-tag": {
         "message": " Oh, what!? You need to add a <code>&gt;</code> to this closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag.",
         "description": "HTML/CSS error"
     },
-    "play/index.html/loader.j": {
-        "message": "Taking the Ring to Mordor...",
-        "description": "loading message"
-    },
     "data/errors.all.html/slowparse.unterminated-comment": {
         "message": "This comment should end with a <code>--&gt;</code>.",
         "description": "HTML/CSS error"
+    },
+    "app/loader.messages.21": {
+        "message": "Haggling over the price of kittens...",
+        "description": "loading message"
     },
     "play/index.html/main-menu.new-game": {
         "message": "Nuevo juego",
@@ -39,17 +47,9 @@
         "message": "Something's gone terribly wrong. You probably don't know what, and neither do we, but we found this at the scene of the crime: <code data-highlight=\"{{error.start}},{{error.end}}\">{{error.msg}}</code>.",
         "description": "HTML/CSS error"
     },
-    "play/index.html/settings.music": {
-        "message": "Music Volume",
-        "description": "Music setting"
-    },
-    "play/index.html/cutscene.error": {
-        "message": "¡Oh no! Esta escena no pudo ser cargada...",
+    "app/cutscene.error": {
+        "message": "Oh no! We couldn't load that cutscene...",
         "description": "Cutscene didn't load"
-    },
-    "play/index.html/settings.effects": {
-        "message": "Sound Effects Volume",
-        "description": "Music setting"
     },
     "data/errors.all.html/slowparse.html-code-in-css-block": {
         "message": "EWWWW!!! You've got HTML in your CSS! It doesn't belong there...",
@@ -58,6 +58,10 @@
     "play/index.html/menu.cancel": {
         "message": "Cancelar",
         "description": "Button on the bar at the top of the screen during levels. Closes the edit view, discarding the code the user entered"
+    },
+    "app/loader.messages.20": {
+        "message": "8 minutes of battery life remaining...",
+        "description": "loading message"
     },
     "data/errors.all.html/slowparse.unterminated-open-tag": {
         "message": "FYI, you need to add a <code>&gt;</code> to the end of this opening <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;/{{openTag.name}}&gt;</code> tag.",
@@ -75,21 +79,17 @@
         "message": "Cargando...",
         "description": ""
     },
-    "play/index.html/errors.sound-not-found": {
+    "app/errors.sound-not-found": {
         "message": "Oh no! We couldn't load the sound!",
         "description": "error message"
     },
-    "play/index.html/errors.music-not-found": {
-        "message": "Oh no! We couldn't load the music!",
-        "description": "error message"
+    "app/loader.messages.19": {
+        "message": "Kitten gifs intercepted by the NSA...",
+        "description": "loading message"
     },
     "play/index.html/about.instructions": {
         "message": "Usa las teclas <kbd>A</kbd> y <kbd>D</kbd> o <kbd>&larr;</kbd> y <kbd>&rarr;</kbd> para moverte a la izquiera y derecha. Usa <kbd>W</kbd>, <kbd>espacio</kbd>, o <kbd>&uarr;</kbd> para brincar.",
         "description": "brief instructions on the 'about' page"
-    },
-    "play/index.html/loader.a": {
-        "message": "Still loading kitten gifs...",
-        "description": "loading message"
     },
     "data/errors.all.html/slowparse.missing-css-value": {
         "message": "You need to add a value after <code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}:</code>!",
@@ -111,12 +111,8 @@
         "message": "Editar",
         "description": "Button on the bar at the top of the screen during levels. Opens up the edit view."
     },
-    "play/index.html/loader.m": {
-        "message": "Oooh! Yarn!",
-        "description": "loading message"
-    },
-    "play/index.html/loader.u": {
-        "message": "8 minutes of battery life remaining...",
+    "app/loader.messages.16": {
+        "message": "Capturing panda-sneezes...",
         "description": "loading message"
     },
     "play/index.html/menu.redo": {
@@ -131,101 +127,77 @@
         "message": "Erase All Kittens (Elimina a Todos los Gatitos) es una plataforma de juego con una diferencia: Los niveles del juego están escritos en HTML y CSS, y la única manera de avanzar es usando tus habilidades de programación para \"hackear\" el nivel siguiente.",
         "description": "a short description of the game"
     },
-    "play/index.html/settings.language-warn": {
-        "message": "If you change language, you'll lose any progress you made on your current level. Are you sure you want to continue?",
-        "description": "Language change warning in settings page"
-    },
-    "play/index.html/loader.h": {
-        "message": "Unloading kittens from the lorry...",
+    "app/loader.start": {
+        "message": "Loading kitten gifs...",
         "description": "loading message"
     },
-    "play/index.html/loader.q": {
-        "message": "Capturing panda-sneezes...",
+    "app/loader.messages.3": {
+        "message": "Are you having a nice day?",
         "description": "loading message"
     },
-    "play/index.html/loader.r": {
-        "message": "Time for a cup of tea...",
+    "app/loader.messages.18": {
+        "message": "Would you like a biscuit?",
         "description": "loading message"
-    },
-    "play/index.html/loader.f": {
-        "message": "...",
-        "description": "loading message"
-    },
-    "play/index.html/errors.code-errors": {
-        "message": "There are errors in your code! Fix them before saving.",
-        "description": "error message"
     },
     "play/index.html/menu.undo": {
         "message": "Deshacer",
         "description": "Undo button for the code editor"
     },
-    "play/index.html/cutscene.continue": {
-        "message": "Continuar",
-        "description": "Continue after the cutscene"
-    },
-    "play/index.html/loader.i": {
-        "message": "Fighting off malicious smileys...",
+    "app/loader.messages.9": {
+        "message": "Taking the Ring to Mordor...",
         "description": "loading message"
     },
-    "play/index.html/loader.g": {
-        "message": "*yawns*",
-        "description": "loading message"
+    "app/settings.effects": {
+        "message": "Sound Effects Volume",
+        "description": "Music setting"
     },
-    "play/index.html/loader.c": {
-        "message": "So many kittens to load...",
-        "description": "loading message"
+    "app/settings.music": {
+        "message": "Music Volume",
+        "description": "Music setting"
     },
-    "play/index.html/loader.e": {
-        "message": "KITTENS KITTENS KITTENS KITTENS",
-        "description": "loading message"
-    },
-    "play/index.html/errors.load-sprite": {
-        "message": "Oh no! We couldn't load the animations!",
-        "description": "error message"
-    },
-    "play/index.html/loader.k": {
-        "message": "Inventing kittens...",
-        "description": "loading message"
-    },
-    "play/index.html/loader.start": {
-        "message": "Loading kitten gifs...",
+    "app/loader.messages.7": {
+        "message": "Unloading kittens from the lorry...",
         "description": "loading message"
     },
     "data/errors.all.html/slowparse.unfinished-css-value": {
         "message": "Oops! Finish your value <code data-highlight=\"{{cssValue.start}},{{cssValue.end}}\">{{cssValue.value}}</code> with a <code>;</code>.",
         "description": "HTML/CSS error"
     },
+    "app/loader.messages.14": {
+        "message": "Googleing more kitten gifs...",
+        "description": "loading message"
+    },
     "data/errors.all.html/slowparse.unclosed-tag": {
         "message": "Oh no! This <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code> needs a closing <code>&lt;/{{openTag.name}}&gt;</code> tag.",
         "description": "HTML/CSS error"
+    },
+    "app/loader.messages.5": {
+        "message": "...",
+        "description": "loading message"
     },
     "data/errors.all.html/slowparse.unfinished-css-property": {
         "message": "<code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}</code> isn't finished! You need a <code>:</code> after the property's name.",
         "description": "HTML/CSS error"
     },
-    "play/index.html/loader.s": {
-        "message": "Would you like a biscuit?",
-        "description": "loading message"
-    },
-    "play/index.html/loader.n": {
-        "message": "Loading more loading messages...",
+    "app/loader.messages.6": {
+        "message": "*yawns*",
         "description": "loading message"
     },
     "data/errors.all.html/slowparse.invalid-tag-name": {
         "message": "There's no such thing as a <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code> tag. The masters of HTML wouldn't allow it.",
         "description": "HTML/CSS error"
     },
-    "play/index.html/cutscene.skip": {
-        "message": "Saltar",
-        "description": "Skip the current cutscene"
+    "app/loader.messages.8": {
+        "message": "Fighting off malicious smileys...",
+        "description": "loading message"
     },
     "play/index.html/back": {
         "message": "Regresar",
         "description": "for a 'back' button"
     },
-    "play/index.html/loader.l": {
-        "message": "Playing with yarn...",
-        "description": "loading message"
+    "app/errors.load-sprite": {
+        "message": "Oh no! We couldn't load the animations!",
+        "description": "error message"
     },
     "data/errors.all.html/slowparse.forbid-JS": {
         "message": "Sorry! You can't use JavaScript in E.A.K. (yet). So don't. The JavaScript police will get you with their sharp pointy teeth!",
@@ -243,8 +215,12 @@
         "message": "Restaurar",
         "description": "Button on the bar at the top of the screen during levels. When in the edit view, this sets the code to how it was at the start of the level"
     },
-    "play/index.html/loader.d": {
-        "message": "Are you having a nice day?",
+    "app/settings.title": {
+        "message": "Settings",
+        "description": "Title for the settings dialogue"
+    },
+    "app/loader.messages.4": {
+        "message": "KITTENS KITTENS KITTENS KITTENS",
         "description": "loading message"
     },
     "data/errors.all.html/slowparse.self-closing-non-void-element": {
@@ -255,33 +231,37 @@
         "message": "This selector <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> should end with a <code>{</code>.",
         "description": "HTML/CSS error"
     },
+    "app/loader.messages.1": {
+        "message": "These are some pretty heavy kittens...",
+        "description": "loading message"
+    },
+    "app/loader.messages.12": {
+        "message": "Oooh! Yarn!",
+        "description": "loading message"
+    },
     "data/errors.all.html/slowparse.missing-css-property": {
         "message": "This <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> is empty! It needs a property.",
         "description": "HTML/CSS error"
     },
-    "play/index.html/loader.t": {
-        "message": "Kitten gifs intercepted by the NSA...",
+    "app/loader.messages.0": {
+        "message": "Still loading kitten gifs...",
         "description": "loading message"
     },
     "play/index.html/main-menu.load-game": {
         "message": "Cargar juego",
         "description": "button on the main menu"
     },
-    "play/index.html/loader.p": {
-        "message": "Buying kittens off ebay...",
-        "description": "loading message"
+    "app/cutscene.skip": {
+        "message": "Skip",
+        "description": "Skip the current cutscene"
     },
-    "play/index.html/settings.language": {
-        "message": "Language",
-        "description": "Heading in settings page"
+    "app/loader.messages.17": {
+        "message": "Time for a cup of tea...",
+        "description": "loading message"
     },
     "data/errors.all.html/slowparse.missing-css-selector": {
         "message": "You need to finish your CSS with a <code data-highlight=\"{{cssBlock.start}},{{cssBlock.end}}\">&lt;/style&gt;</code> tag!",
         "description": "HTML/CSS error"
-    },
-    "play/index.html/errors.level-errors": {
-        "message": "There are errors in that level!",
-        "description": "error message"
     },
     "data/errors.all.html/slowparse.unterminated-css-comment": {
         "message": "You need to finish this CSS comment with a <code>*/</code>! DO IT!",
@@ -291,8 +271,24 @@
         "message": "There's no such thing as a <code data-highlight=\"{{start}},{{end}}\">{{attribute.name.value}}</code> attribute. The masters of HTML wouldn't allow it.",
         "description": "HTML/CSS error"
     },
-    "play/index.html/loader.b": {
-        "message": "These are some pretty heavy kittens...",
+    "app/loader.messages.10": {
+        "message": "Inventing kittens...",
+        "description": "loading message"
+    },
+    "app/loader.messages.2": {
+        "message": "So many kittens to load...",
+        "description": "loading message"
+    },
+    "app/cutscene.continue": {
+        "message": "Continue",
+        "description": "Continue after the cutscene"
+    },
+    "app/settings.language": {
+        "message": "Language",
+        "description": "Heading in settings page"
+    },
+    "app/loader.messages.11": {
+        "message": "Playing with yarn...",
         "description": "loading message"
     },
     "play/index.html/todo": {
@@ -303,6 +299,10 @@
         "message": "You need to add a <code>\"</code> at the end of this <code data-highlight=\"{{openTag.start}},{{openTag.start + openTag.name.length + 1}}\">&lt;{{openTag.name}}&gt;</code> tag's <code data-highlight=\"{{attribute.name.start}},{{attribute.value.start}}\">{{attribute.name.value}}</code> attribute. Crazy, right?",
         "description": "HTML/CSS error"
     },
+    "app/errors.level-errors": {
+        "message": "There are errors in that level!",
+        "description": "error message"
+    },
     "play/index.html/language": {
         "message": "Español (Latinoamérica)",
         "description": "The name of the language you're translating to, in that language."
@@ -311,17 +311,13 @@
         "message": "Guardar",
         "description": "Button on the bar at the top of the screen during levels. Closes the edit view, keeping the code the user entered"
     },
-    "play/index.html/loader.o": {
-        "message": "Googleing more kitten gifs...",
-        "description": "loading message"
-    },
-    "play/index.html/settings.title": {
-        "message": "Settings",
-        "description": "Title for the settings dialogue"
-    },
     "data/errors.all.html/slowparse.attribute-in-closing-tag": {
         "message": "I thought you should know, you can't put an attribute in this closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag.",
         "description": "HTML/CSS error"
+    },
+    "app/loader.messages.15": {
+        "message": "Buying kittens off ebay...",
+        "description": "loading message"
     },
     "play/index.html/menu.restart": {
         "message": "Reiniciar",
@@ -334,5 +330,9 @@
     "data/errors.all.html/slowparse.mismatched-close-tag": {
         "message": "These tags don't match! You've got a closing <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag, but it's trying to pair with the opening <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code>.",
         "description": "HTML/CSS error"
+    },
+    "app/settings.language-warn": {
+        "message": "If you change language, you'll lose any progress you made on your current level. Are you sure you want to continue?",
+        "description": "Language change warning in settings page"
     }
 }

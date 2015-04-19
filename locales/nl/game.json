@@ -1,4 +1,8 @@
 {
+    "app/loader.messages.13": {
+        "message": "Loading more loading messages...",
+        "description": "loading message"
+    },
     "play/index.html/main-menu.about": {
         "message": "Over",
         "description": "button on the main menu"
@@ -7,25 +11,29 @@
         "message": "Sorry!",
         "description": "This is the heading for a notice that tells users on older browsers that they can't run the game"
     },
-    "play/index.html/loader.v": {
-        "message": "Afdingen op de prijs van de katjes...",
-        "description": "loading message"
-    },
     "data/errors.all.html/slowparse.close-tag-for-void-element": {
         "message": "DRAMA: <code>&lt;{{closeTag.name}}&gt;</code> tags hebben geen einde, dus <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> is niet nodig.",
         "description": "HTML/CSS error"
+    },
+    "app/errors.music-not-found": {
+        "message": "Oh no! We couldn't load the music!",
+        "description": "error message"
+    },
+    "app/errors.code-errors": {
+        "message": "There are errors in your code! Fix them before saving.",
+        "description": "error message"
     },
     "data/errors.all.html/slowparse.unterminated-close-tag": {
         "message": " Hola?! Je hebt een <code>&gt;</code> nodig bij deze eind <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag.",
         "description": "HTML/CSS error"
     },
-    "play/index.html/loader.j": {
-        "message": "Op de Weg naar Mordor...",
-        "description": "loading message"
-    },
     "data/errors.all.html/slowparse.unterminated-comment": {
         "message": "Dit commentaar moet eindigen op <code>--&gt;</code>.",
         "description": "HTML/CSS error"
+    },
+    "app/loader.messages.21": {
+        "message": "Haggling over the price of kittens...",
+        "description": "loading message"
     },
     "play/index.html/main-menu.new-game": {
         "message": "Nieuw Spel",
@@ -39,17 +47,9 @@
         "message": "Er gaat iets helemaal fout. Je weet waarschijnlijk niet wat, en wij eigenlijk ook niet, maar we hebben dit gevonden: <code data-highlight=\"{{error.start}},{{error.end}}\">{{error.msg}}</code>.",
         "description": "HTML/CSS error"
     },
-    "play/index.html/settings.music": {
-        "message": "Muziek Volume",
-        "description": "Music setting"
-    },
-    "play/index.html/cutscene.error": {
-        "message": "Oh nee! We konden die scene niet laden...",
+    "app/cutscene.error": {
+        "message": "Oh no! We couldn't load that cutscene...",
         "description": "Cutscene didn't load"
-    },
-    "play/index.html/settings.effects": {
-        "message": "Geluidseffecten Volume",
-        "description": "Music setting"
     },
     "data/errors.all.html/slowparse.html-code-in-css-block": {
         "message": "EWWWW!!! Je hebt HTML in je CSS! Dat hoort daar niet thuis...",
@@ -58,6 +58,10 @@
     "play/index.html/menu.cancel": {
         "message": "Stop",
         "description": "Button on the bar at the top of the screen during levels. Closes the edit view, discarding the code the user entered"
+    },
+    "app/loader.messages.20": {
+        "message": "8 minutes of battery life remaining...",
+        "description": "loading message"
     },
     "data/errors.all.html/slowparse.unterminated-open-tag": {
         "message": "Ter info, je hebt een <code>&gt;</code> nodig op het einde van deze start <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;/{{openTag.name}}&gt;</code> tag.",
@@ -75,21 +79,17 @@
         "message": "Aan het laden...",
         "description": ""
     },
-    "play/index.html/errors.sound-not-found": {
-        "message": "Ah nee! We konden de geluidjes niet laden!",
+    "app/errors.sound-not-found": {
+        "message": "Oh no! We couldn't load the sound!",
         "description": "error message"
     },
-    "play/index.html/errors.music-not-found": {
-        "message": "Oh nee! We konden de muziek niet laden!",
-        "description": "error message"
+    "app/loader.messages.19": {
+        "message": "Kitten gifs intercepted by the NSA...",
+        "description": "loading message"
     },
     "play/index.html/about.instructions": {
         "message": "Gebruik de <kbd>A</kbd> en <kbd>D</kbd> of <kbd>&larr;</kbd> en <kbd>&rarr;</kbd> toetsen om links en rechts te gaan. Gebruik <kbd>W</kbd>, <kbd>spatie</kbd>, of <kbd>&uarr;</kbd> om te springen.",
         "description": "brief instructions on the 'about' page"
-    },
-    "play/index.html/loader.a": {
-        "message": "Nog altijd katjes GIFs aan het laden...",
-        "description": "loading message"
     },
     "data/errors.all.html/slowparse.missing-css-value": {
         "message": "Je moet een waarde toevoegen achter de <code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}:</code>!",
@@ -111,12 +111,8 @@
         "message": "Wijzig",
         "description": "Button on the bar at the top of the screen during levels. Opens up the edit view."
     },
-    "play/index.html/loader.m": {
-        "message": "Oooh! Draadjes!",
-        "description": "loading message"
-    },
-    "play/index.html/loader.u": {
-        "message": "Nog 8 minuten batterij over...",
+    "app/loader.messages.16": {
+        "message": "Capturing panda-sneezes...",
         "description": "loading message"
     },
     "play/index.html/menu.redo": {
@@ -131,101 +127,77 @@
         "message": "Elimineer Alle Katjes is een ander soort platform spel: de levels zijn geschreven in HTML en CSS, en de enige manier om verder te raken is je programmeer talent.",
         "description": "a short description of the game"
     },
-    "play/index.html/settings.language-warn": {
-        "message": "Als je de taal wijzigt, verlies je al je wijzigingen van dit level. Ben je zeker dat je wilt doorgaan?",
-        "description": "Language change warning in settings page"
-    },
-    "play/index.html/loader.h": {
-        "message": "Katjes van de vrachtwagen aan het laden...",
+    "app/loader.start": {
+        "message": "Loading kitten gifs...",
         "description": "loading message"
     },
-    "play/index.html/loader.q": {
-        "message": "Panda-nies aan het vangen...",
+    "app/loader.messages.3": {
+        "message": "Are you having a nice day?",
         "description": "loading message"
     },
-    "play/index.html/loader.r": {
-        "message": "Tijd voor een kopje thee...",
+    "app/loader.messages.18": {
+        "message": "Would you like a biscuit?",
         "description": "loading message"
-    },
-    "play/index.html/loader.f": {
-        "message": "...",
-        "description": "loading message"
-    },
-    "play/index.html/errors.code-errors": {
-        "message": "Er zitten foutjes in je code! Los ze op voor je het bewaart.",
-        "description": "error message"
     },
     "play/index.html/menu.undo": {
         "message": "Undo",
         "description": "Undo button for the code editor"
     },
-    "play/index.html/cutscene.continue": {
-        "message": "Doorgaan",
-        "description": "Continue after the cutscene"
-    },
-    "play/index.html/loader.i": {
-        "message": "Gemene smileys aan het wegslaan...",
+    "app/loader.messages.9": {
+        "message": "Taking the Ring to Mordor...",
         "description": "loading message"
     },
-    "play/index.html/loader.g": {
-        "message": "*geeuw*",
-        "description": "loading message"
+    "app/settings.effects": {
+        "message": "Sound Effects Volume",
+        "description": "Music setting"
     },
-    "play/index.html/loader.c": {
-        "message": "Zo veel katjes om te laden...",
-        "description": "loading message"
+    "app/settings.music": {
+        "message": "Music Volume",
+        "description": "Music setting"
     },
-    "play/index.html/loader.e": {
-        "message": "KATJES KATJES KATJES KATJES",
-        "description": "loading message"
-    },
-    "play/index.html/errors.load-sprite": {
-        "message": "Oh nee! We konden de animaties niet laden!",
-        "description": "error message"
-    },
-    "play/index.html/loader.k": {
-        "message": "Katjes aan het uitvinden...",
-        "description": "loading message"
-    },
-    "play/index.html/loader.start": {
-        "message": "Katjes GIFs laden...",
+    "app/loader.messages.7": {
+        "message": "Unloading kittens from the lorry...",
         "description": "loading message"
     },
     "data/errors.all.html/slowparse.unfinished-css-value": {
         "message": "Oops! Eindig je waarde <code data-highlight=\"{{cssValue.start}},{{cssValue.end}}\">{{cssValue.value}}</code> met een <code>;</code>.",
         "description": "HTML/CSS error"
     },
+    "app/loader.messages.14": {
+        "message": "Googleing more kitten gifs...",
+        "description": "loading message"
+    },
     "data/errors.all.html/slowparse.unclosed-tag": {
         "message": "Oh nee! Deze <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code> heeft een eind <code>&lt;/{{openTag.name}}&gt;</code> tag nodig.",
         "description": "HTML/CSS error"
+    },
+    "app/loader.messages.5": {
+        "message": "...",
+        "description": "loading message"
     },
     "data/errors.all.html/slowparse.unfinished-css-property": {
         "message": "<code data-highlight=\"{{cssProperty.start}},{{cssProperty.end}}\">{{cssProperty.property}}</code> is niet klaar! Je hebt een <code>:</code> nodig na de naam van de property.",
         "description": "HTML/CSS error"
     },
-    "play/index.html/loader.s": {
-        "message": "Wil je een koekje?",
-        "description": "loading message"
-    },
-    "play/index.html/loader.n": {
-        "message": "Nog meer laadberichtjes aan het laden...",
+    "app/loader.messages.6": {
+        "message": "*yawns*",
         "description": "loading message"
     },
     "data/errors.all.html/slowparse.invalid-tag-name": {
         "message": "Er is geen <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code> tag. De HTML bazen laten dit niet toe.",
         "description": "HTML/CSS error"
     },
-    "play/index.html/cutscene.skip": {
-        "message": "Overslaan",
-        "description": "Skip the current cutscene"
+    "app/loader.messages.8": {
+        "message": "Fighting off malicious smileys...",
+        "description": "loading message"
     },
     "play/index.html/back": {
         "message": "Terug",
         "description": "for a 'back' button"
     },
-    "play/index.html/loader.l": {
-        "message": "Aan het spelen met een bol wol...",
-        "description": "loading message"
+    "app/errors.load-sprite": {
+        "message": "Oh no! We couldn't load the animations!",
+        "description": "error message"
     },
     "data/errors.all.html/slowparse.forbid-JS": {
         "message": "Sorry! Je kan (nog) geen JavaScript in E.A.K. gebruiken, Dus niet doen. De JavaScript politie zal je te pakken krijgen!",
@@ -243,8 +215,12 @@
         "message": "Reset",
         "description": "Button on the bar at the top of the screen during levels. When in the edit view, this sets the code to how it was at the start of the level"
     },
-    "play/index.html/loader.d": {
-        "message": "Heb je een leuke dag?",
+    "app/settings.title": {
+        "message": "Settings",
+        "description": "Title for the settings dialogue"
+    },
+    "app/loader.messages.4": {
+        "message": "KITTENS KITTENS KITTENS KITTENS",
         "description": "loading message"
     },
     "data/errors.all.html/slowparse.self-closing-non-void-element": {
@@ -255,33 +231,37 @@
         "message": "Deze selector <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> moet eindigen met een <code>{</code>.",
         "description": "HTML/CSS error"
     },
+    "app/loader.messages.1": {
+        "message": "These are some pretty heavy kittens...",
+        "description": "loading message"
+    },
+    "app/loader.messages.12": {
+        "message": "Oooh! Yarn!",
+        "description": "loading message"
+    },
     "data/errors.all.html/slowparse.missing-css-property": {
         "message": "Deze <code data-highlight=\"{{cssSelector.start}},{{cssSelector.end}}\">{{cssSelector.selector}}</code> is leeg! Het heeft een property nodig.",
         "description": "HTML/CSS error"
     },
-    "play/index.html/loader.t": {
-        "message": "Katjes GIFs werden onderschept door de NSA...",
+    "app/loader.messages.0": {
+        "message": "Still loading kitten gifs...",
         "description": "loading message"
     },
     "play/index.html/main-menu.load-game": {
         "message": "Spel Laden",
         "description": "button on the main menu"
     },
-    "play/index.html/loader.p": {
-        "message": "Katjes aan het kopen op eBay...",
-        "description": "loading message"
+    "app/cutscene.skip": {
+        "message": "Skip",
+        "description": "Skip the current cutscene"
     },
-    "play/index.html/settings.language": {
-        "message": "Taal",
-        "description": "Heading in settings page"
+    "app/loader.messages.17": {
+        "message": "Time for a cup of tea...",
+        "description": "loading message"
     },
     "data/errors.all.html/slowparse.missing-css-selector": {
         "message": "Je moet je CSS afsluiten met een <code data-highlight=\"{{cssBlock.start}},{{cssBlock.end}}\">&lt;/style&gt;</code> tag!",
         "description": "HTML/CSS error"
-    },
-    "play/index.html/errors.level-errors": {
-        "message": "Er zitten fouten in dat level!",
-        "description": "error message"
     },
     "data/errors.all.html/slowparse.unterminated-css-comment": {
         "message": "Je moet deze CSS commentaar beëindigen met <code>*/</code>! DOE HET!",
@@ -291,8 +271,24 @@
         "message": "Er bestaat geen <code data-highlight=\"{{start}},{{end}}\">{{attribute.name.value}}</code> attribuut. De HTML meesters laten het niet toe.",
         "description": "HTML/CSS error"
     },
-    "play/index.html/loader.b": {
-        "message": "Dit zijn behoorlijk zware katjes...",
+    "app/loader.messages.10": {
+        "message": "Inventing kittens...",
+        "description": "loading message"
+    },
+    "app/loader.messages.2": {
+        "message": "So many kittens to load...",
+        "description": "loading message"
+    },
+    "app/cutscene.continue": {
+        "message": "Continue",
+        "description": "Continue after the cutscene"
+    },
+    "app/settings.language": {
+        "message": "Language",
+        "description": "Heading in settings page"
+    },
+    "app/loader.messages.11": {
+        "message": "Playing with yarn...",
         "description": "loading message"
     },
     "play/index.html/todo": {
@@ -303,6 +299,10 @@
         "message": "Je moet een <code>\"</code> toevoegen aan het eind van deze <code data-highlight=\"{{openTag.start}},{{openTag.start + openTag.name.length + 1}}\">&lt;{{openTag.name}}&gt;</code> tag <code data-highlight=\"{{attribute.name.start}},{{attribute.value.start}}\">{{attribute.name.value}}</code> attributen. Zotjes he?",
         "description": "HTML/CSS error"
     },
+    "app/errors.level-errors": {
+        "message": "There are errors in that level!",
+        "description": "error message"
+    },
     "play/index.html/language": {
         "message": "Engels",
         "description": "The name of the language you're translating to, in that language."
@@ -311,17 +311,13 @@
         "message": "Bewaren",
         "description": "Button on the bar at the top of the screen during levels. Closes the edit view, keeping the code the user entered"
     },
-    "play/index.html/loader.o": {
-        "message": "Meer katjes GIFs aan het googlen...",
-        "description": "loading message"
-    },
-    "play/index.html/settings.title": {
-        "message": "Instellingen",
-        "description": "Title for the settings dialogue"
-    },
     "data/errors.all.html/slowparse.attribute-in-closing-tag": {
         "message": "Ik dacht dat je dit al wist, je kan geen attribuut in deze eind <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag gebruiken.",
         "description": "HTML/CSS error"
+    },
+    "app/loader.messages.15": {
+        "message": "Buying kittens off ebay...",
+        "description": "loading message"
     },
     "play/index.html/menu.restart": {
         "message": "Opnieuw",
@@ -334,5 +330,9 @@
     "data/errors.all.html/slowparse.mismatched-close-tag": {
         "message": "De tags passen niet! Je hebt een eind <code data-highlight=\"{{closeTag.start}},{{closeTag.end}}\">&lt;/{{closeTag.name}}&gt;</code> tag, maar het probeert te passen met de start <code data-highlight=\"{{openTag.start}},{{openTag.end}}\">&lt;{{openTag.name}}&gt;</code>.",
         "description": "HTML/CSS error"
+    },
+    "app/settings.language-warn": {
+        "message": "If you change language, you'll lose any progress you made on your current level. Are you sure you want to continue?",
+        "description": "Language change warning in settings page"
     }
 }
