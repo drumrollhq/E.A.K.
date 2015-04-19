@@ -90,6 +90,14 @@ Handlebars.register-helper \inc (value) -> 1 + parse-float value
 
 Handlebars.register-helper \date (date, fmt) -> moment date .format fmt
 
+get-obj = (obj, path) ->
+  | typeof path is \string => get-obj obj, path.split '.'
+  | path.length is 0 => obj
+  | path.length is 1 => obj[head path]
+  | otherwise => get-obj obj[head path], tail path
+
+Handlebars.register-helper \l10n (path) -> get-obj (require \translations), path
+
 PIXI.DisplayObject.prototype.interactive-children = false
 # Promised texture loading for pixi:
 PIXI.load-texture = (url) -> new Promise (resolve, reject) ~>

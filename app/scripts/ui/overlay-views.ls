@@ -4,14 +4,27 @@ require! {
   'ui/SettingsView'
   'ui/SignUpNextView'
   'ui/SignUpView'
+  'ui/TemplateView'
 }
 
-module.exports = ({user, settings, $overlay-views, save-games, app}) -> {
-  login-loader: new Backbone.View el: $overlay-views.find '.login-loader'
-  login: new LoginView el: $ '#login'
-  my-games: new SaveGamesView collection: save-games, app: app, el: $overlay-views.find '#save-games'
-  settings: new SettingsView model: settings, el: '#settings'
-  signup-loader: new Backbone.View el: $overlay-views.find '.signup-loader'
-  signup-next: new SignUpNextView el: $ '#signup-next'
-  signup: new SignUpView el: $ '#signup'
-}
+cache = {}
+
+module.exports = ({user, settings, $overlay-views, save-games, app}) ->
+  get-new-view = (name) ->
+    console.log $overlay-views
+    switch name
+    | \loginLoader => new TemplateView template: 'ui/templates/login-loader'
+    | \login => new LoginView!
+    | \my-games => new SaveGamesView collection: save-games, app: app
+    | \settings => new SettingsView model: settings, id: \settings
+    | \signupLoader => new TemplateView template: 'ui/templates/signup-loader'
+    | \signupNext => new SignUpNextView!
+    | \signup => new SignUpView!
+    | otherwise => throw new Error "view #name not found"
+
+  (parent) -> (name) ->
+    if cache[name] then return that
+    view = cache[name] = get-new-view name
+      ..$el.append-to $overlay-views
+      ..parent = parent
+    view

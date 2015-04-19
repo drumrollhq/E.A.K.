@@ -9,7 +9,8 @@ template = """
   <p class="progress">0%</p>
 """
 
-messages = translations.loading.messages
+messages = translations.loader.messages
+messages.length = Object.keys messages .length
 
 module.exports = class LoaderView extends Backbone.View
   tag-name: \div

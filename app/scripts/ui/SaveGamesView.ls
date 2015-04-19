@@ -1,5 +1,5 @@
 require! {
-  'ui/save-games': template
+  'ui/templates/save-games': template
   'user'
 }
 
@@ -15,8 +15,8 @@ module.exports = class SaveGamesView extends Backbone.View
     # @listen-to @collection, \change, @render
     @_delayed = {}
     @listen-to @collection, \remove @remove
-    @$cont = @$ \.games
     @render!
+    @$cont = @$ \.games
 
   delayed: (fn, ns) ->
     ns = "#{fn}::#{ns}"
@@ -26,7 +26,7 @@ module.exports = class SaveGamesView extends Backbone.View
     @_delayed[ns] = delayed
 
   render: ->
-    {games: @collection.to-json!} |> template |> @$cont.html
+    {games: @collection.to-json!} |> template |> @$el.html
 
   game-el: (game) ->
     id = game.id or game

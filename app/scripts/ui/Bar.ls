@@ -15,8 +15,7 @@ module.exports = class Bar extends Backbone.View
     'click .logout': \logout
 
   initialize: ({views}) ->
-    @views = views
-    @setup-views!
+    @views = views this
 
     @$mute-button = @$ '.mute'
     @$settings-button = @$ '.settings-button'
@@ -101,11 +100,7 @@ module.exports = class Bar extends Backbone.View
       $overlay-views.remove-class 'active' if all
       @trigger \dismiss
 
-  get-active-view: -> @views[@active-view] or null
-
-  setup-views: ->
-    for name, view of @views
-      view.parent = this
+  get-active-view: -> (@views @active-view) or null
 
   show: -> $body.remove-class 'hide-bar'
   hide: -> $body.add-class 'hide-bar'
