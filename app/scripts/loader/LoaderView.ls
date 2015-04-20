@@ -26,7 +26,7 @@ module.exports = class LoaderView extends Backbone.View
     @stages = for class-name in classes
       $ '<div class="stage"></div>' .add-class class-name .append-to $stage-container
 
-    @set-stage translations.loading.start
+    @set-stage translations.loader.start
 
     @$progress-bar = @$ '.bar div'
     @$percent = @$ '.progress'

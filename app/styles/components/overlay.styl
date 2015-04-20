@@ -7,7 +7,11 @@
   right 0
   z-index 100000
   opacity 0
-  background rgba(darkEakPurple, 0.95)
+  background-color eakSkyBlue
+  background-image url('/ui/bg.png'), url('/ui/strip.png')
+  background-size 900px 444px, 1px 90px
+  background-position center bottom, center bottom
+  background-repeat no-repeat, repeat-x
 
   &.active
     display block
@@ -21,7 +25,7 @@
 
 .focus-overlay
   z-index 10000
-  background rgba(darkEakPurple, 0.8)
+  background rgba(eakSkyBlue, 0.8)
 
 @keyframes overlay-in
   from
