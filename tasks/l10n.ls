@@ -21,6 +21,8 @@ preprocess-context = {
   optimized: optimized
   scripts: scripts
   languages: languages |> map (-> "'#it'") |> join ',' |> (-> "[#it]")
+  config: global.config
+  config-str: JSON.stringify global.config
 }
 
 gulp.task 'l10n-data' ->

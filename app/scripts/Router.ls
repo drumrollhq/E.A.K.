@@ -9,6 +9,7 @@ $body = $ document.body
 module.exports = class Router extends Backbone.Router
   routes:
     'app/:name': 'appOverlay'
+    'app/:name/:arg1': 'appOverlayArgs'
     'menu': 'menu'
     'play': 'play'
     '*default': 'default'
@@ -24,6 +25,9 @@ module.exports = class Router extends Backbone.Router
 
   app-overlay: (name) ->
     @app.show-app-overlay name
+
+  app-overlay-args: (name, ...args) ->
+    @app.show-app-overlay name, args
 
   play: ->
     if @app.current-state in <[init menus]>

@@ -85,10 +85,17 @@ module.exports = class Bar extends Backbone.View
     $overlay-views.add-class 'active'
     @$settings-button.add-class 'active'
     active.activate! if active.activate?
+    @trigger \activate view, active
+
+  args: (args) ->
+    view = @get-active-view!
+    if view and typeof view.args is \function then view.args ...args
 
   deactivate: (all = true) ->
     old-view = @get-active-view!
+    old-view-name = @active-view
     unless old-view then return
+    console.log 'deactivate' arguments, old-view
     old-view.off 'close', @deactivate, this
     @active-view = null
 
@@ -99,6 +106,8 @@ module.exports = class Bar extends Backbone.View
     if all
       $overlay-views.remove-class 'active' if all
       @trigger \dismiss
+
+    @trigger \deactivate, old-view-name, old-view
 
   get-active-view: -> (@views @active-view) or null
 

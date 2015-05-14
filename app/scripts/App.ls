@@ -11,6 +11,7 @@ require! {
   'loader/LoaderView'
   'logger'
   'settings'
+  'ui/actions'
   'ui/Bar'
   'ui/MainMenuView'
   'ui/alert'
@@ -148,6 +149,8 @@ module.exports = class App
       ..show!
       ..on \dismiss, ~> @dismiss-app-overlay!
 
+    actions.setup @bar, this
+
     # Hide the loader and start up the game.
     $ \.loader .hide-dialogue!
     @_menus = {
@@ -162,11 +165,11 @@ module.exports = class App
 
     return Promise.delay 400
 
-  show-app-overlay: (name = 'settings') ->
-    @switch-overlay name
+  show-app-overlay: (name = 'settings', args = []) ->
+    @switch-overlay name, args
     switch @current-state
     | \init, \menus, \playing, \editing => @trigger-async \pause
-    | \loading => @trigger-async \quit .then ~> @show-app-overlay name
+    | \loading => @trigger-async \quit .then ~> @show-app-overlay name, args
     | \menusOverlay, \paused, \editing-paused => # Already there, do nothing
 
   dismiss-app-overlay: ->
@@ -176,10 +179,12 @@ module.exports = class App
     else
       window.location.hash = '#/menu'
 
-  switch-overlay: (name = @_active-overlay) ->
+  switch-overlay: (name = @_active-overlay, args = @_overlay-args) ->
     @_active-overlay = name
+    @_overlay-args = args
     if @overlay-active!
       @bar.activate name
+      @bar.args args
 
   overlay-active: -> @current-state in <[menusOverlay paused editingPaused]>
 

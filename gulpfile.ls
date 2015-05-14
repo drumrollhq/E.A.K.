@@ -18,6 +18,11 @@ global.eak-version = new Promise (resolve, reject) ->
 
 global.languages = ['en' 'es-419' 'nl']
 global.default-lang = 'en'
+try
+  global.config = require './config.js'
+catch e
+  console.log 'Error loading config' e
+  global.config = {}
 
 global.src = {
   assets: './app/assets/**/*'
