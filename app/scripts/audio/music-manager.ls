@@ -23,17 +23,20 @@ tracks = {
   colours:
     normal: '/audio/music/colours'
     glitch: '/audio/music/colours-glitch'
+
+  spaceship:
+    normal: '/audio/music/spaceship-normal'
+    glitch: '/audio/music/spaceship-normal'
+    disco: '/audio/music/spaceship-disco'
+    disco-glitch: '/audio/music/spaceship-disco'
+    creepy: '/audio/music/spaceship-creepy'
+    creepy-glitch: '/audio/music/spaceship-creepy'
 }
 
 class MusicManager
   (@tracks) ->
     @tracks.none = false
     @playing = false
-    @_setup-triggers!
-
-  _setup-triggers: ->
-    channels.parse 'game-commands: edit-start' .subscribe ~> @switch-track 'glitch'
-    channels.parse 'game-commands: edit-stop' .subscribe ~> @switch-track 'normal'
 
   start-track: (name) ~>
     unless @tracks[name]? then throw new Error 'Cannot find track called ' + name

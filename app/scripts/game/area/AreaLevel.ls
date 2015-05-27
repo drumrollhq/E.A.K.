@@ -1,4 +1,5 @@
 require! {
+  'audio/music-manager'
   'game/actors'
   'game/area/el-modify'
   'game/area/settings'
@@ -82,6 +83,7 @@ module.exports = class AreaLevel extends Backbone.View
     super!
 
   activate: ->
+    music-manager.switch-track if @level.track then that else \normal
     @hint-controller ?= new HintController hints: @conf.hints, scope: @$el, store: @level-store
     @hint-controller.activate!
 

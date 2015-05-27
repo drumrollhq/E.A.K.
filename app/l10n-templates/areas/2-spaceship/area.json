@@ -1,7 +1,7 @@
 {
   "width": 3430,
   "height": 2085,
-  "music": "space",
+  "music": "spaceship",
   "levels": [
     {
       "url": "2.1-space-play-i.html",
@@ -10,35 +10,43 @@
     }, {
       "url": "2.2-creating-elements-i.html",
       "x": 770,
-      "y": 1250
+      "y": 1250,
+      "track": "creepy"
     }, {
       "url": "2.3-creating-elements-ii.html",
       "x": 1550,
-      "y": 1250
+      "y": 1250,
+      "track": "creepy"
     }, {
       "url": "2.4-glitch-access.html",
       "x": 2330,
-      "y": 450
+      "y": 450,
+      "track": "creepy"
     }, {
       "url": "2.5-creating-glitch-i.html",
       "x": 2730,
-      "y": 1250
+      "y": 1250,
+      "track": "creepy"
     }, {
       "url": "2.6-creating-glitch-ii.html",
       "x": 2730,
-      "y": 930
+      "y": 930,
+      "track": "creepy"
     }, {
       "url": "2.7-creating-glitch-iii.html",
       "x": 2730,
-      "y": 610
+      "y": 610,
+      "track": "creepy"
     }, {
       "url": "2.8-creating-glitch-iv.html",
       "x": 2730,
-      "y": 290
+      "y": 290,
+      "track": "creepy"
     }, {
      "url": "2.9-space-play-ii.html",
      "x": 1450,
-     "y": 450
+     "y": 450,
+     "track": "disco"
     }
   ],
   "overlay": [
