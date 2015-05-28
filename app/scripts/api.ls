@@ -53,6 +53,9 @@ module.exports = api = {
     login: (username, password) -> post-json (api.auth.url 'login'), {username, password}
     register: (user) -> post-json (api.auth.url 'register'), user
 
+  subscriptions:
+    url: (...segments) -> api.url 'subscriptions', flatten segments
+
   games:
     url: (...segments) -> api.url 'games', flatten segments
     create: (data) -> post-json api.games.url!, data

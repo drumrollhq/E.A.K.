@@ -22,8 +22,9 @@ module.exports = class SubscribeView extends Backbone.View
       alert 'TODO, yo!'
       return
 
-    actions.get-user!
+    actions.get-user prevent-close: true
       .then ~>
+        console.log 'changehash'
         window.location.hash = "/app/pay/#choice"
       .catch ->
         console.log \error-get-user arguments

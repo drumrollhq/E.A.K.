@@ -80,7 +80,7 @@ module.exports = class Bar extends Backbone.View
     @active-view = view
     active = @get-active-view!
       ..$el.add-class 'active'
-      ..once 'close', @deactivate, this
+      ..once 'close', @close, this
 
     $overlay-views.add-class 'active'
     @$settings-button.add-class 'active'
@@ -91,12 +91,19 @@ module.exports = class Bar extends Backbone.View
     view = @get-active-view!
     if view and typeof view.args is \function then view.args ...args
 
+  close: ->
+    unless @_prevent-close then @deactivate!
+    @_prevent-close = false
+
+  prevent-close: ->
+    @_prevent-close = true
+
   deactivate: (all = true) ->
     old-view = @get-active-view!
     old-view-name = @active-view
     unless old-view then return
     console.log 'deactivate' arguments, old-view
-    old-view.off 'close', @deactivate, this
+    old-view.off 'close', this
     @active-view = null
 
     el = old-view.$el

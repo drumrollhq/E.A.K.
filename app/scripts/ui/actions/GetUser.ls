@@ -4,7 +4,7 @@ require! {
 }
 
 module.exports = class GetUser extends Action
-  initialize: ->
+  initialize: ({@prevent-close = false}) ->
     if user.logged-in! then return @resolve user
     window.location.hash = '/app/login'
     @listen-to user, \change:loggedIn, @user-change
@@ -13,4 +13,5 @@ module.exports = class GetUser extends Action
     @cancel!
 
   user-change: (user, logged-in) ->
+    if @prevent-close then @app.bar.prevent-close!
     if logged-in then @resolve user else @cancel!

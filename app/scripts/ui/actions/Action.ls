@@ -1,7 +1,7 @@
 ongoing = {}
 
 module.exports = class Action
-  (@overlay, @app) ->
+  (@overlay, @app, @options = {}) ->
     _.extend this, Backbone.Events
 
     name = @constructor.display-name
@@ -17,7 +17,7 @@ module.exports = class Action
     @promise = new Promise (resolve, reject) ~>
       @_resolve = resolve
       @_reject = reject
-      @initialize!
+      @initialize @options
     .cancellable!
 
   resolve: (val) ->
