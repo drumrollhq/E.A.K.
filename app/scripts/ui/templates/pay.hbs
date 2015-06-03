@@ -1,6 +1,24 @@
 <div class="cont-wide">
   <h2>Subscribe to E.A.K.</h2>
   <p>TODO: Collect country, offer confirmation options, ask whether to auto-renew</p>
-  <p>Confirm your subscription of £{{amt}}/{{period}}</p>
+  <p>Select your country from this tedious drop-down menu:</p>
+  <select class="country">{{{countrySelectOptions}}}</select>
+  <table>
+    <tr>
+      <td>E.A.K. {{periodly}} subscription</td>
+      <td>£{{toFixed amt 2}}</td>
+    </tr>
+    {{#if vat}}
+      <tr>
+        <td>VAT ({{vatPercentage}}%)</td>
+        <td>£{{toFixed vatAmt 2}}</td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td>£{{toFixed total 2}}</td>
+    {{/if}}
+  </table>
+  {{country}}
+  <p>Confirm your subscription of £{{toFixed total 2}}/{{period}}</p>
   <button class="btn subscribe">Subscribe</button>
 </div>

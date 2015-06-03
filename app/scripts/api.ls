@@ -55,6 +55,7 @@ module.exports = api = {
 
   subscriptions:
     url: (...segments) -> api.url 'subscriptions', flatten segments
+    create: (data) -> post-json api.subscriptions.url!, data
 
   games:
     url: (...segments) -> api.url 'games', flatten segments

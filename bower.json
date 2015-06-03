@@ -27,7 +27,8 @@
     "moment": "~2.9.0",
     "lodash": "~3.3.1",
     "backbone-deep-model": "https://github.com/kahwee/backbone-deep-model.git#~1.0.0",
-    "pixi": "v3.0.0-rc4"
+    "pixi": "v3.0.0-rc4",
+    "vatrates": "~1.0.5"
   },
   "overrides": {
     "underscore": {

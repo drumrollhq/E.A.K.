@@ -87,7 +87,7 @@ extras |> each _, (-> Slowparse.HTMLParser::html-elements.push it)
 
 # HBS helpers:
 Handlebars.register-helper \inc (value) -> 1 + parse-float value
-
+Handlebars.register-helper \toFixed (n, places) -> n.to-fixed places
 Handlebars.register-helper \date (date, fmt) -> moment date .format fmt
 
 get-obj = (obj, path) ->
@@ -97,6 +97,9 @@ get-obj = (obj, path) ->
   | otherwise => get-obj obj[head path], tail path
 
 Handlebars.register-helper \l10n (path) -> get-obj (require \translations), path
+
+Handlebars.register-helper \countrySelectOptions ->
+  (require 'ui/templates/country-select')!
 
 PIXI.DisplayObject.prototype.interactive-children = false
 # Promised texture loading for pixi:
