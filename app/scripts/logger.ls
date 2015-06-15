@@ -1,7 +1,7 @@
 const dt = 15000ms
 
-root = if window.location.host.match /eraseallkittens\.com/
-  '//api.eraseallkittens.com/v1'
+root = if window.location.host.match /eraseallkittens\.com/ or window.location.port is \5275
+  'https://api.eraseallkittens.com/v1'
 else
   '//localhost:3000/v1'
 
@@ -60,7 +60,7 @@ module.exports = {
       browser-locale: window.navigator.language
       game-locale: lang
       entry-hash: window.location.hash
-      domain: window.location.host
+      domain: if window.location.port is \5275 then \ELECTRON_APP else window.location.host
       missing-features: missing-features or false
     }
 
