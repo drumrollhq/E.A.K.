@@ -33,6 +33,8 @@ tracks = {
     creepy-glitch: '/audio/music/spaceship-creepy'
 }
 
+const fade-duration = 0.75s
+
 class MusicManager
   (@tracks) ->
     @tracks.none = false
@@ -55,10 +57,10 @@ class MusicManager
     unless @music then return Promise.resolve!
     music = @music
     @music = null
-    music.fade-out 0.5
+    music.fade-out fade-duration
 
   switch-track: (track) ~>
     unless @music? then return
-    @music.fade-to track, 0.5
+    @music.fade-to track, fade-duration
 
 module.exports = new MusicManager tracks
