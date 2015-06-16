@@ -61,7 +61,8 @@ module.exports = {
     }
 
     api.sessions.create-event @session.id, type, data, has-duration
-      .tap (event) -> if has-duration then @session.active-events[*] = event.id
+      .tap (event) ~>
+        if has-duration then @session.active-events[*] = event.id
       .catch -> Promise.resolve id: null
 
   log: (type, data = {}) -> @send-event type, data, false
