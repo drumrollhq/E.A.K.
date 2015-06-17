@@ -74,7 +74,8 @@ module.exports = class SignUpNextView extends Backbone.View
 
     unless user-data.email and not empty user-data.email
       unless data.email then return @$email.attention-grab!
-      user-data.email = data.email
+
+    if data.email then user-data.email = data.email
 
     data.subscribed-newsletter = parse.to-boolean(data.subscribed-newsletter or 'false')
     user-data <<< data.{username, subscribed-newsletter}
