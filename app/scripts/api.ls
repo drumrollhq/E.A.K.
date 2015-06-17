@@ -7,10 +7,10 @@ POST = 'POST'
 DELETE = 'DELETE'
 PUT = 'PUT'
 
-root = if window.location.host.match /eraseallkittens\.com/
-  '//api.eraseallkittens.com'
+root = if window.location.host.match /eraseallkittens\.com/ or window.location.port is \5275
+  'https://api.eraseallkittens.com/v1'
 else
-  '//localhost:3000'
+  '//localhost:3000/v1'
 
 no-op = -> null
 

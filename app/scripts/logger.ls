@@ -32,7 +32,7 @@ module.exports = {
       browser-locale: window.navigator.language
       game-locale: lang
       entry-hash: window.location.hash
-      domain: window.location.host
+      domain: if window.location.port is \5275 then \ELECTRON_APP else window.location.host
       missing-features: missing-features or false
       logged-in-user: logged-in-user or false
     }
