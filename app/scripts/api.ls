@@ -1,3 +1,5 @@
+require! 'hindquarters'
+
 $.ajax-setup {
   xhr-fields: with-credentials: true
 }
@@ -8,9 +10,9 @@ DELETE = 'DELETE'
 PUT = 'PUT'
 
 root = if window.location.host.match /eraseallkittens\.com/ or window.location.port is \5275
-  'https://api.eraseallkittens.com/v1'
+  'https://api.eraseallkittens.com'
 else
-  '//localhost:3000/v1'
+  '//localhost:3000'
 
 no-op = -> null
 

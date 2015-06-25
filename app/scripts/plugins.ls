@@ -141,3 +141,11 @@ $ '.insert-arca-spinner'
       <div class="player-leg-right"></div>
     </div>
   '''
+
+# Helpful debuggy thing:
+window.pr = (promise) ->
+  now = performance.now!
+  promise
+    .then (result) -> console.log "resolve (#{(performance.now! - now).to-fixed 2}ms)" result
+    .catch (err) -> console.log "reject (#{(performance.now! - now).to-fixed 2}ms)" err
+  return promise
