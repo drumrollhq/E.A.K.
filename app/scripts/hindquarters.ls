@@ -51,17 +51,17 @@ http = (method, url, params, options, body) ->
   req-json method, url, options, body
 
 setup = (desc) ->
-  if typeof desc is \string
-    return req-json \GET, desc .then setup
-
   routes = flatten-routes desc.routes
 
   endpoints = {}
   for name, spec of desc.endpoints
-    set-at endpoints, name, get-handler spec, routes[name]
+    handler = get-handler spec, routes[name]
+    handler.spec = spec
+    handler.route = routes[name]
+    set-at endpoints, name, handler
 
   console.log endpoints
-  Promise.resolve endpoints
+  module.exports <<< endpoints
 
 $.ajax-setup {
   xhr-fields: with-credentials: true
@@ -72,5 +72,6 @@ root = if window.location.host.match /eraseallkittens\.com/ or window.location.p
 else
   '//localhost:3000'
 
-setup window.API_DESC || "#root/v1"
-  .tap (endpoints) -> module.exports <<< endpoints
+module.exports.root = root
+
+setup window.EAK_API_SPEC

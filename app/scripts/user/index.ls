@@ -1,5 +1,5 @@
 require! {
-  'api'
+  'hindquarters'
   'lib/channels'
   'user/Game'
   'user/SaveGames'
@@ -8,7 +8,7 @@ require! {
 
 class User extends Backbone.DeepModel
   initialize: ->
-    @_user-promise = api.users.me!
+    @_user-promise = hindquarters.users.current!
       .then (data) ~>
         @set available: true
         @set device: data.device
@@ -32,11 +32,11 @@ class User extends Backbone.DeepModel
     if user.username then "@#{user.username}" else user.first-name
 
   login: (username, password) ->
-    api.auth.login username, password
+    hindquarters.auth.login {username, password}
       .then (user) ~> @set-user user.user
 
   logout: ->
-    api.auth.logout!
+    hindquarters.auth.logout!
     @set logged-in: false, user: null
     localforage.remove-item 'resume-id'
 
@@ -50,7 +50,7 @@ class User extends Backbone.DeepModel
 
   recent-games: (limit = 10) ->
     game-store!
-      .list {limit}
+      .mine {limit}
       .then (games) ->
         new SaveGames games
 

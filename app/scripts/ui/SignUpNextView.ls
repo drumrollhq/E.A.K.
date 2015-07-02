@@ -1,5 +1,5 @@
 require! {
-  'api'
+  'hindquarters'
   'lib/parse'
   'user'
 }
@@ -81,7 +81,7 @@ module.exports = class SignUpNextView extends Backbone.View
 
     @parent.activate 'signupLoader'
     Promise.delay 300
-      .then ~> api.auth.register user-data
+      .then ~> hindquarters.auth.register user-data
       .then (user-data) ~>
         user.set-user user-data
         @parent.deactivate!
@@ -97,7 +97,7 @@ module.exports = class SignUpNextView extends Backbone.View
     count = @$username-conts.length
     if replace-input then count += 1
 
-    api.users.usernames n: count, unused: true
+    hindquarters.users.generate-usernames n: count, unused: true
       .then (usernames) ~>
         @$username-conts.html (i) -> usernames[i]
         if replace-input then @$username-input.val last usernames

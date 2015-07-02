@@ -1,5 +1,4 @@
 require! {
-  'api'
   'user'
   'ui/SSOView'
 }

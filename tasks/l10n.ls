@@ -1,14 +1,14 @@
 require! {
-  'path'
   'event-stream': es
-  'through2'
   'glob'
-  'gulp-preprocess'
   'gulp'
-  'prelude-ls': {map, join, split, first, initial, camelize, last, tail}
+  'gulp-preprocess'
   'handlebars'
-  'lodash.merge': merge
   'lodash.defaults': defaults
+  'lodash.merge': merge
+  'path'
+  'prelude-ls': {map, join, split, first, initial, camelize, last, tail}
+  'through2'
 }
 
 scripts = glob.sync './app/scripts/**/*.{ls,hbs}'
@@ -16,6 +16,8 @@ scripts = glob.sync './app/scripts/**/*.{ls,hbs}'
   |> map ( .replace /\.(ls|hbs)$/ '.js')
   |> map -> """<script src="#it"></script>"""
   |> join '\n'
+
+scripts += '<script src="/js/api-spec.js"></script>'
 
 preprocess-context = {
   optimized: optimized

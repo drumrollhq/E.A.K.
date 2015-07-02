@@ -1,21 +1,24 @@
 require! {
-  'streamqueue'
-  'gulp-concat'
-  'gulp-uglify'
-  'gulp-changed'
-  'gulp-livescript'
-  'gulp-header'
-  'gulp-footer'
-  'gulp-wrap'
-  'gulp-handlebars'
-  'gulp'
-  'path'
-  'run-sequence'
   'event-stream': es
+  'fs'
+  'gulp'
+  'gulp-changed'
+  'gulp-concat'
+  'gulp-footer'
+  'gulp-handlebars'
+  'gulp-header'
+  'gulp-livescript'
+  'gulp-rename'
+  'gulp-uglify'
+  'gulp-wrap'
+  'path'
+  'request'
+  'run-sequence'
+  'streamqueue'
 }
 
 gulp.task 'scripts' (done) ->
-  run-sequence ['livescript' 'workers' 'handlebars'], done
+  run-sequence ['livescript' 'workers' 'handlebars' 'api-spec'], done
 
 gulp.task 'optimized-scripts' ['scripts'] ->
   gulp.src ['./public/js/**/*.js', '!**/{worker,eak,vendor}.js']
@@ -60,6 +63,21 @@ gulp.task 'handlebars' ->
     .on 'error' -> throw it
     .pipe gulp-wrap 'module.exports = Handlebars.template(<%= contents %>);'
     .pipe wrap-commonjs!
+    .pipe gulp.dest dest.js
+
+gulp.task 'update-api' (done) !->
+  url = if optimized then 'https://api.eraseallkittens.com/v1/' else 'http://localhost:3000/v1/'
+  console.log "fetch api spec from #url"
+  request url, (err, resp, body) ->
+    if err then throw err
+    fs.write-file 'api-spec.json', body, encoding: \utf-8, (err) ->
+      if err then throw err
+      done!
+
+gulp.task 'api-spec' ->
+  gulp.src 'api-spec.json'
+    .pipe gulp-wrap '(function(){window.EAK_API_SPEC = <%= contents %>;}())'
+    .pipe gulp-rename extname: '.js'
     .pipe gulp.dest dest.js
 
 script-root = new RegExp "^#{path.resolve './' .replace /\\/g, '\\\\'}(/|\\\\)app(/|\\\\)(scripts|workers)(/|\\\\)"

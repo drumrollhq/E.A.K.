@@ -1,4 +1,4 @@
-require! 'api'
+require! 'hindquarters'
 const dt = 15000ms
 
 module.exports = {
@@ -37,7 +37,7 @@ module.exports = {
       logged-in-user: logged-in-user or false
     }
 
-    api.sessions.create data
+    hindquarters.sessions.create data
       .then (session) ~>
         if session?
           @session = session
@@ -49,7 +49,7 @@ module.exports = {
     unless @session? then return
     url = "sessions/#{@session.id}"
     <~ set-interval _, dt
-    api.sessions.checkin @session.id, @session.active-events
+    hindquarters.sessions.checkin @session.id, ids: @session.active-events
 
   send-event: (type, data, has-duration) ->
     console.time-stamp type
@@ -60,7 +60,7 @@ module.exports = {
       event-action: if has-duration then 'start' else 'log'
     }
 
-    api.sessions.create-event @session.id, type, data, has-duration
+    hindquarters.sessions.events.create @session.id, {type, data, has-duration}
       .tap (event) ~>
         if has-duration then @session.active-events[*] = event.id
       .catch -> Promise.resolve id: null
@@ -71,10 +71,10 @@ module.exports = {
   stop: (id) ->
     unless @session? and id? then return
     @session.active-events .= filter (it) -> it isnt id
-    api.sessions.stop-event @session.id, id
+    hindquarters.sessions.events.stop @session.id, id
 
   update: (id, data) ->
     unless @session and id? then return Promise.resolve!
-    api.sessions.update-event @session.id, @event-id, data
+    hindquarters.sessions.events.update @session.id, @event-id, data
 }
 
