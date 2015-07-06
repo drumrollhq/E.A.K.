@@ -1,6 +1,5 @@
 require! {
   'ui/templates/login': template
-  'api'
   'user'
   'ui/SSOView'
 }

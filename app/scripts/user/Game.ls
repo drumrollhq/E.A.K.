@@ -1,5 +1,4 @@
 require! {
-  'api'
   'user'
 }
 
@@ -47,7 +46,7 @@ module.exports = class Game extends Backbone.DeepModel
     active-stage = @get \stage or {}
 
     default-data.activate = activate
-    @store.find-or-create-stage @id, default-data
+    @store.stages.find-or-create @id, default-data
       .tap (stage) ~> if activate then @set-active-stage stage, false
 
   level-by-url: (url) ->
@@ -79,7 +78,7 @@ module.exports = class Game extends Backbone.DeepModel
       patch-state: (patch, value) ~>
         if typeof patch is \string then patch = {"#patch": value}
         lvl.set state: patch
-        @store.patch-level-state @id, level.id, patch
+        @store.levels.patch-state @id, level.id, patch
 
       save-kitten: (kitten) ~> @save-kitten level.id, kitten
     }
@@ -90,9 +89,9 @@ module.exports = class Game extends Backbone.DeepModel
       'game.state.kittenCount': 1 + (@get \game.state.kittenCount or 0)
     }, silent: true
 
-    @store.save-kitten @id, level-id, kitten
+    @store.levels.save-kitten @id, level-id, kitten
 
   patch-stage-state: (patch, value) ->
     if typeof patch is \string then patch = {"#patch": value}
     @set \stage.state patch
-    @store.patch-stage-state @id, (@get \stage.id), patch
+    @store.stages.patch-state @id, (@get \stage.id), patch

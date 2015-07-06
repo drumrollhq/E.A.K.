@@ -2,7 +2,7 @@ id = (prefix = '') -> "#{prefix}_#{Date.now!}_#{_.unique-id!}"
 
 _tx = {}
 
-module.exports = {
+module.exports = games = {
   create: (data) ->
     game-id = id \game
     game = {
@@ -14,7 +14,7 @@ module.exports = {
       active-stage: null
     }
 
-    @save game .then -> {game}
+    games.save game .then -> {game}
 
   get: (id) ->
     (Promise.resolve localforage.get-item id)
@@ -27,79 +27,81 @@ module.exports = {
         if active-stage then game.active-stage = active-stage
         game
 
-  list: ->
-    @find {
+  mine: ->
+    games.find {
       where: ( .id.match /game/ )
       sort-by: ( .updated-at )
       limit: 1 # Only one local save-game allowed
       asc: false
     }
 
-  delete: -> ...
+  delete: (id) -> ...
 
-  find-or-create-stage: (game-id, stage-data) ->
-    game = null
-    activate = stage-data.activate or false
-    levels = stage-data.levels
-    delete stage-data.activate
-    delete stage-data.levels
+  stages:
+    find-or-create: (game-id, stage-data) ->
+      game = null
+      activate = stage-data.activate or false
+      levels = stage-data.levels
+      delete stage-data.activate
+      delete stage-data.levels
 
-    @get game-id
-      .then (game-data) ~>
-        game := game-data
-        stage-data.game-id = game-id
-        @find-one where: (stage) ->
-          (stage.id.match /^stage/) and
-            stage.{game-id, url, type} === {game-id, stage-data.url, stage-data.type}
-      .catch @LocalNotFoundError, ~>
-        stage-data.id = id \stage
-        @save stage-data .then -> stage-data
-      .then (stage) ~>
-        Promise.all [
+      games.get game-id
+        .then (game-data) ~>
+          game := game-data
+          stage-data.game-id = game-id
+          games.find-one where: (stage) ->
+            (stage.id.match /^stage/) and
+              stage.{game-id, url, type} === {game-id, stage-data.url, stage-data.type}
+        .catch games.LocalNotFoundError, ~>
+          stage-data.id = id \stage
+          games.save stage-data .then -> stage-data
+        .then (stage) ~>
+          Promise.all [
+            stage
+            if levels then games._find-or-create-levels stage, levels
+            if activate then games.patch game-id, active-stage: stage.id
+          ]
+        .spread (stage, levels) ->
+          if levels then stage.levels = levels
           stage
-          if levels then @find-or-create-levels stage, levels
-          if activate then @patch game-id, active-stage: stage.id
-        ]
-      .spread (stage, levels) ->
-        if levels then stage.levels = levels
-        stage
 
-  find-or-create-levels: (stage, levels) ->
-    Promise.map levels, (level) ~> @find-or-create-level stage, level
+    patch-state: (game-id, stage-id, patch) -> games.patch-state stage-id, patch
 
-  find-or-create-level: (stage, level) ->
-    @find-one {
+  _find-or-create-levels: (stage, levels) ->
+    Promise.map levels, (level) ~> games._find-or-create-level stage, level
+
+  _find-or-create-level: (stage, level) ->
+    games.find-one {
       where: (doc) ->
         (doc.id.match /^level/) and
           doc.{stage-id, url} === {stage-id: stage.id, url: level.url} }
       .catch LocalNotFoundError, ~>
         level.stage-id = stage.id
         level.id = id \level
-        @save level .then -> level
+        games.save level .then -> level
 
-  save-kitten: (game-id, level-id, kitten) ->
-    Promise.all [
-      @_increment-kitten-counter game-id
-      @_mark-kitten-saved level-id, kitten
-    ]
+  levels:
+    save-kitten: (game-id, level-id, {kitten}) ->
+      Promise.all [
+        games._increment-kitten-counter game-id
+        games._mark-kitten-saved level-id, kitten
+      ]
+
+    patch-state: (game-id, level-id, patch) -> games.patch-state level-id, patch
 
   _increment-kitten-counter: (game-id) ->
-    @get game-id .then (game) ~>
+    games.get game-id .then (game) ~>
       game.{}state.kitten-count = if game.state.kitten-count then that + 1 else 1
-      @save game
+      games.save game
 
   _mark-kitten-saved: (level-id, kitten) ->
-    @patch-state level-id, {kittens: "#{kitten}": new Date!}
+    games.patch-state level-id, {kittens: "#{kitten}": new Date!}
 
   patch: (id, patch) ->
-    @tx id, (data) -> _.merge data, patch
+    games.tx id, (data) -> _.merge data, patch
 
   patch-state: (id, patch) ->
-    @tx id, (data) -> data = _.merge data, state: patch
-
-  patch-stage-state: (game-id, stage-id, patch) -> @patch-state stage-id, patch
-
-  patch-level-state: (game-id, level-id, patch) -> @patch-state level-id, patch
+    games.tx id, (data) -> data = _.merge data, state: patch
 
   # Save an object, using it's id as the key
   save: (data) ->
@@ -109,9 +111,9 @@ module.exports = {
 
   tx: (id, fn) ->
     _tx[id] = Promise.resolve _tx[id]
-      .then ~> @get id
+      .then ~> games.get id
       .then fn
-      .then (data) ~> @save data
+      .then (data) ~> games.save data
       .tap ~> _tx[id] = null
 
   # Find objects from the store that match a certain function.
@@ -133,12 +135,12 @@ module.exports = {
 
   find-one: (options) ->
     options.limit = 1
-    @find options
+    games.find options
       .then ([item]) ~>
         if item
           Promise.resolve item
         else
-          Promise.reject new @LocalNotFoundError 'local-game-store item not found'
+          Promise.reject new games.LocalNotFoundError 'local-game-store item not found'
 
   LocalNotFoundError: class LocalNotFoundError extends Error
 }
