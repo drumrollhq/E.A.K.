@@ -66,13 +66,21 @@ gulp.task 'handlebars' ->
     .pipe gulp.dest dest.js
 
 gulp.task 'update-api' (done) !->
-  url = if optimized then 'https://api.eraseallkittens.com/v1/' else 'http://localhost:3000/v1/'
-  console.log "fetch api spec from #url"
-  request url, (err, resp, body) ->
-    if err then throw err
-    fs.write-file 'api-spec.json', body, encoding: \utf-8, (err) ->
-      if err then throw err
-      done!
+  root-url = if optimized then 'https://api.eraseallkittens.com/v1' else 'http://localhost:3000/v1'
+  console.log "Fetching api spec from #root-url..."
+  err, resp, status <- request root-url
+  if err then throw err
+  if resp.status-code isnt 200 then throw status
+  status = JSON.parse status
+
+  err, resp, body <- request "#root-url/hindquarters"
+  if err then throw err
+  if resp.status-code isnt 200 then throw body
+
+  console.log "Fetched api #{status.tag} (#{status.packaged}, #{status.hash})"
+  err <- fs.write-file 'api-spec.json', body, encoding: \utf-8
+  if err then throw err
+  done!
 
 gulp.task 'api-spec' ->
   gulp.src 'api-spec.json'
