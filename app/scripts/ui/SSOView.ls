@@ -10,7 +10,7 @@ module.exports = class SSOView extends Backbone.View
 
   sso: (provider) ->
     if not @sso-window? or @sso-window.closed
-      @sso-window = window.open "#{hindquarters.root}/v1/auth/#{provider}/", redirect: "#{hindquarters.root}/v1/auth/js-return"
+      @sso-window = window.open "#{hindquarters.root}/v1/auth/#{provider}/?redirect=/v1/auth/js-return"
       @sso-provider = provider
     else if @sso-provider is provider
       @sso-window.focus!

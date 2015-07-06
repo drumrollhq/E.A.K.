@@ -28,7 +28,8 @@
     "lodash": "~3.3.1",
     "backbone-deep-model": "https://github.com/kahwee/backbone-deep-model.git#~1.0.0",
     "pixi": "v3.0.0-rc4",
-    "vatrates": "~1.0.5"
+    "vatrates": "~1.0.5",
+    "backbone-react-component": "~0.8.1"
   },
   "overrides": {
     "underscore": {
@@ -39,6 +40,14 @@
       "dependencies": {
         "lodash": "*",
         "jquery": "*"
+      }
+    },
+    "backbone-react-component": {
+      "main": "lib/component.js",
+      "dependencies": {
+        "backbone": "^1.2.0",
+        "react": "^0.13.0",
+        "lodash": "*"
       }
     },
     "modernizr": {

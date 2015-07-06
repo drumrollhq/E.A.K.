@@ -1,5 +1,4 @@
 require! {
-  'api'
   'lib/stripe'
   'ui/templates/pay': template
   'user'
@@ -70,7 +69,7 @@ module.exports = class PayView extends Backbone.View
 
   token: (token) ~>
     console.log token
-    api.subscriptions.create {
+    user.subscribe {
       plan: @sub-details!.id
       token: token.id
       ip: token.client_ip
