@@ -1,4 +1,6 @@
 #overlay-views
+  display none
+  opacity 0
   z-index 100001
   position absolute
   top 0
@@ -7,6 +9,16 @@
   height 100%
   overflow auto
   background eakSkyBlue
+
+  &.active
+    display block
+    opacity 1
+    animation overlay-in 0.4s ease
+
+  &.inactive
+    display block
+    opacity 0
+    animation overlay-out 0.4s ease
 
 #overlay-view-container
   position relative

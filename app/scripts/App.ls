@@ -20,7 +20,7 @@ require! {
 }
 
 const stage-types = <[cutscene area]>
-$overlay = $ '#overlay'
+$overlay-views = $ '#overlay-views'
 $settings-button = $ '#bar .settings-button'
 
 module.exports = class App
@@ -144,7 +144,7 @@ module.exports = class App
   switch-menu: (name) -> @_active-menu = name
 
   initialized: ~>
-    $overlay-views = $ '#overlay-views'
+    @stop-event-loop!
     @bar = new Bar el: ($ '#bar'), views: overlay-views {settings, user, $overlay-views, save-games: @save-games, app: this}
       ..show!
       ..on \dismiss, ~> @dismiss-app-overlay!
@@ -260,16 +260,16 @@ module.exports = class App
     @_active-menu = null
 
   show-overlay: ->
-    $overlay.add-class 'active'
+    $overlay-views.add-class 'active'
     $settings-button.add-class 'active'
     @switch-overlay!
 
   hide-overlay: ->
     @switch-overlay \none
     $settings-button.remove-class 'active'
-    $overlay.remove-class 'active' .add-class 'inactive'
-    <~ $overlay.one prefixed.animation-end
-    $overlay.remove-class 'inactive'
+    $overlay-views.remove-class 'active' .add-class 'inactive'
+    <~ $overlay-views.one prefixed.animation-end
+    $overlay-views.remove-class 'inactive'
 
   start-event-loop: ->
     channels.game-commands.publish command: \force-resume
