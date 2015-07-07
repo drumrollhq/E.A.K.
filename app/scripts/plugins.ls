@@ -160,3 +160,5 @@ window.pr = (promise) ->
     .then (result) -> console.log "resolve (#{(performance.now! - now).to-fixed 2}ms)" result
     .catch (err) -> console.log "reject (#{(performance.now! - now).to-fixed 2}ms)" err
   return promise
+
+window.cx = class-names

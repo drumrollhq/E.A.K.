@@ -1,13 +1,62 @@
 require! {
+  'data/plans'
   'lib/stripe'
-  'ui/templates/pay': template
   'user'
+  'ui/CountrySelect'
 }
 
-parents-yearly = amt: 25, period: \year, periodly: 'Yearly', id: \eak-parent-annual
-parents-monthly = amt: 3, period: \month, periodly: 'Monthly', id: \eak-parent-monthly
+dom = React.DOM
 
-module.exports = class PayView extends Backbone.View
+module.exports = React.create-class {
+  display-name: \CreateSubscription
+  mixins: [Backbone.React.Component.mixin]
+  get-initial-state: -> {
+    country: \gb
+    stripe: stripe.get-handler!
+  }
+
+  change-country: (country) ->
+    @set-state {country}
+
+  args: (id) ->
+    @set-state plan: plans[find-index ( .id is id ), plans]
+
+  render: ->
+    plan = @state.plan
+    unless plan
+      return dom.div class-name: \cont-wide,
+        dom.h2 null, 'Loading...'
+
+    vat = VATRates[@state.country.to-upper-case!]
+    has-vat = !!vat
+    vat ?= rates: standard: 0
+    vat-amount = if vat then plan.amt * vat.rates.standard / 100 else 0
+    total = plan.amt + vat-amount
+
+    dom.div class-name: \cont-wide,
+      dom.h2 null, 'Subscribe to E.A.K.'
+      dom.p null, 'Todo: collect address, ask whether to auto-renew'
+      dom.p null, 'Select your country from this tedious drop-down menu:'
+      React.create-element CountrySelect, on-change: @change-country, country: @state.country
+      dom.table null,
+        dom.tr null,
+          dom.td null, "E.A.K. #{plan.periodly} subscription"
+          dom.td null, "£#{plan.amt.to-fixed 2}"
+
+        dom.tr class-name: (cx hidden: not has-vat),
+          dom.td null, "VAT (#{vat.rates.standard}%)"
+          dom.td null, "£#{vat-amount.to-fixed 2}"
+
+        dom.tr class-name: (cx hidden: not has-vat),
+          dom.td null, 'Total'
+          dom.td null, "£#{total.to-fixed 2}"
+
+      dom.p null, "Country: #{@state.country}"
+      dom.p null, "Confirm your subscription of #{total.to-fixed 2}/#{plan.period}"
+      dom.button class-name: 'btn subscribe', 'Subscribe'
+}
+
+class PayView extends Backbone.View
   initialize: ->
     @handler-promise = stripe.get-handler!
     @country = \gb
