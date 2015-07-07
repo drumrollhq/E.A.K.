@@ -13,6 +13,7 @@ require! {
 cache = {}
 
 module.exports = ({user, settings, $overlay-views, save-games, app}) ->
+  $view-container = $overlay-views.find \#overlay-view-container
   get-new-view = (name) ->
     switch name
     | \login => new LoginView!
@@ -30,7 +31,7 @@ module.exports = ({user, settings, $overlay-views, save-games, app}) ->
     if cache[name] then return that
     try
       view = cache[name] = get-new-view name
-        ..$el.append-to $overlay-views
+        ..$el.append-to $view-container
         ..parent = parent
 
       return view

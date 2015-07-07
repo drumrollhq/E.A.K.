@@ -1,38 +1,46 @@
 #overlay-views
+  z-index 100001
   position absolute
   top 0
   left 0
   width 100%
   height 100%
-  padding-top 75px
-  padding-bottom 75px
-  z-index 100001
-  display none
-  color eakFontBlack
-  overflow-x hidden
-  overflow-y auto
+  overflow auto
+  background eakSkyBlue
 
-  &.active
+#overlay-view-container
+  position relative
+  width 100%
+  min-height 100%
+
+  &:after
+    content ' '
+    position absolute
+    z-index 1
+    bottom 0
     display block
+    width 100%
+    height 100%
+    background-image url('/ui/bg.png'), url('/ui/strip.png')
+    background-size 900px 444px, 1px 90px
+    background-position center bottom, center bottom
+    background-repeat no-repeat, repeat-x
 
-  > *
-    padding-top 75px
-    display none
-
-#app > *
-  padding-top 50px
-
-#overlay-views, #app
+#overlay-view-container, #app
   > *
     position absolute
+    z-index 2
     top 0
     left 0
     right 0
+    padding-top 75px
+    padding-bottom 200px
     opacity 0
-    padding-bottom 75px
+    display none
 
     &.active
       display block
+      position relative
       opacity 1
       animation dialogue-in 0.4s ease
 
