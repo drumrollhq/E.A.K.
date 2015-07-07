@@ -43,3 +43,56 @@
       transition all 0.2s ease-in
       transform translate(0, 20px) scale(0.8) translateZ(0)
       opacity 0
+
+loadToggleDuration = 0.3s
+loadToggleDelay = 0.15s
+
+.loader-toggle-contents
+  transition all loadToggleDuration ease
+  transition-delay loadToggleDelay
+
+.loader-toggle-loader
+  height 0
+  overflow visible
+
+  .loading-spinner-player
+    margin-top 0
+    padding-top 60px
+
+  h4
+    text-align center
+    padding-top 75px
+
+.loader-toggle.active
+  .loader-toggle-contents
+    transition-delay 0s
+    opacity 0.3
+    transform-origin 50% 0%
+    transform scale(0.85)
+    filter blur(3px)
+    -webkit-filter blur(3px)
+    pointer-events none
+
+.loader-toggle-enter
+  opacity 0
+  transition all loadToggleDuration loadToggleDelay ease-out
+  .loading-spinner-player
+    transform translateX(-70px)
+    transition all loadToggleDuration loadToggleDelay ease-out
+
+.loader-toggle-enter-active
+  opacity 1
+  .loading-spinner-player
+    transform translateX(0)
+
+.loader-toggle-leave
+  opacity 1
+  transition all loadToggleDuration ease-in
+  .loading-spinner-player
+    transform translateX(0)
+    transition all loadToggleDuration ease-in
+
+.loader-toggle-leave-active
+  opacity 0
+  .loading-spinner-player
+    transform translateX(70px)

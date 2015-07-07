@@ -51,6 +51,11 @@
         "lodash": "*"
       }
     },
+    "react": {
+      "main": [
+        "react-with-addons.js"
+      ]
+    },
     "modernizr": {
       "main": [
         "modernizr.js",

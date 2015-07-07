@@ -36,4 +36,5 @@ module.exports = ({user, settings, $overlay-views, save-games, app}) ->
 
       return view
     catch e
+      console.log e
       return null
