@@ -14,3 +14,4 @@ conf.production.json
 gulp-cache
 config.js
 *.swp
+*.swo
