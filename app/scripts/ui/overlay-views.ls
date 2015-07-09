@@ -1,6 +1,5 @@
 require! {
   'ui/LoginView'
-  'ui/PayView'
   'ui/SaveGamesView'
   'ui/SettingsView'
   'ui/SignUpNextView'
@@ -19,7 +18,6 @@ module.exports = ({user, settings, $overlay-views, save-games, app}) ->
     | \login => new LoginView!
     | \loginLoader => new TemplateView template: 'ui/templates/login-loader'
     | \my-games => new SaveGamesView collection: save-games, app: app
-    | \pay => new ReactView component: PayView
     | \settings => new SettingsView model: settings, id: \settings
     | \signup => new SignUpView!
     | \signupLoader => new TemplateView template: 'ui/templates/signup-loader'

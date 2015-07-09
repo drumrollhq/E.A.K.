@@ -28,7 +28,6 @@
     "lodash": "~3.3.1",
     "backbone-deep-model": "https://github.com/kahwee/backbone-deep-model.git#~1.0.0",
     "pixi": "v3.0.0-rc4",
-    "vatrates": "~1.0.5",
     "backbone-react-component": "~0.8.1",
     "classnames": "~2.1.3"
   },

@@ -1,23 +1,57 @@
 require! {
   'data/plans'
   'ui/actions'
+  'user'
+  'ui/loader'
+  'lib/stripe'
 }
 
 dom = React.DOM
+
+plan-details = (id) -> plans[find-index ( .id is id ), plans]
 
 module.exports = Subscribe = React.create-class {
   display-name: \Subscribe
   mixins: [Backbone.React.Component.mixin]
   get-initial-state: -> {plans}
 
+  component-did-mount: ->
+    stripe
+      .get-handler!
+      .then (handler) ~>
+        @set-state stripe-loaded: true
+        @stripe-handler = handler
+
+  activate: ->
+    actions.get-user prevent-close: true
+      .then -> window.location.hash = '/app/subscribe'
+      .catch (e) -> console.log \error-get-user e
+
   select-option: (choice) ->
+    if @state.loading or not @state.stripe-loaded then return
     if choice is \teachers
       alert 'TODO'
       return
 
-    actions.get-user prevent-close: true
-      .then -> window.location.hash = "/app/pay/#choice"
-      .catch (e) -> console.log \error-get-user e
+    plan = plan-details choice
+    @stripe-handler.open {
+      token: @on-token plan
+      description: "E.A.K. #{plan.periodly} Subscription"
+      amount: plan.amt * 100
+      email: user.get \user.email
+      panel-label: 'Subscribe {{amount}} + VAT'
+      billing-address: true
+    }
+
+  on-token: (plan, token) -->
+    @set-state loading: true
+    user.subscribe {
+      plan: @plan-details.id
+      token: token.id
+      ip: token.client_ip
+      card-country: token.card.country
+      user-country: token.card.address_country
+    }
 
   render: ->
     plan-heading = (plan) ~>
@@ -39,6 +73,7 @@ module.exports = Subscribe = React.create-class {
 
     dom.div class-name: \cont-wide,
       dom.h2 null, 'Subscribe to E.A.K.'
-      dom.ul class-name: \subchoice, plan-list @state.plans
-      dom.p null, 'Something here explaining why anyone would want to buy our thing probably aimed at parents.'
+      loader.toggle @state.loading || not @state.stripe-loaded, 'Loading...',
+        dom.ul class-name: \subchoice, plan-list @state.plans
+        dom.p null, 'Something here explaining why anyone would want to buy our thing probably aimed at parents.'
 }

@@ -31,6 +31,10 @@ class User extends Backbone.DeepModel
     user = @get 'user'
     if user.username then "@#{user.username}" else user.first-name
 
+  full-name: ->
+    user = @get \user
+    "#{capitalize user.first-name or ''} #{capitalize user.last-name or ''}".trim!
+
   login: (username, password) ->
     hindquarters.auth.login {username, password}
       .then (user) ~> @set-user user.user
@@ -39,6 +43,9 @@ class User extends Backbone.DeepModel
     hindquarters.auth.logout!
     @set logged-in: false, user: null
     localforage.remove-item 'resume-id'
+
+  subscribe: (body) ->
+    hindquarters.users.subscribe @id, body
 
   new-game: (stage-defaults) ->
     Game.new store: game-store!, user: (@get \user), stage-defaults: stage-defaults
