@@ -132,6 +132,7 @@ Backbone.Collection.prototype.to-json = Backbone.Collection.prototype.to-JSON
 # Extract message from error:
 window.error-message = (e) ->
   e.response-JSON?.details or
+    e.details or
     e.message or
     e.status-text or
     e

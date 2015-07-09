@@ -1,59 +1,75 @@
 require! {
-  'ui/templates/login': template
+  'ui/SSOMixin'
+  'ui/loader'
+  'ui/error-panel'
   'user'
-  'ui/SSOView'
 }
 
-module.exports = class LoginView extends SSOView
-  initialize: ->
-    super!
-    @render!
+dom = React.DOM
 
-    @$username-field = @$ '.sign-in .username'
-    @$password-field = @$ '.sign-in .password'
-    @$errors = @$ '.sign-in .form-errors'
+module.exports = React.create-class {
+  display-name: \Login
+  mixins: [SSOMixin, React.addons.PureRenderMixin]
 
-  events:
-    'click .sso': 'ssoButtonClick'
-    'click .sign-up': 'signup'
-    'submit': 'submit'
+  get-initial-state: -> {
+    username: ''
+    password: ''
+    error: null
+    loading: false
+  }
 
-  render: ->
-    @$el.html template!
-
-  with-google: -> @sso 'google'
-  with-facebook: -> @sso 'facebook'
-
-  activate: ->
-    @$username-field.focus!
+  component-did-mount: ->
+    <~ set-timeout _, 100 # Need to let the animation finish
+    @refs.username.get-DOM-node!.focus!
 
   submit: (e) ->
-    @hide-error!
-    if e.prevent-default? then e.prevent-default!
-    username = @$username-field.val!
-    password = @$password-field.val!
-    @$password-field.val ''
+    if e?.prevent-default? then e.prevent-default!
 
-    @parent.activate 'loginLoader'
+    {username, password} = @state
+    @set-state password: '', error: null, loading: true
     Promise.delay 300
       .then ~> user.login username, password
       .then ~>
-        @$username-field.val ''
-        @$password-field.val ''
-        @trigger \close
-      .catch (err) ~>
-        console.error err
-        @parent.activate 'login'
-        @show-error error-message err
+        @set-state username: '', password: '', error: null, loading: false
+        @props.on-close!
+      .catch (e) ~>
+        console.error e
+        @set-state loading: false, error: error-message e
 
-  hide-error: ->
-    @$errors
-      ..html ''
-      ..add-class 'hidden'
-
-  show-error: (msg) ->
-    @$errors
-      ..html msg
-      ..remove-class 'hidden'
-
-  signup: -> @parent.activate 'signup'
+  render: ->
+    dom.div class-name: \cont,
+      dom.h2 null, 'Sign In'
+      loader.toggle @state.loading, 'Signing in...',
+        dom.p null,
+          'No Account? '
+          dom.a href: '#/app/signup' class-name: (cx \sign-up \btn), 'Sign up here.'
+          ' Itʼs pretty great.'
+        dom.div class-name: \sign-in,
+          @sso-button \google 'Google'
+          @sso-button \facebook 'Facebook'
+          dom.div class-name: \hr, 'or'
+          dom.form class-name: \clearfix, on-submit: @submit,
+            error-panel @state.error
+            dom.label class-name: \text-field,
+              dom.span null, 'Username or email'
+              dom.input {
+                ref: \username
+                type: \text
+                class-name: \username
+                required: true
+                value: @state.username
+                on-change: (e) ~> @set-state username: e.target.value
+              }
+            dom.label class-name: \text-field,
+              dom.span null, 'Password'
+              dom.input {
+                ref: \password
+                type: \password
+                class-name: \password
+                required: true
+                value: @state.password
+                on-change: (e) ~> @set-state password: e.target.value
+              }
+            dom.button class-name: (cx \btn \pull-right), type: \submit,
+              'Sign In →'
+}

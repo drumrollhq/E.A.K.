@@ -1,9 +1,10 @@
 require! {
   'data/plans'
-  'ui/actions'
-  'user'
-  'ui/loader'
   'lib/stripe'
+  'ui/actions'
+  'ui/error-panel'
+  'ui/loader'
+  'user'
 }
 
 dom = React.DOM
@@ -83,9 +84,7 @@ module.exports = Subscribe = React.create-class {
     dom.div class-name: \cont-wide,
       dom.h2 null, 'Subscribe to E.A.K.'
       loader.toggle @state.loading || not @state.stripe-loaded, 'Loading...',
-        dom.div class-name: (cx \error-panel hidden: not @state.error),
-          dom.strong class-name: \error-panel-label, 'Error: '
-          dom.span class-name: \error-panel-content, @state.error
+        error-panel @state.error
         dom.ul class-name: \subchoice, plan-list @state.plans
         dom.p null, 'Something here explaining why anyone would want to buy our thing probably aimed at parents.'
 }

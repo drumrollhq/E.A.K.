@@ -15,7 +15,7 @@ module.exports = ({user, settings, $overlay-views, save-games, app}) ->
   $view-container = $overlay-views.find \#overlay-view-container
   get-new-view = (name) ->
     switch name
-    | \login => new LoginView!
+    | \login => new ReactView component: LoginView
     | \loginLoader => new TemplateView template: 'ui/templates/login-loader'
     | \my-games => new SaveGamesView collection: save-games, app: app
     | \settings => new SettingsView model: settings, id: \settings
