@@ -29,13 +29,15 @@ module.exports = Subscribe = React.create-class {
 
   select-option: (choice) ->
     if @state.loading or not @state.stripe-loaded then return
+    @set-state error: null
+
     if choice is \teachers
       alert 'TODO'
       return
 
     plan = plan-details choice
     @stripe-handler.open {
-      token: @on-token plan
+      token: @on-token.bind this, plan
       description: "E.A.K. #{plan.periodly} Subscription"
       amount: plan.amt * 100
       email: user.get \user.email
@@ -43,15 +45,22 @@ module.exports = Subscribe = React.create-class {
       billing-address: true
     }
 
-  on-token: (plan, token) -->
+  on-token: (plan, token) ->
     @set-state loading: true
-    user.subscribe {
-      plan: @plan-details.id
-      token: token.id
-      ip: token.client_ip
-      card-country: token.card.country
-      user-country: token.card.address_country
-    }
+    user
+      .subscribe {
+        plan: plan.id
+        token: token.id
+        ip: token.client_ip
+        card-country: token.card.country
+        user-country: token.card.address_country
+      }
+      .then (subscription) ~>
+        @set-state loading: false
+        console.log \subscription subscription
+      .catch (e) ~>
+        console.log e
+        @set-state loading: false, error: e.details || 'We can\'t create your subscription because of mystery reasons D:'
 
   render: ->
     plan-heading = (plan) ~>
@@ -74,6 +83,9 @@ module.exports = Subscribe = React.create-class {
     dom.div class-name: \cont-wide,
       dom.h2 null, 'Subscribe to E.A.K.'
       loader.toggle @state.loading || not @state.stripe-loaded, 'Loading...',
+        dom.div class-name: (cx \error-panel hidden: not @state.error),
+          dom.strong class-name: \error-panel-label, 'Error: '
+          dom.span class-name: \error-panel-content, @state.error
         dom.ul class-name: \subchoice, plan-list @state.plans
         dom.p null, 'Something here explaining why anyone would want to buy our thing probably aimed at parents.'
 }

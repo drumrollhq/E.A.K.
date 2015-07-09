@@ -45,7 +45,7 @@ class User extends Backbone.DeepModel
     localforage.remove-item 'resume-id'
 
   subscribe: (body) ->
-    hindquarters.users.subscribe @id, body
+    hindquarters.users.subscribe (@get \user.id), body
 
   new-game: (stage-defaults) ->
     Game.new store: game-store!, user: (@get \user), stage-defaults: stage-defaults
