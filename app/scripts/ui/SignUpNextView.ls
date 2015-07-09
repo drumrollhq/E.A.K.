@@ -89,10 +89,10 @@ module.exports = class SignUpNextView extends Backbone.View
         @parent.deactivate!
       .catch (err) ~>
         @parent.activate 'signupNext'
-        if err.response-JSON?.reason is 'Validation error'
-          @show-errors err.response-JSON?.details
+        if err.reason is 'Validation error'
+          @show-errors err.details
         else
-          @show-errors ["Something's gone wrong... #{error-message err}. That's all we know. Crazy, huh?"]
+          @show-errors ["Something's gone wrong... #{err.details}. That's all we know. Crazy, huh?"]
 
   get-usernames: (replace-input) ->
     replace-input = replace-input is true
