@@ -1,7 +1,8 @@
 module.exports = class ReactView extends Backbone.View
-  initialize: ({component, model}) ->
+  initialize: ({component, model, collection}) ->
     props = {
       model
+      collection
       on-close: ~> @trigger \close
     }
 

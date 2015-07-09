@@ -1,10 +1,10 @@
 require! {
-  'ui/LoginView'
+  'ui/components/Login'
   'ui/SaveGamesView'
   'ui/SettingsView'
   'ui/SignUpNextView'
   'ui/SignUpView'
-  'ui/SubscribeView'
+  'ui/components/Subscribe'
   'ui/TemplateView'
   'ui/ReactView'
 }
@@ -15,14 +15,14 @@ module.exports = ({user, settings, $overlay-views, save-games, app}) ->
   $view-container = $overlay-views.find \#overlay-view-container
   get-new-view = (name) ->
     switch name
-    | \login => new ReactView component: LoginView
+    | \login => new ReactView component: Login
     | \loginLoader => new TemplateView template: 'ui/templates/login-loader'
-    | \my-games => new SaveGamesView collection: save-games, app: app
+    | \myGames => new SaveGamesView collection: save-games, app: app
     | \settings => new SettingsView model: settings, id: \settings
     | \signup => new SignUpView!
     | \signupLoader => new TemplateView template: 'ui/templates/signup-loader'
     | \signupNext => new SignUpNextView!
-    | \subscribe => new ReactView component: SubscribeView
+    | \subscribe => new ReactView component: Subscribe
     | otherwise => throw new Error "view #name not found"
 
   (parent) -> (name) ->

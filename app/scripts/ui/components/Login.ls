@@ -1,7 +1,7 @@
 require! {
-  'ui/SSOMixin'
-  'ui/loader'
-  'ui/error-panel'
+  'ui/utils/SSOMixin'
+  'ui/utils/loader'
+  'ui/utils/error-panel'
   'user'
 }
 

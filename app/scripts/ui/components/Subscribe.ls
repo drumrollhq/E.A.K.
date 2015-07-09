@@ -2,8 +2,8 @@ require! {
   'data/plans'
   'lib/stripe'
   'ui/actions'
-  'ui/error-panel'
-  'ui/loader'
+  'ui/utils/error-panel'
+  'ui/utils/loader'
   'user'
 }
 
