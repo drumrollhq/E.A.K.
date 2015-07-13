@@ -9,13 +9,17 @@ require! {
   'gulp-header'
   'gulp-livescript'
   'gulp-rename'
+  'gulp-sourcemaps'
   'gulp-uglify'
   'gulp-wrap'
+  'gulp-wrap-js'
   'path'
   'request'
   'run-sequence'
   'streamqueue'
 }
+
+wrap-js-template = '''require.register("%= file.relative.replace('\\\\', '/').replace(/\\.js$/, '') %", function(exports, require, module) {%= body %});'''
 
 gulp.task 'scripts' (done) ->
   run-sequence ['livescript' 'workers' 'handlebars' 'api-spec'], done
@@ -32,9 +36,15 @@ gulp.task 'livescript' (done) ->
 gulp.task 'app-livescript' ->
   gulp.src src.lsc
     .pipe gulp-changed dest.js, extension: '.js'
-    .pipe gulp-livescript bare: true
+    .pipe gulp-sourcemaps.init!
+    .pipe gulp-livescript!
+    .pipe gulp-wrap-js wrap-js-template, {
+      indent:
+        style: '  '
+        adjust-multiline-comment: true
+    }
+    .pipe gulp-sourcemaps.write 'sourcemaps', source-root: '/js'
     .on 'error' -> throw it
-    .pipe wrap-commonjs!
     .pipe gulp.dest dest.js
 
 gulp.task 'test-livescript' ->
