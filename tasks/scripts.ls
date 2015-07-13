@@ -76,7 +76,7 @@ gulp.task 'handlebars' ->
     .pipe gulp.dest dest.js
 
 gulp.task 'update-api' (done) !->
-  root-url = if optimized then 'https://api.eraseallkittens.com' else 'http://localhost:3000'
+  root-url = if production then 'https://api.eraseallkittens.com' else 'http://localhost:3000'
   console.log "Fetching api spec from #root-url..."
   err, resp, status <- request "#root-url/v1"
   if err then throw err

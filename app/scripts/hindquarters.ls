@@ -2,6 +2,8 @@ require! {
   'lib/set-at'
 }
 
+var root
+
 req-json = (method, url, options, body) ->
   if options
     url += '?' + $.param options
@@ -51,6 +53,8 @@ http = (method, url, params, options, body) ->
   req-json method, url, options, body
 
 setup = (desc) ->
+  root := desc.root-url
+  module.exports.root = root
   routes = flatten-routes desc.routes
 
   endpoints = {}
@@ -66,12 +70,5 @@ setup = (desc) ->
 $.ajax-setup {
   xhr-fields: with-credentials: true
 }
-
-root = if window.location.host.match /eraseallkittens\.com/ or window.location.port is \5275
-  'https://api.eraseallkittens.com'
-else
-  '//localhost:3000'
-
-module.exports.root = root
 
 setup window.EAK_API_SPEC

@@ -7,7 +7,9 @@ require! {
 }
 
 global.optimized = argv.o or argv.optimized or argv.optimised or false
-console.log "Optimized?: #optimized"
+global.production = argv.p or argv.production
+if global.production then global.optimized = true
+console.log global.{optimized, production}
 
 global.eak-version = new Promise (resolve, reject) ->
   tag <- git-rev.tag!
@@ -19,7 +21,10 @@ global.eak-version = new Promise (resolve, reject) ->
 global.languages = ['en' 'es-419' 'nl']
 global.default-lang = 'en'
 try
-  global.config = require './config.js'
+  if production
+    global.config = require './conf.prod.js'
+  else
+    global.config = require './conf.dev.js'
 catch e
   console.log 'Error loading config' e
   global.config = {}
