@@ -3,10 +3,12 @@ require! {
   'ui/components/Subscribe'
   'ui/components/SaveGames'
   'ui/components/Settings'
+  'ui/components/SignUp'
   'ui/SignUpNextView'
   'ui/SignUpView'
   'ui/TemplateView'
   'ui/ReactView'
+  'user'
 }
 
 cache = {}
@@ -18,8 +20,7 @@ module.exports = ({user, settings, $overlay-views, save-games, app}) ->
     | \login => new ReactView component: Login
     | \myGames => new ReactView component: SaveGames, collection: save-games, app: app
     | \settings => new ReactView component: Settings, model: settings
-    | \signup => new SignUpView!
-    | \signupLoader => new TemplateView template: 'ui/templates/signup-loader'
+    | \signup => new ReactView component: SignUp, model: user
     | \signupNext => new SignUpNextView!
     | \subscribe => new ReactView component: Subscribe
     | otherwise => throw new Error "view #name not found"

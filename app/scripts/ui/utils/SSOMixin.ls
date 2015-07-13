@@ -30,9 +30,8 @@ module.exports = {
     user.set-user data
     switch data.status
     | \active => @props.on-close!
-    | \creating => window.location.hash = '/app/signup'
+    | \creating => window.location.hash = '/app/signup-next'
 
-  sso-button: (provider-id, provider-name) ->
-    React.DOM.button class-name: (cx \sso "sso-#provider-id"), on-click: (~> @sso provider-id),
-      "Sign in with #{provider-name}"
+  sso-button: (provider-id, msg) ->
+    React.DOM.button class-name: (cx \sso "sso-#provider-id"), on-click: (~> @sso provider-id), msg
 }

@@ -45,8 +45,8 @@ module.exports = React.create-class {
           dom.a href: '#/app/signup' class-name: (cx \sign-up \btn), 'Sign up here.'
           ' Itʼs pretty great.'
         dom.div class-name: \sign-in,
-          @sso-button \google 'Google'
-          @sso-button \facebook 'Facebook'
+          @sso-button \google 'Sign in with Google'
+          @sso-button \facebook 'Sign in with Facebook'
           dom.div class-name: \hr, 'or'
           dom.form class-name: \clearfix, on-submit: @submit,
             error-panel @state.error
