@@ -24,7 +24,7 @@ class User extends Backbone.DeepModel
   logged-in: ~> @get \loggedIn
 
   set-user: (user, logged-in = true) ->
-    if user?.status is 'creating' then channels.page.publish name: 'signupNext'
+    if user?.status is 'creating' then window.location.hash = '/app/signup-next'
     @set logged-in: logged-in, user: user
 
   display-name: ->

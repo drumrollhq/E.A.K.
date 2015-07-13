@@ -11,3 +11,6 @@ module.exports = class ReactView extends Backbone.View
 
   args: (...args) ->
     if @component.args then @component.args.apply @component, args
+
+  activate: ->
+    if @component.activate then @component.activate.apply @component, arguments

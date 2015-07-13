@@ -4,9 +4,7 @@ require! {
   'ui/components/SaveGames'
   'ui/components/Settings'
   'ui/components/SignUp'
-  'ui/SignUpNextView'
-  'ui/SignUpView'
-  'ui/TemplateView'
+  'ui/components/SignUpNext'
   'ui/ReactView'
   'user'
 }
@@ -21,7 +19,7 @@ module.exports = ({user, settings, $overlay-views, save-games, app}) ->
     | \myGames => new ReactView component: SaveGames, collection: save-games, app: app
     | \settings => new ReactView component: Settings, model: settings
     | \signup => new ReactView component: SignUp, model: user
-    | \signupNext => new SignUpNextView!
+    | \signupNext => new ReactView component: SignUpNext, model: user
     | \subscribe => new ReactView component: Subscribe
     | otherwise => throw new Error "view #name not found"
 
