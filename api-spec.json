@@ -1,8 +1,8 @@
 {
-  "rootUrl": "http://localhost:3000",
-  "tag": "v0.2.2",
-  "packaged": "2015-07-09T13:11:02.000Z",
-  "hash": "d04398a93401f163a2e09464f3d5fd438759c79c",
+  "rootUrl": "https://api.eraseallkittens.com",
+  "tag": "v0.3.0-a3",
+  "packaged": "2015-07-13T23:16:26.000Z",
+  "hash": "8b6423faa56a653bb691878533787260026822ed",
   "endpoints": {
     "status": {
       "params": false,
@@ -53,6 +53,9 @@
       "params": false,
       "body": {
         "type": "object",
+        "flags": {
+          "allowUnknown": true
+        },
         "children": {
           "id": {
             "type": "number",
@@ -154,49 +157,17 @@
             ]
           },
           "passwordConfirm": {
-            "type": "alternatives",
+            "type": "string",
             "flags": {
-              "presence": "ignore"
+              "presence": "optional"
             },
-            "alternatives": [
+            "invalids": [
+              ""
+            ],
+            "rules": [
               {
-                "ref": "ref:password",
-                "is": {
-                  "type": "string",
-                  "invalids": [
-                    ""
-                  ]
-                },
-                "then": {
-                  "type": "string",
-                  "flags": {
-                    "presence": "required"
-                  },
-                  "invalids": [
-                    ""
-                  ],
-                  "rules": [
-                    {
-                      "name": "min",
-                      "arg": 6
-                    }
-                  ]
-                },
-                "otherwise": {
-                  "type": "string",
-                  "flags": {
-                    "presence": "optional"
-                  },
-                  "invalids": [
-                    ""
-                  ],
-                  "rules": [
-                    {
-                      "name": "min",
-                      "arg": 6
-                    }
-                  ]
-                }
+                "name": "min",
+                "arg": 6
               }
             ]
           },
@@ -233,6 +204,12 @@
             "type": "boolean",
             "flags": {
               "default": false
+            }
+          },
+          "hasPassword": {
+            "type": "boolean",
+            "flags": {
+              "default": true
             }
           }
         }

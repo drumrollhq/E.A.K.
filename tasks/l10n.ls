@@ -21,6 +21,7 @@ scripts += '<script src="/js/api-spec.js"></script>'
 
 preprocess-context = {
   optimized: optimized
+  production: production
   scripts: scripts
   languages: languages |> map (-> "'#it'") |> join ',' |> (-> "[#it]")
   config: global.config

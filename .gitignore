@@ -8,8 +8,7 @@ bower_components
 public
 .test
 *.!sync
-conf.dev.json
-conf.production.json
+conf.*.js
 .tmp
 gulp-cache
 config.js
