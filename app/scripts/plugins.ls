@@ -96,7 +96,8 @@ get-obj = (obj, path) ->
   | path.length is 1 => obj[head path]
   | otherwise => get-obj obj[head path], tail path
 
-Handlebars.register-helper \l10n (path) -> get-obj (require \translations), path
+window.l10n = (path) -> get-obj (require \translations), path
+Handlebars.register-helper \l10n window.l10n
 
 Handlebars.register-helper \countrySelectOptions ->
   (require 'ui/templates/country-select')!
