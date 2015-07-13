@@ -16,3 +16,7 @@ button-color(col, shadow=30%, highlight=20%, shadow-size=0.2em)
   &:hover
     background lighten(col, highlight)
     box-shadow 0 shadow-size 0 lighten(darken(col, shadow), highlight)
+
+filter(fns)
+  -webkit-filter fns
+  filter fns

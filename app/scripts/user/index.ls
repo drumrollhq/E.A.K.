@@ -53,6 +53,7 @@ class User extends Backbone.DeepModel
 
   load-game: (game) ->
     Game.load store: game-store!, user: (@get \user), id: game.id || game
+      .tap console.log.bind console, \load-game
       .tap (game) ~> @game = game
 
   recent-games: (limit = 10) ->

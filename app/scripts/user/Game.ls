@@ -11,9 +11,11 @@ module.exports = class Game extends Backbone.DeepModel
         game.setup-autosave!
 
   @load = ({store, id, user}) ->
+    console.log store
     store.get id
       .then (game) -> new Game id: game.id, game: game, stage: game.active-stage
       .tap (game) ->
+        console.log 'game' game
         game.set-store store
         game.setup-autosave!
 
