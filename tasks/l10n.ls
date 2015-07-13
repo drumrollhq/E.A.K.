@@ -71,12 +71,12 @@ function locale-data-cache
     lang-data = _locale-cache[lang]
 
     for key, {message} of data
-      file = key |> split '/' |> initial |> join '/'
-      path = key |> split '/' |> last |> split '.' |> map camelize
+      file = key |> split '/' |> initial |> join path.sep
+      name = key |> split '/' |> last |> split '.' |> map camelize
 
       lang-data[file] ?= {}
       file-data = lang-data[file]
-      set-path file-data, path, message
+      set-path file-data, name, message
 
     cb null, file
 
