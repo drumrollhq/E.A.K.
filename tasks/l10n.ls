@@ -31,7 +31,7 @@ preprocess-context = {
 }
 
 create-app-bundle = ->
-  packer.bundle-assets ['js/vendor.js', 'js/eak.js', 'css/app.css'], 'utf-8'
+  packer.bundle-assets ['js/vendor.js', 'js/eak.js', 'css/app.css'], encoding: 'utf-8'
     .then (assets) ->
       contents = new Buffer (JSON.stringify assets), encoding: 'utf-8'
       fs.write-file-sync 'public/eak-bundle.json', contents
@@ -51,7 +51,7 @@ gulp.task 'l10n-data' ->
   gulp.src src.locale-data
     .pipe locale-data-cache! .on 'error' -> throw it
 
-gulp.task 'l10n' ['l10n-data' 'bootstrap-livescript'] ->
+gulp.task 'l10n' ['l10n-data' 'bootstrap-livescript'] (cb) !->
   get-context!.then (ctx) ->
     console.log 'Version:' ctx.version
     preprocess-context <<< ctx
@@ -59,6 +59,8 @@ gulp.task 'l10n' ['l10n-data' 'bootstrap-livescript'] ->
       .pipe gulp-preprocess context: preprocess-context
       .pipe localize! .on 'error' -> throw it
       .pipe gulp.dest dest.assets
+      .on 'end' -> cb!
+      .on 'error' -> throw it
 
 function localize
   default-lang = first languages
