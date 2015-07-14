@@ -54,7 +54,7 @@ if window.EAK_OPTIMIZED
   req.add-event-listener \error, on-error, false
   req.add-event-listener \abort, on-error, false
   req.add-event-listener \progress, on-progress, false
-  req.open \GET, window.EAK_PACKAGE_SRC
+  req.open \GET, "#{window.EAK_PACKAGE_SRC}?_v=#{window.EAKVERSION}"
   req.send!
 else
   $ -> init!
