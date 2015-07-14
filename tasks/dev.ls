@@ -10,7 +10,7 @@ karma-config = path.resolve 'karma.conf.js'
 
 gulp.task 'build' (done) ->
   scripts = if optimized then \optimized-scripts else \scripts
-  run-sequence 'clean', [scripts, \assets \stylus \l10n \vendor \audio \fonts], done
+  run-sequence 'clean', [scripts, \assets \stylus \vendor \audio \fonts], \l10n, \pack, done
 
 gulp.task 'dev' <[watch server]>
 

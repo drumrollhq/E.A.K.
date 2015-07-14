@@ -54,6 +54,12 @@ gulp.task 'test-livescript' ->
     .on 'error' -> throw it
     .pipe gulp.dest dest.tests
 
+gulp.task 'bootstrap-livescript' ->
+  gulp.src './app/bootstrap.ls'
+    .pipe gulp-livescript!
+    # .pipe gulp-uglify!
+    .pipe gulp.dest './gulp-cache'
+
 gulp.task 'workers' ->
   ls = gulp.src src.workers
     .pipe gulp-livescript bare: true

@@ -7,7 +7,7 @@ require! {
 }
 
 global.optimized = argv.o or argv.optimized or argv.optimised or false
-global.production = argv.p or argv.production
+global.production = argv.p or argv.production or false
 if global.production then global.optimized = true
 console.log global.{optimized, production}
 
@@ -33,6 +33,7 @@ global.src = {
   assets: './app/assets/**/*'
   audio: './app/audio/**/*'
   audio-cache: './gulp-cache/audio/**/*'
+  areas: './app/l10n-templates/areas/*/area.json'
   bgs: './app/assets/content/bgs/**/*'
   bg-cache: './gulp-cache/bgs/**/*'
   bg-tile-cache: './gulp-cache/bg-tiles/**/*'

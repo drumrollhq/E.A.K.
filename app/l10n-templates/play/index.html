@@ -98,141 +98,18 @@
   <!-- @endif -->
 
   <script>
-  window.EAKVERSION = "<!-- @echo version -->";
-  window.EAKCONFIG = <!-- @echo configStr -->;
-  window.LANGUAGES = <!-- @echo languages -->;
-
-  <!-- @if optimized -->
-    document.addEventListener('DOMContentLoaded', function() {
-      var loaded = 0,
-        loadables = [
-          {
-            src: '/js/vendor.js?<!-- @echo version -->',
-            type: 'js'
-          }, {
-            src: '/js/eak.js?<!-- @echo version -->',
-            type: 'js'
-          }, {
-            src: '/css/app.css?<!-- @echo version -->',
-            type: 'css'
-          }];
-
-      var total = [],
-        soFar = [];
-
-      var failed = false;
-
-      var dialogue = document.querySelector('.loader'),
-        bar = dialogue.querySelector('.bar'),
-        progress = dialogue.querySelector('.progress'),
-        barInner = bar.children[0];
-
-      function onLoad(progress) {
-        loaded++;
-        var req = progress.target;
-        loadables[req.dataIter].data = req.response;
-        if (loaded === loadables.length) {
-          finished();
-        }
-      }
-
-      function onError() {
-        if (!failed) {
-          alert('Oh no! We couldn\'t load all the assets for Erase All Kittens! :(')
-        }
-      }
-
-      function onProgress(progress) {
-        if (progress.lengthComputable) {
-          var req = progress.target;
-          total[req.dataIter] = progress.total;
-          soFar[req.dataIter] = progress.loaded;
-
-          updateProgress();
-        }
-      }
-
-      function sum(arr) {
-        var n = 0;
-
-        for (var i = 0; i < arr.length; i++) {
-          if (arr[i] !== undefined) {
-            n += arr[i];
-          }
-        }
-
-        return n;
-      }
-
-      function updateProgress() {
-        var sumTotal = sum(total),
-          soFarTotal = sum(soFar),
-          w = Math.round((soFarTotal / sumTotal) * 100) + '%';
-
-        progress.textContent = w;
-        barInner.style.width = w;
-      }
-
-      function finished() {
-        var el;
-
-        for (var i = 0; i < loadables.length; i++) {
-          if (loadables[i].type === 'js') {
-            el = document.createElement('script');
-            el.textContent = loadables[i].data;
-            document.body.appendChild(el);
-          } else if (loadables[i].type === 'css') {
-            el = document.createElement('style');
-            el.type = 'text/css';
-            el.appendChild(document.createTextNode(loadables[i].data));
-            document.head.appendChild(el);
-          }
-        }
-
-        bar.style.display = progress.style.display = 'none';
-
-        init();
-      }
-
-      for (var i = 0; i < loadables.length; i++) {
-        var req = new XMLHttpRequest();
-        req.addEventListener('load', onLoad, false);
-        req.addEventListener('error', onError, false);
-        req.addEventListener('abort', onError, false);
-        req.addEventListener('progress', onProgress, false)
-        req.open('GET', loadables[i].src);
-        req.send();
-        req.dataIter = i;
-      }
-    }, false);
-  <!-- @endif -->
-
-    function init() {
-      if (!(window.performance && window.performance.now)) {
-        (function(){
-          var startTime;
-          startTime = Date.now();
-          return window.performance = {
-            now: function(){
-              return Date.now() - startTime;
-            }
-          };
-        })();
-      }
-
-      require('plugins');
-      var Init = require('Init');
-      window.eak = (new Init({el: $('#main')})).app;
-    }
-
-    <!-- @if !optimized -->
-    $(function() {
-      init();
-    });
-    <!-- @endif -->
+    window.EAKVERSION = "<!-- @echo version -->";
+    window.EAKCONFIG = <!-- @echo configStr -->;
+    window.LANGUAGES = <!-- @echo languages -->;
+    window.EAK_LANG = "{{LANG}}";
+    window.EAK_OPTIMIZED = <!-- @echo optimized -->;
+    window.EAK_PRODUCTION = <!-- @echo production -->;
+    window.EAK_PACKAGE_SRC = "<!-- @echo appPackageSrc -->";
+    window.EAK_PACKAGE_SIZE = <!-- @echo appPackageSize -->;
+    <!-- @echo bootstrap -->
   </script>
 
-  <!-- @if optimized -->
+  <!-- @if production -->
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

@@ -1,5 +1,7 @@
 require! {
+  './packer'
   'event-stream': es
+  'fs'
   'glob'
   'gulp'
   'gulp-preprocess'
@@ -28,14 +30,31 @@ preprocess-context = {
   config-str: JSON.stringify global.config
 }
 
+create-app-bundle = ->
+  packer.bundle-assets ['js/vendor.js', 'js/eak.js', 'css/app.css'], 'utf-8'
+    .then (assets) ->
+      contents = new Buffer (JSON.stringify assets), encoding: 'utf-8'
+      fs.write-file-sync 'public/eak-bundle.json', contents
+      ['/eak-bundle.json', contents.length]
+
+get-bootstrap = -> fs.read-file-sync './gulp-cache/bootstrap.js', encoding: 'utf-8'
+
+get-context = ->
+  Promise.all [
+    eak-version
+    create-app-bundle!
+    get-bootstrap!
+  ] .then ([version, [app-package-src, app-package-size], bootstrap]) ->
+    {version, app-package-src, app-package-size, bootstrap}
+
 gulp.task 'l10n-data' ->
   gulp.src src.locale-data
     .pipe locale-data-cache! .on 'error' -> throw it
 
-gulp.task 'l10n' ['l10n-data'] ->
-  eak-version.then (v) ->
-    console.log 'Version:' v
-    preprocess-context.version = v
+gulp.task 'l10n' ['l10n-data' 'bootstrap-livescript'] ->
+  get-context!.then (ctx) ->
+    console.log 'Version:' ctx.version
+    preprocess-context <<< ctx
     gulp.src src.locale-templates
       .pipe gulp-preprocess context: preprocess-context
       .pipe localize! .on 'error' -> throw it
@@ -96,6 +115,7 @@ function get-locale-data lang, file
   unless file is \app
     d.app-translations = JSON.stringify get-locale-data lang, \app
 
+  d.LANG = lang
   d
 
 function set-path obj, path, val
