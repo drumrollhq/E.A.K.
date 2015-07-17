@@ -1,0 +1,9 @@
+[
+  "area.json",
+  "*.html",
+  "/content/1-spacechip/**/*",
+  "/content/bg-tiles/1-scrapyard.*.png",
+  "/audio/music/forest.*",
+  "/audio/music/forest-glitch.*",
+  "/audio/tutorials/editing-text.*"
+]

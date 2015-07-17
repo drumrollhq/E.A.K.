@@ -18,15 +18,15 @@ gulp.task 'dev' ->
 
 karma-server = null
 gulp.task 'watch' ->
-  # karma.server.start config-file: karma-config
-  # gulp.watch src.assets, ['assets']
-  # gulp.watch src.lsc, ['app-livescript']
-  # gulp.watch src.tests, ['test-livescript']
-  # gulp.watch src.hbs, ['handlebars']
-  # gulp.watch src.css-all, ['stylus']
-  # gulp.watch [src.locale-data, src.locale-templates], ['l10n']
-  # gulp.watch src.vendor, ['vendor']
-  # gulp.watch src.audio, ['audio']
+  karma.server.start config-file: karma-config
+  gulp.watch src.assets, ['assets']
+  gulp.watch src.lsc, ['app-livescript']
+  gulp.watch src.tests, ['test-livescript']
+  gulp.watch src.hbs, ['handlebars']
+  gulp.watch src.css-all, ['stylus']
+  gulp.watch [src.locale-data, src.locale-templates], ['l10n']
+  gulp.watch src.vendor, ['vendor']
+  gulp.watch src.audio, ['audio']
   packer.watch!
 
 gulp.task 'server' ->

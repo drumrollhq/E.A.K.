@@ -14,10 +14,10 @@ glob = Promise.promisify-all glob
 fs = Promise.promisify-all fs
 
 gulp.task 'pack' ->
-  gulp.src './public/**/area.json'
+  gulp.src src.bundles
     .pipe create-bundle!
     .pipe gulp-debug {title: \packaged}
-    .pipe gulp.dest './public'
+    .pipe gulp.dest dest.bundles
 
 export watch = ->
   filename-to-task-id = (name) -> "pack-#{name.to-lower-case!.replace /\//g, '-' .replace /[^a-z0-9-]/g, ''}"
@@ -25,16 +25,16 @@ export watch = ->
     file = JSON.parse fs.read-file-sync name, encoding: 'utf-8'
     unless file.assets then return []
 
-    dirname = path.dirname path.join path.sep, path.relative './public', name
+    dirname = path.dirname path.join path.sep, path.relative dest.bundles, name
     assets = file.assets
-      |> map (asset) -> path.join './public', path.resolve dirname, asset
+      |> map (asset) -> path.join dest.bundles, path.resolve dirname, asset
       |> map glob.sync
       |> flatten
       |> unique
 
     assets
 
-  packages = glob.sync './public/**/area.json'
+  packages = glob.sync src.bundles
 
   for let package-name in packages
     files = files-for package-name
@@ -50,36 +50,35 @@ export watch = ->
 export create-bundle = ->
   through2.obj (file, enc, cb) ->
     bundle = JSON.parse file.contents.to-string!
-    unless bundle.assets then return cb!
+    unless typeof! bundle is \Array then return cb!
 
     dirname = path.join path.sep, path.dirname file.relative
-    assets = for asset-path in bundle.assets => path.resolve dirname, asset-path
+    assets = for asset-path in bundle => path.resolve dirname, asset-path
 
     make = (name, reject) ~>
       bundle-assets assets, reject: reject
         .then (assets) ~>
-          new-bundle = {} <<< bundle <<< {assets}
           f = file.clone!
 
           p = path.parse f.path
-          p.name += '-' + name
+          p.name += 'd.' + name
           p.base = p.name + p.ext
           f.path = path.format p
 
-          f.contents = new Buffer JSON.stringify new-bundle
+          f.contents = new Buffer JSON.stringify assets
           @push f
 
-    Promise.all [(make 'packaged-ogg', (.match /\.mp3$/)), (make 'packaged-mp3', (.match /\.ogg$/))]
+    Promise.all [(make 'ogg', (.match /\.mp3$/)), (make 'mp3', (.match /\.ogg$/))]
       .then -> cb!
       .catch (e) -> cb e
 
 export bundle-assets = (assets, {encoding = 'base64', reject = -> false} = {}) ->
   Promise
-    .map assets, (f) -> glob.glob-async path.join './public/', f
+    .map assets, (f) -> glob.glob-async path.join dest.bundles, f
     .then flatten >> unique
     .filter (asset) -> not reject asset
     .map (name) ->
-      url = path.relative 'public', name .replace /\\/g, '/'
+      url = path.relative dest.bundles, name .replace /\\/g, '/'
       fs.read-file-async name
         .then (buffer) -> ["/#url", buffer.to-string encoding]
     .then pairs-to-obj
