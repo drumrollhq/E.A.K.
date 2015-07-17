@@ -19,6 +19,15 @@ gulp.task 'pack' ->
     .pipe gulp-debug {title: \packaged}
     .pipe gulp.dest dest.bundles
 
+export encode = (name, buffer) ->
+  ext = path.extname name .to-lower-case!.replace /^\./ ''
+  switch ext
+  | <[html css js]> => buffer.to-string 'utf-8'
+  | \json => type: \json, data: JSON.parse buffer.to-string 'utf-8'
+  | <[png jpeg gif]> => type: \image, format: ext, data: buffer.to-string 'base64'
+  | <[mp3 ogg]> => type: \arraybuffer, format: ext, data: buffer.to-string 'base64'
+  | otherwise => throw new TypeError "Unknown extname #{ext} on file #{name}"
+
 export watch = ->
   filename-to-task-id = (name) -> "pack-#{name.to-lower-case!.replace /\//g, '-' .replace /[^a-z0-9-]/g, ''}"
   files-for = (name) ->
@@ -80,5 +89,5 @@ export bundle-assets = (assets, {encoding = 'base64', reject = -> false} = {}) -
     .map (name) ->
       url = path.relative dest.bundles, name .replace /\\/g, '/'
       fs.read-file-async name
-        .then (buffer) -> ["/#url", buffer.to-string encoding]
+        .then (buffer) -> ["/#url", encode url, buffer]
     .then pairs-to-obj
