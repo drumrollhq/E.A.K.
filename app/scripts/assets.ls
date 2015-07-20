@@ -1,19 +1,20 @@
+require! {
+  'audio/context'
+}
+
+audio-format = context.format
+
 asset-cache = {}
 
 export _cache = asset-cache
 
-export function load-asset name, data-type
+export function load-asset name
   if asset-cache[name]
     console.log "load-asset: cache HIT: \t#{name}"
-    return if asset-cache[name].from-bundle then debundle asset-cache[name], data-type else asset-cache[name]
+    return asset-cache[name]
 
   console.log "load-asset: cache MISS:\t#{name}"
-
-  promise = Promise.resolve $.ajax "#{name}?_v=#{EAKVERSION}", {data-type}
-  asset-cache[name] = promise
-  promise.catch (e) -> delete asset-cache[name]
-
-  promise
+  throw new Error "Cache miss #name"
 
 export function load-assets names, data-type
   Promise.map names, (name) -> load-asset name, data-type
@@ -22,10 +23,11 @@ export function clear name
   delete asset-cache[name]
 
 export function load-bundle name, progress
-  Promise.resolve ($.ajax "#{name}?_v=#{EAKVERSION}", data-type: \json .progress progress)
+  if name.0 isnt '/' then name = "/#name"
+  Promise.resolve ($.ajax "#{name}/bundled.#{audio-format}.json?_v=#{EAKVERSION}", data-type: \json .progress progress)
     .then (bundle) ->
       for name, file of bundle
-        asset-cache[name] = Promise.resolve debundle file
+        asset-cache[name] = debundle file
 
 export function debundle file
   if typeof file is \string then return file

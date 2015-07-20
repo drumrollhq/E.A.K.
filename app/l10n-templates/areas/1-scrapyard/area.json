@@ -28,14 +28,6 @@
       "x": 4480,
       "y": 475
     }
-  ],
-  "assets": [
-    "/content/1-spacechip/**/*",
-    "/content/bg-tiles/1-scrapyard.*.png",
-    "*.html",
-    "/audio/music/forest.*",
-    "/audio/music/forest-glitch.*",
-    "/audio/tutorials/editing-text.*"
   ]
 }
 

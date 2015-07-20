@@ -31,7 +31,7 @@ catch e
 
 global.src = {
   assets: './app/assets/**/*'
-  audio: './app/audio/**/*'
+  audio: './app/audio/**/*.{mp3,ogg,wav}'
   audio-cache: './gulp-cache/audio/**/*'
   areas: './app/l10n-templates/areas/*/area.json'
   bgs: './app/assets/content/bgs/**/*'
