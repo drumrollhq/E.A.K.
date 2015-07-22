@@ -17,7 +17,7 @@ particle-def = {
   scale: [0.2 0.5]
 }
 
-module.exports = class RicketySpacePlatform extends Mover
+class RicketySpacePlatform extends Mover
   load: ->
     @emitter = new ParticleEmitter new Vector!, particle-def
     @emitter.load!.then ~>
@@ -29,3 +29,5 @@ module.exports = class RicketySpacePlatform extends Mover
       ..step t
       ..emitter.x = @p.x
       ..emitter.y = @p.y - 20px
+
+eak.register-actor RicketySpacePlatform

@@ -15,7 +15,6 @@ stylus-conf = {
   'include css': true
 }
 
-
 gulp.task 'stylus' (cb) ->
   stylus-conf.define.url = stylus.url!
   gulp.src src.css
@@ -23,6 +22,19 @@ gulp.task 'stylus' (cb) ->
     .on 'error' -> throw it
     .pipe if optimized then gulp-minify-css! else noop!
     .pipe gulp.dest dest.css
+
+gulp.task 'entity-stylus' ->
+  conf = {} <<< stylus-conf
+  conf.import = [
+    path.resolve './app/styles/variables.styl'
+    path.resolve './app/styles/mixins.styl'
+  ]
+
+  gulp.src src.entity-styles
+    .pipe gulp-stylus conf
+    .on 'error' -> throw it
+    .pipe if optimized then gulp-minify-css! else noop!
+    .pipe gulp.dest dest.entities
 
 function noop
   es.map (file, cb) -> cb null, file

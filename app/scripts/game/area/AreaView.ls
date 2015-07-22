@@ -39,7 +39,7 @@ module.exports = class AreaView extends Backbone.View
     @background-layer.setup!
     Promise.all [
       @_load-levels!
-      if @overlay then @overlay.load!
+      if @overlay then @overlay.setup!
     ]
 
   _load-levels: ->

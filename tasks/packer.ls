@@ -89,6 +89,8 @@ export bundle-assets = (assets, {encoding = 'base64', reject = -> false} = {}) -
   Promise
     .map assets, (f) -> glob.glob-async path.join dest.bundles, f
     .then flatten >> unique
+    .filter (asset) ->
+      fs.stat-async asset .then (stat) -> not stat.is-directory!
     .filter (asset) -> not reject asset
     .map (name) ->
       url = path.relative dest.bundles, name .replace /\\/g, '/'

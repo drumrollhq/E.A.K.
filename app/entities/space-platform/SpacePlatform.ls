@@ -16,7 +16,7 @@ particle-def = {
     else 1 - (p - 0.4) * 1.666
 }
 
-module.exports = class SpacePlatform extends Mover
+class SpacePlatform extends Mover
   load: ->
     @emitters = [
       new ParticleEmitter new Vector!, particle-def
@@ -34,3 +34,5 @@ module.exports = class SpacePlatform extends Mover
       emitter.step t
       emitter.emitter.x = @p.x + (i - 1) * 37px
       emitter.emitter.y = @p.y + 10px
+
+eak.register-actor SpacePlatform

@@ -11,13 +11,13 @@ karma-config = path.resolve 'karma.conf.js'
 
 gulp.task 'build' (done) ->
   scripts = if optimized then \optimized-scripts else \scripts
-  run-sequence 'clean', [scripts, \assets \entity-assets \stylus \vendor \audio \fonts], \l10n, \pack, done
+  run-sequence 'clean', [scripts, \assets \entity-assets \entity-stylus \stylus \vendor \audio \fonts], \l10n, \pack, done
 
 gulp.task 'dev' ->
-  run-sequence 'build', <[watch server]>
+  run-sequence 'build', 'watch'
 
 karma-server = null
-gulp.task 'watch' ->
+gulp.task 'watch' ['server'] ->
   karma.server.start config-file: karma-config
   gulp.watch
   gulp.watch src.assets, ['assets']
@@ -27,6 +27,7 @@ gulp.task 'watch' ->
   gulp.watch src.tests, ['test-livescript']
   gulp.watch src.hbs, ['handlebars']
   gulp.watch src.css-all, ['stylus']
+  gulp.watch src.entity-styles, ['entity-stylus']
   gulp.watch [src.locale-data, src.locale-templates], ['l10n']
   gulp.watch src.vendor, ['vendor']
   gulp.watch src.audio, ['audio']

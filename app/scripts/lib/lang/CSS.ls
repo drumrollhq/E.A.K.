@@ -27,9 +27,9 @@ module.exports = class CSS
 
   rewrite-assets: (rewrite) ~>
     @css.use (css) ->
-      walk css, 'rule', (rule) ->
-        for declaration in rule.declarations
-          declaration.value .= replace /url\(([^)]+)\)/g, (str, url) -> "url(#{rewrite url})"
+      walk css, 'rule', (rule) !->
+        for declaration in rule.declarations when declaration.value
+          declaration.value .= replace /url\((?:'|")?([^)'"]+)(?:'|")?\)/g, (str, url) -> "url(#{rewrite url})"
 
   to-clean-string: (compress = false) ~>
     @clean.to-string {compress}

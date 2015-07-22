@@ -5,5 +5,8 @@
   "/content/bg-tiles/1-scrapyard.*.png",
   "/audio/music/forest.*",
   "/audio/music/forest-glitch.*",
-  "/audio/tutorials/intro/03-editing-text-i.*"
+  "/audio/tutorials/intro/03-editing-text-i.*",
+  "/entities/bananabird/**/*",
+  "/entities/clouds/**/*",
+  "/entities/flashing-light/**/*"
 ]

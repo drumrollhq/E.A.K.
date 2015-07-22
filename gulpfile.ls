@@ -43,6 +43,7 @@ global.src = {
   css: ['./app/styles/app.styl', './app/styles/min.styl']
   entity-assets: './app/entities/**/*.{png,jpg,gif,json}'
   entity-scripts: './app/entities/**/*.ls'
+  entity-styles: './app/entities/**/*.styl'
   fonts: './bower_components/font-awesome/fonts/*'
   hbs: './app/scripts/**/*.hbs'
   images: './app/**/*.{jpg,png,gif}'

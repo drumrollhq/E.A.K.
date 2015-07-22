@@ -1,5 +1,6 @@
 require! {
   'audio/context'
+  'lib/lang/CSS'
 }
 
 audio-format = context.format
@@ -10,9 +11,12 @@ export _cache = asset-cache
 
 export function load-asset name, type
   unless asset-cache[name]
+    if type is \url
+      console.log "load-asset: cache MISS #name"
+      return "#{name}?_v=#{EAKVERSION}"
+
     throw new Error "load-asset: cache MISS #name"
 
-  console.log "load-asset: cache HIT: #{name}"
   cached = asset-cache[name]
   if type?
     if cached[type]?
@@ -30,10 +34,13 @@ export function clear name
 export function load-bundle name, progress
   if name.0 isnt '/' then name = "/#name"
   Promise.resolve ($.ajax "#{name}/bundled.#{audio-format}.json?_v=#{EAKVERSION}", data-type: \json .progress progress)
-    .then (bundle) ->
+    .tap (bundle) ->
       for name, file of bundle
         asset-cache[name] = debundle file
+    .tap (bundle) ->
+      for name of bundle
         if name.match /\.js$/ then add-js asset-cache[name].default
+        if name.match /\.css$/ then add-css asset-cache[name].default
 
 export function debundle file
   if typeof file is \string then file = data: file, type: \string
@@ -61,3 +68,14 @@ export function debundle file
 
 function add-js js
   eval js
+
+function add-css source
+  css = new CSS source
+    ..rewrite-assets (url) ->
+      if url.match /^(\/\/|https?:|blob:)/ then url else load-asset url, \url
+
+  source = css.to-string!
+  el = document.create-element \style
+    ..type = 'text/css'
+    ..append-child document.create-text-node css.to-string!
+  document.head.append-child el

@@ -6,7 +6,7 @@ require! {
 decoded = {}
 
 module.exports = function fetch-audio-data url
-  if decoded[url] then return that
+  if decoded[url] then return Promise.resolve that
   buffer = assets.load-asset "#{url}.#{context.format}", \buffer
   console.log {buffer}
   context.decode-audio-data-async buffer
