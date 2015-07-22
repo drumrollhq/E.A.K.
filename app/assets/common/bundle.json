@@ -1,4 +1,6 @@
 [
   "/audio/effects/*",
-  "/content/common/**/*.*"
+  "/content/common/**/*.*",
+  "/content/particles/*",
+  "/content/sprites/*"
 ]

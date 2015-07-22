@@ -1,4 +1,5 @@
 require! {
+  'assets'
   'game/actors/Actor'
 }
 
@@ -39,15 +40,15 @@ module.exports = class FadingPanel extends Actor
     @_last-anim = Promise.resolve!
 
   load: ->
-    Promise.map (values @layers), PIXI.load-texture
-      .then ~>
-        if @layers.background
-          @background = PIXI.Sprite.from-image @layers.background
-          @area-view.background-layer.add @background
+    if @layers.background
+      url = assets.load-asset @layers.background, \url
+      @background = PIXI.Sprite.from-image url
+      @area-view.background-layer.add @background
 
-        if @layers.effects
-          @effects = PIXI.Sprite.from-image @layers.effects
-          @area-view.effects-layer.add @effects
+    if @layers.effects
+      url = assets.load-asset @layers.effects, \url
+      @effects = PIXI.Sprite.from-image url
+      @area-view.effects-layer.add @effects
 
   on-prepare: ->
     if @_already-prepared then return

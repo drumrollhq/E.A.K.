@@ -1,8 +1,8 @@
 require! {
   'Router'
+  'assets'
   'audio/effects'
   'audio/music-manager'
-  'game/area/background'
   'game/event-loop'
   'game/load'
   'game/pauser'
@@ -84,7 +84,7 @@ module.exports = class App
 
     Promise
       .all [
-        effects.load!
+        assets.load-bundle 'common' .then -> effects.load!
         user.fetch! .then (user-data) -> Promise.all [
           user.recent-games!
           logger.setup false, user-data?.id
@@ -205,7 +205,6 @@ module.exports = class App
   # they are reused. This function cleans those up, and is used when transitioning
   # to menus.
   cleanup-playing-remains: ->
-    background.clear!
     music-manager.start-track 'none'
 
   # Load and set up a new stage of the game.

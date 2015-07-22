@@ -1,4 +1,5 @@
 require! {
+  'assets'
   'game/actors'
   'game/area/el-modify'
   'game/area/settings'
@@ -11,6 +12,7 @@ require! {
   'lib/dom/Mapper'
   'lib/lang/CSS'
   'lib/lang/html'
+  'translations'
 }
 
 counter = 0
@@ -27,19 +29,18 @@ module.exports = class AreaLevel extends Backbone.View
     @mapper = new Mapper @el
 
   load: ~>
-    (Promise.resolve $.ajax "#{@prefix}/areas/#{@level.url}?_v=#{EAKVERSION}")
-      .then (src) ~>
-        [err, $level] = parse-src src, @level
-        if err then throw err
-        @level.src = src
-        @level.$el = $level
-        @conf = conf = settings.find @level.$el
-        conf <<< @level.{x, y}
+    src = assets.load-asset "#{@prefix}/areas/#{@level.url}"
+    [err, $level] = parse-src src, @level
+    if err then throw err
+    @level.src = src
+    @level.$el = $level
+    @conf = conf = settings.find @level.$el
+    conf <<< @level.{x, y}
 
-        if conf.has-tutorial
-          @tutorial = new Tutorial conf.tutorial
+    if conf.has-tutorial
+      @tutorial = new Tutorial conf.tutorial
 
-        this
+    this
 
   setup: (stage, @area-view) ~>
     @stage-store = stage
@@ -189,6 +190,8 @@ module.exports = class AreaLevel extends Backbone.View
     css = new CSS source
       ..scope \# + @el.id
       ..rewrite-hover '.PLAYER_CONTACT'
+      ..rewrite-assets (url) ->
+        if url.match /^(\/\/|https?:|blob:)/ then url else assets.load-asset url, \url
 
     css.to-string!
 

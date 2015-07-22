@@ -1,16 +1,14 @@
-require! 'audio/context'
+require! {
+  'audio/context'
+  'assets'
+}
 
-cache = {}
+decoded = {}
 
 module.exports = function fetch-audio-data url
-  if cache[url]? then return Promise.resolve cache[url]
-
-  Promise
-    .resolve $.ajax {
-      type: \GET
-      url: "#{url}.#{context.format}?_v=#{EAKVERSION}"
-      data-type: \arraybuffer
-    }
-    .then context.decode-audio-data-async
-    .tap (audio) -> cache[url] = audio
+  if decoded[url] then return that
+  buffer = assets.load-asset "#{url}.#{context.format}", \buffer
+  console.log {buffer}
+  context.decode-audio-data-async buffer
+    .tap (audio) -> decoded[url] = audio
 

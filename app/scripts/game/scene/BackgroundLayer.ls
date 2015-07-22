@@ -13,12 +13,9 @@ module.exports = class BackgroundLayer extends WebglLayer
     @container = new TiledSpriteContainer "/content/bg-tiles/#{@name}", @width, @height
     @blurable-container = new TiledSpriteContainer "/content/bg-tiles/#{@name}", @width, @height
 
-  load: ->
-    @container.load!
-      .then ~> @blurable-container.load!
-      .then ~> @setup!
-
   setup: ->
+    @container.setup!
+    @blurable-container.setup!
     @add @blurable-container, 2, true
     @add @container, 2, true
     @container.visible = false

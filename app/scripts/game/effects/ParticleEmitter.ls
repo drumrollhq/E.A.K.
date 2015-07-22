@@ -1,3 +1,5 @@
+require! 'assets'
+
 random-picker = (arr) ->
   -> arr[Math.floor Math.random! * arr.length]
 
@@ -16,7 +18,7 @@ module.exports = class ParticleEmitter extends PIXI.Container
     @_emit-timer = 0
     @_pool = []
 
-    @_urls = flatten [options.url] |> map -> "#{it}?_v=#{EAKVERSION}"
+    @_urls = flatten [options.url] |> map -> assets.load-asset it, \url
     @_load = Promise.map @_urls, PIXI.load-texture
     @sprite-url = random-picker @_urls
 

@@ -1,3 +1,7 @@
+require! {
+  'assets'
+}
+
 const tile-width = 256px
   tile-height = 256px
 
@@ -5,11 +9,6 @@ module.exports = class TiledSpriteContainer extends PIXI.Container
   (base-url, img-width, img-height) ->
     super!
     @ <<< {base-url, img-width, img-height}
-
-  load: ->
-    urls = @_tile-image-urls!
-    Promise.map urls, PIXI.load-texture
-      .then ~> @setup!
 
   setup: ->
     @tiles = []
@@ -83,4 +82,4 @@ module.exports = class TiledSpriteContainer extends PIXI.Container
     [@_tile-image-url x, y for x til x-tiles for y til y-tiles]
 
   _tile-image-url: (x, y) ->
-    "#{@base-url}.t#{x}-#{y}.png?_v=#{EAKVERSION}"
+    assets.load-asset "#{@base-url}.t#{x}-#{y}.png" \url

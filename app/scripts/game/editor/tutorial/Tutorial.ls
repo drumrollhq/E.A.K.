@@ -1,4 +1,5 @@
 require! {
+  'assets'
   'audio/Track'
   'audio/context'
   'audio/tracks'
@@ -16,7 +17,7 @@ add-track-events = (track, steps, view, editor) ->
 get-track = (name) ->
   $ '<audio></audio>'
     .attr {
-      src: "#{name}.#{context.format}?_v=#{EAKVERSION}"
+      src: assets.load-asset "#{name}.#{context.format}", \url
       preload: \auto
     }
     .get 0

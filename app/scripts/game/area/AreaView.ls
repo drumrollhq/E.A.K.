@@ -36,16 +36,16 @@ module.exports = class AreaView extends Backbone.View
 
   # Load all area assets
   load: ->
+    @background-layer.setup!
     Promise.all [
       @_load-levels!
-      @background-layer.load!
       if @overlay then @overlay.load!
     ]
 
   _load-levels: ->
-    Promise.map @levels, (level) ~>
-      level.load! .then ~>
-        @levels-layer.add level, level.conf.{x, y}
+    for level in @levels
+      level.load!
+      @levels-layer.add level, level.conf.{x, y}
 
   # Start playing with the state in 'store'
   start: (store) ->

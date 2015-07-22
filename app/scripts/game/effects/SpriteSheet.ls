@@ -1,4 +1,5 @@
 require! {
+  'assets'
   'lib/channels'
   'lib/parse'
 }
@@ -75,8 +76,8 @@ module.exports = class SpriteSheet extends PIXI.extras.MovieClip
   _load-frames: (url) ->
     tex = null
     Promise.all [
-      $.get-JSON "#{url}.json?_v=#{EAKVERSION}"
-      PIXI.load-texture "#{url}.png?_v=#{EAKVERSION}"
+      assets.load-asset "#{url}.json"
+      PIXI.load-texture assets.load-asset "#{url}.png", \url
     ] .spread ({frames}, _tex) ->
       tex := _tex
       frames |> obj-to-pairs

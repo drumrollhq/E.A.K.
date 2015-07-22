@@ -25,6 +25,12 @@ module.exports = class CSS
       walk css, 'rule', (rule) ->
         rule.selectors .= map -> it.replace ':hover', new-hover
 
+  rewrite-assets: (rewrite) ~>
+    @css.use (css) ->
+      walk css, 'rule', (rule) ->
+        for declaration in rule.declarations
+          declaration.value .= replace /url\(([^)]+)\)/g, (str, url) -> "url(#{rewrite url})"
+
   to-clean-string: (compress = false) ~>
     @clean.to-string {compress}
 

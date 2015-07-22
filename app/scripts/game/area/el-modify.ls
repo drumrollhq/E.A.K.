@@ -1,4 +1,7 @@
-require! 'lib/parse'
+require! {
+  'assets'
+  'lib/parse'
+}
 
 strip-quotes = (str) -> str.replace /^['"]|['"]$/g, ''
 
@@ -22,8 +25,7 @@ module.exports = el-modify = ($el) ->
 
     if el.tag-name is 'IMG'
       src = $el.attr 'src'
-      unless src.match /_v=/
-        src += "?_v=#{EAKVERSION}"
-        $el.attr src: src
+      unless src.match /_v=|^blob:/
+        $el.attr src: assets.load-asset src, \url
 
     el-modify $el.children!

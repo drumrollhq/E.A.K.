@@ -1,4 +1,5 @@
 require! {
+  'assets'
   'game/CutScene'
   'game/area/Area'
   'lib/parse'
@@ -22,10 +23,11 @@ export cutscene = (name, app, options) ->
       cutscene
 
 export area = (name, app, options) ->
-  # <~ Promise.delay 500 .then # Delay to prevent nasty lockups
-  logger.start \level {level: name}
-    .then (event) -> Promise.all [event, $.get-JSON "#{prefix}/areas/#{name}/area.json?_v=#{EAKVERSION}"]
-    .spread (event, conf) ->
+  log = logger.start \level {level: name}
+  bundle = assets.load-bundle "#prefix/areas/#name"
+  Promise.all [log, bundle]
+    .then ([event]) ->
+      conf = assets.load-asset "#prefix/areas/#name/area.json"
       conf.name = name
       area = new Area {conf, prefix, name, options, event-id: event.id}
       area.on \done -> logger.stop event.id
