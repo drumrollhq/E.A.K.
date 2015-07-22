@@ -4,6 +4,7 @@ require! {
   'fs'
   'glob'
   'gulp'
+  'gulp-cached'
   'gulp-preprocess'
   'handlebars'
   'lodash.defaults': defaults
@@ -58,6 +59,7 @@ gulp.task 'l10n' ['l10n-data' 'bootstrap-livescript'] (cb) !->
     gulp.src src.locale-templates
       .pipe gulp-preprocess context: preprocess-context
       .pipe localize! .on 'error' -> throw it
+      .pipe gulp-cached 'l10n'
       .pipe gulp.dest dest.assets
       .on 'end' -> cb!
       .on 'error' -> throw it

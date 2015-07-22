@@ -23,6 +23,7 @@
     "git-rev": "^0.2.1",
     "glob": "^4.0.5",
     "gulp": "^3.8.7",
+    "gulp-cached": "^1.1.0",
     "gulp-changed": "^1.0.0",
     "gulp-clone": "^1.0.0",
     "gulp-concat": "^2.3.4",

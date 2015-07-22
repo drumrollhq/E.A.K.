@@ -19,27 +19,31 @@ gulp.task 'pack' ->
     .pipe gulp-debug {title: \packaged}
     .pipe gulp.dest dest.bundles
 
+formats = {
+  ogg: \ogg
+  mp3: \mpeg
+  png: \png
+  jpg: \jpeg
+  jpeg: \jpeg
+  gif: \gif
+}
+
 export encode = (name, buffer) ->
   ext = path.extname name .to-lower-case!.replace /^\./ ''
   switch ext
   | <[html css js]> => buffer.to-string 'utf-8'
   | \json => type: \json, data: JSON.parse buffer.to-string 'utf-8'
-  | <[png jpeg gif]> => type: \image, format: ext, data: buffer.to-string 'base64'
-  | <[mp3 ogg]> => type: \arraybuffer, format: ext, data: buffer.to-string 'base64'
+  | <[png jpeg jpg gif]> => type: \image, format: formats[ext], data: buffer.to-string 'base64'
+  | <[mp3 ogg]> => type: \audio, format: formats[ext], data: buffer.to-string 'base64'
   | otherwise => throw new TypeError "Unknown extname #{ext} on file #{name}"
 
 export watch = ->
   filename-to-task-id = (name) -> "pack-#{name.to-lower-case!.replace /\//g, '-' .replace /[^a-z0-9-]/g, ''}"
   files-for = (name) ->
     file = JSON.parse fs.read-file-sync name, encoding: 'utf-8'
-    unless file.assets then return []
 
     dirname = path.dirname path.join path.sep, path.relative dest.bundles, name
-    assets = file.assets
-      |> map (asset) -> path.join dest.bundles, path.resolve dirname, asset
-      |> map glob.sync
-      |> flatten
-      |> unique
+    assets = file.map (asset) -> path.join dest.bundles, path.resolve dirname, asset
 
     assets
 
@@ -61,7 +65,7 @@ export create-bundle = ->
     bundle = JSON.parse file.contents.to-string!
     unless typeof! bundle is \Array then return cb!
 
-    dirname = path.join path.sep, path.dirname file.relative
+    dirname = path.join path.sep, path.dirname path.relative dest.all, file.path
     assets = for asset-path in bundle => path.resolve dirname, asset-path
 
     make = (name, reject) ~>
@@ -88,6 +92,7 @@ export bundle-assets = (assets, {encoding = 'base64', reject = -> false} = {}) -
     .filter (asset) -> not reject asset
     .map (name) ->
       url = path.relative dest.bundles, name .replace /\\/g, '/'
+      # console.log \pack url
       fs.read-file-async name
         .then (buffer) -> ["/#url", encode url, buffer]
     .then pairs-to-obj

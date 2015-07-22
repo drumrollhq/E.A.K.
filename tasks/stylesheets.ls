@@ -17,7 +17,7 @@ stylus-conf = {
 
 
 gulp.task 'stylus' (cb) ->
-  if optimized then stylus-conf.define.url = stylus.url! else stylus-conf.define = {}
+  stylus-conf.define.url = stylus.url!
   gulp.src src.css
     .pipe gulp-stylus stylus-conf
     .on 'error' -> throw it
