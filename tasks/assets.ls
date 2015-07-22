@@ -22,6 +22,11 @@ gulp.task 'assets' <[backgrounds]> ->
     .pipe gulp-changed dest.assets
     .pipe gulp.dest './public'
 
+gulp.task 'entity-assets' ->
+  gulp.src src.entity-assets
+    .pipe gulp-changed dest.assets
+    .pipe gulp.dest dest.entities
+
 gulp.task 'fonts' ->
   gulp.src src.fonts
     .pipe gulp-changed dest.fonts

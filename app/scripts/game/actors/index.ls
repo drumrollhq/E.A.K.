@@ -15,3 +15,8 @@ module.exports.from-el = (el, offset, level-store, area-view) ->
   a = actors[actor].from-el $el, args, offset, level-store, area-view
   $el.data 'actor', a
   a
+
+module.exports.register-actor = (ctor) ->
+  name = dasherize ctor.display-name
+  console.log "[actors] Registered actor #name"
+  actors[name] = ctor

@@ -6,6 +6,7 @@ require! {
   'game/event-loop'
   'game/load'
   'game/pauser'
+  'game/actors'
   'lib/channels'
   'lib/parse'
   'loader/LoaderView'
@@ -81,6 +82,9 @@ module.exports = class App
     _.extend this, Backbone.StateMachine, Backbone.Events
     @start-state-machine!
     @on 'transition' (leave, enter) -> console.log "[transition] #leave -> #enter"
+
+    # Expose stuff:
+    @register-actor = actors.register-actor
 
     Promise
       .all [

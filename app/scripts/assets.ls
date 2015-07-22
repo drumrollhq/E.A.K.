@@ -33,6 +33,7 @@ export function load-bundle name, progress
     .then (bundle) ->
       for name, file of bundle
         asset-cache[name] = debundle file
+        if name.match /\.js$/ then add-js asset-cache[name].default
 
 export function debundle file
   if typeof file is \string then file = data: file, type: \string
@@ -57,3 +58,6 @@ export function debundle file
       default: url, url: url, buffer: data.buffer, image: tag
     default
       throw new TypeError "Unknown file type #{file.type}"
+
+function add-js js
+  eval js

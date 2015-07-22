@@ -31,21 +31,30 @@ gulp.task 'optimized-scripts' ['scripts'] ->
     .pipe gulp.dest dest.js
 
 gulp.task 'livescript' (done) ->
-  run-sequence ['app-livescript', 'test-livescript'], done
+  run-sequence ['app-livescript', 'entity-livescript' 'test-livescript'], done
 
 gulp.task 'app-livescript' ->
   gulp.src src.lsc
     .pipe gulp-changed dest.js, extension: '.js'
     .pipe gulp-sourcemaps.init!
     .pipe gulp-livescript!
+    .on 'error' -> throw it
     .pipe gulp-wrap-js wrap-js-template, {
       indent:
         style: '  '
         adjust-multiline-comment: true
     }
     .pipe gulp-sourcemaps.write 'sourcemaps', source-root: '/js'
-    .on 'error' -> throw it
     .pipe gulp.dest dest.js
+
+gulp.task 'entity-livescript' ->
+  gulp.src src.entity-scripts
+    .pipe gulp-changed dest.js, extension: '.js'
+    .pipe gulp-sourcemaps.init!
+    .pipe gulp-livescript!
+    .on 'error' -> throw it
+    .pipe gulp-sourcemaps.write 'sourcemaps', source-root: '/entities'
+    .pipe gulp.dest dest.entities
 
 gulp.task 'test-livescript' ->
   gulp.src src.tests

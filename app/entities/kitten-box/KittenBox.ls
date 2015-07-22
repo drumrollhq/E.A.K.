@@ -16,19 +16,19 @@ random-kitten-el = ->
     ..add-class 'kitten-anim'
 
 box-burst-sprite = (av, x, y) ->
-  sprite = new SpriteSheet '/content/sprites/kitten-box-burst', 48, 52, x - 24, y - 26, {
+  sprite = new SpriteSheet '/entities/kitten-box/sprites/kitten-box-burst', 48, 52, x - 24, y - 26, {
     speed: 30
     loop-times: 1
     state: \paused
   }
 
 blink-sprite = (av, x, y) ->
-  sprite = new SpriteSheet '/content/sprites/kitten-box-blink', 48, 52, x - 24, y - 26, {
+  sprite = new SpriteSheet '/entities/kitten-box/sprites/kitten-box-blink', 48, 52, x - 24, y - 26, {
     speed: 30
     delay: [0.1, 6]
   }
 
-module.exports = class KittenBox extends Actor
+class KittenBox extends Actor
   @from-el = ($el, [x, y, kitten-id], offset = {x: 0, y: 0}, save-level, area-view) ->
     new KittenBox {
       x: offset.x + parse-float x
@@ -103,3 +103,5 @@ module.exports = class KittenBox extends Actor
       @$el
         ..empty!
         ..remove!
+
+eak.register-actor KittenBox
