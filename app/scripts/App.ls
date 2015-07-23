@@ -3,6 +3,7 @@ require! {
   'assets'
   'audio/effects'
   'audio/music-manager'
+  'game/conversation'
   'game/event-loop'
   'game/load'
   'game/pauser'
@@ -23,6 +24,7 @@ require! {
 const stage-types = <[cutscene area]>
 $overlay-views = $ '#overlay-views'
 $settings-button = $ '#bar .settings-button'
+$conversation-container = $ '#conversation-container'
 
 module.exports = class App
   states:
@@ -34,6 +36,8 @@ module.exports = class App
     paused: {enter: <[showOverlay]>, leave: <[hideOverlay]>}
     editing: {}
     editing-paused: {enter: <[showOverlay]>, leave: <[hideOverlay]>}
+    conversation: {}
+    conversation-paused: {enter: <[showOverlay]>, leave: <[hideOverlay]>}
 
   transitions:
     init:
@@ -60,6 +64,9 @@ module.exports = class App
       edit:
         enter-state: \editing
         callbacks: <[showEditor]>
+      conversation:
+        enter-state: \conversation
+        callbacks: <[showConversation]>
       quit: \menus
 
     paused:
@@ -76,6 +83,18 @@ module.exports = class App
 
     editing-paused:
       resume: \editing
+      quit: \menus
+
+    conversation:
+      conversation-finished:
+        enter-state: \playing
+        callbacks: <[hideConversation]>
+      quit: \menus
+      load: \loading
+      pause: \conversationPaused
+
+    conversation-paused:
+      resume: \conversation
       quit: \menus
 
   ->
@@ -168,6 +187,9 @@ module.exports = class App
       | command is \edit => @edit!
       | command is \stop-edit => @stop-edit!
 
+    channels.conversation.subscribe ({name}) ~>
+      @start-conversation name
+
     channels.stage.subscribe ({url}) ~> @load-path url
 
     return Promise.delay 400
@@ -175,9 +197,10 @@ module.exports = class App
   show-app-overlay: (name = 'settings', args = []) ->
     @switch-overlay name, args
     switch @current-state
-    | \init, \menus, \playing, \editing => @trigger-async \pause
+    | \init, \menus, \playing, \editing, \conversation => @trigger-async \pause
     | \loading => @trigger-async \quit .then ~> @show-app-overlay name, args
-    | \menusOverlay, \paused, \editing-paused => # Already there, do nothing
+    | \menusOverlay, \paused, \editingPaused, \conversationPaused => # Already there, do nothing
+    | otherwise => throw new Error "Bad state #{@current-state}"
 
   dismiss-app-overlay: ->
     if @_active-play
@@ -193,7 +216,7 @@ module.exports = class App
       @bar.activate name
       @bar.args args
 
-  overlay-active: -> @current-state in <[menusOverlay paused editingPaused]>
+  overlay-active: -> @current-state in <[menusOverlay paused editingPaused conversationPaused]>
 
   edit: ->
     if @_stage and @_stage.is-editable! and @current-state is \playing
@@ -257,6 +280,22 @@ module.exports = class App
 
   hide-loader: ~>
     if @loader-view then @loader-view.hide!
+
+  start-conversation: (name) ~>
+    if @current-state is \conversation
+      @stop-conversation!
+
+    @trigger-async 'conversation'
+    @_current-conversation = conversation.start name, $conversation-container
+
+  stop-conversation: ~>
+    @_current-conversation.stop!
+
+  show-conversation: ~>
+    $conversation-container.add-class \active
+
+  hide-conversation: ~>
+    $conversation-container.remove-class \active
 
   show-active-menu: ->
     @_menus[@_active-menu]?.$el.make-only-shown-dialogue!
