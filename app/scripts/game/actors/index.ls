@@ -20,3 +20,8 @@ module.exports.register-actor = (ctor) ->
   name = dasherize ctor.display-name
   console.log "[actors] Registered actor #name"
   actors[name] = ctor
+
+module.exports.deregister-actor = (name) ->
+  name = dasherize name
+  console.log "[actors] De-register actor #name"
+  delete actors[name]

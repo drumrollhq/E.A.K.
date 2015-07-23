@@ -38,6 +38,7 @@ module.exports = class Area
   cleanup: ->
     @view.remove!
     if @frame-sub then @frame-sub.unsubscribe!
+    @trigger \cleanup
 
   on-frame: (t) ->
     @physics-state = physics.step @physics-state, t

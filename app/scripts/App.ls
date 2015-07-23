@@ -84,7 +84,10 @@ module.exports = class App
     @on 'transition' (leave, enter) -> console.log "[transition] #leave -> #enter"
 
     # Expose stuff:
-    @register-actor = actors.register-actor
+    @ <<< {
+      actors.register-actor
+      actors.deregister-actor
+    }
 
     Promise
       .all [

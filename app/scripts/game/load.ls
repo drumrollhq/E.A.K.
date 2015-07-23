@@ -31,4 +31,5 @@ export area = (name, app, options) ->
       conf.name = name
       area = new Area {conf, prefix, name, options, event-id: event.id}
       area.on \done -> logger.stop event.id
+      area.on \cleanup -> assets.unload-bundle "#prefix/areas/#name"
       area.load! .then -> area

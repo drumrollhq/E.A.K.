@@ -78,7 +78,8 @@ module.exports = class AreaLevel extends Backbone.View
 
   remove: ->
     @hint-controller?.destroy!
-    for sprite in @sprites => @sprite.remove!
+    @style.remove!
+    for sprite in @sprites => sprite.0.remove!
     # @tutorial?.remove!
     super!
 

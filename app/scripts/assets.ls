@@ -6,8 +6,11 @@ require! {
 audio-format = context.format
 
 asset-cache = {}
+loaded-bundles = {}
+registered-actors = {}
+added-css = {}
 
-export _cache = asset-cache
+export _cache = {assets: asset-cache, loaded-bundles, registered-actors, added-css}
 
 export function load-asset name, type
   unless asset-cache[name]
@@ -31,16 +34,38 @@ export function load-assets names, data-type
 export function clear name
   delete asset-cache[name]
 
-export function load-bundle name, progress
-  if name.0 isnt '/' then name = "/#name"
-  Promise.resolve ($.ajax "#{name}/bundled.#{audio-format}.json?_v=#{EAKVERSION}", data-type: \json .progress progress)
+export function load-bundle bundle-name, progress
+  if bundle-name.0 isnt '/' then bundle-name = "/#bundle-name"
+  Promise.resolve ($.ajax "#{bundle-name}/bundled.#{audio-format}.json?_v=#{EAKVERSION}", data-type: \json .progress progress)
     .tap (bundle) ->
+      loaded-bundles[bundle-name] = []
       for name, file of bundle
         asset-cache[name] = debundle file
+        loaded-bundles[bundle-name][*] = name
+
     .tap (bundle) ->
       for name of bundle
-        if name.match /\.js$/ then add-js asset-cache[name].default
-        if name.match /\.css$/ then add-css asset-cache[name].default
+        if name.match /\.js$/ then add-js asset-cache[name].default, bundle-name
+        if name.match /\.css$/ then add-css asset-cache[name].default, bundle-name
+
+export function unload-bundle bundle-name
+  for name in loaded-bundles[bundle-name]
+    file = asset-cache[name]
+    if file.url and file.url.match /^blob:/
+      URL.revoke-object-URL file.url
+    delete asset-cache[name]
+
+  if registered-actors[bundle-name]
+    for actor in registered-actors[bundle-name]
+      window.eak.deregister-actor actor
+    delete registered-actors[bundle-name]
+
+  if added-css[bundle-name]
+    for el in added-css[bundle-name]
+      document.head.remove-child el
+    delete added-css[bundle-name]
+
+  delete loaded-bundles[bundle-name]
 
 export function debundle file
   if typeof file is \string then file = data: file, type: \string
@@ -66,10 +91,21 @@ export function debundle file
     default
       throw new TypeError "Unknown file type #{file.type}"
 
-function add-js js
-  eval js
+function add-js js, bundle-name
+  registered-actors[bundle-name] ?= []
+  eak = window.eak
+  original-eak = eak.{register-actor}
+  eak.register-actor = (ctor) ->
+    registered-actors[bundle-name][*] = dasherize ctor.display-name
+    original-eak.register-actor.apply this, arguments
 
-function add-css source
+  fn = new Function 'eak', js
+  fn eak
+
+  window.eak <<< original-eak
+
+function add-css source, bundle-name
+  added-css[bundle-name] ?= []
   css = new CSS source
     ..rewrite-assets (url) ->
       if url.match /^(\/\/|https?:|blob:)/ then url else load-asset url, \url
@@ -79,3 +115,4 @@ function add-css source
     ..type = 'text/css'
     ..append-child document.create-text-node css.to-string!
   document.head.append-child el
+  added-css[bundle-name][*] = el
