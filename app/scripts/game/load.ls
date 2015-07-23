@@ -24,7 +24,12 @@ export cutscene = (name, app, options) ->
 
 export area = (name, app, options) ->
   log = logger.start \level {level: name}
-  bundle = assets.load-bundle "#prefix/areas/#name"
+  progress = (progress) ->
+    if progress then progress *= 100
+    app.loader-view.model.set \progress progress
+
+  bundle = assets.load-bundle "#prefix/areas/#name", progress
+
   Promise.all [log, bundle]
     .then ([event]) ->
       conf = assets.load-asset "#prefix/areas/#name/area.json"

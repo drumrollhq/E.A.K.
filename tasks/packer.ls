@@ -8,6 +8,7 @@ require! {
   'gulp-rename'
   'path'
   'prelude-ls': {flatten, unique, pairs-to-obj, map}
+  'vinyl'
 }
 
 glob = Promise.promisify-all glob
@@ -18,6 +19,11 @@ gulp.task 'pack' ->
     .pipe create-bundle!
     .pipe gulp-debug {title: \packaged}
     .pipe gulp.dest dest.bundles
+
+gulp.task 'bundle-sizes' ->
+  gulp.src src.created-bundles, read: false
+    .pipe bundle-sizes!
+    .pipe gulp.dest dest.all
 
 formats = {
   ogg: \ogg
@@ -98,3 +104,22 @@ export bundle-assets = (assets, {encoding = 'base64', reject = -> false} = {}) -
       fs.read-file-async name
         .then (buffer) -> ["/#url", encode url, buffer]
     .then pairs-to-obj
+
+bundle-sizes = ->
+  sizes = {}
+  last-file = null
+  buffer-contents = (file, enc, cb) ->
+    sizes['/' + file.relative.replace /\\/g '/'] = file.stat.size
+    last-file := file
+    cb!
+
+  end-of-stream =(cb) ->
+    unless last-file then cb!
+    @push new vinyl {
+      base: last-file.base
+      path: path.join last-file.base, 'bundles.json'
+      contents: new Buffer (JSON.stringify sizes), 'utf-8'
+    }
+    cb!
+
+  through2.obj buffer-contents, end-of-stream

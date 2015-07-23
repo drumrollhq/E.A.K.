@@ -10,6 +10,11 @@ loaded-bundles = {}
 registered-actors = {}
 added-css = {}
 
+bundle-sizes = {}
+
+Promise.resolve $.get-JSON '/bundles.json'
+  .then (sizes) -> bundle-sizes := sizes
+
 export _cache = {assets: asset-cache, loaded-bundles, registered-actors, added-css}
 
 export function load-asset name, type
@@ -35,8 +40,29 @@ export function clear name
   delete asset-cache[name]
 
 export function load-bundle bundle-name, progress
+  progress ?= -> null
   if bundle-name.0 isnt '/' then bundle-name = "/#bundle-name"
-  Promise.resolve ($.ajax "#{bundle-name}/bundled.#{audio-format}.json?_v=#{EAKVERSION}", data-type: \json .progress progress)
+  req = new Promise (resolve, reject) ->
+    filename = "#{bundle-name}/bundled.#{audio-format}.json"
+    on-load = (e) ->
+      progress null
+      resolve JSON.parse e.target.response
+
+    on-progress = (e) ->
+      if bundle-sizes[filename]
+        progress e.loaded / bundle-sizes[filename]
+      else
+        progress null
+
+    xhr = new XML-http-request!
+    xhr.add-event-listener \load, on-load, false
+    xhr.add-event-listener \abort, reject, false
+    xhr.add-event-listener \error, reject, false
+    xhr.add-event-listener \progress, on-progress, false
+    xhr.open \GET "#{filename}?_v=#{EAKVERSION}"
+    xhr.send!
+
+  req
     .tap (bundle) ->
       loaded-bundles[bundle-name] = []
       for name, file of bundle

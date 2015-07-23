@@ -55,7 +55,7 @@ module.exports = class LoaderView extends Backbone.View
   rotate-stages: ->
     @int = set-interval ~>
       @set-stage messages[Math.floor Math.random! * messages.length]
-    , 1500
+    , 2500
 
   stop-stages: -> clear-interval int
 
