@@ -1,0 +1,55 @@
+Lao: Pink pantaloons! You should be more careful... this would have never happened in my day.
+Lao: You could have flown on your gentleman puffin... or coded your way across, or even just walked around!
+Lao: But no, you had to fling yourself off a ledge…
+Arca:
+	- Thanks for saving me! My name is Arca. Who are you? -> who
+	- I don't have a gentleman puffin... -> puffin
+
+# menu
+Arca:
+	- (unless asked-who) Who are you? -> who
+	- (if asked-who and not asked-oracle) What's an Oracle? -> oracle
+	- (unless asked-imagination) Are you a figment of my imagination? -> imagination
+	- So what's this code thing? -> code
+
+# who
+set asked-who
+set game.characters.lao.arca-asked-who
+Lao: I am Lao - the Oracle. I am one of the few creatures left who practices the ancient art of coding. This is my apprentice, Ada.
+Ada: Hey
+go menu
+
+# puffin
+set game.characters.arca.wants-puffin
+Lao: Oh how preposterous! I don’t know what I would do without my dearest Cecil. Such a cute little munchkin...
+Cecil: Alright mate, that’s enough o’ that.
+Arca:
+	- Thanks for saving me. My name is Arca. Who are you? -> who
+	- Uhh... Ok. I'm Arca, by the way. Are you a figment of my imagination? -> imagination
+
+# oracle
+set asked-oracle
+Ada: Oracles are ancient dinosaur eggs that never hatched
+Lao: Ada! That isn't true. An oracle is one who regularly skinny-dips in the sea of wisdom.
+go menu
+
+# imagination
+Lao: Fascinating question my dear vegan sausage. Some say we are all figments of the Internewt's imagination. But I've met him - he really isn't that creative.
+go menu
+
+# code
+Lao: Bah! Youngsters these days... Everything in the internet universe is made with code. It gives you the power to change our world and create anything you can imagine.
+Lao: In ancient times, every internet creature could code - but now it has been forgotten.
+Arca:
+	- Could I learn to code?
+		Lao: Hmm... I doubt it.
+		set game.characters.arca.code-opinion = 'eager'
+	- Coding sounds really difficult...
+		Lao: It is easier than you think! However...
+		set game.characters.arca.code-opinion = 'difficult'
+	- Boring! I'd rather have a gentleman puffin
+		Lao: If you think being able to create anything you want is boring... Hmph! Absolute nonsense.
+		set game.characters.arca.code-opinion = 'boring'
+
+Lao: Tremendous focus is required! You must feel the code in everything around you.
+exec editPrompt()

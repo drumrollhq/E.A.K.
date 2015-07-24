@@ -1,6 +1,7 @@
 [
   "area.json",
   "*.html",
+  "*.oulipo.json",
   "/content/1-scrapyard/**/*",
   "/content/bg-tiles/1-scrapyard.*.png",
   "/audio/music/forest.*",

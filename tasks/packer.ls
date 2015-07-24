@@ -5,7 +5,6 @@ require! {
   'glob'
   'gulp'
   'gulp-debug'
-  'gulp-rename'
   'path'
   'prelude-ls': {flatten, unique, pairs-to-obj, map}
   'vinyl'

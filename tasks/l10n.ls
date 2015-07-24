@@ -5,10 +5,13 @@ require! {
   'glob'
   'gulp'
   'gulp-cached'
+  'gulp-filter'
   'gulp-preprocess'
+  'gulp-rename'
   'handlebars'
   'lodash.defaults': defaults
   'lodash.merge': merge
+  'oulipo/lib': oulipo
   'path'
   'prelude-ls': {map, join, split, first, initial, camelize, last, tail}
   'through2'
@@ -56,13 +59,32 @@ gulp.task 'l10n' ['l10n-data' 'bootstrap-livescript'] (cb) !->
   get-context!.then (ctx) ->
     console.log 'Version:' ctx.version
     preprocess-context <<< ctx
+    oulipo-filter = gulp-filter ['**/*.oulipo']
     gulp.src src.locale-templates
       .pipe gulp-preprocess context: preprocess-context
       .pipe localize! .on 'error' -> throw it
+      .pipe oulipo-filter
+      .pipe convert-oulipo!
+      .pipe gulp-rename extname: '.oulipo.json'
+      .pipe oulipo-filter.restore!
       .pipe gulp-cached 'l10n'
       .pipe gulp.dest dest.assets
       .on 'end' -> cb!
       .on 'error' -> throw it
+
+function convert-oulipo
+  parser = new oulipo.Parser!
+  es.map (file, cb) ->
+    file .= clone!
+    source = file.contents.to-string 'utf-8'
+    file.contents = source
+      |> parser.parse
+      |> oulipo.ast.prepare
+      |> oulipo.ast.flatten
+      |> JSON.stringify
+      |> -> new Buffer it
+
+    cb null, file
 
 function localize
   default-lang = first languages
