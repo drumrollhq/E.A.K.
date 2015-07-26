@@ -18,3 +18,101 @@
 
 .conversation
   background eakSkyBlue
+
+  .conversation-lines
+    position absolute
+    top 0
+    left calc('30% - 15px')
+    width calc('40% + 30px')
+    height 100%
+    display flex
+    flex-direction column
+
+    > ul
+      overflow auto
+      overflow-x hidden
+      padding 0 15px
+      order 1
+      flex 2
+
+  .conversation-line
+    position relative
+    margin 15px 0
+    padding 15px
+    background rgba(white, 0.5)
+    width 90%
+    clear both
+    float left
+    border-radius 10px
+    transform-origin bottom left
+
+    &:after
+      content ''
+      display block
+      width 0
+      height 0
+      position absolute
+      bottom 10px
+      border 15px solid transparent
+      border-right-color rgba(white, 0.5)
+      left -30px
+
+  .conversation-line-enter
+    transition all 0.3s ease
+    transform scale(0.6)
+    opacity 0
+
+  .conversation-line-enter-active
+    transform scale(1)
+    opacity 1
+
+  .conversation-line-player
+    float right
+    transform-origin bottom right
+
+    &:after
+      border-left-color rgba(white, 0.5)
+      border-right-color transparent
+      right -30px
+      left auto
+
+  .conversation-speaker
+    position absolute
+    bottom 0
+    width 30%
+    height 100%
+
+    img
+      position absolute
+      display block
+      width 100%
+      bottom 0
+
+  .conversation-speaker-left
+    left 0
+
+  .conversation-speaker-right
+    right 0
+
+  .conversation-speaker-enter
+    opacity 0
+    transition opacity 0.2s linear
+
+  .conversation-speaker-enter-active
+    opacity 1
+
+  .conversation-speaker-leave
+    opacity 1
+    transition opacity 0.2s 0.1s linear
+
+  .conversation-speaker-leave-active
+    opacity 0
+
+  .conversation-choice
+    order 2
+    min-height 200px
+    opacity 0
+    transition all 0.2s ease
+
+    &.active
+      opacity 1

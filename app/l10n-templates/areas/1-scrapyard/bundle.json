@@ -9,5 +9,9 @@
   "/audio/tutorials/intro/03-editing-text-i.*",
   "/entities/bananabird/**/*",
   "/entities/clouds/**/*",
-  "/entities/flashing-light/**/*"
+  "/entities/flashing-light/**/*",
+  "/entities/arca-conversation/*",
+  "/entities/lao-conversation/*",
+  "/entities/cecil-conversation/*",
+  "/entities/ada-conversation/*"
 ]

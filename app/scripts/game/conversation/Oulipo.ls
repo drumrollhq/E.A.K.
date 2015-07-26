@@ -41,7 +41,7 @@ module.exports = class Oulipo
 
         decide = new Promise (resolve) ~> @trigger \choice, node.name, content, resolve
         decide
-          .tap (idx) ~> @say-line node.name, choices[idx].content
+          .tap (idx) ~> @say-line node.name, choices[idx].content, true
           .then (idx) ~> @process-node choices[idx].next
 
       case \set
@@ -74,9 +74,9 @@ module.exports = class Oulipo
         console.log '[oulipo]' node
         throw new TypeError "[oulipo] Unknown node type #{node.type}"
 
-  say-line: (name, content) ->
-    @state.add-line name, content
-    Promise.delay 50
+  say-line: (name, content, from-player) ->
+    @state.add-line name, content, from-player
+    Promise.delay 500
 
   set: (variable, op, value) ->
     variable = camelize variable

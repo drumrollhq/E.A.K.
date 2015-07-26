@@ -1,3 +1,21 @@
+set view.speaker = 'lao'
+go thing
+
+# thing
+Arca:
+  - set view.speaker = 'lao'
+    set view.speaker = 'lao'
+  - set view.speaker = 'ada'
+    set view.speaker = 'ada'
+  - set view.speaker = 'cecil'
+    set view.speaker = 'cecil'
+  - set view.speaker-expression = 'bored'
+    set view.speaker-expression = 'bored'
+  - set view.speaker-expression = 'neutral'
+    set view.speaker-expression = 'neutral'
+
+go thing
+
 Lao: Pink pantaloons! You should be more careful... this would have never happened in my day.
 Lao: You could have flown on your gentleman puffin... or coded your way across, or even just walked around!
 Lao: But no, you had to fling yourself off a ledge…
@@ -53,4 +71,4 @@ Arca:
 		set game.characters.arca.code-opinion = 'boring'
 
 Lao: Tremendous focus is required! You must feel the code in everything around you.
-exec editPrompt()
+exec alert('Edit prompt!')
