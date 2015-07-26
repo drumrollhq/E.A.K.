@@ -35,13 +35,12 @@ module.exports = React.create-class {
     @update-scroll!
 
   render: ->
-    player = @state.model.view.player or 'arca'
-    player-expression = @state.model.view.player or 'neutral'
-    speaker = @state.model.view.speaker
-    speaker-expression = @state.model.view.speaker-expression or 'neutral'
+    [player, player-expression] = (@state.model.view.player or 'arca neutral').split ' '
+    [speaker, speaker-expression] = (@state.model.view.speaker or '').split ' '
 
-    player-img = assets.load-asset "/entities/#{player}-conversation/#{player-expression}.png", \url
-    if speaker
+    if player and player-expression
+      player-img = assets.load-asset "/entities/#{player}-conversation/#{player-expression}.png", \url
+    if speaker and speaker-expression
       speaker-img = assets.load-asset "/entities/#{speaker}-conversation/#{speaker-expression}.png", \url
 
     dom.div class-name: \conversation,

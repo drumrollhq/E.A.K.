@@ -1,23 +1,7 @@
-set view.speaker = 'lao'
-go thing
-
-# thing
-Arca:
-  - set view.speaker = 'lao'
-    set view.speaker = 'lao'
-  - set view.speaker = 'ada'
-    set view.speaker = 'ada'
-  - set view.speaker = 'cecil'
-    set view.speaker = 'cecil'
-  - set view.speaker-expression = 'bored'
-    set view.speaker-expression = 'bored'
-  - set view.speaker-expression = 'neutral'
-    set view.speaker-expression = 'neutral'
-
-go thing
-
+set view.speaker = 'lao angry'
 Lao: Pink pantaloons! You should be more careful... this would have never happened in my day.
 Lao: You could have flown on your gentleman puffin... or coded your way across, or even just walked around!
+set view.speaker = 'lao neutral'
 Lao: But no, you had to fling yourself off a ledge…
 Arca:
 	- Thanks for saving me! My name is Arca. Who are you? -> who
@@ -33,13 +17,17 @@ Arca:
 # who
 set asked-who
 set game.characters.lao.arca-asked-who
+set view.speaker = 'lao smiling'
 Lao: I am Lao - the Oracle. I am one of the few creatures left who practices the ancient art of coding. This is my apprentice, Ada.
+set view.speaker = 'ada neutral'
 Ada: Hey
 go menu
 
 # puffin
 set game.characters.arca.wants-puffin
+set view.speaker = 'lao neutral'
 Lao: Oh how preposterous! I don’t know what I would do without my dearest Cecil. Such a cute little munchkin...
+set view.speaker = 'cecil angry'
 Cecil: Alright mate, that’s enough o’ that.
 Arca:
 	- Thanks for saving me. My name is Arca. Who are you? -> who
@@ -47,28 +35,42 @@ Arca:
 
 # oracle
 set asked-oracle
+set view.speaker = 'ada neutral'
 Ada: Oracles are ancient dinosaur eggs that never hatched
-Lao: Ada! That isn't true. An oracle is one who regularly skinny-dips in the sea of wisdom.
+set view.speaker = 'lao angry'
+Lao: Ada! That isn't true.
+set view.speaker = 'lao neutral'
+Lao: An oracle is one who regularly skinny-dips in the sea of wisdom.
 go menu
 
 # imagination
+set view.player = 'arca quizzical'
 set asked-imagination
+set view.speaker = 'lao thoughtful'
 Lao: Fascinating question my dear vegan sausage. Some say we are all figments of the Internewt's imagination. But I've met him - he really isn't that creative.
+set view.player = 'arca neutral'
 go menu
 
 # code
+set view.speaker = 'lao angry'
 Lao: Bah! Youngsters these days... Everything in the internet universe is made with code. It gives you the power to change our world and create anything you can imagine.
+set view.speaker = 'lao thoughtful'
 Lao: In ancient times, every internet creature could code - but now it has been forgotten.
 Arca:
 	- Could I learn to code?
+		set view.speaker = 'lao neutral'
 		Lao: Hmm... I doubt it.
 		set game.characters.arca.code-opinion = 'eager'
 	- Coding sounds really difficult...
+		set view.speaker = 'lao neutral'
 		Lao: It is easier than you think! However...
 		set game.characters.arca.code-opinion = 'difficult'
 	- Boring! I'd rather have a gentleman puffin
+		set view.player = 'arca cheeky'
+		set view.speaker = 'lao angry'
 		Lao: If you think being able to create anything you want is boring... Hmph! Absolute nonsense.
 		set game.characters.arca.code-opinion = 'boring'
 
+set view.speaker = 'lao neutral'
 Lao: Tremendous focus is required! You must feel the code in everything around you.
 exec alert('Edit prompt!')

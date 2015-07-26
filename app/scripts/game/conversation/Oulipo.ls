@@ -76,7 +76,7 @@ module.exports = class Oulipo
 
   say-line: (name, content, from-player) ->
     @state.add-line name, content, from-player
-    Promise.delay 500
+    Promise.delay 1500
 
   set: (variable, op, value) ->
     variable = camelize variable
