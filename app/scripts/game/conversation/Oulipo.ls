@@ -39,9 +39,11 @@ module.exports = class Oulipo
 
         content = choices.map ( .content )
 
+        console.log {node, choices}
+
         decide = new Promise (resolve) ~> @trigger \choice, node.name, content, resolve
         decide
-          .tap (idx) ~> @say-line node.name, choices[idx].content, true
+          .tap (idx) ~> @say-line {name: node.name.name, emotion: choices[idx].emotion}, choices[idx].content, true
           .then (idx) ~> @process-node choices[idx].next
 
       case \set
@@ -74,7 +76,17 @@ module.exports = class Oulipo
         console.log '[oulipo]' node
         throw new TypeError "[oulipo] Unknown node type #{node.type}"
 
-  say-line: (name, content, from-player) ->
+  say-line: ({name, emotion}, content, from-player) ->
+    console.log \line {name, emotion, from-player}
+    name-lower = name.to-lower-case!
+    if from-player
+      @state.set 'view.player', "#{name-lower} #{emotion or 'neutral'}"
+    else
+      emotion ?= @state.get "characterEmotions.#{name-lower}" or 'neutral'
+      @state.set 'view.speaker', "#{name-lower} #{emotion}"
+
+    @state.set "characterEmotions.#{name-lower}", emotion
+
     @state.add-line name, content, from-player
     Promise.delay 1500
 
