@@ -149,6 +149,8 @@ module.exports = class App
         Promise.reject e
 
   load: (type, path, options) ->
+    if @_currently-loading === {type, path} then return
+    @_currently-loading = {type, path}
     p = if @overlay-active!
       @trigger-async \resume
     else if @current-state is \loading
@@ -269,6 +271,7 @@ module.exports = class App
         Promise.reject e
       .finally ~>
         @_current-loader = null
+        @_currently-loading = null
         @hide-loader!
 
   cancel-loader: ~>
