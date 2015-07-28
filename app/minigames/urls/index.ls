@@ -1,14 +1,24 @@
 exports, require, module <- require.register 'minigames/urls/index'
+
+require! {
+  'lib/channels'
+  'minigames/urls/URLMiniGameView'
+}
+
 module.exports = class URLMiniGame
   ->
     _.mixin this, Backbone.Events
-    console.log 'new URLMiniGame', arguments
+    @view = new URLMiniGameView el: ($ \#levelcontainer .empty!)
 
   load: ->
-    console.log \minigame-load arguments
+    @view.load!
 
   start: ->
-    console.log \minigame-start arguments
+    @view.start!
+    @frame-sub = channels.frame.subscribe ({t}) ~> @on-frame t
+
+  on-frame: (t) ->
+    @view.step t
 
   is-editable: -> false
 

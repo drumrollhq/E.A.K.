@@ -66,7 +66,7 @@ function blur dest
     ext = path.extname file.path
     filename = path.relative file.base, file.path .slice 0, -ext.length
 
-    <- mkdirp dest
+    <- mkdirp path.dirname path.join dest, filename
     {width, height} = image-size file.contents
     proc = child_process
       .spawn 'convert' [
@@ -88,7 +88,7 @@ function tile width, height, dest
     if file.stat.is-directory! then return cb!
     ext = path.extname file.path
     filename = path.relative file.base, file.path .slice 0, -ext.length
-    <- mkdirp dest
+    <- mkdirp path.dirname path.join dest, filename
 
     proc = child_process
       .spawn 'convert' [
