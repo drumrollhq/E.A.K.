@@ -45,6 +45,10 @@ module.exports = class Vector
 
   length: -> Math.sqrt @x * @x + @y * @y
 
+  angle: -> Math.atan2 @y, @x
+
+  angle-to: (v) -> Math.atan2 (v.y - @y), (v.x - @x)
+
   # Point in polygon by ray-casting.
   # See http://en.wikipedia.org/wiki/Point_in_polygon
   in-poly: (p) ->

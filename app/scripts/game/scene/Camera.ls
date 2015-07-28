@@ -25,8 +25,14 @@ module.exports = class Camera
     @_adjusted-scene-width = @scene-width - @padding
     @_adjusted-scene-height = @scene-height - @padding
 
-  track: (display-object) ->
+  track: (display-object, snap = false) ->
     @_tracking = display-object
+    if snap
+      console.log \snap
+      @set-subject @_tracking.p || @_tracking.position
+      [x, y] = @centered!
+      @_px = @_qx = @offset-x = x
+      @_py = @_qy = @offset-y = y
 
   pause-tracking: ->
     @_last-tracked = @_tracking
@@ -53,7 +59,7 @@ module.exports = class Camera
     @_subject-y = y
 
   step: ->
-    if @_tracking then @set-subject @_tracking.p
+    if @_tracking then @set-subject @_tracking.p || @_tracking.position
 
     [@target-x, @target-y] =
       if @_editing then @get-editing-position! else @get-target-position!
@@ -101,14 +107,24 @@ module.exports = class Camera
         ..line-style 1, 0xFF0000 .draw-rect box-left + adjust-left, box-top + adjust-top, box-width, box-height
         ..line-style 1, 0xFF0000 .draw-rect camera-target-x - 5, camera-target-y - 5, 10, 10
 
+    @constrain do
+      current-camera-x + adjust-left - @_viewport-width / 2
+      current-camera-y + adjust-top - @_viewport-height / 2
+
+  constrain: (x, y) ->
     max-x = @scene-width - @_viewport-width
     max-y = @scene-height - @_viewport-height
     target-x = if @_lock-x? then @_lock-x
-      else constrain 0, max-x, current-camera-x + adjust-left - @_viewport-width / 2
+      else constrain 0, max-x, x
     target-y = if @_lock-y? then @_lock-y
-      else constrain 0, max-y, current-camera-y + adjust-top - @_viewport-height / 2
+      else constrain 0, max-y, y
 
     [target-x, target-y]
+
+  centered: ->
+    @constrain do
+      @_subject-x - @_viewport-width / 2
+      @_subject-y - @_viewport-height / 2
 
   start-edit-mode: (rect, duration, frame-driver) -> new Promise (resolve, reject) ~>
     @_editing = true

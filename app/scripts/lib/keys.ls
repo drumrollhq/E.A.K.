@@ -15,6 +15,14 @@ triggers = {
     keys: <[ right d l ]>
     exclude: <[ left ]>
 
+  up:
+    keys: <[ up w k ]>
+    exclude: <[ down ]>
+
+  down:
+    keys: <[ down s j ]>
+    exclude: <[ up ]>
+
   jump:
     keys: <[ up w space k ]>
     exclude: []
