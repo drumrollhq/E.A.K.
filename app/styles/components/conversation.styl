@@ -40,7 +40,8 @@
     margin 15px 0
     padding 15px
     background rgba(white, 0.5)
-    width 90%
+    width auto
+    max-width 80%
     clear both
     float left
     border-radius 10px
@@ -52,10 +53,11 @@
       width 0
       height 0
       position absolute
-      bottom 10px
+      left -30px
+      top 50%
+      margin-top -15px
       border 15px solid transparent
       border-right-color rgba(white, 0.5)
-      left -30px
 
   .conversation-line-enter
     transition all 0.3s ease
@@ -75,6 +77,16 @@
       border-right-color transparent
       right -30px
       left auto
+
+  .conversation-line-line
+    display inline
+
+  .conversation-line-speaker
+    font-weight 300
+    display inline
+
+    &::after
+      content ": "
 
   .conversation-speaker
     position absolute
