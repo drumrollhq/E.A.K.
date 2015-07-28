@@ -6,6 +6,7 @@ module.exports = class WebglLayer extends Layer
   tag-name: \canvas
   initialize: (options) ->
     super options
+    @_resolution = window.device-pixel-ratio or 1
     @_viewport-width = 300
     @_viewport-height = 300
     @_stage = new PIXI.Container!
@@ -17,7 +18,7 @@ module.exports = class WebglLayer extends Layer
     @renderer = new PIXI.WebGLRenderer @_viewport-width, @_viewport-height, {
       view: @el
       transparent: true
-      resolution: 1
+      resolution: @_resolution
     }
 
   add: (object, at = 3, needs-viewport = false) ->
@@ -43,4 +44,5 @@ module.exports = class WebglLayer extends Layer
     @_viewport-width = width
     @_viewport-height = height
     @renderer.resize width, height
-    @stage.filter-area = new PIXI.math.Rectangle 0, 0, width, height
+    @renderer.view.style <<< {width: "#{width}px", height: "#{height}px"}
+    @stage.filter-area = new PIXI.Rectangle 0, 0, width, height

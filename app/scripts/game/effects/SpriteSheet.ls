@@ -8,7 +8,7 @@ split-texture = (texture, frames) ->
   width = texture.width / frames
 
   for i til frames
-    rect = new PIXI.math.Rectangle width * i, 0, width, texture.height
+    rect = new PIXI.Rectangle width * i, 0, width, texture.height
     new PIXI.Texture texture, rect
 
 module.exports = class SpriteSheet extends PIXI.extras.MovieClip
@@ -84,11 +84,11 @@ module.exports = class SpriteSheet extends PIXI.extras.MovieClip
     .map ([id, frame]) ->
       rect = frame.frame
       size = if frame.rotated
-        new PIXI.math.Rectangle rect.x, rect.y, rect.h, rect.w
-      else new PIXI.math.Rectangle rect.x, rect.y, rect.w, rect.h
+        new PIXI.Rectangle rect.x, rect.y, rect.h, rect.w
+      else new PIXI.Rectangle rect.x, rect.y, rect.w, rect.h
 
       if frame.trimmed
-        trim = new PIXI.math.Rectangle frame.sprite-source-size.x, frame.sprite-source-size.y, frame.source-size.w, frame.source-size.h
+        trim = new PIXI.Rectangle frame.sprite-source-size.x, frame.sprite-source-size.y, frame.source-size.w, frame.source-size.h
 
       if frame.rotated
         t = size.width

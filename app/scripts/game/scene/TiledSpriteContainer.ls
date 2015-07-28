@@ -25,7 +25,7 @@ module.exports = class TiledSpriteContainer extends PIXI.Container
     @add-edge-sprites @tiles
 
   set-viewport: (left, top, right, bottom) ->
-    const pad = 10px
+    const pad = 0
     for x til @tiles.length
       for y til @tiles[x].length
         xc = (x - 1) * tile-width
@@ -60,7 +60,7 @@ module.exports = class TiledSpriteContainer extends PIXI.Container
   edge-sprite: (sprite, x, y, width = sprite.texture.width, height = sprite.texture.height, x-ref, y-ref) ->
     if x < 0 then x = width - x
     if y < 0 then y = height - y
-    crop = new PIXI.math.Rectangle x, y, width, height
+    crop = new PIXI.Rectangle x, y, width, height
     tex = new PIXI.Texture sprite.texture, crop
     sprite = new PIXI.Sprite tex
     sprite.width = if typeof x-ref is \string then @img-width else tile-width
