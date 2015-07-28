@@ -6,7 +6,8 @@ require! {
   'lib/channels'
   'lib/keys'
   'lib/math/Vector'
-  'lib/math/Line'
+  'lib/math/Bezier'
+  'lib/math/ease'
 }
 
 player-scale = 0.7
@@ -19,25 +20,27 @@ angle-to-directions = (b) ->
     |> Obj.map (a) -> Math.min (Math.abs a - b), 2*Math.PI - (Math.abs a - b)
     |> Obj.filter (a) -> a < Math.PI / 3
 
-connect = (a, b) ->
+connect = (a, b, c, d) ->
   angle = a.position.angle-to b.position
   directions = angle-to-directions angle
   for own direction, distance of directions
     if (not a.connections[direction]) or (a.connections[direction].disance < distance)
-      line = new Line a.position, b.position
+      line = new Bezier a.position, b.position, c, d
       a.connections[direction] = {b.id, distance, line}
 
 create-graph = (nodes, paths) ->
   nodes = {[id, {position: (new Vector x, y), name, id, connections: {}}] for own id, [x, y, name] of nodes}
-  for [a, b] in paths
+  for [a, b, [cx, cy], [dx, dy]] in paths
     a = nodes[camelize a]
     b = nodes[camelize b]
-    connect a, b
-    connect b, a
+    c = new Vector cx, cy
+    d = new Vector dx, dy
+    connect a, b, c, d
+    connect b, a, d, c
 
   nodes
 
-const player-speed = 0.1px
+const player-speed = 0.2px
 
 module.exports = class GraphMap extends PIXI.Container
   ({width, height, map-url, nodes, paths, @current-node}) ->
@@ -65,7 +68,7 @@ module.exports = class GraphMap extends PIXI.Container
   animate: (t) ->
     @_distance-travelled += t * player-speed
     if @_distance-travelled < @_line.length
-      p = @_line.at @_distance-travelled
+      p = @_line.interpolate ease.sin @_distance-travelled / @_line.length
     else
       p = @_line.at @_line.length
       @_line = null
