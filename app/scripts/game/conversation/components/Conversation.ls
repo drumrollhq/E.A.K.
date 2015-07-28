@@ -39,9 +39,9 @@ module.exports = React.create-class {
     [speaker, speaker-expression] = (@state.model.view.speaker or '').split ' '
 
     if player and player-expression
-      player-img = assets.load-asset "/entities/#{player}-conversation/#{player-expression}.png", \url
+      player-img = assets.load-asset "/content/conversation/#{player}/#{player-expression}.png", \url
     if speaker and speaker-expression
-      speaker-img = assets.load-asset "/entities/#{speaker}-conversation/#{speaker-expression}.png", \url
+      speaker-img = assets.load-asset "/content/conversation/#{speaker}/#{speaker-expression}.png", \url
 
     dom.div class-name: \conversation,
       dom.div class-name: \conversation-lines,
