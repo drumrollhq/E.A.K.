@@ -52,7 +52,7 @@ export watch = ->
 
     assets
 
-  packages = glob.sync src.bundles
+  packages = glob.sync src.bundles, ignore: ['**/bundle.json' '**/bundled.*.json']
 
   for let package-name in packages
     files = files-for package-name
@@ -92,7 +92,7 @@ export create-bundle = ->
 
 export bundle-assets = (assets, {encoding = 'base64', reject = -> false} = {}) ->
   Promise
-    .map assets, (f) -> glob.glob-async path.join dest.bundles, f
+    .map assets, (f) -> glob.glob-async (path.join dest.bundles, f), ignore: ['**/bundle.json' '**/bundled.*.json']
     .then flatten >> unique
     .filter (asset) ->
       fs.stat-async asset .then (stat) -> not stat.is-directory!

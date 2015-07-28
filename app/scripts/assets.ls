@@ -8,6 +8,7 @@ audio-format = context.format
 asset-cache = {}
 loaded-bundles = {}
 registered-actors = {}
+registered-modules = {}
 added-css = {}
 
 bundle-sizes = {}
@@ -20,16 +21,16 @@ export _cache = {assets: asset-cache, loaded-bundles, registered-actors, added-c
 export function load-asset name, type
   unless asset-cache[name]
     if type is \url
-      console.log "load-asset: cache MISS #name"
+      console.log "[assets] load-asset: cache MISS #name"
       return "#{name}?_v=#{EAKVERSION}"
 
-    throw new Error "load-asset: cache MISS #name"
+    throw new Error "[assets] load-asset: cache MISS #name"
 
   cached = asset-cache[name]
   if type?
     if cached[type]?
       return cached[type]
-    else throw new TypeError "Cannot load type #{type} for #{name}"
+    else throw new TypeError "[assets] Cannot load type #{type} for #{name}"
   else
     cached.default
 
@@ -86,6 +87,12 @@ export function unload-bundle bundle-name
       window.eak.deregister-actor actor
     delete registered-actors[bundle-name]
 
+  if registered-modules[bundle-name]
+    for module in registered-modules[bundle-name]
+      window.require.de-register module
+      console.log "[assets] de-registered module #name"
+    delete registered-modules[bundle-name]
+
   if added-css[bundle-name]
     for el in added-css[bundle-name]
       document.head.remove-child el
@@ -119,16 +126,29 @@ export function debundle file
 
 function add-js js, bundle-name
   registered-actors[bundle-name] ?= []
+  registered-modules[bundle-name] ?= []
+
+  # intercept eak register functions
   eak = window.eak
   original-eak = eak.{register-actor}
   eak.register-actor = (ctor) ->
     registered-actors[bundle-name][*] = dasherize ctor.display-name
     original-eak.register-actor.apply this, arguments
 
+  # intercept require.register
+  original-register = window.require.register
+  window.require.register = (name) ->
+    registered-modules[bundle-name][*] = name
+    console.log "[assets] Registered module #name"
+    original-register.apply this, arguments
+
   fn = new Function 'eak', js
   fn eak
 
+  # restore eak functions
   window.eak <<< original-eak
+  # restore require.register
+  window.require.register = original-register
 
 function add-css source, bundle-name
   added-css[bundle-name] ?= []

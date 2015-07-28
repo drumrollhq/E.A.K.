@@ -38,3 +38,25 @@ export area = (name, app, options) ->
       area.on \done -> logger.stop event.id
       area.on \cleanup -> assets.unload-bundle "#prefix/areas/#name"
       area.load! .then -> area
+
+export minigame = (name, app, options) ->
+  log = logger.start \minigame, name: name
+  progress = (progress) ->
+    if progress then progress *= 100
+    app.loader-view.model.set \progress progress
+
+  bundle = assets.load-bundle "minigames/#name", progress
+  Promise.all [log, bundle]
+    .then ([event]) ->
+      MiniGame = require "minigames/#name"
+      game = new MiniGame {} <<< options <<< {app}
+      game.on \done -> logger.stop event.id
+      game.on \cleanup -> assets.unload-bundle "minigames/#name"
+      original-save-defaults = game.save-defaults or -> {}
+      game.save-defaults = -> {
+        type: \minigame
+        url: name
+        state: original-save-defaults.apply this, arguments or {}
+      }
+      Promise.resolve game.load!
+        .then -> game

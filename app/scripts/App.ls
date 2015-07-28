@@ -21,7 +21,7 @@ require! {
   'user'
 }
 
-const stage-types = <[cutscene area]>
+const stage-types = <[cutscene area minigame]>
 $overlay-views = $ '#overlay-views'
 $settings-button = $ '#bar .settings-button'
 $conversation-container = $ '#conversation-container'
@@ -331,7 +331,7 @@ module.exports = class App
     if @_stage then @_stage.hide-editor!
 
   show-playing: ->
-    $body.add-class \playing
+    $body.add-class 'playing hide-edit'
 
   hide-playing: ->
     $body.remove-class \playing
