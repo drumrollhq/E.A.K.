@@ -31,8 +31,8 @@ module.exports = class TiledSpriteContainer extends PIXI.Container
         xc = (x - 1) * tile-width
         yc = (y - 1) * tile-height
         @tiles[x][y].visible =
-          left - tile-width - pad <= xc <= right + pad and
-          top - tile-height - pad <= yc <= bottom + pad
+          left - tile-width - pad < xc < right + pad and
+          top - tile-height - pad < yc < bottom + pad
 
   # Add sprites extending the edge-pixel of the background image
   add-edge-sprites: (grid) ->
