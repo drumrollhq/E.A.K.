@@ -18,6 +18,7 @@
 
 .conversation
   background eakSkyBlue
+  font-size 16px
 
   .conversation-lines
     position absolute
@@ -122,9 +123,32 @@
 
   .conversation-choice
     order 2
-    min-height 200px
+    min-height 240px
     opacity 0
     transition all 0.2s ease
+    text-align center
 
     &.active
       opacity 1
+
+    h4
+      margin-top 20px
+      font-weight 300
+      font-size 1.2em
+
+    .choice
+      margin 10px
+      display inline-block
+
+      a
+        cursor pointer
+        display inline-block
+        padding 10px 15px
+        background rgba(white, 0.5)
+        border-radius 10px
+        border 2px solid rgba(eakPurple, 0.5)
+        transition all 0.2s ease
+
+        &:hover
+          box-shadow 0 0 5px rgba(eakPurple, 0.5)
+

@@ -22,7 +22,7 @@ go menu
 # puffin
 set game.characters.arca.wants-puffin
 Lao [shocked]: Oh how preposterous! I don’t know what I would do without my dearest Cecil.
-Lao [neutral]: Such a cute little munchkin...
+Lao [smiling]: Such a cute little munchkin...
 Cecil [angry]: Alright mate, that’s enough o’ that.
 Arca:
 	- [neutral] Thanks for saving me. My name is Arca. Who are you? -> who

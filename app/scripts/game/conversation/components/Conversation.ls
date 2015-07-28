@@ -56,7 +56,7 @@ module.exports = React.create-class {
               dom.div class-name: \conversation-line-line, line.line
 
         dom.div class-name: (cx \conversation-choice active: @state.choice-active),
-          dom.h4 null, @state.{}choice.name + ':'
+          dom.h4 null, "What should #{@state.{}choice.{}name.name or 'Arca'} say?"
           dom.ul null,
             for let choice, i in @state.{}choice.[]choices
               dom.li class-name: \choice, key: i,
