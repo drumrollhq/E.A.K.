@@ -8,6 +8,7 @@ require! {
   'gulp-handlebars'
   'gulp-header'
   'gulp-livescript'
+  'gulp-notify'
   'gulp-rename'
   'gulp-sourcemaps'
   'gulp-uglify'
@@ -38,7 +39,7 @@ gulp.task 'app-livescript' ->
     .pipe gulp-changed dest.js, extension: '.js'
     .pipe gulp-sourcemaps.init!
     .pipe gulp-livescript!
-    .on 'error' -> throw it
+    .on 'error' -> gulp-notify.on-error title: 'app-livescript'
     .pipe gulp-wrap-js wrap-js-template, {
       indent:
         style: '  '
@@ -52,7 +53,7 @@ gulp.task 'entity-livescript' ->
     .pipe gulp-changed dest.js, extension: '.js'
     .pipe gulp-sourcemaps.init!
     .pipe gulp-livescript!
-    .on 'error' -> throw it
+    .on 'error' -> gulp-notify.on-error title: 'entity-livescript'
     .pipe gulp-sourcemaps.write 'sourcemaps', source-root: '/entities'
     .pipe gulp.dest dest.entities
 
@@ -60,7 +61,7 @@ gulp.task 'test-livescript' ->
   gulp.src src.tests
     .pipe gulp-changed dest.tests, extension: '.js'
     .pipe gulp-livescript bare: true
-    .on 'error' -> throw it
+    .on 'error' -> gulp-notify.on-error title: 'test-livescript'
     .pipe gulp.dest dest.tests
 
 gulp.task 'bootstrap-livescript' ->

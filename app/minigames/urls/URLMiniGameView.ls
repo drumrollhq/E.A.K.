@@ -29,12 +29,13 @@ module.exports = class URLMiniGameView extends Backbone.View
       height
       map-url: '/content/bg-tiles/url-minigame/map'
       current-node: \phb
+      exit: true
       nodes:
-        phb: [1014 1235 'Ponyhead Bay']
-        flee: [1439 989 'Flee']
-        drudshire: [1266 665 'Drudshire']
-        bulbous: [863 444 'Bulbous Island']
-        shackerton: [602 849 'Shackerton-by-the-Sea']
+        phb: [1014 1235 'to Ponyhead\nBay' -50 -210]
+        flee: [1439 989 'to Flee' -185 -110]
+        drudshire: [1266 665 'to Drudshire' -70 20]
+        bulbous: [863 444 'to Bulbous\nIsland' -70 15]
+        shackerton: [602 849 'to Shackerton\nby-the-Sea' 70 -55]
         junction-phb: [1027 965]
         junction-flee: [1240 831]
         junction-drudshire: [1266 752]

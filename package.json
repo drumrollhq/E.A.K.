@@ -36,6 +36,7 @@
     "gulp-imagemin": "^1.0.1",
     "gulp-livescript": "^1.0.3",
     "gulp-minify-css": "^0.3.7",
+    "gulp-notify": "^2.2.0",
     "gulp-preprocess": "^1.1.1",
     "gulp-rename": "^1.2.2",
     "gulp-rimraf": "^0.1.0",
