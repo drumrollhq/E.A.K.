@@ -47,7 +47,7 @@ module.exports = class GraphMap extends PIXI.Container
     @bg = new TiledSpriteContainer map-url, width, height
     @add-child @bg
 
-    @player = new PIXI.Sprite.from-image '/minigames/urls/arca-head.png'
+    @player = new PIXI.Sprite.from-image '/minigames/urls/assets/arca-head.png'
     @player.anchor <<< x: 0.5, y: 0.5
     @player <<< {
       width: 60 * player-scale, height: 55 * player-scale
