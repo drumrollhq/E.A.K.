@@ -3,7 +3,6 @@ require! {
   'event-stream': es
   'gulp'
   'gulp-minify-css'
-  'gulp-notify'
   'gulp-stylus'
   'nib'
   'path'
@@ -20,7 +19,7 @@ gulp.task 'stylus' (cb) ->
   stylus-conf.define.url = stylus.url!
   gulp.src src.css
     .pipe gulp-stylus stylus-conf
-    .on 'error' -> gulp-notify.on-error title: 'stylus'
+    .on 'error' -> throw it
     .pipe if optimized then gulp-minify-css! else noop!
     .pipe gulp.dest dest.css
 
@@ -33,7 +32,7 @@ gulp.task 'entity-stylus' ->
 
   gulp.src src.entity-styles
     .pipe gulp-stylus conf
-    .on 'error' -> gulp-notify.on-error title: 'entity-stylus'
+    .on 'error' -> throw it
     .pipe if optimized then gulp-minify-css! else noop!
     .pipe gulp.dest dest.entities
 
