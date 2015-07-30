@@ -19,7 +19,7 @@ require! {
   'streamqueue'
 }
 
-wrap-js-template = '''require.register("%= file.relative.replace('\\\\', '/').replace(/\\.js$/, '') %", function(exports, require, module) {%= body %});'''
+wrap-js-template = '''require.register("%= file.relative.replace(/\\\\/g, '/').replace(/\\.js$/, '') %", function(exports, require, module) {%= body %});'''
 
 gulp.task 'scripts' (done) ->
   run-sequence ['livescript' 'workers' 'handlebars' 'api-spec'], done
