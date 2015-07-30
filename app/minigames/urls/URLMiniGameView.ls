@@ -26,12 +26,12 @@ module.exports = class URLMiniGameView extends Backbone.View
       @scene.set-viewport-size width, height
 
     # Map:
-    /* @map = new GraphMap maps.main-map <<< {
-      width
-      height
-      current-node: \phb
-      exit: true
-    } */
+    # @map = new GraphMap maps.main-map <<< {
+    #   width
+    #   height
+    #   current-node: \phb
+    #   exit: true
+    # }
 
     @map = new WalkingMap maps.bulbous <<< {
       width, height

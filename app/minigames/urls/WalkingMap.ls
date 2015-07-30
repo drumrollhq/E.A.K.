@@ -7,9 +7,9 @@ require! {
 }
 
 const player-speed = 0.3px
-const player-scale = 0.7
+const player-scale = 0.4
 
-const draw-hit-rects = false
+const draw-hit-rects = true
 colors = [0xFF0000 0x00FF00 0x0000FF 0x00FFFF 0xFF00FF 0xFFFF00]
 
 module.exports = class WalkingMap extends PIXI.Container
