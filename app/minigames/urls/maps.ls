@@ -29,9 +29,9 @@ export main-map = {
 
 export bulbous = {
   map-url: '/content/bg-tiles/url-minigame/bulbous-island'
-  start: x: 1000, y: 1700
+  start: x: 1000, y: 1700 #Arca start point
   rects: [
-    [400 300 570 148]
+    [400 300 570 148] #x y width height
     [1030 300 570 148]
     [870 300 260 75]
     [400 348 115 1100]
@@ -53,4 +53,10 @@ export bulbous = {
     [1030 1020 235 130]
     [1183 600 82 470]
   ]
+}
+
+export drudshire = {
+  map-url: '/content/bg-tiles/url-minigame/drudshire'
+  start: x: 1000, y: 1700
+  rects: [[0,100,835,190],[895,100,1200,190]]
 }

@@ -33,7 +33,7 @@ module.exports = class URLMiniGameView extends Backbone.View
     #   exit: true
     # }
 
-    @map = new WalkingMap maps.bulbous <<< {
+    @map = new WalkingMap maps.drudshire <<< {
       width, height
     }
 

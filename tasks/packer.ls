@@ -48,7 +48,7 @@ export watch = ->
     file = JSON.parse fs.read-file-sync name, encoding: 'utf-8'
 
     dirname = path.dirname path.join path.sep, path.relative dest.bundles, name
-    assets = file.map (asset) -> path.join dest.bundles, path.resolve dirname, asset
+    assets = file.map (asset) -> path.join dest.bundles, (path.resolve dirname, asset .replace /^[a-z]:/, '' )
 
     assets
 
@@ -71,8 +71,8 @@ export create-bundle = ->
     unless typeof! bundle is \Array then return cb!
 
     dirname = path.join path.sep, path.dirname path.relative dest.all, file.path
-    assets = for asset-path in bundle => path.resolve dirname, asset-path
-
+    assets = for asset-path in bundle => path.resolve dirname, asset-path .replace /^[a-z]:/, ''
+    
     make = (name, reject) ~>
       bundle-assets assets, reject: reject
         .then (assets) ~>
