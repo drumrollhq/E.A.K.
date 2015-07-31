@@ -2,6 +2,8 @@ require! {
   'game/scene/Layer'
 }
 
+const draw-viewport = false
+
 module.exports = class WebglLayer extends Layer
   tag-name: \canvas
   initialize: (options) ->
@@ -21,22 +23,39 @@ module.exports = class WebglLayer extends Layer
       resolution: @_resolution
     }
 
+    if draw-viewport
+      @dbg = new PIXI.Graphics!
+      @add @dbg, 6
+
   add: (object, at = 3, needs-viewport = false) ->
     super object, x: 0, y: 0
     @_layers[at].add-child object
     if needs-viewport then @_needs-viewport[*] = object
 
-  render: ->
+  render: (zoom = 1) ->
     for obj in @_needs-viewport => obj.set-viewport @left, @top, @right, @bottom
     @renderer.render @_stage
 
-  set-viewport: (x, y, width, height) ->
+  set-viewport: (x, y, width, height, zoom = 1) ->
     if @_viewport-width isnt width or @_viewport-height isnt height
       @_update-viewport-size width, height
 
+    x = zoom * x + (zoom - 1) * width / 2
+    y = zoom * y + (zoom - 1) * height / 2
+    width = width / zoom
+    height = height / zoom
+
+    @stage.position <<< x: -x, y: -y
+    @stage.scale.x = @stage.scale.y = zoom
+    x = x / zoom
+    y = y / zoom
     @ <<< left: x, top: y, right: x + width, bottom: y + height
-    @stage.position.x = -x
-    @stage.position.y = -y
+
+    if draw-viewport
+      @dbg
+        ..clear!
+        ..line-style 3, 0x00FFFF
+        ..draw-rect x, y, width, height
 
     @render!
 

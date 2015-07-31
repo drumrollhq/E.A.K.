@@ -1,5 +1,10 @@
 out$, require, module <- require.register 'minigames/urls/maps'
 
+export towns = {
+  bulbous: [755 200]
+  drudshire: [1165 425]
+}
+
 export main-map = {
   map-url: '/content/bg-tiles/url-minigame/map'
   nodes:

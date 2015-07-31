@@ -36,7 +36,7 @@ module.exports = class Scene extends Backbone.View
       @set-viewport-size width, height
 
     for layer in @_layers
-      layer.set-viewport x, y, width, height
+      layer.set-viewport x, y, width, height, @camera.zoom
 
   contains: (x, y, pad = 0) ->
     -pad < x < @size.width + pad and -pad < y < @size.height + pad

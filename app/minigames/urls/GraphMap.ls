@@ -91,7 +91,7 @@ module.exports = class GraphMap extends PIXI.Container
       @_line = null
       @_distance-travelled = null
       @_in-transit = false
-      @emit 'arrived' @current-node
+      @emit 'arrive' @current-node
 
     @player.position <<< p.{x, y}
 

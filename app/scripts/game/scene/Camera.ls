@@ -1,3 +1,7 @@
+require! {
+  'lib/math/ease'
+}
+
 range = (min1, max1, min2, max2, x) -->
   n = (x - min1) / (max1 - min1)
   min2 + (n * (max2 - min2))
@@ -24,6 +28,7 @@ module.exports = class Camera
     @scene-height = size.height
     @_adjusted-scene-width = @scene-width - @padding
     @_adjusted-scene-height = @scene-height - @padding
+    @zoom = @target-zoom = 1
 
   track: (display-object, snap = false) ->
     @_tracking = display-object
@@ -58,15 +63,24 @@ module.exports = class Camera
     @_subject-x = x
     @_subject-y = y
 
-  step: ->
+  step: (t = 1000 / 60) ->
+    if @_zooming
+      @_zoom-time += t
+      d = Math.min 1, @_zoom-time / @_zoom-duration
+      @zoom = lerp @_zoom-from, @target-zoom, ease.sin d
+      if d is 1
+        @_zooming = false
+
     if @_tracking then @set-subject @_tracking.p || @_tracking.position
 
     [@target-x, @target-y] =
-      if @_editing then @get-editing-position! else @get-target-position!
+      if @_editing then @get-editing-position! else @centered!# @get-target-position!
 
     p = @tween-position @target-x, @target-y, @speed
-    @offset-x = p.x .|. 0
-    @offset-y = p.y .|. 0
+    if @zoom < 1.5 then
+      @offset-x = p.x .|. 0
+      @offset-y = p.y .|. 0
+    else [@offset-x, @offset-y] = [p.x, p.y]
 
   dbg: new PIXI.Graphics!
 
@@ -78,8 +92,8 @@ module.exports = class Camera
 
     current-camera-x = (@offset-x or @_subject-x) + @_viewport-width/2
     current-camera-y = (@offset-y or @_subject-y) + @_viewport-height/2
-    box-width = Math.min Camera.MAX_BOUND_X, 0.8 * @_viewport-width
-    box-height = Math.min Camera.MAX_BOUND_Y, 0.5 * @_viewport-height
+    box-width = (Math.min Camera.MAX_BOUND_X, 0.8 * @_viewport-width) / @target-zoom
+    box-height = (Math.min Camera.MAX_BOUND_Y, 0.5 * @_viewport-height) / @target-zoom
     box-left = current-camera-x - box-width / 2
     box-top = current-camera-y - box-height / 2
     camera-target-x = @_subject-x + vel-adj-x
@@ -97,7 +111,7 @@ module.exports = class Camera
     else 0
 
     if Camera.VISUAL_DEBUG
-      eak._stage.view.effects-layer.stage.add-child @dbg
+      (eak.view.effects-layer or eak.view.layer).stage.add-child @dbg
       @dbg
         ..clear!
         ..line-style 3, 0xFF00FF .draw-ellipse @_subject-x, @_subject-y, 5, 5
@@ -112,12 +126,15 @@ module.exports = class Camera
       current-camera-y + adjust-top - @_viewport-height / 2
 
   constrain: (x, y) ->
-    max-x = @scene-width - @_viewport-width
-    max-y = @scene-height - @_viewport-height
+    zoom = @target-zoom
+    min-x = (@_viewport-width / zoom) - @_viewport-width
+    min-y = (@_viewport-height / zoom) - @_viewport-height
+    max-x = @scene-width - @_viewport-width / zoom
+    max-y = @scene-height - @_viewport-height / zoom
     target-x = if @_lock-x? then @_lock-x
-      else constrain 0, max-x, x
+      else constrain min-x, max-x, x
     target-y = if @_lock-y? then @_lock-y
-      else constrain 0, max-y, y
+      else constrain min-y, max-y, y
 
     [target-x, target-y]
 
@@ -168,10 +185,10 @@ module.exports = class Camera
     [target-x, target-y]
 
   tween-position: (x, y, speed) ->
-    px = @_px or 0.1
-    py = @_py or 0.1
-    qx = @_qx or 0.1
-    qy = @_qy or 0.1
+    px = @_px or x or 0.1
+    py = @_py or y or 0.1
+    qx = @_qx or px or 0.1
+    qy = @_qy or py or 0.1
 
     px1 = lerp px, x, speed
     py1 = lerp py, y, speed
@@ -183,3 +200,15 @@ module.exports = class Camera
     @_qx = qx1
     @_qy = qy1
     {x: qx1, y: qy1}
+
+  set-zoom: (zoom, duration = 0.5) ->
+    @target-zoom = zoom
+    if duration
+      @_zoom-from = @zoom
+      @_zoom-time = 0
+      @_zoom-duration = duration * 1000
+      @_zooming = true
+    else
+      @_zooming = false
+      @_zoom-from = @_zoom-time = @_zoom-duration = false
+      @zoom = zoom

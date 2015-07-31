@@ -13,14 +13,14 @@ const draw-hit-rects = true
 colors = [0xFF0000 0x00FF00 0x0000FF 0x00FFFF 0xFF00FF 0xFFFF00]
 
 module.exports = class WalkingMap extends PIXI.Container
-  ({width, height, map-url, start, @rects}) ->
+  ({width, height, map-url, @start, @rects}) ->
     super!
     @bg = new TiledSpriteContainer map-url, width, height
     @add-child @bg
 
     @player = new PIXI.Sprite.from-image '/minigames/urls/assets/arca-head.png'
     @player.anchor <<< x: 0.5, y: 0.5
-    @player.position <<< start.{x, y}
+    @player.position <<< @start.{x, y}
     @player <<< width: 60 * player-scale, height: 55 * player-scale
     @add-child @player
 
