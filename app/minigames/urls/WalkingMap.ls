@@ -9,13 +9,13 @@ require! {
 const player-speed = 0.3px
 const player-scale = 0.4
 
-const draw-hit-rects = true
+const draw-hit-rects = false
 colors = [0xFF0000 0x00FF00 0x0000FF 0x00FFFF 0xFF00FF 0xFFFF00]
 
 module.exports = class WalkingMap extends PIXI.Container
   (@layer, @player, {width, height, map-url, @start, @rects}) ->
     super!
-    @bg = new TiledSpriteContainer map-url, width, height
+    @bg = new TiledSpriteContainer map-url, width, height, false
     @add-child @bg
 
     if draw-hit-rects
@@ -45,7 +45,7 @@ module.exports = class WalkingMap extends PIXI.Container
           @dbg-labels[i] = new PIXI.Text "rects[#{i}]", fill: colors[i % colors.length], font: '12px Arial'
           @add-child @dbg-labels[i]
 
-        @dbg-labels[i] <<< x: rect.0, y: rect.1
+        @dbg-labels[i] <<< x: rect.0, y: rect.1, text: "rects[#{i}] #{if rect.4 then "(#{rect.4})" else ''}"
         @dbg
           ..line-style 1, colors[i % colors.length]
           ..draw-rect rect.0, rect.1, rect.2, rect.3
@@ -54,6 +54,7 @@ module.exports = class WalkingMap extends PIXI.Container
 
   resolve: (vec, dbg) ->
     {x, y} = vec
+    emits = []
     for rect, i in @rects
       # if i is 5 and dbg then debugger
       [left, top, width, height] = rect
@@ -61,6 +62,9 @@ module.exports = class WalkingMap extends PIXI.Container
       bottom = top + height
 
       if left < x < right and top < y < bottom
+        if rect.4?
+          emits[*] = "hit:#{rect.4}"
+
         left-resolve = x - left
         right-resolve = right - x
         top-resolve = y - top
@@ -73,6 +77,7 @@ module.exports = class WalkingMap extends PIXI.Container
         | bottom-resolve is min => y = bottom
 
     vec <<< {x, y}
+    for emit in emits => @emit emit
 
   set-viewport: (top, left, bottom, right) ->
     @bg.set-viewport top, left, bottom, right

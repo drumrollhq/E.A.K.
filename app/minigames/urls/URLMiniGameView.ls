@@ -16,12 +16,13 @@ const height = 1800px
 const town-scale = 0.12
 const player-scale = 0.6
 const player-scale-walking = 0.4
+const transition-speed = 1000ms
 
 module.exports = class URLMiniGameView extends Backbone.View
   initialize: ->
 
     # Basic camera+scene boilerplate
-    @camera = new Camera {width, height}, 0.1, 100
+    @camera = new Camera {width, height}, 0.1, -300
     @layer = new WebglLayer {width, height}
     @scene = new Scene {width, height}, @camera
     @scene.add-layers @layer
@@ -94,18 +95,14 @@ module.exports = class URLMiniGameView extends Backbone.View
     @player.height = 55 * @_player-scale / @camera.zoom
 
   zoom-in: (town-name) ->
-    transition-speed = 1000ms
     town = @towns[town-name]
+    @current-town = town-name
 
-    @_player-transitioning = true
-    @_player-from = {scale: @_player-scale, x: @player.x, y: @player.y}
-    @_player-to = {
+    @animate-player {
       scale: player-scale-walking
       x: town.x + town.start.x * town.scale.x
       y: town.y + town.start.y * town.scale.y
-    }
-    @_player-transition-time = 0
-    @_player-duration = transition-speed
+    }, transition-speed
 
     @camera.set-subject town.start
     [tx, ty] = @camera.centered!
@@ -117,15 +114,58 @@ module.exports = class URLMiniGameView extends Backbone.View
     @camera.animate-to tx, ty, 1 / town-scale, transition-speed
       .then ~>
         @layer.remove @map
-        for _, remove-town of @towns when remove-town isnt town
+        for _, remove-town of @towns
           @layer.remove remove-town
 
         town.scale.x = town.scale.y = 1
-        town <<< x: 0, y: 0
+        town <<< x: 0, y: 0, cache-as-bitmap: false
+        @layer.add town, 2, true
         @player <<< town.start.{x, y}
+
         @camera.set-zoom 1, 0
         @camera.set-subject @player
         [tx, ty] = @camera.centered!
         @camera.set-position tx, ty, 0
 
         town.activate!
+        town.once \hit:exit, ~> @zoom-out!
+
+  zoom-out: ~>
+    town = @towns[@current-town]
+      ..deactivate!
+      ..scale <<< x: town-scale, y: town-scale
+      ..position <<< x: maps.towns[@current-town].0, y: maps.towns[@current-town].1
+      ..set-viewport 0, 0, width, height
+
+    @layer.remove town
+    @layer.add @map, 1, true
+    for _, _town of @towns => @layer.add _town, 2, false
+
+    @player.x = town.x + town.scale.x * @player.x
+    @player.y = town.y + town.scale.y * @player.y
+
+    x = town.x + town.scale.x * @camera.offset-x
+    y = town.y + town.scale.y * @camera.offset-y
+    @camera.animate-to x, y, 1 / town-scale, false
+
+    @animate-player {
+      scale: player-scale
+      x: @map.graph[@current-town].position.x
+      y: @map.graph[@current-town].position.y
+    }, transition-speed
+
+    @camera.set-subject @map.graph[@current-town].position
+    [tx, ty] = @camera.centered!
+
+    @camera.animate-to tx, ty, 1, transition-speed
+      .then ~>
+        @current-town = null
+        @map.activate!
+        @map.exit!
+
+  animate-player: (player-to, duration) ->
+    @_player-transitioning = true
+    @_player-from = {scale: @_player-scale, x: @player.x, y: @player.y}
+    @_player-to = player-to
+    @_player-transition-time = 0
+    @_player-duration = duration

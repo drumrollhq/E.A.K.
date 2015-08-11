@@ -4,9 +4,10 @@ require! {
 
 const tile-width = 256px
   tile-height = 256px
+  tile-scale = 0.5
 
 module.exports = class TiledSpriteContainer extends PIXI.Container
-  (base-url, img-width, img-height) ->
+  (base-url, img-width, img-height, @show-edges = true) ->
     super!
     @ <<< {base-url, img-width, img-height}
 
@@ -19,10 +20,9 @@ module.exports = class TiledSpriteContainer extends PIXI.Container
         @add-child sprite
         sprite.position.x = x * tile-width
         sprite.position.y = y * tile-height
-        sprite.width = tile-width
-        sprite.height = tile-height
+        sprite.scale.x = sprite.scale.y = tile-scale
 
-    @add-edge-sprites @tiles
+    @edge-sprites = @add-edge-sprites @tiles
 
   set-viewport: (left, top, right, bottom) ->
     const pad = 0
@@ -33,6 +33,8 @@ module.exports = class TiledSpriteContainer extends PIXI.Container
         @tiles[x][y].visible =
           left - tile-width - pad < xc < right + pad and
           top - tile-height - pad < yc < bottom + pad
+
+    unless @show-edges then for tile in @edge-sprites => tile.visible = false
 
   # Add sprites extending the edge-pixel of the background image
   add-edge-sprites: (grid) ->
@@ -53,9 +55,17 @@ module.exports = class TiledSpriteContainer extends PIXI.Container
     top-edge.push tr-corner
     bottom-edge.unshift bl-corner
     bottom-edge.push br-corner
+    edge-sprites = left-edge.concat right-edge
     for col, i in grid
       col.unshift top-edge[i]
       col.push bottom-edge[i]
+      edge-sprites[*] = top-edge[i]
+      edge-sprites[*] = bottom-edge[i]
+
+    for sprite in edge-sprites =>
+      sprite.visible = @show-edges
+
+    edge-sprites
 
   edge-sprite: (sprite, x, y, width = sprite.texture.width, height = sprite.texture.height, x-ref, y-ref) ->
     if x < 0 then x = width - x
