@@ -69,18 +69,28 @@ module.exports = class Camera
       d = Math.min 1, @_zoom-time / @_zoom-duration
       @zoom = lerp @_zoom-from, @target-zoom, ease.sin d
       if d is 1
+        @_zoom-resolve!
         @_zooming = false
 
-    if @_tracking then @set-subject @_tracking.p || @_tracking.position
+    if @_moving
+      @_move-time += t
+      d = Math.min 1, @_move-time / @_move-duration
+      @target-x = @offset-x = lerp @_move-from.x, @_move-to.x, ease.sin d
+      @target-y = @offset-y = lerp @_move-from.y, @_move-to.y, ease.sin d
+      if d is 1
+        @_move-resolve!
+        # @_moving = false
+    else
+      if @_tracking then @set-subject @_tracking.p || @_tracking.position
 
-    [@target-x, @target-y] =
-      if @_editing then @get-editing-position! else @centered!# @get-target-position!
+      [@target-x, @target-y] =
+        if @_editing then @get-editing-position! else @centered!# @get-target-position!
 
-    p = @tween-position @target-x, @target-y, @speed
-    if @zoom < 1.5 then
-      @offset-x = p.x .|. 0
-      @offset-y = p.y .|. 0
-    else [@offset-x, @offset-y] = [p.x, p.y]
+      p = @tween-position @target-x, @target-y, @speed
+      if @zoom < 1.5 then
+        @offset-x = p.x .|. 0
+        @offset-y = p.y .|. 0
+      else [@offset-x, @offset-y] = [p.x, p.y]
 
   dbg: new PIXI.Graphics!
 
@@ -201,14 +211,41 @@ module.exports = class Camera
     @_qy = qy1
     {x: qx1, y: qy1}
 
-  set-zoom: (zoom, duration = 0.5) ->
+  set-zoom: (zoom, duration = 500) -> new Promise (resolve) ~>
     @target-zoom = zoom
     if duration
       @_zoom-from = @zoom
       @_zoom-time = 0
-      @_zoom-duration = duration * 1000
+      @_zoom-duration = duration
+      @_zoom-resolve = resolve
       @_zooming = true
     else
       @_zooming = false
       @_zoom-from = @_zoom-time = @_zoom-duration = false
       @zoom = zoom
+      resolve!
+
+  set-position: (x, y, duration = 500) -> new Promise (resolve) ~>
+    @_px = @_qx = @_subject-x = x
+    @_py = @_qy = @_subject-y = y
+    if duration
+      @_move-from = {x: @offset-x, y: @offset-y}
+      @_move-to = {x, y}
+      @_move-time = 0
+      @_move-duration = duration
+      @_move-resolve = resolve
+      @_moving = true
+    else
+      @_moving = false
+      @_move-from = @_move-time = @_move-duration = false
+      @target-x = @offset-x = x
+      @target-y = @offset-y = y
+      resolve!
+
+  animate-to: (x, y, zoom, duration = 500) ->
+    x = x - (@_viewport-width / 2) + (@_viewport-width / zoom / 2)
+    y = y - (@_viewport-height / 2) + (@_viewport-height / zoom / 2)
+    Promise.all [
+      @set-zoom zoom, duration
+      @set-position x, y, duration
+    ]

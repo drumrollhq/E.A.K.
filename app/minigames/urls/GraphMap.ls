@@ -42,18 +42,14 @@ const player-scale = 0.7
 const fade-speed = 0.004
 
 module.exports = class GraphMap extends PIXI.Container
-  ({width, height, map-url, nodes, paths, @current-node, exit = false}) ->
+  (@layer, @player, {width, height, map-url, nodes, paths, @current-node, exit = false}) ->
     super!
     @bg = new TiledSpriteContainer map-url, width, height
     @add-child @bg
 
-    @player = new PIXI.Sprite.from-image '/minigames/urls/assets/arca-head.png'
-    @player.anchor <<< x: 0.5, y: 0.5
     @player <<< {
-      width: 60 * player-scale, height: 55 * player-scale
       x: nodes[@current-node].0, y: nodes[@current-node].1
     }
-    @add-child @player
 
     for id, [x, y, label, offset-x = 0, offset-y = 0] of nodes when label
       text = new PIXI.Text label, {
@@ -64,7 +60,7 @@ module.exports = class GraphMap extends PIXI.Container
         stroke-thickness: 4
       }
       text <<< {x: x + offset-x, y: y + offset-y, alpha: 0}
-      @add-child text
+      @layer.add text, 3
       nodes[id] = [x, y, text]
 
     @graph = create-graph nodes, paths
@@ -79,6 +75,7 @@ module.exports = class GraphMap extends PIXI.Container
     @bg.setup!
 
   step: (t) ->
+    unless @active then return
     if @_in-transit then @animate t else @choose-direction!
     @update-labels t
 
@@ -142,3 +139,9 @@ module.exports = class GraphMap extends PIXI.Container
 
   set-viewport: (top, left, bottom, right) ->
     @bg.set-viewport top, left, bottom, right
+
+  activate: ->
+    @active = true
+
+  deactivate: ->
+    @active = false
