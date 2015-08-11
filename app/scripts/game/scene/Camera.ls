@@ -79,7 +79,7 @@ module.exports = class Camera
       @target-y = @offset-y = lerp @_move-from.y, @_move-to.y, ease.sin d
       if d is 1
         @_move-resolve!
-        # @_moving = false
+        @_moving = false
     else
       if @_tracking then @set-subject @_tracking.p || @_tracking.position
 

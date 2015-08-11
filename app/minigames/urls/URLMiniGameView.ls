@@ -136,6 +136,7 @@ module.exports = class URLMiniGameView extends Backbone.View
       ..scale <<< x: town-scale, y: town-scale
       ..position <<< x: maps.towns[@current-town].0, y: maps.towns[@current-town].1
       ..set-viewport 0, 0, width, height
+      ..cache-as-bitmap = true
 
     @layer.remove town
     @layer.add @map, 1, true
@@ -162,6 +163,7 @@ module.exports = class URLMiniGameView extends Backbone.View
         @current-town = null
         @map.activate!
         @map.exit!
+        @camera.track @player, true
 
   animate-player: (player-to, duration) ->
     @_player-transitioning = true
