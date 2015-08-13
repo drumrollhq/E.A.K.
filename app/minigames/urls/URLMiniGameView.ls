@@ -6,6 +6,7 @@ require! {
   'game/scene/WebglLayer'
   'lib/channels'
   'lib/math/ease'
+  'minigames/urls/components/URLDisplay'
   'minigames/urls/GraphMap'
   'minigames/urls/WalkingMap'
   'minigames/urls/maps'
@@ -58,7 +59,10 @@ module.exports = class URLMiniGameView extends Backbone.View
     @layer.add @map, 1, true
     @camera.track @map.player, true
 
-    @map.on \arrive, (town) ~> if @towns[town] then @zoom-in town
+    @map.on \arrive, (loc) ~>
+      domain = @map.graph[loc].domain
+      @url-component.set-state actual: [\http, domain]
+      if @towns[loc] then @zoom-in loc
 
   load: ->
     @map.setup!
@@ -68,12 +72,19 @@ module.exports = class URLMiniGameView extends Backbone.View
         ..set-viewport 0, 0, width, height
         ..cache-as-bitmap = true
 
+    @$react-cont = $ '<div class="url-cont"></div>'
+    @url-component = React.render (React.create-element URLDisplay), @$react-cont.0
+
   start: ->
     @$el
       .append @scene.el
+      .append @$react-cont
       .add-class \active
 
     @map.activate!
+
+  set-target-url: (protocol, domain, ...path) ->
+    @url-component.set-state target: [protocol, domain, ...path]
 
   step: (t) ->
     @camera.step t
@@ -95,6 +106,8 @@ module.exports = class URLMiniGameView extends Backbone.View
     @player.height = 55 * @_player-scale / @camera.zoom
 
   zoom-in: (town-name) ->
+    if @_zooming then return
+    @_zooming = true
     town = @towns[town-name]
     @current-town = town-name
 
@@ -129,8 +142,11 @@ module.exports = class URLMiniGameView extends Backbone.View
 
         town.activate!
         town.once \hit:exit, ~> @zoom-out!
+        @_zooming = false
 
   zoom-out: ~>
+    if @_zooming then return
+    @_zooming = true
     town = @towns[@current-town]
       ..deactivate!
       ..scale <<< x: town-scale, y: town-scale
@@ -164,6 +180,7 @@ module.exports = class URLMiniGameView extends Backbone.View
         @map.activate!
         @map.exit!
         @camera.track @player, true
+        @_zooming = false
 
   animate-player: (player-to, duration) ->
     @_player-transitioning = true

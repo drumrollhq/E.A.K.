@@ -15,6 +15,7 @@ module.exports = class URLMiniGame
 
   start: ->
     @view.start!
+    @view.set-target-url 'http', 'bulbous-island.com', 'onions-r-us', 'pickled-onions'
     @frame-sub = channels.frame.subscribe ({t}) ~> @on-frame t
 
   on-frame: (t) ->

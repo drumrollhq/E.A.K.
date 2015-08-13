@@ -73,7 +73,7 @@ export function load-bundle bundle-name, progress
     .tap (bundle) ->
       for name of bundle
         if name.match /\.js$/ then add-js asset-cache[name].default, bundle-name
-        if name.match /\.css$/ then add-css asset-cache[name].default, bundle-name
+        if name.match /\.css$/ then add-css asset-cache[name].default, bundle-name, name
 
 export function unload-bundle bundle-name
   for name in loaded-bundles[bundle-name]
@@ -96,6 +96,7 @@ export function unload-bundle bundle-name
   if added-css[bundle-name]
     for el in added-css[bundle-name]
       document.head.remove-child el
+      console.log "[assets] removed stylesheet #{el.name}"
     delete added-css[bundle-name]
 
   delete loaded-bundles[bundle-name]
@@ -150,7 +151,7 @@ function add-js js, bundle-name
   # restore require.register
   window.require.register = original-register
 
-function add-css source, bundle-name
+function add-css source, bundle-name, name
   added-css[bundle-name] ?= []
   css = new CSS source
     ..rewrite-assets (url) ->
@@ -160,5 +161,7 @@ function add-css source, bundle-name
   el = document.create-element \style
     ..type = 'text/css'
     ..append-child document.create-text-node css.to-string!
+    ..name = name
   document.head.append-child el
+  console.log "[assets] Add stylesheet #name"
   added-css[bundle-name][*] = el

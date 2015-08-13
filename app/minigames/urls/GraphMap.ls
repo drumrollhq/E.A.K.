@@ -26,7 +26,7 @@ connect = (a, b, c, d) ->
       a.connections[direction] = {b.id, distance, line}
 
 create-graph = (nodes, paths) ->
-  nodes = {[id, {position: (new Vector x, y), label, id, connections: {}}] for own id, [x, y, label] of nodes}
+  nodes = {[id, {position: (new Vector x, y), label, domain, id, connections: {}}] for own id, [x, y, domain, label] of nodes}
   for [a, b, [cx, cy], [dx, dy]] in paths
     a = nodes[camelize a]
     b = nodes[camelize b]
@@ -51,7 +51,7 @@ module.exports = class GraphMap extends PIXI.Container
       x: nodes[@current-node].0, y: nodes[@current-node].1
     }
 
-    for id, [x, y, label, offset-x = 0, offset-y = 0] of nodes when label
+    for id, [x, y, domain, label, offset-x = 0, offset-y = 0] of nodes when label
       text = new PIXI.Text label, {
         font: '16px KG Next to Me'
         align: 'center'
@@ -61,7 +61,7 @@ module.exports = class GraphMap extends PIXI.Container
       }
       text <<< {x: x + offset-x, y: y + offset-y, alpha: 0}
       @layer.add text, 3
-      nodes[id] = [x, y, text]
+      nodes[id] = [x, y, domain, text]
 
     @graph = create-graph nodes, paths
 
@@ -142,6 +142,7 @@ module.exports = class GraphMap extends PIXI.Container
 
   activate: ->
     @active = true
+    @emit \arrive @current-node
 
   deactivate: ->
     @active = false

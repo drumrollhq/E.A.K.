@@ -8,16 +8,16 @@ export towns = {
 export main-map = {
   map-url: '/content/bg-tiles/url-minigame/map'
   nodes:
-    phb: [1014 1235 'to Ponyhead\nBay' -50 -210]
-    flee: [1439 989 'to Flee' -185 -110]
-    drudshire: [1266 665 'to Drudshire' -70 20]
-    bulbous: [863 444 'to Bulbous\nIsland' -70 15]
-    shackerton: [602 849 'to Shackerton\nby-the-Sea' 70 -55]
-    junction-phb: [1027 965]
-    junction-flee: [1240 831]
-    junction-drudshire: [1266 752]
-    junction-bulbous: [857 545]
-    junction-shackerton: [871 852]
+    phb: [1014 1235 'ponyhead-bay.com' 'to Ponyhead\nBay' -50 -210]
+    flee: [1439 989 'flee.net' 'to Flee' -185 -110]
+    drudshire: [1266 665 'drudshire.com' 'to Drudshire' -70 20]
+    bulbous: [863 444 'bulbous-island.com' 'to Bulbous\nIsland' -70 15]
+    shackerton: [602 849 'shackerton-by-sea.com' 'to Shackerton\nby-Sea' 70 -55]
+    junction-phb: [1027 965 'ponyhead-bay.com']
+    junction-flee: [1240 831 'flee.net']
+    junction-drudshire: [1266 752 'drudshire.com']
+    junction-bulbous: [857 545 'bulbous-island.com']
+    junction-shackerton: [871 852 'shackerton-by-sea.com']
   paths: [
     [\phb \junction-phb [1047 1172] [1027 965]]
     [\flee \junction-flee [1239 1002] [1313 863]]
