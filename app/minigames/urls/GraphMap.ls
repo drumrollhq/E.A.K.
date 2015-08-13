@@ -38,10 +38,10 @@ create-graph = (nodes, paths) ->
   nodes
 
 const player-speed = 0.2px
-const player-scale = 0.7
 const fade-speed = 0.004
 
 module.exports = class GraphMap extends PIXI.Container
+  player-scale: 0.6
   (@layer, @player, {width, height, map-url, nodes, paths, @current-node, exit = false}) ->
     super!
     @bg = new TiledSpriteContainer map-url, width, height

@@ -7,18 +7,21 @@ require! {
 }
 
 const player-speed = 0.3px
-const player-scale = 0.4
 
 const draw-hit-rects = false
 colors = [0xFF0000 0x00FF00 0x0000FF 0x00FFFF 0xFF00FF 0xFFFF00]
 
 module.exports = class WalkingMap extends PIXI.Container
+  player-scale: 0.5
   (@layer, @player, {width, height, map-url, @start, @rects}) ->
     super!
     @bg = new TiledSpriteContainer map-url, width, height, false
     @add-child @bg
+    @full-width = width
+    @full-height = height
 
     for rect in @rects when rect.4?
+      console.log 'rect.4' rect.4
       rect.4 .= split ':'
 
     if draw-hit-rects
