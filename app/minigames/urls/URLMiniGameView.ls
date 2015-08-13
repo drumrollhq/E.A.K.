@@ -86,11 +86,26 @@ module.exports = class URLMiniGameView extends Backbone.View
   set-target-url: (protocol, domain, ...path) ->
     @url-component.set-state target: [protocol, domain, ...path]
 
+  set-actual-path: (path) ->
+    @has-set-path = true
+    if path is @_last-path-set then return
+    @_last-path-set = path
+
+    if path?
+      parts = path.split '/'
+    else
+      parts = []
+
+    console.log 'setting path' parts, @_last-path-set, path
+    @url-component.set-state actual: [@url-component.state.actual.0, @url-component.state.actual.1, ...parts]
+
   step: (t) ->
     @camera.step t
     @scene.step t
     @map.step t
+    @has-set-path = false
     for _, town of @towns => town.step t
+    unless @has-set-path then @set-actual-path null
 
     if @_player-transitioning
       @_player-transition-time += t
@@ -141,7 +156,8 @@ module.exports = class URLMiniGameView extends Backbone.View
         @camera.set-position tx, ty, 0
 
         town.activate!
-        town.once \hit:exit, ~> @zoom-out!
+        town.once \exit, ~> @zoom-out!
+        town.on \path, (path) ~> @set-actual-path path
         @_zooming = false
 
   zoom-out: ~>

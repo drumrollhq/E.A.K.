@@ -19,7 +19,6 @@ module.exports = React.create-class {
       [@state.actual[i], @state.target[i]]
 
     parts = flatten parts.map ([actual, target], i) ->
-      console.log {actual, target, i}
       correct = actual is target
       has-alternative = actual? and target?
 
@@ -44,7 +43,6 @@ module.exports = React.create-class {
 
       [main, sep]
 
-    console.log parts
     dom.div class-name: \url-display,
       React.create-element CSSTransitionGroup, transition-name: 'fade'
         parts

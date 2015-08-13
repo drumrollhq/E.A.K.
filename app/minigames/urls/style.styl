@@ -1,8 +1,8 @@
-normalTextShadow = 0 0 30px white, 0 0 30px white, 0 0 30px white
+normalTextShadow = 0 0 30px rgba(white, 0.75), 0 0 30px rgba(white, 0.75), 0 0 30px rgba(white, 0.75), 0 0 30px rgba(white, 0.75), 0 0 30px rgba(white, 0.75)
 incorrectTextShadow = 0 0 30px red
 sectionHeight = 54px
 urlTrans = 0.3s
-incorrectOpacity = 0.5
+incorrectOpacity = 0.3
 
 .url-cont
   position fixed
@@ -21,38 +21,46 @@ incorrectOpacity = 0.5
   line-height 1.5em
   text-shadow normalTextShadow
 
-.url-section
-  display inline-block
-  text-align center
-
+.url-section,
 .url-sep
   display inline-block
-  transition opacity urlTrans ease
+  transition opacity urlTrans ease, color urlTrans ease
 
-.url-section:not(.correct) + .url-sep
+.url-section
+  text-align center
+
+.url-section:not(.correct) + .url-sep,
+.url-section:not(.correct) + .url-sep + .url-section
   opacity incorrectOpacity
+
+.url-section.correct + .url-sep + .url-section:not(.correct)
+  animation glow 0.6s ease alternate infinite
 
 .url-section-target
   height sectionHeight
   margin-top -1 * sectionHeight
   position relative
 
-  &.correct
+  &:not(.incorrect)
     z-index 1
     // fake transition to appease react
     &.url-section-enter
+      visibility hidden
       opacity 0
-      transition all urlTrans ease
+      transition opacity urlTrans ease
 
     &.url-section-enter-active
-      opacity 0.00001
+      opacity 0.001
+      visibility hidden
 
     &.url-section-leave
       opacity 0
-      transition all urlTrans ease
+      visibility hidden
+      transition opacity urlTrans ease
 
     &.url-section-leave-active
-      opacity 0.00001
+      opacity 0.001
+      visibility hidden
 
   &.incorrect
     &::after
@@ -65,6 +73,10 @@ incorrectOpacity = 0.5
       border-radius 100%
       margin-top -25px
 
+    // &.url-section-enter,
+    // &.url-section-leave
+    //   text-shadow none
+
     &.url-section-enter::after
       transform-origin left
       transform scaleX(0)
@@ -74,31 +86,12 @@ incorrectOpacity = 0.5
       transform scaleX(1)
 
     &.url-section-leave::after
-      text-shadow none
       transform-origin right
       transform scaleX(1)
       transition transform urlTrans linear
 
     &.url-section-leave-active::after
       transform scaleX(0)
-
-  &:not(.correct)
-    z-index 2
-    opacity incorrectOpacity
-
-    &.url-section-enter
-      opacity 1
-      transition opacity urlTrans ease
-
-    &.url-section-enter-active
-      opacity incorrectOpacity
-
-    &.url-section-leave
-      opacity incorrectOpacity
-      transition opacity urlTrans ease
-
-    &.url-section-leave-active
-      opacity 1
 
 .url-alt,
 .url-tick
@@ -108,21 +101,30 @@ incorrectOpacity = 0.5
 
   &.url-section-enter
     opacity 0
-    transition all urlTrans ease
+    transition opacity urlTrans ease
 
   &.url-section-enter-active
     opacity 1
 
   &.url-section-leave
     opacity 1
-    transition all urlTrans ease
+    transition opacity urlTrans ease
 
   &.url-section-leave-active
     opacity 0
 
-.url-tick
+.url-tick,
+.url-section.correct,
+.url-section.correct + .url-sep
   color #27ae60
 
 .url-alt::after
   content ' ✗'
   color #c0392b
+
+@keyframes glow
+  from
+    text-shadow 0 0 30px white, 0 0 30px white, 0 0 30px white, 0 0 30px white, 0 0 30px white
+
+  to
+    text-shadow 0 0 30px rgba(white, 0.5), 0 0 30px rgba(white, 0.5), 0 0 30px rgba(white, 0.5), 0 0 30px rgba(white, 0.5), 0 0 30px rgba(white, 0.5)

@@ -87,7 +87,7 @@ module.exports = class Camera
         if @_editing then @get-editing-position! else @centered!# @get-target-position!
 
       p = @tween-position @target-x, @target-y, @speed
-      if @zoom < 1.5 then
+      if @zoom <= 3 then
         @offset-x = p.x .|. 0
         @offset-y = p.y .|. 0
       else [@offset-x, @offset-y] = [p.x, p.y]

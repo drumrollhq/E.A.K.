@@ -18,6 +18,9 @@ module.exports = class WalkingMap extends PIXI.Container
     @bg = new TiledSpriteContainer map-url, width, height, false
     @add-child @bg
 
+    for rect in @rects when rect.4?
+      rect.4 .= split ':'
+
     if draw-hit-rects
       @dbg = new PIXI.Graphics!
       @dbg-labels = []
@@ -45,7 +48,7 @@ module.exports = class WalkingMap extends PIXI.Container
           @dbg-labels[i] = new PIXI.Text "rects[#{i}]", fill: colors[i % colors.length], font: '12px Arial'
           @add-child @dbg-labels[i]
 
-        @dbg-labels[i] <<< x: rect.0, y: rect.1, text: "rects[#{i}] #{if rect.4 then "(#{rect.4})" else ''}"
+        @dbg-labels[i] <<< x: rect.0, y: rect.1, text: "rects[#{i}] #{if rect.4 then "(#{rect.4.join ':'})" else ''}"
         @dbg
           ..line-style 1, colors[i % colors.length]
           ..draw-rect rect.0, rect.1, rect.2, rect.3
@@ -63,7 +66,9 @@ module.exports = class WalkingMap extends PIXI.Container
 
       if left < x < right and top < y < bottom
         if rect.4?
-          emits[*] = "hit:#{rect.4}"
+          emits[*] = rect.4
+          if rect.4.0 is \path
+            continue
 
         left-resolve = x - left
         right-resolve = right - x
@@ -77,7 +82,7 @@ module.exports = class WalkingMap extends PIXI.Container
         | bottom-resolve is min => y = bottom
 
     vec <<< {x, y}
-    for emit in emits => @emit emit
+    for emit in emits => @emit ...emit
 
   set-viewport: (top, left, bottom, right) ->
     @bg.set-viewport top, left, bottom, right
