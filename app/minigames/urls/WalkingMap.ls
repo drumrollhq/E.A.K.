@@ -4,35 +4,58 @@ require! {
   'assets'
   'game/scene/TiledSpriteContainer'
   'lib/keys'
+  'minigames/urls/Zoomer'
 }
 
 const player-speed = 0.3px
 
-const draw-hit-rects = false
+const draw-rects = false
 colors = [0xFF0000 0x00FF00 0x0000FF 0x00FFFF 0xFF00FF 0xFFFF00]
 
 module.exports = class WalkingMap extends PIXI.Container
   player-scale: 0.5
-  (@layer, @player, {width, height, map-url, @start, @rects}) ->
+  (@camera, @layer, @player, {width, height, map-url, scale, position, buildings, player-scale, @start, @rects}) ->
     super!
     @bg = new TiledSpriteContainer map-url, width, height, false
-    @add-child @bg
+    @bg.player-scale = @player-scale
     @full-width = width
     @full-height = height
+    if player-scale then @player-scale = player-scale
+
+    @scale.x = @scale.y = scale
+    if position then @position <<< position.{x, y}
+
+    if buildings
+      @buildings = buildings |> Obj.map (building) ~>
+        new WalkingMap @camera, @layer, @player, building <<< {width, height}
+    else @buildings = {}
+
+    @zoomer = new Zoomer @camera, @player, @bg, @buildings
+      ..on \path (...args) ~> @emit \path ...args
+      ..on \zoom-in ~> @deactivate!
+      ..on \zoom-out ~> @activate!
+    @add-child @zoomer
 
     for rect in @rects when rect.4?
-      console.log 'rect.4' rect.4
       rect.4 .= split ':'
 
-    if draw-hit-rects
+    if draw-rects
       @dbg = new PIXI.Graphics!
-      @dbg-labels = []
+      @dbg-labels = new PIXI.Container!
       @add-child @dbg
+      @add-child @dbg-labels
+
+    @on \enter (building) ->
+      building = camelize building
+      if @buildings[building] then @zoomer.zoom-to building
 
   setup: ->
     @bg.setup!
+    for _, building of @buildings => building.setup!
 
   step: (t) ->
+    @zoomer.step t
+    for _, building of @buildings => building.step t
     unless @active then return
     if keys.up
       @player.y -= player-speed * t
@@ -44,14 +67,13 @@ module.exports = class WalkingMap extends PIXI.Container
     else if keys.left
       @player.x -= player-speed * t
 
-    if draw-hit-rects
+    if draw-rects
       @dbg.clear!
       for rect, i in @rects
-        unless @dbg-labels[i]
-          @dbg-labels[i] = new PIXI.Text "rects[#{i}]", fill: colors[i % colors.length], font: '12px Arial'
-          @add-child @dbg-labels[i]
+        unless @dbg-labels.children[i]
+          @dbg-labels.add-child new PIXI.Text "rects[#{i}]", fill: colors[i % colors.length], font: '12px Arial'
 
-        @dbg-labels[i] <<< x: rect.0, y: rect.1, text: "rects[#{i}] #{if rect.4 then "(#{rect.4.join ':'})" else ''}"
+        @dbg-labels.children[i] <<< x: rect.0, y: rect.1, text: "rects[#{i}] #{if rect.4 then "(#{rect.4.join ':'})" else ''}"
         @dbg
           ..line-style 1, colors[i % colors.length]
           ..draw-rect rect.0, rect.1, rect.2, rect.3
@@ -67,7 +89,7 @@ module.exports = class WalkingMap extends PIXI.Container
       right = left + width
       bottom = top + height
 
-      if left < x < right and top < y < bottom
+      if left <= x <= right and top <= y <= bottom
         if rect.4?
           emits[*] = rect.4
           if rect.4.0 is \path
@@ -92,6 +114,8 @@ module.exports = class WalkingMap extends PIXI.Container
 
   activate: ->
     @active = true
+    if draw-rects and @dbg then @dbg-labels.visible = @dbg.visible = true
 
   deactivate: ->
     @active = false
+    if draw-rects and @dbg then @dbg-labels.visible = @dbg.visible = false

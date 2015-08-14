@@ -23,12 +23,14 @@ module.exports = class Camera
   @MAX_BOUND_Y = 150px
   @PAD = 20px
 
-  (size, @speed, @padding) ->
+  (size, @speed, @padding, @default-mode = \tracking) ->
     @scene-width = size.width
     @scene-height = size.height
     @_adjusted-scene-width = @scene-width - @padding
     @_adjusted-scene-height = @scene-height - @padding
     @zoom = @target-zoom = 1
+    @locked = false
+    @mode = @default-mode
 
   track: (display-object, snap = false) ->
     @_tracking = display-object
@@ -64,6 +66,7 @@ module.exports = class Camera
     @_subject-y = y
 
   step: (t = 1000 / 60) ->
+    if @locked then return
     if @_zooming
       @_zoom-time += t
       d = Math.min 1, @_zoom-time / @_zoom-duration
@@ -83,8 +86,10 @@ module.exports = class Camera
     else
       if @_tracking then @set-subject @_tracking.p || @_tracking.position
 
-      [@target-x, @target-y] =
-        if @_editing then @get-editing-position! else @centered!# @get-target-position!
+      [@target-x, @target-y] = switch @mode
+        | \editing => @get-editing-position!
+        | \tracking => @get-target-position!
+        | \centered => @centered!
 
       p = @tween-position @target-x, @target-y, @speed
       if @zoom <= 3 then
@@ -149,12 +154,13 @@ module.exports = class Camera
     [target-x, target-y]
 
   centered: ->
+    console.log \centered, @target-zoom
     @constrain do
       @_subject-x - @_viewport-width / 2
       @_subject-y - @_viewport-height / 2
 
   start-edit-mode: (rect, duration, frame-driver) -> new Promise (resolve, reject) ~>
-    @_editing = true
+    @mode = \editing
     @_edit-rect = rect
     @_normal-speed = @speed
     @speed = duration-to-speed duration
@@ -170,7 +176,7 @@ module.exports = class Camera
         resolve!
 
   stop-edit-mode: (duration, frame-driver) -> new Promise (resolve, reject) ~>
-    @_editing = false
+    @mode = @default-mode
     @_edit-rect = null
     @speed = duration-to-speed duration
     sub = frame-driver.subscribe ~>

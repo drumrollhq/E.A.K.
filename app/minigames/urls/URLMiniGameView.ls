@@ -15,15 +15,13 @@ require! {
 
 const width = 2000px
 const height = 1800px
-const town-scale = 0.12
 const player-scale = 0.6
 const transition-speed = 1000ms
 
 module.exports = class URLMiniGameView extends Backbone.View
   initialize: ->
-
     # Basic camera+scene boilerplate
-    @camera = new Camera {width, height}, 0.1, -300
+    @camera = new Camera {width, height}, 0.1, -300, \centered
     @layer = new WebglLayer {width, height}
     @scene = new Scene {width, height}, @camera
     @scene.add-layers @layer
@@ -49,15 +47,15 @@ module.exports = class URLMiniGameView extends Backbone.View
 
     @towns = {}
     for name, [x, y] of maps.towns
-      town = new WalkingMap @layer, @player, maps[name] <<< {width, height}
-        ..scale <<< x: town-scale, y: town-scale
+      town = new WalkingMap @camera, @layer, @player, maps[name] <<< {width, height}
         ..position <<< {x, y}
+        ..on \path, (path) ~> @set-actual-path path
 
       @towns[name] = town
 
     @camera.track @map.player, true
 
-    @zoomer = new Zoomer @camera, @player, @map, @towns
+    @zoomer = new Zoomer @camera, @player, @map, @towns, true
     @layer.add @zoomer, 1, true
 
     @map.on \arrive, (loc) ~>
@@ -73,7 +71,6 @@ module.exports = class URLMiniGameView extends Backbone.View
       town
         ..setup!
         ..set-viewport 0, 0, width, height
-        ..cache-as-bitmap = true
 
     @$react-cont = $ '<div class="url-cont"></div>'
     @url-component = React.render (React.create-element URLDisplay), @$react-cont.0

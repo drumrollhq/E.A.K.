@@ -1,8 +1,7 @@
 out$, require, module <- require.register 'minigames/urls/maps'
 
 export towns = {
-  bulbous: [755 200]
-  drudshire: [1165 425]
+  bulbous: [745 190]
 }
 
 export main-map = {
@@ -31,9 +30,11 @@ export main-map = {
     [\junction-shackerton \junction-phb [871 852] [972 938]]
   ]
 }
+
 export bulbous = {
   map-url: '/content/bg-tiles/url-minigame/bulbous-island'
   start: x: 1000, y: 1700 #Arca start point
+  scale: 0.13
   rects: [
     [350 300 600 200]
     [1050 300 600 200]
@@ -64,10 +65,22 @@ export bulbous = {
     [700 750 100 125 \path:onion-farm]
     [925 375 150 200 \path:onions-r-us]
   ]
+
+  buildings:
+    onions-r-us:
+      map-url: '/content/bg-tiles/url-minigame/onions-r-us'
+      position: x: 750, y: 50
+      start: x: 1000, y: 1400
+      scale: 1/4
+      player-scale: 0.8
+      rects: [
+        [0 1650 2000 125 \exit]
+      ]
 }
 
 export drudshire = {
   map-url: '/content/bg-tiles/url-minigame/drudshire'
   start: x: 1000, y: 1700
+  scale: 0.12
   rects: [[0,100,835,190],[895,100,1200,190]]
 }
