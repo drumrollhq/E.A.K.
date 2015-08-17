@@ -75,6 +75,21 @@ export bulbous = {
       player-scale: 0.8
       rects: [
         [0 1650 2000 125 \exit]
+        [0 1300 820 400]
+        [1180 1300 820 400]
+        [0 1250 750 100]
+        [1250 1250 750 100]
+        [0 0 700 1300]
+        [1305 0 700 1300]
+        [0 0 2000 625]
+        [810 730 130 480]
+        [1055 730 130 480]
+        [500 1150 1000 800 \path:onions-r-us]
+        [500 700 260 450 \path:onions-r-us/red-onions]
+        [760 700 240 450 \path:onions-r-us/white-onions]
+        [1000 700 240 450 \path:onions-r-us/yellow-onions]
+        [1240 700 240 450 \path:onions-r-us/spring-onions]
+        [600 625 800 75 \path:onions-r-us/pickled-onions]
       ]
 }
 

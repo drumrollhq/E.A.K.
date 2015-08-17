@@ -35,7 +35,6 @@ module.exports = class Camera
   track: (display-object, snap = false) ->
     @_tracking = display-object
     if snap
-      console.log \snap
       @set-subject @_tracking.p || @_tracking.position
       [x, y] = @centered!
       @_px = @_qx = @offset-x = x
@@ -154,7 +153,6 @@ module.exports = class Camera
     [target-x, target-y]
 
   centered: ->
-    console.log \centered, @target-zoom
     @constrain do
       @_subject-x - @_viewport-width / 2
       @_subject-y - @_viewport-height / 2
