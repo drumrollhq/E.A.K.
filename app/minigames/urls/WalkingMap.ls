@@ -37,7 +37,7 @@ module.exports = class WalkingMap extends PIXI.Container
     @add-child @zoomer
 
     for rect in @rects when rect.4?
-      rect.4 .= split ':'
+      rect.4 .= split ':' if typeof! rect.4 isnt \Array
 
     if draw-rects
       @dbg = new PIXI.Graphics!

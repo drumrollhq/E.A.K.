@@ -32,12 +32,6 @@ module.exports = class WebglLayer extends Layer
     @_layers[at].add-child object
     if needs-viewport then @_needs-viewport[*] = object
 
-  remove: (object) ->
-    super object
-    for layer in @_layers => layer.remove-child object
-    idx = elem-index object, @_needs-viewport
-    if idx? then @_needs-viewport.splice idx, 1
-
   render: (zoom = 1) ->
     for obj in @_needs-viewport => obj.set-viewport @left, @top, @right, @bottom
     @renderer.render @_stage

@@ -18,14 +18,6 @@ module.exports = class Layer extends Backbone.View
     @trigger \add obj
     if typeof obj.trigger is \function then obj.trigger \add this
 
-  remove: (object) ->
-    idx = @_display-objects |> find-index ( .object is object )
-    if idx?
-      obj = @_display-objects[idx]
-      @_display-objects.splice idx, 1
-      @trigger \remove, obj
-      if typeof obj.trigger is \function then obj.trigger \remove, this
-
   object-at: ({x, y}) ->
     for {object} in @_display-objects when typeof object.contains is \function
       if object.contains x, y then return object

@@ -44,7 +44,8 @@ module.exports = React.create-class {
       [main, sep]
 
     dom.div class-name: \url-display,
-      React.create-element CSSTransitionGroup, transition-name: 'fade'
-        parts
+      dom.div class-name: \url-display-bar,
+        React.create-element CSSTransitionGroup, transition-name: 'fade'
+          parts
 
 }
