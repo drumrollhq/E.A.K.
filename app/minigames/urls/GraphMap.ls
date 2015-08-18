@@ -131,6 +131,10 @@ module.exports = class GraphMap extends PIXI.Container
       return @go connection
 
   go: (connection) ->
+    prevent = false
+    @emit \before-go, connection.id, -> prevent := true
+    if prevent then return
+
     @_line = connection.line
     @_in-transit = true
     @_distance-travelled = 0

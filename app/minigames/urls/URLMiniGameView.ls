@@ -19,7 +19,7 @@ const player-scale = 0.6
 const transition-speed = 1000ms
 
 module.exports = class URLMiniGameView extends Backbone.View
-  initialize: ->
+  initialize: ({start, exit = true}) ->
     # Basic camera+scene boilerplate
     @camera = new Camera {width, height}, 0.1, -300, \centered
     @layer = new WebglLayer {width, height}
@@ -41,8 +41,8 @@ module.exports = class URLMiniGameView extends Backbone.View
     @map = new GraphMap @layer, @player, maps.main-map <<< {
       width
       height
-      current-node: \junctionBulbous
-      exit: false
+      current-node: start
+      exit: exit
     }
 
     @towns = {}
@@ -84,7 +84,7 @@ module.exports = class URLMiniGameView extends Backbone.View
     @react-component = React.render (React.create-element URLMinigameComponent), @$react-cont.0
 
     @url-component = @react-component.refs.url
-    @help-component = @react-component.refs.help
+    @help = @react-component.refs.help
 
   start: ->
     @$el

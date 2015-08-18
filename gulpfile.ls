@@ -51,6 +51,7 @@ global.src = {
   locale-data: './locales/**/*.json'
   locale-templates: './app/l10n-templates/**/*'
   lsc: './app/scripts/**/*.ls'
+  minigames: './app/minigames'
   tests: './test/**/*.ls'
   vendor: ['./vendor/*.js' './vendor/rework/rework.js', './vendor/slowparse/slowparse.js']
   workers-static: ['./bower_components/underscore/underscore.js'
@@ -62,8 +63,8 @@ global.src = {
 global.dest = {
   all: './public/'
   assets: './public'
-  audio: './public/audio'
   audio-cache: './gulp-cache/audio'
+  audio: './public/audio'
   bg-cache: './gulp-cache/bgs'
   bg-tile-cache: './gulp-cache/bg-tiles'
   bg-tile-min-cache: './gulp-cache/bg-tiles-min'
@@ -76,6 +77,7 @@ global.dest = {
   fonts: './public/fonts'
   images: './app'
   js: './public/js'
+  minigames: './public/minigames'
   tests: './.test'
   vendor: './public/lib'
 }

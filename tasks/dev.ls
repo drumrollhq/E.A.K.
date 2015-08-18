@@ -34,7 +34,7 @@ gulp.task 'watch' ['server'] ->
   gulp.watch src.hbs, ['handlebars']
   gulp.watch src.css-all, ['stylus']
   gulp.watch src.entity-styles, ['entity-stylus']
-  gulp.watch [src.locale-data, src.locale-templates], ['l10n']
+  gulp.watch [src.locale-data, src.locale-templates, "#{src.minigames}/**/*.oulipo"], ['l10n']
   gulp.watch src.vendor, ['vendor']
   gulp.watch src.audio, ['audio']
   gulp.watch src.created-bundles, ['bundle-sizes']

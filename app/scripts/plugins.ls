@@ -124,6 +124,26 @@ PIXI.Container.prototype.animate = (duration, fn) -> new Promise (resolve, rejec
       @update-transform = old-update-transform
       resolve!
 
+# Promise / event-emitter helpers:
+window.wait-for-event = (subject, event, {timeout, condition} = {}) -> new Promise (resolve, reject) ->
+  resolved = false
+  handler = (...args) ->
+    if resolved then return
+    if not condition or (condition and condition ...args)
+      resolve args
+      resolved := true
+      subject.off event, handler
+
+  subject.on event, handler
+
+  if timeout
+    <- set-timeout _, timeout
+    if resolved then return
+    reject new window.wait-for-event.TimeoutError!
+    resolved := true
+
+window.wait-for-event.TimeoutError = class TimeoutError extends Error
+
 FastClick.attach document.body
 
 # use livescript style to-json rather than toJSON:

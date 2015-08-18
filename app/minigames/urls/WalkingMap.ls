@@ -78,14 +78,13 @@ module.exports = class WalkingMap extends PIXI.Container
           ..line-style 1, colors[i % colors.length]
           ..draw-rect rect.0, rect.1, rect.2, rect.3
 
-    @resolve @player, keys.right
+    @resolve @player, 1
 
-  resolve: (vec, dbg) ->
+  resolve: (vec, dist) ->
     {x, y} = vec
     emits = []
     has-path = false
     for rect, i in @rects
-      # if i is 5 and dbg then debugger
       [left, top, width, height] = rect
       right = left + width
       bottom = top + height
@@ -106,10 +105,10 @@ module.exports = class WalkingMap extends PIXI.Container
         bottom-resolve = bottom - y
         min = Math.min left-resolve, right-resolve, top-resolve, bottom-resolve
         switch
-        | left-resolve is min => x = left
-        | right-resolve is min => x = right
-        | top-resolve is min => y = top
-        | bottom-resolve is min => y = bottom
+        | left-resolve is min => x = left - dist
+        | right-resolve is min => x = right + dist
+        | top-resolve is min => y = top - dist
+        | bottom-resolve is min => y = bottom + dist
 
     vec <<< {x, y}
     for emit in emits => @emit ...emit

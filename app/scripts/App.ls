@@ -190,7 +190,7 @@ module.exports = class App
       | command is \stop-edit => @stop-edit!
 
     channels.conversation.subscribe ({name}) ~>
-      @start-conversation name
+      @start-conversation "/#{EAK_LANG}/areas/#name"
 
     channels.stage.subscribe ({url}) ~> @load-path url
 
@@ -284,12 +284,19 @@ module.exports = class App
   hide-loader: ~>
     if @loader-view then @loader-view.hide!
 
-  start-conversation: (name) ~>
+  start-conversation: (name) ~> new Promise (resolve, reject) ~>
     if @current-state is \conversation
       @stop-conversation!
 
     @trigger-async 'conversation'
-    @_current-conversation = conversation.start name, $conversation-container
+    @_current-conversation = conversation.start name, $conversation-container, {
+      resolve: (val) ~>
+        @trigger-async \conversationFinished
+        resolve val
+      reject: (val) ~>
+        @trigger-async \conversationFinished
+        reject val
+    }
 
   stop-conversation: ~>
     @_current-conversation.stop!

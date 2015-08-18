@@ -27,6 +27,8 @@ module.exports = class Oulipo
   process-node: (id) ->
     if typeof id is \string then node = @nodes[id] else node = id
 
+    unless node then return true
+
     switch node.type
       case \line
         @say-line node.name, node.content
@@ -56,6 +58,8 @@ module.exports = class Oulipo
       case \exec
         fn = new Function \eak, \channels, node.js
         fn window.eak, require 'lib/channels'
+        if node.next
+          @process-node node.next
 
       case \branch
         for branch in node.branches

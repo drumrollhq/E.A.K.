@@ -1,4 +1,5 @@
 [
   "**/*",
-  "/content/bg-tiles/url-minigame/**/*"
+  "/content/bg-tiles/url-minigame/**/*",
+  "/content/conversation/buttstacks/*.png"
 ]

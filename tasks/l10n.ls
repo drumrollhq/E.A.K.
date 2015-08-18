@@ -5,6 +5,7 @@ require! {
   'glob'
   'gulp'
   'gulp-cached'
+  'gulp-changed'
   'gulp-filter'
   'gulp-preprocess'
   'gulp-rename'
@@ -55,7 +56,7 @@ gulp.task 'l10n-data' ->
   gulp.src src.locale-data
     .pipe locale-data-cache! .on 'error' -> throw it
 
-gulp.task 'l10n' ['l10n-data' 'bootstrap-livescript'] (cb) !->
+gulp.task 'l10n' ['l10n-data' 'bootstrap-livescript' 'minigame-oulipo'] (cb) !->
   get-context!.then (ctx) ->
     console.log 'Version:' ctx.version
     preprocess-context <<< ctx
@@ -71,6 +72,13 @@ gulp.task 'l10n' ['l10n-data' 'bootstrap-livescript'] (cb) !->
       .pipe gulp.dest dest.assets
       .on 'end' -> cb!
       .on 'error' -> throw it
+
+gulp.task 'minigame-oulipo' ->
+  gulp.src "#{src.minigames}/**/*.oulipo"
+    .pipe gulp-changed dest.minigames, extension: '.oulipo.json'
+    .pipe convert-oulipo!
+    .pipe gulp-rename extname: '.oulipo.json'
+    .pipe gulp.dest dest.minigames
 
 function convert-oulipo
   parser = new oulipo.Parser!

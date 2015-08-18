@@ -46,6 +46,9 @@ module.exports = class ZoomingMap extends PIXI.Container
 
   zoom-to: (name) ->
     if @_zooming then return
+    prevent = false
+    @emit \before-zoom-in, name, -> prevent := true
+    if prevent then return
     @_zooming = true
 
     level = @sub-levels[name]
@@ -87,13 +90,17 @@ module.exports = class ZoomingMap extends PIXI.Container
         @camera.set-position tx, ty, false
 
         level.activate! if level.activate
-        level.once \exit, ~> @zoom-out!
+        level.on \exit, exit-handler = ~>
+          if @zoom-out! isnt \prevented then level.off \exit, exit-handler
         level.on \path, @_path-handler = (...args) ~> @emit \path, ...args
         @_zooming = false
-        @emit \zoom-in
+        @emit \zoom-in, name
 
   zoom-out: ~>
     if @_zooming then return
+    prevent = false
+    @emit \before-zoom-out, -> prevent := true
+    if prevent then return \prevented
     @_zooming = true
 
     level = @active

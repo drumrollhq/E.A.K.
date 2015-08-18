@@ -6,8 +6,11 @@ require! {
   'user'
 }
 
-export start = (name, $el) ->
-  {nodes, start} = assets.load-asset "/#{EAK_LANG}/areas/#{name}.oulipo.json"
+noop-resolve = (v) -> v
+noop-reject = (e) -> throw e
+
+export start = (name, $el, {resolve = noop-resolve, reject = noop-reject} = {}) ->
+  {nodes, start} = assets.load-asset "#{name}.oulipo.json"
 
   game-id = user.game.get \game.id
   stage-id = user.game.get \stage.id
@@ -38,3 +41,5 @@ export start = (name, $el) ->
   conversation.on \choice, component.choice
   Promise.delay 500
     .then -> conversation.start!
+    .then resolve
+    .catch reject

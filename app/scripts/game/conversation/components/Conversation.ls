@@ -38,10 +38,13 @@ module.exports = React.create-class {
     [player, player-expression] = (@state.model.view.player or 'arca neutral').split ' '
     [speaker, speaker-expression] = (@state.model.view.speaker or '').split ' '
 
+    player-img = @state.model.view.characters?[player]?.image or player
+    speaker-img = @state.model.view.characters?[speaker]?.image or speaker
+
     if player and player-expression
-      player-img = assets.load-asset "/content/conversation/#{player}/#{player-expression}.png", \url
+      player-img = assets.load-asset "/content/conversation/#{player-img}/#{player-expression}.png", \url
     if speaker and speaker-expression
-      speaker-img = assets.load-asset "/content/conversation/#{speaker}/#{speaker-expression}.png", \url
+      speaker-img = assets.load-asset "/content/conversation/#{speaker-img}/#{speaker-expression}.png", \url
 
     dom.div class-name: \conversation,
       dom.div class-name: \conversation-lines,
@@ -51,8 +54,9 @@ module.exports = React.create-class {
           ref: \lines
           transition-name: \conversation-line
         }, for line in @state.model.lines
+            speaker = @state.model.view.characters?[line.speaker.to-lower-case!]?.name or line.speaker
             dom.li key: line.id, class-name: (cx \conversation-line, \conversation-line-player : line.from-player),
-              dom.div class-name: \conversation-line-speaker, line.speaker
+              dom.div class-name: \conversation-line-speaker, speaker
               dom.div class-name: \conversation-line-line, line.line
 
         dom.div class-name: (cx \conversation-choice active: @state.choice-active),

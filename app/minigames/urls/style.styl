@@ -210,9 +210,37 @@ incorrectOpacity = 0.5
 
   .speech-bubble
     position absolute
-    top 0
-    left 0
+    top 40px
+    left 200px
+    background-color rgba(white, 0.8)
+    padding 10px
+    border-radius 5px
+    width 500px
+    transition all 0.3s ease
+    opacity 0
+    transform translateX(-100px)
+
+    &:after
+      content ''
+      display block
+      width 0
+      height 0
+      position absolute
+      left -30px
+      top 50%
+      margin-top -15px
+      border 15px solid transparent
+      border-right-color rgba(white, 0.8)
+
+  .speech-bubble-dismiss
+    float right
+    padding 0 5px
+    margin-top 2px
 
   &.active
     img
       transform translate(-220px, -140px) rotate(50deg)
+
+    .speech-bubble
+      opacity 1
+      transform translateX(0)

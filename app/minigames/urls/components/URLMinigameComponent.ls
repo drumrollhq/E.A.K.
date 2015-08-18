@@ -10,5 +10,5 @@ module.exports = React.create-class {
   render: ->
     React.DOM.div null,
       React.create-element URLDisplay, ref: \url
-      React.create-element HelpfulButtstacks, reg: \help
+      React.create-element HelpfulButtstacks, ref: \help
 }
