@@ -9,7 +9,7 @@ require! {
   'minigames/urls/GraphMap'
   'minigames/urls/WalkingMap'
   'minigames/urls/Zoomer'
-  'minigames/urls/components/URLDisplay'
+  'minigames/urls/components/URLMinigameComponent'
   'minigames/urls/maps'
 }
 
@@ -65,6 +65,14 @@ module.exports = class URLMiniGameView extends Backbone.View
 
     @zoomer.on \zoom-out ~> @map.exit!
 
+  remove: ->
+    super!
+    @map.destroy!
+    for _, town of @towns => town.destroy!
+    @zoomer.destroy!
+    @layer.remove!
+    @scene.remove!
+
   load: ->
     @map.setup!
     for name, town of @towns
@@ -72,8 +80,11 @@ module.exports = class URLMiniGameView extends Backbone.View
         ..setup!
         ..set-viewport 0, 0, width, height
 
-    @$react-cont = $ '<div class="url-cont"></div>'
-    @url-component = React.render (React.create-element URLDisplay), @$react-cont.0
+    @$react-cont = $ '<div class="urls-minigame"></div>'
+    @react-component = React.render (React.create-element URLMinigameComponent), @$react-cont.0
+
+    @url-component = @react-component.refs.url
+    @help-component = @react-component.refs.help
 
   start: ->
     @$el

@@ -1,15 +1,13 @@
+/****** URL STUFF ******/
 normalTextShadow = 0 0 30px rgba(white, 0.75), 0 0 30px rgba(white, 0.75), 0 0 30px rgba(white, 0.75), 0 0 30px rgba(white, 0.75), 0 0 30px rgba(white, 0.75)
 incorrectTextShadow = 0 0 30px red
 sectionHeight = 54px
-urlTrans = 0.3s
-incorrectOpacity = 0.3
+urlTrans = 0.4s
+correctGreen = #27ae60
 
-.url-cont
-  position fixed
-  top 0
-  left 0
-  width 100%
-  height 100%
+correctOpacity = 0.8
+targetOpacity = 0.9
+incorrectOpacity = 0.5
 
 .url-display
   position absolute
@@ -20,6 +18,13 @@ incorrectOpacity = 0.3
   font-size 2em
   line-height 1.5em
   text-shadow normalTextShadow
+
+.url-display-bar
+  display inline-block
+  margin auto
+  padding 3px 15px
+  background rgba(white, 0.6)
+  border-radius 3px
 
 .url-section,
 .url-sep
@@ -33,10 +38,12 @@ incorrectOpacity = 0.3
 .url-section:not(.correct) + .url-sep + .url-section
   opacity incorrectOpacity
 
-.url-section.correct + .url-sep + .url-section:not(.correct)
-  animation glow 0.6s ease alternate infinite
+.url-section.correct + .url-sep + .url-section:not(.correct):not(.hasAlternative)
+  animation bounce 0.5s 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) alternate infinite
+  opacity targetOpacity
 
 .url-section-target
+  overflow visible
   height sectionHeight
   margin-top -1 * sectionHeight
   position relative
@@ -63,6 +70,15 @@ incorrectOpacity = 0.3
       visibility hidden
 
   &.incorrect
+
+    .url-section.correct &
+      &.url-section-leave
+        visibility hidden
+        opacity 0
+
+      &.url-section-leave-actibe
+        opacity 0.001
+
     &::after
       content ' '
       position absolute
@@ -86,12 +102,23 @@ incorrectOpacity = 0.3
       transform scaleX(1)
 
     &.url-section-leave::after
+      opacity 0
       transform-origin right
       transform scaleX(1)
       transition transform urlTrans linear
 
     &.url-section-leave-active::after
       transform scaleX(0)
+
+  &.correct
+    animation pulse-green urlTrans ease
+
+    &.url-section-enter,
+    &.url-section-enter-active
+      z-index 3
+      // animation pulse-green urlTrans ease
+      visibility visible
+      opacity 1
 
 .url-alt,
 .url-tick
@@ -116,15 +143,76 @@ incorrectOpacity = 0.3
 .url-tick,
 .url-section.correct,
 .url-section.correct + .url-sep
-  color #27ae60
+  opacity correctOpacity
+
+.url-tick
+  color correctGreen
+  opacity 1
+
+  &.url-section-enter
+    animation pulse urlTrans ease
 
 .url-alt::after
   content ' ✗'
   color #c0392b
 
-@keyframes glow
-  from
-    text-shadow 0 0 30px white, 0 0 30px white, 0 0 30px white, 0 0 30px white, 0 0 30px white
+@keyframes bounce
+  0%
+    transform scaleY(0.95) scaleX(1.02)
 
-  to
-    text-shadow 0 0 30px rgba(white, 0.5), 0 0 30px rgba(white, 0.5), 0 0 30px rgba(white, 0.5), 0 0 30px rgba(white, 0.5), 0 0 30px rgba(white, 0.5)
+  30%
+    transform translateY(-3px)
+
+  100%
+    transform translateY(-10px)
+
+@keyframes pulse
+  0%
+    transform scale(0.5)
+    opacity 0
+
+  50%
+    transform scale(2)
+    opacity 1
+
+  100%
+    transform scale(1)
+    opacity 1
+
+@keyframes pulse-green
+  0%
+    transform-origin center
+    transform scale(1)
+    color inherit
+
+  50%
+    transform-origin center
+    transform scale(1.2)
+    color correctGreen
+
+  100%
+    transform-origin center
+    transform scale(1)
+    color inherit
+
+/***** Helpful Buttstacks ******/
+.helpful-buttstacks
+  position absolute
+  top 0
+  left 0
+
+  img
+    width 200px
+    transition all 0.3s ease
+    display block
+    transform translate(-280px, -120px) rotate(20deg)
+    transform-origin bottom
+
+  .speech-bubble
+    position absolute
+    top 0
+    left 0
+
+  &.active
+    img
+      transform translate(-220px, -140px) rotate(50deg)

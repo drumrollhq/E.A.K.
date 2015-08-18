@@ -37,7 +37,7 @@ module.exports = class WalkingMap extends PIXI.Container
     @add-child @zoomer
 
     for rect in @rects when rect.4?
-      rect.4 .= split ':'
+      rect.4 .= split ':' if typeof! rect.4 isnt \Array
 
     if draw-rects
       @dbg = new PIXI.Graphics!
@@ -83,6 +83,7 @@ module.exports = class WalkingMap extends PIXI.Container
   resolve: (vec, dbg) ->
     {x, y} = vec
     emits = []
+    has-path = false
     for rect, i in @rects
       # if i is 5 and dbg then debugger
       [left, top, width, height] = rect
@@ -91,9 +92,13 @@ module.exports = class WalkingMap extends PIXI.Container
 
       if left <= x <= right and top <= y <= bottom
         if rect.4?
-          emits[*] = rect.4
           if rect.4.0 is \path
+            unless has-path
+              emits[*] = rect.4
+              has-path = true
             continue
+          else
+            emits[*] = rect.4
 
         left-resolve = x - left
         right-resolve = right - x
