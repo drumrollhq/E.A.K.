@@ -4,6 +4,7 @@ incorrectTextShadow = 0 0 30px red
 sectionHeight = 54px
 urlTrans = 0.4s
 correctGreen = #27ae60
+brightCorrectGreen = #2ecc71
 
 correctOpacity = 0.8
 targetOpacity = 0.9
@@ -25,6 +26,14 @@ incorrectOpacity = 0.5
   padding 3px 15px
   background rgba(white, 0.6)
   border-radius 3px
+  transition all urlTrans ease
+
+  &.url-hide
+    transform translateY(200px)
+
+  &.correct
+    transform translateY(200px)
+    animation correct 1.5s ease
 
 .url-section,
 .url-sep
@@ -120,6 +129,9 @@ incorrectOpacity = 0.5
       visibility visible
       opacity 1
 
+  .targetEmpty &
+    visibility hidden
+
 .url-alt,
 .url-tick
   height sectionHeight
@@ -139,6 +151,12 @@ incorrectOpacity = 0.5
 
   &.url-section-leave-active
     opacity 0
+
+  .targetEmpty &
+    position relative
+    height sectionHeight
+    margin-top -1 * sectionHeight
+    margin-bottom 0
 
 .url-tick,
 .url-section.correct,
@@ -195,6 +213,19 @@ incorrectOpacity = 0.5
     transform scale(1)
     color inherit
 
+@keyframes correct
+  0%
+    transform scale(1)
+    background rgba(white, 0.6)
+
+  25%, 75%
+    transform scale(1.3) translateY(-50px)
+    background rgba(lighten(brightCorrectGreen, 30%), 0.6)
+
+  100%
+    transform scale(1) translateY(200px)
+    background rgba(white, 0.6)
+
 /***** Helpful Buttstacks ******/
 .helpful-buttstacks
   position absolute
@@ -244,3 +275,51 @@ incorrectOpacity = 0.5
     .speech-bubble
       opacity 1
       transform translateX(0)
+
+/****** Target Image ******/
+.target-image
+  position absolute
+  top 70px
+  right 20px
+  opacity 0.5
+  transition all 0.3s ease
+  transform scale(0.8)
+
+  img
+    width 150px
+
+  &::after
+    content '✓'
+    display block
+    position absolute
+    font-size 150px
+    color brightCorrectGreen
+    width 150px
+    text-align center
+    line-height 120px
+    top 50%
+    left 0
+    margin-top -60px
+    opacity 0
+    transition opacity 0.3s ease
+
+  &.correct
+    opacity 1
+    transform scale(1)
+
+    &::after
+      opacity 1
+      animation pulse 0.6s ease
+
+@keyframes tick-pulse
+  0%
+    opacity 0
+    transform scale(0.5)
+
+  50%
+    opacity 1
+    transform scale(2)
+
+  100%
+    opacity 1
+    transform scale(1)

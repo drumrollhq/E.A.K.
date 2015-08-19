@@ -5,10 +5,20 @@ require! {
   'minigames/urls/components/HelpfulButtstacks'
 }
 
+dom = React.DOM
+
 module.exports = React.create-class {
   display-name: \URLMinigameComponent
+
+  get-initial-state: -> {
+    target-img: null
+    correct: false
+  }
+
   render: ->
-    React.DOM.div null,
-      React.create-element URLDisplay, ref: \url
+    dom.div null,
+      React.create-element URLDisplay, ref: \url, on-correct: @props.on-correct, on-incorrect: @props.on-incorrect
       React.create-element HelpfulButtstacks, ref: \help
+      dom.div class-name: (cx \target-image, hidden: not @state.target-img, correct: @state.correct),
+        dom.img src: @state.target-img
 }

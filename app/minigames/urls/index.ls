@@ -12,17 +12,17 @@ module.exports = class URLMiniGame
 
   load: -> null
 
-  create-view-at: (start, url, exit = true) ->
+  create-view: (start, exit = true) ->
     @view = new URLMiniGameView {el: @$el.empty!, start, exit}
     @view.load!
     @view.start!
-    @view.set-target-url ...url
 
   start: !->
     @frame-sub = channels.frame.subscribe ({t}) ~> @on-frame t
     Promise.delay 500
       .then ~>
-        @create-view-at \phb, ['http' 'bulbous-island.com' 'onions-r-us' 'pickled-onions'], false
+        @create-view \phb, false
+        @view.set-target-image '/minigames/urls/assets/pickled-onions.png'
         @frame-sub.pause!
       .then -> eak.start-conversation '/minigames/urls/conversations/1-intro'
       .then ~>
@@ -30,9 +30,9 @@ module.exports = class URLMiniGame
         Promise.delay 300
       .then ~>
         @view.map.exit!
+        @view.set-target-url 'http' 'bulbous-island.com' 'onions-r-us' 'pickled-onions'
         wait-for-event @view.map, \arrive
-      .then ~>
-        @start-tutorial-phb!
+      .then ~> @start-tutorial-phb!
 
   start-tutorial-phb: ->
     var bulbous-zoom-out, onions-zoom-out
@@ -42,9 +42,11 @@ module.exports = class URLMiniGame
       .then ~> @view.help.activate \move, 'Got it'
 
     @view.map.on \before-go, before-go = (dest, prevent) ~>
-      if dest in <[phb flee drudshire schackerton]>
+      if dest in <[phb flee drudshire shackerton]>
         @view.help.activate \wrong-domain
         prevent!
+
+    @view.url-component.set-state hidden: false
 
     wait-for-event @view.map, \arrive, condition: (dest) -> dest is \bulbous
       .then ~> wait-for-event @view.zoomer, \zoom-in
@@ -63,7 +65,24 @@ module.exports = class URLMiniGame
         @view.towns.bulbous.zoomer.on \before-zoom-out, onions-zoom-out
         wait-for-event @view.towns.bulbous, \path, condition: (path) -> path is 'onions-r-us/pickled-onions'
       .then ~>
-        @view.help.activate \collect-onions 'Got it'
+        @view.help.activate \collect-onions
+        @view.towns.bulbous.zoomer.off \before-zoom-out onions-zoom-out
+        @view.zoomer.off \before-zoom-out bulbous-zoom-out
+        @view.map.off \before-go before-go
+        Promise.delay 2000
+      .then ~>
+        @view.set-target-url 'http' 'ponyhead-bay.com'
+        Promise.delay 1000
+      .then ~>
+        @view.url-component.set-state correct: false
+        wait-for-event @view.zoomer, \before-zoom-in, condition: (loc, prevent ) ->
+          if loc is \phb
+            prevent!
+            true
+          else false
+      .then ~>
+        @frame-sub.pause!
+        Promise.delay 2000
 
   on-frame: (t) ->
     if @view then @view.step t

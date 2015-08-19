@@ -15,7 +15,7 @@ messages = {
   bulbous-zoom-out: 'Where ya going? You can\'t be leaving Bulbous Island now! Onions-R-Us is in the complete opposite direction!'
   onions-r-us: 'We\'re here! This is my favourite shop... Now try to find the pickled onions.'
   onions-zoom-out: 'Na-ah! We don\'t wanna leave till we got them pickled onions!'
-  collect-onions: 'You\'ve found the pickled onions! Press the space key to pick some up'
+  collect-onions: 'You found me onions! Beautiful. Meet me back at Ponyhead Bay.'
 }
 
 module.exports = HelpfulButtstacks = React.create-class {

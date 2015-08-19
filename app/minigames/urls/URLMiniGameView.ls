@@ -1,6 +1,7 @@
 exports, require, module <- require.register 'minigames/urls/URLMiniGameView'
 
 require! {
+  'assets'
   'game/scene/Camera'
   'game/scene/Scene'
   'game/scene/WebglLayer'
@@ -81,10 +82,17 @@ module.exports = class URLMiniGameView extends Backbone.View
         ..set-viewport 0, 0, width, height
 
     @$react-cont = $ '<div class="urls-minigame"></div>'
-    @react-component = React.render (React.create-element URLMinigameComponent), @$react-cont.0
+    @react-component = React.render (React.create-element URLMinigameComponent, {
+      on-correct: ~> @trigger \correct
+      on-incorrect: ~> @trigger \incorrect
+    }), @$react-cont.0
 
     @url-component = @react-component.refs.url
     @help = @react-component.refs.help
+
+    @on \correct ~>
+      @react-component.set-state correct: true
+      @url-component.set-state correct: true
 
   start: ->
     @$el
@@ -107,8 +115,10 @@ module.exports = class URLMiniGameView extends Backbone.View
     else
       parts = []
 
-    console.log 'setting path' parts, @_last-path-set, path
     @url-component.set-state actual: [@url-component.state.actual.0, @url-component.state.actual.1, ...parts]
+
+  set-target-image: (img) ->
+    @react-component.set-state target-img: assets.load-asset img, \url
 
   step: (t) ->
     @camera.step t
