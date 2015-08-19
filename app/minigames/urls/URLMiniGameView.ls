@@ -92,7 +92,7 @@ module.exports = class URLMiniGameView extends Backbone.View
       .append @$react-cont
       .add-class \active
 
-    @map.activate!
+    @map.activate false
 
   set-target-url: (protocol, domain, ...path) ->
     @url-component.set-state target: [protocol, domain, ...path]

@@ -144,9 +144,9 @@ module.exports = class GraphMap extends PIXI.Container
   set-viewport: (top, left, bottom, right) ->
     @bg.set-viewport top, left, bottom, right
 
-  activate: ->
+  activate: (emit = true) ->
     @active = true
-    @emit \arrive @current-node
+    if emit then @emit \arrive @current-node
 
   deactivate: ->
     @active = false
