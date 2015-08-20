@@ -17,7 +17,7 @@ module.exports = React.create-class {
     "#{protocol}://#{domain}/#{path.join '/'}"
 
   render: ->
-    parts = for i til Math.max @state.actual.length, @state.target.length
+    parts = for i til Math.max @state.actual.length, @state.target.length when @state.target[i]
       [@state.actual[i], @state.target[i] or false]
 
     parts = flatten parts.map ([actual, target], i) ->

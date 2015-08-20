@@ -22,18 +22,15 @@ export start = (name, $el, {resolve = noop-resolve, reject = noop-reject} = {}) 
   }
 
   update-game = _.debounce do
-    (update) -> user.game.store.patch-state game-id, update
+    (_, update) -> user.game.store.patch-state game-id, update
     500
 
   update-stage = _.debounce do
-    (update) -> user.game.store.stages.patch-state game-id, stage-id, update
+    (_, update) -> user.game.store.stages.patch-state game-id, stage-id, update
     500
 
-  state.on \change:game.* (model, update) ->
-    update-game update
-
-  state.on \change:stage.* (model, update) ->
-    update-stage update
+  state.on \change:game.* update-game
+  state.on \change:stage.* update-stage
 
   conversation = new Oulipo start, nodes, state
 
@@ -43,3 +40,8 @@ export start = (name, $el, {resolve = noop-resolve, reject = noop-reject} = {}) 
     .then -> conversation.start!
     .then resolve
     .catch reject
+    .finally ->
+      conversation.off \choice component.choice
+      state.off \change:game.* update-game
+      state.off \change:stage.* update-stage
+      React.unmount-component-at-node $el.get 0

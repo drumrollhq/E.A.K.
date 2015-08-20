@@ -22,7 +22,6 @@ module.exports = class URLMiniGame
     Promise.delay 500
       .then ~>
         @create-view \phb, false
-        @view.set-target-image '/minigames/urls/assets/pickled-onions.png'
         @frame-sub.pause!
       .then -> eak.start-conversation '/minigames/urls/conversations/1-intro'
       .then ~>
@@ -31,10 +30,21 @@ module.exports = class URLMiniGame
       .then ~>
         @view.map.exit!
         @view.set-target-url 'http' 'bulbous-island.com' 'onions-r-us' 'pickled-onions'
+        @view.set-target-image '/minigames/urls/assets/pickled-onions.png'
         wait-for-event @view.map, \arrive
-      .then ~> @start-tutorial-phb!
+      .then ~> @start-tutorial-onions!
+      .then ~> eak.start-conversation '/minigames/urls/conversations/2-flowers'
+      .then ~>
+        @view.set-target-url 'http' 'flee.net' 'flower-power' 'dandelions'
+        @view.set-target-image '/minigames/urls/assets/dandelions.png', false
+        @frame-sub.resume!
+        Promise.delay 300
+      .then ~>
+        @view.map.exit!
+        wait-for-event @view.map, \arrive
+      .then ~> @start-tutorial-flowers!
 
-  start-tutorial-phb: ->
+  start-tutorial-onions: ->
     var bulbous-zoom-out, onions-zoom-out
 
     @view.help.activate \url, 'Next'
@@ -81,8 +91,12 @@ module.exports = class URLMiniGame
             true
           else false
       .then ~>
+        @view.help.deactivate!
         @frame-sub.pause!
         Promise.delay 2000
+
+  start-tutorial-flowers: ->
+    @view.url-component.set-state hidden: false, correct: false
 
   on-frame: (t) ->
     if @view then @view.step t

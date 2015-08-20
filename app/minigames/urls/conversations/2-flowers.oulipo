@@ -1,0 +1,60 @@
+set view.characters.hobo.image = 'buttstacks'
+set view.characters.hobo.name = 'Boris J. Buttstacks'
+
+Hobo: Ahhh... my precious pickles. Not the ones I wanted, but close enough I suppose.
+
+go menu
+
+# menu
+branch:
+	- (if asked-what-type) go menu-where
+	- (if asked-what-else) go menu-what-type
+	- (default) go menu-what-else
+
+# menu-what-else
+Arca:
+	- Ok... so is there anything else do you need me to get? -> what-else
+	- (unless asked-which-onions) Huh? Which pickled onions did you want? -> which-onions
+	- (unless onions-are-onions) A pickled onion is a pickled onion, Buttstacks -> onions-are-onions
+
+# what-else
+set asked-what-else
+Hobo: Well as y’know I’m a bit of a celebrity, bein’ the mayor an’all… what can I say, it brings success with th’ladies! I got a date tonight with my best girl, an’ I wan’it t’be perfect. So imma need flowers. To woo her, get it? Dames love flowers. That and clocks.
+go menu
+
+# which-onions
+set asked-which-onions
+Hobo: Vintage '95. You got me Vintage '97. Not pungent enough for my sophisticated palate.
+go menu
+
+# onions-are-onions
+set onions-are-onions
+Hobo: You dunno what you're talkin' about. Although we can't all be pickled onion connessieurs
+go menu
+
+# menu-what-type
+Arca:
+	- What kind of flowers do you want?  -> what-type
+	- (unless asked-clocks) Clocks? Why? -> clocks
+
+# what-type
+set asked-what-type
+Hobo: Mmh. Y'know what? Get me a bunch o' the fluffiest dandelions you ever saw. They're like a man's heart y'know? The softest blow can destroy em'...
+go menu
+
+# clocks
+set asked-clocks
+Hobo: T'tell the time, why else d'ya think? Ya obviously ain't read Fellows are from Mongo, Fillies are from Marmington. Clueless critter.
+go menu
+
+# menu-where
+Arca:
+	- Okay... where can I find flowers? -> where
+	- (unless asked-love) I'm sure she'll love them -> love
+	- (unless asked-careful) Ok... I'll be very careful -> careful
+
+# where
+set asked-where
+Hobo: Here's where you can get em'...
+go menu
+

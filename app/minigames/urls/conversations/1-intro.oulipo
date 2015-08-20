@@ -14,7 +14,7 @@ branch:
 
 # menu-who
 Arca:
-	- [DEV] SKIP CONVERSATION -> lets-go
+	- SKIP CONVERSATION -> lets-go
 	- (unless asked-who) Who are you? -> who
 	- (unless asked-passage) I don't have much time... can't you just let me pass? -> passage
 	- (unless asked-kittens) I'm here to look for missing kittens... have you heard anything?  -> kittens

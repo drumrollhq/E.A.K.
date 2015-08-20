@@ -117,8 +117,8 @@ module.exports = class URLMiniGameView extends Backbone.View
 
     @url-component.set-state actual: [@url-component.state.actual.0, @url-component.state.actual.1, ...parts]
 
-  set-target-image: (img) ->
-    @react-component.set-state target-img: assets.load-asset img, \url
+  set-target-image: (img, correct = @react-component.state.correct) ->
+    @react-component.set-state {correct, target-img: assets.load-asset img, \url}
 
   step: (t) ->
     @camera.step t
