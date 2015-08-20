@@ -2,10 +2,12 @@ exports, require, module <- require.register 'minigames/urls/URLMiniGameView'
 
 require! {
   'assets'
+  'game/event-loop'
   'game/scene/Camera'
   'game/scene/Scene'
   'game/scene/WebglLayer'
   'lib/channels'
+  'lib/keys'
   'lib/math/ease'
   'minigames/urls/GraphMap'
   'minigames/urls/WalkingMap'
@@ -88,6 +90,7 @@ module.exports = class URLMiniGameView extends Backbone.View
     }), @$react-cont.0
 
     @url-component = @react-component.refs.url
+    @url-entry = @react-component.refs.url-entry
     @help = @react-component.refs.help
 
     @on \correct ~>
@@ -132,3 +135,15 @@ module.exports = class URLMiniGameView extends Backbone.View
 
     @player.width = 60 * @player.target-scale / @camera.zoom
     @player.height = 55 * @player.target-scale / @camera.zoom
+
+  start-url-entry-mode: (spec) ->
+    @player.visible = false
+    @url-component.set-state hidden: true
+    @url-entry.activate spec
+    event-loop.pause-keys!
+    keys.reset!
+
+  stop-url-entry-mode: ->
+    @player.visible = true
+    @url-entry.deactivate!
+    event-loop.resume-keys!

@@ -323,3 +323,63 @@ incorrectOpacity = 0.5
   100%
     opacity 1
     transform scale(1)
+
+/****** URLEntry ******/
+.url-entry
+  position absolute
+  left 0
+  width 100%
+  height 200px
+  max-height 30%
+
+.url-entry-box
+  barWidth = 70%
+  position absolute
+  bottom 0
+  left 50%
+  width barWidth
+  margin-left -0.5 * barWidth
+  height 54px
+  padding 0 10px
+  overflow auto
+  font-size 2em
+  line-height 1.5em
+  border-radius 5px
+  background-color rgba(white, 0.6)
+  box-shadow 0 7px 40px rgba(100, 100, 100, 0.4)
+
+.url-entry-enter
+  transition all 0.3s ease-out
+  opacity 0
+  transform scale(0.5)
+
+.url-entry-enter-active
+  opacity 1
+  transform scale(1)
+
+.url-entry-leave
+  transition all 0.3s ease-in
+  opacity 1
+  transform scale(1)
+
+.url-entry-leave-active
+  opacity 0
+  transform scale(0.5)
+
+.url-entry-box
+  input
+    position absolute
+    display block
+    height 54px
+    width calc('100% - 20px')
+    padding 0
+    background none
+    border none
+    font inherit
+    color rgba(eakFontBlack, 0.5)
+
+  .url-overlay
+    position absolute
+    pointer-events none
+    white-space pre
+    padding-right 10px
