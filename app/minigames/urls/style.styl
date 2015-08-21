@@ -5,6 +5,7 @@ sectionHeight = 54px
 urlTrans = 0.4s
 correctGreen = #27ae60
 brightCorrectGreen = #2ecc71
+errorRed = #c0392b
 
 correctOpacity = 0.8
 targetOpacity = 0.9
@@ -341,7 +342,6 @@ incorrectOpacity = 0.5
   margin-left -0.5 * barWidth
   height 54px
   padding 0 10px
-  overflow auto
   font-size 2em
   line-height 1.5em
   border-radius 5px
@@ -383,3 +383,71 @@ incorrectOpacity = 0.5
     pointer-events none
     white-space pre
     padding-right 10px
+
+.url-overlay
+  .url-segment
+    position relative
+    display inline-block
+    transition all 0.3s ease
+
+    &::before,
+    &::after
+      display inline-block
+      position absolute
+      text-align center
+      top -54px
+      left 0
+      width 100%
+      opacity 0
+      transition opacity 0.3s ease
+      text-shadow normalTextShadow
+
+    &::before
+      content '✓'
+      color correctGreen
+
+    &::after
+      content '✗'
+      color errorRed
+
+    &.error
+      color errorRed
+      &::after
+        opacity 1
+
+    &:not(.error):not(.last)
+      &::before
+        opacity 1
+
+    &:not(.error) + .type-sep:not(.error)
+      &::before
+        opacity 0
+
+    &.error + .type-sep.error
+      &::after
+        opacity 0
+
+.url-error
+  position absolute
+  top 80px
+  font-size 0.6em
+  line-height 1.5em
+  padding 10px
+  background-color rgba(white, 0.5)
+  width 50%
+  border-top 3px solid errorRed
+  opacity 0
+  transition all 0.3s ease
+
+  &.active
+    opacity 1
+
+  &::before
+    display block
+    content ' '
+    width 0
+    height 0
+    position absolute
+    border 10px solid transparent
+    border-bottom-color errorRed
+    top -23px
