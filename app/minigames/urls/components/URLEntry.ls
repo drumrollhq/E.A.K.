@@ -57,16 +57,23 @@ module.exports = URLEntry = React.create-class {
   get-initial-state: -> {
     active: false
     current-url: ''
+    show-error: false
+    error: null
   }
 
   component-will-update: (_, next-state) ->
     if @state.current-url isnt next-state.current-url
-      [@_parsed-url, @_error] = next-state.current-url
+      [@_parsed-url, error] = next-state.current-url
         |> @split-url
         |> @check-url
 
+      clear-timeout @error-timeout
+      if error
+        @error-timeout = set-timeout (~> @set-state show-error: true, error: error), 2500ms
+      else
+        @set-state show-error: false
+
   render: ->
-    error = @_error
     parts = @_parsed-url or []
 
     dom.div class-name: \url-entry,
@@ -78,19 +85,21 @@ module.exports = URLEntry = React.create-class {
               dom.span key: i, ref: part.ref, class-name: (cx \url-segment, "type-#{part.type}", part.{error, last, protocol}),
                 part.token
 
-          dom.div class-name: (cx \url-error {active: error}), ref: \error,
-            error?.error or ''
+          dom.div class-name: (cx \url-error {active: @state.show-error}), ref: \error,
+            @state.error?.error or ''
 
   component-did-update: ->
     input = @refs.input.get-DOM-node!
     overlay = @refs.overlay.get-DOM-node!
     input.style.min-width = "#{overlay.scroll-width}px"
 
-    if @has-error
-      @has-error = false
+    if @state.show-error and @refs.error-section
       error = @refs.error.get-DOM-node!
       error-section = @refs.error-section.get-DOM-node!
       error.style[transform] = "translateX(#{error-section.offset-left + error-section.offset-width/2 - 10}px)"
+
+  component-will-unmount: ->
+    clear-timeout @error-timeout
 
   activate: (validator = []) ->
     @set-state active: true
@@ -126,7 +135,7 @@ module.exports = URLEntry = React.create-class {
     parts
 
   check-url: (parts) ~>
-    var error
+    var error-part
 
     for part, i in parts
       base-validator = URLEntry.base-validator[i] or last URLEntry.base-validator
@@ -135,10 +144,11 @@ module.exports = URLEntry = React.create-class {
       error = base-validator part or validator part
       if error
         part.error = error
-        if not error
-          error = part
+        if not error-part
+          part.ref = \errorSection
+          error-part = part
 
       if i is parts.length - 1 then part.last = true
 
-    [parts, error]
+    [parts, error-part]
 }
