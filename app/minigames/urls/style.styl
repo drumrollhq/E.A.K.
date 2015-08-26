@@ -451,3 +451,25 @@ incorrectOpacity = 0.5
     border 10px solid transparent
     border-bottom-color errorRed
     top -23px
+
+.url-suggestions
+  position absolute
+  top 54px
+  font-size 0.8em
+  line-height 1.5em
+  background rgba(white, 0.5)
+  padding 10px 0
+  border-bottom-left-radius 5px
+  border-bottom-right-radius 5px
+  opacity 0
+  transition opacity 0.3s ease
+
+  &.active
+    opacity 1
+
+.url-suggestion
+  padding 0 10px
+  cursor pointer
+
+  &:hover
+    background rgba(black, 0.1)

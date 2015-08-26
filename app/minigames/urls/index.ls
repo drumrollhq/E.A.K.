@@ -28,7 +28,7 @@ module.exports = class URLMiniGame
         @frame-sub.resume!
         Promise.delay 300
       .then ~>
-        @view.start-url-entry-mode!
+        @view.start-url-entry-mode 'http://'
       # .then ~>
       #   @view.map.exit!
       #   @view.set-target-url 'http' 'bulbous-island.com' 'onions-r-us' 'pickled-onions'

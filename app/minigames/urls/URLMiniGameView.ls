@@ -7,8 +7,10 @@ require! {
   'game/scene/Scene'
   'game/scene/WebglLayer'
   'lib/channels'
+  'lib/get-at'
   'lib/keys'
   'lib/math/ease'
+  'lib/set-at'
   'minigames/urls/GraphMap'
   'minigames/urls/WalkingMap'
   'minigames/urls/Zoomer'
@@ -87,6 +89,7 @@ module.exports = class URLMiniGameView extends Backbone.View
     @react-component = React.render (React.create-element URLMinigameComponent, {
       on-correct: ~> @trigger \correct
       on-incorrect: ~> @trigger \incorrect
+      valid-urls: @get-valid-urls!
     }), @$react-cont.0
 
     @url-component = @react-component.refs.url
@@ -136,10 +139,10 @@ module.exports = class URLMiniGameView extends Backbone.View
     @player.width = 60 * @player.target-scale / @camera.zoom
     @player.height = 55 * @player.target-scale / @camera.zoom
 
-  start-url-entry-mode: (spec) ->
+  start-url-entry-mode: (start-url) ->
     @player.visible = false
     @url-component.set-state hidden: true
-    @url-entry.activate spec
+    @url-entry.activate start-url
     event-loop.pause-keys!
     keys.reset!
 
@@ -147,3 +150,23 @@ module.exports = class URLMiniGameView extends Backbone.View
     @player.visible = true
     @url-entry.deactivate!
     event-loop.resume-keys!
+
+  get-valid-urls: ->
+    urls = {}
+    for id, town of @towns
+      paths = @paths-in-town town
+      path-obj = {}
+      for path in paths => set-at path-obj, path, (get-at path-obj, path, '/' or {_path: true}), '/'
+      urls[@map.graph[id].domain] = path-obj
+
+    urls
+
+  paths-in-town: (town) ->
+    paths = []
+    for rect in town.rects when rect.4?.0 is \path
+      paths[*] = rect.4.1
+
+    for id, building of town.buildings
+      paths = paths ++ @paths-in-town building
+
+    unique paths
