@@ -78,6 +78,8 @@ module.exports = class ZoomingMap extends PIXI.Container
       .then ~>
         @active = level
         @main.visible = false
+        for id, hide-level of @sub-levels when id isnt name
+          hide-level.visible = false
 
         level.scale.x = level.scale.y = 1
         level <<< x: 0, y: 0
