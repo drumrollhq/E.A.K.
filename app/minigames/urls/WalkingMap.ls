@@ -30,7 +30,7 @@ module.exports = class WalkingMap extends PIXI.Container
         new WalkingMap @camera, @layer, @player, building <<< {width, height}
     else @buildings = {}
 
-    @zoomer = new Zoomer @camera, @player, @bg, @buildings
+    @zoomer = new Zoomer @camera, @player, @bg, @buildings, false, false
       ..on \path (...args) ~> @emit \path ...args
       ..on \zoom-in ~> @deactivate!
       ..on \zoom-out ~> @activate!

@@ -7,7 +7,7 @@ require! {
 const transition-speed = 1000ms
 
 module.exports = class ZoomingMap extends PIXI.Container
-  (@camera, @player, @main, @sub-levels, @preserve-player-position = false) ->
+  (@camera, @player, @main, @sub-levels, @preserve-player-position = false, @use-start = true) ->
     super!
     @active = @main
     @add-child @main
@@ -15,7 +15,7 @@ module.exports = class ZoomingMap extends PIXI.Container
       x: level.x
       y: level.y
       scale: level.scale.x
-      start: level.start.{x, y}
+      start: level.start.{x, y} if level.start
       width: level.full-width
       height: level.full-height
     }
@@ -58,15 +58,22 @@ module.exports = class ZoomingMap extends PIXI.Container
 
     @_player-return = @player.{x, y}
 
+    if @use-start
+      px = initial.start.x
+      py = initial.start.y
+    else
+      px = (@player.x - initial.x) / initial.scale
+      py = (@player.y - initial.y) / initial.scale
+
     @animate-player {
       scale: level.player-scale
-      x: initial.x + initial.scale * initial.start.x
-      y: initial.y + initial.scale * initial.start.y
+      x: initial.x + initial.scale * px
+      y: initial.y + initial.scale * py
     }, transition-speed
 
     @animate-sub-level-alpha level, 1, transition-speed
 
-    @camera.set-subject initial.start
+    @camera.set-subject x: px, y: py
     [tx, ty] = @camera.centered!
     tx = initial.x + initial.scale * tx
     ty = initial.y + initial.scale * ty
@@ -84,7 +91,7 @@ module.exports = class ZoomingMap extends PIXI.Container
         level.scale.x = level.scale.y = 1
         level <<< x: 0, y: 0
         level.visible = true
-        @player <<< initial.start.{x, y}
+        @player <<< x: px, y: py
 
         @camera.set-zoom 1, false
         @camera.set-subject @player
