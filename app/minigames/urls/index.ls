@@ -5,6 +5,8 @@ require! {
   'minigames/urls/URLMiniGameView'
 }
 
+const show-tutorial = false
+
 module.exports = class URLMiniGame
   ->
     _.mixin this, Backbone.Events
@@ -19,6 +21,10 @@ module.exports = class URLMiniGame
 
   start: !->
     @frame-sub = channels.frame.subscribe ({t}) ~> @on-frame t
+    unless show-tutorial
+      @create-view \junctionPhb, false
+      return
+
     Promise.delay 500
       .then ~>
         @create-view \phb, false
