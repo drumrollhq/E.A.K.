@@ -232,6 +232,16 @@ export flee = {
     [1575 0 350 525]
     [1525 0 75 125]
     [0 700 100 125 \exit]
-    [1075 250 350 300 \path:flower-power]
+    [1075 250 350 300 \enter:flower-power]
   ]
+
+  buildings:
+    flower-power:
+      map-url: '/content/bg-tiles/url-minigame/flower-power'
+      position: x: 950, y: 50
+      start: x: 456, y: 974
+      scale: 1/2
+      player-scale: 0.8
+      rects: [
+      ]
 }
