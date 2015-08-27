@@ -23,26 +23,26 @@ module.exports = class URLMiniGame
       .then ~>
         @create-view \phb, false
         @frame-sub.pause!
-      # .then -> eak.start-conversation '/minigames/urls/conversations/1-intro'
+      .then -> eak.start-conversation '/minigames/urls/conversations/1-intro'
       .then ~>
         @frame-sub.resume!
         Promise.delay 300
       .then ~>
         @view.map.exit!
-      #   @view.set-target-url 'http' 'bulbous-island.com' 'onions-r-us' 'pickled-onions'
-      #   @view.set-target-image '/minigames/urls/assets/pickled-onions.png'
-      #   wait-for-event @view.map, \arrive
-      # .then ~> @start-tutorial-onions!
-      # .then ~> eak.start-conversation '/minigames/urls/conversations/2-flowers'
-      # .then ~>
-      #   @view.set-target-url 'http' 'flee.net' 'flower-power' 'dandelions'
-      #   @view.set-target-image '/minigames/urls/assets/dandelions.png', false
-      #   @frame-sub.resume!
-      #   Promise.delay 300
-      # .then ~>
-      #   @view.map.exit!
-      #   wait-for-event @view.map, \arrive
-      # .then ~> @start-tutorial-flowers!
+        @view.set-target-url 'http' 'bulbous-island.com' 'onions-r-us' 'pickled-onions'
+        @view.set-target-image '/minigames/urls/assets/pickled-onions.png'
+        wait-for-event @view.map, \arrive
+      .then ~> @start-tutorial-onions!
+      .then ~> eak.start-conversation '/minigames/urls/conversations/2-flowers'
+      .then ~>
+        @view.set-target-url 'http' 'flee.net' 'flower-power' 'dandelions'
+        @view.set-target-image '/minigames/urls/assets/dandelions.png', false
+        @frame-sub.resume!
+        Promise.delay 300
+      .then ~>
+        @view.map.exit!
+        wait-for-event @view.map, \arrive
+      .then ~> @start-tutorial-flowers!
 
   start-tutorial-onions: ->
     var bulbous-zoom-out, onions-zoom-out
