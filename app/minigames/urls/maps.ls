@@ -1,11 +1,11 @@
 out$, require, module <- require.register 'minigames/urls/maps'
 
 export towns = {
-  bulbous: [745 190]
-  shackerton: [895 1275]
-  phb: [415 750]
-  flee: [1450 850]
-  drudshire: [965 1663]
+  bulbous: [740 212]
+  shackerton: [882 1252]
+  phb: [368 738]
+  flee: [1430 900]
+  drudshire: [1151 460]
 }
 
 export main-map = {
@@ -38,7 +38,7 @@ export main-map = {
 export bulbous = {
   map-url: '/content/bg-tiles/url-minigame/bulbous-island'
   start: x: 1000, y: 1700 #Arca start point
-  scale: 0.13
+  scale: 0.12
   rects: [
     [350 300 600 200]
     [1050 300 600 200]
@@ -100,7 +100,7 @@ export bulbous = {
 export drudshire = {
   map-url: '/content/bg-tiles/url-minigame/drudshire'
   start: x: 964, y: 1633
-  scale: 0.1
+  scale: 0.12
   rects: [
     [0 1600 925 400]
     [0 0 200 1700]
@@ -145,7 +145,7 @@ export drudshire = {
 export shackerton = {
   map-url: '/content/bg-tiles/url-minigame/shackerton'
   start: x: 1040, y: 168 #Arca start point
-  scale: 0.1
+  scale: 0.12
   rects: [
     [0 0 1000 200] #0
     [1075 0 1000 200]#1
@@ -180,7 +180,7 @@ export shackerton = {
 export phb = {
   map-url: '/content/bg-tiles/url-minigame/ponyhead-bay'
   start: x: 1835, y: 910 #Arca start point
-  scale: 0.1
+  scale: 0.12
   rects: [
     [0 0 1900 200]
     [0 0 345 875]
@@ -215,7 +215,7 @@ export phb = {
 export flee = {
   map-url: '/content/bg-tiles/url-minigame/flee'
   start: x: 106, y: 760 #Arca start point
-  scale: 0.1
+  scale: 0.12
   rects: [
     [0 0 250 725]
     [0 800 475 900]
