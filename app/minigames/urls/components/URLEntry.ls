@@ -252,10 +252,23 @@ module.exports = URLEntry = React.create-class {
 
       {word, score, longest-match}
 
-    get-at @props.valid-urls, (path or [])
+    suggestions = get-at @props.valid-urls, (path or [])
       |> keys
       |> filter ( isnt \_path )
       |> map score
       |> sort-by ( .score )
       |> reverse
+
+    top = first suggestions
+    if window.dbg_url then debugger
+    if top?
+      path = (path or []) ++ [top.word]
+
+    _path = get-at @props.valid-urls, (path or []) ._path
+    if top?.score < 3
+      _path = (take _path.length - 1, _path) ++ [undefined]
+
+    @props.on-valid-url _path
+
+    suggestions
 }

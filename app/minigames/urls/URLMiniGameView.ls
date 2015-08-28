@@ -89,6 +89,7 @@ module.exports = class URLMiniGameView extends Backbone.View
     @react-component = React.render (React.create-element URLMinigameComponent, {
       on-correct: ~> @trigger \correct
       on-incorrect: ~> @trigger \incorrect
+      on-valid-url: (url) ~> @trigger \valid-url, url
       valid-urls: @get-valid-urls!
     }), @$react-cont.0
 
@@ -143,30 +144,103 @@ module.exports = class URLMiniGameView extends Backbone.View
     @player.visible = false
     @url-component.set-state hidden: true
     @url-entry.activate start-url
+    @camera.pause-tracking!
     event-loop.pause-keys!
     keys.reset!
+    @on \valid-url, @_valid-url-handler
 
   stop-url-entry-mode: ->
     @player.visible = true
     @url-entry.deactivate!
     event-loop.resume-keys!
+    @camera.resume-tracking!
+    @off \valid-url, @_valid-url-handler
+
+  _valid-url-handler: (url = []) ->
+    if @_last-valid-url === url then return
+    @_last-valid-url = url
+
+    if not @_moving-to-valid-url
+      @move-to-url url
+
+  move-to-url: (url) ->
+    zoom = initial url
+    current-zoom = @_current-zoom or []
+    position = last url or x: width/2, y: width/2
+
+    @_moving-to-valid-url = true
+    @_current-zoom = zoom
+    [zoom-out, zoom-in] = @get-zooms current-zoom, zoom
+    @camera.locked = false
+
+    Promise
+      .each zoom-out, (lvl, i) ~>
+        if i is zoom-out.length - 1 and empty zoom-in
+          pos = position
+        else
+          pos = x: width/2, y: width/2
+
+        if window.dbg-zoom then debugger
+        @get-zoomer lvl .zoom-out pos: pos, activate: false, emit: false
+      .then ~>
+        Promise.each zoom-in, (lvl, i) ~>
+          if i is zoom-in.length - 1
+            pos = position
+          else
+            pos = x: width/2, y: height/2
+          if window.dbg-zoom then debugger
+          @get-zoomer lvl .zoom-to (last lvl), start-pos: pos, activate: false, emit: false
+      .then ~>
+        @camera.set-subject position
+        [x, y] = @camera.centered!
+        @camera.animate-to x, y, 1, 500
+      .then ~>
+        if url === @_last-valid-url
+          @_moving-to-valid-url = false
+          @camera.locked = true
+        else
+          @move-to-url @_last-valid-url
+
+  get-zooms: (current-zoom, target-zoom) ->
+    for [current, target], i in _.zip current-zoom, target-zoom
+      if current isnt target
+          current-zoom = current-zoom.map (_, i) -> take i + 1, current-zoom
+          target-zoom = target-zoom.map (_, i) -> take i + 1, target-zoom
+          zoom-out = current-zoom
+            |> drop i
+            |> reverse
+          zoom-in = target-zoom
+            |> drop i
+          return [zoom-out, zoom-in]
+
+    return [[] []]
+
+  get-zoomer: (path, zoomer = @zoomer) ->
+    | path.length is 1 => zoomer
+    | otherwise => @get-zoomer (tail path), zoomer.sub-levels[first path].zoomer
 
   get-valid-urls: ->
     urls = {}
     for id, town of @towns
-      paths = @paths-in-town town
+      paths = @paths-in-town [id], town
       path-obj = {}
-      for path in paths => set-at path-obj, path, (get-at path-obj, path, '/' or {_path: true}), '/'
+      for path, route of paths
+        set-at path-obj, path + '/_path', route, sep: '/', overwrite: false
+
       urls[@map.graph[id].domain] = path-obj
+      urls[@map.graph[id].domain]._path = [{
+        x: town.position.x + town.width / 2
+        y: town.position.y + town.height / 2
+      }]
 
     urls
 
-  paths-in-town: (town) ->
-    paths = []
+  paths-in-town: (route, town) ->
+    paths = {}
     for rect in town.rects when rect.4?.0 is \path
-      paths[*] = rect.4.1
+      paths[rect.4.1] = route ++ [x: rect.0 + rect.2 / 2, y: rect.1 + rect.3 / 2]
 
     for id, building of town.buildings
-      paths = paths ++ @paths-in-town building
+      paths = {} <<< (@paths-in-town route ++ [id], building) <<< paths
 
-    unique paths
+    paths

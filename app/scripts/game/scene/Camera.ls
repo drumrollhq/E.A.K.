@@ -91,10 +91,11 @@ module.exports = class Camera
         | \centered => @centered!
 
       p = @tween-position @target-x, @target-y, @speed
-      if @zoom <= 3 then
-        @offset-x = p.x .|. 0
-        @offset-y = p.y .|. 0
-      else [@offset-x, @offset-y] = [p.x, p.y]
+      [@offset-x, @offset-y] = [p.x, p.y]
+
+    if @zoom <= 3
+      @offset-x = @offset-x .|. 0
+      @offset-y = @offset-y .|. 0
 
   dbg: new PIXI.Graphics!
 
