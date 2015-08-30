@@ -45,6 +45,11 @@ module.exports = class Vector
 
   length: -> Math.sqrt @x * @x + @y * @y
 
+  constrain: (max-length) ->
+    length = @length!
+    if length > max-length
+      @mult-eq max-length / length
+
   angle: -> Math.atan2 @y, @x
 
   angle-to: (v) -> Math.atan2 (v.y - @y), (v.x - @x)
