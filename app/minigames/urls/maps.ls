@@ -74,7 +74,6 @@ export bulbous = {
     onions-r-us:
       map-url: '/content/bg-tiles/url-minigame/onions-r-us'
       position: x: 750, y: 50
-      start: x: 1000, y: 1400
       scale: 1/4
       player-scale: 0.8
       rects: [
