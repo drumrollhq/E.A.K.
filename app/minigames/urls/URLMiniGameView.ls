@@ -201,7 +201,7 @@ module.exports = class URLMiniGameView extends Backbone.View
         else
           @move-to-url @_last-valid-url
 
-  get-zooms: (current-zoom, target-zoom) ->
+  get-zooms: (current-zoom = [], target-zoom = []) ->
     for [current, target], i in _.zip current-zoom, target-zoom
       if current isnt target
           current-zoom = current-zoom.map (_, i) -> take i + 1, current-zoom

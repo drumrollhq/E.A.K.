@@ -5,7 +5,7 @@ require! {
   'minigames/urls/URLMiniGameView'
 }
 
-const show-tutorial = false
+const show-tutorial = true
 
 module.exports = class URLMiniGame
   ->

@@ -21,6 +21,7 @@ messages = {
   protocol-sep: 'You need a colon and two forward-slashes, like this: \'://\'.'
   multiple-slashes: 'Only one slash, please!'
   sep-default: 'Use one forward-slash \'/\' between each part of your URL.'
+  four-oh-four: '404! 404! That means this is an address to somewhere that doesn\'t exist. Try using one of the suggestions that pop up as you type.'
 }
 
 module.exports = URLEntry = React.create-class {
@@ -89,6 +90,10 @@ module.exports = URLEntry = React.create-class {
 
     @_show-suggestions = show-suggestions
 
+    show-last-error = if @state.error?
+      if @state.error.last then not @state.focused else true
+    else false
+
     dom.div class-name: \url-entry,
       React.create-element CSSTransitionGroup, transition-name: \url-entry,
         if @state.active then dom.div class-name: \url-entry-box, key: \entry-box,
@@ -102,10 +107,16 @@ module.exports = URLEntry = React.create-class {
             on-key-down: @keydown
           dom.div class-name: \url-overlay, ref: \overlay,
             for part, i in parts
-              dom.span key: i, ref: part.ref, class-name: (cx \url-segment, "type-#{part.type}", part.{error, last, protocol}),
+              err = if part.error and part.last
+                console.log part, 'part.error and part.last; show-last-error = ', show-last-error
+                console.log @state.error?.last, @state.focused
+                show-last-error
+              else
+                part.error
+              dom.span key: i, ref: part.ref, class-name: (cx \url-segment, "type-#{part.type}", part.{last, protocol}, error: err),
                 part.token
 
-          dom.div class-name: (cx \url-error {active: @state.show-error and not @_show-suggestions}), ref: \error,
+          dom.div class-name: (cx \url-error {active: @state.show-error and not @_show-suggestions and show-last-error}), ref: \error,
             @state.error?.error or ''
 
           dom.ul class-name: (cx \url-suggestions, active: show-suggestions), ref: \suggestions,
@@ -136,7 +147,7 @@ module.exports = URLEntry = React.create-class {
     if @state.show-error and @refs.error-section
       error = @refs.error.get-DOM-node!
       error-section = @refs.error-section.get-DOM-node!
-      error.style[transform] = "translateX(#{error-section.offset-left + error-section.offset-width/2 - 10}px)"
+      error.style[transform] = "translateX(#{Math.round error-section.offset-left + error-section.offset-width/2 - 10}px)"
 
     if @_show-suggestions
       suggestions = @refs.suggestions.get-DOM-node!
@@ -146,7 +157,7 @@ module.exports = URLEntry = React.create-class {
       else
         target = last-section.offset-left
 
-      suggestions.style[transform] = "translateX(#{target - 10}px)"
+      suggestions.style[transform] = "translateX(#{Math.round target - 10}px)"
 
   component-will-unmount: ->
     clear-timeout @error-timeout
@@ -173,7 +184,7 @@ module.exports = URLEntry = React.create-class {
 
   activate: (start-url) ->
     @set-state active: true, current-url: start-url
-    @validator = validator
+    # @validator = validator
 
   deactivate: ->
     @set-state active: false
@@ -209,14 +220,23 @@ module.exports = URLEntry = React.create-class {
 
     parts
 
-  check-url: (parts) ~>
+  check-url: (parts) ->
     var error-part
 
+    valid-path = []
+
     for part, i in parts
+      if part.type is \body and not part.protocol
+        valid-path[*] = part.token.to-lower-case!
+
       base-validator = URLEntry.base-validator[i] or last URLEntry.base-validator
       validator = @[]validator[i] or last @[]validator or -> null
 
       error = base-validator part or validator part
+
+      if not error and not get-at @props.valid-urls, valid-path
+        error = messages.four-oh-four
+
       if error
         part.error = error
         if not error-part
@@ -264,7 +284,7 @@ module.exports = URLEntry = React.create-class {
     if top?
       path = (path or []) ++ [top.word]
 
-    _path = get-at @props.valid-urls, (path or []) ._path
+    _path = (get-at @props.valid-urls, (path or []) or {})._path
     if top?.score < 3
       _path = (take _path.length - 1, _path) ++ [undefined]
 
