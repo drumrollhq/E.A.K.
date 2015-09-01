@@ -5,7 +5,7 @@ require! {
   'minigames/urls/URLMiniGameView'
 }
 
-const show-tutorial = false
+const show-tutorial = true
 
 module.exports = class URLMiniGame
   ->
@@ -33,6 +33,7 @@ module.exports = class URLMiniGame
       .then ~>
         @frame-sub.resume!
         Promise.delay 300
+      .then ~>
       .then ~>
         @view.map.exit!
         @view.set-target-url 'http' 'bulbous-island.com' 'onions-r-us' 'pickled-onions'

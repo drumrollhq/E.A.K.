@@ -44,10 +44,10 @@ module.exports = class ZoomingMap extends PIXI.Container
       if d is 1
         @_level-transitioning = false
 
-  zoom-to: (name) ->
+  zoom-to: (name, {start-pos = @initial-sub-levels[name].start, activate = true, emit = true} = {}) ->
     if @_zooming then return
     prevent = false
-    @emit \before-zoom-in, name, -> prevent := true
+    if emit then @emit \before-zoom-in, name, -> prevent := true
     if prevent then return
     @_zooming = true
 
@@ -59,8 +59,8 @@ module.exports = class ZoomingMap extends PIXI.Container
     @_player-return = @player.{x, y}
 
     if @use-start
-      px = initial.start.x
-      py = initial.start.y
+      px = start-pos.x
+      py = start-pos.y
     else
       px = (@player.x - initial.x) / initial.scale
       py = (@player.y - initial.y) / initial.scale
@@ -79,9 +79,10 @@ module.exports = class ZoomingMap extends PIXI.Container
     ty = initial.y + initial.scale * ty
 
     @main.deactivate! if @main.deactivate
+    @camera.animate-to tx, ty, 1/initial.scale, transition-speed
 
-    Promise.delay 1000/16
-      .then ~> @camera.animate-to tx, ty, 1/initial.scale, transition-speed
+    # Promise.delay 1000/16
+      # .then ~> @camera.animate-to tx, ty, 1/initial.scale, transition-speed
       .then ~>
         @active = level
         @main.visible = false
@@ -98,17 +99,18 @@ module.exports = class ZoomingMap extends PIXI.Container
         [tx, ty] = @camera.centered!
         @camera.set-position tx, ty, false
 
-        level.activate! if level.activate
-        level.on \exit, exit-handler = ~>
-          if @zoom-out! isnt \prevented then level.off \exit, exit-handler
-        level.on \path, @_path-handler = (...args) ~> @emit \path, ...args
+        if activate
+          level.activate! if level.activate
+          level.on \exit, exit-handler = ~>
+            if @zoom-out! isnt \prevented then level.off \exit, exit-handler
+          level.on \path, @_path-handler = (...args) ~> @emit \path, ...args
         @_zooming = false
-        @emit \zoom-in, name
+        if emit then @emit \zoom-in, name
 
-  zoom-out: ~>
+  zoom-out: ({activate = true, emit = true, pos} = {}) ~>
     if @_zooming then return
     prevent = false
-    @emit \before-zoom-out, -> prevent := true
+    if emit then @emit \before-zoom-out, -> prevent := true
     if prevent then return \prevented
     @_zooming = true
 
@@ -128,7 +130,10 @@ module.exports = class ZoomingMap extends PIXI.Container
     @player.x = initial.x + initial.scale * @player.x
     @player.y = initial.y + initial.scale * @player.y
 
-    if @preserve-player-position
+    if pos
+      px = pos.x
+      py = pos.y
+    else if @preserve-player-position
       px = @_player-return.x
       py = @_player-return.y
     else
@@ -153,10 +158,10 @@ module.exports = class ZoomingMap extends PIXI.Container
     @camera.animate-to tx, ty, 1, transition-speed
       .then ~>
         @active-name = null
-        @active.activate! if @active.activate
+        @active.activate! if @active.activate and activate
         level.visible = false
         @_zooming = false
-        @emit \zoom-out
+        if emit then @emit \zoom-out
 
   animate-player: (player-to, duration) ->
     @_player-transitioning = true

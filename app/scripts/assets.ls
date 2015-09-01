@@ -72,7 +72,7 @@ export function load-bundle bundle-name, progress
 
     .tap (bundle) ->
       for name of bundle
-        if name.match /\.js$/ then add-js asset-cache[name].default, bundle-name
+        if name.match /\.js$/ then add-js asset-cache[name].default, bundle-name, name
         if name.match /\.css$/ then add-css asset-cache[name].default, bundle-name, name
 
 export function unload-bundle bundle-name
@@ -125,7 +125,7 @@ export function debundle file
     default
       throw new TypeError "Unknown file type #{file.type}"
 
-function add-js js, bundle-name
+function add-js js, bundle-name, name
   registered-actors[bundle-name] ?= []
   registered-modules[bundle-name] ?= []
 
@@ -138,12 +138,12 @@ function add-js js, bundle-name
 
   # intercept require.register
   original-register = window.require.register
-  window.require.register = (name) ->
-    registered-modules[bundle-name][*] = name
-    console.log "[assets] Registered module #name"
+  window.require.register = (module-name) ->
+    registered-modules[bundle-name][*] = module-name
+    console.log "[assets] Registered module #module-name from #name"
     original-register.apply this, arguments
 
-  fn = new Function 'eak', js
+  fn = new Function 'eak', "#{js}\n\n//# sourceURL=#name"
   fn eak
 
   # restore eak functions

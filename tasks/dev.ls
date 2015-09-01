@@ -10,9 +10,11 @@ require! {
 karma-config = path.resolve 'karma.conf.js'
 
 gulp.task 'build' (done) ->
+  run-sequence \clean \build-files don
+
+gulp.task 'build-files' (done) ->
   scripts = if optimized then \optimized-scripts else \scripts
   run-sequence do
-    'clean'
     [scripts, \assets \entity-assets \entity-stylus \stylus \vendor \audio \fonts]
     \l10n
     \pack
@@ -20,7 +22,7 @@ gulp.task 'build' (done) ->
     done
 
 gulp.task 'dev' ->
-  run-sequence 'build', 'watch'
+  run-sequence 'build-files', 'watch'
 
 karma-server = null
 gulp.task 'watch' ['server'] ->

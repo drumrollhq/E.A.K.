@@ -4,6 +4,9 @@ module.exports = keys = {
   left: false
   right: false
   jump: false
+  reset: ~>
+    for key, value of keys when typeof value isnt \function
+      keys[key] = false
 }
 
 triggers = {

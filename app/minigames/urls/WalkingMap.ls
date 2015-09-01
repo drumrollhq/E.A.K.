@@ -4,10 +4,12 @@ require! {
   'assets'
   'game/scene/TiledSpriteContainer'
   'lib/keys'
+  'lib/math/Vector'
   'minigames/urls/Zoomer'
 }
 
-const player-speed = 0.3px
+const max-player-speed = 0.3px
+const player-accel = 0.03px
 
 const draw-rects = true
 colors = [0xFF0000 0x00FF00 0x0000FF 0x00FFFF 0xFF00FF 0xFFFF00]
@@ -21,6 +23,8 @@ module.exports = class WalkingMap extends PIXI.Container
     @full-width = width
     @full-height = height
     if player-scale then @player-scale = player-scale
+
+    @player.v ?= new Vector 0, 0
 
     @scale.x = @scale.y = scale
     if position then @position <<< position.{x, y}
@@ -58,14 +62,22 @@ module.exports = class WalkingMap extends PIXI.Container
     for _, building of @buildings => building.step t
     unless @active then return
     if keys.up
-      @player.y -= player-speed * t
+      @player.v.y -= player-accel
     else if keys.down
-      @player.y += player-speed * t
+      @player.v.y += player-accel
+    else
+      @player.v.y = 0
 
     if keys.right
-      @player.x += player-speed * t
+      @player.v.x += player-accel
     else if keys.left
-      @player.x -= player-speed * t
+      @player.v.x -= player-accel
+    else
+      @player.v.x = 0
+
+    @player.v.constrain max-player-speed
+    @player.x += @player.v.x * t
+    @player.y += @player.v.y * t
 
     if draw-rects
       @dbg.clear!
