@@ -140,6 +140,7 @@ module.exports = URLEntry = React.create-class {
 
 
   component-did-update: ->
+    unless @state.active then return
     input = @refs.input.get-DOM-node!
     overlay = @refs.overlay.get-DOM-node!
     input.style.min-width = "#{overlay.scroll-width}px"
