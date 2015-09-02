@@ -49,13 +49,33 @@ module.exports = class URLMiniGame
       .then ~>
         @view.map.exit!
         wait-for-event @view.map, \arrive
-      .then ~> @start-tutorial-flowers!
+      .then ~> @simple-tutorial \flee, 'flower-power/dandelions'
+      .then ~> eak.start-conversation '/minigames/urls/conversations/3-teeth'
+      .then ~>
+        @view.set-target-url 'http' 'drudshire.biz' 'gum-alley' 'greasy-pete'
+        # TODO @view.set-target-image
+        @frame-sub.resume!
+        Promise.delay 300
+      .then ~>
+        @view.map.exit!
+        wait-for-event @view.map, \arrive
+      .then ~> @simple-tutorial \drudshire, 'gum-alley/greasy-pete'
+      .then ~> eak.start-conversation '/minigames/urls/conversations/4-date-location'
       .then ~>
         @frame-sub.resume!
         Promise.delay 300
       .then ~>
         @view.start-url-entry-mode 'http://'
         @start-date-tutorial!
+      .then ~> eak.start-conversation '/minigames/urls/conversations/5-go-home'
+      .then ~>
+        @frame-sub.resume!
+        Promise.delay 300
+      .then ~>
+        @view.start-url-entry-mode 'http://'
+        @start-home-tutorial!
+      .then ~> eak.start-conversation '/minigames/urls/conversations/6-finish'
+      .then ~> eak.trigger-async \quit
 
   start-tutorial-onions: ->
     var bulbous-zoom-out, onions-zoom-out
@@ -108,8 +128,24 @@ module.exports = class URLMiniGame
         @frame-sub.pause!
         Promise.delay 2000
 
-  start-tutorial-flowers: ->
+  simple-tutorial: (town, target) ->
     @view.url-component.set-state hidden: false, correct: false
+    wait-for-event @view.towns[town], \path, condition: (path) -> path is target
+      .then ~> Promise.delay 2000
+      .then ~>
+        @view.set-target-url 'http' 'ponyhead-bay.com'
+        Promise.delay 1000
+      .then ~>
+        @view.url-component.set-state correct: false
+        wait-for-event @view.zoomer, \before-zoom-in, condition: (loc, prevent) ->
+          if loc is \phb
+            prevent!
+            true
+          else false
+      .then ~>
+        @view.help.deactivate!
+        @frame-sub.pause!
+        Promise.delay 2000
 
   start-date-tutorial: ->
     check-url = ~>
@@ -133,7 +169,29 @@ module.exports = class URLMiniGame
         @view.url-entry.set-state show-submit: true
         check-url!
       .then ~>
-        @view.stop-url-entry-mode \junctionShackerton
+        @view.stop-url-entry-mode \junctionPhb
+
+  start-home-tutorial: ->
+    check-url = ~>
+      wait-for-event @view, \submit-url
+        .then ([url]) ~>
+          if url.match /^https?\:\/\/ponyhead-bay.com\/park\/?$/i
+            return
+          else
+            unless url.match /^https?\:\/\/ponyhead-bay.com/i
+              @view.help.activate \phb-wrong-domain
+            else @view.help.activate \phb-wrong-path
+            check-url!
+
+    @view.url-entry.set-state show-submit: false
+    Promise.delay 500
+      .then ~>
+        wait-for-event @view, \valid-url, condition: (url) -> url.0 is \phb
+      .then ~>
+        @view.url-entry.set-state show-submit: true
+        check-url!
+      .then ~>
+        @view.stop-url-entry-mode \junctionPhb
 
   on-frame: (t) ->
     if @view then @view.step t

@@ -22,8 +22,8 @@ module.exports = class ZoomingMap extends PIXI.Container
 
     for _, sub-level of @sub-levels
       @add-child sub-level
-      #sub-level.visible = false
-      #sub-level.alpha = 0
+      sub-level.visible = false
+      sub-level.alpha = 0
 
   step: (t) ->
     if @_player-transitioning

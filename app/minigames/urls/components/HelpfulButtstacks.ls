@@ -20,6 +20,8 @@ messages = {
   type-path: '\'Ere we are! Now you just go and pick somewhere for Dusty and I to go or our hot date. I\'ll leave it up to you. Pick somewhere romantic, will ya, and press that big ol\' Go button when you\'re done.'
   shackerton-wrong-domain: 'No no no! I want somewhere in Shackerton By Sea. It\'s the city of love, you know.'
   shackerton-wrong-path: 'That\'s not quite right... You need to say where in shackeron I\'m going!'
+  phb-wrong-domain: 'Ehh, not quite. I live in Ponyhead Bay, ya see? I\'m the Mayor, you know. Take me to Ponyhead Bay please.'
+  phb-wrong-path: 'Naa, that\'s not it. I normally kip in the park. I get to keep an eye on everything that way. Take me to the park, please.'
 }
 
 module.exports = HelpfulButtstacks = React.create-class {

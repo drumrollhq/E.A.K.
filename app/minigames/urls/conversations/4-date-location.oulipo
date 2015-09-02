@@ -1,0 +1,51 @@
+Hobo: Nice work spud! Ya can’t pick onions to save yar life but y’not that bad at flowers, eh! 
+go menu
+
+#menu
+Arca: 
+	- SKIP CONVERSATION -> skip
+	-(unless said-thanks or asked-entrance) Thanks, I guess. -> thanks
+	-(unless asked-entrance) Can I get into Ponyhead Bay now? -> entrance
+	-(if said-thanks or asked-entrance) Ok... what's the last thing I need to get? -> date
+
+#thanks
+set said-thanks
+Hobo: No, thank you my friend! Ain't noone who's seen me teeth who I don't call a friend! I trust ya now, an' I need one last thing!
+
+go menu
+
+#entrance
+set asked-entrance
+branch:
+	-(if said-thanks) Hobo: Not yet. Ya need to get one last thing for me, an' then you're free to go! 
+	-(default) Hobo: Wait a minute, we're friends now! Ain't noone who's seen me teeth who I don't call a friend! I need one last thing from ya.
+ go menu
+ 
+#date
+set asked-date
+Hobo: I need ya to find a romantic place for me date tonight. Can't just take my best girl to any ol' dump. She's a real classy broom, y'know. <sigh>
+
+go menu-date
+
+#menu-date
+Arca: 
+	- (unless asked-love) Wow, you must really like her. -> love
+	- (unless asked-romance) Hmm. I'm not really an expert in romance... -> romance
+	- (unless asked-where) I'm new around here - where can I find a place like that? -> where
+
+#love
+set asked-love
+Hobo: Like her? <indignant> I love her! Every day I imagine spending the rest of my life holding her in my arms, feeling her flowing locks against my cheek and whispering sweet nothings until the end of time... <sigh>
+go menu-date
+
+#romance
+set asked-romance
+Hobo: Don't worry spud, we can't all be masters of seduction. Now don't be too hard on ya'self, I trust ya to find the right place.
+go menu-date
+
+#where
+set asked-where
+Hobo: Ah of course, forgot ya're not from aroun'here. There's always Shackerton-By-The-Sea, a sweet lil' town, with the most beautiful sunsets. Go there an' find a nice place - whatever it is, I'll take my lady there. I trust ya, my friend. 
+
+Arca:
+	- ok blah blah -> done
