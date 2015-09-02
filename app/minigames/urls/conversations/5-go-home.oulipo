@@ -1,3 +1,6 @@
+set view.characters.hobo.image = 'buttstacks'
+set view.characters.hobo.name = 'Boris J. Buttstacks'
+
 Hobo: That'll do nicely, blah blah
 exec alert("Play cutscene showing buttstacks and dusty walking off. Sign comes up saying 'some time later' or words to that effect. Buttstacks is seen running back down the road towards Arca, clearly distraught.")
 
@@ -78,4 +81,3 @@ Hobo: I've heard that there are choir sessions in Ponyhead Bay - I'm sure they w
 set asked-hmmm
 
 Hobo: It's the last one, I promise! I've heard that there are regular choir sessions in Ponyhead Bay - I'm sure they wouldn't mind a bit of yodellin'. If you find me the URL, I'll owe you one. 
-
