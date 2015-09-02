@@ -231,6 +231,33 @@ export flee = {
     [1575 0 350 525]
     [1525 0 75 125]
     [0 700 100 125 \exit]
-    [1075 250 350 300 \path:flower-power]
+    [1075 250 600 300 \enter:flower-power]
   ]
+
+  buildings:
+    flower-power:
+      map-url: '/content/bg-tiles/url-minigame/flee-market'
+      position: x: 950, y: 50
+      start: x: 456, y: 974
+      scale: 1/2
+      player-scale: 0.8
+      rects: [
+        [0 0 1200 400]
+        [350 350 850 575]
+        [0 500 250 850]
+        [350 1000 1250 350]
+        [1250 0 550 950]
+        [1150 0 150 150]
+        [200 1150 200 150 \exit]
+        [0 350 150 200 \exit]
+        [1500 900 150 200 \exit]
+        [400 800 75 150 \path:davy-cameron]
+        [475 800 60 150 \path:mushroom]
+        [535 800 50 150 \path:crystal]
+        [585 800 110 150 \path:algae]
+        [695 800 110 150 \path:little-pines]
+        [805 800 75 150 \path:dandelions]
+        [325 950 555 50 \path:flower-power]
+        [880 925 350 75 \path:trophy-stall]
+      ]
 }
