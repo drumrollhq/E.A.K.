@@ -50,6 +50,12 @@ module.exports = class URLMiniGame
         @view.map.exit!
         wait-for-event @view.map, \arrive
       .then ~> @start-tutorial-flowers!
+      .then ~>
+        @frame-sub.resume!
+        Promise.delay 300
+      .then ~>
+        @view.start-url-entry-mode 'http://'
+        @start-date-tutorial!
 
   start-tutorial-onions: ->
     var bulbous-zoom-out, onions-zoom-out
@@ -104,6 +110,30 @@ module.exports = class URLMiniGame
 
   start-tutorial-flowers: ->
     @view.url-component.set-state hidden: false, correct: false
+
+  start-date-tutorial: ->
+    check-url = ~>
+      wait-for-event @view, \submit-url
+        .then ([url]) ~>
+          if url.match /^https?\:\/\/shackerton-by-sea.com\/.+\/?$/i
+            return
+          else
+            unless url.match /^https?\:\/\/shackerton-by-sea.com/i
+              @view.help.activate \shackerton-wrong-domain
+            else @view.help.activate \shackerton-wrong-path
+            check-url!
+
+    @view.url-entry.set-state show-submit: false
+    Promise.delay 500
+      .then ~>
+        @view.help.activate \type-url
+        wait-for-event @view, \valid-url, condition: (url) -> url.0 is \shackerton
+      .then ~>
+        @view.help.activate \type-path
+        @view.url-entry.set-state show-submit: true
+        check-url!
+      .then ~>
+        @view.stop-url-entry-mode \junctionShackerton
 
   on-frame: (t) ->
     if @view then @view.step t

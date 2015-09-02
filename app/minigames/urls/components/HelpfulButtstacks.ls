@@ -16,6 +16,10 @@ messages = {
   onions-r-us: 'We\'re here! This is my favourite shop... Now try to find the pickled onions.'
   onions-zoom-out: 'Na-ah! We don\'t wanna leave till we got them pickled onions!'
   collect-onions: 'You found me onions! Beautiful. Meet me back at Ponyhead Bay.'
+  type-url: 'This is where you can type the URL for me date, just like on ya web browser. Start by typing in the domain name for the beautiful Shackerton By Sea. Make sure you include a forward slash \'/\' at the end!'
+  type-path: '\'Ere we are! Now you just go and pick somewhere for Dusty and I to go or our hot date. I\'ll leave it up to you. Pick somewhere romantic, will ya, and press that big ol\' Go button when you\'re done.'
+  shackerton-wrong-domain: 'No no no! I want somewhere in Shackerton By Sea. It\'s the city of love, you know.'
+  shackerton-wrong-path: 'That\'s not quite right... You need to say where in shackeron I\'m going!'
 }
 
 module.exports = HelpfulButtstacks = React.create-class {
@@ -26,8 +30,9 @@ module.exports = HelpfulButtstacks = React.create-class {
 
   get-initial-state: -> {
     active: false
-    message: ''
+    bottom: false
     button-label: 'OK'
+    message: ''
   }
 
   activate: (name, button-label = 'OK') -> new Promise (resolve, reject) ~>
@@ -48,7 +53,7 @@ module.exports = HelpfulButtstacks = React.create-class {
     @set-state active: false
 
   render: ->
-    dom.div class-name: (cx \helpful-buttstacks, @state.{active}),
+    dom.div class-name: (cx \helpful-buttstacks, @state.{active, bottom}),
       dom.img src: (assets.load-asset '/minigames/urls/assets/buttstacks.png', \url)
       dom.div class-name: \speech-bubble,
         @state.message

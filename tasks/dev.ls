@@ -10,7 +10,7 @@ require! {
 karma-config = path.resolve 'karma.conf.js'
 
 gulp.task 'build' (done) ->
-  run-sequence \clean \build-files don
+  run-sequence \clean \build-files done
 
 gulp.task 'build-files' (done) ->
   scripts = if optimized then \optimized-scripts else \scripts

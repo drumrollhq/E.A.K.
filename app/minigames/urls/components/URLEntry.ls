@@ -108,8 +108,6 @@ module.exports = URLEntry = React.create-class {
           dom.div class-name: \url-overlay, ref: \overlay,
             for part, i in parts
               err = if part.error and part.last
-                console.log part, 'part.error and part.last; show-last-error = ', show-last-error
-                console.log @state.error?.last, @state.focused
                 show-last-error
               else
                 part.error
@@ -138,6 +136,8 @@ module.exports = URLEntry = React.create-class {
                 for segment, i in suggestion._word
                   segment.dom key: i, segment.str
 
+          dom.button class-name: (cx 'url-submit btn', active: @state.show-submit), on-click: @submit,
+            'Go! →'
 
   component-did-update: ->
     unless @state.active then return
@@ -169,6 +169,17 @@ module.exports = URLEntry = React.create-class {
       suggestion = first @suggestions!
       if suggestion and suggestion.score > 0
         @set-last-section suggestion.word
+
+  submit: ->
+    [@_parsed-url, error] = @state.current-url
+      |> @split-url
+      |> @check-url
+
+    clear-timeout @error-timeout
+    @set-state show-error: true, error: error
+
+    if @props.on-submit and not error
+      @props.on-submit (@format-url @_parsed-url), @_parsed-url
 
   set-last-section: (section) ->
     url = [] ++ @_parsed-url

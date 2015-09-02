@@ -233,11 +233,15 @@ incorrectOpacity = 0.5
   top 0
   left 0
 
+  &.bottom
+    top initial
+    bottom -150px
+
   img
     width 200px
     transition all 0.3s ease
     display block
-    transform translate(-280px, -120px) rotate(20deg)
+    transform translate(-300px, -120px) rotate(20deg)
     transform-origin bottom
 
   .speech-bubble
@@ -473,3 +477,22 @@ incorrectOpacity = 0.5
 
   &:hover
     background rgba(black, 0.1)
+
+.url-submit
+  position absolute
+  top 0
+  right 0
+  font-size 18px
+  height 50px
+  box-shadow 0 4px #40306a
+  border-radius 25px 5px 5px 25px
+  padding 0.7em 0.9em
+  opacity 0
+  pointer-events none
+
+  &:hover
+    box-shadow 0 4px 0 #5e469b
+
+  &.active
+    opacity 1
+    pointer-events initial

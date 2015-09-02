@@ -90,6 +90,7 @@ module.exports = class URLMiniGameView extends Backbone.View
       on-correct: ~> @trigger \correct
       on-incorrect: ~> @trigger \incorrect
       on-valid-url: (url) ~> @trigger \valid-url, url
+      on-submit: (url) ~> @trigger \submit-url, url
       valid-urls: @get-valid-urls!
     }), @$react-cont.0
 
@@ -143,18 +144,28 @@ module.exports = class URLMiniGameView extends Backbone.View
   start-url-entry-mode: (start-url) ->
     @player.visible = false
     @url-component.set-state hidden: true
+    @help.set-state bottom: true
     @url-entry.activate start-url
     @camera.pause-tracking!
     event-loop.pause-keys!
     keys.reset!
     @on \valid-url, @_valid-url-handler
 
-  stop-url-entry-mode: ->
-    @player.visible = true
+  stop-url-entry-mode: (loc) ->
     @url-entry.deactivate!
-    event-loop.resume-keys!
-    @camera.resume-tracking!
+    @help.deactivate!
+    @help.set-state bottom: false
     @off \valid-url, @_valid-url-handler
+    @_last-valid-url = []
+    @move-to-url @_last-valid-url
+      .then ~>
+        @player.position <<< @map.graph[loc].position
+        @map.current-node = loc
+        @player.visible = true
+        event-loop.resume-keys!
+        @camera.resume-tracking!
+        @camera.locked = false
+        @map.activate!
 
   _valid-url-handler: (url = []) ->
     if @_last-valid-url === url then return
@@ -180,7 +191,6 @@ module.exports = class URLMiniGameView extends Backbone.View
         else
           pos = x: width/2, y: width/2
 
-        if window.dbg-zoom then debugger
         @get-zoomer lvl .zoom-out pos: pos, activate: false, emit: false
       .then ~>
         Promise.each zoom-in, (lvl, i) ~>
@@ -188,7 +198,6 @@ module.exports = class URLMiniGameView extends Backbone.View
             pos = position
           else
             pos = x: width/2, y: height/2
-          if window.dbg-zoom then debugger
           @get-zoomer lvl .zoom-to (last lvl), start-pos: pos, activate: false, emit: false
       .then ~>
         @camera.set-subject position
