@@ -5,22 +5,16 @@ require! {
   'through2'
   'child_process'
   'gulp-debug'
-  'gulp-util'
   'gulp-imagemin'
   'gulp-changed'
   'gulp-spawn'
-  'gulp-kraken'
   'gulp'
   'run-sequence'
 }
 
-kraken = if process.env.KRAKEN_KEY and process.env.KRAKEN_SECRET
-  {key: process.env.KRAKEN_KEY, secret: process.env.KRAKEN_SECRET, lossy: true}
-else false
-
 gulp.task 'imagemin' ->
   gulp.src src.images
-    .pipe if kraken then gulp-kraken kraken else gulp-imagemin!
+    .pipe gulp-imagemin!
     .pipe gulp.dest dest.images
 
 gulp.task 'assets' <[backgrounds]> ->
@@ -63,7 +57,7 @@ gulp.task 'copy-tiles' ->
 gulp.task 'min-tiles' ->
   gulp.src src.bg-tile-cache
     .pipe gulp-changed dest.bg-tile-min-cache
-    .pipe if kraken then gulp-kraken kraken else gulp-imagemin!
+    .pipe gulp-imagemin!
     .pipe gulp.dest dest.bg-tile-min-cache
 
 function blur dest
