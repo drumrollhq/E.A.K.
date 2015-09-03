@@ -39,7 +39,7 @@ gulp.task 'watch' ['server'] ->
   gulp.watch [src.locale-data, src.locale-templates, "#{src.minigames}/**/*.oulipo"], ['l10n']
   gulp.watch src.vendor, ['vendor']
   gulp.watch src.audio, ['audio']
-  gulp.watch src.created-bundles, ['bundle-sizes']
+  gulp.watch src.created-bundles, debounce-delay: 1000ms, ['bundle-sizes']
   packer.watch!
 
 gulp.task 'server' ->

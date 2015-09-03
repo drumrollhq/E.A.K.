@@ -63,7 +63,7 @@ export watch = ->
         .pipe gulp.dest path.dirname package-name
 
     console.log 'Create task' task-name
-    gulp.watch files, [task-name]
+    gulp.watch files, debounce-delay: 1000ms, [task-name]
 
 export create-bundle = ->
   through2.obj (file, enc, cb) ->
@@ -72,7 +72,7 @@ export create-bundle = ->
 
     dirname = path.join path.sep, path.dirname path.relative dest.all, file.path
     assets = for asset-path in bundle => path.resolve dirname, asset-path .replace /^[a-z]:/, ''
-    
+
     make = (name, reject) ~>
       bundle-assets assets, reject: reject
         .then (assets) ~>
