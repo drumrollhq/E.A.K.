@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mini  Cave Play</title>
+
+    <meta name="size" content="925 590">
+    <meta name="player" content="105 30">
+    <meta name="targets" content="570 123">
+    <meta name="editable" content="false">
+    <meta name="borders" content="left right bottom">
+
+    <style>
+
+    body{
+      outline: 1px magenta solid;
+
+    }
+
+    .floor {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 30px;
+      width: 100%;
+    }
+
+    .cave-side-a{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 75px;
+      width: 30px;
+    }
+    .cave-side-b{
+      position: absolute;
+      bottom: 0;
+      left: 850px;
+      height: 310px;
+      width: 75px;
+    }
+    .rock-a{
+      position: absolute;
+      bottom: 0px;
+      left: 105px;
+      height: 103px;
+      width: 135px;
+    }
+    .rock-b{
+      position: absolute;
+      bottom: 0px;
+      left: 453px;
+      height: 103px;
+      width: 45px;
+    }
+    .rock-c{
+      position: absolute;
+      bottom: 0px;
+      left: 644px;
+      height: 103px;
+      width: 85px;
+    }
+
+    .rock-d{
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 310px;
+      width: 90px;
+    }
+
+    .rock-e{
+      position: absolute;
+      top: 0;
+      left: 205px;
+      height: 164px;
+      width: 705px;
+    }
+
+    .ledge {
+        content: 'class: perspective-lighten-2-small, data-extend-top: 3';
+        font-size: 16px;
+        padding: 5px 10px;
+        display: block;
+        background: rgba(255, 255, 255, 0.1);
+        position: absolute;
+        width: 100px;
+        height: 20px;
+      }
+
+      .a {
+        bottom: 160px;
+        left: 320px;
+      }
+
+      .b{
+        bottom: 230px;
+        left: 230px;
+      }
+
+      .c{
+        bottom: 320px;
+        left: 80px;
+
+      }
+
+    div {
+      outline: 1px cyan solid;
+    }
+    </style>
+
+  </head>
+  <body>
+    <div class="floor"></div>
+    <div class="cave-side-a"></div>
+    <div class="cave-side-b"></div>
+    <div class="rock-a"></div>
+    <div class="rock-b"></div>
+    <div class="rock-c"></div>
+    <div class="rock-d"></div>
+    <div class="rock-e"></div>
+    <div class="ledge a"></div>
+    <div class="ledge b"></div>
+    <div class="ledge c"></div>
+  </body>
+</html>
