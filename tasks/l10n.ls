@@ -60,14 +60,14 @@ gulp.task 'l10n' ['l10n-data' 'bootstrap-livescript' 'minigame-oulipo'] (cb) !->
   get-context!.then (ctx) ->
     console.log 'Version:' ctx.version
     preprocess-context <<< ctx
-    oulipo-filter = gulp-filter ['**/*.oulipo']
+    oulipo-filter = gulp-filter ['**/*.oulipo'], restore: true
     gulp.src src.locale-templates
       .pipe gulp-preprocess context: preprocess-context
       .pipe localize! .on 'error' -> throw it
       .pipe oulipo-filter
       .pipe convert-oulipo!
       .pipe gulp-rename extname: '.oulipo.json'
-      .pipe oulipo-filter.restore!
+      .pipe oulipo-filter.restore
       .pipe gulp-cached 'l10n'
       .pipe gulp.dest dest.assets
       .on 'end' -> cb!

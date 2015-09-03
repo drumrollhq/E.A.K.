@@ -5,27 +5,32 @@ require! {
   'through2'
   'child_process'
   'gulp-debug'
+  'gulp-kraken'
+  'gulp-cache'
+  'gulp-filter'
   'gulp-imagemin'
   'gulp-changed'
   'gulp-spawn'
+  'gulp-util'
   'gulp'
   'run-sequence'
 }
 
-gulp.task 'imagemin' ->
-  gulp.src src.images
-    .pipe gulp-imagemin!
-    .pipe gulp.dest dest.images
+kraken = if process.env.KRAKEN_KEY and process.env.KRAKEN_SECRET
+  {key: process.env.KRAKEN_KEY, secret: process.env.KRAKEN_SECRET, lossy: true}
 
-gulp.task 'assets' <[backgrounds]> ->
-  gulp.src src.assets
+asset-task = (src-path, dest-path) -> ->
+  image-filter = gulp-filter '**/*.{png,jpg}', restore: true
+  gulp.src src-path
     .pipe gulp-changed dest.assets
-    .pipe gulp.dest './public'
+    .pipe image-filter
+    .pipe gulp-cache if kraken then gulp-kraken kraken else gulp-imagemin!
+    .pipe image-filter.restore
+    .pipe gulp.dest dest-path
 
-gulp.task 'entity-assets' ->
-  gulp.src src.entity-assets
-    .pipe gulp-changed dest.assets
-    .pipe gulp.dest dest.entities
+gulp.task 'assets' <[backgrounds]>, asset-task src.assets, './public'
+
+gulp.task 'entity-assets', asset-task src.entity-assets, dest.entities
 
 gulp.task 'fonts' ->
   gulp.src src.fonts
@@ -57,7 +62,7 @@ gulp.task 'copy-tiles' ->
 gulp.task 'min-tiles' ->
   gulp.src src.bg-tile-cache
     .pipe gulp-changed dest.bg-tile-min-cache
-    .pipe gulp-imagemin!
+    .pipe if kraken then gulp-kraken kraken else gulp-imagemin!
     .pipe gulp.dest dest.bg-tile-min-cache
 
 function blur dest
