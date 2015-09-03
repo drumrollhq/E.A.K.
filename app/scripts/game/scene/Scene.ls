@@ -9,7 +9,7 @@ module.exports = class Scene extends Backbone.View
     if @options.viewport
       @set-viewport-size @options.viewport.width, @options.viewport.height
 
-  remove: ({include-layers = false}) ->
+  remove: ({include-layers = false} = {}) ->
     if include-layers
       for layer in @_layers => layer.remove!
 

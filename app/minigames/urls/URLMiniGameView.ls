@@ -71,7 +71,9 @@ module.exports = class URLMiniGameView extends Backbone.View
     @zoomer.on \zoom-out ~> @map.exit!
 
   remove: ->
-    super!
+    @stop-listening!
+    React.unmount-component-at-node @$react-cont.0
+    @$el.empty!
     @map.destroy!
     for _, town of @towns => town.destroy!
     @zoomer.destroy!

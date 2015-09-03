@@ -25,7 +25,8 @@ module.exports = class URLMiniGame
       @create-view \junctionPhb, false
       return
 
-    Promise.delay 500
+    @_main-promise = Promise.delay 500
+      .cancellable!
       .then ~>
         @create-view \phb, false
         @frame-sub.pause!
@@ -199,4 +200,6 @@ module.exports = class URLMiniGame
   is-editable: -> false
 
   cleanup: ->
-    console.log \minigame-cleanup arguments
+    if @_main-promise then @_main-promise.cancel!
+    if @frame-sub then @frame-sub.unsubscribe!
+    @view.remove!

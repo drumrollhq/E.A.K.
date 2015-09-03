@@ -36,7 +36,7 @@ module.exports = class App
     paused: {enter: <[showOverlay]>, leave: <[hideOverlay]>}
     editing: {}
     editing-paused: {enter: <[showOverlay]>, leave: <[hideOverlay]>}
-    conversation: {}
+    conversation: {enter: <[showConversation]>, leave: <[hideConversation]>}
     conversation-paused: {enter: <[showOverlay]>, leave: <[hideOverlay]>}
 
   transitions:
@@ -64,9 +64,7 @@ module.exports = class App
       edit:
         enter-state: \editing
         callbacks: <[showEditor]>
-      conversation:
-        enter-state: \conversation
-        callbacks: <[showConversation]>
+      conversation: \conversation
       quit: \menus
 
     paused:
@@ -86,9 +84,7 @@ module.exports = class App
       quit: \menus
 
     conversation:
-      conversation-finished:
-        enter-state: \playing
-        callbacks: <[hideConversation]>
+      conversation-finished: \playing
       quit: \menus
       load: \loading
       pause: \conversationPaused
@@ -284,19 +280,16 @@ module.exports = class App
   hide-loader: ~>
     if @loader-view then @loader-view.hide!
 
-  start-conversation: (name) ~> new Promise (resolve, reject) ~>
+  start-conversation: (name) ~>
     if @current-state is \conversation
       @stop-conversation!
 
     @trigger-async 'conversation'
-    @_current-conversation = conversation.start name, $conversation-container, {
-      resolve: (val) ~>
+    @_current-conversation = conversation.start name, $conversation-container
+      .tap (val) ~> @trigger-async \conversationFinished
+      .catch (e) ~>
         @trigger-async \conversationFinished
-        resolve val
-      reject: (val) ~>
-        @trigger-async \conversationFinished
-        reject val
-    }
+        throw e
 
   stop-conversation: ~>
     @_current-conversation.stop!
