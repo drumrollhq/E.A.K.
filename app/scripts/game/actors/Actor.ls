@@ -53,6 +53,8 @@ module.exports = class Actor extends Backbone.View
       y: origin.y
       rotation: 0
       prepared: false
+      last-fall-dist: 0
+      fall-dist: 0
     }
 
     # Stop the actor from continuing to track moving platforms after it has reset
