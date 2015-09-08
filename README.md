@@ -24,7 +24,7 @@ In order to build E.A.K, you'll need to be comfortable using your computer's ter
 * [Bower](http://bower.io/#install-bower)
 * [Gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
 * [FFMPEG](https://www.ffmpeg.org/download.html)
-    - Mac users, your best bet for FFMPEG is to use [Homebrew](http://brew.sh/) and run `brew install ffmpeg --with-theora --with-libogg --with-libvorbis`
+    - Mac users, your best bet for FFMPEG is to use [Homebrew](http://brew.sh/) and run `brew install ffmpeg --with-theora --with-libogg --with-libvorbis --with-libfaac`
 * [ImageMagick](http://www.imagemagick.org/script/binary-releases.php)
     - Again, brew is the best bet for mac users
 
