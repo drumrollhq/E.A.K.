@@ -203,3 +203,4 @@ module.exports = class URLMiniGame
     if @_main-promise then @_main-promise.cancel!
     if @frame-sub then @frame-sub.unsubscribe!
     @view.remove!
+    @trigger \cleanup

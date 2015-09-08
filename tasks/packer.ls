@@ -36,7 +36,7 @@ formats = {
 export encode = (name, buffer) ->
   ext = path.extname name .to-lower-case!.replace /^\./ ''
   switch ext
-  | <[html css js]> => buffer.to-string 'utf-8'
+  | <[html css js vtt]> => buffer.to-string 'utf-8'
   | \json => type: \json, data: JSON.parse buffer.to-string 'utf-8'
   | <[png jpeg jpg gif]> => type: \image, format: formats[ext], data: buffer.to-string 'base64'
   | <[mp3 ogg]> => type: \audio, format: formats[ext], data: buffer.to-string 'base64'

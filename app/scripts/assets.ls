@@ -18,7 +18,7 @@ Promise.resolve $.get-JSON '/bundles.json'
 
 export _cache = {assets: asset-cache, loaded-bundles, registered-actors, added-css}
 
-export function load-asset name, type
+export function load-asset name, type, mime-hint
   unless asset-cache[name]
     if type is \url
       console.log "[assets] load-asset: cache MISS #name"
@@ -30,6 +30,10 @@ export function load-asset name, type
   if type?
     if cached[type]?
       return cached[type]
+    else if type is \url and cached.string
+      return cached.url = string-to-url cached.string, mime-hint
+    else if type is \url and cached.json
+      return cached.url = string-to-url (JSON.stringify cached.json), 'application/json'
     else throw new TypeError "[assets] Cannot load type #{type} for #{name}"
   else
     cached.default
@@ -107,7 +111,7 @@ export function debundle file
     case \string
       default: file.data, string: file.data
     case \json
-      default: file.data, json: file.data
+      default: file.data, json: file.data, file: file
     case \audio
       data = base64js.to-byte-array file.data
       blob = new Blob [data], type: "audio/#{file.format}"
@@ -124,6 +128,12 @@ export function debundle file
       default: url, url: url, buffer: data.buffer, image: tag
     default
       throw new TypeError "Unknown file type #{file.type}"
+
+text-encoder = new TextEncoderLite \utf-8
+function string-to-url str, mime
+  data = text-encoder.encode str
+  blob = new Blob [data], type: mime
+  URL.create-object-URL blob
 
 function add-js js, bundle-name, name
   registered-actors[bundle-name] ?= []

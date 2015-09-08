@@ -16,7 +16,7 @@ gulp.task 'vendor' ->
 
 function vendor-wrapper
   es.map (file, cb) ->
-    unless file.path.replace /\\/g '/' .match /slowparse|handlebars|stats|pixi/
+    unless file.path.replace /\\/g '/' .match /slowparse|handlebars|stats|pixi|text-encoder-lite/
       file.contents = Buffer.concat [
         new Buffer ';(function(){'
         file.contents

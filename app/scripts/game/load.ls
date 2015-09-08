@@ -10,25 +10,29 @@ if first-path in window.LANGUAGES
   prefix = "/#first-path"
 else prefix = ''
 
+progress = (app) -> (progress) ->
+  if progress then progress *= 100
+  app.loader-view.model.set \progress progress
+
 export cutscene = (name, app, options) ->
   log = logger.start \cutscene name: name
+  bundle = assets.load-bundle "#prefix/cutscenes/#name", progress app
 
-  cutscene = new CutScene {url: "#prefix/cutscenes/#name", name}
-  Promise.all [log, cutscene.load!]
+  Promise.all [log, bundle]
     .then ([event]) ->
-      cutscene
-        ..on \skip -> logger.log \skip
+      conf = assets.load-asset "#prefix/cutscenes/#name/cutscene.json"
+      conf.name = name
+      cutscene = new CutScene conf
         ..on \finish -> logger.stop event.id
+        ..on \skip -> logger.log \skip
+        ..on \cleanup -> assets.unload-bundle "#prefix/cutscenes/#name"
 
-      cutscene
+      cutscene.load!
+        .then -> cutscene
 
 export area = (name, app, options) ->
   log = logger.start \level {level: name}
-  progress = (progress) ->
-    if progress then progress *= 100
-    app.loader-view.model.set \progress progress
-
-  bundle = assets.load-bundle "#prefix/areas/#name", progress
+  bundle = assets.load-bundle "#prefix/areas/#name", progress app
 
   Promise.all [log, bundle]
     .then ([event]) ->
@@ -41,11 +45,8 @@ export area = (name, app, options) ->
 
 export minigame = (name, app, options) ->
   log = logger.start \minigame, name: name
-  progress = (progress) ->
-    if progress then progress *= 100
-    app.loader-view.model.set \progress progress
+  bundle = assets.load-bundle "minigames/#name", progress app
 
-  bundle = assets.load-bundle "minigames/#name", progress
   Promise.all [log, bundle]
     .then ([event]) ->
       MiniGame = require "minigames/#name"

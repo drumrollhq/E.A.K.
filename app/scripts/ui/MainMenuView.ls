@@ -53,7 +53,7 @@ module.exports = class MainMenuView extends Backbone.View
     @app.show-loader!
 
     user.new-game!
-      .then ~> @app.load \area \1-scrapyard
+      .then ~> @app.load \cutscene \intro
       .catch (err) ~>
         @app.error "Error starting new game: #{error-message err}"
         Promise.reject err
