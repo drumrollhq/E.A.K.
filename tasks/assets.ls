@@ -24,7 +24,7 @@ asset-task = (src-path, dest-path) -> ->
   gulp.src src-path
     .pipe gulp-changed dest.assets
     .pipe image-filter
-    .pipe gulp-cache if kraken then gulp-kraken kraken else gulp-imagemin!
+    .pipe gulp-cache gulp-imagemin!
     .pipe image-filter.restore
     .pipe gulp.dest dest-path
 
@@ -62,7 +62,7 @@ gulp.task 'copy-tiles' ->
 gulp.task 'min-tiles' ->
   gulp.src src.bg-tile-cache
     .pipe gulp-changed dest.bg-tile-min-cache
-    .pipe if kraken then gulp-kraken kraken else gulp-imagemin!
+    .pipe gulp-imagemin!
     .pipe gulp.dest dest.bg-tile-min-cache
 
 function blur dest
