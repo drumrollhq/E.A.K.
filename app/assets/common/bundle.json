@@ -1,7 +1,0 @@
-[
-  "/audio/effects/*",
-  "/content/common/**/*.*",
-  "/content/particles/*",
-  "/content/sprites/*",
-  "/entities/kitten-box/**/*.*"
-]

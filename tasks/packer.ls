@@ -6,7 +6,7 @@ require! {
   'gulp'
   'gulp-debug'
   'path'
-  'prelude-ls': {flatten, unique, pairs-to-obj, map}
+  'prelude-ls': {flatten, unique, pairs-to-obj, map, empty, split, trim, reject}
   'vinyl'
 }
 
@@ -45,14 +45,14 @@ export encode = (name, buffer) ->
 export watch = ->
   filename-to-task-id = (name) -> "pack-#{name.to-lower-case!.replace /\//g, '-' .replace /[^a-z0-9-]/g, ''}"
   files-for = (name) ->
-    file = JSON.parse fs.read-file-sync name, encoding: 'utf-8'
+    file = parse-bundle fs.read-file-sync name, encoding: 'utf-8'
 
     dirname = path.dirname path.join path.sep, path.relative dest.bundles, name
     assets = file.map (asset) -> path.join dest.bundles, (path.resolve dirname, asset .replace /^[a-z]:/, '' )
 
     assets
 
-  packages = glob.sync src.bundles, ignore: ['**/bundle.json' '**/bundled.*.json']
+  packages = glob.sync src.bundles, ignore: ['**/bundle.txt' '**/bundled.*.json']
 
   for let package-name in packages
     files = files-for package-name
@@ -67,7 +67,7 @@ export watch = ->
 
 export create-bundle = ->
   through2.obj (file, enc, cb) ->
-    bundle = JSON.parse file.contents.to-string!
+    bundle = parse-bundle file.contents.to-string!
     unless typeof! bundle is \Array then return cb!
 
     dirname = path.join path.sep, path.dirname path.relative dest.all, file.path
@@ -80,7 +80,7 @@ export create-bundle = ->
 
           p = path.parse f.path
           p.name += 'd.' + name
-          p.base = p.name + p.ext
+          p.base = p.name + '.json'
           f.path = path.format p
 
           f.contents = new Buffer JSON.stringify assets
@@ -92,17 +92,22 @@ export create-bundle = ->
 
 export bundle-assets = (assets, {encoding = 'base64', reject = -> false} = {}) ->
   Promise
-    .map assets, (f) -> glob.glob-async (path.join dest.bundles, f), ignore: ['**/bundle.json' '**/bundled.*.json']
+    .map assets, (f) -> glob.glob-async (path.join dest.bundles, f), ignore: ['**/bundle.txt' '**/bundled.*.json']
     .then flatten >> unique
     .filter (asset) ->
       fs.stat-async asset .then (stat) -> not stat.is-directory!
     .filter (asset) -> not reject asset
     .map (name) ->
       url = path.relative dest.bundles, name .replace /\\/g, '/'
-      # console.log \pack url
       fs.read-file-async name
         .then (buffer) -> ["/#url", encode url, buffer]
     .then pairs-to-obj
+
+export parse-bundle = (str) ->
+  str
+    |> split \\n
+    |> map ( .trim! )
+    |> reject empty
 
 bundle-sizes = ->
   sizes = {}

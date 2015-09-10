@@ -1,0 +1,15 @@
+*.html
+*.oulipo.json
+/audio/music/forest-glitch.*
+/audio/music/forest.*
+/audio/tutorials/intro/03-editing-text-i.*
+/content/1-scrapyard/**/*
+/content/bg-tiles/1-scrapyard.*.png
+/content/conversation/ada
+/content/conversation/arca
+/content/conversation/cecil
+/content/conversation/lao
+/entities/bananabird/**/*
+/entities/clouds/**/*
+/entities/flashing-light/**/*
+area.json

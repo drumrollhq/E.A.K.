@@ -1,0 +1,8 @@
+area.json
+*.html
+/content/2-spaceship/**/*
+/content/bg-tiles/2-spaceship.*.png
+/audio/music/space.*
+/audio/music/space-glitch.*
+/entities/space-platform/*
+/entities/rickety-space-platform/*

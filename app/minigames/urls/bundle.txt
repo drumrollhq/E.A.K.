@@ -1,0 +1,3 @@
+**/*
+/content/bg-tiles/url-minigame/**/*
+/content/conversation/buttstacks/*.png

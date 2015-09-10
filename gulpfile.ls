@@ -39,7 +39,7 @@ global.src = {
   bg-tile-cache: './gulp-cache/bg-tiles/**/*.png'
   bg-tile-min-cache: './gulp-cache/bg-tiles-min/**/*.png'
   created-bundles: 'public/**/bundled.*.json'
-  bundles: './public/**/bundle.json'
+  bundles: './public/**/bundle.txt'
   css-all: './app/styles/**/*.styl'
   css: ['./app/styles/app.styl', './app/styles/min.styl']
   entity-assets: './app/{entities,minigames}/**/*.{png,jpg,gif,json}'
