@@ -15,6 +15,7 @@ key-channels = keypress: channels.key-press, keyup: channels.key-up, keydown: ch
 
 $window = $ window
 $body = $ document.body
+$document = $ document
 
 class EventLoop
   ->
@@ -22,18 +23,22 @@ class EventLoop
     @last = window.performance.now!
     window.request-animation-frame @frame-driver
     @setup-keys!
-    @setup-window-events!
+    @setup-dom-events!
+    @_skip-frame = 0
 
   frame-driver: ~>
     now = window.performance.now!
     diff = now - @last
     @last = now
 
-    channels.pre-frame.publish-sync t: diff
-    unless @paused
-      channels.frame.publish-sync t: diff
+    if @_skip-frame > 0
+      @_skip-frame--
+    else
+      channels.pre-frame.publish-sync t: diff
+      unless @paused
+        channels.frame.publish-sync t: diff
 
-    channels.post-frame.publish-sync t: diff
+      channels.post-frame.publish-sync t: diff
 
     window.request-animation-frame @frame-driver
 
@@ -44,9 +49,12 @@ class EventLoop
         key = key-dict[e.which] or (String.from-char-code e.which .to-lower-case!)
         key-channels[e.type].publish code: e.which, key: key
 
-  setup-window-events: ~>
+  setup-dom-events: ~>
     $window .on 'resize' (e) ->
       channels.window-size.publish width: $body.width!, height: $body.height!
+
+    $document.on prefixed.visibility-change, (e) ~>
+      @_skip-frame += 5
 
   pause: ~> @paused = @paused-keys = true
   resume: ~> @paused = @paused-keys = false

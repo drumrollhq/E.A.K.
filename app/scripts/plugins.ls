@@ -20,6 +20,13 @@ window.prefixed = {
   transform: Modernizr.prefixed 'transform'
 }
 
+window.prefixed <<< switch
+  | document.hidden? => hidden: \hidden, visibility-change: \visibilitychange
+  | document.moz-hidden? => hidden: \mozHidden, visibility-change: \mozvisibilitychange
+  | document.ms-hidden? => hidden: \msHidden, visibility-change: \msvisibilitychange
+  | document.webkit-hidden? => hidden: \webkitHidden, visibility-change: \webkitvisibilitychange
+  | otherwise => hidden: false, visibility-change: false
+
 window.animation-end = {
   'WebkitAnimation': 'webkitAnimationEnd'
   'MozAnimation': 'animationend'
