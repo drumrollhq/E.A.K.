@@ -42,7 +42,7 @@ global.src = {
   bundles: './public/**/bundle.txt'
   css-all: './app/styles/**/*.styl'
   css: ['./app/styles/app.styl', './app/styles/min.styl']
-  entity-assets: './app/{entities,minigames}/**/*.{png,jpg,gif,json}'
+  entity-assets: './app/{entities,minigames}/**/*.{png,jpg,gif,json,txt}'
   entity-scripts: './app/{entities,minigames}/**/*.ls'
   entity-styles: './app/{entities,minigames}/**/*.styl'
   fonts: './bower_components/font-awesome/fonts/*'
