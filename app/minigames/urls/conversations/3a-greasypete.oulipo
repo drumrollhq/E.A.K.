@@ -61,7 +61,7 @@ Arca:
 
 # teeth
 set asked-teeth
-GreasyPete: Ah yes, I 'ave his precious pearly whites in my safe. Now. Before I hand 'em over, can I interest ya in some unicorn belly button fluff? Rub it against your face, and you'll be able to fly in your dreams - only 99 blipcoins! Or 'ow about some rainbow body mist? Everyone will think it's your birthday, till it wears off! Only 79 blipcoins! What a bargain, eh? 
+GreasyPete: Ah yes, I 'ave his precious pearly whites in my safe. Now. Before I hand 'em over, can I interest ya in a real bargain? Unicorn belly button fluff - only 99 blipcoins! Rub it against your face, and you'll be able to fly in your dreams! This stuff's sellin' like Momma's jpeg pie. 
 go menu-get-teeth
 
 # kittens
@@ -71,7 +71,7 @@ go menu
 
 # care
 set asked-care
-GreasyPete: I 'ad a pet chicken once called Cheepy chick. She followed me everywhere, sweet lil thing. I used to feed her an' everything. My family used to say it weren't natural an' that chickens were for eatin'. One day I came back and Cheepy chick was gone. Now I don't care about no-one.
+GreasyPete: I 'ad a pet chicken once called Cheepy chick...she followed me everywhere, sweet lil thing. I used to feed her an' everything. My family used to say it weren't natural an' that chickens were for eatin'. One day I came back and Cheepy chick was gone. Now I don't care about no-one.
 go menu
 
 # menu-get-teeth
