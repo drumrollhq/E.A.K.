@@ -1,5 +1,5 @@
 module.exports = class Actor extends Backbone.View
-  @from-el = ($el, args, offset) -> new Actor el: $el.0, args: args, offset: offset
+  @from-el = ($el, args, offset, store, area-view) -> new this {el: $el.0, args, offset, store, area-view}
 
   mapper-ignore: true
 
@@ -7,6 +7,8 @@ module.exports = class Actor extends Backbone.View
     @subs = []
     @start = start
     @args = start.args if start.args
+    @store = start.store if start.store
+    @area-view = start.area-view if start.area-view
     @origin = start.{x, y}
     @offset = start.offset or {x: 0, y: 0}
     @store = start.store

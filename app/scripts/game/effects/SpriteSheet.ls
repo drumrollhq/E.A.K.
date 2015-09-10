@@ -4,13 +4,6 @@ require! {
   'lib/parse'
 }
 
-split-texture = (texture, frames) ->
-  width = texture.width / frames
-
-  for i til frames
-    rect = new PIXI.Rectangle width * i, 0, width, texture.height
-    new PIXI.Texture texture, rect
-
 module.exports = class SpriteSheet extends PIXI.extras.MovieClip
   @from-el = (el, offset-x, offset-y) ->
     $el = $ el
@@ -59,6 +52,7 @@ module.exports = class SpriteSheet extends PIXI.extras.MovieClip
   (url, @_initial-width, @_initial-height, @_x, @_y, options = {}) ->
     _.mixin this, Backbone.Events
     @options = _.defaults options, SpriteSheet::defaults
+    @_url = url
     p = if typeof! url is \Array
       Promise
         .map url, @_load-frames
@@ -118,9 +112,14 @@ module.exports = class SpriteSheet extends PIXI.extras.MovieClip
     @_sub = channels.frame.subscribe ({t}) ~> @update t / 16.666
 
   on-complete: ->
+    prevent-continue = false
+    @trigger \complete, -> prevent-continue := true
     @_loop-count++
+    if prevent-continue then return
     unless @options.loop-times > 0 and @_loop-count >= @options.loop-times
-      @delay!.then ~> @goto-and-play @options.start-frame
+      @delay!.then ~>
+        @trigger \restart
+        @goto-and-play @options.start-frame
 
   delay: ->
     delay = @options.delay or 0
@@ -129,10 +128,12 @@ module.exports = class SpriteSheet extends PIXI.extras.MovieClip
     return Promise.delay (min + Math.random! * (max - min)) * 1000
 
   update: (dt) ->
+    @_stopped = false
     unless @playing then return
     super dt
 
   stop: ->
+    @_stopped = true
     @playing = false
 
   play: ->

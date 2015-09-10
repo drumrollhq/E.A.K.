@@ -6,3 +6,4 @@ area.json
 /audio/music/space-glitch.*
 /entities/space-platform/*
 /entities/rickety-space-platform/*
+/entities/tarquin-spaceship/**/*
