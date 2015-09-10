@@ -1,0 +1,102 @@
+Hobo: Good job with the dandelions! She'll love 'em. Now I need ya to go on a very special mission... I need ya to get me my false teeth. I only wear 'em on special occasions ya see - can't risk no-one stealin' 'em! Ya gotta get them from a fella called Greasy Pete - we're friends, so he'll trust ya. Here's the address..
+
+GreasyPete: Blasted Salamanders! Whaddaya want? 'Ow did you find me? I ain't done nothin'!
+
+go menu
+
+# menu
+branch:
+	- (if asked-why) go menu-get-teeth
+	- (if asked-who) go menu-why
+	- (if asked-how) go menu-who
+	- (default) go menu-how
+	
+# menu-how
+Arca:
+	- Ok... Mayor Boris J Buttstacks gave me your address. He said that the two of your are friends. -> how
+	- (unless asked-hide) Are you trying to hide from someone? -> hide
+	- (unless asked-salamander) What's wrong with salamanders? -> salamander
+	
+# how
+set asked-how
+GreasyPete: That old hippo! Always askin' for strange things... last time it was bottled drool of porcupine, for a love potion. Very odd I thought, very odd indeed. Who are ya anyways? I ain't seen the likes of you 'ere before. 
+go menu
+
+# hide
+set asked-hide
+GreasyPete: What? No! Well, maybe. But that's none of your business. 
+go menu
+
+#salamander
+set asked-salamander
+GreasyPete: I've 'ad enough of shifty salamanders claiming to be the Great InterNewt and wanting me to buy their limbs. Disgraceful! Ain't no market for 'em anyway.
+go menu
+	
+# menu-who
+Arca: 
+	- I'm helping Buttstacks with some tasks, then I'm carrying on with my mission to save the missing kittens. Have you heard anything about them? -> who 
+	- (unless asked-potion) Did the potion work? -> potion
+	- (unless asked-scrapyard) My name's Arca. I'm from the scrapyard... I used to have a family there, and a house and a tree. -> scrapyard
+
+# who
+set asked-who
+GreasyPete: Nope. Don't know nothin' about no-one, an I don't care neither. What does ol' Buttstacks want this time?
+go menu
+
+# potion
+set asked-potion
+GreasyPete: Dunno. I think he needs more than just a potion though, if ya know what I mean.
+go menu
+
+# scrapyard
+set asked-scrapyard
+GreasyPete: Ha! There are lots of scrapyards. Although yours doesn't sound too bad.
+go menu
+
+# menu-why
+Arca:
+	-  Ok. Buttstacks wants his false teeth, he said that you were keeping them for him. -> teeth
+	- (unless asked-kittens) Please tell me, if you know anything about the kittens - anything at all. The ones who were my only family have disappeared as well, I miss them so much. I left my home to look for them. -> kittens
+	- (unless asked-care) Do you really not care about anyone? That's so sad. -> care
+
+# teeth
+set asked-teeth
+GreasyPete: Ah yes, I 'ave his precious pearly whites in my safe. Now. Before I hand 'em over, can I interest ya in some unicorn belly button fluff? Rub it against your face, and you'll be able to fly in your dreams - only 99 blipcoins! Or 'ow about some rainbow body mist? Everyone will think it's your birthday, till it wears off! Only 79 blipcoins! What a bargain, eh? 
+go menu-get-teeth
+
+# kittens
+set asked-kittens
+GreasyPete: Well.. that's a cryin' shame, that is. I know nuffink about missing kittens, just things that creatures search high and low to find. 
+go menu
+
+# care
+set asked-care
+GreasyPete: I 'ad a pet chicken once called Cheepy chick. She followed me everywhere, sweet lil thing. I used to feed her an' everything. My family used to say it weren't natural an' that chickens were for eatin'. One day I came back and Cheepy chick was gone. Now I don't care about no-one.
+go menu
+
+# menu-get-teeth
+Arca:
+	- Thanks Greasy Pete. I'll just take the teeth for now. -> thanks
+	- (unless asked-blipcoins) They sound amazing, but I don't have any blipcoins. -> blipcoins
+	- (unless asked-birthday) Hmmm...what's a birthday? -> birthday
+go menu
+
+# thanks
+set asked-thanks
+GreasyPete: Oh, alright then. Here ya're. Remember - we never met.
+go menu-get-teeth
+
+# blipcoins
+set asked-blipcoins
+GreasyPete: What? No blipcoins?! Blipcoins make the web go round.  
+go menu-get-teeth
+
+# birthday
+set asked-blipcoins
+GreasyPete: You really are from a scrapyard, ain't ya? The day that you're fully uploaded - that's your birthday. I'm a Prancing Pony apparently, although I don't really believe in Cloud Signs.
+go menu-get-teeth
+
+
+
+		
+	
