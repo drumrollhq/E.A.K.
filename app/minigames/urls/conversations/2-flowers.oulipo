@@ -20,7 +20,7 @@ Arca:
 
 # what-else
 set asked-what-else
-Hobo: Well as y’know I’m a bit of a celebrity, bein’ the mayor an’all… what can I say, it brings success with th’ladies! I got a date tonight with my best girl, an’ I wan’it t’be perfect. So imma need flowers. To woo her, get it? Dames love flowers. That and clocks.
+Hobo: Well as y’know I’m a bit of a celebrity, bein’ the mayor an’all...what can I say, it brings success with th'ladies! I got a date tonight with my best girl, an’ I wan'it to be perfect. So imma need some flowers. To woo her, get it? Dames love flowers. That and clocks.
 go menu
 
 # which-onions
@@ -54,8 +54,18 @@ Arca:
 	- (unless asked-love) I'm sure she'll love them -> love
 	- (unless asked-careful) Ok... I'll be very careful -> careful
 
+# careful
+set asked-careful
+Hobo: Good. I want 'er to swoon at the sight of me holdin' 'em.
+go menu
+	
+# love
+set asked-love
+Hobo: O'course she will. Much more subtle than poxy roses. 
+go menu
+
 # where
 set asked-where
-Hobo: Here's where you can get em'...
+Hobo: Flee Market - here's the URL so you can find it.
 go menu
 

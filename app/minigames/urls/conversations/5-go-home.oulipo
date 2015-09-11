@@ -31,9 +31,9 @@ Arca:
 
 #arca-where
 Arca:
-  - (unless asked-how) Ok... how do I do that? -> hobo-how
-  - (unless asked-how) Yodelling sounds like a great idea, but I'm not sure where to start looking. -> hobo-how
-  - (unless asked-hmm) Hmmm. I think you should find someone else to help you - I really need to go and save the kittens. -> hobo-hmm
+  - Ok... what do I need to do? -> hobo-how
+  - (unless asked-hmm) I think you should find someone else to help you - I really need to go and save the kittens. -> hobo-hmm
+
 
 [--------Hobo's responses-------------]
 #hobo-mop
@@ -45,7 +45,7 @@ go arca-talk
 #hobo-what
 set asked-what
 
-Hobo: I tol' her all my secrets, tol' her she was the one. And then she goes an' tells me she needs space. Space! I am Mayor Boris J Buttstack. And I ain't gonna let some fancy squeegee treat me like dirt. 
+Hobo: I tol' her all my secrets, tol' her she was the one. And then she goes an' tells me she needs space. Space! I am Mayor Boris J Buttstacks. And I ain't gonna let some fancy squeegee treat me like dirt. 
 go arca-talk
 
 #hobo-cupboard
@@ -57,29 +57,29 @@ go arca-talk
 #hobo-forget
 set asked-forget
 
-Hobo: Newt's head on a stick! I'm. The. Mayor. I can't go takin' holidays. Imma gonna take up yodellin' instead, to try an' sing the pain away. Can ya help me finda yodellin' class? 
+Hobo: Newt's head on a stick! I'm. The. Mayor. I can't go takin' holidays. My brain is clouded with sadness and betrayal...can ya help me get back home?
 go arca-where
 
 #hobo-hoover
 set asked-hoover
 
-Hobo: Whaaat?! I'd never cheat on Dusty with a hoover! I could try yodelling... she used to love it when I sang sweet nothings in her ear <loud sniff>. There must be a yodellin' class somewhere in the Internet Universe... can ya help me find one?
+Hobo: Whaaat?! I'd never cheat on Dusty with a hoover! I could try yodelling... she used to love it when I sang sweet nothings in her ear... Can ya take me back to my park, please? 
 go arca-where
 
 #hobo-talk
 set asked-talk
 
-Hobo: Hmph. Talkin' to kittens sounds pretty crazy t'me. Besides, my heart feels like it's been smashed into a trillion pieces - the only thing that can help me now is yodellin'. Maybe there are group sessions somewhere. Can ya help me finda yodellin' class? 
+Hobo: Hmph. Talkin' to kittens sounds pretty crazy t'me. Besides, my heart feels like it's been smashed into a trillion pieces an' I can't think straight. Can ya take me home please?
 go arca-where
 
 #hobo-how
 set asked-how
 
-Hobo: I've heard that there are choir sessions in Ponyhead Bay - I'm sure they wouldn't mind a bit of yodellin'. Please help me spud... find me the URL, and I'll owe you one.
+Hobo: I live in a park with a park bench - tha's all I can tell ya right now. It hurts! It hurts so bad... Oh Dusty, how could you do this to me? Please help me find my way home...
+go arca-where
 
-#hobo-hmmm
-set asked-hmmm
+#hobo-hmm
+set asked-hmm
 
-Hobo: It's the last one, I promise! I've heard that there are regular choir sessions in Ponyhead Bay - I'm sure they wouldn't mind a bit of yodellin'. If you find me the URL, I'll owe you one.
-
-go wherever
+Hobo: Please spud, I need help! No more tasks after this, I promise.
+go arca-where
