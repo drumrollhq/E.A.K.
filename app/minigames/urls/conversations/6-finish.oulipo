@@ -1,6 +1,26 @@
 set view.characters.hobo.image = 'buttstacks'
 set view.characters.hobo.name = 'Boris J. Buttstacks'
 
-Hobo: Thanks, blah blah, round up
+Hobo: Thanks for 'elping me with all them things spud... you're a good friend. Imma gonna let ya into Ponyhead Bay now - good luck with findin' them kittens. 
+go menu
+
+# menu
 Arca:
-	- Bye -> finish
+	- Thanks Buttstacks. Forget about Dusty - she wasn't good enough for you. -> dusty
+	- (unless asked-learnt) I'll find them! What I learnt from you might help me along the way. -> learnt
+	- (unless asked-yodelling) Thanks. You should really take up yodelling you know, hobbies always make you feel better. -> yodelling
+
+# yodelling
+set asked-yodelling
+Hobo: My mum tells me I 'ave a voice like a nightingale... shouldn't waste that talent, I suppose. 
+go finish
+
+# learnt
+set asked-learnt 
+Hobo: Well, tha's nice! No-one's ever tol' me they've learned anything from me... dunno why. So long, spud.
+go finish
+
+#dusty
+set asked-dusty
+Hobo: Ya know what, you're right! I deserve someone who isn't so cold and wooden. See ya later - I'm off to find myself a new gal.
+go finish
