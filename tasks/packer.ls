@@ -19,10 +19,12 @@ gulp.task 'pack' ->
     .pipe gulp-debug {title: \packaged}
     .pipe gulp.dest dest.bundles
 
-gulp.task 'bundle-sizes' ->
+gulp.task 'bundle-sizes' (done) ->
+  <- set-timeout _, 500
   gulp.src src.created-bundles, read: false
     .pipe bundle-sizes!
     .pipe gulp.dest dest.all
+    .on 'end', done
 
 formats = {
   ogg: \ogg
@@ -57,10 +59,12 @@ export watch = ->
   for let package-name in packages
     files = files-for package-name
     task-name = filename-to-task-id package-name
-    gulp.task task-name, ->
+    gulp.task task-name, (done) ->
+      <- set-timeout _, 500
       gulp.src package-name
         .pipe create-bundle!
         .pipe gulp.dest path.dirname package-name
+        .on \end, done
 
     console.log 'Create task' task-name
     gulp.watch files, debounce-delay: 1000ms, [task-name]
