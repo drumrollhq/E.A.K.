@@ -1,3 +1,4 @@
+set view.characters.greasypete.name = 'Greasy Pete'
 
 GreasyPete: Blasted Salamanders! Whaddaya want? How d'ya find me? I ain't done nothin'!
 
@@ -70,28 +71,27 @@ go menu
 
 # care
 set asked-care
-GreasyPete: I 'ad a pet chicken once called Cheepy chick... she followed me everywhere, sweet lil thing. I used to feed her an' everything. My family used to say it weren't natural an' that chickens were for eatin'. One day I came back and Cheepy chick was gone. Now I don't care about no-one.
+GreasyPete: I 'ad a pet chicken once called Cheepy chick... She followed me everywhere, sweet lil thing. I used to feed her an' everything. My family used to say it weren't natural an' that chickens were for eatin'. One day I came back and Cheepy chick was gone. Now I don't care about no-one.
 go menu
 
 # menu-get-teeth
 Arca:
 	- Thanks Greasy Pete. I'll just take the teeth for now. -> thanks
 	- (unless asked-blipcoins) They sound amazing, but I don't have any blipcoins. -> blipcoins
-	- (unless asked-birthday) How do you find unicorn belly button fluff? -> birthday
-go menu
+	- (unless asked-unicorn) How do you find unicorn belly button fluff? -> unicorn
 
 # thanks
 set asked-thanks
 GreasyPete: Oh, alright then. Here ya're. Remember - we never met.
-go menu-get-teeth
+go finish
 
 # blipcoins
 set asked-blipcoins
 GreasyPete: What? No blipcoins?! Blipcoins make the web go round.  
 go menu-get-teeth
 
-# birthday
-set asked-blipcoins
+# unicorn
+set asked-unicorn
 GreasyPete: Ha! Whaddaya think this is, pal? If I tell ya I'd 'ave to kill ya. 
 go menu-get-teeth
 

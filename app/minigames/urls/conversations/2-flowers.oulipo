@@ -20,7 +20,7 @@ Arca:
 
 # what-else
 set asked-what-else
-Hobo: Well as y’know I’m a bit of a celebrity, bein’ the mayor an’all... What can I say, it brings success with th'ladies! I got a date tonight with my best girl, an’ I wan'it to be perfect. So imma need some flowers. To woo her, get it? Dames love flowers. That and clocks.
+Hobo: Well as y’know I’m a bit of a celebrity, bein’ the mayor an’all... What can I say, it brings success with th'ladies! I got a date tonight with my best girl, an’ I wan' it to be perfect. So imma need some flowers. To woo her, get it? Dames love flowers. That and clocks.
 go menu
 
 # which-onions
@@ -66,6 +66,7 @@ go menu
 
 # where
 set asked-where
-Hobo: The flower stall in Flee Market should have 'em - here's another URL so you can find them.
-go menu
+Hobo: The flower stall in Flee Market - here's another URL so you can find 'em.
+continue
+
 

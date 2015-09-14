@@ -3,8 +3,8 @@ set view.characters.hobo.name = 'Boris J. Buttstacks'
 
 exec alert("Play cutscene showing buttstacks and dusty walking off. Sign comes up saying 'some time later' or words to that effect. Buttstacks is seen running back down the road towards Arca, clearly distraught.")
 
-Hobo: The date's off! Dusty broke up with me! How could she do this to me?
 
+Hobo: The date's off! Dusty broke up with me! How could she do this to me?
 go menu
 
 [--------------top menu--------------]
@@ -17,7 +17,6 @@ branch:
 [--------Arca's responses------------]
 #arca-cupboard
 Arca:
-	- SKIP CONVERSATION -> skip
 	- (unless asked-mop) Good question. I mean... she is a mop. -> hobo-mop
 	- (unless asked-what) Oh no... what happened? -> hobo-what
 	- (unless asked-cupboard) Don't be sad Boris... there are plenty of other mops in the cupboard -> hobo-cupboard
@@ -56,7 +55,7 @@ go arca-talk
 #hobo-forget
 set asked-forget
 
-Hobo: Newt's head on a stick! I'm. The. Mayor. I can't go takin' holidays. My brain is clouded with sadness and betrayal...can ya help me get back home?
+Hobo: Newt's head on a stick! I'm. The. Mayor. I can't go takin' holidays. My brain is clouded with sadness and betrayal... can ya help me get back home?
 go arca-where
 
 #hobo-hoover
@@ -75,7 +74,7 @@ go arca-where
 set asked-how
 
 Hobo: I live in a park with a park bench - tha's all I can tell ya right now. It hurts! It hurts so bad... Oh Dusty, how could you do this to me? Please help me find my way home...
-go arca-where
+go finish
 
 #hobo-hmm
 set asked-hmm
