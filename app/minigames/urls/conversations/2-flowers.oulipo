@@ -13,14 +13,13 @@ branch:
 
 # menu-what-else
 Arca:
-	- SKIP CONVERSATION -> skip
 	- Ok... so is there anything else do you need me to get? -> what-else
 	- (unless asked-which-onions) Huh? Which pickled onions did you want? -> which-onions
 	- (unless onions-are-onions) A pickled onion is a pickled onion, Buttstacks -> onions-are-onions
 
 # what-else
 set asked-what-else
-Hobo: Well as y’know I’m a bit of a celebrity, bein’ the mayor an’all...what can I say, it brings success with th'ladies! I got a date tonight with my best girl, an’ I wan'it to be perfect. So imma need some flowers. To woo her, get it? Dames love flowers. That and clocks.
+Hobo: Well as y’know I’m a bit of a celebrity, bein’ the mayor an’all... What can I say, it brings success with th' ladies! I got a date tonight with my best girl, an’ I wan' it to be perfect. So imma need some flowers. To woo her, get it? Dames love flowers. That and clocks.
 go menu
 
 # which-onions
@@ -66,6 +65,6 @@ go menu
 
 # where
 set asked-where
-Hobo: Flee Market - here's the URL so you can find it.
-go menu
+Hobo: The flower stall in Flee should have em. I'll give ya another URL for you to go find em.
+continue
 

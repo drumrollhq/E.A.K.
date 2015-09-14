@@ -1,3 +1,5 @@
+set view.characters.greasypete.name = 'Greasy Pete'
+
 Hobo: Good job with the dandelions! She'll love 'em. Now I need ya to go on a very special mission... I need ya to get me my false teeth. I only wear 'em on special occasions ya see - can't risk no-one stealin' 'em! Ya gotta get them from a fella called Greasy Pete - we're friends, so he'll trust ya. Here's the address..
 
 GreasyPete: Blasted Salamanders! Whaddaya want? 'Ow did you find me? I ain't done nothin'!
@@ -71,20 +73,20 @@ go menu
 
 # care
 set asked-care
-GreasyPete: I 'ad a pet chicken once called Cheepy chick...she followed me everywhere, sweet lil thing. I used to feed her an' everything. My family used to say it weren't natural an' that chickens were for eatin'. One day I came back and Cheepy chick was gone. Now I don't care about no-one.
+GreasyPete: I 'ad a pet chicken once called Cheepy chick... She followed me everywhere, sweet lil thing. I used to feed her an' everything. My family used to say it weren't natural an' that chickens were for eatin'. One day I came back and Cheepy chick was gone. Now I don't care about no-one.
 go menu
 
 # menu-get-teeth
 Arca:
 	- Thanks Greasy Pete. I'll just take the teeth for now. -> thanks
 	- (unless asked-blipcoins) They sound amazing, but I don't have any blipcoins. -> blipcoins
-	- (unless asked-birthday) Hmmm...what's a birthday? -> birthday
+	- (unless asked-birthday) Hmmm... What's a birthday? -> birthday
 go menu
 
 # thanks
 set asked-thanks
 GreasyPete: Oh, alright then. Here ya're. Remember - we never met.
-go menu-get-teeth
+go finish
 
 # blipcoins
 set asked-blipcoins

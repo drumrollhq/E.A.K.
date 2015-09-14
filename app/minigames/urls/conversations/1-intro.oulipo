@@ -14,7 +14,6 @@ branch:
 
 # menu-who
 Arca:
-	- SKIP CONVERSATION -> lets-go
 	- (unless asked-who) Who are you? -> who
 	- (unless asked-passage) I don't have much time... can't you just let me pass? -> passage
 	- (unless asked-kittens) I'm here to look for missing kittens... have you heard anything?  -> kittens
@@ -51,7 +50,7 @@ go menu
 # passage
 set asked-passage
 branch:
-	- (if told-mayor) Hobo: Nah-ah. This is my town. As I might'av' mentioned, I'm th'mayor. Completely legit. D'ya get it? I rule it here. And it ain't the first kid wantin' to visit that can get in just like that.
+	- (if told-mayor) Hobo: Nah-ah. This is my town. As I might 'ave mentioned, I'm th'mayor. Completely legit. D'ya get it? I rule it here. And it ain't the first kid wantin' to visit that can get in just like that.
 	- (default) Hobo: Nah-ah. This is my town. I'm th'mayor. Completely legit. D'ya get it? I rule it here. And it ain't the first kid wantin' to visit that can get in just like that.
 		set told-mayor
 go menu
@@ -95,7 +94,7 @@ go menu
 
 # onions
 set asked-onions
-Hobo: Well see, I'm a big fan o' pickled onions. Could eat a thousand an' beg fo'more. Ya gonna need to go to Bulbous Island and get me a big'ol'jar of pickled onions, if ya please. I've written down the address, and ya gonna have to follow it. I'll help you out with this one, but after that you're on your own!
+Hobo: Well see, I'm a big fan o' pickled onions. Could eat a thousand an' beg fo'more. Ya gonna need to go to Bulbous Island and get me a big ol' jar of pickled onions, if ya please. I've written down the address, and ya gonna have to follow it. I'll help you out with this one, but after that you're on your own!
 
 go menu
 

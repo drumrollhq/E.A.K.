@@ -36,7 +36,7 @@ Arca:
 
 #love
 set asked-love
-Hobo: Like her? <indignant> I love her! Every day I imagine holding her in my arms, feeling her flowing locks against my cheek and whispering sweet nothings until the end of time...
+Hobo: Like her? I love her! Every day I imagine holding her in my arms, feeling her flowing locks against my cheek and whispering sweet nothings until the end of time...
 go menu-date
 
 #romance
@@ -46,7 +46,7 @@ go menu-date
 
 #where
 set asked-where
-Hobo: Ah of course, forgot ya're not from aroun'here. There's always Shackerton-By-The-Sea, a sweet lil' town, with the prettiest night sky. Go there an' find a nice spot for me an' my lady friend. I trust ya.
+Hobo: Ah of course, forgot ya not from aroun'here. There's always Shackerton-By-The-Sea, a sweet lil' town, with the prettiest night sky. Go there an' find a nice spot for me an' my lady friend. I trust ya.
 go menu-how
 
 #menu-how
@@ -57,7 +57,7 @@ Arca:
 
 #how
 set asked-how
-Hobo: I'll show ya now! Oooh...I'm tingling all over with excitement.
+Hobo: I'll show ya now! Oooh... I'm tingling all over with excitement.
 go finish
 
 #adventure
