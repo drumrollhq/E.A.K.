@@ -1,6 +1,32 @@
 set view.characters.hobo.image = 'buttstacks'
 set view.characters.hobo.name = 'Boris J. Buttstacks'
 
-Hobo: Get my teeth please
+Hobo: Good job with the dandelions! Next, I need ya to go on a special mission... ya need to get me my false teeth. I only wear 'em on occasions - can't risk no-one stealin' 'em!
+go menu
+
+# menu
 Arca:
-	- Ok -> done
+	- How do you eat, the rest of the time? -> how
+	- (unless asked-steal) Why would anyone steal your teeth? Gross! -> steal
+	- (unless asked-who) Okay... who do I need to get them from? -> who
+
+# how
+set asked-how
+Hobo: I have very strong gums. 
+go menu
+
+# steal
+set asked-steal
+Hobo: What ya talkin' about? They're my prized possession, made of whale tusk and aluminium. Anyone would be lucky t'have my teeth in their mouths!
+go menu
+
+# who
+set asked-who
+Hobo: From a fella called Greasy Pete. Some say he's a little bit dodgy, but I reckon he's as soft as a marshmallow, deep down.
+go menu
+
+
+
+
+
+
