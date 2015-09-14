@@ -1,15 +1,15 @@
 set view.characters.hobo.image = 'buttstacks'
 set view.characters.hobo.name = 'Boris J. Buttstacks'
 
-Hobo: Nice work spud! Ya can’t pick onions to save yar life but y’not that bad at flowers, eh! 
+Hobo: Thanks for gettin' me my teeth! Glad that Greasy Pete didn't kill ya, he can be a bit wacky sometimes! Just last week he ripped someone's head off with his claw.
 go menu
 
 #menu
 Arca: 
 	- SKIP CONVERSATION -> skip
-	-(unless said-thanks or asked-entrance) Thanks, I guess. -> thanks
+	-(unless said-thanks or asked-entrance) Great, thanks for telling me. -> thanks
 	-(unless asked-entrance) But I really need to leave! Can't you let me into Ponyhead Bay now? -> entrance
-	-(if said-thanks or asked-entrance) Ok... what's the last thing I need to get? -> date
+	-(if said-thanks or asked-entrance) Ok... what is it? -> date
 
 #thanks
 set said-thanks
@@ -36,7 +36,7 @@ Arca:
 
 #love
 set asked-love
-Hobo: Like her? <indignant> I love her! Every day I imagine holding her in my arms, feeling her flowing locks against my cheek and whispering sweet nothings until the end of time...
+Hobo: Like her? <indignant> I love her! Every day I imagine holding her in my arms, feelin' her flowing locks against my cheek and whispering sweet nothin's until the end of time...
 go menu-date
 
 #romance
@@ -46,7 +46,7 @@ go menu-date
 
 #where
 set asked-where
-Hobo: Ah of course, forgot ya're not from aroun'here. There's always Shackerton-By-The-Sea, a sweet lil' town, with the prettiest night sky. Go there an' find a nice spot for me an' my lady friend. I trust ya.
+Hobo: Ah of course, forgot ya're not from aroun'here. There's always Shackerton-On-Sea, a sweet lil' town, with the prettiest night sky. Go there an' find a nice spot for me an' my lady friend. I trust ya.
 go menu-how
 
 #menu-how
@@ -62,10 +62,10 @@ go finish
 
 #adventure
 set asked-adventure
-Hobo: You ain't never been? Well then, you're welcome. Watch out for the pirate squid who roams the shores - I've heard he's loopier than an acrobatic porpoise.
+Hobo: You ain't never been?! Well then, you're welcome. Watch out for the pirate squid who roams the shores - I've heard he's loopier than an acrobatic porpoise.
 go menu-how
 
 #what
 set asked-what
-Hobo: There are plenty o' things to do in Shackerton-By-The-Sea. Ain't nothin' like lying on the back of a giant turtle in the sea, sipping an emoti-cola and watchin' the stars sparkle.
+Hobo: There are plenty o' things to do in Shackerton! Although there ain't nothin' like lying on the back of a giant turtle, sipping an emoti-cola and watchin' the stars sparkle...
 go menu-how
