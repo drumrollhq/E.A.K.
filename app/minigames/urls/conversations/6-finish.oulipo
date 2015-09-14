@@ -8,11 +8,11 @@ go menu
 Arca:
 	- Thanks Buttstacks. Forget about Dusty - she wasn't good enough for you. -> dusty
 	- (unless asked-learnt) I'll find them! What I learnt from you might help me along the way. -> learnt
-	- (unless asked-yodelling) Thanks. You should really take up yodelling you know, hobbies always make you feel better. -> yodelling
+	- (unless asked-yodelling) Thanks. You should really take up yodelling you know - hobbies always make you feel better. -> yodelling
 
 # yodelling
 set asked-yodelling
-Hobo: My mum tells me I 'ave a voice like a nightingale... shouldn't waste that talent, I suppose. 
+Hobo: My mum's always told me I 'ave a voice like a nightingale... shouldn't waste that talent, I suppose! So long, spud.
 go finish
 
 # learnt

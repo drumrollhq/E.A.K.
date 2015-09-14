@@ -16,13 +16,13 @@ branch:
 Arca:
 	- SKIP CONVERSATION -> lets-go
 	- (unless asked-who) Who are you? -> who
-	- (unless asked-passage) I don't have much time... can't you just let me pass? -> passage
+	- (unless asked-passage) I don't have much time - can't you just let me pass? -> passage
 	- (unless asked-kittens) I'm here to look for missing kittens... have you heard anything?  -> kittens
 	- (unless asked-clothes) Why are you clothes so dirty? -> clothes
 
 # menu-mission
 Arca:
-	- (unless asked-passage) I don't have much time... can't you just let me pass? -> passage
+	- (unless asked-passage) I don't have much time - can't you just let me pass? -> passage
 	- (unless asked-kittens) I'm here to look for missing kittens... have you heard anything? -> kittens
 	- (unless asked-clothes) Why are you clothes so dirty? -> clothes
 	- (unless asked-mission) Okay. What do I need to do to get into Ponyhead Bay? ->mission
