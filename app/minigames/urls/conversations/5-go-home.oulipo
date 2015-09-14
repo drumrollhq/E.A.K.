@@ -1,10 +1,9 @@
 set view.characters.hobo.image = 'buttstacks'
 set view.characters.hobo.name = 'Boris J. Buttstacks'
 
-Hobo: That'll do nicely, blah blah
 exec alert("Play cutscene showing buttstacks and dusty walking off. Sign comes up saying 'some time later' or words to that effect. Buttstacks is seen running back down the road towards Arca, clearly distraught.")
 
-Hobo:*very upset* The date's off - Dusty broke up with me! How could she do this to me?
+Hobo: The date's off! Dusty broke up with me! How could she do this to me?
 
 go menu
 
@@ -31,7 +30,7 @@ Arca:
 
 #arca-where
 Arca:
-  - Ok... what do I need to do? -> hobo-how
+  - Oh, ok. How do I do that? -> hobo-how
   - (unless asked-hmm) I think you should find someone else to help you - I really need to go and save the kittens. -> hobo-hmm
 
 
