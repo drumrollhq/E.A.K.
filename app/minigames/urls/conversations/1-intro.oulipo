@@ -25,25 +25,25 @@ Arca:
 	- (unless asked-passage) I don't have much time... can't you just let me pass? -> passage
 	- (unless asked-kittens) I'm here to look for missing kittens... have you heard anything? -> kittens
 	- (unless asked-clothes) Why are you clothes so dirty? -> clothes
-	- (unless asked-mission) Okay, what do I need to do to get into Ponyhead Bay? ->mission
+	- (unless asked-mission) Okay. What do I need to do to get into Ponyhead Bay? ->mission
 
 # menu-URL
 Arca:
 	- (unless asked-kittens) I'm here to look for missing kittens... have you heard anything? -> kittens
 	- (unless asked-clothes) Why are your clothes so dirty? -> clothes
-	- (unless asked-onions) Okay, what's the first thing I need to get? -> onions
+	- (unless asked-onions) What's the first thing I need to get? -> onions
 
 # menu-lets-go
 Arca:
 	- (unless asked-kittens) I'm here to look for missing kittens... have you heard anything? -> kittens
 	- (unless asked-clothes) Why are your clothes so dirty? -> clothes
-	- Fine. Let's go -> lets-go
+	- Okay. Let's go. -> lets-go
 
 # who
 set asked-who
 branch:
-	- (if told-mayor) Hobo: The name's Boris J Buttstacks. As I've said, I'm the town's mayor. As in I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
-	- (default) Hobo: The name's Boris J Buttstacks, the town's mayor. As in I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
+	- (if told-mayor) Hobo: I'm Boris J Buttstacks. As I've said, I'm the town's mayor. As in I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
+	- (default) Hobo: I'm Boris J Buttstacks, the town's mayor. As in I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
 		set told-mayor
 go menu
 
@@ -61,7 +61,7 @@ set asked-kittens
 Hobo: Strange ya mentioned that. A funny lookin' chap with a tail came an' asked where he could find kittens, just t'other day. Didn't like the look of his jumper so I told 'im to bob off.
 
 Arca:
-	- Oh... did he say why?
+	- Oh... did he say why he was looking for them?
 		continue
 	- What was his name?
 		continue
@@ -73,7 +73,7 @@ go menu
 
 # clothes
 set asked-clothes
-Hobo: What the Newt kinda question is that? No offense kid, but that's rich coming from someone dressed as a uncooked potato.
+Hobo: What the Newt kinda question is that? No offense kid, but that's rich coming from someone dressed as a turnip.
 Arca:
 	- It's a cape... capes are awesome!
 		Hobo: Hmph! Who do you think you are? Wonder Walrus?
@@ -81,9 +81,9 @@ Arca:
 	- These are the only clothes I have.
 		Hobo: Don't be lazy, there are lots of bins around 'ere. Tha's where I get all my clothes.
 
-	- Potatoes are at the top of the root vegetable food chain.
-	  Hobo: Hmmm. I've avoided potatoes ever since the accident...
-		set game.characters.buttstacks.scared-of-potatoes
+	- What's so bad about looking like a turnip? 
+	  Hobo: Hmmm. I've avoided turnips ever since the accident...
+		set game.characters.buttstacks.scared-of-turnips
 
 go menu
 
@@ -95,7 +95,7 @@ go menu
 
 # onions
 set asked-onions
-Hobo: Well see, I'm a big fan o' pickled onions. Could eat a thousand an' beg fo'more. Ya gonna need to go to Bulbous Island and get me a big'ol'jar of pickled onions, if ya please. I've written down the address, and ya gonna have to follow it. I'll help you out with this one, but after that you're on your own!
+Hobo: Well see, I'm a big fan o' pickled onions. Could eat a thousand an' beg fo'more. Ya gonna need to go to Bulbous Island and get me a big'ol'jar of pickled onions, if ya please. I've written down the address for ya.
 
 go menu
 
