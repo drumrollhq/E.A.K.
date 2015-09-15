@@ -92,7 +92,7 @@ module.exports = class Oulipo
     @state.set "characterEmotions.#{name-lower}", emotion
 
     @state.add-line name, content, from-player
-    Promise.delay 1500
+    Promise.delay 500
 
   set: (variable, op, value) ->
     variable = camelize variable

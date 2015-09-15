@@ -54,13 +54,14 @@ module.exports = class URLMiniGame
       .then ~> eak.start-conversation '/minigames/urls/conversations/3-teeth'
       .then ~>
         @view.set-target-url 'http' 'drudshire.biz' 'gum-alley' 'greasy-pete'
-        # TODO @view.set-target-image
+        @view.set-target-image '/minigames/urls/assets/teeth.png', false
         @frame-sub.resume!
         Promise.delay 300
       .then ~>
         @view.map.exit!
         wait-for-event @view.map, \arrive
-      .then ~> @simple-tutorial \drudshire, 'gum-alley/greasy-pete'
+      .then ~> @simple-tutorial \drudshire, 'gum-alley/greasy-pete', ~>
+        eak.start-conversation '/minigames/urls/conversations/3a-greasypete' .then ~> Promise.delay 1500
       .then ~> eak.start-conversation '/minigames/urls/conversations/4-date-location'
       .then ~>
         @frame-sub.resume!
@@ -129,10 +130,11 @@ module.exports = class URLMiniGame
         @frame-sub.pause!
         Promise.delay 2000
 
-  simple-tutorial: (town, target) ->
+  simple-tutorial: (town, target, on-arrive = -> null) ->
     @view.url-component.set-state hidden: false, correct: false
     wait-for-event @view.towns[town], \path, condition: (path) -> path is target
       .then ~> Promise.delay 2000
+      .then ~> on-arrive!
       .then ~>
         @view.set-target-url 'http' 'ponyhead-bay.com'
         Promise.delay 1000

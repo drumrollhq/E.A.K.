@@ -90,7 +90,7 @@ export bulbous = {
         [500 675 300 475 \path:onions-r-us/red-onions]
         [800 675 400 475 \path:onions-r-us/white-onions]
         [1200 675 300 475 \path:onions-r-us/spring-onions]
-        [600 625 800 50 \path:onions-r-us/pickled-onions]
+        [700 450 605 225 \path:onions-r-us/pickled-onions]
       ]
 }
 
