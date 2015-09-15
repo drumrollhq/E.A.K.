@@ -16,13 +16,13 @@
 
     }
 
-    .floor {
+    /*.floor {
       position: absolute;
       bottom: 0;
       left: 0;
       height: 30px;
       width: 100%;
-    }
+    }*/
 
     .cave-side-a{
       position: absolute;
@@ -95,6 +95,22 @@
 
 
 
+    .fixed-ledge{
+
+      position: absolute;
+      width: 100px;
+      height: 20px;
+
+    }
+    .d{
+        bottom: 415px;
+        left: 10px;
+      }
+
+    .e{
+        bottom: 510px;
+        left: 161px;
+      }
 
 
     .ledge {
@@ -134,14 +150,27 @@
         left: 161px;
       }
 
+
+
+      .water{
+        position: absolute;
+        height: 30px;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        background-color: #0E592C;
+        opacity:0.6;
+
+      }
     div {
-   /* outline: 1px cyan solid;*/
+    /*outline: 1px cyan solid;*/
     }
     </style>
 
   </head>
   <body>
     <div class="floor"></div>
+    <div class="water"></div>
     <div class="cave-side-a"></div>
     <div class="cave-side-b"></div>
     <div class="cave-side-c"></div>
@@ -154,8 +183,8 @@
     <div class="ledge a"></div>
     <div class="ledge b"></div>
     <div class="ledge c"></div>
-    <div class="ledge d"></div>
-    <div class="ledge e"></div>
+    <div class="fixed-ledge d"></div>
+    <div class="fixed-ledge e"></div>
 
   </body>
 </html>

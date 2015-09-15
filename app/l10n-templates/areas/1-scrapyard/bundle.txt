@@ -12,4 +12,5 @@
 /entities/bananabird/**/*
 /entities/clouds/**/*
 /entities/flashing-light/**/*
+/entities/water/**/*
 area.json
