@@ -11,50 +11,55 @@
 
     <style>
 
-    .floor {
+    /*.floor {
       position: absolute;
       bottom: 0;
       left: 0;
       height: 30px;
       width: 100%;
-    }
+    }*/
 
-    .cave-side-a{
+    .cave-side-a {
       position: absolute;
       bottom: 0;
       left: 0;
       height: 75px;
       width: 30px;
     }
-    .cave-side-b{
+
+    .cave-side-b {
       position: absolute;
       bottom: 0;
       left: 850px;
       height: 310px;
       width: 75px;
     }
-     .cave-side-c{
+
+    .cave-side-c {
       position: absolute;
       top: 0;
       left: 0;
       height: 147px;
       width: 80px;
     }
-    .cave-side-d{
+
+    .cave-side-d {
       position: absolute;
       top: 62px;
       left: 0;
       height: 235px;
       width: 50px;
     }
-     .cave-side-e{
+
+    .cave-side-e {
       position: absolute;
       top: 0;
       left: 185px;
       height: 105px;
       width: 705px;
     }
-    .cave-side-f{
+
+    .cave-side-f {
       position: absolute;
       top: 107px;
       left: 258px;
@@ -62,22 +67,23 @@
       width: 705px;
     }
 
-
-    .rock-a{
+    .rock-a {
       position: absolute;
       bottom: 0px;
       left: 105px;
       height: 103px;
       width: 135px;
     }
-    .rock-b{
+
+    .rock-b {
       position: absolute;
       bottom: 0px;
       left: 405px;
       height: 103px;
       width: 45px;
     }
-    .rock-c{
+
+    .rock-c {
       position: absolute;
       bottom: 0px;
       left: 598px;
@@ -85,72 +91,81 @@
       width: 85px;
     }
 
+    .fixed-ledge {
+      width: 100px;
+      height: 20px;
+    }
 
+    .d {
+      bottom: 415px;
+      left: 10px;
+    }
 
-
-
-
-
+    .e {
+      bottom: 510px;
+      left: 161px;
+    }
 
     .ledge {
-        content: 'class: perspective-lighten-2-small, data-extend-top: 3';
-        font-size: 16px;
-        padding: 5px 10px;
-        display: block;
-        background: rgba(255, 255, 255, 0.1);
-        position: absolute;
-        width: 100px;
-        height: 20px;
-      }
+      content: 'class: perspective-lighten-2-small, data-extend-top: 3';
+      font-size: 16px;
+      padding: 5px 10px;
+      display: block;
+      background: rgba(255, 255, 255, 0.1);
+      position: absolute;
+      width: 100px;
+      height: 20px;
+    }
 
-      .a {
-        bottom: 180px;
-        left: 475px;
-      }
+    .a {
+      bottom: 180px;
+      left: 475px;
+    }
 
-      .b{
-        bottom: 265px;
-        left: 268px;
-      }
+    .b {
+      bottom: 265px;
+      left: 268px;
+    }
 
-      .c{
-        bottom: 310px;
-        left: 55px;
+    .c {
+      bottom: 310px;
+      left: 55px;
+    }
 
-      }
+    .d {
+      bottom: 415px;
+      left: 10px;
+    }
 
-      .d{
-        bottom: 415px;
-        left: 10px;
-      }
+    .e {
+      bottom: 510px;
+      left: 161px;
+    }
 
-      .e{
-        bottom: 510px;
-        left: 161px;
-      }
-
-    div {
-   /* outline: 1px cyan solid;*/
+    .water {
+      height: 30px;
+      width: 100%;
+      bottom: 0;
+      left: 0;
     }
     </style>
 
   </head>
   <body>
     <div class="floor"></div>
+    <div class="water"></div>
     <div class="cave-side-a"></div>
     <div class="cave-side-b"></div>
     <div class="cave-side-c"></div>
     <div class="cave-side-d"></div>
     <div class="cave-side-e"></div>
-   <!--  <div class="cave-side-f"></div> -->
     <div class="rock-a"></div>
     <div class="rock-b"></div>
     <div class="rock-c"></div>
     <div class="ledge a"></div>
     <div class="ledge b"></div>
     <div class="ledge c"></div>
-    <div class="ledge d"></div>
-    <div class="ledge e"></div>
-
+    <div class="fixed-ledge d"></div>
+    <div class="fixed-ledge e"></div>
   </body>
 </html>
