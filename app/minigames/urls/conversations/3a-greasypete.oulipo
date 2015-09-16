@@ -36,7 +36,7 @@ go menu
 Arca: 
 	- I'm helping Buttstacks with some tasks, then I'm carrying on with my mission to save the missing kittens. Have you heard anything about them? -> who 
 	- (unless asked-potion) Did the potion work? -> potion
-	- (unless asked-scrapyard) My name's Arca. I'm from the scrapyard... I used to have a family there, and a house and a tree. -> scrapyard
+	- (unless asked-scrapyard) My name's Arca. I'm from the scrapyard. I used to have a family there... and a house and a tree. -> scrapyard
 
 # who
 set asked-who
@@ -45,7 +45,7 @@ go menu
 
 # potion
 set asked-potion
-GreasyPete: Dunno. I think he needs more than just a potion though, if ya know what I mean.
+GreasyPete: Dunno. Reckon he needs more than just a potion though, if ya know what I mean.
 go menu
 
 # scrapyard
@@ -55,7 +55,7 @@ go menu
 
 # menu-why
 Arca:
-	-  Ok. Buttstacks wants his false teeth, he said that you were keeping them for him. -> teeth
+	-  Okay. Buttstacks wants his false teeth, he said that you were keeping them for him. -> teeth
 	- (unless asked-kittens) Please tell me, if you know anything about the kittens - anything at all. The ones who were my family have disappeared as well... I left my home to look for them. -> kittens
 	- (unless asked-care) You really don't care about anyone? That's so sad. -> care
 
@@ -66,7 +66,7 @@ go menu-get-teeth
 
 # kittens
 set asked-kittens
-GreasyPete: Well.. that's a cryin' shame, that is. Don't know nothin' 'bout no missin' kittens though, just rare things that creatures search high an' low t'find. 
+GreasyPete: Well... that's a cryin' shame, that is. Don't know nothin' 'bout no missin' kittens though, just rare things that creatures search high an' low t'find. 
 go menu
 
 # care
@@ -77,7 +77,7 @@ go menu
 # menu-get-teeth
 Arca:
 	- Thanks Greasy Pete. I'll just take the teeth for now. -> thanks
-	- (unless asked-blipcoins) They sound amazing, but I don't have any blipcoins. -> blipcoins
+	- (unless asked-blipcoins) It sounds amazing, but I don't have any blipcoins. -> blipcoins
 	- (unless asked-unicorn) How do you find unicorn belly button fluff? -> unicorn
 
 # thanks
@@ -92,7 +92,7 @@ go menu-get-teeth
 
 # unicorn
 set asked-unicorn
-GreasyPete: Ha! Whaddaya think this is, pal? If I tell ya I'd 'ave to kill ya. 
+GreasyPete: Ha! Whaddaya think this is, pal? If I tell ya I'd 'ave to kill ya. D'ya want some, or not?
 go menu-get-teeth
 
 
