@@ -13,7 +13,7 @@ Arca:
 
 # passage
 set asked-passage
-Hobo: Nah-ah. This is my town. As I might 'ave mentioned, I'm th'mayor. Completely legit. Dy'a get it? I rule it here. And it ain't the first kid want'in to visit that can get in just like that.
+Hobo: Nah-ah. This is my town. I'm th'mayor. Completely legit. Dy'a get it? I rule it here. And it ain't the first kid want'in to visit that can get in just like that.
 go menu-kittens
 
 # kittens
@@ -22,7 +22,7 @@ Hobo: Strange ya mentioned that. A funny lookin' chap with a tail came an' asked
 Arca:
 	- Oh... did he say why he was looking for them?
 		continue
-	- What was his name?
+	- Did you get his name?
 		continue
 	- Do you know where he was going?
 		continue
@@ -46,24 +46,26 @@ go menu-kittens
 
 # who
 set asked-who
-Hobo: I'm Boris J. Buttstacks - the town's mayor. As in, I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
+branch:
+	- (if asked-passage) Hobo: I'm Boris J. Buttstacks - the town's mayor, as I might 'ave mentioned. As in, I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
+	- (default) Hobo: I'm Boris J. Buttstacks - the town's mayor. As in, I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
 go menu-mission
 
 # menu-mission
 Arca:
-	- Okay, okay - so you're the mayor. Why can't you let me pass? -> why
-	- How did you get to be mayor? -> how
 	- What do I need to do, to pass through? -> mission
+	- (unless asked-why) Okay, okay - so you're the mayor. Why can't you let me pass? -> why
+	- (unless asked-how) How did you get to be mayor? -> how
 		
 # why
 set asked-why
-Hobo: You scratch my back, I'll scratch yours. That's 'ow the world works, y'know.
-go menu-onions
+Hobo: You scratch my feet, I'll scratch yours. That's 'ow the world works, y'know.
+go menu-mission
 
 # how
 set asked-how
 Hobo: Hmph! How rude! I'm the mayor, and that's that.
-go menu-onions
+go menu-mission
 
 # mission
 set asked-mission
@@ -72,8 +74,8 @@ go menu-onions
 
 # menu-onions
 Arca:
-	- What do you want me to do? -> onions
-	- I need to rescue the missing kittens - I really don't have much time -> time
+	- Okay. What do you need me to fetch? -> onions
+	- (unless asked-time) I need to rescue the missing kittens - I really don't have much time -> time
 
 # onions
 set asked-onions
