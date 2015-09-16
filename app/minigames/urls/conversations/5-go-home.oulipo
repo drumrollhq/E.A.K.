@@ -29,8 +29,8 @@ Arca:
 
 #arca-where
 Arca:
-  - Oh, ok. How do I do that? -> hobo-how
-  - (unless asked-hmm) I think you should find someone else to help you - I really need to go and save the kittens. -> hobo-hmm
+  - Oh, alright. Where do you live? -> hobo-how
+  - (unless asked-hmm) I think you should find someone else - I really need to go and save the kittens. -> hobo-hmm
 
 
 [--------Hobo's responses-------------]
@@ -67,13 +67,13 @@ go arca-where
 #hobo-talk
 set asked-talk
 
-Hobo: Hmph. Talkin' to kittens sounds pretty crazy t'me. Besides, my heart feels like it's been smashed into a trillion pieces an' I can't think straight. Can ya take me home please?
+Hobo: Hmph. Talkin' to kittens sounds pretty crazy t'me. Besides, my heart feels like it's been smashed into a trillion pieces an' I can't think straight... Can ya take me home please?
 go arca-where
 
 #hobo-how
 set asked-how
 
-Hobo: I live in a park with a park bench - tha's all I can tell ya right now. It hurts! It hurts so bad... Oh Dusty, how could you do this to me? Please help me find my way home...
+Hobo: I live in a park with a park bench... tha's all I can tell ya right now. It hurts! It hurts so bad... Oh Dusty, how could you do this to me? Please help me find my way home...
 go finish
 
 #hobo-hmm
