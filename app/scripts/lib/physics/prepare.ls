@@ -35,7 +35,7 @@ prepare-one = (it, reset = false) ->
     set \jumpState \ready
 
     # Is this a sensor?
-    if it.data?.sensor? then it.sensor = true else it.sensor = false
+    it.sensor ?= if it.data?.sensor? then true else false
 
     # pre-calculate basic trig stuff
     unless it.rotation? then it.rotation = 0

@@ -175,9 +175,13 @@ module.exports = class AreaLevel extends Backbone.View
 
   set-error: (error) ->
     if error?
+      @has-errors = true
       @$el.add-class 'has-errors'
     else
+      @has-errors = false
       @$el.remove-class 'has-errors'
+
+    channels.triggers.publish id: \error-change
 
   create-map: (offset-top, offset-left) ~>
     el-modify @$el

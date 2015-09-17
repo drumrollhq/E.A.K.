@@ -1,9 +1,10 @@
-area.json
 *.html
+/audio/music/space-glitch.*
+/audio/music/space.*
 /content/2-spaceship/**/*
 /content/bg-tiles/2-spaceship.*.png
-/audio/music/space.*
-/audio/music/space-glitch.*
-/entities/space-platform/*
 /entities/rickety-space-platform/*
+/entities/space-door/*
+/entities/space-platform/*
 /entities/tarquin-spaceship/**/*
+area.json

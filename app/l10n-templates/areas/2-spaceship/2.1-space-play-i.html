@@ -25,6 +25,14 @@
     </style>
   </head>
   <body>
+    <div
+      class="space-door"
+      style="left: 1195px; top: 290px;"
+      data-id="door"
+      data-actor="door condition"
+      data-door-condition="return areaView.levels.filter(function(lvl) { return lvl.hasErrors; }).length === 0"
+      data-door-trigger="triggers:error-change"></div>
+    <img src="/content/2-spaceship/door-overlay.png" style="position: absolute; top: 100px; left: 1190px; width: 46px; height: 218px; z-index: 100;">
     <div class="platform" style="top: 150px; left: 3px; width: 194px;"></div>
     <div class="moving-platform-space" data-actor="space-platform 1 alternate sin" data-path="350 160, 350 360"></div>
     <div class="platform" style="top: 350px; left: 503px; width: 194px;"></div>
