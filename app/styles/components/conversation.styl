@@ -38,7 +38,7 @@
 
   .conversation-line
     position relative
-    margin 15px 0
+    margin 30px 0 0 0
     padding 15px
     background rgba(white, 0.5)
     width auto
@@ -79,15 +79,18 @@
       right -30px
       left auto
 
+    .conversation-line-speaker
+      right 15px
+
   .conversation-line-line
     display inline
 
   .conversation-line-speaker
+    display block
+    position absolute
+    top -25px
     font-weight 300
-    display inline
-
-    &::after
-      content ": "
+    font-size 0.8em
 
   .conversation-speaker
     position absolute
