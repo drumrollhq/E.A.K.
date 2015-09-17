@@ -46,6 +46,7 @@ class TarquinSpaceship extends Actor
     data:
       dynamic: true
       ignore-others: true
+      sensor: true
     width: 55
     height: 20
   }
