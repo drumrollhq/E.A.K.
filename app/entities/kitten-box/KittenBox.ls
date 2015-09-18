@@ -3,12 +3,13 @@ require! {
   'game/effects/SpriteSheet'
   'logger'
   'lib/channels'
+  'lib/pad'
 }
 
-const available-kittens = 147
+const available-kittens = 144
 
 random-kitten = ->
-  "url('/content/kittens/kitten-#{ (Math.random! * available-kittens |> Math.floor) + 1 }.gif')"
+  "url('/content/kittens/kitten-#{ pad '0', 3, (Math.random! * available-kittens |> Math.floor) + 1 }.gif')"
 
 random-kitten-el = ->
   $ '<div></div>'
