@@ -1,4 +1,4 @@
-*.html
+*.*
 /audio/music/space-glitch.*
 /audio/music/space.*
 /content/2-spaceship/**/*
@@ -7,4 +7,5 @@
 /entities/space-door/*
 /entities/space-platform/*
 /entities/tarquin-spaceship/**/*
+/entities/trousersquish-4000/**/*
 area.json

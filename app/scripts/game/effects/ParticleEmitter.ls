@@ -18,6 +18,8 @@ module.exports = class ParticleEmitter extends PIXI.Container
     @_emit-timer = 0
     @_pool = []
 
+    @_paused = false
+
     @_urls = flatten [options.url] |> map -> assets.load-asset it, \url
     @_load = Promise.map @_urls, PIXI.load-texture
     @sprite-url = random-picker @_urls
@@ -37,6 +39,12 @@ module.exports = class ParticleEmitter extends PIXI.Container
     if options.a-x? then @initial-a-x = random-range options.a-x
     if options.a-y? then @initial-a-y = random-range options.a-y
     if options.blend-mode? then @blend-mode = options.blend-mode
+
+  pause: ->
+    @_paused = true
+
+  resume: ->
+    @_paused = false
 
   step: (dt) ->
     @_emit-timer += dt * 16.6
@@ -71,6 +79,7 @@ module.exports = class ParticleEmitter extends PIXI.Container
       particle.age += dt * 16.6
 
   emit: ->
+    if @_paused then return
     particle = if @_pool.length
       @_pool.shift!
     else

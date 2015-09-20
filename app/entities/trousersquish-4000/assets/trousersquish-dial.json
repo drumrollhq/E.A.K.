@@ -1,0 +1,561 @@
+{"frames": {
+
+"trousersquish-dial0001.png":
+{
+	"frame": {"x":2,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0002.png":
+{
+	"frame": {"x":2,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0003.png":
+{
+	"frame": {"x":49,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0004.png":
+{
+	"frame": {"x":96,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0005.png":
+{
+	"frame": {"x":143,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0006.png":
+{
+	"frame": {"x":190,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0007.png":
+{
+	"frame": {"x":237,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0008.png":
+{
+	"frame": {"x":237,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0009.png":
+{
+	"frame": {"x":237,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0010.png":
+{
+	"frame": {"x":237,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0011.png":
+{
+	"frame": {"x":237,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0012.png":
+{
+	"frame": {"x":237,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0013.png":
+{
+	"frame": {"x":284,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0014.png":
+{
+	"frame": {"x":143,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0015.png":
+{
+	"frame": {"x":331,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0016.png":
+{
+	"frame": {"x":49,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0017.png":
+{
+	"frame": {"x":378,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0018.png":
+{
+	"frame": {"x":2,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0019.png":
+{
+	"frame": {"x":425,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0020.png":
+{
+	"frame": {"x":472,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0021.png":
+{
+	"frame": {"x":519,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0022.png":
+{
+	"frame": {"x":566,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0023.png":
+{
+	"frame": {"x":613,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0024.png":
+{
+	"frame": {"x":660,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0025.png":
+{
+	"frame": {"x":707,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0026.png":
+{
+	"frame": {"x":707,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0027.png":
+{
+	"frame": {"x":707,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0028.png":
+{
+	"frame": {"x":707,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0029.png":
+{
+	"frame": {"x":707,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0030.png":
+{
+	"frame": {"x":707,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0031.png":
+{
+	"frame": {"x":707,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0032.png":
+{
+	"frame": {"x":707,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0033.png":
+{
+	"frame": {"x":707,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0034.png":
+{
+	"frame": {"x":707,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0035.png":
+{
+	"frame": {"x":707,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0036.png":
+{
+	"frame": {"x":707,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0037.png":
+{
+	"frame": {"x":660,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0038.png":
+{
+	"frame": {"x":613,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0039.png":
+{
+	"frame": {"x":566,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0040.png":
+{
+	"frame": {"x":519,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0041.png":
+{
+	"frame": {"x":472,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0042.png":
+{
+	"frame": {"x":472,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0043.png":
+{
+	"frame": {"x":472,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0044.png":
+{
+	"frame": {"x":472,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0045.png":
+{
+	"frame": {"x":519,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0046.png":
+{
+	"frame": {"x":566,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0047.png":
+{
+	"frame": {"x":613,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0048.png":
+{
+	"frame": {"x":660,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0049.png":
+{
+	"frame": {"x":707,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0050.png":
+{
+	"frame": {"x":707,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0051.png":
+{
+	"frame": {"x":660,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0052.png":
+{
+	"frame": {"x":613,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0053.png":
+{
+	"frame": {"x":566,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0054.png":
+{
+	"frame": {"x":519,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0055.png":
+{
+	"frame": {"x":754,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0056.png":
+{
+	"frame": {"x":801,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0057.png":
+{
+	"frame": {"x":2,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0058.png":
+{
+	"frame": {"x":2,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0059.png":
+{
+	"frame": {"x":2,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0060.png":
+{
+	"frame": {"x":2,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-dial0061.png":
+{
+	"frame": {"x":2,"y":2,"w":45,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":515,"y":268,"w":45,"h":45},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "trousersquish-dial.png",
+	"format": "RGBA8888",
+	"size": {"w":848,"h":49},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:02cf08a635b9d3e16e2b9af6126cf05a:b5fe3825d87db2b0c5caf3c6c486e270:ff28ffb6bdf9a424ed976572aa82ddfe$"
+}
+}

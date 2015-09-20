@@ -212,5 +212,5 @@ module.exports = step = (state, t) ->
 
     update-el obj
 
-  for node in nodes when node.after-physics? then node.after-physics!
+  for node in nodes when node.after-physics? then node.after-physics dt
   {nodes, dynamics}

@@ -1,0 +1,561 @@
+{"frames": {
+
+"trousersquish-bubbles0001.png":
+{
+	"frame": {"x":2,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0002.png":
+{
+	"frame": {"x":96,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0003.png":
+{
+	"frame": {"x":190,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0004.png":
+{
+	"frame": {"x":284,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0005.png":
+{
+	"frame": {"x":378,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0006.png":
+{
+	"frame": {"x":472,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0007.png":
+{
+	"frame": {"x":566,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0008.png":
+{
+	"frame": {"x":660,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0009.png":
+{
+	"frame": {"x":754,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0010.png":
+{
+	"frame": {"x":848,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0011.png":
+{
+	"frame": {"x":942,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0012.png":
+{
+	"frame": {"x":1036,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0013.png":
+{
+	"frame": {"x":1130,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0014.png":
+{
+	"frame": {"x":1224,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0015.png":
+{
+	"frame": {"x":1318,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0016.png":
+{
+	"frame": {"x":1412,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0017.png":
+{
+	"frame": {"x":1506,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0018.png":
+{
+	"frame": {"x":1600,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0019.png":
+{
+	"frame": {"x":1694,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0020.png":
+{
+	"frame": {"x":1788,"y":2,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0021.png":
+{
+	"frame": {"x":1882,"y":2,"w":84,"h":92},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0022.png":
+{
+	"frame": {"x":2,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0023.png":
+{
+	"frame": {"x":96,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0024.png":
+{
+	"frame": {"x":190,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0025.png":
+{
+	"frame": {"x":284,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0026.png":
+{
+	"frame": {"x":378,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0027.png":
+{
+	"frame": {"x":472,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0028.png":
+{
+	"frame": {"x":566,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0029.png":
+{
+	"frame": {"x":660,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0030.png":
+{
+	"frame": {"x":754,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0031.png":
+{
+	"frame": {"x":848,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0032.png":
+{
+	"frame": {"x":942,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0033.png":
+{
+	"frame": {"x":1036,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0034.png":
+{
+	"frame": {"x":1130,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0035.png":
+{
+	"frame": {"x":1224,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0036.png":
+{
+	"frame": {"x":1318,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0037.png":
+{
+	"frame": {"x":1412,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0038.png":
+{
+	"frame": {"x":1506,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0039.png":
+{
+	"frame": {"x":1600,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0040.png":
+{
+	"frame": {"x":1694,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0041.png":
+{
+	"frame": {"x":1788,"y":88,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0042.png":
+{
+	"frame": {"x":1882,"y":96,"w":84,"h":92},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0043.png":
+{
+	"frame": {"x":2,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0044.png":
+{
+	"frame": {"x":96,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0045.png":
+{
+	"frame": {"x":190,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0046.png":
+{
+	"frame": {"x":284,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0047.png":
+{
+	"frame": {"x":378,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0048.png":
+{
+	"frame": {"x":472,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0049.png":
+{
+	"frame": {"x":566,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0050.png":
+{
+	"frame": {"x":660,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0051.png":
+{
+	"frame": {"x":754,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0052.png":
+{
+	"frame": {"x":848,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0053.png":
+{
+	"frame": {"x":942,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0054.png":
+{
+	"frame": {"x":1036,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0055.png":
+{
+	"frame": {"x":1130,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0056.png":
+{
+	"frame": {"x":1224,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0057.png":
+{
+	"frame": {"x":1318,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0058.png":
+{
+	"frame": {"x":1412,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0059.png":
+{
+	"frame": {"x":1506,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0060.png":
+{
+	"frame": {"x":1600,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"trousersquish-bubbles0061.png":
+{
+	"frame": {"x":1694,"y":174,"w":84,"h":92},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":353,"y":216,"w":84,"h":92},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "trousersquish-bubbles.png",
+	"format": "RGBA8888",
+	"size": {"w":1968,"h":260},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:d9c0ca3c3cad662af35781318ec92198:015e767b504d796d42322363c1ec6266:439d81b16e4d2010a476b252b1a0b06c$"
+}
+}
