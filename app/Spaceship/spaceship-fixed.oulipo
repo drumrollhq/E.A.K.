@@ -1,0 +1,77 @@
+Tarquin: Holy sea cow in a cyclone! You've fixed my ship! It's a miracle!
+
+Ada: Yep, we're amazing!
+
+go menu
+
+#menu
+branch:
+	- (default) go menu-portal
+
+# menu-portal
+Arca:
+	- Awesome... can we use your portal now? -> portal
+	- (unless asked-code) You should learn to code in case your spaceship breaks again. -> code
+	- (unless asked-weird) You have some pretty weird stuff in your lower deck, by the way! -> weird
+	- (unless asked-kittens) We found a few kittens hidden in boxes - do you know who put them there? -> kittens
+
+# portal
+set asked-portal
+Tarquin: Of course! And I'll throw in a signed copy of my latest pioneering book - 'The Lavatory Pitch for Unstoppable CEOs'. 
+
+Ada: Cool. What's 'The Lavatory Pitch'?
+
+Tarquin: A ten second explanation of your product. You never know who might be listening!
+
+go menu-end
+
+# code
+set asked-code
+Tarquin: Hmmm. Maybe after I've finished writing my next book, 'How to Unlearn What You Think You Know About Disruption'.
+
+Ada: It's on my reading list.
+go menu-portal
+
+# weird
+set asked-weird
+Tarquin: Really? Well, Cedric does like to experiment... 
+go menu-portal
+
+# kittens
+set asked-kittens
+Tarquin: What? I thought those boxes were filled with fan mail! Well, that's disappointing. Actually, kittens could be a form of fan mail... I shall write a thank you note to whoever sent them.
+go menu-portal
+
+# menu-end
+Arca: 
+	- Haha. We're going to leave for Ponyhead Bay now. -> end
+	- (unless asked-intern) Maybe we'll come back someday - I'd love to learn more about busy-ness. -> intern
+	- (unless asked-eye-spies) Thanks! Before we leave, I think you should know that you have a giant robot squid baby hanging from your lower deck. -> squid-baby
+
+# end
+set asked-end
+Tarquin: Well, it was fantastic to meet you both - you're welcome to come back and be my interns anytime. Ciao!
+go finish
+
+# intern
+set asked-intern
+Tarquin: Fabulous! I think you have a lot of potential. Maybe you could even be the next... me.
+go menu-end
+
+# squid-baby
+set asked-squid
+Ada: It's terrifying.
+
+Tarquin: Yes... well... we don't talk about that, do we Cedric?
+
+Cedric: Bleeeeeat
+go menu-end
+
+
+
+
+
+
+		
+	
+	
