@@ -36,6 +36,8 @@ Next, you'll need to download E.A.K. and its dependencies. Run the following on 
   bower install
 ```
 
+Note: E.A.K. is a pretty big project, and can take a long time to clone. If you want to speed things up, you can clone with `git clone --recursive --depth 25 https://github.com/drumrollhq/E.A.K..git` to only download recent history.
+
 ## Building
 OK. That was a lot of stuff to install. Hopefully now, we're ready to build E.A.K.
 
