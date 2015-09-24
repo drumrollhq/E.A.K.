@@ -1,7 +1,8 @@
 set view.characters.hobo.image = 'buttstacks'
 set view.characters.hobo.name = 'Boris J. Buttstacks'
 
-Hobo: Good job with the dandelions! Next, I need ya to go on a special mission... ya need to get me my false teeth. I only wear 'em on occasions - can't risk no-one stealin' 'em!
+Hobo [happy]: Good job with the dandelions! Next, I need ya to go on a special mission... ya need to get me my false teeth. I only wear 'em on occasions - 
+Hobo [irritated]: can't risk no-one stealin' 'em!
 go menu
 
 # menu
@@ -12,17 +13,17 @@ Arca:
 
 # how
 set asked-how
-Hobo: I have very strong gums. 
+Hobo [smug]: I have very strong gums. 
 go menu
 
 # steal
 set asked-steal
-Hobo: What ya talkin' about? They're my prized possession, made of gold-plated fossils. Anyone would be lucky t'have my teeth in their mouths!
+Hobo [irritated]: What ya talkin' about? They're my prized possession, made of gold-plated fossils. Anyone would be lucky t'have my teeth in their mouths!
 go menu
 
 # who
 set asked-who
-Hobo: From a fella called Greasy Pete. Some say he's a little bit dodgy, but I reckon he's as soft as a marshmallow, deep down.
+Hobo [neutral]: From a fella called Greasy Pete. Some say he's a little bit dodgy, but I reckon he's as soft as a marshmallow, deep down.
 go menu
 
 

@@ -1,7 +1,7 @@
 set view.characters.hobo.image = 'buttstacks'
 set view.characters.hobo.name = 'Boris J. Buttstacks'
 
-Hobo: Thanks for gettin' me my teeth! Glad Greasy Pete didn't kill ya, he can be a bit wacky sometimes! Last week he ripped someone's head off with his claw, just cos he didn't like the look of 'em.
+Hobo [really-happy]: Thanks for gettin' me my teeth! Glad Greasy Pete didn't kill ya, he can be a bit wacky sometimes! Last week he ripped someone's head off with his claw, just cos he didn't like the look of 'em.
 go menu
 
 #menu
@@ -13,19 +13,20 @@ Arca:
 
 #thanks
 set said-thanks
-Hobo: No, thank you my friend! Ain't no-one who's seen me teeth who I don't call a friend! I trust ya now, an' I need one last thing!
+Hobo [smug]: No, thank you my friend! Ain't no-one who's seen me teeth who I don't call a friend! I trust ya now, an' I need one last thing!
 go menu
 
 #entrance
 set asked-entrance
 branch:
-	-(if said-thanks) Hobo: Not yet. Ya need to get one last thing for me, an' then you're free to go! 
-	-(default) Hobo: Wait a minute, we're friends now! Ain't noone who's seen me teeth who I don't call a friend! I need one last thing from ya.
+	-(if said-thanks) Hobo [neutral]: Not yet. Ya need to get one last thing for me, an' then you're free to go! 
+	-(default) Hobo [smug]: Wait a minute, we're friends now! Ain't noone who's seen me teeth who I don't call a friend! I need one last thing from ya.
  go menu
  
 #date
 set asked-date
-Hobo: I need ya to find a romantic place for me date tonight! Can't just take my best girl to any ol' dump. She's a real classy broom, y'know. 
+Hobo [smug]: I need ya to find a romantic place for me date tonight! Can't just take my best girl to any ol' dump.
+Hobo [lovestruck]:She's a real classy broom, y'know. 
 go menu-date
 
 #menu-date
@@ -36,17 +37,17 @@ Arca:
 
 #love
 set asked-love
-Hobo: Like her? I love her! Every night I imagine holding her in my arms, feelin' her flowing locks against my cheek and whispering sweet nothin's until the end of time...
+Hobo [lovestruck]: Like her? I love her! Every night I imagine holding her in my arms, feelin' her flowing locks against my cheek and whispering sweet nothin's until the end of time...
 go menu-date
 
 #romance
 set asked-romance
-Hobo: Don't worry spud, we can't all be masters of seduction. Now don't be too hard on ya'self, I trust ya to find the right place.
+Hobo [smug]: Don't worry spud, we can't all be masters of seduction. Now don't be too hard on ya'self, I trust ya to find the right place.
 go menu-date
 
 #where
 set asked-where
-Hobo: Ah of course, forgot ya not from aroun'here! There's always Shackerton-By-The-Sea, a sweet lil' town, with the prettiest night sky. Go there an' find a nice spot for me an' my lady friend. I trust ya.
+Hobo [smug]: Ah of course, forgot ya not from aroun'here! There's always Shackerton-By-The-Sea, a sweet lil' town, with the prettiest night sky. Go there an' find a nice spot for me an' my lady friend. I trust ya.
 go menu-how
 
 #menu-how
@@ -57,15 +58,15 @@ Arca:
 
 #how
 set asked-how
-Hobo: I'll show ya now! Oooh... I'm tingling all over with excitement.
+Hobo [proper-smile]: I'll show ya now! Oooh... I'm tingling all over with excitement.
 go finish
 
 #adventure
 set asked-adventure
-Hobo: You ain't never been?! Well then, you're welcome. Watch out for the pirate squid who roams the shores - I've heard he's loopier than an acrobatic porpoise.
+Hobo [neutral]: You ain't never been?! Well then, you're welcome. Watch out for the pirate squid who roams the shores - I've heard he's loopier than an acrobatic porpoise.
 go menu-how
 
 #what
 set asked-what
-Hobo: There are plenty o' things to do in Shackerton! Although there ain't nothin' like lying on the back of a giant turtle, sipping an emoti-cola and watchin' the stars sparkle...
+Hobo [smug]: There are plenty o' things to do in Shackerton! Although there ain't nothin' like lying on the back of a giant turtle, sipping an emoti-cola and watchin' the stars sparkle...
 go menu-how

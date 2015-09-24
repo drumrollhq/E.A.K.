@@ -4,7 +4,7 @@ set view.characters.hobo.name = 'Boris J. Buttstacks'
 exec alert("Play cutscene showing buttstacks and dusty walking off. Sign comes up saying 'some time later' or words to that effect. Buttstacks is seen running back down the road towards Arca, clearly distraught.")
 
 
-Hobo: The date's off! Dusty broke up with me! How could she do this to me?
+Hobo [bawling]: The date's off! Dusty broke up with me! How could she do this to me?
 go menu
 
 [--------------top menu--------------]
@@ -37,47 +37,50 @@ Arca:
 #hobo-mop
 set asked-mop
 
-Hobo: A mop?! A she-devil more like! I tol' her all my secrets, tol' her she was the one. And then she goes an' tells me she needs space. Space! My cupboard is huge! It must be me.
+Hobo [pissed]: A mop?! A she-devil more like! I tol' her all my secrets, tol' her she was the one. And then she goes an' tells me she needs space. Space! My cupboard is huge! It must be me.
 go arca-talk
 
 #hobo-what
 set asked-what
 
-Hobo: I tol' her all my secrets, tol' her she was the one. And then she goes an' tells me she needs space. Space! I am Mayor Boris J Buttstacks. And I ain't gonna let some fancy squeegee treat me like dirt. 
+Hobo [bawling]: I tol' her all my secrets, tol' her she was the one. And then she goes an' tells me she needs space. Space! I am Mayor Boris J Buttstacks. And I ain't gonna let some fancy squeegee treat me like dirt. 
 go arca-talk
 
 #hobo-cupboard
 set asked-cupboard
 
-Hobo: I don't care about other mops! I care about her! What should I do?
+Hobo [bawling]: I don't care about other mops! I care about her! What should I do?
 go arca-talk
 
 #hobo-forget
 set asked-forget
 
-Hobo: Newt's head on a stick! I'm. The. Mayor. I can't go takin' holidays. My brain is clouded with sadness and betrayal... can ya help me get back home?
+Hobo [pissed]: Newt's head on a stick! I'm. The. Mayor. I can't go takin' holidays. My brain is clouded with sadness and betrayal... can ya help me get back home?
 go arca-where
 
 #hobo-hoover
 set asked-hoover
 
-Hobo: Whaaat?! I'd never cheat on Dusty with a hoover! I could try yodelling... she used to love it when I sang sweet nothings in her ear... Can ya take me back to my park, please? 
+Hobo [pissed]: Whaaat?! I'd never cheat on Dusty with a hoover! I could try yodelling... 
+Hobo [crying]: She used to love it when I sang sweet nothings in her ear... Can ya take me back to my park, please? 
 go arca-where
 
 #hobo-talk
 set asked-talk
 
-Hobo: Hmph. Talkin' to kittens sounds pretty crazy t'me. Besides, my heart feels like it's been smashed into a trillion pieces an' I can't think straight... Can ya take me home please?
+Hobo [sceptical]: Hmph. Talkin' to kittens sounds pretty crazy t'me. Besides, my heart feels like it's been smashed into a trillion pieces an' I can't think straight... 
+Hobo [crying]: Can ya take me home please?
 go arca-where
 
 #hobo-how
 set asked-how
 
-Hobo: I live in a park with a park bench... tha's all I can tell ya right now. It hurts! It hurts so bad... Oh Dusty, how could you do this to me? Please help me find my way home...
+Hobo [crying]: I live in a park with a park bench... tha's all I can tell ya right now. 
+Hobo [bawling]: It hurts! It hurts so bad... Oh Dusty, how could you do this to me? Please help me find my way home...
 go finish
 
 #hobo-hmm
 set asked-hmm
 
-Hobo: Please spud, I need help! No more tasks after this, I promise.
+Hobo [crying]: Please spud, I need help! No more tasks after this, I promise.
 go arca-where
