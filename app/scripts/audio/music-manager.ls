@@ -32,8 +32,8 @@ class MusicManager
     @_setup-triggers!
 
   _setup-triggers: ->
-    channels.parse 'game-commands: edit-start' .subscribe ~> @switch-track 'glitch'
-    channels.parse 'game-commands: edit-stop' .subscribe ~> @switch-track 'normal'
+    channels.parse 'game-commands: edit' .subscribe ~> @switch-track 'glitch'
+    channels.parse 'game-commands: stop-edit' .subscribe ~> @switch-track 'normal'
 
   start-track: (name) ~>
     unless @tracks[name]? then throw new Error 'Cannot find track called ' + name
