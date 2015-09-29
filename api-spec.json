@@ -1,8 +1,8 @@
 {
   "rootUrl": "http://localhost:3000",
-  "tag": "v0.3.0-a3",
-  "packaged": "2015-08-31T14:38:57.000Z",
-  "hash": "5de45a828cce18c82fc6d8e4486a423806a6b4c0",
+  "tag": "v0.3.1",
+  "packaged": "2015-09-29T15:03:08.000Z",
+  "hash": "9ce22e4d26ade7bab8fe28be0ae8aab21b996363",
   "endpoints": {
     "status": {
       "params": false,
@@ -188,14 +188,8 @@
           "gender": {
             "type": "string",
             "flags": {
-              "allowOnly": true,
               "presence": "optional"
             },
-            "valids": [
-              "male",
-              "female",
-              "nope"
-            ],
             "invalids": [
               ""
             ]
@@ -1562,6 +1556,52 @@
         }
       },
       "options": false
+    },
+    "users.updateEakSettings": {
+      "paramList": [
+        "userId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "userId": {
+            "type": "alternatives",
+            "flags": {
+              "presence": "required"
+            },
+            "alternatives": [
+              {
+                "type": "number",
+                "invalids": [
+                  null,
+                  null
+                ],
+                "rules": [
+                  {
+                    "name": "integer"
+                  },
+                  {
+                    "name": "positive"
+                  }
+                ]
+              },
+              {
+                "type": "string",
+                "invalids": [
+                  ""
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "body": {
+        "type": "object"
+      },
+      "options": false
     }
   },
   "routes": {
@@ -1615,6 +1655,9 @@
           },
           "subscription": {
             "POST": "users.subscribe"
+          },
+          "eakSettings": {
+            "POST": "users.updateEakSettings"
           }
         }
       },
