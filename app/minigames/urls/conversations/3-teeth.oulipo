@@ -7,7 +7,7 @@ go menu
 
 # menu
 Arca:
-	- How do you eat, the rest of the time? -> how
+	- (unless asked-how) How do you eat, the rest of the time? -> how
 	- (unless asked-steal) Why would anyone steal your teeth? Gross! -> steal
 	- (unless asked-who) Okay... who do I need to get them from? -> who
 
