@@ -1,4 +1,5 @@
 require! {
+  'audio/music-manager'
   'game/actors/Player'
   'game/area/AreaLevel'
   'game/scene/AreaOverlay'
@@ -113,6 +114,7 @@ module.exports = class AreaView extends Backbone.View
     level = @levels-layer.object-at @player.p
     @check-edit-button level
     if level? and level isnt @player-level
+      music-manager.switch-track (level.level.track or \normal)
       @player-level = level
       {x, y} = level.conf.player
       x += level.conf.x
