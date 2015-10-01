@@ -9,7 +9,7 @@ go menu
 
 [--------------top menu--------------]
 #menu 
-branch:
+branch
 	- (if asked-talk) go arca-where
 	- (if asked-cupboard) go arca-talk
 	- (default) go arca-cupboard

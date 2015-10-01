@@ -7,7 +7,7 @@ Hobo [neutral]: Not the ones I wanted, but close enough I suppose!
 go menu
 
 # menu
-branch:
+branch
 	- (if asked-what-type) go menu-where
 	- (if asked-what-else) go menu-what-type
 	- (default) go menu-what-else

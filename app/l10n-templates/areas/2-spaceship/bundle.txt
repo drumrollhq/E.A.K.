@@ -1,4 +1,5 @@
 *.*
+/audio/conversations/tarquin-greeting/*.*
 /audio/music/space-glitch.*
 /audio/music/space.*
 /content/2-spaceship/**/*

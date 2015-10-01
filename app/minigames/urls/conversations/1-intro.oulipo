@@ -46,7 +46,7 @@ go menu-kittens
 
 # who
 set asked-who
-branch:
+branch
 	- (if asked-passage) Hobo [smug]: I'm Boris J. Buttstacks - the town's mayor, as I might 'ave mentioned. As in, I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
 	- (default) Hobo [smug]: I'm Boris J. Buttstacks - the town's mayor. As in, I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
 go menu-mission

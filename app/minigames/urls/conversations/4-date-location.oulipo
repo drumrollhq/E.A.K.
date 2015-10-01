@@ -18,9 +18,9 @@ go menu
 
 #entrance
 set asked-entrance
-branch:
-	-(if said-thanks) Hobo [neutral]: Not yet. Ya need to get one last thing for me, an' then you're free to go! 
-	-(default) Hobo [smug]: Wait a minute, we're friends now! Ain't noone who's seen me teeth who I don't call a friend! I need one last thing from ya.
+branch
+	- (if said-thanks) Hobo [neutral]: Not yet. Ya need to get one last thing for me, an' then you're free to go! 
+	- (default) Hobo [smug]: Wait a minute, we're friends now! Ain't noone who's seen me teeth who I don't call a friend! I need one last thing from ya.
  go menu
  
 #date

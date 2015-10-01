@@ -5,7 +5,7 @@ GreasyPete: Blasted Salamanders! Whaddaya want? How d'ya find me? I ain't done n
 go menu
 
 # menu
-branch:
+branch
 	- (if asked-why) go menu-get-teeth
 	- (if asked-who) go menu-why
 	- (if asked-how) go menu-who

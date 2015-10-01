@@ -24,6 +24,7 @@ module.exports = class Sound
       ..onended = ~>
           sound-source.disconnect!
           sound-source.on-ended!
+          @_playing = false
       ..loop = @loop
 
     if duration
@@ -31,4 +32,10 @@ module.exports = class Sound
     else sound-source.start when_, offset
 
     sound-source.started = context.current-time - offset
+    @_playing = true
     sound-source
+
+  play: -> new Promise (resolve) ~>
+    if @_playing then return resolve!
+    @start! .on-ended = ~> resolve!
+
