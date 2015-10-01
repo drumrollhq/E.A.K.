@@ -29,7 +29,7 @@ module.exports = class Sound
 
     if duration
       sound-source.start when_, offset % @_buffer.duration, duration
-    else sound-source.start when_, offset
+    else sound-source.start when_, offset % @_buffer.duration
 
     sound-source.started = context.current-time - offset
     @_playing = true

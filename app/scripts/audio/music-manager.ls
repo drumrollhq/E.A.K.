@@ -23,7 +23,17 @@ tracks = {
   colours:
     normal: '/audio/music/colours'
     glitch: '/audio/music/colours-glitch'
+
+  spaceship:
+    normal: '/audio/music/spaceship-normal'
+    glitch: '/audio/music/spaceship-normal-glitch'
+    creepy: '/audio/music/spaceship-creepy'
+    creepy-glitch: '/audio/music/spaceship-creepy-glitch'
+    disco: '/audio/music/spaceship-disco'
+    disco-glitch: '/audio/music/spaceship-disco-glitch'
 }
+
+const fade-duration = 0.75s
 
 class MusicManager
   (@tracks) ->
@@ -32,8 +42,8 @@ class MusicManager
     @_setup-triggers!
 
   _setup-triggers: ->
-    channels.parse 'game-commands: edit' .subscribe ~> @switch-track 'glitch'
-    channels.parse 'game-commands: stop-edit' .subscribe ~> @switch-track 'normal'
+    channels.parse 'game-commands: edit' .subscribe ~> @music.glitchify fade-duration
+    channels.parse 'game-commands: stop-edit' .subscribe ~> @music.deglitchify fade-duration
 
   start-track: (name) ~>
     unless @tracks[name]? then throw new Error 'Cannot find track called ' + name
@@ -52,10 +62,10 @@ class MusicManager
     unless @music then return Promise.resolve!
     music = @music
     @music = null
-    music.fade-out 0.5
+    music.fade-out fade-duration
 
   switch-track: (track) ~>
     unless @music? then return
-    @music.fade-to track, 0.5
+    @music.fade-to track, fade-duration
 
 module.exports = new MusicManager tracks

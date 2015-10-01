@@ -1,7 +1,6 @@
 *.*
 /audio/conversations/tarquin-greeting/*.*
-/audio/music/space-glitch.*
-/audio/music/space.*
+/audio/music/spaceship-*.*
 /content/2-spaceship/**/*
 /content/bg-tiles/2-spaceship.*.png
 /entities/rickety-space-platform/*
