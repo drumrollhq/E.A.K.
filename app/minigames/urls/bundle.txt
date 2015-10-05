@@ -1,3 +1,4 @@
 ./**/*
 /content/bg-tiles/url-minigame/**/*
 /content/conversation/buttstacks/*.png
+/audio/conversations/greasy-pete/*

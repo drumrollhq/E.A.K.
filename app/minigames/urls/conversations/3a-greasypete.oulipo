@@ -1,6 +1,7 @@
 set view.characters.greasypete.name = 'Greasy Pete'
+set audio-root = '/audio/conversations/greasy-pete'
 
-GreasyPete: Blasted Salamanders! Whaddaya want? How d'ya find me? I ain't done nothin'!
+GreasyPete [_ track:01-blasted-salamanders-t2]: Blasted Salamanders! Whaddaya want? How d'ya find me? I ain't done nothin'!
 
 go menu
 
@@ -19,17 +20,17 @@ Arca:
 	
 # how
 set asked-how
-GreasyPete: That old hippo! Always askin' for strange things... last time it was bottled drool of porcupine, for a love potion. Very odd I thought, very odd indeed. Who are ya anyways? I ain't seen the likes of you 'ere before. 
+GreasyPete [_ track:02-ol-hippo-t2]: That old hippo! Always askin' for strange things... last time it was bottled drool of porcupine, for a love potion. Very odd I thought, very odd indeed. Who are ya anyways? I ain't seen the likes of you 'ere before. 
 go menu
 
 # hide
 set asked-hide
-GreasyPete: What? No! Well... maybe. But that's none of your business. 
+GreasyPete [_ track:03-what-no-t3]: What? No! Well... maybe. But that's none of your business. 
 go menu
 
 #salamander
 set asked-salamander
-GreasyPete: I've 'ad enough of shifty salamanders claiming to be the Great InterNewt and wantin' me to buy their limbs. Disgraceful! Ain't no market for 'em anyway.
+GreasyPete [_ track:04-shifty-t5]: I've 'ad enough of shifty salamanders claiming to be the Great InterNewt and wantin' me to buy their limbs. Disgraceful! Ain't no market for 'em anyway.
 go menu
 	
 # menu-who
@@ -40,17 +41,17 @@ Arca:
 
 # who
 set asked-who
-GreasyPete: Nope. Don't know nothin' about no-one, an I don't care neither. What does ol' Buttstacks want this time?
+GreasyPete [_ track:05-dont-care-t2]: Nope. Don't know nothin' about no-one, an I don't care neither. What does ol' Buttstacks want this time?
 go menu
 
 # potion
 set asked-potion
-GreasyPete: Dunno. Reckon he needs more than just a potion though, if ya know what I mean.
+GreasyPete [_ track:06-more-than-t1]: Dunno. Reckon he needs more than just a potion though, if ya know what I mean.
 go menu
 
 # scrapyard
 set asked-scrapyard
-GreasyPete: Ha! There are lots of scrapyards. Although yours doesn't sound too bad.
+GreasyPete [_ track:07-scrapeeyards-t4]: Ha! There are lots of scrapyards. Although yours doesn't sound too bad.
 go menu
 
 # menu-why
@@ -61,17 +62,17 @@ Arca:
 
 # teeth
 set asked-teeth
-GreasyPete: Ah yes, I 'ave his precious pearly whites in my safe. Now. Before I hand 'em over, can I interest ya in a bargain? Unicorn belly button fluff - only 75 blipcoins! Rub it against your face, and you'll be able to fly in your dreams! This stuff's sellin' like Momma's jpeg pie. 
+GreasyPete [_ track:08-belly-button-t4]: Ah yes, I 'ave his precious pearly whites in my safe. Now. Before I hand 'em over, can I interest ya in a bargain? Unicorn belly button fluff - only 75 blipcoins! Rub it against your face, and you'll be able to fly in your dreams! This stuff's sellin' like Momma's jpeg pie. 
 go menu-get-teeth
 
 # kittens
 set asked-kittens
-GreasyPete: Well... that's a cryin' shame, that is. Don't know nothin' 'bout no missin' kittens though, just rare things that creatures search high an' low t'find. 
+GreasyPete [_ track:09-high-low-t3]: Well... that's a cryin' shame, that is. Don't know nothin' 'bout no missin' kittens though, just rare things that creatures search high an' low t'find. 
 go menu
 
 # care
 set asked-care
-GreasyPete: I 'ad a pet chicken once called Cheepy chick... She followed me everywhere, sweet lil thing. I used to feed her an' everything. My family used to say it weren't natural an' that chickens were for eatin'. One day I came back and Cheepy chick was gone. Now I don't care about no-one.
+GreasyPete [_ track:10-cheepy-chick-t3]: I 'ad a pet chicken once called Cheepy chick... She followed me everywhere, sweet lil thing. I used to feed her an' everything. My family used to say it weren't natural an' that chickens were for eatin'. One day I came back and Cheepy chick was gone. Now I don't care about no-one.
 go menu
 
 # menu-get-teeth
@@ -82,17 +83,17 @@ Arca:
 
 # thanks
 set asked-thanks
-GreasyPete: Oh, alright then. Here ya're. Remember - we never met.
+GreasyPete [_ track:11-never-met-t2]: Oh, alright then. Here ya're. Remember - we never met.
 go finish
 
 # blipcoins
 set asked-blipcoins
-GreasyPete: What? No blipcoins?! Blipcoins make the web go round.  
+GreasyPete [_ track:12-no-blipcoins-t3]: What? No blipcoins?! Blipcoins make the web go round.  
 go menu-get-teeth
 
 # unicorn
 set asked-unicorn
-GreasyPete: Ha! Whaddaya think this is, pal? If I tell ya I'd 'ave to kill ya. D'ya want some, or not?
+GreasyPete [_ track:13-kill-ya-t2]: Ha! Whaddaya think this is, pal? If I tell ya I'd 'ave to kill ya. D'ya want some, or not?
 go menu-get-teeth
 
 
