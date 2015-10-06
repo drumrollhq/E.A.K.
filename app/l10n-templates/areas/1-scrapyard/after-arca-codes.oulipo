@@ -1,0 +1,94 @@
+
+Ada: Coding already? I'm impressed.
+
+Lao: Ants in the Atlantic! You're coding! How did you do that?!
+
+go menu-focus
+
+# menu-focus
+Arca:
+	- (unless asked-focus) I was just focusing, like you told me. -> focus
+	- (unless asked-atlantic) What's the Atlantic? -> atlantic
+	- (unless asked-natural) That wasn't very hard... I must be a natural at this coding thing. -> natural
+
+# focus
+set asked-focus
+Lao: And it worked! Most creatures give up straightaway... Simply splendiferous, my little ferret.
+go menu-teach
+
+# atlantic
+set asked-atlantic
+Lao: It's a pond in an old, ancient universe, according to the Legends of YesterWeb. Quite pleasant I'd imagine.
+go menu-focus
+
+# natural
+set asked-natural
+Lao: Only because you believe you can do anything - if you try! This quality is very rare, so you must remember to keep it.
+go menu-focus
+
+# menu-teach
+Arca:
+	- (unless asked-teach) Could you teach me more? I need to save the kittens that are going missing! -> teach
+	- (unless asked-powers) So what other powers do code skills give you? -> powers
+	- (unless asked-history) When did you first learn to code? -> history
+
+# teach
+set asked-teach
+Lao: Ah yes! The mystery of the missing kittens. I'd like to help you, but I already have an apprentice. And I promised that I would help the screaming cabbages of the south-west, with their ongoing soup debate. Busy times, indeed!
+
+Ada: Let me help, Lao! I could work with Arca to save the kittens!
+
+Lao: No Ada! You're not ready. I've told you before - no missions until you learn to behave less recklessly.
+
+Ada: Hmph!
+go menu-ada
+
+# powers
+set asked-powers
+Lao: Infinite powers! Once you have mastered the art of coding, you'll be able to change the world around you - in any way you want.
+go menu-teach
+
+# history
+set asked-history
+Lao: It was a very long time ago, and there were only a few of us back then. We taught ourselves and each other, until something truly terrible happened... Perhaps I shall tell you, someday.
+go menu-teach
+
+# menu-ada
+Arca:
+	- (unless asked-ada) Please let Ada help me! I need to save my family and the rest of the kittens, and I can't find them on my own. -> ada
+	- (unless asked-cabbages) I don't understand... this is more important than cabbages arguing about soup! -> cabbages
+	- (unless asked-anyone-else) I don't want to cause any trouble. If neither of you can help me, I'll go on my own. -> anyone-else
+
+# ada
+set asked-ada
+Lao: She isn't ready, and neither are you.
+
+Ada: Please Lao! Give me a chance... Arca needs our help.
+
+Lao: Hmmm. Your journey will be perilous, but if this is what you wish, I shall not stop you. After all, is it not written that every mollusc should be allowed to make their own mistake? At least the two of you will be together...
+go menu-end
+
+# cabbages
+set asked-cabbages
+Lao: Hmph! Not if it's vegetable soup, and a matter of life and death! 
+go menu-ada
+
+# anyone-else
+set asked-anyone-else
+Ada: Please let me go! Arca needs our help.
+
+Lao: Hmmm. Your journey will be perilous, but if this is what you wish, I shall not stop you. After all, is it not written that every mollusc should be allowed to make their own mistake? At least the two of you will be together...
+go menu-end
+
+# menu-end
+set asked-end
+Arca: Thank you Lao!
+
+Ada: Woohoo! I'm outta here.
+go finish
+
+
+
+
+
+
