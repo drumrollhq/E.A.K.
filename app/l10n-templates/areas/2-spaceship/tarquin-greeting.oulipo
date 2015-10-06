@@ -58,11 +58,12 @@ Arca:
 #tarquin-who
 set asked-who
 
-Tarquin: I am Tarquin Glitterquiff - Serial Entrepreneur Extraordinaire, Bsc Hons MBA MMO RPG PHP OBE C++. And YOU are trespassing on my ship. Cedric! Fetch me my water pistol. 
+Tarquin: I am Tarquin Glitterquiff - Serial Entrepreneur Extraordinaire, Bsc Honours MBA MMO RPG PHP OBE C++.
+Tarquin: And YOU are trespassing on my ship. Cedric! Fetch me my water pistol. 
 
 Cedric: bleeeeat
 Ada: Nice name, mermaid. We're not trespassers though.
-Tarquin: Hmph! I'm a Unimercorn, not a mermaid.
+Tarquin: Hmph! I'm a Uni-ma-corn, not a mermaid.
 go menu
 
 #tarquin-intern
@@ -128,7 +129,7 @@ go menu
 
 #tarquin-tornado
 set asked-tarquin-tornado
-Tarquin: They happen when a space slug sneezes on the other side of the universe. Beastly things.
+Tarquin: They happen when a space slug sneezes on the other side of the universe. Beastly things. They don't even blow their noses!
 go menu
 
 #tarquin-escapepod
@@ -160,7 +161,7 @@ Arca:
 
 # intern-ship
 set asked-task
-Tarquin:  My fabulous spaceship is broken, and the Internet Space Mobile Association don't think luxury spacecrafts are a priority... Cretinous pumpkinheads! So I want both of you to repair my ship.
+Tarquin:  My fabulous spaceship is broken, and the Internet Space-mobile Association don't think luxury spacecrafts are a priority... Cretinous pumpkinheads! So I want both of you to repair my ship.
 go menu
 
 # intern-tangent
