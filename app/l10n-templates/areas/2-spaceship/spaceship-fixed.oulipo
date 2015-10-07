@@ -5,7 +5,7 @@ Ada: Yep, we're amazing!
 go menu
 
 #menu
-branch:
+branch
 	- (default) go menu-portal
 
 # menu-portal

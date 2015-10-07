@@ -35,6 +35,7 @@ module.exports = class Music
     unless layer? then throw new Error 'No layer called ' + name
 
     @playing-sound = layer.start context.current-time, offset
+    @track-name = name
     @playing = name
 
   stop: ~>
@@ -48,19 +49,24 @@ module.exports = class Music
     @playing-sound.on-ended = on-ended duration, resolve
     @playing-sound.stop context.current-time + duration
 
-  switch-to: (name) ~>
+  switch-to: (track-name) ~>
+    name = @get-name track-name
     if not @playing then return
     offset = context.current-time - @playing-sound.started
     @stop!
+    @track-name = track-name
     @play name, offset
 
-  fade-to: (name, duration = 5) ~>
+  fade-to: (track-name, duration = 5) ~>
+    name = @get-name track-name
+    console.log {name, track-name}
     if (not @playing) or (@playing is name) then return
     new-layer = @layers[name]
     unless new-layer? then throw new Error 'No layer called ' + name
     old-layer = @layers[@playing]
     old-sound = @playing-sound
 
+    console.log @playing, old-sound.started
     offset = context.current-time - old-sound.started
 
     # Fade out and stop the old layer:
@@ -74,4 +80,21 @@ module.exports = class Music
     new-sound = new-layer.start context.current-time, offset
 
     @playing-sound = new-sound
+    @track-name = track-name
     @playing = name
+
+  get-name: (name) ->
+    if @_glitched
+      if @_layers["#{name}Glitch"] then "#{name}Glitch" else \glitch
+    else
+      name
+
+  glitchify: (duration) ->
+    if @_glitched then return
+    @_glitched = true
+    @fade-to @track-name, duration
+
+  deglitchify: (duration) ->
+    unless @_glitched then return
+    @_glitched = false
+    @fade-to @track-name, duration

@@ -50,9 +50,9 @@ module.exports = new Effects {
     edit-stop: '/audio/effects/edit-stop'
 
   triggers:
-    'kitten': 'box-get'
-    'game-commands: portal': 'portal'
-    'death': 'player-death'
-    'game-commands: edit-start': 'edit-start'
-    'game-commands: edit-stop': 'edit-stop'
+    'kitten': \box-get
+    'game-commands: portal': \portal
+    'death': \player-death
+    'game-commands: edit': \edit-start
+    'game-commands: stop-edit': \edit-stop
 }

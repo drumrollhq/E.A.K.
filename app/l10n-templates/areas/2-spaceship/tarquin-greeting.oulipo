@@ -1,3 +1,4 @@
+set audio-root = '/audio/conversations/tarquin-greeting'
 [ To have tarquin say two different things depending on if Arca is his intern:
 
 branch:
@@ -5,7 +6,7 @@ branch:
  - (default) Tarquin: You are not my intern!
 ]
 
-Tarquin: Space slugs in orbit! How did you find me? You interns never cease to amaze me.
+Tarquin [_ track:01-space-slugs-t5]: Space slugs in orbit! How did you find me? You interns never cease to amaze me.
 
 Ada: Chill out Goldilocks - that's not why we're here. I'm Ada and this is Arca.
 
@@ -13,7 +14,7 @@ go menu
 
 [---------------top menu----------------]
 #menu
-branch:
+branch
 	- (if asked-howtofix) go arca-done
 	- (if asked-whathappened) go arca-howtofix
 	- (if asked-task) go arca-whathappened
@@ -58,24 +59,23 @@ Arca:
 #tarquin-who
 set asked-who
 
-Tarquin: I am Tarquin Glitterquiff - Serial Entrepreneur Extraordinaire, Bsc Honours MBA MMO RPG PHP OBE C++.
-Tarquin: And YOU are trespassing on my ship. Cedric! Fetch me my water pistol. 
+Tarquin [_ track:02-im-tarquin-t3]: I am Tarquin Glitterquiff - Serial Entrepreneur Extraordinaire, Bsc Hons MBA MMO RPG PHP OBE C++. And YOU are trespassing on my ship. Cedric! Fetch me my water pistol. 
 
 Cedric: bleeeeat
 Ada: Nice name, mermaid. We're not trespassers though.
-Tarquin: Hmph! I'm a Uni-ma-corn, not a mermaid.
+Tarquin [_ track:02a-unimercorn-t4]: Hmph! I'm a Unimercorn, not a mermaid.
 go menu
 
 #tarquin-intern
 set asked-intern
 
-Tarquin: An intern works for someone, in order to learn from them. My interns gain valuable busy-ness experience by doing tasks such as making me tea, waxing my back and being my tailstool. 
+Tarquin [_ track:03-what-interns-t1]: An intern works for someone, in order to learn from them. My interns gain valuable busy-ness experience by doing tasks such as making me tea, waxing my back and being my tailstool. 
 go menu
 
 #tarquin-why
 set asked-why
 
-Tarquin: I am constantly harassed by fans wanting to work for me. Did you know that I have over 100,000 followers? It'd be far more if everyone had opposable thumbs.
+Tarquin [_ track:04-followers-t1]: I am constantly harassed by fans wanting to work for me. Did you know that I have over 100,000 followers? It'd be far more if everyone had opposable thumbs.
 
 Ada: How fascinating.
 go menu
@@ -83,14 +83,14 @@ go menu
 #tarquin-apprentices
 set asked-apprentices
 
-Tarquin: I don't care who you are. I am a Serial Entrepreneur Extraordinaire. If you don't want to be my minions - I mean interns - then what the Great Internewt are you doing here?
+Tarquin [_ track:05-internewt-t1]: I don't care who you are. I am a Serial Entrepreneur Extraordinaire. If you don't want to be my minions - I mean interns - then what the Great Internewt are you doing here?
 
 go menu
 
 #tarquin-portal
 set asked-portal
 
-Tarquin: Hmmm... I have a better idea. The two of you can be my interns! 
+Tarquin [_ track:06-better-idea-t2]: Hmmm... I have a better idea. The two of you can be my interns! 
 
 Arca:
 	- Awesome! We'd love to be your interns. Maybe the stuff we learn will help us on our mission! -> yes-interns
@@ -99,50 +99,48 @@ Arca:
 #tarquin-whathappened
 set asked-whathappened
 
-Taquin: Got too close to a space tornado - total disaster! The engines are in a terrible state, and even the coffee machine has stopped working! I'm not sure how I'm supposed to live like this. Simply barbaric. 
+Taquin [_ track:07-too-close-t2]: Got too close to a space tornado - total disaster! The engines are in a terrible state, and even the coffee machine has stopped working! I'm not sure how I'm supposed to live like this. Simply barbaric. 
 go menu
 
 #tarquin-howtofix
 set asked-howtofix
-Tarquin: You need to find a way to get to the engines, and then fix the glitches. Should be fun! If you don't die, that is. 
+Tarquin [_ track:08-find-a-way-t1]: You need to find a way to get to the engines, and then fix the glitches. Should be fun! If you don't die, that is. 
 Ada: Great.
 go menu
 
 #tarquin-tips
 set asked-tips
-Tarquin: Try not to fall off things or blow yourselves up. At least not on my property.
+Tarquin [_ track:09-try-not-t2]: Try not to fall off things or blow yourselves up. At least not on my property.
 go menu
 
 #tarquin-entrepreneur
 set asked-entrepreneur
-
-		Tarquin: An entrepreneur is someone who sees opportunity and makes the most of it! For example, my latest idea is an app that hypnotises you to sleep-work, so you can get all your work done in your sleep. Pretty amazing, right? We're beta-testing it on sloths.
+Tarquin [_ track:10-entrepreneur-t1]: An entrepreneur is someone who sees opportunity and makes the most of it! For example, my latest idea is an app that hypnotises you to sleep-work, so you can get all your work done in your sleep. Pretty amazing, right? We're beta-testing it on sloths.
 go menu
 
 #tarquin-extraordinary
 set asked-extraordinary
 
-Tarquin: I'm a passionate networker, I look fabulous all the time and I use words like 'disruptive' a lot. Also, I have a disco ball in my office.
+Tarquin [_ track:11-disco-ball-t2]: I'm a passionate networker, I look fabulous all the time and I use words like 'disruptive' a lot. Also, I have a disco ball in my office.
 
 Ada: Wow.
 go menu
 
 #tarquin-tornado
 set asked-tarquin-tornado
-Tarquin: They happen when a space slug sneezes on the other side of the universe. Beastly things. They don't even blow their noses!
+Tarquin [_ track:12-blow-noses-t1]: They happen when a space slug sneezes on the other side of the universe. Beastly things. They don't even blow their noses!
 go menu
 
 #tarquin-escapepod
 set asked-tarquin-escapepod
-Tarquin: It did, but then Cedric accidently sat on the release button. Most unfortunate, but these things happen.
+Tarquin [_ track:13-cedric-sat-t3]: It did, but then Cedric accidently sat on the release button. Most unfortunate, but these things happen.
 
 Cedric: bleeeeat
 go menu
 
 #tarquin-codingpowers
 set asked-tarquin-codingpowers
-Tarquin: Oh sure, and I'm The Wonder Walrus.
-Tarquin: With much better abs.
+Tarquin [_ track:14-wonder-walrus-t1]: Oh sure, and I'm The Wonder Walrus... With much better abs.
 go menu
 
 [---------- intern branch ---------]
@@ -151,7 +149,7 @@ set arca-is-intern=true
 
 Ada: *sigh*
 	
-Tarquin: Well, first I need to know if you're worthy of my time. Not everyone is lucky enough to learn from Tarquin Glitterquiff himself! I'm going to set you a task, to find out if you two have enough hustle in your hams.
+Tarquin [_ track:15-hustle-t1]: Well, first I need to know if you're worthy of my time. Not everyone is lucky enough to learn from Tarquin Glitterquiff himself! I'm going to set you a task, to find out if you two have enough hustle in your hams.
 go menu-intern
 
 # menu-intern
@@ -166,13 +164,13 @@ go menu
 
 # intern-tangent
 set asked-intern-tangent
-Tarquin: Where to begin! I shall use my superior intellect and experience to mould you into successful busy-ness creatures, capable of money-making manipulation and using words like synergy.
+Tarquin [_ track:16-where-to-begin-t1]: Where to begin! I shall use my superior intellect and experience to mould you into successful busy-ness creatures, capable of money-making manipulation and using words like synergy.
 go menu-intern
 
 [---------- non-intern branch ---------]
 #no-interns
 set arca-is-intern=false
-Tarquin: Not possible I'm afraid - the whole spaceship needs repairing. The portal doesn't work anymore, so I guess you'll have to be on your way. Ciao!
+Tarquin [_ track:17-not-possible-t5]: Not possible I'm afraid - the whole spaceship needs repairing. The portal doesn't work anymore, so I guess you'll have to be on your way. Ciao!
 go menu-nointern
 
 # menu-nointern
@@ -183,21 +181,21 @@ Arca:
 
 # nointern-ship
 set asked-task
-Tarquin: You two? Ha! I doubt it. This is a very complex machine - the most magnificent 7* spacecraft in the internet universe. 
+Tarquin [_ track:18-you-two-t4]: You two? Ha! I doubt it. This is a very complex machine - the most magnificent 7* spacecraft in the internet universe. 
 Ada: Oh come on... Can we at least take a look?
-Tarquin: Fine. But I'm warning you - any funny business and Cedric will kick you off the ship herself. She has a mean roundhouse kick, don't you my little fuzzybutt?
+Tarquin [_ track:19-fuzzy-butt-t4]: Fine. But I'm warning you - any funny business and Cedric will kick you off the ship herself. She has a mean roundhouse kick, don't you my little fuzzybutt?
 
 Cedric: bleeeeat
 go menu
 
 # nointern-otherway
 set asked-nointern-otherway
-Tarquin: Hmmm... You could travel by viral asteroid - one comes by every year. Or web surfboarding, but you're not old enough for a license.
+Tarquin [_ track:20-viral-asteroid-t3]: Hmmm... You could travel by viral asteroid - one comes by every year. Or web surfboarding, but you're not old enough for a license.
 go menu-nointern
 
 #nointern-whenfixed
 set asked-nointern-whenfixed
-Tarquin: I have no idea... Creatures who can code are like unicorn farts - much in demand, but impossible to find. 
+Tarquin [_ track:21-unicorn-farts-t2]: I have no idea... Creatures who can code are like unicorn farts - much in demand, but impossible to find. 
 go menu-nointern
 
 	

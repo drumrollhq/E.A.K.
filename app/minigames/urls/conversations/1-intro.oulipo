@@ -1,7 +1,7 @@
 set view.characters.hobo.image = 'buttstacks'
 set view.characters.hobo.name = 'Boris J. Buttstacks'
 
-Hobo: Allo there... where d'ya think you're goin'? Just waltzin' into town? You ain't gettin' through unless I say so.
+Hobo [worried]: Allo there... where d'ya think you're goin'? Just waltzin' into town? You ain't gettin' through unless I say so.
 go menu-kittens
 
 # menu-kittens
@@ -13,12 +13,12 @@ Arca:
 
 # passage
 set asked-passage
-Hobo: Nah-ah. This is my town. I'm th'mayor. Completely legit. Dy'a get it? I rule it here. And it ain't the first kid want'in to visit that can get in just like that.
+Hobo [irritated]: Nah-ah. This is my town. I'm th'mayor. Completely legit. Dy'a get it? I rule it here. And it ain't the first kid want'in to visit that can get in just like that.
 go menu-kittens
 
 # kittens
 set asked-kittens
-Hobo: Strange ya mentioned that. A funny lookin' chap with a tail came an' asked where he could find kittens, just t'other day. Didn't like the look of his jumper, so I told 'im to bob off.
+Hobo [worried]: Strange ya mentioned that. A funny lookin' chap with a tail came an' asked where he could find kittens, just t'other day. Didn't like the look of his jumper, so I told 'im to bob off.
 Arca:
 	- Oh... did he say why he was looking for them?
 		continue
@@ -27,28 +27,28 @@ Arca:
 	- Do you know where he was going?
 		continue
 		
-Hobo: Nup, he didn't say.
+Hobo [irritated]: Nup, he didn't say.
 go menu-kittens
 
 # clothes
 set asked-clothes
-Hobo: What the Newt kinda question is that? No offense kid, but that's rich coming from someone dressed as a turnip.
+Hobo [irritated]: What the Newt kinda question is that? No offense kid, but that's rich coming from someone dressed as a turnip.
 Arca:
 	- It's a cape... capes are awesome!
-		Hobo: Hmph! Who do you think you are? Wonder Walrus?
+		Hobo [irritated]: Hmph! Who do you think you are? Wonder Walrus?
 
 	- These are the only clothes I have.
-		Hobo: Don't be lazy, there are lots of bins around 'ere. Tha's where I get all my clothes.
+		Hobo [smug]: Don't be lazy, there are lots of bins around 'ere. Tha's where I get all my clothes.
 
 	- What's so bad about looking like a turnip? 
-	  Hobo: Hmmm. I've avoided turnips ever since the accident...
+	  Hobo [irritated]: Hmmm. I've avoided turnips ever since the accident...
 go menu-kittens
 
 # who
 set asked-who
-branch:
-	- (if asked-passage) Hobo: I'm Boris J. Buttstacks - the town's mayor, as I might 'ave mentioned. As in, I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
-	- (default) Hobo: I'm Boris J. Buttstacks - the town's mayor. As in, I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
+branch
+	- (if asked-passage) Hobo [smug]: I'm Boris J. Buttstacks - the town's mayor, as I might 'ave mentioned. As in, I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
+	- (default) Hobo [smug]: I'm Boris J. Buttstacks - the town's mayor. As in, I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
 go menu-mission
 
 # menu-mission
@@ -59,17 +59,17 @@ Arca:
 		
 # why
 set asked-why
-Hobo: You scratch my feet, I'll scratch yours. That's 'ow the world works, y'know.
+Hobo [smug]: You scratch my feet, I'll scratch yours. That's 'ow the world works, y'know.
 go menu-mission
 
 # how
 set asked-how
-Hobo: Hmph! How rude! I'm the mayor, and that's that.
+Hobo [irritated]: Hmph! How rude! I'm the mayor, and that's that.
 go menu-mission
 
 # mission
 set asked-mission
-Hobo: Well... Ya gonna need to go and fetch some stuff for me. Imma give you some addresses that will help ya find my stuff. Got it?
+Hobo[neutral]: Well... Ya gonna need to go and fetch some stuff for me. Imma give you some addresses that will help ya find my stuff. Got it?
 go menu-onions
 
 # menu-onions
@@ -79,12 +79,12 @@ Arca:
 
 # onions
 set asked-onions
-Hobo: Well see, I'm a big fan o' pickled onions. Could eat a thousand an' beg fo'more. Ya gonna need to go to Bulbous Island and get me a big'ol'jar of pickled onions, if ya please. I've written down the address for ya.
+Hobo [neutral]: Well see, I'm a big fan o' pickled onions. Could eat a thousand an' beg fo'more. Ya gonna need to go to Bulbous Island and get me a big'ol'jar of pickled onions, if ya please. I've written down the address for ya.
 go menu-lets-go
 
 # time
 set asked-time
-Hobo: Well then, you best be quick.
+Hobo [irritated]: Well then, you best be quick.
 go menu-onions
 
 # menu-lets-go

@@ -1,7 +1,7 @@
 set view.characters.hobo.image = 'buttstacks'
 set view.characters.hobo.name = 'Boris J. Buttstacks'
 
-Hobo: Thanks for 'elping me with all them things spud... you're a good friend. Imma gonna let ya into Ponyhead Bay now - good luck with findin' them kittens. 
+Hobo [smug]: Thanks for 'elping me with all them things spud... you're a good friend. Imma gonna let ya into Ponyhead Bay now - good luck with findin' them kittens. 
 go menu
 
 # menu
@@ -12,15 +12,16 @@ Arca:
 
 # yodelling
 set asked-yodelling
-Hobo: My mum's always told me I 'ave a voice like a nightingale... shouldn't waste that talent, I suppose! So long, spud.
+Hobo [crying]: My mum's always told me I 'ave a voice like a nightingale... shouldn't waste that talent, I suppose! So long, spud.
 go finish
 
 # learnt
 set asked-learnt 
-Hobo: Well, tha's nice! No-one's ever tol' me they've learned anything from me... dunno why. So long, spud.
+Hobo [smug]: Well, tha's nice! No-one's ever tol' me they've learned anything from me... dunno why. So long, spud.
 go finish
 
 #dusty
 set asked-dusty
-Hobo: Ya know what, you're right! I deserve someone who isn't so cold and wooden. See ya later - I'm off to find myself a new gal.
+Hobo [smug]: Ya know what, you're right! I deserve someone who isn't so cold and wooden. See ya later -
+Hobo [lovestruck]:I'm off to find myself a new gal.
 go finish

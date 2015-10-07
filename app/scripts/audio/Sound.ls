@@ -14,8 +14,8 @@ module.exports = class Sound
   load: ~>
     load @_path .then (buffer) ~> @_buffer = buffer
 
-  start: (wh = context.current-time, offset = 0, duration) ~>
-    unless duration? then duration = @_buffer.duration - (offset % @_buffer.duration)
+  start: (when_ = context.current-time, offset = 0, duration = void) ~>
+    if duration then duration = duration % @_buffer.duration
 
     sound-source = context.create-buffer-source!
       ..buffer = @_buffer
@@ -24,6 +24,18 @@ module.exports = class Sound
       ..onended = ~>
           sound-source.disconnect!
           sound-source.on-ended!
+          @_playing = false
       ..loop = @loop
-      ..start wh, offset % @_buffer.duration, duration
-      ..started = context.current-time - offset
+
+    if duration
+      sound-source.start when_, offset % @_buffer.duration, duration
+    else sound-source.start when_, offset % @_buffer.duration
+
+    sound-source.started = context.current-time - offset
+    @_playing = true
+    sound-source
+
+  play: -> new Promise (resolve) ~>
+    if @_playing then return resolve!
+    @start! .on-ended = ~> resolve!
+

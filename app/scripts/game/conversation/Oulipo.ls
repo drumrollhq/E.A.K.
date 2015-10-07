@@ -45,7 +45,7 @@ module.exports = class Oulipo
 
         decide = new Promise (resolve) ~> @trigger \choice, node.name, content, resolve
         decide
-          .tap (idx) ~> @say-line {name: node.name.name, emotion: choices[idx].emotion}, choices[idx].content, true
+          .tap (idx) ~> @say-line {name: node.name.name, annotations: choices[idx].annotations}, choices[idx].content, true
           .then (idx) ~> @process-node choices[idx].next
 
       case \set
@@ -80,8 +80,9 @@ module.exports = class Oulipo
         console.log '[oulipo]' node
         throw new TypeError "[oulipo] Unknown node type #{node.type}"
 
-  say-line: ({name, emotion}, content, from-player) ->
-    console.log \line {name, emotion, from-player}
+  say-line: ({name, annotations = []}, content, from-player) ->
+    console.log \line {name, annotations, from-player}
+    emotion = annotations.0
     name-lower = name.to-lower-case!
     if from-player
       @state.set 'view.player', "#{name-lower} #{emotion or 'neutral'}"
@@ -91,8 +92,10 @@ module.exports = class Oulipo
 
     @state.set "characterEmotions.#{name-lower}", emotion
 
-    @state.add-line name, content, from-player
-    Promise.delay 500
+    if annotations.1 and annotations.1.match /^track\:/
+      track = annotations.1.replace /^track\:/, ''
+
+    @state.add-line name, content, from-player, track
 
   set: (variable, op, value) ->
     variable = camelize variable
