@@ -3,7 +3,7 @@ require! {
   'audio/Track'
 }
 
-track = new Track 'conversation'
+track = new Track \conversation
 
 sounds = {}
 
