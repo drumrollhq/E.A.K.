@@ -1,5 +1,6 @@
 require! {
   'assets'
+  'game/conversation/components/Line'
 }
 
 dom = React.DOM
@@ -14,7 +15,6 @@ module.exports = React.create-class {
   }
 
   choice: (name, choices, cb) ->
-    console.log arguments
     @set-state choice: {name, choices, cb}, choice-active: true
 
   choose: (idx) ->
@@ -31,8 +31,23 @@ module.exports = React.create-class {
         $lines.stop!.animate scroll-top: (lines.scroll-height - $lines.height!), 200
       50
 
+  on-line-first-play-completed: ->
+    @get-model!.trigger \line-first-play-completed
+
+  on-line-play: (line) ->
+    @_playing = line
+
+  on-line-play-completed: ->
+    @_playing = null
+
+  skip: ->
+    if @_playing then @_playing.stop-playing!
+
   component-did-update: ->
     @update-scroll!
+
+  component-will-unmount: ->
+    clear-timeout @scroll-timer
 
   render: ->
     [player, player-expression] = (@state.model.view.player or 'arca neutral').split ' '
@@ -55,16 +70,31 @@ module.exports = React.create-class {
           transition-name: \conversation-line
         }, for line in @state.model.lines
             speaker = @state.model.view.characters?[line.speaker.to-lower-case!]?.name or line.speaker
-            dom.li key: line.id, class-name: (cx \conversation-line, \conversation-line-player : line.from-player),
-              dom.div class-name: \conversation-line-speaker, speaker
-              dom.div class-name: \conversation-line-line, line.line
+            React.create-element Line, {
+              key: line.id
+              from-player: line.from-player
+              speaker: speaker
+              line: line.line
+              audio-root: line.audio-root
+              track: line.track
+              on-play: @on-line-play
+              on-first-play-completed: @on-line-first-play-completed
+              on-play-completed: @on-line-play-completed
+            }
 
-        dom.div class-name: (cx \conversation-choice active: @state.choice-active),
-          dom.h4 null, "#{@state.{}choice.{}name.name or 'Arca'}:"
-          dom.ul null,
-            for let choice, i in @state.{}choice.[]choices
-              dom.li class-name: \choice, key: i,
-                dom.a on-click: (~> @choose i), choice
+        dom.div class-name: (cx \conversation-choice \active),
+          if @state.choice-active
+            dom.div key: \choices,
+              dom.h4 null, "#{@state.{}choice.{}name.name or 'Arca'}:"
+              dom.ul null,
+                for let choice, i in @state.{}choice.[]choices
+                  dom.li class-name: \choice, key: i,
+                    dom.a on-click: (~> @choose i), choice
+          else
+            dom.div key: \skip,
+              dom.ul null,
+                dom.li class-name: \choice,
+                  dom.a on-click: @skip, 'Skip'
 
       React.create-element CSSTransitionGroup, {
         transition-name: \conversation-speaker

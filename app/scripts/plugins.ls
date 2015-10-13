@@ -151,6 +151,11 @@ window.wait-for-event = (subject, event, {timeout, condition} = {}) -> new Promi
 
 window.wait-for-event.TimeoutError = class TimeoutError extends Error
 
+# Prevent stuff from getting GCd, e.g. to work around https://code.google.com/p/chromium/issues/detail?id=349543
+never-gc-name = "_NEVER_GC_#{Date.now!}"
+window[never-gc-name] = []
+window.never-gc = (val) -> window[never-gc-name][*] = val
+
 FastClick.attach document.body
 
 # use livescript style to-json rather than toJSON:

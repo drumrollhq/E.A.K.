@@ -21,7 +21,10 @@ module.exports = class Sound
       ..buffer = @_buffer
       ..connect @gain-node
       ..on-ended = -> null
-      ..onended = ~>
+      # According to https://code.google.com/p/chromium/issues/detail?id=349543, onended handlers
+      # are incorrectly GCd due to a bug in chrome. Here, never-gc stores the event handler on
+      # window, stopping it from getting GCd but also creating a memory leak. Sigh.
+      ..onended = never-gc ~>
           sound-source.disconnect!
           sound-source.on-ended!
           @_playing = false
@@ -33,9 +36,11 @@ module.exports = class Sound
 
     sound-source.started = context.current-time - offset
     @_playing = true
+    @_playing-source = sound-source
     sound-source
 
   play: -> new Promise (resolve) ~>
     if @_playing then return resolve!
     @start! .on-ended = ~> resolve!
 
+  stop: -> @_playing-source.stop! if @_playing-source
