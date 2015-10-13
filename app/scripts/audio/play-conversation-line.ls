@@ -12,6 +12,7 @@ module.exports = play-conversation-line = (root, name) ->
   path = "#root/#name"
   play-conversation-line.stop!
   if sounds[path]
+    currently-playing := sounds[path]
     sounds[path].play!
   else
     sound = sounds[path] = new Sound path, track

@@ -33,6 +33,12 @@ module.exports = React.create-class {
   stop-playing: ->
     play-conversation-line.stop!
 
+  toggle-play: ->
+    if @state.playing
+      @stop-playing!
+    else
+      @play-track!
+
   component-did-mount: ->
     @play-track!
 
@@ -40,4 +46,6 @@ module.exports = React.create-class {
     dom.li class-name: (cx \conversation-line, \conversation-line-player : @props.from-player),
       dom.div class-name: \conversation-line-speaker, @props.speaker
       dom.div class-name: \conversation-line-line, @props.line
+      if @props.track
+        dom.a class-name: (cx \conversation-line-play @state.{playing}), on-click: @toggle-play
 }

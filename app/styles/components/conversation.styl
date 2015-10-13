@@ -92,6 +92,33 @@
     font-weight 300
     font-size 0.8em
 
+  .conversation-line-play
+    display block
+    width 30px
+    height 30px
+    position absolute
+    top 50%
+    margin-top -15px
+    right -30px
+    cursor pointer
+    text-align center
+    font-size 22px
+    opacity 0
+    transition opacity 0.3s ease
+    background-color rgba(white, 0.5)
+    border-top-right-radius 5px
+    border-bottom-right-radius 5px
+
+    &::before
+      content '\f028'
+      font-family FontAwesome
+
+    &.playing::before
+      content '\f00d'
+
+  .conversation-line:hover .conversation-line-play
+    opacity 1
+
   .conversation-speaker
     position absolute
     bottom 0
