@@ -8,7 +8,7 @@ branch:
 
 Tarquin [_ track:01-space-slugs-t5]: Space slugs in orbit! How did you find me? You interns never cease to amaze me.
 
-Ada: Chill out Goldilocks - that's not why we're here. I'm Ada and this is Arca.
+Ada [_ track:01-chill-out-t6]: Chill out Goldilocks - that's not why we're here. I'm Ada and this is Arca.
 
 go menu
 
@@ -61,8 +61,8 @@ set asked-who
 
 Tarquin [_ track:02-im-tarquin-t3]: I am Tarquin Glitterquiff - Serial Entrepreneur Extraordinaire, Bsc Hons MBA MMO RPG PHP OBE C++. And YOU are trespassing on my ship. Cedric! Fetch me my water pistol. 
 
-Cedric: bleeeeat
-Ada: Nice name, mermaid. We're not trespassers though.
+Cedric [_ track:llama-1]: bleeeeat
+Ada [_ track:02-nice-name-t2]: Nice name, mermaid. We're not trespassers though.
 Tarquin [_ track:02a-unimercorn-t4]: Hmph! I'm a Unimercorn, not a mermaid.
 go menu
 
@@ -77,7 +77,7 @@ set asked-why
 
 Tarquin [_ track:04-followers-t1]: I am constantly harassed by fans wanting to work for me. Did you know that I have over 100,000 followers? It'd be far more if everyone had opposable thumbs.
 
-Ada: How fascinating.
+Ada [_ track:03-fascinating-t3]: How fascinating.
 go menu
 
 #tarquin-apprentices
@@ -105,7 +105,7 @@ go menu
 #tarquin-howtofix
 set asked-howtofix
 Tarquin [_ track:08-find-a-way-t1]: You need to find a way to get to the engines, and then fix the glitches. Should be fun! If you don't die, that is. 
-Ada: Great.
+Ada [_ track:04-great-t4]: Great.
 go menu
 
 #tarquin-tips
@@ -123,7 +123,7 @@ set asked-extraordinary
 
 Tarquin [_ track:11-disco-ball-t2]: I'm a passionate networker, I look fabulous all the time and I use words like 'disruptive' a lot. Also, I have a disco ball in my office.
 
-Ada: Wow.
+Ada [_ track:05-wow-t7]: Wow.
 go menu
 
 #tarquin-tornado
@@ -135,7 +135,7 @@ go menu
 set asked-tarquin-escapepod
 Tarquin [_ track:13-cedric-sat-t3]: It did, but then Cedric accidently sat on the release button. Most unfortunate, but these things happen.
 
-Cedric: bleeeeat
+Cedric [_ track:llama-2]: bleeeeat
 go menu
 
 #tarquin-codingpowers
@@ -147,7 +147,7 @@ go menu
 #yes-interns
 set arca-is-intern=true
 
-Ada: *sigh*
+Ada [_ track:06-sigh-t3]: *sigh*
 	
 Tarquin [_ track:15-hustle-t1]: Well, first I need to know if you're worthy of my time. Not everyone is lucky enough to learn from Tarquin Glitterquiff himself! I'm going to set you a task, to find out if you two have enough hustle in your hams.
 go menu-intern
@@ -182,10 +182,10 @@ Arca:
 # nointern-ship
 set asked-task
 Tarquin [_ track:18-you-two-t4]: You two? Ha! I doubt it. This is a very complex machine - the most magnificent 7* spacecraft in the internet universe. 
-Ada: Oh come on... Can we at least take a look?
+Ada [_ track:07-come-on-t4]: Oh come on... Can we at least take a look?
 Tarquin [_ track:19-fuzzy-butt-t4]: Fine. But I'm warning you - any funny business and Cedric will kick you off the ship herself. She has a mean roundhouse kick, don't you my little fuzzybutt?
 
-Cedric: bleeeeat
+Cedric [_ track:llama-3]: bleeeeat
 go menu
 
 # nointern-otherway
