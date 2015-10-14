@@ -59,14 +59,12 @@ module.exports = class Music
 
   fade-to: (track-name, duration = 5) ~>
     name = @get-name track-name
-    console.log {name, track-name}
     if (not @playing) or (@playing is name) then return
     new-layer = @layers[name]
     unless new-layer? then throw new Error 'No layer called ' + name
     old-layer = @layers[@playing]
     old-sound = @playing-sound
 
-    console.log @playing, old-sound.started
     offset = context.current-time - old-sound.started
 
     # Fade out and stop the old layer:
