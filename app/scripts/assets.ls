@@ -9,6 +9,7 @@ asset-cache = {}
 loaded-bundles = {}
 registered-actors = {}
 registered-modules = {}
+registered-area-scripts = {}
 added-css = {}
 
 bundle-sizes = {}
@@ -91,6 +92,11 @@ export function unload-bundle bundle-name
       window.eak.deregister-actor actor
     delete registered-actors[bundle-name]
 
+  if registered-area-scripts[bundle-name]
+    for script in registered-area-scripts[bundle-name]
+      script.deregister!
+    delete registered-area-scripts[bundle-name]
+
   if registered-modules[bundle-name]
     for module in registered-modules[bundle-name]
       window.require.de-register module
@@ -137,14 +143,18 @@ function string-to-url str, mime
 
 function add-js js, bundle-name, name
   registered-actors[bundle-name] ?= []
+  registered-area-scripts[bundle-name] ?= []
   registered-modules[bundle-name] ?= []
 
   # intercept eak register functions
   eak = window.eak
-  original-eak = eak.{register-actor}
+  original-eak = eak.{register-actor, register-area-script}
   eak.register-actor = (ctor) ->
     registered-actors[bundle-name][*] = dasherize ctor.display-name
     original-eak.register-actor.apply this, arguments
+
+  eak.register-area-script = (name, obj) ->
+    registered-area-scripts[bundle-name][*] = original-eak.register-area-script.apply this, arguments
 
   # intercept require.register
   original-register = window.require.register

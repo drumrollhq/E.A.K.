@@ -3,19 +3,21 @@ require! {
   'assets'
   'audio/effects'
   'audio/music-manager'
+  'game/CutScene'
+  'game/actors'
+  'game/area/Area'
   'game/conversation'
   'game/event-loop'
   'game/load'
   'game/pauser'
-  'game/actors'
   'lib/channels'
   'lib/parse'
   'loader/LoaderView'
   'logger'
   'settings'
-  'ui/actions'
   'ui/Bar'
   'ui/MainMenuView'
+  'ui/actions'
   'ui/alert'
   'ui/overlay-views'
   'user'
@@ -102,6 +104,7 @@ module.exports = class App
     @ <<< {
       actors.register-actor
       actors.deregister-actor
+      Area.register-area-script
     }
 
     Promise
@@ -279,6 +282,15 @@ module.exports = class App
 
   hide-loader: ~>
     if @loader-view then @loader-view.hide!
+
+  play-cutscene: (video, subtitles) ~>
+    scene = new CutScene {video, subtitles}
+    scene.load!
+      .then ~>
+        scene.start!
+        wait-for-event scene, \finish
+      .then ~>
+        scene.cleanup!
 
   start-conversation: (name) ~>
     if @current-state is \conversation

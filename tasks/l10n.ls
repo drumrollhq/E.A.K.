@@ -7,6 +7,7 @@ require! {
   'gulp-cached'
   'gulp-changed'
   'gulp-filter'
+  'gulp-livescript'
   'gulp-preprocess'
   'gulp-rename'
   'handlebars'
@@ -61,6 +62,7 @@ gulp.task 'l10n' ['l10n-data' 'bootstrap-livescript' 'minigame-oulipo'] (cb) !->
     console.log 'Version:' ctx.version
     preprocess-context <<< ctx
     oulipo-filter = gulp-filter ['**/*.oulipo'], restore: true
+    ls-filter = gulp-filter ['**/*.ls'], restore: true
     gulp.src src.locale-templates
       .pipe gulp-preprocess context: preprocess-context
       .pipe localize! .on 'error' -> throw it
@@ -68,6 +70,9 @@ gulp.task 'l10n' ['l10n-data' 'bootstrap-livescript' 'minigame-oulipo'] (cb) !->
       .pipe convert-oulipo!
       .pipe gulp-rename extname: '.oulipo.json'
       .pipe oulipo-filter.restore
+      .pipe ls-filter
+      .pipe gulp-livescript bare: true
+      .pipe ls-filter.restore
       .pipe gulp-cached 'l10n'
       .pipe gulp.dest dest.assets
       .on 'end' -> cb!
