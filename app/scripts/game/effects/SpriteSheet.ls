@@ -43,7 +43,7 @@ module.exports = class SpriteSheet extends PIXI.extras.MovieClip
     sprite-sheet
 
   defaults:
-    speed: 60
+    speed: 30
     start-frame: 0
     state: \play
     loop-times: 0

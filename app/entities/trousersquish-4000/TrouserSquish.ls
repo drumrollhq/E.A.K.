@@ -44,7 +44,8 @@ class TrouserSquish extends Actor
   load: ->
     @bubbles = new SpriteSheet '/entities/trousersquish-4000/assets/trousersquish-bubbles', 280, 168, @x, @y
     @dial = new SpriteSheet '/entities/trousersquish-4000/assets/trousersquish-dial', 280, 168, @x, @y
-    Promise.all [@bubbles.load!, @dial.load!]
+    @top-wobble = new SpriteSheet '/entities/trousersquish-4000/assets/top-wobble', 280, 168, @x, @y
+    Promise.all [@bubbles.load!, @dial.load!, @top-wobble.load!]
 
   on-prepare: ->
     if @_prepared then return
@@ -57,8 +58,10 @@ class TrouserSquish extends Actor
 
     @bubbles <<< x: @x - 141, y: @y - 91
     @dial <<< x: @x - 141, y: @y - 91
+    @top-wobble <<< x: @x - 141, y: @y - 91
     @area-view.effects-layer.add @bubbles
     @area-view.effects-layer.add @dial
+    @area-view.effects-layer.add @top-wobble
 
     @steam = new ParticleEmitter (new Vector @x + 115, @y + -45), steam
     @area-view.effects-layer.add @steam
