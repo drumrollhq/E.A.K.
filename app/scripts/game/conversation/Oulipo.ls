@@ -92,10 +92,17 @@ module.exports = class Oulipo
 
     @state.set "characterEmotions.#{name-lower}", emotion
 
-    if annotations.1 and annotations.1.match /^track\:/
-      track = annotations.1.replace /^track\:/, ''
+    track = annotations
+      |> filter ( .match /^track\:/ )
+      |> first
 
-    @state.add-line name, content, from-player, track
+    if track then track .= replace /^track\:/, ''
+
+    options = annotations
+      |> filter ( .match /^option\:/ )
+      |> map ( .replace /^option\:/, '' )
+
+    @state.add-line name, content, from-player, track, options
 
   set: (variable, op, value) ->
     variable = camelize variable

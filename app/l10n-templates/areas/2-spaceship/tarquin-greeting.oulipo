@@ -6,7 +6,7 @@ branch:
  - (default) Tarquin: You are not my intern!
 ]
 
-Tarquin [_ track:01-space-slugs-t5]: Space slugs in orbit! How did you find me? You interns never cease to amaze me.
+Tarquin [_ track:01-space-slugs-t5 option:skip-first-play]: Space slugs in orbit! How did you find me? You interns never cease to amaze me.
 
 Ada [_ track:01-chill-out-t6]: Chill out Goldilocks - that's not why we're here. I'm Ada and this is Arca.
 

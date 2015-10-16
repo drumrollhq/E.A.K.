@@ -13,7 +13,7 @@ module.exports = React.create-class {
   }
 
   play-track: ->
-    if @props.track
+    if @props.track and not (not @state.first-play-completed and \skip-first-play in @props.options)
       @set-state playing: true
       @props.on-play this if @props.on-play
       play-conversation-line @props.audio-root, @props.track

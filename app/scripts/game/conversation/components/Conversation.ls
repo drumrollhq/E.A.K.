@@ -77,6 +77,7 @@ module.exports = React.create-class {
               line: line.line
               audio-root: line.audio-root
               track: line.track
+              options: line.options
               on-play: @on-line-play
               on-first-play-completed: @on-line-first-play-completed
               on-play-completed: @on-line-play-completed

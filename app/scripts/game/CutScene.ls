@@ -2,6 +2,7 @@ require! {
   'assets'
   'lib/channels'
   'translations'
+  'audio/tracks'
 }
 
 const vw = 1280px
@@ -73,10 +74,12 @@ module.exports = class CutScene extends Backbone.View
   setup-video: ~>
     @popcorn.on 'ended' @finish
     @popcorn.play!
+    tracks.focus \cutscene, 0.4
 
   finish: ~>
     @trigger \finish
     @trigger \next @next
+    tracks.blur!
 
   trigger-skip: ~>
     @trigger \skip
