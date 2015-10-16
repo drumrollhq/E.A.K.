@@ -1,6 +1,7 @@
 require! {
   'assets'
   'game/conversation/components/Line'
+  'game/conversation/components/Speaker'
 }
 
 dom = React.DOM
@@ -55,11 +56,8 @@ module.exports = React.create-class {
 
     player-img = @state.model.view.characters?[player]?.image or player
     speaker-img = @state.model.view.characters?[speaker]?.image or speaker
-
-    if player and player-expression
-      player-img = assets.load-asset "/content/conversation/#{player-img}/#{player-expression}.png", \url
-    if speaker and speaker-expression
-      speaker-img = assets.load-asset "/content/conversation/#{speaker-img}/#{speaker-expression}.png", \url
+    player-background = @state.model.view.characters?[player]?.background or void
+    speaker-background = @state.model.view.characters?[speaker]?.background or void
 
     dom.div class-name: \conversation,
       dom.div class-name: \conversation-lines,
@@ -97,15 +95,6 @@ module.exports = React.create-class {
                 dom.li class-name: \choice,
                   dom.a on-click: @skip, 'Skip'
 
-      React.create-element CSSTransitionGroup, {
-        transition-name: \conversation-speaker
-        class-name: 'conversation-speaker conversation-speaker-left'
-        component: \div
-      }, dom.img src: speaker-img, key: speaker-img
-
-      React.create-element CSSTransitionGroup, {
-        transition-name: \conversation-speaker
-        class-name: 'conversation-speaker conversation-speaker-right'
-        component: \div
-      }, dom.img src: player-img, key: player-img
+      React.create-element Speaker, character: speaker-img, expression: speaker-expression, background: speaker-background, position: \left
+      React.create-element Speaker, character: player-img, expression: player-expression, background: player-background, position: \right
 }

@@ -41,8 +41,6 @@ module.exports = class Oulipo
 
         content = choices.map ( .content )
 
-        console.log {node, choices}
-
         decide = new Promise (resolve) ~> @trigger \choice, node.name, content, resolve
         decide
           .tap (idx) ~> @say-line {name: node.name.name, annotations: choices[idx].annotations}, choices[idx].content, true
@@ -81,8 +79,8 @@ module.exports = class Oulipo
         throw new TypeError "[oulipo] Unknown node type #{node.type}"
 
   say-line: ({name, annotations = []}, content, from-player) ->
-    console.log \line {name, annotations, from-player}
     emotion = annotations.0
+    if emotion is '_' then emotion = void
     name-lower = name.to-lower-case!
     if from-player
       @state.set 'view.player', "#{name-lower} #{emotion or 'neutral'}"

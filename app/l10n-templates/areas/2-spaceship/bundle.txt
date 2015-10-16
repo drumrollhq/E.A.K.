@@ -3,6 +3,7 @@
 /audio/music/spaceship-*.*
 /content/2-spaceship/**/*
 /content/bg-tiles/2-spaceship.*.png
+/content/conversation/tarquin
 /entities/rickety-space-platform/*
 /entities/space-door/*
 /entities/space-platform/*

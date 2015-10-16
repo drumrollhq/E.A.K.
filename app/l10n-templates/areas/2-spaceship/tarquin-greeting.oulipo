@@ -1,4 +1,5 @@
 set audio-root = '/audio/conversations/tarquin-greeting'
+set view.characters.tarquin.background = 'space-chair'
 [ To have tarquin say two different things depending on if Arca is his intern:
 
 branch:
@@ -6,10 +7,11 @@ branch:
  - (default) Tarquin: You are not my intern!
 ]
 
-Tarquin [_ track:01-space-slugs-t5 option:skip-first-play]: Space slugs in orbit! How did you find me? You interns never cease to amaze me.
+Tarquin [glare track:01-space-slugs-t5 option:skip-first-play]: Space slugs in orbit! How did you find me? You interns never cease to amaze me.
 
 Ada [_ track:01-chill-out-t6]: Chill out Goldilocks - that's not why we're here. I'm Ada and this is Arca.
 
+set view.speaker = 'tarquin neutral'
 go menu
 
 [---------------top menu----------------]
@@ -59,38 +61,39 @@ Arca:
 #tarquin-who
 set asked-who
 
-Tarquin [_ track:02-im-tarquin-e1]: I am Tarquin Glitterquiff - Serial Entrepreneur Extraordinaire, Bsc Hons MBA MMO RPG PHP OBE C++. And YOU are trespassing on my ship. Cedric! Fetch me my water pistol. 
+Tarquin [arrogant-arm-up track:02-im-tarquin-e1]: I am Tarquin Glitterquiff - Serial Entrepreneur Extraordinaire, Bsc Hons MBA MMO RPG PHP OBE C++. And YOU are trespassing on my ship. Cedric! Fetch me my water pistol. 
 
 Cedric [_ track:llama-1]: bleeeeat
 Ada [_ track:02-nice-name-t1]: Nice name, mermaid. We're not trespassers though.
-Tarquin [_ track:02a-unimercorn-t3]: Hmph! I'm a Unimercorn, not a mermaid.
+Tarquin [glare track:02a-unimercorn-t3]: Hmph! I'm a Unimercorn, not a mermaid.
 go menu
 
 #tarquin-intern
 set asked-intern
 
-Tarquin [_ track:03-what-interns-t1]: An intern works for someone, in order to learn from them. My interns gain valuable busy-ness experience by doing tasks such as making me tea, waxing my back and being my tailstool. 
+Tarquin [give-info track:03-what-interns-t1]: An intern works for someone, in order to learn from them. My interns gain valuable busy-ness experience by doing tasks such as making me tea, waxing my back and being my tailstool. 
 go menu
 
 #tarquin-why
 set asked-why
 
-Tarquin [_ track:04-followers-t1]: I am constantly harassed by fans wanting to work for me. Did you know that I have over 100,000 followers? It'd be far more if everyone had opposable thumbs.
+Tarquin [proud-arm-up track:04-followers-t1]: I am constantly harassed by fans wanting to work for me. Did you know that I have over 100,000 followers? It'd be far more if everyone had opposable thumbs.
 
 Ada [_ track:03-fascinating-t2]: How fascinating.
+set view.speaker = 'tarquin proud-arm-up'
 go menu
 
 #tarquin-apprentices
 set asked-apprentices
 
-Tarquin [_ track:05-internewt-t1]: I don't care who you are. I am a Serial Entrepreneur Extraordinaire. If you don't want to be my minions - I mean interns - then what the Great Internewt are you doing here?
+Tarquin [suspicious track:05-internewt-t1]: I don't care who you are. I am a Serial Entrepreneur Extraordinaire. If you don't want to be my minions - I mean interns - then what the Great Internewt are you doing here?
 
 go menu
 
 #tarquin-portal
 set asked-portal
 
-Tarquin [_ track:06-better-idea-t1]: Hmmm... I have a better idea. The two of you can be my interns! 
+Tarquin [sneaky track:06-better-idea-t1]: Hmmm... I have a better idea. The two of you can be my interns! 
 
 Arca:
 	- Awesome! We'd love to be your interns. Maybe the stuff we learn will help us on our mission! -> yes-interns
@@ -99,48 +102,51 @@ Arca:
 #tarquin-whathappened
 set asked-whathappened
 
-Taquin [_ track:07-too-close-t2]: Got too close to a space tornado - total disaster! The engines are in a terrible state, and even the coffee machine has stopped working! I'm not sure how I'm supposed to live like this. Simply barbaric. 
+Taquin [agitated track:07-too-close-t2]: Got too close to a space tornado - total disaster! The engines are in a terrible state, and even the coffee machine has stopped working! I'm not sure how I'm supposed to live like this. Simply barbaric. 
 go menu
 
 #tarquin-howtofix
 set asked-howtofix
-Tarquin [_ track:08-find-a-way-t1]: You need to find a way to get to the engines, and then fix the glitches. Should be fun! If you don't die, that is. 
+Tarquin [dismissive track:08-find-a-way-t1]: You need to find a way to get to the engines, and then fix the glitches. Should be fun! If you don't die, that is. 
 Ada [_ track:04-great-t2]: Great.
+set view.speaker = 'tarquin dismissive'
 go menu
 
 #tarquin-tips
 set asked-tips
-Tarquin [_ track:09-try-not-t2]: Try not to fall off things or blow yourselves up. At least not on my property.
+Tarquin [dismissive-arm-up track:09-try-not-t2]: Try not to fall off things or blow yourselves up. At least not on my property.
 go menu
 
 #tarquin-entrepreneur
 set asked-entrepreneur
-Tarquin [_ track:10-entrepreneur-t1]: An entrepreneur is someone who sees opportunity and makes the most of it! For example, my latest idea is an app that hypnotises you to sleep-work, so you can get all your work done in your sleep. Pretty amazing, right? We're beta-testing it on sloths.
+Tarquin [give-info-arm-up track:10-entrepreneur-t1]: An entrepreneur is someone who sees opportunity and makes the most of it! For example, my latest idea is an app that hypnotises you to sleep-work, so you can get all your work done in your sleep. Pretty amazing, right? We're beta-testing it on sloths.
 go menu
 
 #tarquin-extraordinary
 set asked-extraordinary
 
-Tarquin [_ track:11-disco-ball-t1]: I'm a passionate networker, I look fabulous all the time and I use words like 'disruptive' a lot. Also, I have a disco ball in my office.
+Tarquin [proud-arm-up track:11-disco-ball-t1]: I'm a passionate networker, I look fabulous all the time and I use words like 'disruptive' a lot. Also, I have a disco ball in my office.
 
 Ada [_ track:05-wow-t3]: Wow.
+set view.speaker = 'tarquin proud-arm-up'
 go menu
 
 #tarquin-tornado
 set asked-tarquin-tornado
-Tarquin [_ track:12-blow-noses-t1]: They happen when a space slug sneezes on the other side of the universe. Beastly things. They don't even blow their noses!
+Tarquin [disgusted track:12-blow-noses-t1]: They happen when a space slug sneezes on the other side of the universe. Beastly things. They don't even blow their noses!
 go menu
 
 #tarquin-escapepod
 set asked-tarquin-escapepod
-Tarquin [_ track:13-cedric-sat-t2]: It did, but then Cedric accidently sat on the release button. Most unfortunate, but these things happen.
+Tarquin [annoyed track:13-cedric-sat-t2]: It did, but then Cedric accidently sat on the release button. Most unfortunate, but these things happen.
 
 Cedric [_ track:llama-2]: bleeeeat
+set view.speaker = 'tarquin annoyed'
 go menu
 
 #tarquin-codingpowers
 set asked-tarquin-codingpowers
-Tarquin [_ track:14-wonder-walrus-t1]: Oh sure, and I'm The Wonder Walrus... With much better abs.
+Tarquin [sarcastic-arm-up track:14-wonder-walrus-t1]: Oh sure, and I'm The Wonder Walrus... With much better abs.
 go menu
 
 [---------- intern branch ---------]
@@ -149,7 +155,7 @@ set arca-is-intern=true
 
 Ada [_ track:06-sigh-t1]: *sigh*
 	
-Tarquin [_ track:15-hustle-t1]: Well, first I need to know if you're worthy of my time. Not everyone is lucky enough to learn from Tarquin Glitterquiff himself! I'm going to set you a task, to find out if you two have enough hustle in your hams.
+Tarquin [happy track:15-hustle-t1]: Well, first I need to know if you're worthy of my time. Not everyone is lucky enough to learn from Tarquin Glitterquiff himself! I'm going to set you a task, to find out if you two have enough hustle in your hams.
 go menu-intern
 
 # menu-intern
@@ -159,18 +165,18 @@ Arca:
 
 # intern-ship
 set asked-task
-Tarquin [_ track:22-fabulous-t1]:  My fabulous spaceship is broken, and the Internet Space-mobile Association don't think luxury spacecrafts are a priority... Cretinous pumpkinheads! So I want both of you to repair my ship.
+Tarquin [annoyed track:22-fabulous-t1]:  My fabulous spaceship is broken, and the Internet Space-mobile Association don't think luxury spacecrafts are a priority... Pumpkinheads! So I want both of you to repair my ship.
 go menu
 
 # intern-tangent
 set asked-intern-tangent
-Tarquin [_ track:16-where-to-begin-t1]: Where to begin! I shall use my superior intellect and experience to mould you into successful busy-ness creatures, capable of money-making manipulation and using words like synergy.
+Tarquin [give-info-arm-up track:16-where-to-begin-t1]: Where to begin! I shall use my superior intellect and experience to mould you into successful busy-ness creatures, capable of money-making manipulation and using words like synergy.
 go menu-intern
 
 [---------- non-intern branch ---------]
 #no-interns
 set arca-is-intern=false
-Tarquin [_ track:17-not-possible-t5]: Not possible I'm afraid - the whole spaceship needs repairing. The portal doesn't work anymore, so I guess you'll have to be on your way. Ciao!
+Tarquin [dismissive track:17-not-possible-t5]: Not possible I'm afraid - the whole spaceship needs repairing. The portal doesn't work anymore, so I guess you'll have to be on your way. Ciao!
 go menu-nointern
 
 # menu-nointern
@@ -181,21 +187,21 @@ Arca:
 
 # nointern-ship
 set asked-task
-Tarquin [_ track:18-you-two-t4]: You two? Ha! I doubt it. This is a very complex machine - the most magnificent 7* spacecraft in the internet universe. 
+Tarquin [sarcastic-arm-up track:18-you-two-t4]: You two? Ha! I doubt it. This is a very complex machine - the most magnificent 7* spacecraft in the internet universe. 
 Ada [_ track:07-come-on-t2]: Oh come on... Can we at least take a look?
-Tarquin [_ track:19-fuzzy-butt-t4]: Fine. But I'm warning you - any funny business and Cedric will kick you off the ship herself. She has a mean roundhouse kick, don't you my little fuzzybutt?
+Tarquin [suspicious track:19-fuzzy-butt-t4]: Fine. But I'm warning you - any funny business and Cedric will kick you off the ship herself. She has a mean roundhouse kick, don't you my little fuzzybutt?
 
 Cedric [_ track:llama-3]: bleeeeat
 go menu
 
 # nointern-otherway
 set asked-nointern-otherway
-Tarquin [_ track:20-viral-asteroid-t3]: Hmmm... You could travel by viral asteroid - one comes by every year. Or web surfboarding, but you're not old enough for a license.
+Tarquin [sarcastic track:20-viral-asteroid-t3]: Hmmm... You could travel by viral asteroid - one comes by every year. Or web surfboarding, but you're not old enough for a license.
 go menu-nointern
 
 #nointern-whenfixed
 set asked-nointern-whenfixed
-Tarquin [_ track:21-unicorn-farts-t1]: I have no idea... Creatures who can code are like unicorn farts - much in demand, but impossible to find. 
+Tarquin [dismissive track:21-unicorn-farts-t1]: I have no idea... Creatures who can code are like unicorn farts - much in demand, but impossible to find. 
 go menu-nointern
 
 	
