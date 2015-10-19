@@ -81,11 +81,14 @@ module.exports = class Oulipo
   say-line: ({name, annotations = []}, content, from-player) ->
     emotion = annotations.0
     if emotion is '_' then emotion = void
+
     name-lower = name.to-lower-case!
+    if @state.get "view.characters.#{name-lower}.player" then from-player = true
+    emotion ?= @state.get "characterEmotions.#{name-lower}" or 'neutral'
+
     if from-player
-      @state.set 'view.player', "#{name-lower} #{emotion or 'neutral'}"
+      @state.set 'view.player', "#{name-lower} #{emotion}"
     else
-      emotion ?= @state.get "characterEmotions.#{name-lower}" or 'neutral'
       @state.set 'view.speaker', "#{name-lower} #{emotion}"
 
     @state.set "characterEmotions.#{name-lower}", emotion

@@ -6,7 +6,9 @@ module.exports = class State extends Backbone.DeepModel
     audio-root = @get \audioRoot or '/audio/conversations'
     lines.push {speaker, line, id: id-counter++, from-player, audio-root, track, options}
     @trigger \change
+    min-length = if \run-on in options then 0 else 500
+    delay = if \run-on in options then 0 else 250
     Promise.all [
       wait-for-event this, \line-first-play-completed
-      Promise.delay 500
-    ] .then -> Promise.delay 250
+      Promise.delay min-length
+    ] .then -> Promise.delay delay
