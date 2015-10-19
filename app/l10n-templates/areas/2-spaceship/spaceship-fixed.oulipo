@@ -1,12 +1,13 @@
-Tarquin: Holy sea cow in a cyclone! You've fixed my ship! It's a miracle!
+set audio-root = '/audio/conversations/spaceship-fixed'
+set view.characters.tarquin.background = 'space-chair'
 
-Ada: Yep, we're amazing!
+Tarquin [surprised-arm-up track:01-seacow-t3]: Holy sea cow in a cyclone! You've fixed my ship! It's a miracle!
+Ada [_ track:01-amazing-t1]: Yep, we're amazing!
 
 go menu
 
 #menu
-branch
-	- (default) go menu-portal
+go menu-portal
 
 # menu-portal
 Arca:
@@ -17,54 +18,52 @@ Arca:
 
 # portal
 set asked-portal
-Tarquin: Of course! And I'll throw in a signed copy of my latest pioneering book - 'The Lavatory Pitch for Unstoppable CEOs'. 
+Tarquin [proud-arm-up track:02-of-course-t1]: Of course! And I'll throw in a signed copy of my latest pioneering book - 'The Lavatory Pitch for Unstoppable CEOs'. 
 
-Ada: Cool. What's 'The Lavatory Pitch'?
+Ada [_ track:02-lavatory-t2]: Cool. What's 'The Lavatory Pitch'?
 
-Tarquin: A ten second explanation of your product. You never know who might be listening!
+Tarquin [sneaky track:03-ten-second-t1]: A ten second explanation of your product. You might never know who's listening...
 
 go menu-end
 
 # code
 set asked-code
-Tarquin: Hmmm. Maybe after I've finished writing my next book, 'How to Unlearn What You Think You Know About Disruption'.
+Tarquin [proud track:04a-game-chamber-t1]: Hmmm. Maybe after I've finished writing my next talk, "How to Change the Game by Disrupting the Game Changer's Game Chamber".
 
-Ada: It's on my reading list.
 go menu-portal
 
 # weird
 set asked-weird
-Tarquin: Really? Well, Cedric does like to experiment... 
+Tarquin [suspicious track:05-experiment-t1]: Really? Well, Cedric does like to experiment... 
+Cedric [_ track:llama-1]: Bleeaaatt
 go menu-portal
 
 # kittens
 set asked-kittens
-Tarquin: What? I thought those boxes were filled with fan mail! Well, that's disappointing. Actually, kittens could be a form of fan mail... I shall write a thank you note to whoever sent them.
+Tarquin [surprised track:06-fan-mail-t2]: What? I thought those boxes were filled with fan mail! Well, that's disappointing. Actually, kittens could be a form of fan mail... I shall write a thank you note to whoever sent them.
 go menu-portal
 
 # menu-end
 Arca: 
 	- Haha. We're going to leave for Ponyhead Bay now. -> end
 	- (unless asked-intern) Maybe we'll come back someday - I'd love to learn more about busy-ness. -> intern
-	- (unless asked-eye-spies) Thanks! Before we leave, I think you should know that you have a giant robot squid baby hanging from your lower deck. -> squid-baby
+	- (unless asked-squid) Thanks! Before we leave, I think you should know that you have a giant robot squid baby hanging from your lower deck. -> squid-baby
 
 # end
 set asked-end
-Tarquin: Well, it was fantastic to meet you both - you're welcome to come back and be my interns anytime. Ciao!
+Tarquin [happy track:07-fantastic-t2]: Well, it was fantastic to meet you both - you're welcome to come back and be my interns anytime. Ciao!
 go finish
 
 # intern
 set asked-intern
-Tarquin: Fabulous! I think you have a lot of potential. Maybe you could even be the next... me.
+Tarquin [happy-arm-up track:08-next-me-t1]: Fabulous! I think you have a lot of potential. Maybe you could even be the next... me.
 go menu-end
 
 # squid-baby
 set asked-squid
-Ada: It's terrifying.
-
-Tarquin: Yes... well... we don't talk about that, do we Cedric?
-
-Cedric: Bleeeeeat
+Ada [_ track:03-terrifying-t4]: It's terrifying.
+Tarquin [suspicious track:09-dont-talk]: Yes... well... we don't talk about that, do we Cedric?
+Cedric [_ track:llama-2]: Bleeeeeat
 go menu-end
 
 

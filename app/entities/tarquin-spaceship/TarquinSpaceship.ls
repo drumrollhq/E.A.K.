@@ -2,6 +2,7 @@ require! {
   'game/actors/Actor'
   'game/effects/ParticleEmitter'
   'game/effects/SpriteSet'
+  'lib/channels'
   'lib/keys'
   'lib/math/Vector'
   'lib/math/ease': {lerp}
@@ -41,6 +42,11 @@ places =
     animations: animations.flex
     right: false
 
+finished-place = do
+  p: new Vector 1600, 690
+  animations: animations.flex
+  right: true
+
 class TarquinSpaceship extends Actor
   physics: {
     data:
@@ -48,7 +54,7 @@ class TarquinSpaceship extends Actor
       ignore-others: true
       sensor: true
     width: 55
-    height: 20
+    height: 100
   }
 
   @MAX_MOVE_SPEED = 4px
@@ -73,6 +79,9 @@ class TarquinSpaceship extends Actor
         flex-lower: ['/entities/tarquin-spaceship/sprites/tarquin-flex-lower' 110 140 5.5 -0.5 speed: 15]
     }
     @sprite-set <<< start.offset.{x, y}
+
+    @waiting-mode = false
+    @_error-sub = channels.parse \triggers:error-change .subscribe @check-mode.bind this
 
     @emitter = new ParticleEmitter new Vector!, particle-def
     @v = new Vector!
@@ -101,41 +110,77 @@ class TarquinSpaceship extends Actor
 
     Promise.all [sprite, emitter]
 
-  choose-target-location: ->
+  remove: ->
+    super!
+    @_error-sub.unsubscribe!
+
+  check-mode: ->
+    no-errors = @area-view.levels
+      |> filter ( .has-errors )
+      |> empty
+
+    if no-errors and not @store.get \state.tarquinSaidGoodbye
+      @start-waiting-mode!
+    else
+      @stop-waiting-mode!
+
+  start-waiting-mode: ->
+    if @waiting-mode then return
+    @waiting-mode = true
+    @listen-to-once this, \contact:start:ENTITY_PLAYER, ~>
+      eak.start-conversation "/#{EAK_LANG}/areas/2-spaceship/spaceship-fixed"
+
+  stop-waiting-mode: ->
+    unless @waiting-mode then return
+    @waiting-mode = false
+    @stop-listening this, \contact:start:ENTITY_PLAYER
+    @choose-target-location 0
+
+  choose-target-location: (i = Math.floor Math.random! * places.length) ->
     i = Math.floor Math.random! * places.length
     if @_target-place-i is i then return @choose-target-location!
     @_target-place-i = i
     @_target = places[i].p
     @_target-right = places[i].right
+
     @_reached-x = @_reached-y = false
 
   step: (t) ->
-    x-dist = if @_reached-x then 0 else @_target.x - @p.x
-    y-dist = if @_reached-y then 0 else @_target.y - @p.y
+    if @waiting-mode
+      @p <<< finished-place.p.{x, y}
+      @_t += t
+      @p.y += 5 * Math.sin @_t / 50
+      @v <<< x: 0, y: 0
+      @looking-right = finished-place.right
+      @_reached-x = @_reached-y = true
+    else
+      x-dist = if @_reached-x then 0 else @_target.x - @p.x
+      y-dist = if @_reached-y then 0 else @_target.y - @p.y
 
-    target-vx = if x-dist < -TarquinSpaceship.ARRIVE_THRESHOLD then -TarquinSpaceship.MAX_MOVE_SPEED
-      else if x-dist > TarquinSpaceship.ARRIVE_THRESHOLD then TarquinSpaceship.MAX_MOVE_SPEED
-      else if @looking-right is @_target-right
-        @_reached-x = true
-        0
-      else if @_target-right then TarquinSpaceship.MAX_MOVE_SPEED
-      else -TarquinSpaceship.MAX_MOVE_SPEED
-    target-vy = if y-dist < -TarquinSpaceship.ARRIVE_THRESHOLD then -TarquinSpaceship.MAX_MOVE_SPEED
-      else if y-dist > TarquinSpaceship.ARRIVE_THRESHOLD then TarquinSpaceship.MAX_MOVE_SPEED
-      else
-        @_reached-y = true
-        0
+      target-vx = if x-dist < -TarquinSpaceship.ARRIVE_THRESHOLD then -TarquinSpaceship.MAX_MOVE_SPEED
+        else if x-dist > TarquinSpaceship.ARRIVE_THRESHOLD then TarquinSpaceship.MAX_MOVE_SPEED
+        else if @looking-right is @_target-right
+          @_reached-x = true
+          0
+        else if @_target-right then TarquinSpaceship.MAX_MOVE_SPEED
+        else -TarquinSpaceship.MAX_MOVE_SPEED
+      target-vy = if y-dist < -TarquinSpaceship.ARRIVE_THRESHOLD then -TarquinSpaceship.MAX_MOVE_SPEED
+        else if y-dist > TarquinSpaceship.ARRIVE_THRESHOLD then TarquinSpaceship.MAX_MOVE_SPEED
+        else
+          @_reached-y = true
+          0
 
-    @v.x = lerp @v.x, target-vx, TarquinSpaceship.ACCELERATION
-    @v.y = lerp @v.y, target-vy, TarquinSpaceship.ACCELERATION
+      @v.x = lerp @v.x, target-vx, TarquinSpaceship.ACCELERATION
+      @v.y = lerp @v.y, target-vy, TarquinSpaceship.ACCELERATION
 
-    @looking-right = if @v.x > TarquinSpaceship.DIRECTION_CHANGE_SPEED then true else if @v.x < -TarquinSpaceship.DIRECTION_CHANGE_SPEED then false else @looking-right
+      @looking-right = if @v.x > TarquinSpaceship.DIRECTION_CHANGE_SPEED then true else if @v.x < -TarquinSpaceship.DIRECTION_CHANGE_SPEED then false else @looking-right
+
     @emitter.step t
 
   after-physics: ->
     if @_reached-x and @_reached-y and not @_animating
       @_animating = true
-      anim = _.sample places[@_target-place-i].animations
+      anim = _.sample if @waiting-mode then finished-place.animations else places[@_target-place-i].animations
       @sprite-set.queue ...anim
         .then ~>
           @_animating = false
