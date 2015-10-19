@@ -1,8 +1,8 @@
 require! {
   'assets'
+  'audio/tracks'
   'lib/channels'
   'translations'
-  'audio/tracks'
 }
 
 const vw = 1280px
@@ -51,7 +51,6 @@ module.exports = class CutScene extends Backbone.View
     @wakeup!
 
   cleanup: ->
-    for sub in @subs => sub.unsubscribe!
     @remove!
     @trigger \cleanup
 

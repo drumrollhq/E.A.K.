@@ -42,7 +42,7 @@ class MusicManager
     @_setup-triggers!
 
   _setup-triggers: ->
-    channels.parse 'game-commands: edit' .subscribe ~> @music.glitchify fade-duration
+    channels.parse 'game-commands: start-edit' .subscribe ~> @music.glitchify fade-duration
     channels.parse 'game-commands: stop-edit' .subscribe ~> @music.deglitchify fade-duration
 
   start-track: (name) ~>

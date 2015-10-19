@@ -221,6 +221,7 @@ module.exports = class App
 
   edit: ->
     if @_stage and @_stage.is-editable! and @current-state is \playing
+      channels.game-commands.publish command: \start-edit
       @trigger-async \edit
 
   stop-edit: ->

@@ -53,6 +53,6 @@ module.exports = new Effects {
     'kitten': \box-get
     'game-commands: portal': \portal
     'death': \player-death
-    'game-commands: edit': \edit-start
+    'game-commands: start-edit': \edit-start
     'game-commands: stop-edit': \edit-stop
 }

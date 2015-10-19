@@ -32,6 +32,7 @@ module.exports = class Area
       .then ~> @hook \beforeStart
       .then ~>
         @physics-state = physics.prepare @view.build-map!
+        @hook \preparePhysics @physics-state
         @frame-sub = channels.frame.subscribe ({t}) ~> @on-frame t
         @hook \start
 
@@ -60,7 +61,7 @@ module.exports = class Area
     @view.is-editable!
 
   edit: ->
-    @hook \start-edit
+    @hook \startEdit
     @frame-sub.pause!
     @editor = @create-editor @view.player-level
     @view.editor-focus edit-transition-duration
@@ -70,9 +71,10 @@ module.exports = class Area
 
   hide-editor: ->
     @view.editor-unfocus edit-transition-duration
-      .then ~> @hook \stop-edit
+      .then ~> @hook \stopEdit
       .then ~>
         @physics-state = physics.prepare @view.build-map!
+        @hook \preparePhysics @physics-state
         @frame-sub.resume!
 
   load-music: ->
