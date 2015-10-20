@@ -1,3 +1,5 @@
+set view.background = '/content/2-spaceship/spaceship-fixed.png'
+set view.background-color = 'rgba(206, 216, 239, 0.7)'
 set audio-root = '/audio/conversations/spaceship-fixed'
 set view.characters.tarquin.background = 'space-chair'
 set view.characters.ada.player = true

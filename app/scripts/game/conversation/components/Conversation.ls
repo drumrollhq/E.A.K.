@@ -59,8 +59,10 @@ module.exports = React.create-class {
     player-background = @state.model.view.characters?[player]?.background or void
     speaker-background = @state.model.view.characters?[speaker]?.background or void
 
-    dom.div class-name: \conversation,
-      dom.div class-name: \conversation-lines,
+    background = assets.load-asset @state.model.view.background, \url
+
+    dom.div class-name: \conversation, style: {background-image: "url('#{background}')"},
+      dom.div class-name: \conversation-lines, style: {background-color: @state.model.view.background-color},
         React.create-element CSSTransitionGroup, {
           component: \ul
           class-name: \clearfix

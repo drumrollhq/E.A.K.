@@ -1,3 +1,5 @@
+set view.background = '/content/2-spaceship/tarquin-greeting.png'
+set view.background-color = 'rgba(210,210,252,0.8)'
 set view.player = 'ada neutral'
 set audio-root = '/audio/conversations/tarquin-greeting'
 set view.characters.tarquin.background = 'space-chair'

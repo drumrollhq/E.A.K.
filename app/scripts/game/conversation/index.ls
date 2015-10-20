@@ -13,13 +13,22 @@ noop-reject = (e) -> throw e
 export start = (name, $el, {resolve = noop-resolve, reject = noop-reject} = {}) ->
   {nodes, start} = assets.load-asset "#{name}.oulipo.json"
 
+  var background, background-color
+  for id, node of nodes when node.type is \set and node.variable is \view.background
+    background = node.value
+    break
+
+  for id, node of nodes when node.type is \set and node.variable is \view.background-color
+    background-color = node.value
+    break
+
   game-id = user.game.get \game.id
   stage-id = user.game.get \stage.id
   state = new State {
     game: user.game.get \game.state
     stage: user.game.get \stage.state
     lines: []
-    view: {}
+    view: {background, background-color}
   }
 
   update-game = _.debounce do
