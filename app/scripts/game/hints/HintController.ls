@@ -88,7 +88,7 @@ module.exports = class HintController extends Backbone.Model
       .then ~>
         view.remove! unless hint.disabled
         channels.hint.publish type: \exit, name: hint.name
-        # @store.patch-state hints: {"#{hint.id}": true}
+        @store.patch-state hints: {"#{hint.id}": true}
         hint.disabled = true
 
   on-event: (event) ->
