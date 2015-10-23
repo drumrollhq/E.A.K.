@@ -1,7 +1,7 @@
 /audio/effects/*
 /content/common/**/*.*
-/content/conversation/ada/*
-/content/conversation/arca/*
+/content/conversation/ada/**/*
+/content/conversation/arca/right/*.*
 /content/particles/*
 /content/sprites/*
 /entities/kitten-box/**/*.*

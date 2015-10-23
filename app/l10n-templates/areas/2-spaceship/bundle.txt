@@ -4,8 +4,8 @@
 /audio/music/spaceship-*.*
 /content/2-spaceship/**/*
 /content/bg-tiles/2-spaceship.*.png
-/content/conversation/tarquin/*.*
-/content/conversation/cedric/*.*
+/content/conversation/tarquin/left/*.*
+/content/conversation/cedric/left/*.*
 /entities/rickety-space-platform/*
 /entities/space-door/*
 /entities/space-platform/*

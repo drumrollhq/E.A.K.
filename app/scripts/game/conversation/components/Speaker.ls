@@ -8,11 +8,11 @@ dom = React.DOM
 module.exports = React.create-class {
   display-name: \Speaker
   render: ->
-    console.log \speaker @props
+    side = @props.position or \left
     key = "#{@props.character}-#{@props.expression}-#{@props.background}"
-    img = assets.load-asset "/content/conversation/#{@props.character}/#{@props.expression}.png" \url
+    img = assets.load-asset "/content/conversation/#{@props.character}/#{side}/#{@props.expression}.png" \url
     if @props.background
-      background = assets.load-asset "/content/conversation/#{@props.character}/#{@props.background}.png" \url
+      background = assets.load-asset "/content/conversation/#{@props.character}/#{side}/#{@props.background}.png" \url
 
     main = dom.img key: \img, src: img
     content = if background

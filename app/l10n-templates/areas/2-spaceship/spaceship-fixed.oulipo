@@ -6,7 +6,7 @@ set view.characters.ada.player = true
 set view.player = 'ada neutral'
 
 Tarquin [surprised-arm-up track:01-seacow]: Holy sea cow in a cyclone! You've fixed my ship! It's a miracle!
-Ada [_ track:01-amazing-t1]: Yep, we're amazing!
+Ada [proud track:01-amazing-t1]: Yep, we're amazing!
 set view.player = 'arca neutral'
 go menu
 
@@ -26,7 +26,7 @@ Tarquin [happy track:02a-of-course option:run-on]: Of course!
 Tarquin [proud track:02b-of-course option:run-on]: And I'll throw in a signed copy of my latest pioneering book:
 Tarquin [proud-arm-up track:02c-of-course]: '"The Lavatory Pitch for Unstoppable CEOs".'
 
-Ada [_ track:02-lavatory-t2]: Cool. What's 'The Lavatory Pitch'?
+Ada [confused track:02-lavatory-t2]: Cool. What's 'The Lavatory Pitch'?
 
 Tarquin [sneaky-arm-up track:03a-ten-second option:run-on]: A ten second explanation of your product.
 Tarquin [suspicious track:03b-ten-second]: You might never know who's listening...
@@ -74,7 +74,7 @@ go menu-end
 
 # squid-baby
 set asked-squid
-Ada [_ track:03-terrifying-t4]: It's terrifying.
+Ada [sarcastic track:03-terrifying-t4]: It's terrifying.
 Tarquin [suspicious track:09-dont-talk]: Yes... well... we don't talk about that, do we Cedric?
 Cedric [neutral track:llama-2]: Bleeeeeat
 set view.player = 'arca neutral'

@@ -6,8 +6,8 @@
 /audio/tutorials/intro/03-editing-text-i.*
 /content/1-scrapyard/**/*
 /content/bg-tiles/1-scrapyard.*.png
-/content/conversation/cecil/*.*
-/content/conversation/lao/*.*
+/content/conversation/cecil/left/*.*
+/content/conversation/lao/left/*.*
 /entities/bananabird/**/*
 /entities/clouds/**/*
 /entities/flashing-light/**/*

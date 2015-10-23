@@ -13,8 +13,8 @@ branch:
 
 Tarquin [glare track:01-space-slugs option:skip-first-play option:run-on]: Space slugs in orbit! How did you find me? You interns never cease to amaze me.
 
-Ada [_ track:01-chill-out]: Chill out Goldilocks - that's not why we're here. I'm Ada and this is Arca.
-
+Ada [neutral track:01-chill-out]: Chill out Goldilocks - that's not why we're here. I'm Ada and this is Arca.
+set view.player = 'arca neutral'
 go menu
 
 [---------------top menu----------------]
@@ -68,8 +68,9 @@ Tarquin [arrogant-arm-up track:02a-im-tarquin option:run-on]: I am Tarquin Glitt
 Tarquin [suspicious track:02b-im-tarquin]: And YOU are trespassing on my ship. Cedric! Fetch me my water pistol. 
 
 Cedric [neutral track:llama-1]: bleeeeat
-Ada [_ track:02-nice-name]: Nice name, mermaid. We're not trespassers though.
+Ada [sarcastic track:02-nice-name]: Nice name, mermaid. We're not trespassers though.
 Tarquin [glare track:02c-unimercorn]: Hmph! I'm a Unimercorn, not a mermaid.
+set view.player = 'arca neutral'
 go menu
 
 #tarquin-intern
@@ -86,7 +87,8 @@ Tarquin [arrogant-arm-up track:04a-followers option:run-on]: I am constantly har
 Tarquin [proud-arm-up track:04b-followers option:run-on]: Did you know that I have over 100,000 followers?
 Tarquin [dismissive track:04c-followers]: It'd be far more if everyone had opposable thumbs.
 
-Ada [_ track:03-fascinating]: How fascinating.
+Ada [dismissive track:03-fascinating]: How fascinating.
+set view.player = 'arca neutral'
 go menu
 
 #tarquin-apprentices
@@ -118,7 +120,8 @@ go menu
 set asked-howtofix
 Tarquin [give-info track:08a-find-a-way option:run-on]: You need to find a way to get to the engines, and then fix the glitches. Should be fun!
 Tarquin [dismissive track:08b-find-a-way]: If you don't die, that is. 
-Ada [_ track:04-great-t2]: Great.
+Ada [annoyed track:04-great]: Great.
+set view.player = 'arca neutral'
 go menu
 
 #tarquin-tips
@@ -140,7 +143,8 @@ set asked-extraordinary
 Tarquin [proud-arm-up track:11a-disco-ball option:run-on]: I'm a passionate networker, I look fabulous all the time and I use words like 'disruptive' a lot.
 Tarquin [arrogant-arm-up track:11b-disco-ball]: Also, I have a disco ball in my office.
 
-Ada [_ track:05-wow-t3]: Wow.
+Ada [confused track:05-wow]: Wow.
+set view.player = 'arca neutral'
 go menu
 
 #tarquin-tornado
@@ -168,11 +172,12 @@ go menu
 #yes-interns
 set game.arca.is-tarquins-intern = true
 
-Ada [_ track:06-sigh-t1]: *sigh*
+Ada [dismissive track:06-sigh]: *sigh*
 	
 Tarquin [happy track:15a-hustle option:run-on]: Well, first I need to know if you're worthy of my time.
 Tarquin [arrogant-arm-up track:15b-hustle option:run-on]: Not everyone is lucky enough to learn from Tarquin Glitterquiff himself!
 Tarquin [give-info track:15c-hustle]: I'm going to set you a task, to find out if you two have enough hustle in your hams.
+set view.player = 'arca neutral'
 go menu-intern
 
 # menu-intern
@@ -207,10 +212,11 @@ Arca:
 # nointern-ship
 set asked-task
 Tarquin [sarcastic-arm-up track:18-you-two]: You two? Ha! I doubt it. This is a very complex machine - the most magnificent 7* spacecraft in the internet universe. 
-Ada [_ track:07-come-on]: Oh come on... Can we at least take a look?
+Ada [angry track:07-come-on]: Oh come on... Can we at least take a look?
 Tarquin [suspicious track:19-fuzzy-butt]: Fine. But I'm warning you - any funny business and Cedric will kick you off the ship herself. She has a mean roundhouse kick, don't you my little fuzzybutt?
 
 Cedric [neutral track:llama-3]: bleeeeat
+set view.player = 'arca neutral'
 go menu
 
 # nointern-otherway
