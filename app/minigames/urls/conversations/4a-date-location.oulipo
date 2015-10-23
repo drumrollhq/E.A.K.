@@ -1,4 +1,4 @@
-Hobo: Nice work spud! Ya found the perfect place for me an' Dusty.
+Hobo: Nice work spud! You found the perfect place for Dusty and I.
 go menu
 
 # menu
@@ -9,12 +9,13 @@ Arca:
 
 # romantic
 set asked-romantic
-Hobo: Dusty and meee, sitting in a tree, K.I.S.S.I.N.G. Oh Dusty, I love you!
+Hobo: Dusty and me, sitting in a tree, K.I.S.S.I.N.G. Oh Dusty, I love you!
 go menu
 
-# good-luck
+# good-luck 
 set asked-go
-Hobo: Thanks spud! Ain't been this excited since the Great Candy Floss Tornado of 1993. Have y'ever tried flyin' and eatin' at the same time? Ain't nothin' like it.
+Hobo: Thanks spud! I haven't been this excited since mother used her generous proportions, to shield us from the great Candy Floss Tornado of '93. Powerful woman, you know? Strong ankles.
+Hobo: Thanks spud! I haven't been this excited since 
 go menu
 
 # go

@@ -13,7 +13,7 @@ Arca:
 
 # passage
 set asked-passage
-Hobo [irritated]: Nah-ah. This is my town. I'm th'mayor. Completely legit. Dy'a get it? I rule it here. And it ain't the first kid want'in to visit that can get in just like that.
+Hobo [irritated]: I'm afraid I can't do that. This is my town. I'm the mayor. Completely legit. Understand?
 go menu-kittens
 
 # kittens
@@ -27,12 +27,12 @@ Arca:
 	- Do you know where he was going?
 		continue
 		
-Hobo [irritated]: Nup, he didn't say.
+Hobo [irritated]: No
 go menu-kittens
 
 # clothes
 set asked-clothes
-Hobo [irritated]: What the Newt kinda question is that? No offense kid, but that's rich coming from someone dressed as a turnip.
+Hobo [irritated]: What the Newt kinda question is that? No offense, but that's rich coming from someone dressed as a potato.
 Arca:
 	- It's a cape... capes are awesome!
 		Hobo [irritated]: Hmph! Who do you think you are? Wonder Walrus?
@@ -41,7 +41,7 @@ Arca:
 		Hobo [smug]: Don't be lazy, there are lots of bins around 'ere. Tha's where I get all my clothes.
 
 	- What's so bad about looking like a turnip? 
-	  Hobo [irritated]: Hmmm. I've avoided turnips ever since the accident...
+	  Hobo [irritated]: Hmmm. I've avoided potatos ever since the accident...
 go menu-kittens
 
 # who
@@ -59,7 +59,7 @@ Arca:
 		
 # why
 set asked-why
-Hobo [smug]: You scratch my feet, I'll scratch yours. That's 'ow the world works, y'know.
+Hobo [smug]: You scratch my feet, I'll scratch yours. That's how the world works, you know.
 go menu-mission
 
 # how
@@ -69,7 +69,7 @@ go menu-mission
 
 # mission
 set asked-mission
-Hobo[neutral]: Well... Ya gonna need to go and fetch some stuff for me. Imma give you some addresses that will help ya find my stuff. Got it?
+Hobo[neutral]: Well... You're going to need to fetch some of my things. I'll give you the addresses, and you go and find them. Understood?
 go menu-onions
 
 # menu-onions
@@ -79,12 +79,12 @@ Arca:
 
 # onions
 set asked-onions
-Hobo [neutral]: Well see, I'm a big fan o' pickled onions. Could eat a thousand an' beg fo'more. Ya gonna need to go to Bulbous Island and get me a big'ol'jar of pickled onions, if ya please. I've written down the address for ya.
+Hobo [neutral]: Well you see, I'm a big fan of pickled onions. I could eat a thousand and beg for more. You're going to need to go to Bulbous Island and get me the juiciest jar of pickled onions you can find.
 go menu-lets-go
 
 # time
 set asked-time
-Hobo [irritated]: Well then, you best be quick.
+Hobo [irritated]: Well then, you'd better hop to it.
 go menu-onions
 
 # menu-lets-go

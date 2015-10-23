@@ -37,13 +37,13 @@ Arca:
 #hobo-mop
 set asked-mop
 
-Hobo [pissed]: A mop?! A she-devil more like! I tol' her all my secrets, tol' her she was the one. And then she goes an' tells me she needs space. Space! My cupboard is huge! It must be me.
+Hobo [pissed]: A mop?! A she-devil more like! I told her all my secrets, told her she was the one. And then she tells me she needs space. Space! My cupboard is huge! It must be me.
 go arca-talk
 
 #hobo-what
 set asked-what
 
-Hobo [bawling]: I tol' her all my secrets, tol' her she was the one. And then she goes an' tells me she needs space. Space! I am Mayor Boris J Buttstacks. And I ain't gonna let some fancy squeegee treat me like dirt. 
+Hobo [bawling]: I told her all my secrets, told her she was the one. And then she goes and tells me she needs space. Space! I am Mayor Boris J Buttstacks. And I'm not going to let some fancy squeegee treat me like dirt. 
 go arca-talk
 
 #hobo-cupboard
@@ -55,27 +55,28 @@ go arca-talk
 #hobo-forget
 set asked-forget
 
-Hobo [pissed]: Newt's head on a stick! I'm. The. Mayor. I can't go takin' holidays. My brain is clouded with sadness and betrayal... can ya help me get back home?
+Hobo [pissed]: Newt's head on a stick! I'm. The. Mayor. I can't go taking holidays. 
+Hobo: My brain is clouded with sadness and betrayal... can you help me get back home?
 go arca-where
 
 #hobo-hoover
 set asked-hoover
 
 Hobo [pissed]: Whaaat?! I'd never cheat on Dusty with a hoover! I could try yodelling... 
-Hobo [crying]: She used to love it when I sang sweet nothings in her ear... Can ya take me back to my park, please? 
+Hobo: She used to love it when I yelled sweet nothings in her ear... Could you take me back to my park, please? 
 go arca-where
 
 #hobo-talk
 set asked-talk
 
-Hobo [sceptical]: Hmph. Talkin' to kittens sounds pretty crazy t'me. Besides, my heart feels like it's been smashed into a trillion pieces an' I can't think straight... 
-Hobo [crying]: Can ya take me home please?
+Hobo [sceptical]: Hmph. Talking to kittens sounds pretty crazy to me. Besides, my heart feels like it's been smashed into a trillion pieces. I can't think straight... 
+Hobo [crying]: Take me back to my park.. please?
 go arca-where
 
 #hobo-how
 set asked-how
 
-Hobo [crying]: I live in a park with a park bench... tha's all I can tell ya right now. 
+Hobo [crying]: I live in a park with a park bench... that's all I can tell you right now. 
 Hobo [bawling]: It hurts! It hurts so bad... Oh Dusty, how could you do this to me? Please help me find my way home...
 go finish
 
