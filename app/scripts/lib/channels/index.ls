@@ -1,7 +1,8 @@
 require! 'lib/channels/Channel'
 
 schemas = <[frame pre-frame post-frame key-press key-up key-down game-commands player-position
-  stage window-size alert death hint contact kitten track-volume page conversation triggers]>
+  stage window-size alert death hint contact kitten track-volume page conversation triggers
+  character-message]>
 
 id = 0
 get-channel = (file) ->

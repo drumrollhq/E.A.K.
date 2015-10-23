@@ -88,9 +88,9 @@ $ document.body .on 'keydown' (e) ->
   if e.which is 8 and e.target.tag-name.to-lower-case! isnt 'input' then e.prevent-default!
 
 # Custom elements for KQ levels:
-extras = <[ target hints pointer alert hidden tutorial step action content ]>
-extras |> each _, (-> document.create-element it)
-extras |> each _, (-> Slowparse.HTMLParser::html-elements.push it)
+for extra in <[ target hints pointer alert hidden tutorial step action content message ]>
+  document.create-element extra
+  Slowparse.HTMLParser::html-elements.push extra
 
 # HBS helpers:
 Handlebars.register-helper \inc (value) -> 1 + parse-float value

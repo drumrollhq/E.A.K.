@@ -176,6 +176,8 @@ module.exports = class App
       ..show!
       ..on \dismiss, ~> @dismiss-app-overlay!
 
+    @character-messages = @bar.character-messages
+
     actions.setup @bar, this
 
     # Hide the loader and start up the game.

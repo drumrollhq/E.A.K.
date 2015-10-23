@@ -2,10 +2,12 @@ require! {
   'lib/channels'
   'settings'
   'user'
+  'ui/components/CharacterMessages'
 }
 
 $body = $ document.body
 $overlay-views = $ '#overlay-views'
+$character-messages = $ '#character-messages'
 
 module.exports = class Bar extends Backbone.View
   events:
@@ -26,6 +28,7 @@ module.exports = class Bar extends Backbone.View
 
     channels.key-press.filter ( .key in <[ e i ]> ) .subscribe @edit
     channels.page.subscribe ({name, prev}) ~> @activate name, prev
+    channels.character-message.subscribe (message) ~> @character-messages.activate message
     settings.on 'change:mute', @render, this
     user.on 'change', @render, this
 
@@ -48,6 +51,8 @@ module.exports = class Bar extends Backbone.View
         @$logout-button.add-class 'hidden'
     else
       @$user-bits.add-class 'hidden'
+
+    @character-messages = React.render (React.create-element CharacterMessages), $character-messages.0
 
   edit: (e) ~>
     if e.prevent-default

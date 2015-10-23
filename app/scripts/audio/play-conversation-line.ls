@@ -9,7 +9,8 @@ sounds = {}
 currently-playing = null
 
 module.exports = play-conversation-line = (root, name) ->
-  path = "#root/#name"
+  path = if name then "#root/#name" else root
+  console.log 'play' path
   play-conversation-line.stop!
   if sounds[path]
     currently-playing := sounds[path]

@@ -1,10 +1,11 @@
 require! {
   'game/hints/Alert'
   'game/hints/Pointer'
+  'game/hints/Message'
   'lib/channels'
 }
 
-hint-types = pointer: Pointer, alert: Alert
+hint-types = pointer: Pointer, alert: Alert, message: Message
 
 id-counter = 1
 
@@ -14,12 +15,13 @@ module.exports = class HintController extends Backbone.Model
   hint-defaults:
     type: \alert
     target: \.player
+    from: \ada
     content: 'You forgot to add content to your hint!'
     class: 'normal'
     enter: \time:1
     exit: \time:4
-    enter-delay: 0
-    exit-delay: 0
+    enter-delay: 0ms
+    exit-delay: 0ms
     position: \below
     focus: false
 
@@ -34,33 +36,33 @@ module.exports = class HintController extends Backbone.Model
       obj =
         type: ($el.attr 'hint-type') or el.tag-name.to-lower-case!
         target: ($el.attr 'target') or HintController::hint-defaults.target
+        from: ($el.attr 'from') or HintController::hint-defaults.from
+        track: ($el.attr 'track')
         name: ($el.attr 'name') or undefined
         content: $el.html! or HintController::hint-defaults.content
+        timeout: ($el.attr 'timeout') or undefined
         class: ($el.attr 'class') or HintController::hint-defaults.class
         enter: ($el.attr 'enter') or HintController::hint-defaults.enter
         exit: ($el.attr 'exit') or HintController::hint-defaults.exit
         enter-delay: ($el.attr 'enter-delay') or HintController::hint-defaults.enter-delay
         exit-delay: ($el.attr 'exit-delay') or HintController::hint-defaults.exit-delay
+        enter-after: ($el.attr 'enter-after') or undefined
         position: ($el.attr 'position') or HintController::hint-defaults.position
         scoped: ($el.attr 'scoped')?
         scope: $el.attr 'scope'
         focus: ($el.attr 'focus')?
 
-      obj.id = "hint_#{obj.type}_#i"
+      obj.id = obj.name or "hint_#{obj.type}_#i"
       obj.disabled = !! @store.get "state.hints.#{obj.id}"
       @hints.push obj
 
     [@setup hint for hint in @hints]
 
   activate: ->
-    for hint in @hints
-      if hint.start-sub?.resume? => hint.start-sub.resume!
-      if hint.stop-sub?.resume? => hint.stop-sub.resume!
+    @active = true
 
   deactivate: ->
-    for hint in @hints
-      if hint.start-sub?.pause? => hint.start-sub.pause!
-      if hint.stop-sub?.pause? => hint.stop-sub.pause!
+    @active = false
 
   setup: (hint) ->
     id-counter += 1
@@ -75,24 +77,47 @@ module.exports = class HintController extends Backbone.Model
 
     hint <<< {view}
 
-    hint.start-sub = @on-event hint.enter, hint.enter-delay, ~>
-      view.render! unless hint.disabled
-      channels.hint.publish {type: \enter, name: hint.name}
-      if hint.start-sub.unsubscribe then hint.start-sub.unsubscribe!
-
-      hint.stop-sub = @on-event hint.exit, hint.exit-delay, ~>
+    hint._promise = @enter-after hint.enter-after
+      .then ~> @on-event hint.enter
+      .then ~> Promise.delay parse-int hint.enter-delay || 0
+      .then ~>
+        view.render! unless hint.disabled
+        channels.hint.publish type: \enter, name: hint.name
+        @on-event hint.exit
+      .then ~> Promise.delay parse-int hint.exit-delay || 0
+      .then ~>
         view.remove! unless hint.disabled
-        channels.hint.publish {type: \exit, name: hint.name}
-        @store.patch-state {hints: "#{hint.id}": true}
-        if hint.stop-sub.unsubscribe then hint.stop-sub.unsubscribe!
+        channels.hint.publish type: \exit, name: hint.name
+        # @store.patch-state hints: {"#{hint.id}": true}
         hint.disabled = true
 
-  on-event: (ev, delay = 0, cb = -> null) ~>
-    fn = -> set-timeout cb, parse-int delay
-    if ev.match /^time:\s?(\d+?)$/
-      time = that.1 |> parse-int
-      set-timeout fn, time
-    else
-      channels.parse ev .once fn
+  on-event: (event) ->
+    if event.match /OR/
+      events = event
+        .split 'OR'
+        .map ( .trim! )
+        .map (event) ~>
+          @on-event event .then ~> event
 
-  destroy: ~> [hint.view.remove! for hint in @hints]
+      Promise.any events
+    else
+      if event.match /^time:\s?(\d+?)$/
+        time = parse-int that.1
+        Promise.delay time
+      else
+        new Promise (resolve) ~>
+          channels
+            .parse event
+            .filter ~> @active
+            .once resolve
+
+  enter-after: (name, cb) -> new Promise (resolve) ~>
+    unless name then return resolve!
+    channels.hint
+      .filter (h) -> h.type is \exit and h.name is name
+      .once resolve
+
+  destroy: ~>
+    for hint in @hints
+      hint.view.remove!
+      hint._promise.cancel!

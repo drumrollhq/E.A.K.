@@ -1,0 +1,57 @@
+#character-message
+  position absolute
+  bottom 0
+  left 0
+
+.character-message
+  position absolute
+  bottom -200px
+  left 0
+  transition opacity 0.3s ease
+
+.character-message-character
+  width 150px
+  transition all 0.3s ease
+  display block
+  transform translate(-150px, -140px) rotate(30deg)
+  transform-origin bottom
+
+.character-message-speech-bubble
+  position absolute
+  top 10px
+  left 120px
+  background-color rgba(white, 0.8)
+  padding 10px
+  border-radius 5px
+  width 500px
+  transition all 0.3s ease
+  opacity 1
+  transform translateX(0)
+
+  &::after
+    content ''
+    display block
+    width 0
+    height 0
+    position absolute
+    left -30px
+    top 50%
+    margin-top -15px
+    border 15px solid transparent
+    border-right-color rgba(white, 0.8)
+
+.character-message-dismiss
+  float right
+  padding 0 5px
+  margin-top 2px
+
+.character-message-enter:not(.character-message-enter-active),
+.character-message-leave
+  opacity 0.5
+
+  .character-message-character
+    transform translate(-300px, -120px) rotate(20deg)
+
+  .character-message-speech-bubble
+    opacity 0
+    transform translateX(-100px)

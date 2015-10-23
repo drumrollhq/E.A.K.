@@ -2,6 +2,7 @@
 *.oulipo.json
 /audio/music/forest-glitch.*
 /audio/music/forest.*
+/audio/1.*/**/*
 /audio/tutorials/intro/03-editing-text-i.*
 /content/1-scrapyard/**/*
 /content/bg-tiles/1-scrapyard.*.png
