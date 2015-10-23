@@ -43,7 +43,7 @@ go menu-portal
 # weird
 set asked-weird
 Tarquin [suspicious track:05-experiment]: Really? Well, Cedric does like to experiment... 
-Cedric [_ track:llama-1]: Bleeaaatt
+Cedric [neutral track:llama-1]: Bleeaaatt
 set view.speaker = 'tarquin neutral'
 go menu-portal
 
@@ -76,7 +76,7 @@ go menu-end
 set asked-squid
 Ada [_ track:03-terrifying-t4]: It's terrifying.
 Tarquin [suspicious track:09-dont-talk]: Yes... well... we don't talk about that, do we Cedric?
-Cedric [_ track:llama-2]: Bleeeeeat
+Cedric [neutral track:llama-2]: Bleeeeeat
 set view.player = 'arca neutral'
 set view.speaker = 'tarquin neutral'
 go menu-end

@@ -67,7 +67,7 @@ set asked-who
 Tarquin [arrogant-arm-up track:02a-im-tarquin option:run-on]: I am Tarquin Glitterquiff - Serial Entrepreneur Extraordinaire, Bsc Hons MBA MMO RPG PHP OBE C++.
 Tarquin [suspicious track:02b-im-tarquin]: And YOU are trespassing on my ship. Cedric! Fetch me my water pistol. 
 
-Cedric [_ track:llama-1]: bleeeeat
+Cedric [neutral track:llama-1]: bleeeeat
 Ada [_ track:02-nice-name]: Nice name, mermaid. We're not trespassers though.
 Tarquin [glare track:02c-unimercorn]: Hmph! I'm a Unimercorn, not a mermaid.
 go menu
@@ -154,7 +154,7 @@ set asked-tarquin-escapepod
 Tarquin [annoyed track:13-cedric-sat option:run-on]: It did, but then Cedric accidently sat on the release button.
 Tarquin [dismissive track:13b-cedric-sat]: Most unfortunate, but these things happen.
 
-Cedric [_ track:llama-2]: Bleeeeat
+Cedric [neutral track:llama-2]: Bleeeeat
 set view.speaker = 'tarquin annoyed'
 go menu
 
@@ -210,7 +210,7 @@ Tarquin [sarcastic-arm-up track:18-you-two]: You two? Ha! I doubt it. This is a 
 Ada [_ track:07-come-on]: Oh come on... Can we at least take a look?
 Tarquin [suspicious track:19-fuzzy-butt]: Fine. But I'm warning you - any funny business and Cedric will kick you off the ship herself. She has a mean roundhouse kick, don't you my little fuzzybutt?
 
-Cedric [_ track:llama-3]: bleeeeat
+Cedric [neutral track:llama-3]: bleeeeat
 go menu
 
 # nointern-otherway
