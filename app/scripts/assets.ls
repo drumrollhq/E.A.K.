@@ -166,19 +166,18 @@ function add-js js, bundle-name, name
     registered-level-scripts[bundle-name][*] = original-eak.register-level-script.apply this, arguments
 
   # intercept require.register
-  original-register = window.require.register
-  window.require.register = (module-name) ->
+  require = window.require.local name
+  require <<< window.require
+  require.register = (module-name) ->
     registered-modules[bundle-name][*] = module-name
     console.log "[assets] Registered module #module-name from #name"
-    original-register.apply this, arguments
+    window.require.register.apply this, arguments
 
-  fn = new Function 'eak', "#{js}\n\n//# sourceURL=#name"
-  fn eak
+  fn = new Function 'eak', 'require', "#{js}\n\n//# sourceURL=#name"
+  fn eak, require
 
   # restore eak functions
   window.eak <<< original-eak
-  # restore require.register
-  window.require.register = original-register
 
 function add-css source, bundle-name, name
   added-css[bundle-name] ?= []

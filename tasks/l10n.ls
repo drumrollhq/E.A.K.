@@ -72,6 +72,7 @@ gulp.task 'l10n' ['l10n-data' 'bootstrap-livescript' 'minigame-oulipo'] (cb) !->
       .pipe oulipo-filter.restore
       .pipe ls-filter
       .pipe gulp-livescript bare: true
+      .on \error -> throw it
       .pipe ls-filter.restore
       .pipe gulp-cached 'l10n'
       .pipe gulp.dest dest.assets

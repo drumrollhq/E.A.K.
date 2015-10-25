@@ -115,6 +115,8 @@
     delete cache[bundle];
   };
 
+  require.local = localRequire;
+
   require.brunch = true;
   globals.require = require;
 })();

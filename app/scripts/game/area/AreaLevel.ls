@@ -28,7 +28,6 @@ module.exports = class AreaLevel extends Backbone.View
   id: -> _.unique-id 'arealevel-'
 
   initialize: ({@level, @prefix}) ->
-    console.log @level.url
     level-scripts[@level.url] ?= []
     @mapper = new Mapper @el
     @hook \initialize
