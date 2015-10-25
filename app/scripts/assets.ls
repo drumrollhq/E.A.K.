@@ -10,6 +10,7 @@ loaded-bundles = {}
 registered-actors = {}
 registered-modules = {}
 registered-area-scripts = {}
+registered-level-scripts = {}
 added-css = {}
 
 bundle-sizes = {}
@@ -97,6 +98,10 @@ export function unload-bundle bundle-name
       script.deregister!
     delete registered-area-scripts[bundle-name]
 
+  if registered-level-scripts[bundle-name]
+    for script in registered-level-scripts => script.deregister!
+    delete registered-level-scripts[bundle-name]
+
   if registered-modules[bundle-name]
     for module in registered-modules[bundle-name]
       window.require.de-register module
@@ -144,17 +149,21 @@ function string-to-url str, mime
 function add-js js, bundle-name, name
   registered-actors[bundle-name] ?= []
   registered-area-scripts[bundle-name] ?= []
+  registered-level-scripts[bundle-name] ?= []
   registered-modules[bundle-name] ?= []
 
   # intercept eak register functions
   eak = window.eak
-  original-eak = eak.{register-actor, register-area-script}
+  original-eak = eak.{register-actor, register-area-script, register-level-script}
   eak.register-actor = (ctor) ->
     registered-actors[bundle-name][*] = dasherize ctor.display-name
     original-eak.register-actor.apply this, arguments
 
   eak.register-area-script = (name, obj) ->
     registered-area-scripts[bundle-name][*] = original-eak.register-area-script.apply this, arguments
+
+  eak.register-level-script = (name, obj) ->
+    registered-level-scripts[bundle-name][*] = original-eak.register-level-script.apply this, arguments
 
   # intercept require.register
   original-register = window.require.register

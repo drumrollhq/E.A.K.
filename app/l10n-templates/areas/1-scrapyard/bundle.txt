@@ -1,5 +1,4 @@
-*.html
-*.oulipo.json
+**/*
 /audio/music/forest-glitch.*
 /audio/music/forest.*
 /audio/1.*/**/*

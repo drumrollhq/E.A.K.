@@ -21,12 +21,17 @@ create-style = ->
   $ '<style></style>'
     ..append-to document.head
 
+level-scripts = {}
+
 module.exports = class AreaLevel extends Backbone.View
   class-name: 'area-level'
   id: -> _.unique-id 'arealevel-'
 
   initialize: ({@level, @prefix}) ->
+    console.log @level.url
+    level-scripts[@level.url] ?= []
     @mapper = new Mapper @el
+    @hook \initialize
 
   load: ~>
     src = assets.load-asset "#{@prefix}/areas/#{@level.url}"
@@ -40,6 +45,7 @@ module.exports = class AreaLevel extends Backbone.View
     if conf.has-tutorial
       @tutorial = new Tutorial conf.tutorial
 
+    @hook \load
     this
 
   setup: (stage, @area-view) ~>
@@ -80,14 +86,17 @@ module.exports = class AreaLevel extends Backbone.View
     @hint-controller?.destroy!
     @style.remove!
     for sprite in @sprites => sprite.0.remove!
+    @hook \cleanup
     # @tutorial?.remove!
     super!
 
   activate: ->
+    @hook \activate
     @hint-controller ?= new HintController hints: @conf.hints, scope: @$el, store: @level-store
     @hint-controller.activate!
 
   deactivate: ->
+    @hook \deactivate
     if @hint-controller then @hint-controller.deactivate!
 
   hide: ->
@@ -172,6 +181,7 @@ module.exports = class AreaLevel extends Backbone.View
     css-src |> @preprocess-css |> @style.text
 
     @set-error parsed.error
+    @hook \setHtmlCss
 
   set-error: (error) ->
     if error?
@@ -189,6 +199,7 @@ module.exports = class AreaLevel extends Backbone.View
     @map = @mapper.map
     @add-borders @map
     @map = @map ++ @actors
+    @hook \map
     @map
 
   preprocess-css: (source) ->
@@ -214,6 +225,7 @@ module.exports = class AreaLevel extends Backbone.View
     if @tutorial then @tutorial.attach editor-view
 
     editor.once \save, ~> @stop-editor editor, editor-view
+    @hook \edit, editor, editor-view
 
   stop-editor: (editor, editor-view) ->
     if @tutorial then @tutorial.detach!
@@ -224,9 +236,28 @@ module.exports = class AreaLevel extends Backbone.View
     @redraw-from (editor.get \html), (editor.get \css)
 
     channels.game-commands.publish command: \stop-edit
+    @hook \stopEdit
 
   contains: (x, y) ->
     @conf.x < x < @conf.x + @conf.width and @conf.y < y < @conf.y + @conf.height
+
+  hook: (name, ...args) ->
+    hooks = level-scripts[@level.url]
+      .filter (script) ~> script[name]
+      .map (script) ~> script[name].apply this, args
+
+    Promise.all hooks
+
+  @register-level-script = (url, script) ->
+    hooks = keys script
+    console.log "[area-level] Register #{hooks.join ', '} hooks for #url"
+    level-scripts[url] ?= []
+    level-scripts[url][*] = script
+    script.deregister = ->
+      console.log "[area-level] Register #{hooks.join ', '} hooks for #url"
+      level-scripts[name] .= filter (isnt script)
+
+    script
 
 parse-src = (src, level) ->
   parsed = html.to-dom src

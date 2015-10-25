@@ -6,6 +6,7 @@ require! {
   'game/CutScene'
   'game/actors'
   'game/area/Area'
+  'game/area/AreaLevel'
   'game/conversation'
   'game/event-loop'
   'game/load'
@@ -105,6 +106,7 @@ module.exports = class App
       actors.register-actor
       actors.deregister-actor
       Area.register-area-script
+      AreaLevel.register-level-script
     }
 
     Promise
