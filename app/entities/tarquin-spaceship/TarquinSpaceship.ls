@@ -129,6 +129,9 @@ class TarquinSpaceship extends Actor
     @waiting-mode = true
     @listen-to-once this, \contact:start:ENTITY_PLAYER, ~>
       eak.start-conversation "/#{EAK_LANG}/areas/2-spaceship/spaceship-fixed"
+        .then ~>
+          @stop-waiting-mode!
+          @store.patch-state tarquin-said-goodbye: true
 
   stop-waiting-mode: ->
     unless @waiting-mode then return
