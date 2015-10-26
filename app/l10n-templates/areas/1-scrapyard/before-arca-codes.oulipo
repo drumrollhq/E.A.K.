@@ -57,4 +57,3 @@ Arca:
 		set game.characters.arca.code-opinion = 'boring'
 
 Lao [neutral]: Tremendous focus is required! You must feel the code in everything around you.
-exec alert('Edit prompt!')

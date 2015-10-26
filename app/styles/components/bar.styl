@@ -23,6 +23,8 @@
   .edit
     transform translateY(0)
     transition all 0.4s ease
+    text-shadow 0 0 10px black
+    animation edit-pulse 1s linear alternate infinite
 
   .hide-edit & .edit, body:not(.playing) & .edit
     opacity 0
@@ -31,6 +33,7 @@
   .overlay-button
     margin-top 10px
     margin-right 10px
+    border-radius 3px
 
   .right
     position absolute
@@ -95,3 +98,10 @@
 
       .icon-active
         opacity 1
+
+@keyframes edit-pulse
+  from
+    background-color rgba(white, 0.2)
+
+  to
+    background-color rgba(white, 0.4)

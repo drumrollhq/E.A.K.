@@ -1,6 +1,26 @@
 .attention-grab
   animation rubber-band 1s
 
+.drop-in
+  animation drop-in ease-out 0.3s
+
+.drop-out
+  animation drop-out ease-in 0.2s
+
+.fade-enter
+  opacity 0
+  transition all 0.3s ease
+
+.fade-enter-active
+  opacity 1
+
+.fade-leave
+  opacity 1
+  transition all 0.3s ease
+
+.fade-leave-active
+  opacity 0
+
 @keyframes rubber-band
   0%
     transform scale3d(1, 1, 1)
@@ -23,6 +43,24 @@
   100%
     transform scale3d(1, 1, 1)
 
+@keyframes drop-in
+  from
+    transform translateY(-50%)
+    opacity 0
+
+  to
+    transform translateY(0)
+    opacity 1
+
+@keyframes drop-out
+  from
+    transform translateY(0)
+    opacity 1
+
+  to
+    transform translateY(50%)
+    opacity 0
+
 @keyframes fadein
   from
     opacity 0
@@ -44,16 +82,3 @@
   to
     transform rotate(360deg)
 
-.fade-enter
-  opacity 0
-  transition all 0.3s ease
-
-.fade-enter-active
-  opacity 1
-
-.fade-leave
-  opacity 1
-  transition all 0.3s ease
-
-.fade-leave-active
-  opacity 0

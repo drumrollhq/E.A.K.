@@ -74,6 +74,18 @@ $.fn.attention-grab = ->
 
 $.fn.serialize-object = -> {[name, value] for {name, value} in @serialize-array!}
 
+$.fn.drop-in = (target) ->
+  @one prefixed.animation-end, ~> @remove-class \drop-in
+  if target then @append-to target
+  @add-class \drop-in
+
+$.fn.drop-out = (exit = true) ->
+  @one prefixed.animation-end, ~>
+    @remove-class \drop-out
+    if exit then @remove!
+
+  @add-class \drop-out
+
 # performance.now polyfill
 first = Date.now!
 unless window.performance?
