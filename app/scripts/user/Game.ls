@@ -91,6 +91,11 @@ module.exports = class Game extends Backbone.DeepModel
 
     @store.levels.save-kitten @id, level-id, kitten: kitten
 
+  patch-game-state: (patch, value) ->
+    if typeof patch is \string then patch = {"#patch": value}
+    @set \game.state patch
+    @store.patch-state @id, patch
+
   patch-stage-state: (patch, value) ->
     if typeof patch is \string then patch = {"#patch": value}
     @set \stage.state patch

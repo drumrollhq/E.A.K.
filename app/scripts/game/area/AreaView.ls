@@ -120,6 +120,8 @@ module.exports = class AreaView extends Backbone.View
       x += level.conf.x
       y += level.conf.y
       @player.set-origin x, y
+      if level.conf.title isnt @stage-store.get \game.state.currentLocation
+        @stage-store.patch-game-state current-location: level.conf.title
       @levels-layer.activate level
 
   check-edit-button: (level) ->
