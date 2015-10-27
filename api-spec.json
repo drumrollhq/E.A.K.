@@ -1,7 +1,7 @@
 {
   "rootUrl": "http://localhost:3000",
   "tag": "v0.3.1",
-  "packaged": "2015-09-29T15:03:08.000Z",
+  "packaged": "2015-10-19T15:10:52.000Z",
   "hash": "9ce22e4d26ade7bab8fe28be0ae8aab21b996363",
   "endpoints": {
     "status": {

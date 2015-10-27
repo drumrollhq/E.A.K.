@@ -17,7 +17,7 @@ Arca:
 # who
 set asked-who
 set game.lao.arca-asked-who
-Lao [smiling track:04-lao]: I am Lao - the Oracle. I am one of the few creatures left who practices the ancient art of coding. This is my apprentice, Ada.
+Lao [smiling track:04-lao]: I am Lao, and I am the Oracle. I am one of the few creatures left who practices the ancient art of coding. This is my apprentice, Ada.
 Ada [neutral track:01-hey]: Hey
 go menu
 
@@ -39,7 +39,7 @@ go menu
 
 # imagination
 set asked-imagination
-Lao [thoughtful track:09-vegan-sausage]: Fascinating question my dear vegan sausage. Some say we are all figments of the Internewt's imagination. But I've met him - he really isn't that creative.
+Lao [thoughtful track:09-vegan-sausage]: Fascinating question my dear vegan sausage. Some say we are all figments of the Internewt's imagination. I've met him though - he really isn't that creative.
 set view.player = 'arca neutral'
 go menu
 
