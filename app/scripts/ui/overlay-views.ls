@@ -1,11 +1,12 @@
 require! {
+  'ui/ReactView'
+  'ui/components/EndScreen'
   'ui/components/Login'
-  'ui/components/Subscribe'
   'ui/components/SaveGames'
   'ui/components/Settings'
   'ui/components/SignUp'
   'ui/components/SignUpNext'
-  'ui/ReactView'
+  'ui/components/Subscribe'
   'user'
 }
 
@@ -21,6 +22,7 @@ module.exports = ({user, settings, $overlay-views, save-games, app}) ->
     | \signup => new ReactView component: SignUp, model: user
     | \signupNext => new ReactView component: SignUpNext, model: user
     | \subscribe => new ReactView component: Subscribe
+    | \end => new ReactView component: EndScreen
     | otherwise => throw new Error "view #name not found"
 
   (parent) -> (name) ->

@@ -1,21 +1,16 @@
 require! {
   'game/actors/Actor'
+  'game/actors/mixins/Conditional'
   'lib/channels'
 }
 
-module.exports = class Door extends Actor
-  @from-el = ($el, [type], offset, store, area-view) ->
-    options = switch type
-    | \condition => condition: ($el.attr \data-door-condition), trigger: $el.attr \data-door-trigger
-    | otherwise => throw new TypeError "No such door type as #{type}"
-
-    options <<< {
+module.exports = mixin Conditional, class Door extends Actor
+  @from-el = ($el, _, offset, store, area-view) ->
+    options = do
       el: $el
-      type: type
       offset: offset
       store: store
       area-view: area-view
-    }
 
     new Door options
 
@@ -26,17 +21,9 @@ module.exports = class Door extends Actor
 
   initialize: (options) ->
     super options
-    @type = options.type
 
-    switch @type
-    case \condition
-      @_trigger-sub = channels.parse options.trigger .subscribe @trigger-update
-      @_condition = new Function \eak, \store, \areaView, options.condition
-      @trigger-update!
-
-  trigger-update: ~>
-    res = @_condition window.eak, @store, @area-view
-    if res then @open! else @close!
+  turn-on: -> @open!
+  turn-off: -> @close!
 
   open: ~>
     if @_open then return

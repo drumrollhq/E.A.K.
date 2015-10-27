@@ -3,6 +3,8 @@
 /audio/music/forest.*
 /audio/1.*/**/*
 /audio/tutorials/intro/03-editing-text-i.*
+/audio/conversations/before-arca-codes/*
+/audio/conversations/after-arca-codes/*
 /content/1-scrapyard/**/*
 /content/bg-tiles/1-scrapyard.*.png
 /content/conversation/cecil/left/*.*

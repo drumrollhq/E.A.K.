@@ -165,6 +165,8 @@ module.exports = class App
   load-path: (path) ->
     url = parse.url path
     if url.protocol isnt 'eak:' then throw new Error 'non-eak url!' # TODO: figure out what happens here
+    if url.host is \app
+      return @trigger-async \quit .then window.location.hash = "/app/#{url.path}#{if url.search then '?' + url.search else ''}"
     @load url.host, url.path, url.query
 
   error: (msg) ->

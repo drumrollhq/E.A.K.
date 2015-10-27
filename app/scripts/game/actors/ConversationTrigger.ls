@@ -1,9 +1,9 @@
 require! {
-  'game/actors/Activatable'
+  'game/actors/mixins/Activatable'
   'lib/channels'
 }
 
-module.exports = class ConversationTrigger extends Activatable
+module.exports = mixin Activatable, class ConversationTrigger
   @from-el = ($el, [name], offset, save-level) ->
     new ConversationTrigger {
       name: name
