@@ -291,12 +291,15 @@ module.exports = class App
     if @loader-view then @loader-view.hide!
 
   play-cutscene: (video, subtitles) ~>
+    hide-edit = $body.has-class \hide-edit
+    $body.add-class \hide-edit
     scene = new CutScene {video, subtitles}
     scene.load!
       .then ~>
         scene.start!
         wait-for-event scene, \finish
       .then ~>
+        if hide-edit then $body.add-class \hide-edit else $body.remove-class \hide-edit
         scene.cleanup!
 
   start-conversation: (name) ~>
@@ -354,6 +357,7 @@ module.exports = class App
 
   show-playing: ->
     $body.add-class 'playing hide-edit'
+    if @view?.check-edit-button? then @view.check-edit-button!
 
   hide-playing: ->
     $body.remove-class \playing

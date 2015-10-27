@@ -31,7 +31,6 @@ module.exports = class CutScene extends Backbone.View
     'mousemove': 'wakeup'
 
   initialize: ({@name, @video, @subtitles, @next}) ->
-    console.log arguments
     @subs = []
 
   load: ->

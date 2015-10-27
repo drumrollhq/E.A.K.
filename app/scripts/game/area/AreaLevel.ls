@@ -28,7 +28,6 @@ module.exports = class AreaLevel extends Backbone.View
   id: -> _.unique-id 'arealevel-'
 
   initialize: ({@level, @prefix}) ->
-    console.log @level.url
     level-scripts[@level.url] ?= []
     @mapper = new Mapper @el
     @hook \initialize
@@ -241,12 +240,22 @@ module.exports = class AreaLevel extends Backbone.View
   contains: (x, y) ->
     @conf.x < x < @conf.x + @conf.width and @conf.y < y < @conf.y + @conf.height
 
-  hook: (name, ...args) ->
-    hooks = level-scripts[@level.url]
-      .filter (script) ~> script[name]
-      .map (script) ~> script[name].apply this, args
+  editable: ->
+    editable = @hook-sync \editable
+    if editable? then editable else @conf.editable
 
-    Promise.all hooks
+  _hook: (name, ...args) ->
+    hooks = level-scripts[@level.url]
+      |> filter (script) ~> script[name]
+      |> map (script) ~> script[name].apply this, args
+
+  hook-sync: (name, ...args) ->
+    @_hook name, ...args
+      |> filter (it) -> it?
+      |> first
+
+  hook: (name, ...args) ->
+    Promise.all @_hook name, ...args
 
   @register-level-script = (url, script) ->
     hooks = keys script

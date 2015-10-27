@@ -46,14 +46,17 @@ function prompt-edit level
 
 eak.register-level-script '1-scrapyard/1.3-editing-text-i.html' do
   initialize: ->
-    in-progress = false
+    @tut-in-progress = false
     @death-sub = channels.parse 'death:fall-out-of-world' .subscribe ~>
-      unless in-progress or  @stage-store.get 'state.doneEditTutorial'
+      unless @tut-in-progress or @stage-store.get 'state.doneEditTutorial'
+        @tut-in-progress = true
         eak.play-cutscene '/cutscenes/1-scrapyard-fall'
           .then ~> eak.start-conversation "/#{EAK_LANG}/areas/1-scrapyard/before-arca-codes"
-          .then ~> prompt-edit this
+          .then ~>
+            @done-first-part = true
+            prompt-edit this
           # .then ~> @stage-store.patch-stage-state done-edit-tutorial: true
-          .finally ~> in-progress := false
+          .finally ~> @tut-in-progress = false
 
     @death-sub.pause!
 
@@ -65,3 +68,7 @@ eak.register-level-script '1-scrapyard/1.3-editing-text-i.html' do
 
   cleanup: ->
     @death-sub.unsubscribe!
+
+  editable: ->
+    done-tutorial = @stage-store.get \state.doneEditTutorial
+    !!(done-tutorial or (@tut-in-progress and @done-first-part))

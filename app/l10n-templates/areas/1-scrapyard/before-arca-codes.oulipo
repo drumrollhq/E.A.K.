@@ -12,7 +12,7 @@ Arca:
 	- (unless asked-who) Who are you? -> who
 	- (if asked-who and not asked-oracle) What's an Oracle? -> oracle
 	- (unless asked-imagination) [quizzical] Are you a figment of my imagination? -> imagination
-	- So what's this code thing? -> code
+	- (if asked-who) So what's this code thing? -> code
 
 # who
 set asked-who

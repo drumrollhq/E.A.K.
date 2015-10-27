@@ -112,7 +112,7 @@ module.exports = class AreaView extends Backbone.View
 
   update-player-level: ->
     level = @levels-layer.object-at @player.p
-    @check-edit-button level
+    @check-edit-button level, false
     if level? and level isnt @player-level
       music-manager.switch-track (level.level.track or \normal)
       @player-level = level
@@ -124,25 +124,23 @@ module.exports = class AreaView extends Backbone.View
         @stage-store.patch-game-state current-location: level.conf.title
       @levels-layer.activate level
 
-  check-edit-button: (level) ->
-    if level? and level.conf.editable
+  check-edit-button: (level, urgent = true) ->
+    if @_last-edit-button-checked is level and not urgent then return
+    @_last-edit-button-checked = level
+    if level? and level.editable!
       @show-edit-button!
     else
       @hide-edit-button!
 
   show-edit-button: ->
-    if @_edit-showing is true then return
     $body.remove-class \hide-edit
-    @_edit-showing = true
 
   hide-edit-button: ->
-    if @_edit-showing is false then return
     $body.add-class \hide-edit
-    @_edit-showing = false
 
   is-editable: ->
     unless @player-level? then return false
-    @player-level.conf.editable
+    @player-level.editable!
 
   editor-focus: (duration) ->
     for level in @levels when level isnt @player-level => level.hide!
