@@ -25,7 +25,7 @@ go menu
 set game.arca.wants-puffin
 Lao [shocked track:05-preposterous]: Oh how preposterous! I don’t know what I would do without my dearest Cecil.
 Lao [smiling track:06-munchkin]: Such a cute little munchkin...
-Cecil [angry]: Alright mate, that’s enough o’ that.
+Cecil [angry track:cecil-nigel]: Alright mate, that’s enough o’ that.
 Arca:
 	- [neutral] Thanks for saving me. My name is Arca. Who are you? -> who
 	- [quizzical] Uhh... Ok. I'm Arca, by the way. Are you a figment of my imagination? -> imagination
