@@ -51,6 +51,7 @@ export watch = ->
 
     dirname = path.dirname path.join path.sep, path.relative dest.bundles, name
     assets = file.map (asset) -> path.join dest.bundles, (path.resolve dirname, asset .replace /^[a-z]:/, '' )
+    assets[*] = "!#{path.join dest.bundles, '**/bundled.*.json'}"
 
     assets
 

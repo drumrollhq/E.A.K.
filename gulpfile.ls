@@ -18,7 +18,7 @@ global.eak-version = new Promise (resolve, reject) ->
 
   resolve "#{tag}-#{branch}-#{hash}"
 
-global.languages = ['en' 'es-419' 'nl']
+global.languages = ['en']
 global.default-lang = 'en'
 try
   if production
