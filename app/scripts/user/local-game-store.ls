@@ -3,6 +3,8 @@ id = (prefix = '') -> "#{prefix}_#{Date.now!}_#{_.unique-id!}"
 _tx = {}
 
 module.exports = games = {
+  local: true
+
   create: (data) ->
     game-id = id \game
     game = {
@@ -14,7 +16,11 @@ module.exports = games = {
       active-stage: null
     }
 
-    games.save game .then -> {game}
+    games
+      .find where: ( .id.match /^(game|stage|level)/ )
+      .map ({id}) -> games.delete id
+      .then -> games.save game
+      .then -> {game}
 
   get: (id) ->
     (Promise.resolve localforage.get-item id)
@@ -27,6 +33,24 @@ module.exports = games = {
         if active-stage then game.active-stage = active-stage
         game
 
+  full: (id) ->
+    (Promise.resolve localforage.get-item id)
+      .then (game) ->
+        Promise.all [
+          game
+          games.find where: (stage) -> stage.id.match /^stage/ and stage.game-id is id
+        ]
+      .then ([game, stages]) ->
+        Promise.all [
+          game
+          stages
+          stages
+            |> map (stage) -> games.find where: (level) -> level.id.match /^level/ and level.stage-id is stage.id
+            |> Promise.all
+        ]
+      .then ([game, stages, levels]) ->
+        {game, stages, levels: flatten levels}
+
   mine: ->
     games.find {
       where: ( .id.match /game/ )
@@ -35,7 +59,18 @@ module.exports = games = {
       asc: false
     }
 
-  delete: (id) -> ...
+  delete: (id) ->
+    Promise.resolve localforage.remove-item id
+      .tap -> console.log "Deleted #id"
+
+  delete-full: (id) ->
+    games.full id
+      .then ({game, stages, levels}) ->
+        Promise.all [
+          games.delete game.id
+          Promise.map stages, (stage) -> games.delete stage.id
+          Promise.map levels, (level) -> games.delete level.id
+        ]
 
   stages:
     find-or-create: (game-id, stage-data) ->

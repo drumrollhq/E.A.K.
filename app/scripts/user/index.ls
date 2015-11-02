@@ -8,6 +8,15 @@ require! {
 
 class User extends Backbone.DeepModel
   initialize: ->
+    @listen-to this, \change:loggedIn, (user, logged-in) ~>
+      if logged-in
+        @upload-local-game! .then ~>
+          if @_user-promise.is-fulfilled! then Promise.delay 300 .then -> window.location.reload!
+      else
+        if @_user-promise.is-fulfilled!
+          unless window.location.hash.match /app/ then window.location.hash = '/menu'
+          window.location.reload!
+
     @_user-promise = hindquarters.users.current!
       .then (data) ~>
         @set available: true
@@ -18,6 +27,8 @@ class User extends Backbone.DeepModel
         @set available: xhr.status is 401
         @set-user null, false
         null
+      .finally ~>
+        Promise.delay 1000
 
   fetch: ~> @_user-promise
 
@@ -60,5 +71,17 @@ class User extends Backbone.DeepModel
       .mine {limit}
       .then (games) ->
         new SaveGames games
+
+  upload-local-game: ->
+    store = game-store!
+    if store.local then return # Cannot upload local to local
+    local-store = require 'user/local-game-store'
+    local-store.mine!
+      .then (games) ->
+        if games.length < 1 then return
+        game = first games
+        local-store.full game.id
+          .tap (full-game) -> store.upload full-game
+          .then ({game}) ~> local-store.delete-full game.id
 
 module.exports = new User!
