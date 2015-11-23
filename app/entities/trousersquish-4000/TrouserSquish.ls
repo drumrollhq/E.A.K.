@@ -48,8 +48,18 @@ class TrouserSquish extends Actor
     Promise.all [@bubbles.load!, @dial.load!, @top-wobble.load!]
 
   on-prepare: ->
-    if @_prepared then return
+    @offset <<< x: 0, y: 0
+
+    if @_prepared
+      @x = @start-x
+      @y = @start-y
+      return
+
     @_prepared = true
+
+    @start-x = @x
+    @start-y = @y
+
     @back = new Image '/entities/trousersquish-4000/assets/back.png', 200, 127, @x - 100, @y + 68
     @area-view.background-layer.add @back
 
@@ -65,8 +75,6 @@ class TrouserSquish extends Actor
 
     @steam = new ParticleEmitter (new Vector @x + 115, @y + -45), steam
     @area-view.effects-layer.add @steam
-
-    @offset <<< x: 0, y: 0
 
   step: (t) ->
     @timer += t * 30
@@ -87,8 +95,8 @@ class TrouserSquish extends Actor
 
     @_last-y = @_current-y
     @_current-y = y
-    @p.y = @y + @offset.y + y
-    @p.x = @x + @offset.x
+    @p.x = @start-x + @offset.x
+    @p.y = @start-y + @offset.y + y
 
   check-squish: (player) ->
     if @_current-y > @_last-y

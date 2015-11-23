@@ -1,7 +1,7 @@
 {
   "rootUrl": "http://localhost:3000",
   "tag": "v0.3.1",
-  "packaged": "2015-09-29T15:03:08.000Z",
+  "packaged": "2015-11-02T14:41:53.000Z",
   "hash": "9ce22e4d26ade7bab8fe28be0ae8aab21b996363",
   "endpoints": {
     "status": {
@@ -499,6 +499,264 @@
               },
               {
                 "name": "positive"
+              }
+            ]
+          }
+        }
+      },
+      "options": false
+    },
+    "games.upload": {
+      "params": false,
+      "body": {
+        "type": "object",
+        "children": {
+          "game": {
+            "type": "object",
+            "children": {
+              "id": {
+                "type": "alternatives",
+                "alternatives": [
+                  {
+                    "type": "string",
+                    "invalids": [
+                      ""
+                    ]
+                  },
+                  {
+                    "type": "number",
+                    "invalids": [
+                      null,
+                      null
+                    ],
+                    "rules": [
+                      {
+                        "name": "integer"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "activeStage": {
+                "type": "alternatives",
+                "flags": {
+                  "presence": "optional"
+                },
+                "alternatives": [
+                  {
+                    "type": "string",
+                    "invalids": [
+                      ""
+                    ]
+                  },
+                  {
+                    "type": "number",
+                    "invalids": [
+                      null,
+                      null
+                    ],
+                    "rules": [
+                      {
+                        "name": "integer"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "createdAt": {
+                "type": "date",
+                "flags": {
+                  "presence": "optional"
+                }
+              },
+              "updatedAt": {
+                "type": "date",
+                "flags": {
+                  "presence": "optional"
+                }
+              },
+              "userId": {
+                "type": "alternatives",
+                "flags": {
+                  "presence": "optional"
+                },
+                "alternatives": [
+                  {
+                    "type": "string",
+                    "invalids": [
+                      ""
+                    ]
+                  },
+                  {
+                    "type": "number",
+                    "invalids": [
+                      null,
+                      null
+                    ],
+                    "rules": [
+                      {
+                        "name": "integer"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "state": {
+                "type": "object",
+                "flags": {
+                  "presence": "optional",
+                  "default": {}
+                }
+              }
+            }
+          },
+          "stages": {
+            "type": "array",
+            "flags": {
+              "sparse": false
+            },
+            "items": [
+              {
+                "type": "object",
+                "children": {
+                  "id": {
+                    "type": "alternatives",
+                    "alternatives": [
+                      {
+                        "type": "string",
+                        "invalids": [
+                          ""
+                        ]
+                      },
+                      {
+                        "type": "number",
+                        "invalids": [
+                          null,
+                          null
+                        ],
+                        "rules": [
+                          {
+                            "name": "integer"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "gameId": {
+                    "type": "alternatives",
+                    "alternatives": [
+                      {
+                        "type": "string",
+                        "invalids": [
+                          ""
+                        ]
+                      },
+                      {
+                        "type": "number",
+                        "invalids": [
+                          null,
+                          null
+                        ],
+                        "rules": [
+                          {
+                            "name": "integer"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "invalids": [
+                      ""
+                    ]
+                  },
+                  "url": {
+                    "type": "string",
+                    "invalids": [
+                      ""
+                    ]
+                  },
+                  "state": {
+                    "type": "object",
+                    "flags": {
+                      "presence": "optional",
+                      "default": {}
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "levels": {
+            "type": "array",
+            "flags": {
+              "sparse": false
+            },
+            "items": [
+              {
+                "type": "object",
+                "children": {
+                  "id": {
+                    "type": "alternatives",
+                    "alternatives": [
+                      {
+                        "type": "string",
+                        "invalids": [
+                          ""
+                        ]
+                      },
+                      {
+                        "type": "number",
+                        "invalids": [
+                          null,
+                          null
+                        ],
+                        "rules": [
+                          {
+                            "name": "integer"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "stageId": {
+                    "type": "alternatives",
+                    "alternatives": [
+                      {
+                        "type": "string",
+                        "invalids": [
+                          ""
+                        ]
+                      },
+                      {
+                        "type": "number",
+                        "invalids": [
+                          null,
+                          null
+                        ],
+                        "rules": [
+                          {
+                            "name": "integer"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "url": {
+                    "type": "string",
+                    "invalids": [
+                      ""
+                    ]
+                  },
+                  "state": {
+                    "type": "object",
+                    "flags": {
+                      "presence": "optional",
+                      "default": {}
+                    }
+                  }
+                }
               }
             ]
           }
@@ -1672,6 +1930,9 @@
           "GET": "games.mine"
         },
         "POST": "games.create",
+        "upload": {
+          "POST": "games.upload"
+        },
         "_gameId": {
           "GET": "games.get",
           "PUT": "games.patch",

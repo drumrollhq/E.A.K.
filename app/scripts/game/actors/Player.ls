@@ -91,7 +91,7 @@ module.exports = class Player extends Actor
 
       classes[*] =
         | @state is 'on-thing' and 0.7 < abs @v.x => 'running'
-        | @state is 'on-thing' and (keys.right or keys.left) => 'running'
+        | @state is 'on-thing' and (keys.right or keys.left) and not @_frozen => 'running'
         | @state is 'on-thing' => 'idle'
         | @fall-dist > 150 => 'falling'
         | 3 > abs @v.x => 'jumping-forward'
@@ -139,8 +139,12 @@ module.exports = class Player extends Actor
     unless current === @store.get \stage.state.playerPos
       @store.patch-stage-state \playerPos, current
 
+  freeze: -> @_frozen = true
+  unfreeze: -> @_frozen = false
+
   # Handle input:
   step: (dt) ->
+    if @_frozen then return
     # Moving right:
     if keys.right && !@deactivated
       # If the object is on a thing, move with standard acceleration. If not, move with in-air acceleration

@@ -12,6 +12,8 @@ function find-level-settings level
   meta = get-meta level
   conf = {}
 
+  conf.title = level.find 'title' .text! or void
+
   conf.glitch = (level.find 'meta[name=glitch]' .0)?
 
   # Set up the HTML/CSS for the level

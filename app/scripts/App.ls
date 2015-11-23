@@ -165,6 +165,8 @@ module.exports = class App
   load-path: (path) ->
     url = parse.url path
     if url.protocol isnt 'eak:' then throw new Error 'non-eak url!' # TODO: figure out what happens here
+    if url.host is \app
+      return @trigger-async \quit .then window.location.hash = "/app/#{url.path}#{if url.search then '?' + url.search else ''}"
     @load url.host, url.path, url.query
 
   error: (msg) ->
@@ -289,12 +291,15 @@ module.exports = class App
     if @loader-view then @loader-view.hide!
 
   play-cutscene: (video, subtitles) ~>
+    hide-edit = $body.has-class \hide-edit
+    $body.add-class \hide-edit
     scene = new CutScene {video, subtitles}
     scene.load!
       .then ~>
         scene.start!
         wait-for-event scene, \finish
       .then ~>
+        if hide-edit then $body.add-class \hide-edit else $body.remove-class \hide-edit
         scene.cleanup!
 
   start-conversation: (name) ~>
@@ -352,6 +357,7 @@ module.exports = class App
 
   show-playing: ->
     $body.add-class 'playing hide-edit'
+    if @view?.check-edit-button? then @view.check-edit-button!
 
   hide-playing: ->
     $body.remove-class \playing

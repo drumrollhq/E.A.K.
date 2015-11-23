@@ -74,6 +74,18 @@ $.fn.attention-grab = ->
 
 $.fn.serialize-object = -> {[name, value] for {name, value} in @serialize-array!}
 
+$.fn.drop-in = (target) ->
+  @one prefixed.animation-end, ~> @remove-class \drop-in
+  if target then @append-to target
+  @add-class \drop-in
+
+$.fn.drop-out = (exit = true) ->
+  @one prefixed.animation-end, ~>
+    @remove-class \drop-out
+    if exit then @remove!
+
+  @add-class \drop-out
+
 # performance.now polyfill
 first = Date.now!
 unless window.performance?
@@ -196,3 +208,22 @@ window.pr = (promise) ->
   return promise
 
 window.cx = class-names
+
+merge-functions = (a, b) -> ->
+  b.apply this, arguments
+  a.apply this, arguments
+
+# Actor Mixins:
+window.mixin = (...mixins, target-class) ->
+  for mixin in mixins
+    if typeof mixin is \function then mixin = mixin.prototype
+    for let own key, value of mixin
+      if typeof value is \function
+        if target-class.prototype[key]
+          target-class.prototype[key] = merge-functions value, target-class.prototype[key]
+        else
+          target-class.prototype[key] ?= value
+      else
+        target-class.prototype[key] ?= value
+
+  target-class

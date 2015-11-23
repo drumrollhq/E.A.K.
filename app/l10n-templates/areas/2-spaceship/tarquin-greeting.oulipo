@@ -25,7 +25,7 @@ branch
 	- (if asked-task) go arca-whathappened
 	- (if asked-who) go arca-portal
 	- (default) go arca-who
-	
+
 [---------------Arca's responses (main branch) --------]
 
 #arca-who
@@ -36,7 +36,7 @@ Arca:
 	- (unless asked-apprentices) We're apprentices of the Oracle -> tarquin-apprentices
 
 #arca-portal
-Arca: 
+Arca:
 	- We're on a mission to save kittens that have been vanishing all over the Internet universe. Please could we use your portal to get to Ponyhead Bay? -> tarquin-portal
 	- (unless asked-entrepreneur) What's an entrepreneur, anyway? -> tarquin-entrepreneur
 	- (unless asked-extraordinary) What extraordinary things have you done? ->tarquin-extraordinary
@@ -65,7 +65,7 @@ Arca:
 set asked-who
 
 Tarquin [arrogant-arm-up track:02a-im-tarquin option:run-on]: I am Tarquin Glitterquiff - Serial Entrepreneur Extraordinaire, Bsc Hons MBA MMO RPG PHP OBE C++.
-Tarquin [suspicious track:02b-im-tarquin]: And YOU are trespassing on my ship. Cedric! Fetch me my water pistol. 
+Tarquin [suspicious track:02b-im-tarquin]: And YOU are trespassing on my ship. Cedric! Fetch me my water pistol.
 
 Cedric [neutral track:llama-1]: bleeeeat
 Ada [sarcastic track:02-nice-name]: Nice name, mermaid. We're not trespassers though.
@@ -77,7 +77,7 @@ go menu
 set asked-intern
 
 Tarquin [give-info track:03a-what-interns option:run-on]: An intern works for someone, in order to learn from them.
-Tarquin [give-info-arm-up track:03b-what-interns]: My interns gain valuable busy-ness experience by doing tasks such as making me tea, waxing my back and being my tailstool. 
+Tarquin [give-info-arm-up track:03b-what-interns]: My interns gain valuable busy-ness experience by doing tasks such as making me tea, waxing my back and being my tailstool.
 go menu
 
 #tarquin-why
@@ -103,7 +103,7 @@ go menu
 #tarquin-portal
 set asked-portal
 
-Tarquin [sneaky track:06-better-idea]: Hmmm... I have a better idea. The two of you can be my interns! 
+Tarquin [sneaky track:06-better-idea]: Hmmm... I have a better idea. The two of you can be my interns!
 
 Arca:
 	- Awesome! We'd love to be your interns. Maybe the stuff we learn will help us on our mission! -> yes-interns
@@ -113,13 +113,13 @@ Arca:
 set asked-whathappened
 
 Taquin [annoyed track:07a-too-close option:run-on]: Got too close to a space tornado - total disaster! The engines are in a terrible state, and even the coffee machine has stopped working!
-Tarquin [aggitated track:07b-too-close]: I'm not sure how I'm supposed to live like this. Simply barbaric. 
+Tarquin [agitated track:07b-too-close]: I'm not sure how I'm supposed to live like this. Simply barbaric.
 go menu
 
 #tarquin-howtofix
 set asked-howtofix
 Tarquin [give-info track:08a-find-a-way option:run-on]: You need to find a way to get to the engines, and then fix the glitches. Should be fun!
-Tarquin [dismissive track:08b-find-a-way]: If you don't die, that is. 
+Tarquin [dismissive track:08b-find-a-way]: If you don't die, that is.
 Ada [annoyed track:04-great]: Great.
 set view.player = 'arca neutral'
 go menu
@@ -173,7 +173,7 @@ go menu
 set game.arca.is-tarquins-intern = true
 
 Ada [dismissive track:06-sigh]: *sigh*
-	
+
 Tarquin [happy track:15a-hustle option:run-on]: Well, first I need to know if you're worthy of my time.
 Tarquin [arrogant-arm-up track:15b-hustle option:run-on]: Not everyone is lucky enough to learn from Tarquin Glitterquiff himself!
 Tarquin [give-info track:15c-hustle]: I'm going to set you a task, to find out if you two have enough hustle in your hams.
@@ -211,7 +211,7 @@ Arca:
 
 # nointern-ship
 set asked-task
-Tarquin [sarcastic-arm-up track:18-you-two]: You two? Ha! I doubt it. This is a very complex machine - the most magnificent 7* spacecraft in the internet universe. 
+Tarquin [sarcastic-arm-up track:18-you-two]: You two? Ha! I doubt it. This is a very complex machine - the most magnificent 7* spacecraft in the internet universe.
 Ada [angry track:07-come-on]: Oh come on... Can we at least take a look?
 Tarquin [suspicious track:19-fuzzy-butt]: Fine. But I'm warning you - any funny business and Cedric will kick you off the ship herself. She has a mean roundhouse kick, don't you my little fuzzybutt?
 
@@ -226,8 +226,8 @@ go menu-nointern
 
 #nointern-whenfixed
 set asked-nointern-whenfixed
-Tarquin [dismissive track:21-unicorn-farts]: I have no idea... Creatures who can code are like unicorn farts - much in demand, but impossible to find. 
+Tarquin [dismissive track:21-unicorn-farts]: I have no idea... Creatures who can code are like unicorn farts - much in demand, but impossible to find.
 go menu-nointern
 
-	
-	
+
+

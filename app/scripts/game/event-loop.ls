@@ -1,4 +1,7 @@
-require! 'lib/channels'
+require! {
+  'lib/channels'
+  'lib/keys'
+}
 
 raf = window.request-animation-frame or window.moz-request-animation-frame or
   window.webkit-request-animation-frame or window.ms-request-animation-frame or
@@ -56,9 +59,15 @@ class EventLoop
     $document.on prefixed.visibility-change, (e) ~>
       @_skip-frame += 5
 
-  pause: ~> @paused = @paused-keys = true
+  pause: ~>
+    keys.reset!
+    @paused = @paused-keys = true
+
+  pause-keys: ~>
+    keys.reset!
+    @paused-keys = true
+
   resume: ~> @paused = @paused-keys = false
-  pause-keys: ~> @paused-keys = true
   resume-keys: ~> @paused-keys = false
 
 module.exports = new EventLoop!
