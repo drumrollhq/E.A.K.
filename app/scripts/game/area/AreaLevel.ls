@@ -5,9 +5,10 @@ require! {
   'game/area/settings'
   'game/editor/Editor'
   'game/editor/EditorView'
-  'game/editor/tutorial/Tutorial'
+  # 'game/editor/tutorial/Tutorial'
   'game/effects/SpriteSheet'
   'game/hints/HintController'
+  'game/tutorial/Tutorial'
   'lib/channels'
   'lib/dom/Mapper'
   'lib/lang/CSS'
@@ -41,8 +42,13 @@ module.exports = class AreaLevel extends Backbone.View
     @conf = conf = settings.find @level.$el
     conf <<< @level.{x, y}
 
-    if conf.has-tutorial
-      @tutorial = new Tutorial conf.tutorial
+    # if conf.has-tutorial
+      # @tutorial = new Tutorial conf.tutorial
+
+    if @has-hook \tutorial
+      @tutorial = new Tutorial!
+      @hook \tutorial @tutorial
+      console.log window.tutorial = @tutorial
 
     @hook \load
     this
@@ -211,7 +217,7 @@ module.exports = class AreaLevel extends Backbone.View
     css.to-string!
 
   start-editor: ->
-    if @conf.has-tutorial then $ document.body .add-class 'has-tutorial'
+    # if @conf.has-tutorial then $ document.body .add-class 'has-tutorial'
     editor = new Editor {
       renderer: this
       original-HTML: @conf.html
@@ -221,14 +227,14 @@ module.exports = class AreaLevel extends Backbone.View
     editor-view = new EditorView model: editor, render-el: @$el, el: $ '#editor'
       ..render!
 
-    if @tutorial then @tutorial.attach editor-view
+    # if @tutorial then @tutorial.attach editor-view
 
     editor.once \save, ~> @stop-editor editor, editor-view
     @hook \edit, editor, editor-view
 
   stop-editor: (editor, editor-view) ->
-    if @tutorial then @tutorial.detach!
-    $ document.body .remove-class 'has-tutorial'
+    # if @tutorial then @tutorial.detach!
+    # $ document.body .remove-class 'has-tutorial'
     editor-view.restore-entities!
     editor-view.remove!
     @level-store.patch-state code: html: editor.get \html
@@ -256,6 +262,11 @@ module.exports = class AreaLevel extends Backbone.View
 
   hook: (name, ...args) ->
     Promise.all @_hook name, ...args
+
+  has-hook: (name) ->
+    hooks = level-scripts[@level.url]
+    for hook in hooks when typeof hook[name] is \function => return true
+    return false
 
   @register-level-script = (url, script) ->
     hooks = keys script

@@ -31,7 +31,7 @@ function is-solved level
     .to-array!
     .reduce ((total, el) -> $ el .width! + total), 0
 
-  width > 650
+  width > 450
 
 function prompt-edit level
   overlay = create-edit-prompt-overlay!
@@ -73,3 +73,57 @@ eak.register-level-script '1-scrapyard/1.3-editing-text-i.html' do
   editable: ->
     done-tutorial = @stage-store.get \stage.state.doneEditTutorial
     !!(done-tutorial or (@tut-in-progress and @done-first-part))
+
+  tutorial: (tutorial) ->
+    tutorial
+      .tutor 'lao'
+      .lock!.unlock 'p:inner'
+
+      .step \1-pantaloons
+        .say \1-pink-pantaloons do
+          0: 'Pink pantaloons! You actually did it!'
+          3: 'Perhaps you could learn some code...'
+      .end \step
+
+      .step \2-writing
+        .highlight-code 'p'
+        .say \2-writing async: true, do
+          0: 'The writing on the left is the code for your surroundings -'
+          3: 'shown on the right.'
+        .wait 3000ms
+        .clear-highlight!
+        .highlight-level 'p'
+      .end \step
+
+      .step \3-change
+        .say \3.1-change 'Let\'s try changing the code.'
+        .say \3.2-click target-code: 'p::inner', async: true, interruptible: true,
+          'Click the black writing here.'
+        .highlight-code 'p::inner'
+        .await-select 'p::inner'
+      .end \step
+
+      .step \4-name
+        .say \4-name async: true, "Now, type your name"
+        .await-event 'change'
+        .wait 3000ms
+      .end \step
+
+      .step \5-surroundings
+        .say \5-surroundings do
+          0: 'See how changing the code changes your surroundings?'
+          3: 'Keep typing to make the ledge long enough for you to reach the other side.'
+          6: 'You can write anything you want!'
+      .end \step
+
+      .target \long-enough 'Make the ledge long enough to reach the other side' do
+        wait: true
+        condition: ({$}) -> ($ 'p:nth-of-type(1)' .width!) + ($ 'p:nth-of-type(2)' .width!) > 450
+
+      .step \6-scooter
+        .await-event 'stop-typing'
+        .say \6-scooter do
+          0: 'Smashing work my little vegetable soup!'
+          3: 'You picked that up faster than a squirrel on a scooter.'
+        .save!
+      .end \step
