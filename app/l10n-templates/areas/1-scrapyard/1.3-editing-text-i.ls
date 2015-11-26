@@ -79,6 +79,7 @@ eak.register-level-script '1-scrapyard/1.3-editing-text-i.html' do
     [[\tutor 'lao']
     [\lock]
     [\unlock 'p:inner']
+    [\wait 1_500ms]
 
     [\step \1-pantaloons
       [\say \1-pink-pantaloons {}
@@ -92,11 +93,10 @@ eak.register-level-script '1-scrapyard/1.3-editing-text-i.html' do
         3: 'shown on the right']
       [\wait 3_000ms]
       [\clear-highlight]
-      [\highlight-level 'p']
-      [\wait 10_000ms]]
+      [\highlight-level 'p']]
 
     [\step \3-change
-      [\say \3.1-change 'Let\'s try changing the code.']
+      [\say \3.1-change {} 0: 'Let\'s try changing the code.']
       [\say \3.2-click {target-code: 'p:inner', async: true, interruptible: true}
         0: 'Click the black writing here.']
       [\highlight-code 'p:inner']
@@ -104,8 +104,8 @@ eak.register-level-script '1-scrapyard/1.3-editing-text-i.html' do
 
     [\step \4-name
       [\say \4-name {async: true} 0: 'Now, type your name']
-      [\await-event 'change']
-      [\wait 3_000ms]]
+      [\await-event 'start-typing']
+      [\wait 4_000ms]]
 
     [\step \5-surroundings
       [\say \5-surroundings {}
@@ -116,7 +116,9 @@ eak.register-level-script '1-scrapyard/1.3-editing-text-i.html' do
     [\target \long-enough {block: true}
       ({$}) -> ($ 'p:nth-of-type(1)' .width!) + ($ 'p:nth-of-type(2)' .width!) > 450]
 
-    [\after 5_000ms {without-event: 'change'}
+    [\once \wait-before-saving [\await-event 'stop-typing']]
+
+    [\step \6-smashing
       [\say \6-scooter {}
         0: 'Smashing work my little vegetable soup!'
         3: 'You picked that up faster than a squirrel on a scooter']

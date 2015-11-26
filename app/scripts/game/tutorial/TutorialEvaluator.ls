@@ -49,6 +49,22 @@ module.exports = class TutorialEvaluator
     @create-context!
     @eval step .then ~> @pop-context!
 
+  target: (id, options, condition) -> # TODO
+
+  once: (id, ...instructions) ->
+    # TODO: only eval if a once with that id hasn't already run
+    @eval instructions
+
+  await-select: (selector) ->
+    wait-for-event @tut.editor-view.cm, \cursorActivity, condition: (cm) ~>
+      ranges = @tut.editor-view.select selector
+      pos = cm.index-from-pos cm.get-cursor!
+      for range in ranges when range.start <= pos <= range.end
+        return true
+
+  await-event: (name, options = {}) ->
+    wait-for-event @tut.editor-view, name, options
+
   say: (id, options, lines) ->
     alert (values lines).join \\n
 
@@ -89,3 +105,9 @@ module.exports = class TutorialEvaluator
     @tut.editor-view.extras.clear-highlight!
     for highlight in @context.[]highlights => highlight.remove!
     @context.highlights = null
+
+  save: -> @tut.editor-view.save!
+  reset: -> @tut.editor-view.reset!
+  cancel: -> @tut.editor-view.cancel!
+  undo: -> @tut.editor-view.undo!
+  redo: -> @tut.editor-view.redo!

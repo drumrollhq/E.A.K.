@@ -41,6 +41,7 @@ module.exports = class EditorView extends Backbone.View
 
     @block-if-paused <[save cancel undo redo reset help handle-change remove on-change]>
     set-timeout (~> @on-change @model, @model.get 'html'), 0
+    @setup-events!
 
   events:
     'click .save': \save
@@ -62,6 +63,11 @@ module.exports = class EditorView extends Backbone.View
     @esc-sub.unsubscribe!
     @cm.off \change @handle-change
     $ @cm.get-wrapper-element! .remove!
+
+  setup-events: ~>
+    timeout = 3_000ms
+    @listen-to @cm, \change, _.debounce (~> @trigger \start-typing), timeout, leading: true, trailing: false
+    @listen-to @cm, \change, _.debounce (~> @trigger \stop-typing), timeout, leading: false, trailing: true
 
   on-change: (m, html) ~>
     # preserve entities
