@@ -53,6 +53,7 @@ module.exports = setup-CM-extras = (cm) ->
         last-mark := mark
 
   read-only-marks = []
+  highlight-marks = []
 
   return {
     process: (html-src) ->
@@ -128,6 +129,15 @@ module.exports = setup-CM-extras = (cm) ->
         default => console.error "Cannot remove read-only range:" {mark, range, start, end, mark-start, mark-end}
 
     clear-cursor-marks: clear-cursor-marks
+
+    highlight: (range) ->
+      range = convert-range range
+      highlight-marks[*] = cm.mark-text range.start, range.end,
+        class-name: \highlight-action
+
+    clear-highlight: ->
+      highlight-marks.for-each ( .clear! )
+      highlight-marks := []
   }
 
 clear-marks = (marks) ->

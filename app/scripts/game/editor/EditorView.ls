@@ -143,7 +143,6 @@ module.exports = class EditorView extends Backbone.View
       return structure-selector: \all, selector: selector
 
     get-range = (pos, type) ->
-      console.log 'get-range' pos, type
       switch type
       | \all => {start: pos.open-tag.start, end: pos.close-tag.end}
       | \open => {start: pos.open-tag.start, end: pos.open-tag.end}
@@ -156,7 +155,6 @@ module.exports = class EditorView extends Backbone.View
       .map ( .trim! )
       .map (original-selector) ~>
         {selector, structure-selector} = parse-structure-pseudo-selector original-selector
-        console.log {original-selector, selector, structure-selector}
         for el in @render-el.find selector when el.parse-info
           get-range el.parse-info, structure-selector
 

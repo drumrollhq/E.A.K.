@@ -42,12 +42,6 @@ module.exports = class AreaLevel extends Backbone.View
     @conf = conf = settings.find @level.$el
     conf <<< @level.{x, y}
 
-    if @has-hook \tutorial
-      @hook \tutorial .then (tut) ~>
-        @tutorial = new Tutorial!
-        @tutorial-evaluator = new TutorialEvaluator tut, @tutorial
-        console.log window.tutorial = @tutorial, window.evaluator = @tutorial-evaluator
-
     @hook \load
     this
 
@@ -61,6 +55,12 @@ module.exports = class AreaLevel extends Backbone.View
       width: @conf.width
       height: @conf.height
     }
+
+    if @has-hook \tutorial
+      @hook \tutorial .then (tut) ~>
+        @tutorial = new Tutorial!
+        @tutorial-evaluator = new TutorialEvaluator tut, @tutorial, @level-store
+        console.log window.tutorial = @tutorial, window.evaluator = @tutorial-evaluator
 
     @targets-to-actors!
     @style = create-style!
