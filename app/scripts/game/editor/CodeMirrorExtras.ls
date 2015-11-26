@@ -29,6 +29,15 @@ module.exports = setup-CM-extras = (cm) ->
   clear-cursor-marks = ->
     if last-mark?.data?.node? then last-mark.data.node.class-list.remove 'editing-current-active'
 
+  convert-range = (range) ->
+    start = cm.pos-from-index range.start
+    end = cm.pos-from-index range.end
+    {inclusive-left, inclusive-right} = range
+    if range.start <= 0 then inclusive-left ?= true
+    if range.end >= cm.get-value!.length then inclusive-right ?= true
+
+    {start, end, inclusive-left, inclusive-right}
+
   cm.on "cursorActivity", ~>
     if last-mark isnt false then clear-cursor-marks!
 
@@ -42,6 +51,8 @@ module.exports = setup-CM-extras = (cm) ->
         show-element mark.data.node
 
         last-mark := mark
+
+  read-only-marks = []
 
   return {
     process: (html-src) ->
@@ -62,6 +73,59 @@ module.exports = setup-CM-extras = (cm) ->
           js.node.owner-element.attributes.remove-named-item js.node.name
 
       return parsed
+
+    mark-readonly: (range) ->
+      range = convert-range range
+      mark = cm.mark-text range.start, range.end, {
+        read-only: true
+        range.inclusive-left
+        range.inclusive-right
+        css: 'opacity: 0.5; cursor: not-allowed;'
+        atomic: true
+      }
+      mark.eak-read-only-mark = true
+      read-only-marks[*] = mark
+
+    clear-readonly: ({start, end, inclusive-left, inclusive-right}) ->
+      remove = (mark) ->
+        mark.clear!
+        read-only-marks.splice (read-only-marks.index-of mark), 1
+
+      marks = cm.get-all-marks! .filter ( .eak-read-only-mark )
+
+      for mark in marks
+        pos = mark.find!
+        unless pos
+          remove mark
+          continue
+
+        mark-start = cm.index-from-pos pos.from
+        mark-end = cm.index-from-pos pos.to
+
+        switch
+        # no intersection - ignore the mark
+        case end <= mark-start or start >= mark-end => # meh
+
+        # range fully contains mark - remove the mark
+        case start <= mark-start and mark-end <= end => remove mark
+
+        # mark fully contains range - split mark in two
+        case mark-start < start and end < mark-end
+          remove mark
+          @mark-readonly {start: mark-start, end: start, mark.inclusive-left, inclusive-right}
+          @mark-readonly {start: end, end: mark-end, inclusive-left, mark.inclusive-right}
+
+        # range clips left edge of mark
+        case start <= mark-start < end
+          remove mark
+          @mark-readonly {start: end, end: mark-end, inclusive-left, mark.inclusive-right}
+
+        # range clips right edge of mask
+        case start < mark-end <= end
+          remove mark
+          @mark-readonly {start: mark-start, end: start, mark.inclusive-left, inclusive-right}
+
+        default => console.error "Cannot remove read-only range:" {mark, range, start, end, mark-start, mark-end}
 
     clear-cursor-marks: clear-cursor-marks
   }

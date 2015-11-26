@@ -52,7 +52,9 @@ module.exports = class EditorView extends Backbone.View
 
   handle-change: (cm) ~> @model.set \html cm.get-value!
 
-  render: -> $ document.body .add-class \editor
+  render: ->
+    $ document.body .add-class \editor
+    @on-change _, @cm.get-value!
 
   remove: ~>
     $ document.body .remove-class \editor
@@ -122,3 +124,48 @@ module.exports = class EditorView extends Backbone.View
   game-commands: ({command}) ~>
     | command is 'force-pause' => @paused = true
     | command is 'force-resume' => @paused = false
+
+  select: (selector) ->
+    | !selector => [{start: -1, end: @model.get \html .length + 1}]
+    | typeof! selector is \RegExp => @select-by-regex selector
+    | typeof! selector is \String => @select-by-css-selector selector
+    | otherwise => console.error 'Unknown selector:' selector
+
+  select-one: (selector) -> first @select selector
+
+  select-by-css-selector: (selector) ->
+    parse-structure-pseudo-selector = (selector) ->
+      for pseudo-selector in <[inner outer open close all]>
+        re = new RegExp "\\:\\:?#{pseudo-selector}$"
+        if selector.match re
+          return structure-selector: pseudo-selector, selector: selector.replace re, ''
+
+      return structure-selector: \all, selector: selector
+
+    get-range = (pos, type) ->
+      console.log 'get-range' pos, type
+      switch type
+      | \all => {start: pos.open-tag.start, end: pos.close-tag.end}
+      | \open => {start: pos.open-tag.start, end: pos.open-tag.end}
+      | \close => {start: pos.close-tag.start, end: pos.close-tag.end}
+      | \inner => {start: pos.open-tag.end, end: pos.close-tag.start}
+      | \outer => [{start: pos.open-tag.start, end: pos.open-tag.end}, {start: pos.close-tag.start, end: pos.close-tag.end}]
+
+    ranges = selector
+      .split ','
+      .map ( .trim! )
+      .map (original-selector) ~>
+        {selector, structure-selector} = parse-structure-pseudo-selector original-selector
+        console.log {original-selector, selector, structure-selector}
+        for el in @render-el.find selector when el.parse-info
+          get-range el.parse-info, structure-selector
+
+    flatten ranges
+
+  select-by-regex: (re) ->
+    code = @model.get \html
+    matches = if re.global
+      while re.exec code => that
+    else [re.exec code]
+
+    matches.map (m) -> {start: m.index, end: m.index + m.0.length}

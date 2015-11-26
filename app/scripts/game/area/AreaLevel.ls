@@ -5,9 +5,9 @@ require! {
   'game/area/settings'
   'game/editor/Editor'
   'game/editor/EditorView'
-  # 'game/editor/tutorial/Tutorial'
   'game/effects/SpriteSheet'
   'game/hints/HintController'
+  'game/tutorial/TutorialEvaluator'
   'game/tutorial/Tutorial'
   'lib/channels'
   'lib/dom/Mapper'
@@ -42,13 +42,11 @@ module.exports = class AreaLevel extends Backbone.View
     @conf = conf = settings.find @level.$el
     conf <<< @level.{x, y}
 
-    # if conf.has-tutorial
-      # @tutorial = new Tutorial conf.tutorial
-
     if @has-hook \tutorial
-      @tutorial = new Tutorial!
-      @hook \tutorial @tutorial
-      console.log window.tutorial = @tutorial
+      @hook \tutorial .then (tut) ~>
+        @tutorial = new Tutorial!
+        @tutorial-evaluator = new TutorialEvaluator tut, @tutorial
+        console.log window.tutorial = @tutorial, window.evaluator = @tutorial-evaluator
 
     @hook \load
     this
@@ -227,7 +225,9 @@ module.exports = class AreaLevel extends Backbone.View
     editor-view = new EditorView model: editor, render-el: @$el, el: $ '#editor'
       ..render!
 
-    # if @tutorial then @tutorial.attach editor-view
+    if @tutorial
+      @tutorial.attach editor-view
+      @tutorial-evaluator.start!
 
     editor.once \save, ~> @stop-editor editor, editor-view
     @hook \edit, editor, editor-view
