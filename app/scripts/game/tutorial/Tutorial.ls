@@ -5,7 +5,7 @@ require! {
 module.exports = class Tutorial extends Backbone.DeepModel
   attach: (editor-view) ->
     @editor-view = editor-view
-    @component = React.render (React.create-element TutorialComponent, model: this),
+    @component = ReactDOM.render (React.create-element TutorialComponent, model: this),
       (@editor-view.$ '.editor-tutorial' .get 0)
 
   create-step: (id) ->

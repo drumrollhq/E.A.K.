@@ -52,7 +52,7 @@ module.exports = class Bar extends Backbone.View
     else
       @$user-bits.add-class 'hidden'
 
-    @character-messages = React.render (React.create-element CharacterMessages), $character-messages.0
+    @character-messages = ReactDOM.render (React.create-element CharacterMessages), $character-messages.0
 
   edit: (e) ~>
     if e.prevent-default

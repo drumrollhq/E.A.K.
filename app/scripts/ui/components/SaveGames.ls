@@ -75,7 +75,12 @@ module.exports = React.create-class {
     dom.div class-name: \cont-wide,
       dom.h2 null, 'Saved Games'
       dom.div class-name: \games,
-        React.create-element CSSTransitionGroup, component: \ul, transition-name: \savegame,
+        React.create-element CSSTransitionGroup, {
+          component: \ul
+          transition-name: \savegame
+          transition-enter-timeout: 500ms
+          transition-leave-timeout: 500ms
+        },
           @state.collection.map (game) ~>
             React.create-element SaveGame, {
               key: game.id

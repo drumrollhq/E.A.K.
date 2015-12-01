@@ -7,7 +7,7 @@ module.exports = class ReactView extends Backbone.View
       on-close: ~> @trigger \close
     }
 
-    @component = React.render (React.create-element component, props), @el
+    @component = ReactDOM.render (React.create-element component, props), @el
 
   args: (...args) ->
     if @component.args then @component.args.apply @component, args

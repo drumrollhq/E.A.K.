@@ -95,7 +95,11 @@ module.exports = URLEntry = React.create-class {
     else false
 
     dom.div class-name: \url-entry,
-      React.create-element CSSTransitionGroup, transition-name: \url-entry,
+      React.create-element CSSTransitionGroup, {
+        transition-name: \url-entry
+        transition-enter-timeout: 300ms
+        transition-leave-timeout: 300ms
+      },
         if @state.active then dom.div class-name: \url-entry-box, key: \entry-box,
           dom.input do
             type: \text

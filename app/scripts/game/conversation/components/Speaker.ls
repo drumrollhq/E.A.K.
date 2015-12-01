@@ -21,6 +21,8 @@ module.exports = React.create-class {
 
     React.create-element CSSTransitionGroup, {
       transition-name: \conversation-speaker
+      transition-enter-timeout: 200ms
+      transition-leave-timeout: 200ms
       class-name: "conversation-speaker conversation-speaker-#{@props.position}"
       component: \div
     }, dom.div key: key, content

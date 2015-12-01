@@ -25,7 +25,11 @@ module.exports = React.create-class {
       has-alternative = actual? and target?
 
       main = dom.div class-name: (cx \url-section, {has-alternative, correct, target-empty: target is false}), key: "section-#i",
-        React.create-element CSSTransitionGroup, transition-name: 'url-section', [
+        React.create-element CSSTransitionGroup, {
+          transition-name: 'url-section'
+          transition-enter-timeout: 400ms
+          transition-leave-timeout: 400ms
+        }, [
           if correct and has-alternative
             dom.div class-name: \url-tick, key: \tick, '✓'
           else if has-alternative
@@ -47,8 +51,11 @@ module.exports = React.create-class {
 
     dom.div class-name: \url-display,
       dom.div class-name: (cx \url-display-bar, correct: @state.correct, 'url-hide': @state.hidden),
-        React.create-element CSSTransitionGroup, transition-name: 'fade'
-          parts
+        React.create-element CSSTransitionGroup, {
+          transition-name: 'fade'
+          transition-enter-timeout: 300ms
+          transition-leave-timeout: 300ms
+        }, parts
 
   component-did-update: (_, prev-state) ->
     prev-correct = prev-state.target === prev-state.actual

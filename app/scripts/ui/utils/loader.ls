@@ -19,6 +19,12 @@ export toggle = (show-loader, heading, ...child-dom) ->
   loader = dom.div null, spinner, heading
 
   dom.div class-name: (cx \loader-toggle, active: show-loader),
-    React.create-element CSSTransitionGroup, transition-name: \loader-toggle, component: \div, class-name: \loader-toggle-loader,
+    React.create-element CSSTransitionGroup, {
+      transition-name: \loader-toggle
+      component: \div
+      class-name: \loader-toggle-loader
+      transition-enter-timeout: 450ms
+      transition-leave-timeout: 300ms
+    },
       if show-loader then loader else null
     dom.div class-name: \loader-toggle-contents, ...child-dom

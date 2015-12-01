@@ -68,6 +68,8 @@ module.exports = React.create-class {
           class-name: \clearfix
           ref: \lines
           transition-name: \conversation-line
+          transition-enter-timeout: 300ms
+          transition-leave-timeout: 0
         }, for line in @state.model.lines
             speaker = @state.model.view.characters?[line.speaker.to-lower-case!]?.name or line.speaker
             React.create-element Line, {

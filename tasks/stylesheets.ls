@@ -1,5 +1,4 @@
 require! {
-  '../node_modules/gulp-stylus/node_modules/stylus'
   'event-stream': es
   'gulp'
   'gulp-minify-css'
@@ -7,6 +6,11 @@ require! {
   'nib'
   'path'
 }
+
+stylus = try
+  require '../node_modules/stylus'
+catch e
+  require '../node_modules/gulp-stylus/node_modules/stylus'
 
 stylus-conf = {
   use: [nib!]

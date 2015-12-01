@@ -55,7 +55,11 @@ module.exports = CharacterMessages = React.create-class do
       @set-state active: false
 
   render: ->
-    React.create-element CSSTransitionGroup, {transition-name: \character-message},
+    React.create-element CSSTransitionGroup, {
+      transition-name: \character-message
+      transition-enter-timeout: 300ms
+      transition-leave-timeout: 300ms
+    },
       unless @state.from
         null
       else

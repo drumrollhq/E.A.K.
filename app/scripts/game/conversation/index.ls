@@ -44,7 +44,7 @@ export start = (name, $el, {resolve = noop-resolve, reject = noop-reject} = {}) 
 
   conversation = new Oulipo start, nodes, state
 
-  component = React.render (React.create-element ConversationComponent, {model: state}), $el.get 0
+  component = ReactDOM.render (React.create-element ConversationComponent, {model: state}), $el.get 0
   conversation.on \choice, component.choice
   tracks.focus \conversation
   Promise.delay 500
