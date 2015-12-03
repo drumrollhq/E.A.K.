@@ -17,7 +17,7 @@ module.exports = React.create-class {
       line-wrapping: true
       extra-keys: @props.keys or {}
 
-    @extras = CodeMirrorExtras @cm
+    @extras = CodeMirrorExtras @cm, @props.render-el
     NiceComments @cm, if @props.beautify? then props.beautify else true
     @extras.clear-cursor-marks!
 

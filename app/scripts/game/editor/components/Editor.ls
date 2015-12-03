@@ -10,10 +10,10 @@ module.exports = React.create-class {
   mixins: [Backbone.React.Component.mixin]
 
   on-change: (code) ->
-    @props.model.set \html, code
+    @props.model.editor.set \html, code
 
   on-reset: ->
-    @props.model.set \html, @props.model.get \startHTML
+    @props.model.editor.set \html, @props.model.get \startHTML
 
   on-undo: ->
     @refs.editor.undo!
@@ -36,7 +36,8 @@ module.exports = React.create-class {
       React.create-element EditorMenuBar, @{on-save, on-reset, on-cancel, on-undo, on-redo, on-help}
       React.create-element CodeEditor,
         ref: \editor
-        code: @state.model.html
+        code: @state.editor.html
+        render-el: @props.render-el
         on-change: @on-change
         keys: Esc: @on-save
 }

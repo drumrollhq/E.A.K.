@@ -5,10 +5,10 @@ require! {
   'game/area/settings'
   'game/editor/Editor'
   'game/editor/EditorView'
+  'game/editor/Tutorial'
+  'game/editor/TutorialEvaluator'
   'game/effects/SpriteSheet'
   'game/hints/HintController'
-  'game/tutorial/TutorialEvaluator'
-  'game/tutorial/Tutorial'
   'lib/channels'
   'lib/dom/Mapper'
   'lib/lang/CSS'
@@ -222,14 +222,16 @@ module.exports = class AreaLevel extends Backbone.View
       original-CSS: @conf.css
     }
 
-    editor-view = new EditorView model: editor, render-el: @$el, el: $ '#editor'
-
-    # if @tutorial
-    #   @tutorial.attach editor-view
-    #   @tutorial-evaluator.start!
+    @editor-view = editor-view = new EditorView {
+      model: editor
+      render-el: @$el
+      el: $ '#editor'
+      tutorial: @tutorial
+    }
 
     editor.once \save, ~> @stop-editor editor, editor-view
     @hook \edit, editor, editor-view
+    @tutorial-evaluator.start!
 
   stop-editor: (editor, editor-view) ->
     # if @tutorial then @tutorial.detach!

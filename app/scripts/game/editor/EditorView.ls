@@ -8,9 +8,8 @@ module.exports = class EditorView extends Backbone.View
   initialize: (options) ->
     # render-el is the level element that the html will be rendered to
     @render-el = options.render-el
-
-    # the AreaLevel we're currently editing
     @area-level = @model.get \renderer
+    @tutorial = options.tutorial
 
     # entities are special - we need to keep track of them and stop them from being destroyed
     @entities = @render-el.children \.entity
@@ -30,14 +29,18 @@ module.exports = class EditorView extends Backbone.View
     typing-timeout = 3_000ms
     @listen-to @cm, \change, _.debounce (~> @trigger \start-typing), typing-timeout, leading: true, trailing: false
     @listen-to @cm, \change, _.debounce (~> @trigger \stop-typing), typing-timeout, leading: false, trailing: true
+    @listen-to @cm, \selectNode, @select-node
 
     # First render:
     @on-change!
 
   render: ->
     @component = ReactDOM.render (React.create-element EditorComponent, {
-      model: @model
+      model:
+        editor: @model
+        tutorial: @tutorial
       on-save: @save
+      render-el: @render-el.get 0
     }), @el
     $ document.body .add-class \editor
 
@@ -98,6 +101,9 @@ module.exports = class EditorView extends Backbone.View
   restore-entities: ~>
     @render-el.children \.entity .detach!
     @entities.append-to @render-el
+
+  select-node: (node) ~>
+    debugger
 
   select: (selector) ->
     | !selector => [{start: -1, end: @model.get \html .length + 1}]

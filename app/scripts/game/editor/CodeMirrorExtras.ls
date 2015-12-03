@@ -16,12 +16,17 @@ require! {
   'settings'
 }
 
+constrain = (n, min, max) ->
+  | n < min => min
+  | n > max => max
+  | otherwise => n
+
 error-root = "/#{settings.get \lang}/data/"
 errors = new Errors error-root
 errors.load <[all]>, (err) ->
   if err? then channels.alert.publish msg: err
 
-module.exports = setup-CM-extras = (cm) ->
+module.exports = setup-CM-extras = (cm, render-el) ->
   last-mark = false
   marks = []
   cm.data = {}
@@ -48,7 +53,7 @@ module.exports = setup-CM-extras = (cm) ->
 
       if mark.data isnt undefined
         mark.data.node.class-list.add 'editing-current-active'
-        show-element mark.data.node
+        show-element mark.data.node, render-el
 
         last-mark := mark
 
@@ -149,8 +154,25 @@ clear-marks = (marks) ->
     until (mark = marks.shift!) is undefined
       mark.clear!
 
-show-element = (el) ->
-  # el.scrollIntoView(true)
+$level-container = $ '#levelcontainer'
+level-container = $level-container.get 0
+show-element = (el, parent) ->
+  target-x = $body.width! * 0.75
+  target-y = $body.height! / 2
+  rect = el.get-bounding-client-rect!
+  current-x = rect.left + rect.width / 2
+  current-y = rect.top + rect.height / 2
+  if current-x is 0 or current-y is 0 then return
+
+  x-diff = current-x - target-x
+  y-diff = current-y - target-y
+  max-scroll-x = Math.max 0, level-container.scroll-width - level-container.client-width
+  max-scroll-y = Math.max 0, level-container.scroll-height - level-container.client-height
+
+  $level-container.stop!.animate {
+    scroll-left: constrain level-container.scroll-left + x-diff, 0, max-scroll-x
+    scroll-top: constrain level-container.scroll-top + y-diff, 0, max-scroll-y
+  }, 100
 
 show-error = (cm, err) ->
 
