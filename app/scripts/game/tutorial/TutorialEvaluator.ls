@@ -49,7 +49,19 @@ module.exports = class TutorialEvaluator
     @create-context!
     @eval step .then ~> @pop-context!
 
-  target: (id, options, condition) -> # TODO
+  target: (id, options, condition) ->
+    target = @tut.create-target id
+    pr = new Promise (resolve) ~>
+      check = ~>
+        if condition {$: @tut.render-el.find}
+          @tutorial.editor-view.off \change, check
+          resolve!
+
+      @tutorial.editor-view.on \change, check
+      check!
+
+    pr = pr.then ~> @tut.complete-target id
+    if options.block then return pr
 
   once: (id, ...instructions) ->
     # TODO: only eval if a once with that id hasn't already run
@@ -66,7 +78,7 @@ module.exports = class TutorialEvaluator
     wait-for-event @tut.editor-view, name, options
 
   say: (id, options, lines) ->
-    alert (values lines).join \\n
+    @log lines
 
   lock: (selector) ->
     ranges = @tut.editor-view.select selector

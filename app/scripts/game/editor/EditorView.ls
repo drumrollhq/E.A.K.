@@ -1,107 +1,79 @@
 require! {
   'game/area/el-modify'
-  'game/editor/CodeMirrorExtras'
-  'game/editor/NiceComments'
+  'game/editor/components/Editor': EditorComponent
   'lib/channels'
-  'translations'
 }
 
 module.exports = class EditorView extends Backbone.View
   initialize: (options) ->
-    html = @model.get \html
+    # render-el is the level element that the html will be rendered to
+    @render-el = options.render-el
 
-    @render-el = options.render-el if options.render-el?
-    @renderer = @model.get \renderer
+    # the AreaLevel we're currently editing
+    @area-level = @model.get \renderer
 
+    # entities are special - we need to keep track of them and stop them from being destroyed
     @entities = @render-el.children \.entity
 
-    cm = CodeMirror (@$ '.editor-html' .0),
-      value: html
-      mode: \htmlmixed
-      theme: 'solarized light'
-      tabsize: 2
-      line-wrapping: true
-      line-numbers: true
-      extra-keys:
-        Esc: @save
-
-    cm.on \change _.throttle @handle-change, 250
-
-    @ <<< {cm}
+    # Does the editor currently have errors in its code?
     @has-errors = false
 
-    @listen-to @model, \change:html @on-change
+    # Mount the editor React component and show it
+    @render!
 
-    @extras = CodeMirrorExtras cm
-    NiceComments cm, not @renderer.conf.glitch
-    @extras.clear-cursor-marks!
-
+    # Event listeners for every one!
     @esc-sub = channels.parse 'key-press: esc' .subscribe @save
     @comm-sub = channels.game-commands.subscribe @game-commands
-
+    @listen-to @model, 'change:html', _.throttle @on-change, 250
     @block-if-paused <[save cancel undo redo reset help handle-change remove on-change]>
-    set-timeout (~> @on-change @model, @model.get 'html'), 0
-    @setup-events!
 
-  events:
-    'click .save': \save
-    'click .cancel': \cancel
-    'click .undo': \undo
-    'click .redo': \redo
-    'click .reset': \reset
-    'click .help': \help
+    typing-timeout = 3_000ms
+    @listen-to @cm, \change, _.debounce (~> @trigger \start-typing), typing-timeout, leading: true, trailing: false
+    @listen-to @cm, \change, _.debounce (~> @trigger \stop-typing), typing-timeout, leading: false, trailing: true
 
-  handle-change: (cm) ~> @model.set \html cm.get-value!
+    # First render:
+    @on-change!
 
   render: ->
+    @component = ReactDOM.render (React.create-element EditorComponent, {
+      model: @model
+      on-save: @save
+    }), @el
     $ document.body .add-class \editor
-    @on-change _, @cm.get-value!
+
+    # Expose codemirror and codemirror extras:
+    @cm = @component.refs.editor.cm
+    @cm-extras = @component.refs.editor.extras
 
   remove: ~>
     $ document.body .remove-class \editor
     @stop-listening!
     @esc-sub.unsubscribe!
-    @cm.off \change @handle-change
-    $ @cm.get-wrapper-element! .remove!
+    ReactDOM.unmount-component-at-node @el
 
-  setup-events: ~>
-    timeout = 3_000ms
-    @listen-to @cm, \change, _.debounce (~> @trigger \start-typing), timeout, leading: true, trailing: false
-    @listen-to @cm, \change, _.debounce (~> @trigger \stop-typing), timeout, leading: false, trailing: true
+  on-change: ~>
+    html = @model.get \html
 
-  on-change: (m, html) ~>
-    # preserve entities
+    # preserve dynamic entities:
     @entities.detach!
-    e = @render-el
 
-    parsed = @extras.process html
+    # parse html:
+    parsed = @component.refs.editor.extras.process html
     @has-errors = parsed.error isnt null
 
-    e.empty!
-    e.append parsed.document
+    # Clear and re-build the level:
+    @render-el
+      .empty!
+      .append parsed.document
+      .find 'style' .each (i, style) ~>
+        $style = $ style
+        $style.text!
+          |> @area-level.preprocess-css
+          |> $style.text
 
-    e.find 'style' .each (i, style) ~>
-      $style = $ style
-      $style |> ( .text! ) |> @renderer.preprocess-css |> $style.text
-
-    @entities.append-to e
-
-    @renderer.set-error parsed.error
-    el-modify e
-
-  restore-entities: ~>
-    @render-el.children \.entity .detach!
     @entities.append-to @render-el
-
-  cancel: ~>
-    @model.set \html @model.get \startHTML
-    @model.trigger \save
-
-  reset: ~>
-    html = @model.get \originalHTML
-    @model.set \html html
-    @cm.set-value html
-    NiceComments @cm
+    @area-level.set-error parsed.error
+    el-modify @render-el
 
   save: ~>
     if @has-errors
@@ -110,13 +82,9 @@ module.exports = class EditorView extends Backbone.View
 
     @model.trigger \save
 
-  undo: ~> @cm.undo!
-
-  redo: ~> @cm.redo!
-
-  help: ~>
-    @trigger 'show-extra'
-    channels.game-commands.publish command: 'help'
+  game-commands: ({command}) ~>
+    | command is 'force-pause' => @paused = true
+    | command is 'force-resume' => @paused = false
 
   block-if-paused: (fns) ~>
     block = (fn, ths) -> ->
@@ -127,9 +95,9 @@ module.exports = class EditorView extends Backbone.View
       fn = this[name]
       this[name] = block fn, this
 
-  game-commands: ({command}) ~>
-    | command is 'force-pause' => @paused = true
-    | command is 'force-resume' => @paused = false
+  restore-entities: ~>
+    @render-el.children \.entity .detach!
+    @entities.append-to @render-el
 
   select: (selector) ->
     | !selector => [{start: -1, end: @model.get \html .length + 1}]

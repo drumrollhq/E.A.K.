@@ -216,18 +216,17 @@ module.exports = class AreaLevel extends Backbone.View
 
   start-editor: ->
     # if @conf.has-tutorial then $ document.body .add-class 'has-tutorial'
-    editor = new Editor {
+    @editor = editor = new Editor {
       renderer: this
       original-HTML: @conf.html
       original-CSS: @conf.css
     }
 
     editor-view = new EditorView model: editor, render-el: @$el, el: $ '#editor'
-      ..render!
 
-    if @tutorial
-      @tutorial.attach editor-view
-      @tutorial-evaluator.start!
+    # if @tutorial
+    #   @tutorial.attach editor-view
+    #   @tutorial-evaluator.start!
 
     editor.once \save, ~> @stop-editor editor, editor-view
     @hook \edit, editor, editor-view

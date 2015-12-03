@@ -38,7 +38,7 @@ module.exports = setup-CM-extras = (cm) ->
 
     {start, end, inclusive-left, inclusive-right}
 
-  cm.on "cursorActivity", ~>
+  highlight-current-element = ~>
     if last-mark isnt false then clear-cursor-marks!
 
     pos = cm.get-cursor!
@@ -51,6 +51,8 @@ module.exports = setup-CM-extras = (cm) ->
         show-element mark.data.node
 
         last-mark := mark
+
+  cm.on "cursorActivity", highlight-current-element
 
   read-only-marks = []
   highlight-marks = []
@@ -72,6 +74,8 @@ module.exports = setup-CM-extras = (cm) ->
           js.node.parent-node.remove-child js.node
         if js.type is "EVENT_HANDLER_ATTR" or js.type is "JAVASCRIPT_URL"
           js.node.owner-element.attributes.remove-named-item js.node.name
+
+      highlight-current-element!
 
       return parsed
 
