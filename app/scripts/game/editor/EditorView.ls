@@ -10,6 +10,7 @@ module.exports = class EditorView extends Backbone.View
     @render-el = options.render-el
     @area-level = @model.get \renderer
     @tutorial = options.tutorial
+    @tutorial.editor-view = this
 
     # entities are special - we need to keep track of them and stop them from being destroyed
     @entities = @render-el.children \.entity
@@ -46,7 +47,7 @@ module.exports = class EditorView extends Backbone.View
 
     # Expose codemirror and codemirror extras:
     @cm = @component.refs.editor.cm
-    @cm-extras = @component.refs.editor.extras
+    @extras = @component.refs.editor.extras
 
   remove: ~>
     $ document.body .remove-class \editor
