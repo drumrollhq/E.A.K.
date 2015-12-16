@@ -32,10 +32,13 @@ module.exports = React.create-class {
   on-help: ->
     @props.on-help!
 
+  on-select-step: (id) ->
+    @props.on-select-step id
+
   render: ->
     dom.div class-name: \editor,
       React.create-element EditorMenuBar, @{on-save, on-reset, on-cancel, on-undo, on-redo, on-help}
-      React.create-element TutorialSteps, model: @props.model.tutorial
+      React.create-element TutorialSteps, model: @props.model.tutorial, on-click: @on-select-step
       React.create-element CodeEditor,
         ref: \editor
         code: @state.editor.html

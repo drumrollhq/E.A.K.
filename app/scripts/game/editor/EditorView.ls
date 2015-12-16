@@ -28,9 +28,8 @@ module.exports = class EditorView extends Backbone.View
     @block-if-paused <[save cancel undo redo reset help handle-change remove on-change]>
 
     typing-timeout = 3_000ms
-    @listen-to @cm, \change, _.debounce (~> @trigger \start-typing), typing-timeout, leading: true, trailing: false
-    @listen-to @cm, \change, _.debounce (~> @trigger \stop-typing), typing-timeout, leading: false, trailing: true
-    @listen-to @cm, \selectNode, @select-node
+    @cm.on \change, _.debounce (~> @trigger \start-typing), typing-timeout, leading: true, trailing: false
+    @cm.on \change, _.debounce (~> @trigger \stop-typing), typing-timeout, leading: false, trailing: true
 
     # First render:
     @on-change!
@@ -41,6 +40,7 @@ module.exports = class EditorView extends Backbone.View
         editor: @model
         tutorial: @tutorial
       on-save: @save
+      on-select-step: @tutorial.select-step
       render-el: @render-el.get 0
     }), @el
     $ document.body .add-class \editor
@@ -102,9 +102,6 @@ module.exports = class EditorView extends Backbone.View
   restore-entities: ~>
     @render-el.children \.entity .detach!
     @entities.append-to @render-el
-
-  select-node: (node) ~>
-    debugger
 
   select: (selector) ->
     | !selector => [{start: -1, end: @model.get \html .length + 1}]
