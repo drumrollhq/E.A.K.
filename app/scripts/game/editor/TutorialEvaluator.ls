@@ -12,10 +12,7 @@ module.exports = class TutorialEvaluator
   get: (key) -> @tut.get camelize key
 
   step: (id, track, fn) ->
-    @tut.create-step id
-    ctx = @create-context!
-    @eval step .then ~>
-      if @context = ctx then @pop-context!
+    @tut.create-step id, track, fn
 
   target: (id, options, condition) ->
     target = @tut.create-target id
@@ -30,10 +27,6 @@ module.exports = class TutorialEvaluator
 
     pr = pr.then ~> @tut.complete-target id
     if options.block then return pr
-
-  once: (id, ...instructions) ->
-    # TODO: only eval if a once with that id hasn't already run
-    @eval instructions
 
   await-select: (selector) ->
     wait-for-event @tut.editor-view.cm, \cursorActivity, condition: (cm) ~>

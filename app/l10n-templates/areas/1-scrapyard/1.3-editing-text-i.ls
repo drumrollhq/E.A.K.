@@ -76,51 +76,51 @@ eak.register-level-script '1-scrapyard/1.3-editing-text-i.html' do
     # !!(done-tutorial or (@tut-in-progress and @done-first-part))
 
   tutorial: (t) ->
-    t .set \audio-root, '/audio/1.3'
-      .set \tutor, 'lao'
-      .setup ->
-        t.lock-code!
-        t.unlock-code 'p::inner'
+    t.set \audio-root, '/audio/1.3'
+    t.set \tutor, 'lao'
+    t.setup ->
+      t.lock-code!
+      t.unlock-code 'p::inner'
 
-      .step \1-pantaloons, \28-voluptous-vegetables, ~>
-        t .at 0 ~> t.say 'Voluptuous vegetables! You actually did it!'
-          .at 3 ~> t.say 'Perhaps you could learn to code...'
+    t.step \1-pantaloons, \28-voluptous-vegetables, ~>
+      t .at 0 ~> t.say 'Voluptuous vegetables! You actually did it!'
+        .at 3 ~> t.say 'Perhaps you could learn to code...'
 
-      .step \2-writing, \29-your-surroundings, ~>
-        t .highlight-code 'p'
-          .say 'The writing on the left is the code for your surroundings -'
-          .at 3 ~>
-            t .say 'shown on the right'
-              .clear-highlight!
-              .highlight-level 'p'
+    t.step \2-writing, \29-your-surroundings, ~>
+      t .highlight-code 'p'
+        .say 'The writing on the left is the code for your surroundings -'
+        .at 3 ~>
+          t .say 'shown on the right'
+            .clear-highlight!
+            .highlight-level 'p'
 
-      .step \3-change, \30-changing-code, ~>
-        t .say 'Let\'s try changing the code'
-          .at 2.2 ~>
-            t .say target-code: 'p::inner', 'Click the black writing here.'
-              .highlight-code 'p::inner'
-              .await-select 'p::inner'
+    t.step \3-change, \30-changing-code, ~>
+      t .say 'Let\'s try changing the code'
+        .at 2.2 ~>
+          t .say target-code: 'p::inner', 'Click the black writing here.'
+            .highlight-code 'p::inner'
+            .await-select 'p::inner'
 
-      .step \4-name, \31-type-name, ~>
-        t .say 'Now, type your name'
-          .await-event \start-typing
-          .then ~> Promise.delay 4_000ms
+    t.step \4-name, \31-type-name, ~>
+      t .say 'Now, type your name'
+        .await-event \start-typing
+        .then ~> Promise.delay 4_000ms
 
-      .step \5-surroundings, \32-changes-surroundings, ~>
-        t .say 'See how changing the code changes your surroundings?'
-          .at 3 ~> t.say 'Keep typing to make the ledge long enough for you to reach the other side.'
-          .at 6 ~> t.say 'You can write anything you want!'
+    t.step \5-surroundings, \32-changes-surroundings, ~>
+      t .say 'See how changing the code changes your surroundings?'
+        .at 3 ~> t.say 'Keep typing to make the ledge long enough for you to reach the other side.'
+        .at 6 ~> t.say 'You can write anything you want!'
 
-      .target \long-enough,
-        desc: 'Make the ledge long enough to reach the other side.',
-        condition: ({$}) ->
-          ($ 'p:nth-of-type(1)' .width!) + ($ 'p:nth-of-type(2)' .width!) > 450
-        finish: ~>
-          t.once \wait-before-saving ~>
-            t.step \6-smashing, \33-smashing ~>
-              t .say 'Smashing work my little vegetable soup!'
-                .at 3 ~> t.say 'You picked that up faster than a squirrel on a scooter'
-                .at \end ~> t.save!
+    t.target \long-enough,
+      desc: 'Make the ledge long enough to reach the other side.',
+      condition: ({$}) ->
+        ($ 'p:nth-of-type(1)' .width!) + ($ 'p:nth-of-type(2)' .width!) > 450
+      finish: ~>
+        t.once \wait-before-saving ~>
+          t.step \6-smashing, \33-smashing ~>
+            t .say 'Smashing work my little vegetable soup!'
+              .at 3 ~> t.say 'You picked that up faster than a squirrel on a scooter'
+              .at \end ~> t.save!
     # [[\set \audio-root '/audio/1.3']
     # [\tutor 'lao']
     # [\lock]

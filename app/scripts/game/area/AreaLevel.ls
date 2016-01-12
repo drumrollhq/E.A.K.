@@ -58,8 +58,8 @@ module.exports = class AreaLevel extends Backbone.View
 
     if @has-hook \tutorial
       @tutorial = new Tutorial!
-      @tutorial-controller = new TutorialEvaluator @tutorial, @level-store
-      @hook \tutorial, @tutorial-controller
+      # @tutorial-controller = new TutorialEvaluator @tutorial, @level-store
+      @hook \tutorial, @tutorial
 
     @targets-to-actors!
     @style = create-style!
@@ -230,7 +230,7 @@ module.exports = class AreaLevel extends Backbone.View
 
     editor.once \save, ~> @stop-editor editor, editor-view
     @hook \edit, editor, editor-view
-    @tutorial-evaluator.start!
+    @tutorial.start!
 
   stop-editor: (editor, editor-view) ->
     # if @tutorial then @tutorial.detach!
