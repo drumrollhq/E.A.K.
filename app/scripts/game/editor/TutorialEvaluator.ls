@@ -2,75 +2,16 @@ require! {
   'audio/play-conversation-line'
 }
 
-class Context
-  (parent = null) ->
-    @parent = parent
-    @teardowns = []
-    @waiting-for = []
-
-  cleanup: (cancel) ->
-    if cancel then for promise in @waiting-for => promise.cancel!
-    Promise.all @waiting-for
-      .then ~> for teardown in @teardowns => teardown!
-
-  add-teardown: (fn) -> @teardowns[*] = fn
-  wait-for: (promise) -> @waiting-for[*] = promise
-
 module.exports = class TutorialEvaluator
   (@ast, @tut, @store) ->
-    @context = new Context!
     @tut.on 'exec-step' (step-id) !~>
-      for node, i in ast.0 when node.0 is \step and node.1 is step-id
-        rest = drop i, ast.0
-        @stop-all!.then ~> @eval rest
 
-  create-context: ->
-    @context = new Context @context
-
-  pop-context: (cancel = false) ->
-    @context.cleanup cancel
-      .then ~> @context = @context.parent if @context.parent
-
-  stop-all: ->
-    if @_current?.cancel then @_current.cancel!
-    if @context.parent
-      @pop-context true .then ~> @stop-all!
-    else
-      Promise.resolve!
-
-  start: ->
-    @eval @ast
-
-  eval: (arg) ->
-    console.log '[eval]', arg
-    switch
-    | typeof! arg is \Array and typeof! arg.0 is \String => @eval-s-exp arg
-    | typeof! arg is \Array and typeof! arg.0 is \Array => @eval-list arg
-    | otherwise => Promise.resolve arg
-
-  eval-s-exp: ([name, ...args]) ->
-    name = camelize name
-    if typeof @[name] is \function
-      Promise.resolve @[name].apply this, args
-    else
-      Promise.reject new Error "No such function #name"
-
-  eval-list: ([first, ...rest]) ->
-    | empty rest => @eval first
-    | otherwise =>
-      @_current = @eval first
-      @_current.cancellable!
-      @_current.then ~> @eval-list rest
-
-  ### Builtin fns:
   log: (...args) -> console.log '[tutorial]', ...args
   wait: (timeout) -> Promise.delay timeout
   set: (key, val) -> @tut.set (camelize key), val
   get: (key) -> @tut.get camelize key
 
-  tutor: (name) -> @tut.set 'tutor', name
-
-  step: (id, ...step) ->
+  step: (id, track, fn) ->
     @tut.create-step id
     ctx = @create-context!
     @eval step .then ~>

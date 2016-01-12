@@ -57,10 +57,9 @@ module.exports = class AreaLevel extends Backbone.View
     }
 
     if @has-hook \tutorial
-      @hook \tutorial .then (tut) ~>
-        @tutorial = new Tutorial!
-        @tutorial-evaluator = new TutorialEvaluator tut, @tutorial, @level-store
-        console.log window.tutorial = @tutorial, window.evaluator = @tutorial-evaluator
+      @tutorial = new Tutorial!
+      @tutorial-controller = new TutorialEvaluator @tutorial, @level-store
+      @hook \tutorial, @tutorial-controller
 
     @targets-to-actors!
     @style = create-style!
