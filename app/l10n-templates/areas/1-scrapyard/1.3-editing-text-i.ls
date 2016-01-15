@@ -114,7 +114,7 @@ eak.register-level-script '1-scrapyard/1.3-editing-text-i.html' do
       t .say 'Now, type your name', left: '100px', top: '130px'
         .await-event \start-typing
         .then ~> Promise.race [
-          Promise.delay 2_000ms
+          t.wait 2s
           t.await-event \stop-typing
         ]
 
@@ -136,52 +136,3 @@ eak.register-level-script '1-scrapyard/1.3-editing-text-i.html' do
             t .say 'Smashing work my little vegetable soup!'
               .at 3 ~> t.say 'You picked that up faster than a squirrel on a scooter'
               .at \end ~> t.save!
-    # [[\set \audio-root '/audio/1.3']
-    # [\tutor 'lao']
-    # [\lock]
-    # [\unlock 'p:inner']
-    # [\wait 1_000ms]
-    #
-    # [\step \1-pantaloons
-    #   [\say \28-voluptous-vegetables {}
-    #     0: 'Voluptuos vegetables! You actually did it!'
-    #     3: 'Perhaps you could learn some code...']]
-    #
-    # [\step \2-writing
-    #   [\highlight-code 'p']
-    #   [\say \29-your-surroundings {async: true}
-    #     0: 'The writing on the left is the code for your surroundings -'
-    #     3: 'shown on the right']
-    #   [\wait 3_000ms]
-    #   [\clear-highlight]
-    #   [\highlight-level 'p']]
-    #
-    # [\step \3-change
-    #   [\say \30-changing-code {async: true}
-    #     0: 'Let\'s try changing the code.'
-    #     1: target-code: 'p:inner', content: 'Click the black writing here.']
-    #   [\wait 2_200ms]
-    #   [\highlight-code 'p:inner']
-    #   [\await-select 'p:inner']]
-    #
-    # [\step \4-name
-    #   [\say \31-type-name {async: true} 0: 'Now, type your name']
-    #   [\await-event \start-typing]
-    #   [\wait 4_000ms]]
-    #
-    # [\step \5-surroundings
-    #   [\say \32-changes-surroundings {}
-    #     0: 'See how changing the code changes your surroundings?'
-    #     3: 'Keep typing to make the ledge long enough for you to reach the other side.'
-    #     6: 'You can write anything you want!']]
-    #
-    # [\target \long-enough {block: true}
-    #   ({$}) -> ($ 'p:nth-of-type(1)' .width!) + ($ 'p:nth-of-type(2)' .width!) > 450]
-    #
-    # [\once \wait-before-saving [\await-event 'stop-typing']]
-    #
-    # [\step \6-smashing
-    #   [\say \33-smashing {}
-    #     0: 'Smashing work my little vegetable soup!'
-    #     3: 'You picked that up faster than a squirrel on a scooter']
-    #   [\save]]]

@@ -144,7 +144,12 @@ PIXI.Container.prototype.animate = (duration, fn) -> new Promise (resolve, rejec
       resolve!
 
 # Promise / event-emitter helpers:
-window.wait-for-event = (subject, event, {timeout, condition} = {}) -> new Promise (resolve, reject) ->
+window.wait-for-event = (subject, event, {timeout, condition} = {}) ->
+  var resolve, reject
+  promise = new Promise (res, rej) ->
+    resolve := res
+    reject := rej
+
   resolved = false
   handler = (...args) ->
     if resolved then return
@@ -160,6 +165,8 @@ window.wait-for-event = (subject, event, {timeout, condition} = {}) -> new Promi
     if resolved then return
     reject new window.wait-for-event.TimeoutError!
     resolved := true
+
+  promise.cancellable!
 
 window.wait-for-event.TimeoutError = class TimeoutError extends Error
 

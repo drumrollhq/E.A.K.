@@ -10,30 +10,48 @@ module.exports = class Tutorial extends Backbone.DeepModel
     @trigger \setup
     @play-step (@get \step-order.0), true
 
-  play-step: (id, play-next = false) ->
+  play-step: (id) ->
+    if @_step-pr and @_step-pr.is-pending! then @cancel-step!
     step = @get "steps.#{id}"
-    @_play-step step .then ~>
-      unless play-next then return
-      Promise.delay 500 .then ~>
+    @set "steps.#{id}.shown", true
+    Promise.resolve @_step-pr
+      .catch (e) -> # eh
+      .then ~> @_play-step step
+      .then (finished) ~>
+        unless finished then return
         step-idx = @get \step-order .index-of id
         next-step = @get "step-order.#{step-idx + 1}"
-        if next-step then @play-step next-step, true
+        if next-step and not next-step.shown
+          Promise.delay 500 .then ~>
+            @play-step next-step, true
 
   _play-step: ({track, fn, options}) ->
     @_waiting-for = []
     @_teardowns = []
     @_step-options = options
 
-    @audio = popcorn (@get \audio-root), track
+    @audio = audio = popcorn (@get \audio-root), track
     audio-pr = new Promise (resolve) ~>
-      @audio.on \ended, resolve
+      @audio.on \ended, -> resolve true
 
     @_waiting-for[*] = fn!
     @audio.play!
 
-    audio-pr
-      .then ~> Promise.all @_waiting-for
-      .then ~> @teardown!
+    @_step-pr = audio-pr
+      .cancellable!
+      .catch Promise.CancellationError, ->
+        audio.pause!.destroy!
+        false
+      .tap ~> Promise.all @_waiting-for
+      .catch (e) ->
+        # TODO: be less shit and actually handle this.
+        false
+      .tap ~> @teardown!
+
+  cancel-step: !->
+    @_step-pr.cancel!
+    for promise in @_waiting-for when Promise.is promise and promise.is-cancellable!
+      promise.cancel!
 
   teardown: !->
     unless @_teardowns then return
@@ -84,6 +102,11 @@ module.exports = class Tutorial extends Backbone.DeepModel
 
   await-event: (name, options = {}) ->
     wait-for-event @editor-view, name, options
+
+  wait: (t) ->
+    Promise.delay t * 1000
+      .cancellable!
+      .catch Promise.CancellationError, -> # meh
 
   lock-code: (selector) ->
     ranges = @editor-view.select selector

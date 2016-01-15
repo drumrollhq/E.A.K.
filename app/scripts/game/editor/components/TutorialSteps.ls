@@ -8,7 +8,7 @@ module.exports = React.create-class {
   render: ->
     i = 0
     dom.ol class-name: \tutorial-steps,
-      for let id, step of @state.model.steps
+      for let id, step of @state.model.steps when step.shown
         i += 1
         dom.li {
           class-name: (cx \tutorial-step-btn "step-#{id}-btn")
