@@ -1,6 +1,9 @@
 require! {
   'audio/popcorn'
+  'game/editor/components/FadeIn'
 }
+
+say-id-counter = 0
 
 module.exports = class Tutorial extends Backbone.DeepModel
   start: ->
@@ -11,14 +14,15 @@ module.exports = class Tutorial extends Backbone.DeepModel
     step = @get "steps.#{id}"
     @_play-step step .then ~>
       unless play-next then return
-      step-idx = @get \step-order .index-of id
-      next-step = @get "step-order.#{step-idx + 1}"
-      if next-step then @play-step next-step, true
+      Promise.delay 500 .then ~>
+        step-idx = @get \step-order .index-of id
+        next-step = @get "step-order.#{step-idx + 1}"
+        if next-step then @play-step next-step, true
 
-  _play-step: ({track, fn}) ->
-    console.log 'starting' track
+  _play-step: ({track, fn, options}) ->
     @_waiting-for = []
     @_teardowns = []
+    @_step-options = options
 
     @audio = popcorn (@get \audio-root), track
     audio-pr = new Promise (resolve) ~>
@@ -30,21 +34,26 @@ module.exports = class Tutorial extends Backbone.DeepModel
     audio-pr
       .then ~> Promise.all @_waiting-for
       .then ~> @teardown!
-      .tap ~> console.log 'finished' track, @_waiting-for
 
   teardown: !->
+    unless @_teardowns then return
     for teardown in @_teardowns
       teardown.apply this
+
+    @_teardowns = null
 
   add-teardown: (fn) -> @_teardowns[*] = fn
 
   # Tutorial builder functions:
   setup: (fn) -> @on \setup, fn, this
 
-  step: (id, track, fn) ->
+  step: (id, track, options, fn) ->
+    if typeof options is \function
+      fn = options
+      options = {}
+
     if @get "steps.#{id}" then return
-    step = {track, fn}
-    @set "steps.#id", step
+    @set "steps.#id", {track, fn, options}
     step-order = @get \step-order or []
     step-order.push id
     @set \step-order step-order
@@ -56,7 +65,14 @@ module.exports = class Tutorial extends Backbone.DeepModel
     @audio.cue t, ~> @_waiting-for[*] = fn.apply this
     return this
 
-  say: ->
+  show-at: (t, children) ->
+    wait-for = new Promise (resolve) ~> @audio.cue t, resolve
+    React.create-element FadeIn, {wait-for}, children
+
+  say: (msg, options = {}) ->
+    @set 'msg', null
+    @set 'msg', {msg, options, id: say-id-counter++}
+    unless @_step-options.keep-say then @add-teardown ~> @set 'msg' null
     return this
 
   await-select: (selector) ->

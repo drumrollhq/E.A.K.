@@ -27,7 +27,7 @@ module.exports = class EditorView extends Backbone.View
     @listen-to @model, 'change:html', _.throttle @on-change, 250
     @block-if-paused <[save cancel undo redo reset help handle-change remove on-change]>
 
-    typing-timeout = 3_000ms
+    typing-timeout = 1_000ms
     @cm.on \change, _.debounce (~> @trigger \start-typing), typing-timeout, leading: true, trailing: false
     @cm.on \change, _.debounce (~> @trigger \stop-typing), typing-timeout, leading: false, trailing: true
 
