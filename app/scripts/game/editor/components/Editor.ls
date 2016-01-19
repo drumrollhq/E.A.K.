@@ -15,20 +15,24 @@ module.exports = React.create-class {
     @props.model.editor.set \html, code
 
   on-reset: ->
-    @props.model.editor.set \html, @props.model.get \startHTML
+    @props.model.editor.reset!
 
   on-undo: ->
     @refs.editor.undo!
+    @props.model.editor.trigger \undo
 
   on-redo: ->
     @refs.editor.redo!
+    @props.model.editor.trigger \redo
 
   on-save: ->
     @props.on-save!
+    @props.model.editor.trigger \save
 
   on-cancel: ->
     @on-reset!
     @on-save!
+    @props.model.editor.trigger \cancel
 
   on-help: ->
     @props.on-help!

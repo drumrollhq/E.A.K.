@@ -14,3 +14,8 @@ module.exports = class Editor extends Backbone.Model
       'css': r.current-CSS
       'startHTML': html
       'startCSS': r.current-CSS
+
+  reset: ->
+    @set \html, @get \startHTML
+    @set \css, @get, \startCSS
+    @trigger \reset

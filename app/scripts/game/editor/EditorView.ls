@@ -31,6 +31,8 @@ module.exports = class EditorView extends Backbone.View
     @cm.on \change, _.debounce (~> @trigger \start-typing), typing-timeout, leading: true, trailing: false
     @cm.on \change, _.debounce (~> @trigger \stop-typing), typing-timeout, leading: false, trailing: true
 
+    @expose @model, <[undo redo reset save cancel]>
+
     # First render:
     @on-change!
 
@@ -89,6 +91,10 @@ module.exports = class EditorView extends Backbone.View
   game-commands: ({command}) ~>
     | command is 'force-pause' => @paused = true
     | command is 'force-resume' => @paused = false
+
+  expose: (target, events) ->
+    for let event in events
+      @listen-to target, event, ~> @trigger event, ...arguments
 
   block-if-paused: (fns) ~>
     block = (fn, ths) -> ->
