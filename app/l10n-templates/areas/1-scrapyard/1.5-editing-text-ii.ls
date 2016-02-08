@@ -61,7 +61,7 @@ eak.register-level-script '1-scrapyard/1.5-editing-text-ii.html' do
            t.wait 3s
          ]
 
-      t.at 10 ->
+      t.at 9 ->
         t.clear-highlight!
 
     t.step \2-editor, \03a-editor, keep-say: true, ->
@@ -81,7 +81,7 @@ eak.register-level-script '1-scrapyard/1.5-editing-text-ii.html' do
       t.at 7.0 ->
         t.highlight-dom '#editor .reset'
 
-      t.at 11 ->
+      t.at 10.5 ->
         t.clear-highlight!
 
     t.step \3-help, \04-help, keep-say: true, ->
@@ -89,11 +89,11 @@ eak.register-level-script '1-scrapyard/1.5-editing-text-ii.html' do
         'If you need any help, click this button here.'
          t.show-at 2, ' Try pressing it now.'
       ], left: '7.2vw', top: '22vh'
-      t.at 2.5 ->
+      t.at 1.5 ->
         t.highlight-dom '#editor .help'
         t.await-event \help
 
-      t.at 5 ->
+      t.at 4 ->
         t.clear-highlight!
 
     t.step \4-too-long, \05-too-long, keep-say: true, ->
