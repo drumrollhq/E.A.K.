@@ -28,49 +28,91 @@ eak.register-level-script '1-scrapyard/1.5-editing-text-ii.html' do
     @spike-sub.unsubscribe!
     @edit-prompt-timer.stop!
 
-  tutorial: (tutorial) ->
-    [[\tutor 'ada']
-    [\lock]
+  tutorial: (t) ->
+    dom = React.DOM
 
-    [\step \1-first
-      [\say \1.1-first-off {} 0: 'first off, this is the editor']
-      [\say \1.2-save {target: '#editor .save' focus: true}
-        0: 'You can press save when you\'re done']
-      [\say \1.3-cancel {target: '#editor .cancel'}
-        0: 'or \'cancel\' to return to the game - \'cancel\' will get rid of your changes though, so watch out!']]
+    t.set \audio-root, '/audio/1.5'
+    t.set \tutor, 'oracle' # asset missing (ada)
+    t.setup ->
+      t.lock-code! # make read only
+      t.unlock-code 'p::inner' # make inside of tags not read only, change content of tags, not structure
 
-    [\step \2-experiment
-      [\say \2.1-experiment {}
-        0: 'One of the best ways to solve these things is to just experiment and try things out']
-      [\say \2.2-matter {}
-        0: 'It doesn\'t matter if you mess things up - ']
-      [\say \2.3-reset {target: '#editor .reset' focus: true}
-        0: 'just press \'reset\' to put the code back to how it started.']]
+    t.step \1-editor, \03-editor, keep-say: true, ->
+      t.say [
+        'First off, this is the editor. '
+        t.show-at 1.8, 'You can press "Save" when you\'re done '
+        t.show-at 3.3, ' or "Cancel" to return to the game.'
+      ], left: '7.2vw', top: '22vh'
 
-    [\step \3-help
-      [\say \3-help {target: '#editor .help', focus: true}
-        0: 'If you need any help, click this \'help\' button here. Try pressing it now.']]
+      t.at 2.0 ->
+        t.highlight-dom '#editor .save'
 
-    [\target \press-help 'Ask for help' {wait: true}
-      -> tutorial.help-requests ?= 1]
+      t.at 3.5 ->
+        t.clear-highlight!
+        t.highlight-dom '#editor .cancel'
 
-    [\help
-      [\step \4-too-long
-        [\unlock 'p::inner']
-        [\say \4-too-long {}
-          0: 'These ledges are too long. Try deleting some of the black text to create a safe path into the cave.']]
-      [\target \delete-text 'Make the ledges short enough to get into the cave.'
-        ({$}) -> 'p:nth-of-type(1)' .width! < 500]]
+      t.at 5.5 ->
+        t.say [
+          '"Cancel" will get rid of your changes though'
+          t.show-at 7.5, ', so watch out!'
+        ], left: '51vw', top: '2vh'
+         .await-event \start-typing
+         .then -> Promise.race [
+           t.wait 3s
+         ]
 
-    [\optional
-      [\after 10_000ms {without-event: 'change'}
-        [\highlight-dom '#editor .help' {focus: true timeout: 3_000ms}]]]
+      t.at 10 ->
+        t.clear-highlight!
 
-    [\help
-      [\step \5-like-before
-        [\say \5-like-before {target-code: 'p:nth-of-type(1):inner' async: true interruptible: true}
-          0: 'Just like before, click on the black writing here']
-        [\await-select 'p:inner']]
-      [\step \6-delete
-        [\say \6-delete 'Now, delete some of the text to make the ledge shorter']]]]
+    t.step \2-editor, \03a-editor, keep-say: true, ->
+      t.clear-highlight!
+      t.say [
+        'One of the best ways to solve these things'
+        t.show-at 1.5, ' is just to experiment and try things out. '
+      ], left: '51vw', top: '10vh'
 
+      t.at 4.5 ->
+        t.say [
+          'It doesn\'t matter if you mess things up'
+          t.show-at 6.5, ' - just press "Reset" to put the code back to how it started.'
+        ], left: '51vw', top: '10vh'
+        t.await-event \reset
+
+      t.at 7.0 ->
+        t.highlight-dom '#editor .reset'
+
+      t.at 11 ->
+        t.clear-highlight!
+
+    t.step \3-help, \04-help, keep-say: true, ->
+      t.say [
+        'If you need any help, click this button here.'
+         t.show-at 2, ' Try pressing it now.'
+      ], left: '7.2vw', top: '22vh'
+      t.at 2.5 ->
+        t.highlight-dom '#editor .help'
+        t.await-event \help
+
+      t.at 5 ->
+        t.clear-highlight!
+
+    t.step \4-too-long, \05-too-long, keep-say: true, ->
+      t .highlight-level 'p'
+        .say [
+          'Ugh, these ledges are too long.'
+          t.show-at 2, ' Try deleting some of the black text to create a safe path into the cave.'
+        ], left: '51vw', top: '12vh'
+
+    t.step \5-click, \06-click, keep-say: true, ->
+      t .say 'Click on the black writing here.', left: '8.2vw', top: '22vh'
+      t .highlight-code 'p::inner' .await-select 'p::inner'
+
+    t.step \6-delete, \07-delete, keep-say: true, ~>
+      t .say 'Now, delete some of the text to make the ledge shorter.', left: '8.2vw', top: '22vh'
+        .await-event \start-typing
+        .then ~> Promise.race [
+          t.await-event \stop-typing
+        ]
+
+    t.step \7-save, \08-save, keep-say: true, ~>
+      t .say 'Awesome! Press "Save" and let\'s get going.', left: '8.2vw', top: '22vh'
