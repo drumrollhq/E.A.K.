@@ -10,6 +10,10 @@ module.exports = class Tutorial extends Backbone.DeepModel
     @trigger \setup
     @play-step (@get \step-order.0), true
 
+  stop: ->
+    @trigger \stop
+    if @_step-pr and @_step-pr.is-pending! then @cancel-step!
+
   play-step: (id) ->
     if @_step-pr and @_step-pr.is-pending! then @cancel-step!
     step = @get "steps.#{id}"

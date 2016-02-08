@@ -6,7 +6,6 @@ require! {
   'game/editor/Editor'
   'game/editor/EditorView'
   'game/editor/Tutorial'
-  'game/editor/TutorialEvaluator'
   'game/effects/SpriteSheet'
   'game/hints/HintController'
   'lib/channels'
@@ -58,7 +57,6 @@ module.exports = class AreaLevel extends Backbone.View
 
     if @has-hook \tutorial
       @tutorial = new Tutorial!
-      # @tutorial-controller = new TutorialEvaluator @tutorial, @level-store
       @hook \tutorial, @tutorial
 
     @targets-to-actors!
@@ -214,7 +212,6 @@ module.exports = class AreaLevel extends Backbone.View
     css.to-string!
 
   start-editor: ->
-    # if @conf.has-tutorial then $ document.body .add-class 'has-tutorial'
     @editor = editor = new Editor {
       renderer: this
       original-HTML: @conf.html
@@ -233,8 +230,7 @@ module.exports = class AreaLevel extends Backbone.View
     @tutorial.start!
 
   stop-editor: (editor, editor-view) ->
-    # if @tutorial then @tutorial.detach!
-    # $ document.body .remove-class 'has-tutorial'
+    if @tutorial then @tutorial.stop!
     editor-view.restore-entities!
     editor-view.remove!
     @level-store.patch-state code: html: editor.get \html
