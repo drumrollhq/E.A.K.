@@ -130,10 +130,10 @@ module.exports = class Tutorial extends Backbone.DeepModel
     @add-teardown ~> ranges.for-each ( .clear! )
     return this
 
-  highlight-level: (selector) ->
+  highlight-dom: (selector, $within = $body) ->
     @highlights ?= []
     @add-teardown ~> @clear-highlight!
-    for el in @editor-view.render-el.find selector
+    for el in $within.find selector
       $el = $ el
       $parent = $el.offset-parent!
       rect = el.get-bounding-client-rect!
@@ -149,6 +149,9 @@ module.exports = class Tutorial extends Backbone.DeepModel
         .append-to $parent
 
     return this
+
+  highlight-level: (selector) ->
+    @highlight-dom selector, @editor-view.render-el
 
   clear-highlight: ->
     @editor-view.extras.clear-highlight!
