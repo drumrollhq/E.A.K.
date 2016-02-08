@@ -90,6 +90,7 @@ eak.register-level-script '1-scrapyard/1.3-editing-text-i.html' do
         t.show-at 2, 'You actually did it! '
         t.show-at 3.5, 'Perhaps you could learn to code...'
       ]
+      t.await-event \help
 
     t.step \2-writing, \29-your-surroundings, keep-say: true, ~>
       t .highlight-code 'p'
