@@ -71,9 +71,9 @@ eak.register-level-script '1-scrapyard/1.3-editing-text-i.html' do
     @death-sub.unsubscribe!
 
   editable: ->
-    true
-    # done-tutorial = @stage-store.get \stage.state.doneEditTutorial
-    # !!(done-tutorial or (@tut-in-progress and @done-first-part))
+    # true
+    done-tutorial = @stage-store.get \stage.state.doneEditTutorial
+    !!(done-tutorial or (@tut-in-progress and @done-first-part))
 
   tutorial: (t) ->
     dom = React.DOM

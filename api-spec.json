@@ -1,8 +1,8 @@
 {
-  "rootUrl": "http://localhost:3000",
-  "tag": "v0.3.1",
-  "packaged": "2015-11-02T14:41:53.000Z",
-  "hash": "9ce22e4d26ade7bab8fe28be0ae8aab21b996363",
+  "rootUrl": "https://api.eraseallkittens.com",
+  "tag": "v0.3.2",
+  "packaged": "2015-11-02T16:59:19.000Z",
+  "hash": "3d243da0182ba15a47360f7e7d0360900bc62315",
   "endpoints": {
     "status": {
       "params": false,
@@ -538,30 +538,10 @@
                 ]
               },
               "activeStage": {
-                "type": "alternatives",
+                "type": "any",
                 "flags": {
                   "presence": "optional"
-                },
-                "alternatives": [
-                  {
-                    "type": "string",
-                    "invalids": [
-                      ""
-                    ]
-                  },
-                  {
-                    "type": "number",
-                    "invalids": [
-                      null,
-                      null
-                    ],
-                    "rules": [
-                      {
-                        "name": "integer"
-                      }
-                    ]
-                  }
-                ]
+                }
               },
               "createdAt": {
                 "type": "date",
