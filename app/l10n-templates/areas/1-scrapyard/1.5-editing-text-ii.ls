@@ -56,16 +56,8 @@ eak.register-level-script '1-scrapyard/1.5-editing-text-ii.html' do
           '"Cancel" will get rid of your changes though'
           t.show-at 7.5, ', so watch out!'
         ], left: '51vw', top: '2vh'
-         .await-event \start-typing
-         .then -> Promise.race [
-           t.wait 3s
-         ]
-
-      t.at 9 ->
-        t.clear-highlight!
 
     t.step \2-editor, \03a-editor, keep-say: true, ->
-      t.clear-highlight!
       t.say [
         'One of the best ways to solve these things'
         t.show-at 1.5, ' is just to experiment and try things out. '
@@ -76,13 +68,9 @@ eak.register-level-script '1-scrapyard/1.5-editing-text-ii.html' do
           'It doesn\'t matter if you mess things up'
           t.show-at 6.5, ' - just press "Reset" to put the code back to how it started.'
         ], left: '51vw', top: '10vh'
-        t.await-event \reset
 
       t.at 7.0 ->
         t.highlight-dom '#editor .reset'
-
-      t.at 10.5 ->
-        t.clear-highlight!
 
     t.step \3-help, \04-help, keep-say: true, ->
       t.say [
@@ -92,9 +80,6 @@ eak.register-level-script '1-scrapyard/1.5-editing-text-ii.html' do
       t.at 1.5 ->
         t.highlight-dom '#editor .help'
         t.await-event \help
-
-      t.at 4 ->
-        t.clear-highlight!
 
     t.step \4-too-long, \05-too-long, keep-say: true, ->
       t .highlight-level 'p'
