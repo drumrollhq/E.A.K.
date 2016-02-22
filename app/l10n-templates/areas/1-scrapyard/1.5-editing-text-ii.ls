@@ -32,7 +32,7 @@ eak.register-level-script '1-scrapyard/1.5-editing-text-ii.html' do
     dom = React.DOM
 
     t.set \audio-root, '/audio/1.5'
-    t.set \tutor, 'oracle' # asset missing (ada)
+    t.set \tutor, 'character-messages/ada' # asset missing (ada)
     t.setup ->
       t.lock-code! # make read only
       t.unlock-code 'p::inner' # make inside of tags not read only, change content of tags, not structure
