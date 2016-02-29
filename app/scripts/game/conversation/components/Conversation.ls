@@ -27,7 +27,7 @@ module.exports = React.create-class {
     clear-timeout @scroll-timer if @scroll-timer?
     @scroll-timer = set-timeout do
       ~>
-        lines = @refs.lines.get-DOM-node!
+        lines = ReactDOM.find-DOM-node @refs.lines
         $lines = $ lines
         $lines.stop!.animate scroll-top: (lines.scroll-height - $lines.height!), 200
       50
@@ -45,6 +45,10 @@ module.exports = React.create-class {
     if @_playing
       @get-model!.set "lines.#{@_playing.props.idx}.skipped", true
       @_playing.stop-playing!
+
+  skip-all: ->
+    @props.on-skip-all!
+    @skip!
 
   component-did-update: ->
     @update-scroll!
@@ -101,6 +105,7 @@ module.exports = React.create-class {
               dom.ul null,
                 dom.li class-name: \choice,
                   dom.a on-click: @skip, 'Skip'
+              dom.a on-click: @skip-all, class-name: \skip-all, 'Skip conversation'
 
       React.create-element Speaker, character: speaker-img, expression: speaker-expression, background: speaker-background, position: \left
       React.create-element Speaker, character: player-img, expression: player-expression, background: player-background, position: \right

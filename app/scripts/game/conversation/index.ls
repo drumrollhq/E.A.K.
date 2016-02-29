@@ -44,7 +44,10 @@ export start = (name, $el, {resolve = noop-resolve, reject = noop-reject} = {}) 
 
   conversation = new Oulipo start, nodes, state
 
-  component = ReactDOM.render (React.create-element ConversationComponent, {model: state}), $el.get 0
+  component = ReactDOM.render (React.create-element ConversationComponent, {
+    model: state
+    on-skip-all: -> conversation.stop!
+  }), $el.get 0
   conversation.on \choice, component.choice
   tracks.focus \conversation
   Promise.delay 500
@@ -57,4 +60,4 @@ export start = (name, $el, {resolve = noop-resolve, reject = noop-reject} = {}) 
       conversation.off \choice component.choice
       state.off \change:game.* update-game
       state.off \change:stage.* update-stage
-      React.unmount-component-at-node $el.get 0
+      ReactDOM.unmount-component-at-node $el.get 0

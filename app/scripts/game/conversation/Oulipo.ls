@@ -26,9 +26,12 @@ module.exports = class Oulipo
   start: ->
     @process-node @start-id
 
+  stop: -> @_stopped = true
+
   process-node: (id) ->
     if typeof id is \string then node = @nodes[id] else node = id
 
+    if @_stopped then return @_stopped
     unless node then return true
 
     switch node.type
