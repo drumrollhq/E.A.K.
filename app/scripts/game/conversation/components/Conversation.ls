@@ -42,7 +42,9 @@ module.exports = React.create-class {
     @_playing = null
 
   skip: ->
-    if @_playing then @_playing.stop-playing!
+    if @_playing
+      @get-model!.set "lines.#{@_playing.props.idx}.skipped", true
+      @_playing.stop-playing!
 
   component-did-update: ->
     @update-scroll!
@@ -70,10 +72,11 @@ module.exports = React.create-class {
           transition-name: \conversation-line
           transition-enter-timeout: 300ms
           transition-leave-timeout: 0
-        }, for line in @state.model.lines
+        }, for line, idx in @state.model.lines
             speaker = @state.model.view.characters?[line.speaker.to-lower-case!]?.name or line.speaker
             React.create-element Line, {
               key: line.id
+              idx: idx
               from-player: line.from-player
               speaker: speaker
               line: line.line
