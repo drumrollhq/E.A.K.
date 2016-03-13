@@ -18,7 +18,7 @@ go menu-teach
 
 # natural
 set asked-natural
-Lao [angry track:18-lobster]: Hmph! If a lobster believes it can play the banjo, it will! But alas, most scuttle around as if they're competing in a Miss Internet Universe contest. 
+Lao [angry track:18-lobster]: Hmph! If a lobster believes it can play the banjo, it will! But alas, most scuttle around as if they're competing in a Miss Internet Universe contest.
 go menu-focus
 
 # menu-teach
@@ -29,13 +29,13 @@ Arca:
 
 # teach
 set asked-teach
-Lao [thoughtful track:19-mystery]: Ah yes! The mystery of the missing kittens. I'd like to help you, but I already have an apprentice... and I promised that I would help the screaming cabbages of the south-west with their ongoing soup debate. 
+Lao [thoughtful track:19-mystery]: Ah yes! The mystery of the missing kittens. I'd like to help you, but I already have an apprentice... and I promised that I would help the screaming cabbages of the south-west with their ongoing soup debate.
 
 Ada [eager track:02-why]: Why don't I teach Arca to code? We can go on this kitten mission together.
 
 Lao [angry track:20-blibberwinks]: No Ada! Remembered what happened when you tried to teach the Blibberwinks? We were scraping spinach of the ceiling for months!
 
-Ada [angry track:03-hmph]: Hmph! 
+Ada [angry track:03-hmph]: Hmph!
 go menu-ada
 
 # powers
@@ -78,15 +78,15 @@ Ada [woohoo track:06-woohoo]: Woohoo!
 go menu-end
 
 # menu-end
-Arca: 
+Arca:
 	- (unless asked-yay) Thanks Lao! -> woohoo
 	- (unless asked-yay) Yay! We'll stay together, I promise! -> woohoo
 
-# woohoo 
+# woohoo
 set asked-woohoo
 Lao [neutral track:27-not-sure]: I'm still not sure about all of this...
 
-exec alert('Lao flies away on Cecil...')
+exec eak.playCutscene('/cutscenes/1-scrapyard-lao-leaving')
 
 Ada [happy track:07-stuck]: Yes! I thought she'd never leave! I guess I'm stuck with you now though... Lets go save those hippos.
 go menu-whatever

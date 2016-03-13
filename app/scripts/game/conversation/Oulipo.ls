@@ -17,6 +17,8 @@ unary-ops = {
   '!':  (a) -> not a
 }
 
+eval-ctx = ((eak, channels, code) -> eval code).bind null
+
 module.exports = class Oulipo
   (@start-id, @nodes, @state) ->
     _.extend this, Backbone.Events
@@ -24,9 +26,12 @@ module.exports = class Oulipo
   start: ->
     @process-node @start-id
 
+  stop: -> @_stopped = true
+
   process-node: (id) ->
     if typeof id is \string then node = @nodes[id] else node = id
 
+    if @_stopped then return @_stopped
     unless node then return true
 
     switch node.type
@@ -54,10 +59,10 @@ module.exports = class Oulipo
         @process-node node.next
 
       case \exec
-        fn = new Function \eak, \channels, node.js
-        fn window.eak, require 'lib/channels'
-        if node.next
-          @process-node node.next
+        Promise.resolve eval-ctx window.eak, (require 'lib/channels'), node.js
+          .then ~>
+            if node.next
+              @process-node node.next
 
       case \branch
         for branch in node.branches

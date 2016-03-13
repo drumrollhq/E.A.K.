@@ -55,9 +55,8 @@ module.exports = class AreaLevel extends Backbone.View
       height: @conf.height
     }
 
-    if @has-hook \tutorial
-      @tutorial = new Tutorial!
-      @hook \tutorial, @tutorial
+    @tutorial = new Tutorial!
+    @hook \tutorial, @tutorial
 
     @targets-to-actors!
     @style = create-style!
