@@ -1,12 +1,13 @@
 require! {
   'bluebird': Promise
-  'through2'
   'fs'
   'glob'
   'gulp'
   'gulp-debug'
+  'mime'
   'path'
-  'prelude-ls': {flatten, unique, pairs-to-obj, map, empty, split, trim, reject}
+  'prelude-ls': {flatten, unique, pairs-to-obj, map, empty, split, trim, reject, join, first, last}
+  'through2'
   'vinyl'
 }
 
@@ -26,23 +27,13 @@ gulp.task 'bundle-sizes' (done) ->
     .pipe gulp.dest dest.all
     .on 'end', done
 
-formats = {
-  ogg: \ogg
-  mp3: \mpeg
-  png: \png
-  jpg: \jpeg
-  jpeg: \jpeg
-  gif: \gif
-}
-
-export encode = (name, buffer) ->
-  ext = path.extname name .to-lower-case!.replace /^\./ ''
-  switch ext
-  | <[html css js vtt]> => buffer.to-string 'utf-8'
-  | \json => type: \json, data: JSON.parse buffer.to-string 'utf-8'
-  | <[png jpeg jpg gif]> => type: \image, format: formats[ext], data: buffer.to-string 'base64'
-  | <[mp3 ogg]> => type: \audio, format: formats[ext], data: buffer.to-string 'base64'
-  | otherwise => throw new TypeError "Unknown extname #{ext} on file #{name}"
+export headers = (name, buffer) ->
+  new Buffer join ';', [
+    name
+    mime.lookup name
+    buffer.length
+    '|'
+  ]
 
 export watch = ->
   filename-to-task-id = (name) -> "pack-#{name.to-lower-case!.replace /\//g, '-' .replace /[^a-z0-9-]/g, ''}"
@@ -51,11 +42,11 @@ export watch = ->
 
     dirname = path.dirname path.join path.sep, path.relative dest.bundles, name
     assets = file.map (asset) -> path.join dest.bundles, (path.resolve dirname, asset .replace /^[a-z]:/, '' )
-    assets[*] = "!#{path.join dest.bundles, '**/bundled.*.json'}"
+    assets[*] = "!#{path.join dest.bundles, '**/*.eakpackage'}"
 
     assets
 
-  packages = glob.sync src.bundles, ignore: ['**/bundle.txt' '**/bundled.*.json', '**/Thumbs.db']
+  packages = glob.sync src.bundles, ignore: ['**/bundle.txt' '**/*.eakpackage', '**/Thumbs.db']
 
   for let package-name in packages
     files = files-for package-name
@@ -85,10 +76,10 @@ export create-bundle = ->
 
           p = path.parse f.path
           p.name += 'd.' + name
-          p.base = p.name + '.json'
+          p.base = p.name + '.eakpackage'
           f.path = path.format p
 
-          f.contents = new Buffer JSON.stringify assets
+          f.contents = assets
           @push f
 
     Promise.all [(make 'ogg', (.match /\.mp3$/)), (make 'mp3', (.match /\.ogg$/))]
@@ -97,7 +88,7 @@ export create-bundle = ->
 
 export bundle-assets = (assets, {encoding = 'base64', reject = -> false} = {}) ->
   Promise
-    .map assets, (f) -> glob.glob-async (path.join dest.bundles, f), ignore: ['**/bundle.txt' '**/bundled.*.json' '**/Thumbs.db']
+    .map assets, (f) -> glob.glob-async (path.join dest.bundles, f), ignore: ['**/bundle.txt' '**/*.eakpackage' '**/Thumbs.db']
     .then flatten >> unique
     .filter (asset) ->
       fs.stat-async asset .then (stat) -> not stat.is-directory!
@@ -105,8 +96,15 @@ export bundle-assets = (assets, {encoding = 'base64', reject = -> false} = {}) -
     .map (name) ->
       url = path.relative dest.bundles, name .replace /\\/g, '/'
       fs.read-file-async name
-        .then (buffer) -> ["/#url", encode url, buffer]
-    .then pairs-to-obj
+        .then (buffer) -> [(headers url, buffer), buffer]
+    .then (assets) ->
+      headers = Buffer.concat map first, assets
+      payloads = Buffer.concat map last, assets
+      Buffer.concat flatten [
+        map first, assets
+        new Buffer '\0'
+        map last, assets
+      ]
 
 export parse-bundle = (str) ->
   str

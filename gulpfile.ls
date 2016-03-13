@@ -38,7 +38,7 @@ global.src = {
   bg-cache: './gulp-cache/bgs/**/*.png'
   bg-tile-cache: './gulp-cache/bg-tiles/**/*.png'
   bg-tile-min-cache: './gulp-cache/bg-tiles-min/**/*.png'
-  created-bundles: 'public/**/bundled.*.json'
+  created-bundles: 'public/**/*.eakpackage'
   bundles: './public/**/bundle.txt'
   css-all: './app/styles/**/*.styl'
   css: ['./app/styles/app.styl', './app/styles/min.styl']

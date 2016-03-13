@@ -39,9 +39,8 @@ preprocess-context = {
 create-app-bundle = ->
   packer.bundle-assets ['js/vendor.js', 'js/eak.js', 'css/app.css'], encoding: 'utf-8'
     .then (assets) ->
-      contents = new Buffer (JSON.stringify assets), encoding: 'utf-8'
-      fs.write-file-sync 'public/eak-bundle.json', contents
-      ['/eak-bundle.json', contents.length]
+      fs.write-file-sync 'public/app.eakpackage', assets
+      ['/app.eakpackage', assets.length]
 
 get-bootstrap = -> fs.read-file-sync './gulp-cache/bootstrap.js', encoding: 'utf-8'
 

@@ -21,6 +21,7 @@ Promise.resolve $.get-JSON '/bundles.json'
 export _cache = {assets: asset-cache, loaded-bundles, registered-actors, added-css}
 
 export function load-asset name, type, mime-hint
+  name .= replace /^\//, ''
   unless asset-cache[name]
     if type is \url
       console.log "[assets] load-asset: cache MISS #name"
@@ -50,10 +51,10 @@ export function load-bundle bundle-name, progress
   progress ?= -> null
   if bundle-name.0 isnt '/' then bundle-name = "/#bundle-name"
   req = new Promise (resolve, reject) ->
-    filename = "#{bundle-name}/bundled.#{audio-format}.json"
+    filename = "#{bundle-name}/bundled.#{audio-format}.eakpackage"
     on-load = (e) ->
       progress null
-      resolve JSON.parse e.target.response
+      resolve parse-eak-package new Uint8Array e.target.response
 
     on-progress = (e) ->
       if bundle-sizes[filename]
@@ -66,20 +67,23 @@ export function load-bundle bundle-name, progress
     xhr.add-event-listener \abort, reject, false
     xhr.add-event-listener \error, reject, false
     xhr.add-event-listener \progress, on-progress, false
+    xhr.response-type = \arraybuffer
     xhr.open \GET "#{filename}?_v=#{EAKVERSION}"
     xhr.send!
 
   req
     .tap (bundle) ->
       loaded-bundles[bundle-name] = []
-      for name, file of bundle
-        asset-cache[name] = debundle file
-        loaded-bundles[bundle-name][*] = name
+      debundlers = for let name, file of bundle
+        debundle file .then (file) ->
+          loaded-bundles[bundle-name][*] = name
+          asset-cache[name] = file
+      Promise.all debundlers
 
     .tap (bundle) ->
-      for name of bundle
-        if name.match /\.js$/ then add-js asset-cache[name].default, bundle-name, name
-        if name.match /\.css$/ then add-css asset-cache[name].default, bundle-name, name
+      for name, {type} of bundle
+        if type is 'application/javascript' then add-js asset-cache[name].default, bundle-name, name
+        if type is 'text/css' then add-css asset-cache[name].default, bundle-name, name
 
 export function unload-bundle bundle-name
   for name in loaded-bundles[bundle-name]
@@ -116,29 +120,58 @@ export function unload-bundle bundle-name
 
   delete loaded-bundles[bundle-name]
 
-export function debundle file
-  if typeof file is \string then file = data: file, type: \string
-  switch file.type
-    case \string
-      default: file.data, string: file.data
-    case \json
-      default: file.data, json: file.data, file: file
-    case \audio
-      data = base64js.to-byte-array file.data
-      blob = new Blob [data], type: "audio/#{file.format}"
+decode = ({type, content}) ->
+  switch type
+    case \application/json
+      async-array-to-string content .then (str) ->
+        default: \json, string: str, json: JSON.parse str
+    case \application/javascript, \text/css, \text/html
+      async-array-to-string content .then (str) ->
+        default: \string, string: str
+    case \audio/mpeg, \audio/ogg
+      blob = new Blob [content], {type}
       url = URL.create-object-URL blob
       tag = document.create-element \audio
       tag.src = url
-      default: url, url: url, buffer: data.buffer, audio: tag
-    case \image
-      data = base64js.to-byte-array file.data
-      blob = new Blob [data], type: "image/#{file.format}"
+      default: \url, url: url, audio: tag
+    case \image/png, \image/jpeg, \image/gif
+      blob = new Blob [content], {type}
       url = URL.create-object-URL blob
       tag = document.create-element \img
       tag.src = url
-      default: url, url: url, buffer: data.buffer, image: tag
+      default: \url, url: url, image: tag
     default
-      throw new TypeError "Unknown file type #{file.type}"
+      throw new TypeError "Unknown file type #type"
+
+export function debundle file
+  Promise.resolve decode file .then (decoded-file) ->
+    decoded-file.byte-array = file.content
+    decoded-file.buffer = file.content.buffer
+    decoded-file.default = decoded-file[decoded-file.default]
+    decoded-file
+
+# export function debundle {type, content}
+#   switch type
+#     case \string
+#       default: file.data, string: file.data
+#     case \application/json
+#       async-array-to-string content .then str ->
+#         default: file.data, json: (JSON.parse str), buffer:
+#     case \audio/mpeg, \audio/ogg
+#       blob = new Blob [content], file.{type}
+#       url = URL.create-object-URL blob
+#       tag = document.create-element \audio
+#       tag.src = url
+#       default: url, url: url, buffer: content, audio: tag
+#     case \image
+#       data = base64js.to-byte-array file.data
+#       blob = new Blob [data], type: "image/#{file.format}"
+#       url = URL.create-object-URL blob
+#       tag = document.create-element \img
+#       tag.src = url
+#       default: url, url: url, buffer: data.buffer, image: tag
+#     default
+#       throw new TypeError "Unknown file type #{file.type}"
 
 text-encoder = new TextEncoderLite \utf-8
 function string-to-url str, mime
