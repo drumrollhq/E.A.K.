@@ -20,7 +20,7 @@ Promise.resolve $.get-JSON "/bundles.#{EAKVERSION}.json"
 
 export _cache = {assets: asset-cache, loaded-bundles, registered-actors, added-css}
 
-export function load-asset name, type, mime-hint
+export function load-asset name = '', type, mime-hint
   name .= replace /^\//, ''
   unless asset-cache[name]
     if type is \url
