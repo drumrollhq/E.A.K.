@@ -146,32 +146,9 @@ decode = ({type, content}) ->
 export function debundle file
   Promise.resolve decode file .then (decoded-file) ->
     decoded-file.byte-array = file.content
-    decoded-file.buffer = file.content.buffer
+    decoded-file.buffer = Uint8Array.from file.content .buffer
     decoded-file.default = decoded-file[decoded-file.default]
     decoded-file
-
-# export function debundle {type, content}
-#   switch type
-#     case \string
-#       default: file.data, string: file.data
-#     case \application/json
-#       async-array-to-string content .then str ->
-#         default: file.data, json: (JSON.parse str), buffer:
-#     case \audio/mpeg, \audio/ogg
-#       blob = new Blob [content], file.{type}
-#       url = URL.create-object-URL blob
-#       tag = document.create-element \audio
-#       tag.src = url
-#       default: url, url: url, buffer: content, audio: tag
-#     case \image
-#       data = base64js.to-byte-array file.data
-#       blob = new Blob [data], type: "image/#{file.format}"
-#       url = URL.create-object-URL blob
-#       tag = document.create-element \img
-#       tag.src = url
-#       default: url, url: url, buffer: data.buffer, image: tag
-#     default
-#       throw new TypeError "Unknown file type #{file.type}"
 
 text-encoder = new TextEncoderLite \utf-8
 function string-to-url str, mime
