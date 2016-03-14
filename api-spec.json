@@ -1,8 +1,8 @@
 {
   "rootUrl": "https://api.eraseallkittens.com",
-  "tag": "v0.3.2",
-  "packaged": "2015-11-02T16:59:19.000Z",
-  "hash": "3d243da0182ba15a47360f7e7d0360900bc62315",
+  "tag": "v0.3.4",
+  "packaged": "2016-03-14T21:36:02.000Z",
+  "hash": "7cf3b5ef40c41b0c930205010de9b36bb8ccdbf6",
   "endpoints": {
     "status": {
       "params": false,
