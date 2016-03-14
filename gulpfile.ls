@@ -16,7 +16,8 @@ global.eak-version = new Promise (resolve, reject) ->
   branch <- git-rev.branch!
   hash <- git-rev.short!
 
-  resolve "#{tag}-#{branch}-#{hash}"
+  version = "#{tag}-#{branch}-#{hash}".replace /[^a-z0-9_\-\.]/ig, '-'
+  resolve version
 
 global.languages = ['en']
 global.default-lang = 'en'

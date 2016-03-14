@@ -71,12 +71,12 @@ export create-bundle = ->
 
     make = (name, reject) ~>
       bundle-assets assets, reject: reject
-        .then (assets) ~>
+        .then (assets) ~> eak-version.then (v) ~>
           f = file.clone!
 
           p = path.parse f.path
           p.name += 'd.' + name
-          p.base = p.name + '.eakpackage'
+          p.base = p.name + '.' + v + '.eakpackage'
           f.path = path.format p
 
           f.contents = assets
@@ -120,11 +120,11 @@ bundle-sizes = ->
     last-file := file
     cb!
 
-  end-of-stream =(cb) ->
+  end-of-stream = (cb) -> eak-version.then (v) ~>
     unless last-file then cb!
     @push new vinyl {
       base: last-file.base
-      path: path.join last-file.base, 'bundles.json'
+      path: path.join last-file.base, "bundles.#v.json"
       contents: new Buffer (JSON.stringify sizes), 'utf-8'
     }
     cb!

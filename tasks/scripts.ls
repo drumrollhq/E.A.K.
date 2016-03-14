@@ -66,7 +66,7 @@ gulp.task 'test-livescript' ->
 gulp.task 'bootstrap-livescript' ->
   gulp.src './app/bootstrap.ls'
     .pipe gulp-livescript!
-    # .pipe gulp-uglify!
+    .pipe gulp-uglify!
     .pipe gulp.dest './gulp-cache'
 
 gulp.task 'workers' ->

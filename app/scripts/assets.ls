@@ -15,7 +15,7 @@ added-css = {}
 
 bundle-sizes = {}
 
-Promise.resolve $.get-JSON '/bundles.json'
+Promise.resolve $.get-JSON "/bundles.#{EAKVERSION}.json"
   .then (sizes) -> bundle-sizes := sizes
 
 export _cache = {assets: asset-cache, loaded-bundles, registered-actors, added-css}
@@ -51,7 +51,7 @@ export function load-bundle bundle-name, progress
   progress ?= -> null
   if bundle-name.0 isnt '/' then bundle-name = "/#bundle-name"
   req = new Promise (resolve, reject) ->
-    filename = "#{bundle-name}/bundled.#{audio-format}.eakpackage"
+    filename = "#{bundle-name}/bundled.#{audio-format}.#{EAKVERSION}.eakpackage"
     on-load = (e) ->
       progress null
       resolve parse-eak-package new Uint8Array e.target.response
@@ -125,7 +125,7 @@ decode = ({type, content}) ->
     case \application/json
       async-array-to-string content .then (str) ->
         default: \json, string: str, json: JSON.parse str
-    case \application/javascript, \text/css, \text/html
+    case \application/javascript, \text/css, \text/html, \text/vtt
       async-array-to-string content .then (str) ->
         default: \string, string: str
     case \audio/mpeg, \audio/ogg
