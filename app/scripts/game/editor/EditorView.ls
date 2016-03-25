@@ -2,6 +2,7 @@ require! {
   'game/area/el-modify'
   'game/editor/components/Editor': EditorComponent
   'lib/channels'
+  'translations'
 }
 
 module.exports = class EditorView extends Backbone.View

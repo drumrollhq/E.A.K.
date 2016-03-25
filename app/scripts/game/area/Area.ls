@@ -15,11 +15,13 @@ module.exports = class Area
     area-scripts[@name] ?= []
     for level in @conf.levels => level.url = "#{@name}/#{level.url}"
     @levels = @conf.levels
+    @ext = {}
     @view = new AreaView {
       el: $ \#levelcontainer .empty!
       conf: @conf
       options: @options
       prefix: @prefix
+      area: this
     }
 
   load: ->

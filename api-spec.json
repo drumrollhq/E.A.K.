@@ -1,7 +1,7 @@
 {
-  "rootUrl": "https://api.eraseallkittens.com",
+  "rootUrl": "http://localhost:3000",
   "tag": "v0.3.4",
-  "packaged": "2016-03-14T21:36:02.000Z",
+  "packaged": "2016-03-25T14:54:13.000Z",
   "hash": "7cf3b5ef40c41b0c930205010de9b36bb8ccdbf6",
   "endpoints": {
     "status": {

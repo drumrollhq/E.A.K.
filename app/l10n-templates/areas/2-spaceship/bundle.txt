@@ -1,11 +1,12 @@
 *.*
-/audio/conversations/tarquin-greeting/*.*
+/audio/2.*/*.*
 /audio/conversations/spaceship-fixed/*.*
+/audio/conversations/tarquin-greeting/*.*
 /audio/music/spaceship-*.*
 /content/2-spaceship/**/*
 /content/bg-tiles/2-spaceship.*.png
-/content/conversation/tarquin/left/*.*
 /content/conversation/cedric/left/*.*
+/content/conversation/tarquin/left/*.*
 /entities/rickety-space-platform/*
 /entities/space-door/*
 /entities/space-platform/*

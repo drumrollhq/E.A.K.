@@ -75,7 +75,7 @@ export function load-bundle bundle-name, progress
     .tap (bundle) ->
       loaded-bundles[bundle-name] = []
       debundlers = for let name, file of bundle
-        debundle file .then (file) ->
+        debundle file, name .then (file) ->
           loaded-bundles[bundle-name][*] = name
           asset-cache[name] = file
       Promise.all debundlers
@@ -120,7 +120,7 @@ export function unload-bundle bundle-name
 
   delete loaded-bundles[bundle-name]
 
-decode = ({type, content}) ->
+decode = ({type, content}, name) ->
   switch type
     case \application/json
       async-array-to-string content .then (str) ->
@@ -141,10 +141,10 @@ decode = ({type, content}) ->
       tag.src = url
       default: \url, url: url, image: tag
     default
-      throw new TypeError "Unknown file type #type"
+      throw new TypeError "Unknown file type #type (#name)"
 
-export function debundle file
-  Promise.resolve decode file .then (decoded-file) ->
+export function debundle file, name
+  Promise.resolve decode file, name .then (decoded-file) ->
     decoded-file.byte-array = file.content
     decoded-file.buffer = Uint8Array.from file.content .buffer
     decoded-file.default = decoded-file[decoded-file.default]

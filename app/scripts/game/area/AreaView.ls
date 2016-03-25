@@ -15,7 +15,7 @@ require! {
 const pad = 30px
 
 module.exports = class AreaView extends Backbone.View
-  initialize: ({@conf, @options, @prefix}) ->
+  initialize: ({@conf, @options, @prefix, @area}) ->
     @levels = @conf.levels.map (level) ~> new AreaLevel {level, @prefix}
 
     @camera = new Camera @conf.{width, height}, 0.1, 250

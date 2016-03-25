@@ -27,7 +27,6 @@ module.exports = React.create-class {
 
   on-save: ->
     @props.on-save!
-    @props.model.editor.trigger \save
 
   on-cancel: ->
     @on-reset!

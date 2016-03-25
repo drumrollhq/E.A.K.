@@ -1,9 +1,12 @@
 beautify = (html) ->
-  html_beautify html, {
-    indent_size: 2
-    indent_char: ' '
-    preserve_newlines: false
-  }
+  try
+    html_beautify html, {
+      indent_size: 2
+      indent_char: ' '
+      preserve_newlines: false
+    }
+  catch e
+    html
 
 module.exports = class Editor extends Backbone.Model
   initialize: ->
@@ -14,6 +17,7 @@ module.exports = class Editor extends Backbone.Model
       'css': r.current-CSS
       'startHTML': html
       'startCSS': r.current-CSS
+    @on \all console.log.bind console, 'Editor'
 
   reset: ->
     @set \html, @get \startHTML

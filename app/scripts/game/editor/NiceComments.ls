@@ -11,11 +11,12 @@ pre-process-HTML = (stream, beautify = true) ->
   if stream.length <= 1
     return html: stream, comments: []
 
-  if beautify then stream = html_beautify stream, {
-    indent_size: 2
-    indent_char: ' '
-    preserve_newlines: false
-  }
+  try
+    if beautify then stream = html_beautify stream, {
+      indent_size: 2
+      indent_char: ' '
+      preserve_newlines: false
+    }
 
   htmlout = ''
 
