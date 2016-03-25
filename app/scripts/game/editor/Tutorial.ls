@@ -8,26 +8,28 @@ say-id-counter = 0
 module.exports = class Tutorial extends Backbone.DeepModel
   start: ->
     @trigger \setup
-    @play-step (@get \step-order.0), true
+    @play-step (@get \step-order.0)
 
   stop: ->
     @trigger \stop
     if @_step-pr and @_step-pr.is-pending! then @cancel-step!
 
-  play-step: (id) ->
+  play-step: (id, user-req = false) ->
     if @_step-pr and @_step-pr.is-pending! then @cancel-step!
     step = @get "steps.#{id}"
     @set "steps.#{id}.shown", true
     Promise.resolve @_step-pr
       .catch (e) -> # eh
-      .then ~> @_play-step step
+      .then ~>
+        if not user-req and step.options.skip-if and step.options.skip-if! then return true
+        @_play-step step
       .then (finished) ~>
         unless finished then return
         step-idx = @get \step-order .index-of id
         next-step = @get "step-order.#{step-idx + 1}"
         if next-step and not next-step.shown
           Promise.delay 500 .then ~>
-            @play-step next-step, true
+            @play-step next-step
 
   _play-step: ({track, fn, options}) ->
     @_waiting-for = []

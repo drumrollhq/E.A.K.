@@ -43,7 +43,7 @@ module.exports = class EditorView extends Backbone.View
         editor: @model
         tutorial: @tutorial
       on-save: @save
-      on-select-step: @tutorial.play-step.bind @tutorial
+      on-select-step: (step) ~> @tutorial.play-step step, true
       on-help: ~> @trigger \help
       render-el: @render-el.get 0
     }), @el
