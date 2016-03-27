@@ -95,12 +95,15 @@
     display block
     font-size 0.7em
     line-height 1em
+    font-family font
 
   .two-up
     margin-top 15px
     width 100%
 
-  .two-up-col
+  .two-up-col,
+  .two-up-col-right,
+  .two-up-col-left
     width 50%
     float left
     padding-top 15px
@@ -109,6 +112,12 @@
 
     &:last-child
       border-left 1px solid rgba(255, 255, 255, 0.3)
+
+  .two-up-col-left
+    padding-left 0
+
+  .two-up-col-right
+    padding-right 0
 
   .pull-right, .pull-left
     margin-bottom 15px
@@ -407,6 +416,12 @@
 
 .error-panel-label
   color rgb(200, 0, 0)
+
+.donate-submit-btn
+  display block
+  width 100%
+  margin-top 26px
+  margin-bottom 1em
 
 @keyframes savegame-remove
   0%

@@ -1,5 +1,6 @@
 require! {
   'ui/ReactView'
+  'ui/components/Donate'
   'ui/components/EndScreen'
   'ui/components/Login'
   'ui/components/SaveGames'
@@ -16,13 +17,14 @@ module.exports = ({user, settings, $overlay-views, save-games, app}) ->
   $view-container = $overlay-views.find \#overlay-view-container
   get-new-view = (name) ->
     switch name
+    | \donate => new ReactView component: Donate
+    | \end => new ReactView component: EndScreen
     | \login => new ReactView component: Login
     | \myGames => new ReactView component: SaveGames, collection: save-games, app: app
     | \settings => new ReactView component: Settings, model: settings
     | \signup => new ReactView component: SignUp, model: user
     | \signupNext => new ReactView component: SignUpNext, model: user
     | \subscribe => new ReactView component: Subscribe
-    | \end => new ReactView component: EndScreen
     | otherwise => throw new Error "view #name not found"
 
   (parent) -> (name) ->
