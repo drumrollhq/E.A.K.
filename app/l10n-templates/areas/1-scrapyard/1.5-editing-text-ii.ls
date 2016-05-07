@@ -95,9 +95,8 @@ eak.register-level-script '1-scrapyard/1.5-editing-text-ii.html' do
     t.step \6-delete, \07-delete, keep-say: true, ~>
       t .say 'Now, delete some of the text to make the ledge shorter.', left: '8.2vw', top: '22vh'
         .await-event \start-typing
-        .then ~> Promise.race [
-          t.await-event \stop-typing
-        ]
+        .then ~> t.await-event \stop-typing
+        .then ~> Promise.delay 1000
 
     t.step \7-save, \08-save, keep-say: true, ~>
       t .say 'Awesome! Press "Save" and let\'s get going.', left: '8.2vw', top: '22vh'
