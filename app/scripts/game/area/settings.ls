@@ -62,6 +62,8 @@ function find-level-settings level
 
   conf.targets = meta \targets |> to-list _, ',' |> map to-coordinates |> map ([x, y]) -> {x, y}
 
+  conf.format-code = meta \format-code, \true |> to-boolean
+
   conf
 
 module.exports = {find: find-level-settings, get-meta}

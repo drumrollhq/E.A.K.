@@ -112,7 +112,7 @@ Arca:
 #tarquin-whathappened
 set asked-whathappened
 
-Taquin [annoyed track:07a-too-close option:run-on]: Got too close to a space tornado - total disaster! The engines are in a terrible state, and even the coffee machine has stopped working!
+Tarquin [annoyed track:07a-too-close option:run-on]: Got too close to a space tornado - total disaster! The engines are in a terrible state, and even the coffee machine has stopped working!
 Tarquin [agitated track:07b-too-close]: I'm not sure how I'm supposed to live like this. Simply barbaric.
 go menu
 
@@ -155,7 +155,7 @@ go menu
 
 #tarquin-escapepod
 set asked-tarquin-escapepod
-Tarquin [annoyed track:13-cedric-sat option:run-on]: It did, but then Cedric accidently sat on the release button.
+Tarquin [annoyed track:13a-cedric-sat option:run-on]: It did, but then Cedric accidently sat on the release button.
 Tarquin [dismissive track:13b-cedric-sat]: Most unfortunate, but these things happen.
 
 Cedric [neutral track:llama-2]: Bleeeeat

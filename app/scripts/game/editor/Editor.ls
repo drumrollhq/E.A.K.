@@ -11,7 +11,12 @@ beautify = (html) ->
 module.exports = class Editor extends Backbone.Model
   initialize: ->
     r = @get 'renderer'
-    html = beautify r.current-HTML.trim!
+
+    html = if r.conf.format-code
+      beautify r.current-HTML.trim!
+    else
+      r.current-HTML.trim!
+
     @set do
       'html': html
       'css': r.current-CSS

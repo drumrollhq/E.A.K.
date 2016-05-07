@@ -83,8 +83,8 @@ module.exports = class EditorView extends Backbone.View
     @area-level.set-error parsed.error
     el-modify @render-el
 
-  save: ~>
-    if @has-errors
+  save: (options = {}) ~>
+    if options.check isnt false and @has-errors
       channels.alert.publish msg: translations.errors.code-errors
       return
 

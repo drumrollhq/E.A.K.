@@ -25,12 +25,12 @@ module.exports = React.create-class {
     @refs.editor.redo!
     @props.model.editor.trigger \redo
 
-  on-save: ->
-    @props.on-save!
+  on-save: (options) ->
+    @props.on-save options
 
   on-cancel: ->
     @on-reset!
-    @on-save!
+    @on-save check: false
     @props.model.editor.trigger \cancel
 
   on-help: ->
