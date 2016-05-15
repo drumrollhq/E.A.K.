@@ -47,8 +47,12 @@ module.exports = React.create-class {
       @_playing.stop-playing!
 
   skip-all: ->
-    @props.on-skip-all!
-    @skip!
+    if @state.choice-active
+      @choose 0
+      set-timeout (~> @skip-all!), 0
+    else
+      @props.on-skip-all!
+      @skip!
 
   component-did-update: ->
     @update-scroll!
@@ -68,6 +72,8 @@ module.exports = React.create-class {
     background = assets.load-asset @state.model.view.background, \url
 
     dom.div class-name: \conversation, style: {background-image: "url('#{background}')"},
+      dom.button on-click: @skip-all, class-name: 'btn skip', style: {top: 15px, left: 15px, position: \absolute, z-index: 1},
+        'Skip Conversation'
       dom.div class-name: \conversation-lines, style: {background-color: @state.model.view.background-color},
         React.create-element CSSTransitionGroup, {
           component: \ul
@@ -105,7 +111,6 @@ module.exports = React.create-class {
               dom.ul null,
                 dom.li class-name: \choice,
                   dom.a on-click: @skip, 'Skip'
-              dom.a on-click: @skip-all, class-name: \skip-all, 'Skip conversation'
 
       React.create-element Speaker, character: speaker-img, expression: speaker-expression, background: speaker-background, position: \left
       React.create-element Speaker, character: player-img, expression: player-expression, background: player-background, position: \right

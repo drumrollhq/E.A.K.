@@ -88,10 +88,17 @@ module.exports = React.create-class do
 
   render: ->
     loader.toggle @state.loading || not @state.stripe-handler, 'Loading...',
-      dom.div class-name: 'cont clearfix',
-        dom.h2 null, 'Donate to E.A.K.'
-        dom.h3 null, 'Buy us coffee, get a free copy of the game!'
-        dom.form on-submit: @handle-submit,
+      dom.div class-name: 'cont clearfix', style: {max-width: 550px},
+        dom.h2 style: {margin-bottom: \2rem}, 'Want more levels?'
+        dom.p style: {text-align: \center}, '''
+          If you’d like to see E.A.K. turn into an epic Mario-meets-Minecraft style game,
+          please support us by making a donation!'''
+        dom.p style: {text-align: \center}, '''
+          We'd love to create more levels, and tools for you to build your own - but we need
+          your help to do so.'''
+        dom.p style: {text-align: \center}, '''
+          To say thanks, we’ll send you a copy of the full game for free, when it’s released :)'''
+        dom.form on-submit: @handle-submit, style: {max-width: 400px, margin: \auto, margin-top: \3rem},
           error-panel-list 'A wild error message appears!', @state.errors
           if @state.donated
             dom.h3 null, '💜 Thanks for donating 💜'
