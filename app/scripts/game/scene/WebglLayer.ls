@@ -8,7 +8,7 @@ module.exports = class WebglLayer extends Layer
   tag-name: \canvas
   initialize: (options) ->
     super options
-    @_resolution = window.device-pixel-ratio or 1
+    @_resolution = Math.round window.device-pixel-ratio or 1
     @_viewport-width = 300
     @_viewport-height = 300
     @_stage = new PIXI.Container!
