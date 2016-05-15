@@ -17,14 +17,14 @@ Arca:
 # who
 set asked-who
 set game.lao.arca-asked-who
-Lao [smiling track:04-lao]: I am Lao, and I am the Oracle. I am one of the few creatures left who practices the ancient art of coding. This is my apprentice, Ada.
+Lao [neutral track:04-lao]: I am Lao, and I am the Oracle. I am one of the few creatures left who practices the ancient art of coding. This is my apprentice, Ada.
 Ada [neutral track:01-hey]: Hey
 go menu
 
 # puffin
 set game.arca.wants-puffin
 Lao [shocked track:05-preposterous]: Oh how preposterous! I don’t know what I would do without my dearest Cecil.
-Lao [smiling track:06-munchkin]: Such a cute little munchkin...
+Lao [neutral track:06-munchkin]: Such a cute little munchkin...
 Cecil [angry track:cecil-nigel]: Alright mate, that’s enough o’ that.
 Arca:
 	- [neutral] Thanks for saving me. My name is Arca. Who are you? -> who
