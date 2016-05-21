@@ -23,6 +23,15 @@ module.exports = mixin Activatable, Conditional, class Portal extends Actor
 
   activate: ->
     channels.stage.publish url: @href
+    # no idea what causes the game to restart sometimes when activating app portals lol
+    if @href.match /app/
+      href= @href
+      hash = href.replace /^eak:\/\//, '#/'
+      setTimeout (-> window.location.hash = hash), 200
+      setTimeout (-> window.location.hash = hash), 400
+      setTimeout (-> window.location.hash = hash), 600
+      setTimeout (-> window.location.hash = hash), 800
+      setTimeout (-> window.location.hash = hash), 1000
 
   turn-on: ->
     unless @activatable-listening then @start-activatable-listening!
