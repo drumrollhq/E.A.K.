@@ -9,6 +9,9 @@ template = """
   <p class="progress">0%</p>
 """
 
+messages = translations.loader.messages
+messages.length = Object.keys messages .length
+
 module.exports = class LoaderView extends Backbone.View
   tag-name: \div
   class-name: 'loader dialogue'
@@ -23,21 +26,21 @@ module.exports = class LoaderView extends Backbone.View
     @stages = for class-name in classes
       $ '<div class="stage"></div>' .add-class class-name .append-to $stage-container
 
-    @listen-to @model, \change:stage, @set-stage
-
-    @set-stage @model, @model.get \stage
+    @set-stage translations.loader.start
 
     @$progress-bar = @$ '.bar div'
     @$percent = @$ '.progress'
     @$progress-els = @$ '.progress, .bar'
+    @$spinner = @$ '.loading-spinner-player'
 
     @displaying-progress = yes
 
+    @model ?= new Backbone.Model
     @listen-to @model, \change:progress, @update-progress
-
     @update-progress @model, @model.get \progress
+    @rotate-stages!
 
-  set-stage: (model, stage) ~>
+  set-stage: (stage) ~>
     prev = @stages.shift!
     [current, next] = @stages
 
@@ -48,6 +51,32 @@ module.exports = class LoaderView extends Backbone.View
     next.remove-class \next .add-class \current
 
     @stages.push prev
+
+  rotate-stages: ->
+    @int = set-interval ~>
+      @set-stage messages[Math.floor Math.random! * messages.length]
+    , 2500
+
+  stop-stages: -> clear-interval int
+
+  show: ->
+    @$el.show-dialogue!
+    set-timeout @force-spinner-repaint, 10
+
+  hide: ->
+    @$el.hide-dialogue!
+
+  # Chrome has a strange bug where animations do not play on the spinner.
+  # Forcing a repaint fixes this.
+  force-spinner-repaint: ~>
+    @$spinner
+      ..css 'display' 'none'
+      ..width!
+      ..css 'display' 'block'
+
+  remove: ->
+    @stop-stages!
+    super!
 
   update-progress: (model, progress) ~>
     if not progress? and @displaying-progress

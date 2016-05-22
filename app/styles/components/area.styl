@@ -1,0 +1,15 @@
+.area-level
+  position absolute
+  // outline 1px solid lime
+  opacity 1
+  transition opacity editTransitionLength ease, box-shadow editTransitionLength ease
+
+  &.hidden
+    opacity 0
+
+  &.focused
+    overflow hidden
+    box-shadow 0 0 30px rgba(0, 0, 0, 0.5)
+
+.layer.webgl-layer
+  pointer-events none

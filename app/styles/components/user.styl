@@ -1,0 +1,31 @@
+#user
+  display none
+  position fixed
+  top 75px
+  left 0
+  right 0
+  z-index 100001
+
+  &.active
+    display block
+
+  &.inactive
+    display block
+
+.user-view-item
+  display none
+  position fixed
+  top 75px
+  left 0
+  right 0
+  opacity 0
+
+  &.active
+    display block
+    opacity 1
+    animation dialogue-in 0.4s ease
+
+  &.inactive
+    display block
+    opacity 0
+    animation dialogue-out 0.4s ease

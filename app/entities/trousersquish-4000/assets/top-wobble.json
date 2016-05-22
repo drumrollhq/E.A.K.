@@ -1,0 +1,48 @@
+{"frames": {
+
+"top-wobble0001.png":
+{
+	"frame": {"x":82,"y":2,"w":37,"h":32},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":37,"y":1,"w":37,"h":32},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"top-wobble0002.png":
+{
+	"frame": {"x":2,"y":2,"w":38,"h":32},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":35,"y":1,"w":38,"h":32},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"top-wobble0003.png":
+{
+	"frame": {"x":82,"y":2,"w":37,"h":32},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":37,"y":1,"w":37,"h":32},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"top-wobble0004.png":
+{
+	"frame": {"x":42,"y":2,"w":38,"h":32},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":38,"y":1,"w":38,"h":32},
+	"sourceSize": {"w":560,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "top-wobble.png",
+	"format": "RGBA8888",
+	"size": {"w":121,"h":36},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:7f84773f76279435f2f71c123d26621f:47a7faa0984028ef80566946b0de2800:00f1585f9a54918b5286adbdef7bfaed$"
+}
+}

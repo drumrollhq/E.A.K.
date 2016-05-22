@@ -1,93 +1,100 @@
 require! {
-  'channels'
+  'assets'
+  'audio/tracks'
+  'lib/channels'
   'translations'
 }
 
-const vw = 960px
+const vw = 1280px
 const vh = 720px
 const v-aspect = vh / vw
+const sleep-timeout = 3000ms
 
-template = ({next, html}) -> """
+template = ({video, subtitles}) -> """
   <div class="cutscene-vid">
-    #html
-    <div class="cutscene-subtitle" id="cutscene-subtitle"></div>
+    <video controls>
+      <source src="#video.webm?_v=#{EAKVERSION}" type="video/webm">
+      <source src="#video.mp4?_v=#{EAKVERSION}" type="video/mp4">
+      <track kind="captions" src="#{assets.load-asset "/#EAK_LANG/#subtitles", \url, 'text/vtt'}">
+    </video>
   </div>
-  <a href="#next" class="skip">#{translations.cutscene.skip} &rarr;</a>
+  <button class="btn skip">#{translations.cutscene.skip} &rarr;</button>
 """
 
 $util = $ '<div></div>'
 
 module.exports = class CutScene extends Backbone.View
-  tag-name: 'div'
-  class-name: 'cut-scene'
+  tag-name: \div
+  class-name: \cut-scene
   events:
     'click .skip': 'triggerSkip'
+    'mousemove': 'wakeup'
 
-  initialize: ({name}) ->
+  initialize: ({@name, @video, @subtitles, @next}) ->
     @subs = []
-    @name = name
-    @subs[*] = channels.window-size.subscribe @resize
-    @subs[*] = channels.game-commands.filter ( .command is \stop ) .subscribe @finish
-    @html = translations.cutscene.loading
-    $.ajax {
-      url: "#{name}.html?_v=#{EAKVERSION}"
-      success: (html) ~>
-        @html = html
-        $util.html @html
-        $util.find 'source' .attr 'src', '' .remove!
-        @next = $util.find 'a' .attr 'href'
-        @render!
-      error: ~>
-        channels.alert.publish msg: translations.cutscene.error
-    }
+
+  load: ->
+    @render!
+    Promise.resolve!
+
+  save-defaults: -> {
+    type: \cutscene
+    url: @name
+    state: {}
+  }
+
+  start: ->
+    @attach!
+    @resize!
+    @setup-video!
+    @wakeup!
+
+  cleanup: ->
+    @remove!
+    @trigger \cleanup
 
   render: ->
-    @$el.html template this.{html, next}
-
-    # Prevent strange video loading bug in chrome
-    @$el.find 'source' .each ->
-      $el = $ this
-      $el.attr 'src', "#{$el.attr 'src'}?_v=#{EAKVERSION}"
+    @$el.html template this
 
     @$video-cont = @$el.find '.cutscene-vid'
+    @$skip = @$el.find '.skip'
     @$video = @$video-cont.find 'video'
     if @$video.length > 0
-      @video = @$video .get 0 |> Popcorn
-      @resize!
+      @popcorn = @$video .get 0 |> Popcorn
+      @popcorn.media.text-tracks.onaddtrack = (e) ~>
+        e.track.mode = \showing
 
-      @start-video!
+  attach: ->
+    @$el.append-to document.body
+    @subs[*] = channels.window-size.subscribe @resize
+    @subs[*] = channels.game-commands.filter ( .command is \stop ) .subscribe @finish
 
-  remove: ->
-    for sub in @subs => sub.unsubscribe!
-    super!
-
-  start-video: ~>
-    @video.on 'ended' @finish
-
-    # Set up subtitles:
-    subtitle-target = @$el.find '.csst-inner'
-    subtitles = $util.find '[data-start][data-end]'
-    subtitles.each (i, el) ~>
-      $el = $ el
-      start-time = parse-float $el.attr 'data-start'
-      end-time = parse-float $el.attr 'data-end'
-
-      @video.subtitle {
-        start: start-time
-        end: end-time
-        text: $el.text!
-        target: 'cutscene-subtitle'
-      }
-
-    @video.play!
+  setup-video: ~>
+    @popcorn.on 'ended' @finish
+    @popcorn.play!
+    tracks.focus \cutscene, 0.4
 
   finish: ~>
-    @trigger 'finish'
-    @remove!
-    window.location.href = @next
+    @trigger \finish
+    @trigger \next @next
+    tracks.blur!
 
   trigger-skip: ~>
-    @trigger 'skip'
+    @trigger \skip
+    @finish!
+
+  wakeup: ->
+    if @_sleep-timeout then clear-timeout @_sleep-timeout
+    @_sleep-timeout = set-timeout @sleep, sleep-timeout
+    if @asleep then @_wakeup!
+
+  _wakeup: ->
+    @asleep = false
+    @$skip.remove-class 'asleep'
+
+  sleep: ~>
+    @asleep = true
+    @$skip.add-class 'asleep'
 
   resize: ~>
     w = @$el.width!
@@ -95,24 +102,9 @@ module.exports = class CutScene extends Backbone.View
 
     aspect = h / w
     if aspect > v-aspect
-      if w > vw
-        @natural-resize w, h
-      else
-        @scaled-resize w / vw, w, h
-
+      @scaled-resize w / vw, w, h
     else
-      if h > vh
-        @natural-resize w, h
-      else
-        @scaled-resize h / vh, w, h
-
-  natural-resize: (w, h) ~>
-    @$video-cont.css {
-      width: vw
-      height: vh
-      top: (h - vh) / 2
-      left: (w - vw) / 2
-    }
+      @scaled-resize h / vh, w, h
 
   scaled-resize: (scale, w, h) ~>
     @$video-cont.css {
@@ -120,4 +112,9 @@ module.exports = class CutScene extends Backbone.View
       height: scale * vh
       top: (h - scale * vh) / 2
       left: (w - scale * vw) / 2
+    }
+
+    @$skip.css {
+      top: 15 + (h - scale * vh) / 2
+      left: 15 + (w - scale * vw) / 2
     }

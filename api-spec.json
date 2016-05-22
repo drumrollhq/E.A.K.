@@ -1,0 +1,2042 @@
+{
+  "rootUrl": "https://api.eraseallkittens.com",
+  "tag": "v0.4.0",
+  "packaged": "2016-03-27T14:06:58.000Z",
+  "hash": "ae4cba104d1192ebac193ebfb04f0e574a918c0e",
+  "endpoints": {
+    "status": {
+      "params": false,
+      "body": false,
+      "options": false
+    },
+    "auth.login": {
+      "params": false,
+      "body": {
+        "type": "object",
+        "children": {
+          "username": {
+            "type": "string",
+            "flags": {
+              "trim": true,
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "trim"
+              }
+            ]
+          },
+          "password": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ]
+          }
+        }
+      },
+      "options": false,
+      "httpOnly": true
+    },
+    "auth.logout": {
+      "params": false,
+      "body": false,
+      "options": false,
+      "httpOnly": true
+    },
+    "auth.register": {
+      "params": false,
+      "body": {
+        "type": "object",
+        "flags": {
+          "allowUnknown": true
+        },
+        "children": {
+          "id": {
+            "type": "number",
+            "flags": {
+              "presence": "optional"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          },
+          "firstName": {
+            "type": "string",
+            "flags": {
+              "trim": true,
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "trim"
+              },
+              {
+                "name": "min",
+                "arg": 2
+              }
+            ]
+          },
+          "lastName": {
+            "type": "string",
+            "flags": {
+              "trim": true,
+              "presence": "optional"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "trim"
+              },
+              {
+                "name": "min",
+                "arg": 1
+              }
+            ]
+          },
+          "assumeAdult": {
+            "type": "boolean",
+            "flags": {
+              "presence": "required"
+            }
+          },
+          "username": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "min",
+                "arg": 3
+              },
+              {
+                "name": "max",
+                "arg": 18
+              },
+              {
+                "name": "token"
+              }
+            ]
+          },
+          "password": {
+            "type": "string",
+            "flags": {
+              "presence": "optional"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "min",
+                "arg": 6
+              }
+            ]
+          },
+          "passwordConfirm": {
+            "type": "string",
+            "flags": {
+              "presence": "optional"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "min",
+                "arg": 6
+              }
+            ]
+          },
+          "email": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "email"
+              }
+            ]
+          },
+          "gender": {
+            "type": "string",
+            "flags": {
+              "presence": "optional"
+            },
+            "invalids": [
+              ""
+            ]
+          },
+          "subscribedNewsletter": {
+            "type": "boolean",
+            "flags": {
+              "default": false
+            }
+          },
+          "hasPassword": {
+            "type": "boolean",
+            "flags": {
+              "default": true
+            }
+          }
+        }
+      },
+      "options": false
+    },
+    "cards.publish": {
+      "params": false,
+      "body": {
+        "type": "object",
+        "children": {
+          "html": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ]
+          }
+        }
+      },
+      "options": false
+    },
+    "cards.share": {
+      "params": false,
+      "body": {
+        "type": "object",
+        "children": {
+          "user": {
+            "type": "string",
+            "flags": {
+              "trim": true,
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "trim"
+              },
+              {
+                "name": "min",
+                "arg": 1
+              }
+            ]
+          },
+          "card": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ]
+          }
+        }
+      },
+      "options": false
+    },
+    "count.one": {
+      "paramList": [
+        "id"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "id": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ]
+          }
+        }
+      },
+      "body": false,
+      "options": false
+    },
+    "donations.donate": {
+      "params": false,
+      "body": {
+        "type": "object",
+        "children": {
+          "amount": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "arg": 100
+              }
+            ]
+          },
+          "email": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "email"
+              }
+            ]
+          },
+          "token": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ]
+          },
+          "ip": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "ip",
+                "arg": {
+                  "cidr": "optional"
+                }
+              }
+            ]
+          },
+          "cardCountry": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "length",
+                "arg": 2
+              }
+            ]
+          },
+          "userCountry": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ]
+          }
+        }
+      },
+      "options": false
+    },
+    "games.create": {
+      "params": false,
+      "body": {
+        "type": "object",
+        "children": {
+          "game": {
+            "type": "object"
+          }
+        }
+      },
+      "options": false
+    },
+    "games.delete": {
+      "paramList": [
+        "gameId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "gameId": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          }
+        }
+      },
+      "body": false,
+      "options": false
+    },
+    "games.get": {
+      "paramList": [
+        "gameId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "gameId": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          }
+        }
+      },
+      "body": false,
+      "options": {
+        "type": "object",
+        "children": {
+          "stages": {
+            "type": "boolean",
+            "flags": {
+              "default": false
+            }
+          },
+          "levels": {
+            "type": "boolean",
+            "flags": {
+              "default": false
+            }
+          },
+          "activeStage": {
+            "type": "boolean",
+            "flags": {
+              "default": true
+            }
+          }
+        }
+      }
+    },
+    "games.mine": {
+      "params": false,
+      "body": false,
+      "options": {
+        "type": "object",
+        "children": {
+          "limit": {
+            "type": "number",
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "games.patchState": {
+      "paramList": [
+        "gameId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "gameId": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          }
+        }
+      },
+      "body": {
+        "type": "object"
+      },
+      "options": false
+    },
+    "games.patch": {
+      "paramList": [
+        "gameId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "gameId": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          }
+        }
+      },
+      "body": {
+        "type": "object",
+        "children": {
+          "name": {
+            "type": "string",
+            "invalids": [
+              ""
+            ]
+          },
+          "activeStage": {
+            "type": "number",
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          }
+        }
+      },
+      "options": false
+    },
+    "games.upload": {
+      "params": false,
+      "body": {
+        "type": "object",
+        "children": {
+          "game": {
+            "type": "object",
+            "children": {
+              "id": {
+                "type": "alternatives",
+                "alternatives": [
+                  {
+                    "type": "string",
+                    "invalids": [
+                      ""
+                    ]
+                  },
+                  {
+                    "type": "number",
+                    "invalids": [
+                      null,
+                      null
+                    ],
+                    "rules": [
+                      {
+                        "name": "integer"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "activeStage": {
+                "type": "any",
+                "flags": {
+                  "presence": "optional"
+                }
+              },
+              "createdAt": {
+                "type": "date",
+                "flags": {
+                  "presence": "optional"
+                }
+              },
+              "updatedAt": {
+                "type": "date",
+                "flags": {
+                  "presence": "optional"
+                }
+              },
+              "userId": {
+                "type": "alternatives",
+                "flags": {
+                  "presence": "optional"
+                },
+                "alternatives": [
+                  {
+                    "type": "string",
+                    "invalids": [
+                      ""
+                    ]
+                  },
+                  {
+                    "type": "number",
+                    "invalids": [
+                      null,
+                      null
+                    ],
+                    "rules": [
+                      {
+                        "name": "integer"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "state": {
+                "type": "object",
+                "flags": {
+                  "presence": "optional",
+                  "default": {}
+                }
+              }
+            }
+          },
+          "stages": {
+            "type": "array",
+            "flags": {
+              "sparse": false
+            },
+            "items": [
+              {
+                "type": "object",
+                "children": {
+                  "id": {
+                    "type": "alternatives",
+                    "alternatives": [
+                      {
+                        "type": "string",
+                        "invalids": [
+                          ""
+                        ]
+                      },
+                      {
+                        "type": "number",
+                        "invalids": [
+                          null,
+                          null
+                        ],
+                        "rules": [
+                          {
+                            "name": "integer"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "gameId": {
+                    "type": "alternatives",
+                    "alternatives": [
+                      {
+                        "type": "string",
+                        "invalids": [
+                          ""
+                        ]
+                      },
+                      {
+                        "type": "number",
+                        "invalids": [
+                          null,
+                          null
+                        ],
+                        "rules": [
+                          {
+                            "name": "integer"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "invalids": [
+                      ""
+                    ]
+                  },
+                  "url": {
+                    "type": "string",
+                    "invalids": [
+                      ""
+                    ]
+                  },
+                  "state": {
+                    "type": "object",
+                    "flags": {
+                      "presence": "optional",
+                      "default": {}
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "levels": {
+            "type": "array",
+            "flags": {
+              "sparse": false
+            },
+            "items": [
+              {
+                "type": "object",
+                "children": {
+                  "id": {
+                    "type": "alternatives",
+                    "alternatives": [
+                      {
+                        "type": "string",
+                        "invalids": [
+                          ""
+                        ]
+                      },
+                      {
+                        "type": "number",
+                        "invalids": [
+                          null,
+                          null
+                        ],
+                        "rules": [
+                          {
+                            "name": "integer"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "stageId": {
+                    "type": "alternatives",
+                    "alternatives": [
+                      {
+                        "type": "string",
+                        "invalids": [
+                          ""
+                        ]
+                      },
+                      {
+                        "type": "number",
+                        "invalids": [
+                          null,
+                          null
+                        ],
+                        "rules": [
+                          {
+                            "name": "integer"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "url": {
+                    "type": "string",
+                    "invalids": [
+                      ""
+                    ]
+                  },
+                  "state": {
+                    "type": "object",
+                    "flags": {
+                      "presence": "optional",
+                      "default": {}
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "options": false
+    },
+    "games.levels.get": {
+      "paramList": [
+        "gameId",
+        "levelId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "gameId": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          },
+          "levelId": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          }
+        }
+      },
+      "body": false,
+      "options": {
+        "type": "object",
+        "children": {
+          "stage": {
+            "type": "boolean",
+            "flags": {
+              "default": false
+            }
+          },
+          "game": {
+            "type": "boolean",
+            "flags": {
+              "default": false
+            }
+          }
+        }
+      }
+    },
+    "games.levels.patchState": {
+      "paramList": [
+        "gameId",
+        "levelId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "gameId": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          },
+          "levelId": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          }
+        }
+      },
+      "body": {
+        "type": "object"
+      },
+      "options": false
+    },
+    "games.levels.saveKitten": {
+      "paramList": [
+        "gameId",
+        "levelId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "gameId": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          },
+          "levelId": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          }
+        }
+      },
+      "body": {
+        "type": "object",
+        "children": {
+          "kitten": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ]
+          }
+        }
+      },
+      "options": false
+    },
+    "games.stages.findOrCreate": {
+      "paramList": [
+        "gameId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "gameId": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          }
+        }
+      },
+      "body": {
+        "type": "object",
+        "children": {
+          "activate": {
+            "type": "boolean",
+            "flags": {
+              "default": false
+            }
+          },
+          "levels": {
+            "type": "array",
+            "flags": {
+              "sparse": false
+            },
+            "items": [
+              {
+                "type": "object",
+                "children": {
+                  "url": {
+                    "type": "string",
+                    "flags": {
+                      "presence": "required"
+                    },
+                    "invalids": [
+                      ""
+                    ]
+                  },
+                  "state": {
+                    "type": "object",
+                    "flags": {
+                      "default": {}
+                    }
+                  },
+                  "html": {
+                    "type": "string",
+                    "flags": {
+                      "presence": "optional"
+                    },
+                    "invalids": [
+                      ""
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "url": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ]
+          },
+          "type": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ]
+          },
+          "state": {
+            "type": "object",
+            "flags": {
+              "default": {}
+            }
+          }
+        }
+      },
+      "options": false
+    },
+    "games.stages.get": {
+      "paramList": [
+        "gameId",
+        "stageId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "gameId": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          },
+          "stageId": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          }
+        }
+      },
+      "body": false,
+      "options": false
+    },
+    "games.stages.patchState": {
+      "paramList": [
+        "gameId",
+        "stageId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "gameId": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          },
+          "stageId": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "positive"
+              }
+            ]
+          }
+        }
+      },
+      "body": {
+        "type": "object"
+      },
+      "options": false
+    },
+    "sessions.checkin": {
+      "paramList": [
+        "sessionId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "sessionId": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "guid"
+              }
+            ]
+          }
+        }
+      },
+      "body": {
+        "type": "object",
+        "children": {
+          "ids": {
+            "type": "array",
+            "flags": {
+              "sparse": false,
+              "presence": "required"
+            },
+            "rules": [
+              {
+                "name": "unique"
+              }
+            ]
+          }
+        }
+      },
+      "options": false
+    },
+    "sessions.create": {
+      "params": false,
+      "body": {
+        "type": "object"
+      },
+      "options": false
+    },
+    "sessions.fetch": {
+      "paramList": [
+        "sessionId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "sessionId": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "guid"
+              }
+            ]
+          }
+        }
+      },
+      "body": false,
+      "options": {
+        "type": "object",
+        "children": {
+          "min": {
+            "type": "boolean",
+            "flags": {
+              "default": false
+            }
+          },
+          "events": {
+            "type": "boolean",
+            "flags": {
+              "default": false
+            }
+          },
+          "open": {
+            "type": "boolean",
+            "flags": {
+              "default": false
+            }
+          },
+          "device": {
+            "type": "string",
+            "flags": {
+              "presence": "optional"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "guid"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "sessions.stop": {
+      "paramList": [
+        "sessionId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "sessionId": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "guid"
+              }
+            ]
+          }
+        }
+      },
+      "body": false,
+      "options": false
+    },
+    "sessions.events.create": {
+      "paramList": [
+        "sessionId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "sessionId": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "guid"
+              }
+            ]
+          }
+        }
+      },
+      "body": {
+        "type": "object",
+        "children": {
+          "type": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ]
+          },
+          "data": {
+            "type": "object",
+            "flags": {
+              "presence": "required"
+            }
+          },
+          "hasDuration": {
+            "type": "boolean",
+            "flags": {
+              "default": false
+            }
+          }
+        }
+      },
+      "options": false
+    },
+    "sessions.events.fetch": {
+      "paramList": [
+        "sessionId",
+        "eventId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "sessionId": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "guid"
+              }
+            ]
+          },
+          "eventId": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "guid"
+              }
+            ]
+          }
+        }
+      },
+      "body": false,
+      "options": {
+        "type": "object",
+        "children": {
+          "min": {
+            "type": "boolean",
+            "flags": {
+              "default": true
+            }
+          },
+          "open": {
+            "type": "boolean",
+            "flags": {
+              "default": false
+            }
+          },
+          "device": {
+            "type": "string",
+            "flags": {
+              "presence": "optional"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "guid"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "sessions.events.stop": {
+      "paramList": [
+        "sessionId",
+        "eventId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "sessionId": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "guid"
+              }
+            ]
+          },
+          "eventId": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "guid"
+              }
+            ]
+          }
+        }
+      },
+      "body": false,
+      "options": false
+    },
+    "sessions.events.update": {
+      "paramList": [
+        "sessionId",
+        "eventId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "sessionId": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "guid"
+              }
+            ]
+          },
+          "eventId": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "guid"
+              }
+            ]
+          }
+        }
+      },
+      "body": {
+        "type": "object"
+      },
+      "options": false
+    },
+    "users.current": {
+      "params": false,
+      "body": false,
+      "options": false
+    },
+    "users.exists": {
+      "paramList": [
+        "userId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "userId": {
+            "type": "alternatives",
+            "flags": {
+              "presence": "required"
+            },
+            "alternatives": [
+              {
+                "type": "number",
+                "invalids": [
+                  null,
+                  null
+                ],
+                "rules": [
+                  {
+                    "name": "integer"
+                  },
+                  {
+                    "name": "positive"
+                  }
+                ]
+              },
+              {
+                "type": "string",
+                "invalids": [
+                  ""
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "body": false,
+      "options": false
+    },
+    "users.fetch": {
+      "paramList": [
+        "userId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "userId": {
+            "type": "alternatives",
+            "flags": {
+              "presence": "required"
+            },
+            "alternatives": [
+              {
+                "type": "number",
+                "invalids": [
+                  null,
+                  null
+                ],
+                "rules": [
+                  {
+                    "name": "integer"
+                  },
+                  {
+                    "name": "positive"
+                  }
+                ]
+              },
+              {
+                "type": "string",
+                "invalids": [
+                  ""
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "body": false,
+      "options": false
+    },
+    "users.generateUsernames": {
+      "params": false,
+      "body": false,
+      "options": {
+        "type": "object",
+        "children": {
+          "n": {
+            "type": "number",
+            "flags": {
+              "default": 10
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "arg": 1
+              },
+              {
+                "name": "max",
+                "arg": 100
+              }
+            ]
+          },
+          "unused": {
+            "type": "boolean",
+            "flags": {
+              "default": false
+            }
+          }
+        }
+      }
+    },
+    "users.getCustomer": {
+      "paramList": [
+        "userId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "userId": {
+            "type": "alternatives",
+            "flags": {
+              "presence": "required"
+            },
+            "alternatives": [
+              {
+                "type": "number",
+                "invalids": [
+                  null,
+                  null
+                ],
+                "rules": [
+                  {
+                    "name": "integer"
+                  },
+                  {
+                    "name": "positive"
+                  }
+                ]
+              },
+              {
+                "type": "string",
+                "invalids": [
+                  ""
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "body": false,
+      "options": false
+    },
+    "users.subscribe": {
+      "paramList": [
+        "userId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "userId": {
+            "type": "alternatives",
+            "flags": {
+              "presence": "required"
+            },
+            "alternatives": [
+              {
+                "type": "number",
+                "invalids": [
+                  null,
+                  null
+                ],
+                "rules": [
+                  {
+                    "name": "integer"
+                  },
+                  {
+                    "name": "positive"
+                  }
+                ]
+              },
+              {
+                "type": "string",
+                "invalids": [
+                  ""
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "body": {
+        "type": "object",
+        "children": {
+          "plan": {
+            "type": "string",
+            "flags": {
+              "allowOnly": true,
+              "presence": "required"
+            },
+            "valids": [
+              "eak-parent-annual",
+              "eak-parent-monthly"
+            ],
+            "invalids": [
+              ""
+            ]
+          },
+          "token": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "regex",
+                "arg": {}
+              }
+            ]
+          },
+          "ip": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "ip",
+                "arg": {
+                  "cidr": "optional"
+                }
+              }
+            ]
+          },
+          "cardCountry": {
+            "type": "string",
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "length",
+                "arg": 2
+              }
+            ]
+          },
+          "userCountry": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ]
+          }
+        }
+      },
+      "options": false
+    },
+    "users.updateEakSettings": {
+      "paramList": [
+        "userId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "userId": {
+            "type": "alternatives",
+            "flags": {
+              "presence": "required"
+            },
+            "alternatives": [
+              {
+                "type": "number",
+                "invalids": [
+                  null,
+                  null
+                ],
+                "rules": [
+                  {
+                    "name": "integer"
+                  },
+                  {
+                    "name": "positive"
+                  }
+                ]
+              },
+              {
+                "type": "string",
+                "invalids": [
+                  ""
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "body": {
+        "type": "object"
+      },
+      "options": false
+    }
+  },
+  "routes": {
+    "v1": {
+      "GET": "status",
+      "auth": {
+        "register": {
+          "POST": "auth.register"
+        },
+        "login": {
+          "POST": "auth.login"
+        },
+        "logout": {
+          "GET": "auth.logout"
+        }
+      },
+      "count": {
+        "_id": {
+          "GET": "count.one"
+        }
+      },
+      "sessions": {
+        "POST": "sessions.create",
+        "_sessionId": {
+          "POST": "sessions.checkin",
+          "GET": "sessions.fetch",
+          "DELETE": "sessions.stop",
+          "events": {
+            "POST": "sessions.events.create",
+            "_eventId": {
+              "POST": "sessions.events.update",
+              "DELETE": "sessions.events.stop"
+            }
+          }
+        }
+      },
+      "users": {
+        "usernames": {
+          "GET": "users.generateUsernames"
+        },
+        "me": {
+          "GET": "users.current"
+        },
+        "_userId": {
+          "GET": "users.fetch",
+          "exists": {
+            "GET": "users.exists"
+          },
+          "customer": {
+            "GET": "users.getCustomer"
+          },
+          "subscription": {
+            "POST": "users.subscribe"
+          },
+          "eakSettings": {
+            "POST": "users.updateEakSettings"
+          }
+        }
+      },
+      "cards": {
+        "POST": "cards.publish",
+        "share": {
+          "POST": "cards.share"
+        }
+      },
+      "games": {
+        "mine": {
+          "GET": "games.mine"
+        },
+        "POST": "games.create",
+        "upload": {
+          "POST": "games.upload"
+        },
+        "_gameId": {
+          "GET": "games.get",
+          "PUT": "games.patch",
+          "DELETE": "games.delete",
+          "state": {
+            "PUT": "games.patchState"
+          },
+          "stages": {
+            "POST": "games.stages.findOrCreate",
+            "_stageId": {
+              "GET": "games.stages.get",
+              "state": {
+                "PUT": "games.stages.patchState"
+              }
+            }
+          },
+          "levels": {
+            "_levelId": {
+              "GET": "games.levels.get",
+              "kittens": {
+                "POST": "games.levels.saveKitten"
+              },
+              "state": {
+                "PUT": "games.levels.patchState"
+              }
+            }
+          }
+        }
+      },
+      "donations": {
+        "POST": "donations.donate"
+      }
+    }
+  }
+}

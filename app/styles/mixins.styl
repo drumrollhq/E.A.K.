@@ -8,3 +8,23 @@ calc()
     s('calc(%s)', arguments)
   else
       error('calc() must be used within a property')
+
+button-color(col, shadow=30%, highlight=20%, shadow-size=0.2em)
+  background col
+  box-shadow 0 shadow-size 0 darken(col, shadow)
+
+  &:hover
+    background lighten(col, highlight)
+    box-shadow 0 shadow-size 0 lighten(darken(col, shadow), highlight)
+
+filter(fns)
+  -webkit-filter fns
+  filter fns
+
+entity(img, w, h)
+  position absolute
+  width w
+  height h
+  background-image url(img)
+  background-size 100% 100%
+

@@ -2,9 +2,59 @@ for num in (1..20)
   .scale-{num}
     transform scale(num / 10)
 
-entity(img, w, h)
-  position absolute
-  width w
-  height h
-  background-image url(img)
-  background-size 100% 100%
+perspective-top(colour, height, slope = height, padding-top = 0)
+  padding-left slope
+  padding-right slope
+
+  &::before
+    display block
+    content ' '
+    height 0
+    width 100%
+
+    // CSS Border witchcraft
+    border slope solid transparent
+    border-bottom height solid colour
+    border-top none
+
+    // Correctly positioned element:
+    position relative
+    top -1 * (height + padding-top)
+    left 0
+    margin-bottom -1 * height
+    margin-left -1 * slope
+
+  &.perspective-trim-right::before
+    border-right-color colour
+
+  &.perspective-trim-left::before
+    border-left-color colour
+
+.activatable
+  &:after
+    display block
+    width 22px
+    height 22px
+    position absolute
+    left 50%
+    margin-left -12px
+    top -30px
+
+    content "↓"
+    line-height 20px
+    background rgba(#ddd, 0.7)
+    border 1px solid rgba(#555, 0.4)
+    border-radius 5px
+    color black
+    text-align center
+    font-size 24px
+    font-family codeFonts
+    box-shadow 0 0 6px rgba(black, 0.2)
+
+    opacity 0
+    transition opacity 0.5s ease
+    animation portal-key-pulse 0.7s ease infinite
+
+  &.PLAYER_CONTACT:after
+    transition-delay 0.5s
+    opacity 1

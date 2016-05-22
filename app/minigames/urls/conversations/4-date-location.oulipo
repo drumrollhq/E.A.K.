@@ -1,0 +1,72 @@
+set view.characters.hobo.image = 'buttstacks'
+set view.characters.hobo.name = 'Boris J. Buttstacks'
+
+Hobo [really-happy]: You did jolly well fetching me my teeth! I'm awfully glad Greasy Pete was civil! He can be rather bothersome at times. You're a true friend.
+go menu
+
+#menu
+Arca: 
+	- SKIP CONVERSATION -> skip
+	-(unless said-thanks or asked-entrance) Uhhh... Thanks? -> thanks
+	-(unless asked-entrance) But I really need to leave! Can't you let me into Ponyhead Bay now? -> entrance
+	-(if said-thanks or asked-entrance) Okay... what is it? -> date
+
+#thanks
+set said-thanks
+Hobo [smug]: Oh no, thank you! There's no-one who's seen my teeth who I don't call a friend! I trust you now, but I need one last thing!
+go menu
+
+#entrance
+set asked-entrance
+branch
+	- (if said-thanks) Hobo [neutral]: Not yet. You need to get one last thing for me, and then you're free to go! 
+	- (default) Hobo [smug]:  Now just one minute - we're friends! There's no-one who's seen my teeth who I don't call a friend! I need one last thing from you.
+ go menu
+ 
+#date
+set asked-date
+Hobo [smug]: I need you to find somewhere romantic for my date tonight! I couldn't take a lady to just any old dump.
+Hobo [lovestruck]: She's a terribly classy broom, you know. 
+go menu-date
+
+#menu-date
+Arca: 
+	- (unless asked-love) Wow, you must really like her. -> love
+	- (unless asked-romance) Hmm. I'm not really an expert in romance... -> romance
+	- (unless asked-where) I'm new around here - where can I find a place like that? -> where
+
+#love
+set asked-love
+Hobo [lovestruck]: Like her? I love her! Every night I imagine holding her in my arms, feeling her flowing locks against my cheek and whispering sweet nothings until the end of time...
+go menu-date
+
+#romance
+set asked-romance
+Hobo [smug]: Don't worry spud, we can't all be masters of seduction. Now don't be too hard on yourself. I trust you to find the right place.
+go menu-date
+
+#where
+set asked-where
+Hobo [smug]: Ah of course, I forgot you're not from around here! Why don't you try Shackerton-By-The-Sea, it's a sweet little town with the prettiest night sky. Go there and find a nice spot for me and my lady friend. I trust you.
+go menu-how
+
+#menu-how
+Arca:
+	- How do I find it? -> how
+	- (unless asked-adventure) I've never been to a beach before! What an adventure. -> adventure
+	- (unless asked-what) What will you do there? -> what
+
+#how
+set asked-how
+Hobo [proper-smile]: I'll show you now! How dreadfully exciting!
+go finish
+
+#adventure
+set asked-adventure
+Hobo [neutral]: You mean to say you haven't been?! Well then, you're quite welcome. Watch out for the pirate squid who roams the shores - I've heard he's loopier than an acrobatic porpoise.
+go menu-how
+
+#what
+set asked-what
+Hobo [smug]: There are plenty of things to do in Shackerton! Although there's nothing quite like lying on the back of a giant turtle, sipping an emoti-cola and watching the stars sparkle...
+go menu-how

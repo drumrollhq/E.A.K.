@@ -1,7 +1,7 @@
 require! {
-  'channels'
   'audio/context'
   'audio/load'
+  'lib/channels'
 }
 
 module.exports = class Sound
@@ -11,22 +11,36 @@ module.exports = class Sound
     @gain-node.connect track.node
     @gain = @gain-node.gain
 
-  load: (cb) ~>
-    buffer, err <~ load @_path
-    if err then return cb err
-    @_buffer = buffer
-    cb!
+  load: ~>
+    load @_path .then (buffer) ~> @_buffer = buffer
 
-  start: (wh = context.current-time, offset = 0, duration) ~>
-    unless duration? then duration = @_buffer.duration - (offset % @_buffer.duration)
+  start: (when_ = context.current-time, offset = 0, duration = void) ~>
+    if duration then duration = duration % @_buffer.duration
 
     sound-source = context.create-buffer-source!
       ..buffer = @_buffer
       ..connect @gain-node
       ..on-ended = -> null
-      ..onended = ~>
+      # According to https://code.google.com/p/chromium/issues/detail?id=349543, onended handlers
+      # are incorrectly GCd due to a bug in chrome. Here, never-gc stores the event handler on
+      # window, stopping it from getting GCd but also creating a memory leak. Sigh.
+      ..onended = never-gc ~>
           sound-source.disconnect!
           sound-source.on-ended!
+          @_playing = false
       ..loop = @loop
-      ..start wh, offset % @_buffer.duration, duration
-      ..started = context.current-time - offset
+
+    if duration
+      sound-source.start when_, offset % @_buffer.duration, duration
+    else sound-source.start when_, offset % @_buffer.duration
+
+    sound-source.started = context.current-time - offset
+    @_playing = true
+    @_playing-source = sound-source
+    sound-source
+
+  play: -> new Promise (resolve) ~>
+    if @_playing then return resolve!
+    @start! .on-ended = ~> resolve!
+
+  stop: -> @_playing-source.stop! if @_playing-source

@@ -1,6 +1,6 @@
 require! {
   'audio/Music'
-  'channels'
+  'lib/channels'
 }
 
 tracks = {
@@ -23,7 +23,17 @@ tracks = {
   colours:
     normal: '/audio/music/colours'
     glitch: '/audio/music/colours-glitch'
+
+  spaceship:
+    normal: '/audio/music/spaceship-normal'
+    glitch: '/audio/music/spaceship-normal-glitch'
+    creepy: '/audio/music/spaceship-creepy'
+    creepy-glitch: '/audio/music/spaceship-creepy-glitch'
+    disco: '/audio/music/spaceship-disco'
+    disco-glitch: '/audio/music/spaceship-disco-glitch'
 }
+
+const fade-duration = 0.75s
 
 class MusicManager
   (@tracks) ->
@@ -32,36 +42,30 @@ class MusicManager
     @_setup-triggers!
 
   _setup-triggers: ->
-    channels.parse 'game-commands: edit-start' .subscribe ~> @switch-track 'glitch'
-    channels.parse 'game-commands: edit-stop' .subscribe ~> @switch-track 'normal'
+    channels.parse 'game-commands: start-edit' .subscribe ~> @music.glitchify fade-duration
+    channels.parse 'game-commands: stop-edit' .subscribe ~> @music.deglitchify fade-duration
 
-  start-track: (name, cb = ->) ~>
+  start-track: (name) ~>
     unless @tracks[name]? then throw new Error 'Cannot find track called ' + name
-    if @playing is name then return cb!
+    if @playing is name then return Promise.resolve!
     @playing = name
 
-    if name is \none then return @stop cb
+    if name is \none then return @stop!
 
     music = new Music name, @tracks[name]
-    err <~ async.parallel [music.load, @stop]
+    Promise.all [music.load!, @stop!]
+      .then ~>
+        music.play \normal
+        @music = music
 
-    if err?
-      channels.alert.publish msg: "#{translations.errors.music-not-found}: #err"
-      return cb!
-
-
-    music.play 'normal'
-    @music = music
-    cb!
-
-  stop: (cb) ~>
-    unless @music then return cb!
-    @music.fade-out 0.5, cb
+  stop: ~>
+    unless @music then return Promise.resolve!
+    music = @music
     @music = null
+    music.fade-out fade-duration
 
   switch-track: (track) ~>
     unless @music? then return
-    @music.fade-to track, 0.5
-
+    @music.fade-to track, fade-duration
 
 module.exports = new MusicManager tracks

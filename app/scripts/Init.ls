@@ -1,13 +1,7 @@
 require! {
-  'audio/effects'
-  'game/event-loop'
-  'game/Game'
-  'logger'
+  'App'
   'plugins'
-  'Router'
-  'settings'
-  'ui/alert'
-  'ui/SettingsView'
+  'logger'
 }
 
 module.exports = class Init extends Backbone.View
@@ -22,25 +16,11 @@ module.exports = class Init extends Backbone.View
           window.session-storage.set-item 'eak-ignore-compatibility' true
           window.location.reload!
 
+      @$ '.loader' .hide!
       logger.setup lacking
       return
 
-    new SettingsView model: settings, el: $ '#bar-options'
-
-    <~ effects.load!
-
-    <~ logger.setup false
-    event-loop.init!
-
-    # Hide the loader and start up the game.
-    @$ \.loader .hide-dialogue!
-
-    game = new Game false
-
-    # Start up the Backbone router
-    router = new Router!
-
-    Backbone.history.start root: window.location.pathname
+    @app = new App!
 
   # Uses modernizr to check that all the browser features that EAK requires are present. Returns true
   # if they are, false if not.

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Engine Room - SS Glitterpotato</title>
+
+    <meta name="slowparse:disableOmittableCloseTags">
+    <meta name="size" content="780 585">
+    <meta name="player" content="95 532">
+    <meta name="targets" content="700 175">
+    <meta name="editable" content="true">
+    <meta name="borders" content="bottom">
+
+    <style>
+      body {
+        overflow: hidden;
+      }
+
+      .floor {
+        position: absolute;
+        width: 100px;
+        height: 20px;
+        background: #81909B;
+        z-index: 10;
+      }
+
+      .ledge, p {
+        position: absolute;
+        right: 0;
+        padding: 10px;
+        background: #81909B;
+
+        background-image: url('/content/common/bolted-panel-cover.png'),
+          url('/content/common/bolted-panel-cover.png'),
+          url('/content/common/bolted-panel-cover.png'),
+          url('/content/common/bolted-panel-cover.png');
+        background-position: left -20px top -16px,
+          right -20px top -16px,
+          left -20px bottom -16px,
+          right -20px bottom -16px;
+        background-size: 40px 32px, 40px 32px, 40px 32px, 40px 32px;
+        background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+      }
+
+      p {
+        z-index: 1;
+        top: 300px;
+        margin: 0;
+      }
+
+      .outline {
+        position: absolute;
+        width: 250px;
+        height: 47px;
+        top: 300px;
+        right: 0;
+        border: 2px dashed rgba(0, 0, 0, 0.5);
+        border-right: none;
+      }
+
+      .piston {
+        display: block;
+        position: absolute;
+        width: 100px;
+        height: 110px;
+      }
+    </style>
+
+    <hidden>
+      <div data-sprite="/content/2-spaceship/3-eyed-thing" data-sprite-size="94.5x159" data-sprite-pos="0 0" data-layer="background" data-sprite-delay="0.5-3" data-ignore></div>
+      <img src="/content/2-spaceship/container-and-light.png" width="94" height="159" style="position: absolute; top: 0; left: 0;" data-ignore>
+      <div data-sprite="/content/2-spaceship/2-tailed-thing" data-sprite-size="94x159" data-sprite-pos="150 0" data-layer="background" data-sprite-delay="1-10" data-ignore></div>
+      <img src="/content/2-spaceship/container-and-light.png" width="94" height="159" style="position: absolute; top: 0; left: 150px;" data-ignore>
+      <div class="floor" style="right: -20px; top: 200px; height: 385px; width: 20px; background: transparent;"></div>
+      <div class="floor" style="width: 300px; height: 25px; bottom: 0; left: 0;"></div>
+      <img src="/content/2-spaceship/piston.png" class="piston" data-actor="mover 2 alternate sin" data-path="75 510, 75 600">
+      <img src="/content/2-spaceship/piston.png" class="piston" data-actor="mover 2 alternate sin" data-path="225 600, 225 510">
+      <div class="ledge" style="top: 400px;">Space ledge! That is what I am! OOOOHhh, yeah!</div>
+      <div class="ledge" style="top: 200px;">I'm a space stub :(</div>
+
+      <div class="outline" data-ignore></div>
+    </hidden>
+  </head>
+  <body>
+  </body>
+</html>

@@ -1,4 +1,4 @@
-require! 'channels'
+require! 'lib/channels'
 
 class Settings extends Backbone.Model
   defaults: ->

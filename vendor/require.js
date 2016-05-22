@@ -110,6 +110,13 @@
     return result;
   };
 
+  require.deRegister = function(bundle) {
+    delete modules[bundle];
+    delete cache[bundle];
+  };
+
+  require.local = localRequire;
+
   require.brunch = true;
   globals.require = require;
 })();

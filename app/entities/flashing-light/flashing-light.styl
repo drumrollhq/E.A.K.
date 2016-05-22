@@ -1,0 +1,35 @@
+.flashing-light
+  width 10px
+  height 10px
+  position absolute
+  background-size 100% 100%
+  animation flashing-light 0.6s linear alternate infinite
+
+.flashing-light-green
+  @extend .flashing-light
+  background-image url('/entities/flashing-light/light-green.png')
+  animation-duration 0.7s
+
+.flashing-light-red
+  @extend .flashing-light
+  background-image url('/entities/flashing-light/light-red.png')
+  animation-delay -0.15s
+
+@keyframes flashing-light
+  0%
+    opacity 0
+
+  5%
+    opacity 1
+
+  55%
+    opacity 1
+
+  60%
+    opacity 0
+
+  85%
+    opacity 0
+
+  90%
+    opacity 1

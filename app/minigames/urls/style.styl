@@ -1,0 +1,498 @@
+/****** URL STUFF ******/
+normalTextShadow = 0 0 30px rgba(white, 0.75), 0 0 30px rgba(white, 0.75), 0 0 30px rgba(white, 0.75), 0 0 30px rgba(white, 0.75), 0 0 30px rgba(white, 0.75)
+incorrectTextShadow = 0 0 30px red
+sectionHeight = 54px
+urlTrans = 0.4s
+correctGreen = #27ae60
+brightCorrectGreen = #2ecc71
+errorRed = #c0392b
+
+correctOpacity = 0.8
+targetOpacity = 0.9
+incorrectOpacity = 0.5
+
+.url-display
+  position absolute
+  bottom 0.6em
+  left 0
+  width 100%
+  text-align center
+  font-size 2em
+  line-height 1.5em
+  text-shadow normalTextShadow
+
+.url-display-bar
+  display inline-block
+  margin auto
+  padding 3px 15px
+  background rgba(white, 0.6)
+  border-radius 3px
+  transition all urlTrans ease
+
+  &.url-hide
+    transform translateY(200px)
+
+  &.correct
+    transform translateY(200px)
+    animation correct 1.5s ease
+
+.url-section,
+.url-sep
+  display inline-block
+  transition opacity urlTrans ease, color urlTrans ease
+
+.url-section
+  text-align center
+
+.url-section:not(.correct) + .url-sep,
+.url-section:not(.correct) + .url-sep + .url-section
+  opacity incorrectOpacity
+
+.url-section.correct + .url-sep + .url-section:not(.correct):not(.hasAlternative)
+  animation bounce 0.5s 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) alternate infinite
+  opacity targetOpacity
+
+.url-section-target
+  overflow visible
+  height sectionHeight
+  margin-top -1 * sectionHeight
+  position relative
+
+  &:not(.incorrect)
+    z-index 1
+    // fake transition to appease react
+    &.url-section-enter
+      visibility hidden
+      opacity 0
+      transition opacity urlTrans ease
+
+    &.url-section-enter-active
+      opacity 0.001
+      visibility hidden
+
+    &.url-section-leave
+      opacity 0
+      visibility hidden
+      transition opacity urlTrans ease
+
+    &.url-section-leave-active
+      opacity 0.001
+      visibility hidden
+
+  &.incorrect
+
+    .url-section.correct &
+      &.url-section-leave
+        visibility hidden
+        opacity 0
+
+      &.url-section-leave-actibe
+        opacity 0.001
+
+    &::after
+      content ' '
+      position absolute
+      display block
+      background black
+      height 3px
+      width 100%
+      border-radius 100%
+      margin-top -25px
+
+    // &.url-section-enter,
+    // &.url-section-leave
+    //   text-shadow none
+
+    &.url-section-enter::after
+      transform-origin left
+      transform scaleX(0)
+      transition transform urlTrans linear
+
+    &.url-section-enter-active::after
+      transform scaleX(1)
+
+    &.url-section-leave::after
+      opacity 0
+      transform-origin right
+      transform scaleX(1)
+      transition transform urlTrans linear
+
+    &.url-section-leave-active::after
+      transform scaleX(0)
+
+  &.correct
+    animation pulse-green urlTrans ease
+
+    &.url-section-enter,
+    &.url-section-enter-active
+      z-index 3
+      // animation pulse-green urlTrans ease
+      visibility visible
+      opacity 1
+
+  .targetEmpty &
+    visibility hidden
+
+.url-alt,
+.url-tick
+  height sectionHeight
+  margin-top -2 * sectionHeight
+  margin-bottom sectionHeight
+
+  &.url-section-enter
+    opacity 0
+    transition opacity urlTrans ease
+
+  &.url-section-enter-active
+    opacity 1
+
+  &.url-section-leave
+    opacity 1
+    transition opacity urlTrans ease
+
+  &.url-section-leave-active
+    opacity 0
+
+  .targetEmpty &
+    position relative
+    height sectionHeight
+    margin-top -1 * sectionHeight
+    margin-bottom 0
+
+.url-tick,
+.url-section.correct,
+.url-section.correct + .url-sep
+  opacity correctOpacity
+
+.url-tick
+  color correctGreen
+  opacity 1
+
+  &.url-section-enter
+    animation pulse urlTrans ease
+
+.url-alt::after
+  content ' ✗'
+  color #c0392b
+
+@keyframes bounce
+  0%
+    transform scaleY(0.95) scaleX(1.02)
+
+  30%
+    transform translateY(-3px)
+
+  100%
+    transform translateY(-10px)
+
+@keyframes pulse
+  0%
+    transform scale(0.5)
+    opacity 0
+
+  50%
+    transform scale(2)
+    opacity 1
+
+  100%
+    transform scale(1)
+    opacity 1
+
+@keyframes pulse-green
+  0%
+    transform-origin center
+    transform scale(1)
+    color inherit
+
+  50%
+    transform-origin center
+    transform scale(1.2)
+    color correctGreen
+
+  100%
+    transform-origin center
+    transform scale(1)
+    color inherit
+
+@keyframes correct
+  0%
+    transform scale(1)
+    background rgba(white, 0.6)
+
+  25%, 75%
+    transform scale(1.3) translateY(-50px)
+    background rgba(lighten(brightCorrectGreen, 30%), 0.6)
+
+  100%
+    transform scale(1) translateY(200px)
+    background rgba(white, 0.6)
+
+/***** Helpful Buttstacks ******/
+.helpful-buttstacks
+  position absolute
+  top 0
+  left 0
+
+  &.bottom
+    top initial
+    bottom -150px
+
+  img
+    width 200px
+    transition all 0.3s ease
+    display block
+    transform translate(-300px, -120px) rotate(20deg)
+    transform-origin bottom
+
+  .speech-bubble
+    position absolute
+    top 40px
+    left 200px
+    background-color rgba(white, 0.8)
+    padding 10px
+    border-radius 5px
+    width 500px
+    transition all 0.3s ease
+    opacity 0
+    transform translateX(-100px)
+
+    &:after
+      content ''
+      display block
+      width 0
+      height 0
+      position absolute
+      left -30px
+      top 50%
+      margin-top -15px
+      border 15px solid transparent
+      border-right-color rgba(white, 0.8)
+
+  .speech-bubble-dismiss
+    float right
+    padding 0 5px
+    margin-top 2px
+
+  &.active
+    img
+      transform translate(-220px, -140px) rotate(50deg)
+
+    .speech-bubble
+      opacity 1
+      transform translateX(0)
+
+/****** Target Image ******/
+.target-image
+  position absolute
+  top 70px
+  right 20px
+  opacity 0.5
+  transition all 0.3s ease
+  transform scale(0.8)
+
+  img
+    width 150px
+
+  &::after
+    content '✓'
+    display block
+    position absolute
+    font-size 150px
+    color brightCorrectGreen
+    width 150px
+    text-align center
+    line-height 120px
+    top 50%
+    left 0
+    margin-top -60px
+    opacity 0
+    transition opacity 0.3s ease
+
+  &.correct
+    opacity 1
+    transform scale(1)
+
+    &::after
+      opacity 1
+      animation pulse 0.6s ease
+
+@keyframes tick-pulse
+  0%
+    opacity 0
+    transform scale(0.5)
+
+  50%
+    opacity 1
+    transform scale(2)
+
+  100%
+    opacity 1
+    transform scale(1)
+
+/****** URLEntry ******/
+.url-entry
+  position absolute
+  left 0
+  width 100%
+  height 200px
+  max-height 30%
+
+.url-entry-box
+  barWidth = 70%
+  position absolute
+  bottom 0
+  left 50%
+  width barWidth
+  margin-left -0.5 * barWidth
+  height 54px
+  padding 0 10px
+  font-size 2em
+  line-height 1.5em
+  border-radius 5px
+  background-color rgba(white, 0.6)
+  box-shadow 0 7px 40px rgba(100, 100, 100, 0.4)
+
+.url-entry-enter
+  transition all 0.3s ease-out
+  opacity 0
+  transform scale(0.5)
+
+.url-entry-enter-active
+  opacity 1
+  transform scale(1)
+
+.url-entry-leave
+  transition all 0.3s ease-in
+  opacity 1
+  transform scale(1)
+
+.url-entry-leave-active
+  opacity 0
+  transform scale(0.5)
+
+.url-entry-box
+  input
+    position absolute
+    display block
+    height 54px
+    width calc('100% - 20px')
+    padding 0
+    background none
+    border none
+    font inherit
+    color rgba(eakFontBlack, 0.5)
+
+  .url-overlay
+    position absolute
+    pointer-events none
+    white-space pre
+    padding-right 10px
+
+.url-overlay
+  .url-segment
+    position relative
+    display inline-block
+    transition all 0.3s ease
+
+    &::before,
+    &::after
+      display inline-block
+      position absolute
+      text-align center
+      top -54px
+      left 0
+      width 100%
+      opacity 0
+      transition opacity 0.3s ease
+      text-shadow normalTextShadow
+
+    &::before
+      content '✓'
+      color correctGreen
+
+    &::after
+      content '✗'
+      color errorRed
+
+    &.error
+      color errorRed
+      &::after
+        opacity 1
+
+    &:not(.error):not(.last)
+      &::before
+        opacity 1
+
+    &:not(.error) + .type-sep:not(.error)
+      &::before
+        opacity 0
+
+    &.error + .type-sep.error
+      &::after
+        opacity 0
+
+.url-error
+  position absolute
+  top 80px
+  font-size 0.6em
+  line-height 1.5em
+  padding 10px
+  background-color rgba(white, 0.5)
+  width 50%
+  border-top 3px solid errorRed
+  opacity 0
+  transition all 0.3s ease
+
+  &.active
+    opacity 1
+
+  &::before
+    display block
+    content ' '
+    width 0
+    height 0
+    position absolute
+    border 10px solid transparent
+    border-bottom-color errorRed
+    top -23px
+
+.url-suggestions
+  position absolute
+  top 54px
+  font-size 0.8em
+  line-height 1.5em
+  background rgba(white, 0.5)
+  padding 10px 0
+  border-bottom-left-radius 5px
+  border-bottom-right-radius 5px
+  opacity 0
+  transition opacity 0.3s ease
+
+  &.active
+    opacity 1
+
+.url-suggestion
+  padding 0 10px
+  cursor pointer
+
+  &:hover
+    background rgba(black, 0.1)
+
+.url-submit
+  position absolute
+  top 0
+  right 0
+  font-size 18px
+  height 50px
+  box-shadow 0 4px #40306a
+  border-radius 25px 5px 5px 25px
+  padding 0.7em 0.9em
+  opacity 0
+  pointer-events none
+
+  &:hover
+    box-shadow 0 4px 0 #5e469b
+
+  &.active
+    opacity 1
+    pointer-events initial

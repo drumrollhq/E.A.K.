@@ -1,0 +1,48 @@
+.btn
+  padding 0.5em
+  border none
+  border-radius 0.3em
+  color white
+  font-family brandFont
+  text-align center
+  font-size 14px
+  line-height 1.5em
+  cursor pointer
+  transition all 0.3s ease
+  button-color lighten(eakPurple, 15%), 30%, 20%, 0.3em
+
+  &[disabled], &.disabled
+    opacity 0.5
+    pointer-events none
+    cursor default
+
+.btn-main
+  display block
+  margin 1.5em auto
+
+.btn-small
+  font-family font
+  font-size 0.8em
+  padding 0.3em
+
+.overlay-button
+  height 30px
+  border none
+  padding 0 15px
+  vertical-align top
+  cursor pointer
+  font-family font
+  font-size 16px
+  color white
+  background rgba(255, 255, 255, 0.2)
+  text-shadow 0 0 10px rgba(0, 0, 0, 0.7)
+  box-shadow 0 0 6px rgba(255, 255, 255, 0.4)
+  transition all 0.3s ease
+
+  &:hover
+    background rgba(255, 255, 255, 0.3)
+    box-shadow 0 0 6px rgba(255, 255, 255, 0.6)
+
+a[href].overlay-button, a[href].btn
+  color white
+  text-decoration none

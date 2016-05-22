@@ -1,4 +1,7 @@
-require! 'channels'
+require! {
+  'lib/channels'
+  'lib/keys'
+}
 
 raf = window.request-animation-frame or window.moz-request-animation-frame or
   window.webkit-request-animation-frame or window.ms-request-animation-frame or
@@ -15,38 +18,56 @@ key-channels = keypress: channels.key-press, keyup: channels.key-up, keydown: ch
 
 $window = $ window
 $body = $ document.body
+$document = $ document
 
 class EventLoop
-  init: ~>
-    @paused = false
+  ->
+    @paused = @paused-keys = false
     @last = window.performance.now!
     window.request-animation-frame @frame-driver
     @setup-keys!
-    @setup-window-events!
+    @setup-dom-events!
+    @_skip-frame = 0
 
   frame-driver: ~>
     now = window.performance.now!
     diff = now - @last
     @last = now
 
-    unless @paused
+    if @_skip-frame > 0
+      @_skip-frame--
+    else
       channels.pre-frame.publish-sync t: diff
-      channels.frame.publish-sync t: diff
+      unless @paused
+        channels.frame.publish-sync t: diff
+
       channels.post-frame.publish-sync t: diff
 
     window.request-animation-frame @frame-driver
 
   setup-keys: ~>
-    $window .on 'keypress keyup keydown' (e) ->
-      unless @paused
+    $window .on 'keypress keyup keydown' (e) ~>
+      unless @paused-keys
+        if e.which in [8 32 37 38 39 40] then e.prevent-default!
         key = key-dict[e.which] or (String.from-char-code e.which .to-lower-case!)
         key-channels[e.type].publish code: e.which, key: key
 
-  setup-window-events: ~>
+  setup-dom-events: ~>
     $window .on 'resize' (e) ->
-      unless @paused then channels.window-size.publish width: $body.width!, height: $body.height!
+      channels.window-size.publish width: $body.width!, height: $body.height!
 
-  pause: ~> @paused = true
-  resume: ~> @paused = false
+    $document.on prefixed.visibility-change, (e) ~>
+      @_skip-frame += 5
+
+  pause: ~>
+    keys.reset!
+    @paused = @paused-keys = true
+
+  pause-keys: ~>
+    keys.reset!
+    @paused-keys = true
+
+  resume: ~> @paused = @paused-keys = false
+  resume-keys: ~> @paused-keys = false
 
 module.exports = new EventLoop!

@@ -9,31 +9,18 @@
   overflow hidden
   display none
 
-  .playing &
+  &.active
     display block
+    animation fadein 0.5s linear both
 
-.level
-  width auto
-  height auto
-  position absolute
-  top 0
-  left 0
-  display inline-block
-  opacity 1
-  overflow hidden
-  box-shadow 0 5px 15px rgba(0,0,0,0.3);
-  background white url('/content/grid.png') center 0% / 50px
-
-  transition 0.6s opacity ease
-
-  &.hidden
-    opacity 0
+  &.remove
+    display block
+    animation fadeout 0.5s linear both
 
 .player
   z-index 10
 
 body
-  transition background-color 0.6s ease
   overflow hidden
 
 body.playing
@@ -42,20 +29,11 @@ body.playing
 body.editor #levelcontainer *, body.paused #levelcontainer *
   animation-play-state paused
 
-.level-entity-fadeout
-  animation entity-fadeout-scale 0.5s cubic-bezier(.99, .01, .99, 1.01), entity-fadeout-opacity 0.5s linear
-  opacity 0
+.scene
+  position absolute
 
-@keyframes entity-fadeout-scale
-  from
-    transform scale(1)
-
-  to
-    transform scale(2)
-
-@keyframes entity-fadeout-opacity
-  from
-    opacity 1
-
-  to
-    opacity 0
+.scene .layer
+  position absolute
+  overflow hidden
+  top 0
+  left 0

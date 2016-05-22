@@ -1,0 +1,102 @@
+{"frames": {
+
+"kitten-box-blink-0001.png":
+{
+	"frame": {"x":2,"y":2,"w":86,"h":88},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":16,"w":86,"h":88},
+	"sourceSize": {"w":96,"h":104},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"kitten-box-blink-0002.png":
+{
+	"frame": {"x":90,"y":2,"w":86,"h":88},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":16,"w":86,"h":88},
+	"sourceSize": {"w":96,"h":104},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"kitten-box-blink-0003.png":
+{
+	"frame": {"x":178,"y":2,"w":86,"h":88},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":16,"w":86,"h":88},
+	"sourceSize": {"w":96,"h":104},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"kitten-box-blink-0004.png":
+{
+	"frame": {"x":266,"y":2,"w":86,"h":88},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":16,"w":86,"h":88},
+	"sourceSize": {"w":96,"h":104},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"kitten-box-blink-0005.png":
+{
+	"frame": {"x":354,"y":2,"w":86,"h":88},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":16,"w":86,"h":88},
+	"sourceSize": {"w":96,"h":104},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"kitten-box-blink-0006.png":
+{
+	"frame": {"x":442,"y":2,"w":86,"h":88},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":16,"w":86,"h":88},
+	"sourceSize": {"w":96,"h":104},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"kitten-box-blink-0007.png":
+{
+	"frame": {"x":530,"y":2,"w":86,"h":88},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":16,"w":86,"h":88},
+	"sourceSize": {"w":96,"h":104},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"kitten-box-blink-0008.png":
+{
+	"frame": {"x":618,"y":2,"w":86,"h":88},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":16,"w":86,"h":88},
+	"sourceSize": {"w":96,"h":104},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"kitten-box-blink-0009.png":
+{
+	"frame": {"x":706,"y":2,"w":86,"h":88},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":16,"w":86,"h":88},
+	"sourceSize": {"w":96,"h":104},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"kitten-box-blink-0010.png":
+{
+	"frame": {"x":2,"y":2,"w":86,"h":88},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":16,"w":86,"h":88},
+	"sourceSize": {"w":96,"h":104},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "kitten-box-blink.png",
+	"format": "RGBA8888",
+	"size": {"w":794,"h":92},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:957f7ae159c1f322ccd7482a933b7f3b:a5aaeb217f8cf4cdf550983a81666549:3ca0bc065f1c2898953dfc8d07f5523b$"
+}
+}

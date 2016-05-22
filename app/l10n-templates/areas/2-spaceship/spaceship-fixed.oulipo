@@ -1,0 +1,91 @@
+set view.background = '/content/2-spaceship/spaceship-fixed.png'
+set view.background-color = 'rgba(206, 216, 239, 0.7)'
+set audio-root = '/audio/conversations/spaceship-fixed'
+set view.characters.tarquin.background = 'space-chair'
+set view.characters.ada.player = true
+set view.player = 'ada neutral'
+
+Tarquin [surprised-arm-up track:01-seacow]: Holy sea cow in a cyclone! You've fixed my ship! It's a miracle!
+Ada [proud track:01-amazing-t1]: Yep, we're amazing!
+set view.player = 'arca neutral'
+go menu
+
+#menu
+go menu-portal
+
+# menu-portal
+Arca:
+	- Awesome... can we use your portal now? -> portal
+	- (unless asked-code) You should learn to code in case your spaceship breaks again. -> code
+	- (unless asked-weird) You have some pretty weird stuff in your lower deck, by the way! -> weird
+	- (unless asked-kittens) We found a few kittens hidden in boxes - do you know who put them there? -> kittens
+
+# portal
+set asked-portal
+Tarquin [happy track:02a-of-course option:run-on]: Of course!
+Tarquin [proud track:02b-of-course option:run-on]: And I'll throw in a signed copy of my latest pioneering book:
+Tarquin [proud-arm-up track:02c-of-course]: '"The Lavatory Pitch for Unstoppable CEOs".'
+
+Ada [confused track:02-lavatory-t2]: Cool. What's 'The Lavatory Pitch'?
+
+Tarquin [sneaky-arm-up track:03a-ten-second option:run-on]: A ten second explanation of your product.
+Tarquin [suspicious track:03b-ten-second]: You might never know who's listening...
+set view.player = 'arca neutral'
+go menu-end
+
+# code
+set asked-code
+Tarquin [dismissive track:04a-game-chamber option:run-on]: Hmmm. Maybe after I've finished writing my next talk:
+Tarquin [proud-arm-up track:04b-game-chamber]: '"How to Change the Game by Disrupting the Game Changer\'s Game Chamber".'
+
+go menu-portal
+
+# weird
+set asked-weird
+Tarquin [suspicious track:05-experiment]: Really? Well, Cedric does like to experiment... 
+Cedric [neutral track:llama-1]: Bleeaaatt
+set view.speaker = 'tarquin neutral'
+go menu-portal
+
+# kittens
+set asked-kittens
+Tarquin [surprised track:06a-fan-mail option:run-on]: What? I thought those boxes were filled with fan mail!
+Tarquin [dismissive track:06b-fan-mail option:run-on]: Well, that's disappointing.
+Tarquin [sneaky track:06c-fan-mail option:run-on]: Actually, kittens could be a form of fan mail...
+Tarquin [smug-arm-up track:06d-fan-mail]: I shall write a thank you note to whoever sent them.
+go menu-portal
+
+# menu-end
+Arca: 
+	- We're going to leave for Ponyhead Bay now. -> end
+	- (unless asked-intern) Maybe we'll come back someday - I'd love to learn more about busy-ness. -> intern
+	- (unless asked-squid) Thanks! Before we leave, I think you should know that you have a giant robot squid baby hanging from your lower deck. -> squid-baby
+
+# end
+set asked-end
+Tarquin [happy track:07-fantastic]: Well, it was fantastic to meet you both - you're welcome to come back and be my interns anytime. Ciao!
+go finish
+
+# intern
+set asked-intern
+Tarquin [proud track:08a-next-me option:run-on]: Fabulous! I think you have a lot of potential.
+Tarquin [smug-arm-up track:08b-next-me]: Maybe you could even be the next... me.
+go menu-end
+
+# squid-baby
+set asked-squid
+Ada [sarcastic track:03-terrifying-t4]: It's terrifying.
+Tarquin [suspicious track:09-dont-talk]: Yes... well... we don't talk about that, do we Cedric?
+Cedric [neutral track:llama-2]: Bleeeeeat
+set view.player = 'arca neutral'
+set view.speaker = 'tarquin neutral'
+go menu-end
+
+
+
+
+
+
+		
+	
+	

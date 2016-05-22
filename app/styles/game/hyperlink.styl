@@ -1,12 +1,12 @@
-.level a[href]
+a[href]
   display inline-block
   color blue
 
-.level a[href].PLAYER_CONTACT:not(.portal)
+a[href].PLAYER_CONTACT:not(.portal)
   animation hyperlink-anim 0.1s linear alternate infinite
 
 /* portal: */
-.level .portal
+.actor-portal
   width 80px
   height 105px
   background-image url('/content/common/portal.png')
@@ -20,33 +20,8 @@
     animation-fill-mode both
     transform-origin 0 100%
 
-  &:after
-    display block
-    width 22px
-    height 22px
-    position absolute
-    left 50%
-    margin-left -12px
-    top -30px
-
-    content "↓"
-    line-height 20px
-    background rgba(#ddd, 0.7)
-    border 1px solid rgba(#555, 0.4)
-    border-radius 5px
-    color black
-    text-align center
-    font-size 24px
-    font-family codeFonts
-    box-shadow 0 0 6px rgba(black, 0.2)
-
-    opacity 0
-    transition opacity 0.5s ease
-    animation portal-key-pulse 0.7s ease infinite
-
-  &.PLAYER_CONTACT:after
-    transition-delay 0.5s
-    opacity 1
+  &.disabled
+    background-image url('/content/common/portal-disabled.png')
 
 .player.portal-out .player-inner
   animation portal-out 0.5s ease-in !important

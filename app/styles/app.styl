@@ -6,7 +6,6 @@ global-reset()
 @import "variables"
 @import "fonts"
 @import "base"
-@import "html"
 
 // Bower:
 @import "../../bower_components/codemirror/lib/codemirror.css"
@@ -14,12 +13,19 @@ global-reset()
 @import "../../bower_components/nouislider/jquery.nouislider.css"
 @import "fa-font-override"
 
+// Building Blocks
+@import "common/animations"
+@import "common/button"
+@import "common/slider"
+@import "common/dialogue"
+
 // Main components
+@import "components/area"
 @import "components/bar"
-@import "components/bar-options"
-@import "components/button"
+@import "components/conversation"
+@import "components/character-message"
+@import "components/overlay-view"
 @import "components/cut-scene"
-@import "components/dialogue"
 @import "components/hints"
 @import "components/level"
 @import "components/loader"
@@ -27,8 +33,9 @@ global-reset()
 @import "components/notifications"
 @import "components/overlay"
 @import "components/signup"
-@import "components/slider"
+@import "components/subchoice"
 @import "components/terminal-entity"
+@import "components/user"
 
 // Editor components
 @import "editor/annotation"
@@ -40,24 +47,15 @@ global-reset()
 // Common level assets
 @import "game/utils"
 @import "game/hyperlink"
+@import "game/player-common"
 @import "game/player"
 @import "game/sprite-anim"
 @import "game/target"
 
 // Objects
-@import "game/bricks"
-@import "game/clouds"
-@import "game/computer-junk"
-@import "game/crystals"
-@import "game/fan"
-@import "game/flashing-light"
 @import "game/misc"
-@import "game/mushrooms"
+@import "game/perspective"
 @import "game/spikes"
 
-// Creatures
-@import "game/birdicorn"
-@import "game/dragon"
-@import "game/eyes"
-@import "game/flying-monster"
-@import "game/humphry-hoo"
+// Effects
+@import "game/glitch"

@@ -1,0 +1,73 @@
+set view.characters.hobo.image = 'buttstacks'
+set view.characters.hobo.name = 'Boris J. Buttstacks'
+
+Hobo [smug]: Ahhh... my precious pickles. 
+Hobo [neutral]: Not the ones I wanted, but close enough I suppose!
+
+go menu
+
+# menu
+branch
+	- (if asked-what-type) go menu-where
+	- (if asked-what-else) go menu-what-type
+	- (default) go menu-what-else
+
+# menu-what-else
+Arca:
+	- SKIP CONVERSATION -> skip
+	- Okay... so is there anything else do you need me to get? -> what-else
+	- (unless asked-which-onions) Huh? Which pickled onions did you want? -> which-onions
+	- (unless onions-are-onions) A pickled onion is a pickled onion, Buttstacks -> onions-are-onions
+
+# what-else
+set asked-what-else
+Hobo [smug]: Well as you know I’m a bit of a celebrity, being the mayor and all... What can I say, it brings success with the ladies! I've got a date tonight with a very special lady, and it must be perfect. So i'll need flowers. To woo her, understand? I've read that they love flowers. That and clocks.
+go menu
+
+# which-onions
+set asked-which-onions
+Hobo [irritated]: Vintage '95. You got me Vintage '97. Not pungent enough for my sophisticated palate.
+go menu
+
+# onions-are-onions
+set onions-are-onions
+Hobo [irritated]: You don't know what you're talkin' about. Although we can't all be pickled onion connessieurs.
+go menu
+
+# menu-what-type
+Arca:
+	- What kind of flowers do you want?  -> what-type
+	- (unless asked-clocks) Clocks? Why? -> clocks
+
+# what-type
+set asked-what-type
+Hobo [neutral]: Hmmm... I want the biggest bunch of the fluffiest dandelions you ever saw. They're like a man's heart you know? The softest blow can destroy them... 
+go menu
+
+# clocks
+set asked-clocks
+Hobo [irritated]: To tell the time of course. You obviously haven't read Fellows are from Mongo, Fillies are from Marmington. Clueless critter.
+go menu
+
+# menu-where
+Arca:
+	- Okay... where can I find flowers? -> where
+	- (unless asked-love) I'm sure she'll love them. -> love
+	- (unless asked-careful) Okay. I'll be very careful. -> careful
+
+# careful
+set asked-careful
+Hobo [smug]: Good. I want her to swoon at the sight of me holding them.
+go menu
+	
+# love
+set asked-love
+Hobo [smug]: Of course she will! Much more subtle than roses. 
+go menu
+
+# where
+set asked-where
+Hobo [neutral]: The flower stall in Flee Market - here's another URL so you can find them.
+continue
+
+

@@ -1,0 +1,36 @@
+digraph {
+  // use $ dot -Tpng -o app-fsm.png app-fsm.dot
+  // or  $ dot -Tpng -o app-fsm.png app-fsm.dot && open app-fsm.png
+  rankdir=LR;
+  nodesep=1;
+  fontsize = 14;
+  node[fontname = "Open Sans Light"];
+  edge[fontname = "Open Sans Light"];
+  node[shape=rect, style=rounded];
+  node[penwidth = 0.5];
+  // edge[color="#808080"];
+
+  // States:
+  initializing
+  menus
+  menusOverlay
+  loading
+  playing
+  paused
+
+  // Transitions
+  initializing -> menus [label=init]
+  initializing -> menusOverlay [label=pause]
+  initializing -> loading [label=load]
+  menus -> loading [label=load]
+  menus -> menusOverlay [label=pause]
+  menusOverlay -> menus [label=resume]
+  loading -> playing [label=start]
+  loading -> menus [label=quit]
+  playing -> paused [label=pause]
+  playing -> menus [label=quit]
+  playing -> loading [label=load]
+  paused -> playing [label=resume]
+  paused -> menus [label=quit]
+  paused -> loading [label=load]
+}

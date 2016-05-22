@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cave of Claws</title>
+
+    <meta name="slowparse:disableOmittableCloseTags">
+    <meta name="size" content="780 585">
+    <meta name="player" content="60 132">
+    <meta name="targets" content="650 270, 160 470">
+    <meta name="reset-player-on-edit" content="false">
+    <meta name="borders" content="top bottom">
+    <meta name="border-contract" content="5">
+
+    <!-- <hints>
+      <message name="avoid" from="ada" track="/audio/1.5/01-avoid" enter="death:spike" enter-delay="2500">
+        Yep, try to avoid the creepy tree-hands. They really don't get personal space...
+      </message>
+      <message from="ada" track="/audio/1.5/02-edit" enter-after="avoid" enter="death:spike OR time:10000" timeout="0">
+        Seems we need to do some more coding. Click edit, or press 'E'.
+      </message>
+    </hints> -->
+
+    <style>
+      p {
+        content: 'class: perspective-cave-large, data-extend-top: 7';
+        font-size: 16px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: block;
+        background: #3D3836;
+        color: #ccc;
+      }
+
+      p:before {
+        top: -26px;
+      }
+
+      p:nth-of-type(1) {
+        position: absolute;
+        top: 153px;
+        left: 10px;
+      }
+
+      p:nth-of-type(2) {
+        margin: auto;
+        margin-top: 300px;
+        display: inline-block;
+      }
+
+      .ledge-chunk {
+        height: 50px;
+        width: 120px;
+        background: #3D3836;
+        position: absolute;
+        padding-top: 10px;
+      }
+
+      body {
+        text-align: center;
+      }
+
+      .floor {
+        padding-top: 10px;
+        background: #322E2E;
+        content: 'class: perspective-cave-a-medium, data-extend-top: 5';
+        position: absolute;
+        bottom: 0;
+        height: 64px;
+        left: 0;
+        width: 300px;
+      }
+
+      .floor.right {
+        left: auto;
+        right: 0;
+      }
+
+      .left-border {
+        position: absolute;
+        top: 160px;
+        height: 100%;
+        left: -50px;
+        width: 55px;
+      }
+
+      .right-border {
+        position: absolute;
+        top: 0;
+        right: -50px;
+        height: 320px;
+        width: 50px;
+      }
+
+      .overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 150;
+      }
+
+      .cave-exit-overlay {
+        position: absolute;
+        width: 110px;
+        height: 182px;
+        top: 0;
+        left: -87px;
+        z-index: 110;
+      }
+    </style>
+
+    <hidden>
+      <img class="cave-exit-overlay" src="/content/1-scrapyard/cave-exit-overlay.png" data-ignore>
+      <div class="floor left" style="height: 85px;"></div>
+      <div class="floor right" style="width: 330px;"></div>
+      <div class="ledge-chunk perspective-cave-medium" style="margin-left: -60px; left: 50%; top: 250px;" data-extend-top="5"></div>
+      <div class="ledge-chunk perspective-cave-medium" style="left: 0; top: 400px; height: 100px; background: #322E2E" data-extend-top="5"></div>
+      <div class="left-border"></div>
+      <div class="right-border"></div>
+      <div data-actor="spike rocky left" style="right: 1px; top: 80px; height: 25px; width: 50px;"></div>
+      <div data-actor="spike rocky left" style="right: 1px; top: 95px; height: 40px; width: 100px;"></div>
+      <div data-actor="spike rocky left" style="right: 1px; top: 125px; height: 25px; width: 70px;"></div>
+      <div data-actor="spike rocky right" style="left: 1px; top: 230px; height: 25px; width: 70px;"></div>
+      <div data-actor="spike rocky right" style="left: 1px; top: 240px; height: 40px; width: 100px;"></div>
+      <div data-actor="spike rocky right" style="left: 1px; top: 270px; height: 20px; width: 60px;"></div>
+      <div data-actor="spike rocky-base" style="bottom: 0px; right: 340px; width: 25px; height: 80px"></div>
+      <div data-actor="spike rocky-base" style="bottom: 0px; right: 360px; width: 20px; height: 70px"></div>
+      <div data-actor="spike rocky-base" style="bottom: 0px; right: 390px; width: 45px; height: 110px"></div>
+      <div data-actor="spike rocky-base" style="bottom: 0px; right: 420px; width: 35px; height: 90px"></div>
+      <div data-actor="spike rocky-base" style="bottom: 0px; right: 460px; width: 15px; height: 50px"></div>
+    </hidden>
+  </head>
+  <body>
+    <p>So I said, mossy lichen just doesn't suit igneous rocks. I'm only trying to help, but would he listen?</p>
+    <p>UGH. Those craggy outcrops are SO last season. I mean seriously? How sedimentary can you get?</p>
+  </body>
+</html>

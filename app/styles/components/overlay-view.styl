@@ -1,0 +1,447 @@
+#overlay-views
+  display none
+  opacity 0
+  z-index 100001
+  position absolute
+  top 0
+  left 0
+  width 100%
+  height 100%
+  overflow auto
+  background eakSkyBlue
+
+  &.active
+    display block
+    opacity 1
+    animation overlay-in 0.4s ease
+
+  &.inactive
+    display block
+    opacity 0
+    animation overlay-out 0.4s ease
+
+#overlay-view-container
+  position relative
+  width 100%
+  min-height 100%
+
+  &:after
+    content ' '
+    position absolute
+    z-index 1
+    bottom 0
+    display block
+    width 100%
+    height 100%
+    background-image url('/ui/bg.png'), url('/ui/strip.png')
+    background-size 900px 444px, 1px 90px
+    background-position center bottom, center bottom
+    background-repeat no-repeat, repeat-x
+
+#overlay-view-container, #app
+  > *
+    position absolute
+    z-index 2
+    top 0
+    left 0
+    right 0
+    padding-top 75px
+    padding-bottom 200px
+    opacity 0
+    display none
+
+    &.active
+      display block
+      position relative
+      opacity 1
+      animation dialogue-in 0.4s ease
+
+    &.inactive
+      display block
+      opacity 0
+      animation dialogue-out 0.4s ease
+
+  .cont, .cont-wide
+    width 100%
+    max-width 400px
+    margin auto
+
+  .cont-wide
+    max-width 640px
+
+  ul.list
+    list-style disc
+    padding-left 3em
+
+  h1, h2
+    text-align center
+    font-family brandFont
+    font-size 48px
+    line-height 1.5em
+
+  h2
+    font-size 36px
+
+  h3
+    font-weight 300
+    font-size 20px
+    text-align center
+    margin-bottom 15px
+
+  h4
+    font-family brandFont
+
+  .sub
+    display block
+    font-size 0.7em
+    line-height 1em
+    font-family font
+
+  .two-up
+    margin-top 15px
+    width 100%
+
+  .two-up-col,
+  .two-up-col-right,
+  .two-up-col-left
+    width 50%
+    float left
+    padding-top 15px
+    padding-right 15px
+    padding-left 15px
+
+    &:last-child
+      border-left 1px solid rgba(255, 255, 255, 0.3)
+
+  .two-up-col-left
+    padding-left 0
+
+  .two-up-col-right
+    padding-right 0
+
+  .pull-right, .pull-left
+    margin-bottom 15px
+
+  .range
+    display block
+    margin-top 30px
+
+    .name
+      float left
+
+    .value
+      float right
+      font-family brandFont
+
+    .slider
+      clear both
+      position relative
+      top 5px
+
+  .btn-major
+    display block
+    width 100%
+    font-size 1.1em
+    margin-top 30px
+
+  .button-list
+    padding-bottom 15px
+
+    &::after
+      content ' '
+      clear both
+      width 0
+      height 0
+      display block
+
+  .button-list .btn
+    float left
+    margin-right 10px
+    margin-bottom 15px
+
+  .button-list-little .btn
+    font-family font
+    font-size 0.8em
+    padding 0.3em
+    margin-bottom 10px
+
+  .lang-select
+    margin-top 30px
+
+    .lang
+      display block
+      text-align center
+      width 100%
+      margin-bottom 15px
+      margin-top 10px
+      font-size 16px
+
+      &.disabled
+        opacity 0.5
+        pointer-events none
+        cursor normal
+
+  .hr
+    margin-bottom 15px
+    text-align center
+    color rgba(eakFontBlack, 0.5)
+
+    &::before, &::after
+      content ' '
+      display inline-block
+      width 100px
+      height 0
+      margin 0 10px
+      vertical-align middle
+      border-top 1px solid rgba(eakFontBlack, 0.3)
+
+  .form-errors
+    margin-bottom 15px
+    margin-top 0
+    color lighten(red, 20%)
+
+.sso
+  @extend .btn
+  width 100%
+  height 50px
+  display block
+  margin-bottom 15px
+  position relative
+  padding-left 50px
+  font-family font
+  font-size 20px
+  font-weight 300
+
+  &::before
+    display inline-block
+    font-family 'FontAwesome'
+    position absolute
+    top 0
+    left 0
+    width 50px
+    height 50px
+    border-right 1px solid rgba(255, 255, 255, 0.3)
+    color white
+    font-size 28px
+    line-height 2em
+
+.sso-google
+  button-color #dd4b39
+
+  &::before
+    content "\f0d5"
+
+.sso-facebook
+  button-color #3b5998
+
+  &::before
+    content "\f09a"
+
+.sign-in
+  margin-top 30px
+
+.text-field, .radio-group
+  display block
+  margin-bottom 15px
+
+  span
+    display block
+    font-family brandFont
+    font-weight normal
+
+.text-field-plain span, .radio-group-plain span
+    font-family font
+    font-weight 300
+
+.text-field
+  input
+    display block
+    width 100%
+    height 40px
+    padding 0 10px
+    border-radius 5px
+    border 2px solid rgba(lighten(eakPurple, 30%), 0.4)
+    background rgba(lighten(eakPurple, 40%), 0.2)
+    color #333
+    font-size inherit
+    font-family inherit
+    transition all 0.3s ease
+
+    &:hover
+      border-color rgba(lighten(eakPurple, 50%), 0.6)
+
+.radio-group-radios
+  display table
+  table-layout fixed
+  width 100%
+  height 40px
+
+  input[type=radio]
+    display none
+
+  label
+    @extend .btn
+    display table-cell
+    padding-top 10px
+    border-radius 0
+    border-left 1px solid rgba(white, 0.3)
+
+    &:nth-of-type(1)
+      border-top-left-radius 0.3em
+      border-bottom-left-radius 0.3em
+      border-left none
+
+    &:last-child
+      border-top-right-radius 0.3em
+      border-bottom-right-radius 0.3em
+
+    &::before
+      font-family 'FontAwesome'
+      content "\f096" // fa-square-o
+      float left
+      display inline-block
+      width 1em
+      padding-left 4px
+      font-size 20px
+      text-align left
+      color white
+
+  input:checked + label
+    button-color lighten(eakPurple, 25%), 20%, 20%, 0.3em
+
+    &::before
+      content "\f046" // fa-check-square-o
+
+.savegame
+  clearfix()
+  position relative
+  margin-top 30px
+  font-weight 300
+  transition all 0.3s ease
+
+.savegame-info
+  float left
+  width 70%
+
+.savegame-info-started
+  font-size 0.7em
+
+.savegame-actions
+  float right
+  padding-left 30px
+  width 30%
+
+.savegame-actions-delete,
+.savegame-actions-play
+  display block
+  width 100%
+  margin-bottom 15px
+
+.savegame-actions-delete
+  float right
+  width auto
+  padding 0.1em 0.3em
+  font-size 0.8em
+  font-family font
+  font-weight 300
+
+.savegame-status-deleting,
+.savegame-status-input,
+.savegame-prompt-delete
+  display none
+  transition opacity 0.3s ease
+
+.savegame > *
+  transition all 0.3s ease
+
+.savegame.deleting, .savegame.deletePrompt
+  > *
+    opacity 0.5
+    pointer-events none
+    filter blur(5px)
+
+.savegame.deleting .savegame-status-deleting,
+.savegame.deletePrompt .savegame-prompt-delete
+  display block
+  opacity 1
+  position absolute
+  width 100%
+  margin-top 5px
+  text-align center
+  filter none
+  pointer-events auto
+
+.savegame-prompt-delete
+  p
+    margin-top -5px
+
+  .btn
+    margin 10px 30px
+
+.savegame-leave-active
+  overflow hidden
+  animation savegame-remove 0.5s ease both
+
+.savegame-status-input
+  display block
+  position absolute
+  top 0
+  right 30%
+  height 36px
+  padding 5px 15px
+  margin 2px
+  background-color eakSkyBlue
+  border-left 2px solid rgba(lighten(eakPurple, 30%), 0.4)
+  border-top-right-radius 5px
+  border-bottom-right-radius 5px
+
+  transition all 0.3s ease
+  opacity 0
+  pointer-events none
+
+.savegame.saving .savegame-status-saving
+  opacity 1
+  pointer-events all
+
+.savegame.saved .savegame-status-saved
+  opacity 1
+  pointer-events all
+  animation fadeout 2s 3s ease both
+
+.error-panel
+  border-radius 0.3em
+  background-color rgba(255, 100, 100, 0.2)
+  padding 10px
+  margin 15px 0
+
+.error-panel-label
+  color rgb(200, 0, 0)
+
+.donate-submit-btn
+  display block
+  width 100%
+  margin-top 26px
+  margin-bottom 1em
+
+@keyframes savegame-remove
+  0%
+    height 110px
+    margin-top 30px
+    opacity 1
+
+  50%
+    height 110px
+    margin-top 30px
+    opacity 0
+
+  100%
+    height 0
+    margin-top 0
+    opacity 0
+
+@keyframes fadeout
+  from
+    opacity 1
+
+  to
+    opacity 0

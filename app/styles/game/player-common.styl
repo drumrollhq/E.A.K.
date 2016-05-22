@@ -1,0 +1,22 @@
+player-theme(name, front = true)
+  root = '/content/common/' + name
+
+  bg(selector, name, ext = 'png')
+    .{selector}
+      background-image url(root + '/' + name + '.' + ext)
+
+  bg 'player-body' 'body'
+  bg 'player-face' 'head'
+  bg 'player-eyes' 'eye-01'
+
+  if front
+    bg 'player-ear-left' 'ear-left'
+    bg 'player-ear-right' 'ear-right'
+    bg 'player-leg-left' 'leg-left'
+    bg 'player-leg-right' 'leg-right'
+  else
+    bg 'player-ear-left' 'ear-front'
+    bg 'player-ear-right' 'ear-back'
+    bg 'player-leg-left' 'leg-front'
+    bg 'player-leg-right' 'leg-back'
+

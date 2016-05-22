@@ -1,0 +1,61 @@
+set audio-root = '/audio/conversations/before-arca-codes'
+
+Lao [neutral track:01-pink-pantaloons]: Pink pantaloons! You should be more careful... this would have never happened in my day.
+Lao [angry track:02-puffin]: You could have flown on your gentleman puffin... or coded your way across, or even just walked around!
+Lao [neutral track:03-fling]: But no, you had to fling yourself off a ledge.
+Arca:
+	- Thanks for saving me! My name is Arca. Who are you? -> who
+	- I don't have a gentleman puffin... -> puffin
+
+# menu
+Arca:
+	- (unless asked-who) Who are you? -> who
+	- (if asked-who and not asked-oracle) What's an Oracle? -> oracle
+	- (unless asked-imagination) [quizzical] Are you a figment of my imagination? -> imagination
+	- (if asked-who) So what's this code thing? -> code
+
+# who
+set asked-who
+set game.lao.arca-asked-who
+Lao [neutral track:04-lao]: I am Lao, and I am the Oracle. I am one of the few creatures left who practices the ancient art of coding. This is my apprentice, Ada.
+Ada [neutral track:01-hey]: Hey
+go menu
+
+# puffin
+set game.arca.wants-puffin
+Lao [shocked track:05-preposterous]: Oh how preposterous! I don’t know what I would do without my dearest Cecil.
+Lao [neutral track:06-munchkin]: Such a cute little munchkin...
+Cecil [angry track:cecil-nigel]: Alright mate, that’s enough o’ that.
+Arca:
+	- [neutral] Thanks for saving me. My name is Arca. Who are you? -> who
+	- [quizzical] Uhh... Ok. I'm Arca, by the way. Are you a figment of my imagination? -> imagination
+
+# oracle
+set asked-oracle
+Ada [neutral track:02-ancient]: Oracles are ancient dinosaur eggs that never hatched
+Lao [angry track:07-isnt-true]: Ada! That isn't true.
+Lao [neutral track:08-skinny-dips]: An oracle is one who regularly skinny-dips in the sea of wisdom.
+go menu
+
+# imagination
+set asked-imagination
+Lao [thoughtful track:09-vegan-sausage]: Fascinating question my dear vegan sausage. Some say we are all figments of the Internewt's imagination. I've met him though - he really isn't that creative.
+set view.player = 'arca neutral'
+go menu
+
+# code
+Lao [angry track:10-bah-youngsters]: Bah! Youngsters these days... Everything in the internet universe is made with code. It gives you the power to change our world and create anything you can imagine.
+Lao [thoughtful track:11-ancient-times]: In ancient times, every internet creature could code - but now it has been forgotten.
+set view.player = 'arca neutral'
+Arca:
+	- Could I learn to code?
+		Lao [neutral track:12-doubt-it option:run-on]: Hmm... I doubt it.
+		Lao [neutral track:15-tremendous]: Tremendous focus is required! You must feel the code in everything around you.
+		set game.arca.code-opinion = 'eager'
+	- Coding sounds really difficult...
+		Lao [neutral track:13-easier]: It is easier than you think! However, tremendous focus is required! You must feel the code in everything around you.
+		set game.arca.code-opinion = 'difficult'
+	- [cheeky] Boring! I'd rather have a gentleman puffin
+		Lao [angry track:14-create-anything]: If you think being able to create anything you want is boring... Hmph! Absolute nonsense.
+		Lao [neutral track:15-tremendous]: Tremendous focus is required! You must feel the code in everything around you.
+		set game.arca.code-opinion = 'boring'

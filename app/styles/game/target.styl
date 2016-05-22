@@ -1,11 +1,11 @@
-.level .entity.entity-target
+.entity.entity-target
   width 48px
   height 52px
   margin-left -24px
   margin-top -26px
   position absolute
   text-align left
-  z-index 10000
+  z-index 50
 
   canvas
     position absolute
@@ -23,10 +23,12 @@
     z-index 10001
     background-size cover
     background-position center
+    display none
 
   &.found .kitten-anim
     animation target-exit 5s 0.3s ease
     animation-fill-mode forwards
+    display block
 
   &.found canvas
     animation target-fade-out 2s 1s linear

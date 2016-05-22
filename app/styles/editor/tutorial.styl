@@ -1,211 +1,47 @@
-.editor-tutorial
-  border-top 1px solid lighten(black, 90%)
-
-  body:not(.has-tutorial) &
-    display none
-
-  display flex
-  flex-flow column no-wrap
-
-  .content-container
-    position relative
-    flex 1
-    display flex
-    justify-content center
-    align-items center
-    text-align center
-
-  .egg
-    position absolute
-    top 50%
-    height 134px
-    width 100px
-    margin-top -67px
-    opacity 0
-
-    img
-      width 100px
-      display block
-      position absolute
-      right 12.5px
-
-  .egg-left
-    .egg
-      left 20px
-      opacity 1
-      animation content-egg-in-left 0.3s ease-out
-
-    .content
-      transform translateX(55px)
-
-    &.egg-hide
-      .egg
-        opacity 0
-        transform translateX(-55px)
-        animation content-egg-out-left 0.3s ease-in
-
-      .content
-        transform translateX(0)
-
-  .egg-right
-    .egg
-      right 20px
-      opacity 1
-      animation content-egg-in-right 0.3s ease-out
-
-    .content
-      transform translateX(-55px)
-
-    &.egg-hide
-      .egg
-        opacity 0
-        transform translateX(55px)
-        animation content-egg-out-right 0.3s ease-in
-
-      .content
-        transform translateX(0)
-
-  .controls
-    border-top 1px solid lighten(black, 90%)
-    flex-basis 50px
-    display flex
-    flex-flow row nowrap
-
-    > button
-      @extend .topbar button
-      display block
-      padding 0
-      margin 0
-      line-height 50px
-      text-align center
-      border none
-      border-right 1px solid lighten(black, 90%)
-
-      &:last-child
-        border-right none
-
-      &:disabled
-        opacity 0.5
-        pointer-events none
-        cursor not-allowed
-
-    .play-pause, .prev, .next
-      flex-basis 50px
-
-    .step
-      flex 1
-      position relative
-
-      &.active
-        background lighten(eakPurple, 85%)
-
-      &.locked
-        .number
-          opacity 0
-
-        .lock-sign, .extra
-          opacity 1
-
-    .lock-sign, .extra
-      position absolute
-      width 100%
-      left 0
-      top 7px
-      opacity 0
-      transition opacity 0.3s ease
-
-    .extra
-      top 0
-      font-weight 300
-      font-size 20px
-
-    .number
-      opacity 1
-      transition opacity 0.3s ease
-
-    .progress
-      position absolute
-      left 0
-      bottom 0
-      height 5px
-      background eakPurple
-
-    .fa
-      font-size 30px
-
-.editor-tutorial .content
-  font-weight 300
-  color lighten(black, 40%)
-  margin-left 60px
-  margin-right 60px
-  transition all 0.3s ease
-
-  code
-    font-weight 400
-    font-family codeFonts
-
-  .fade
-    transition all 0.5s ease
-    opacity 0
-
-    &.active
-      opacity 1
-
-  .deem
-    opacity 0.5
-    font-size 0.75em
-
-  .important
-    color black
-    font-size 1.5em
-
 .action-highlight
   position absolute
   z-index 999999
   animation action-highlight-pulse 0.5s linear alternate infinite
   animation-play-state running !important
+  pointer-events none
 
 .highlight-action
   animation code-highlight-pulse 0.5s ease-in-out alternate infinite
 
-.egg-helper
-  eggScale = 0.75
-  width 100px * eggScale
-  height 134px * eggScale
+.tutorial-step-btn
+  animation tutorial-step-btn-in 0.3s easeOutBack backwards
+
+.tutorial-speech
   position absolute
-  margin-left -50px * eggScale
-  margin-top -67px * eggScale
-  z-index 100000000
+  z-index 100
+  top 0
+  left 0
+  right 130px
+  transition all 0.5s ease
 
-  &.egg-glow
-    width 185px * eggScale
-    height 220px * eggScale
-    margin-left -92.5px * eggScale
-    margin-top -110px * eggScale
+.tutorial-speech-img
+  position absolute
+  width 100px
+  z-index 10
 
-  &.enter-top
-    animation egg-top 0.3s ease-out
+.tutorial-speech-msg
+  position absolute
+  background white
+  box-shadow 0 2px 6px rgba(0, 0, 0, 0.2)
+  border-radius 10px
+  top 10px
+  left 45px
+  padding 10px
+  padding-left 65px
 
-  &.exit-top
-    animation egg-top 0.3s ease-out reverse
+@keyframes tutorial-step-btn-in
+  from
+    opacity 0
+    transform scale(0)
 
-  &.enter-bottom
-    animation egg-bottom 0.3s ease-out
-
-  &.exit-bottom
-    animation egg-bottom 0.3s ease-out reverse
-
-  &.enter-left
-    animation egg-left 0.3s ease-out
-
-  &.exit-left
-    animation egg-left 0.3s ease-out reverse
-
-  &.enter-right
-    animation egg-right 0.3s ease-out
-
-  &.exit-right
-    animation egg-right 0.3s ease-out reverse
+  to
+    opacity 1
+    transform scale(1)
 
 @keyframes action-highlight-pulse
   from
@@ -220,72 +56,3 @@
 
   to
     background-color lighten(eakPurple, 80%)
-
-@keyframes content-egg-in-left
-  from
-    transform translateX(-55px)
-
-  to
-    transform translateX(0)
-
-@keyframes content-egg-in-right
-  from
-    transform translateX(55px)
-
-  to
-    transform translateX(0)
-
-@keyframes content-egg-out-left
-  from
-    opacity 1
-    transform translateX(0)
-
-  to
-    opacity 0
-    transform translateX(-55px)
-
-@keyframes content-egg-out-right
-  from
-    opacity 1
-    transform translateX(0)
-
-  to
-    opacity 0
-    transform translateX(55px)
-
-eggMove = 100px
-@keyframes egg-top
-  from
-    opacity 0
-    transform translateY(- eggMove)
-
-  to
-    opacity 1
-    transform translateY(0)
-
-@keyframes egg-bottom
-  from
-    opacity 0
-    transform translateY(eggMove)
-
-  to
-    opacity 1
-    transform translateY(0)
-
-@keyframes egg-left
-  from
-    opacity 0
-    transform translateX(- eggMove)
-
-  to
-    opacity 1
-    transform translateX(0)
-
-@keyframes egg-right
-  from
-    opacity 0
-    transform translateX(eggMove)
-
-  to
-    opacity 1
-    transform translateX(0)

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Engine Beta - SS Glitterpotato</title>
+
+    <meta name="slowparse:disableOmittableCloseTags">
+    <meta name="size" content="450 320">
+    <meta name="player" content="40 290">
+    <meta name="editable" content="true">
+    <meta name="borders" content="right">
+    <meta name="glitch">
+    <meta name="format-code" content="false">
+
+    <style>
+      .floor {
+        position: absolute;
+        bottom: -15px;
+        width: 100%;
+        height: 30px;
+      }
+
+      p {
+        width: 150px;
+        margin: auto;
+        margin-top: 100px;
+        padding: 10px;
+        background: #aaa;
+        font-family: 'Consolas', 'Menlo', monospace;
+        text-align: center;
+        content: 'data-ignore: true, class: show-glitch';
+        color: #7DF9FF;
+        text-shadow: 0 0 10px #7DF9FF;
+      }
+
+      .symbol {
+        position: absolute;
+        top: 6px;
+        right: 29px;
+        width: 43px;
+        height: 43px;
+        background-image: url('/content/2-spaceship/green-light.png');
+        background-size: 100% 100%;
+      }
+
+      body.has-errors .symbol {
+        background-image: url('/content/2-spaceship/red-light.png');
+      }
+
+      body.has-errors p {
+        color: red;
+        text-shadow: 0 0 10px red;
+        content: 'data-ignore: true, class: show-glitch force-slowparse-error'
+      }
+
+      body.has-errors p p {
+        display: none;
+      }
+    </style>
+
+    <hidden>
+      <div class="floor"></div>
+      <div class="symbol" data-ignore></div>
+      <div data-sprite="/content/2-spaceship/drop" data-sprite-size="450x320" data-sprite-pos="0 0" data-sprite-delay="0.5-5" data-layer="background" data-ignore></div>
+      <div data-sprite="/content/2-spaceship/water-tank" data-sprite-size="450x320" data-sprite-pos="0 0" data-sprite-delay="0.5-5" data-layer="background" data-ignore></div>
+      <div data-sprite="/content/2-spaceship/dial-1" data-sprite-size="450x320" data-sprite-pos="-35 -25" data-sprite-delay="0.1-1" data-layer="background" data-ignore></div>
+    </hidden>
+  </head>
+  <body>
+    <p> Engine β <p>
+  </body>
+</html>

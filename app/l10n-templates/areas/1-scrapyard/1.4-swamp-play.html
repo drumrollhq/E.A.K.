@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Canyon</title>
+
+    <meta name="size" content="780 335">
+    <meta name="player" content="40 232">
+    <meta name="targets" content="570 123">
+    <meta name="editable" content="false">
+
+    <style>
+      .floor-a {
+        position: absolute;
+        bottom: 0;
+        height: 40px;
+        left: 0;
+        width: 315px;
+      }
+
+      .floor-b {
+        position: absolute;
+        bottom: 0;
+        height: 40px;
+        left: 380px;
+        width: 310px;
+      }
+
+      .ledge {
+        position: absolute;
+        bottom: 40px;
+        width: 490px;
+      }
+
+      .a {
+        height: 45px;
+        left: 440px;
+      }
+
+      .b {
+        height: 150px;
+        left: 520px
+      }
+
+      .c {
+        height: 220px;
+        left: 620px;
+      }
+
+      .cave-top {
+        position: absolute;
+        top: -73px;
+        right: -350px;
+        width: 400px;
+        height: 50px;
+      }
+
+      img {
+        position: absolute;
+        top: -57px;
+        right: -45px;
+        z-index: 110;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="floor-a"></div>
+    <div class="floor-b"></div>
+    <div class="ledge a"></div>
+    <div class="ledge b"></div>
+    <div class="ledge c"></div>
+    <div class="cave-top"></div>
+    <img width="127" height="136" src="/content/1-scrapyard/cave-entrance-overlay.png" data-ignore>
+    <div data-actor="fading-panel show"
+      data-layer-background="/content/1-scrapyard/cave-underlay.png"
+      data-layer-effects="/content/1-scrapyard/cave-overlay.png"
+      data-extend-left="100" data-extend-right="100"
+      style="position: absolute; top: -54px; left: 797px; width: 260px; height: 156px;"></div>
+    <div class="cloud-a" style="top: -170px; left: 440px;" data-ignore></div>
+  </body>
+</html>

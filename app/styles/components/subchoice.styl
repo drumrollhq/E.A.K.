@@ -1,0 +1,49 @@
+.subchoice
+  display table
+  width 100%
+  padding-top 20px
+
+.subchoice-item-cont
+  display table-cell
+  width 33.33%
+  vertical-align top
+  padding 10px
+
+  h3
+    padding-top 30px
+    height 60px
+
+subchoice-hover-scale = 1.2
+.subchoice-item
+  position relative
+  width 100%
+  padding-bottom 10px
+  z-index 1
+  background-color rgba(saturate(darken(eakSkyBlue, 10%), 100%), 0.3)
+  transition all 0.3s ease
+  cursor pointer
+
+  &:hover
+    transform scale(subchoice-hover-scale)
+    z-index 10
+
+subchoice-emph-scale = 1.1
+.subchoice-item-emph
+  transform scale(subchoice-emph-scale)
+  background rgba(white, 0.5)
+
+  &:hover
+    transform scale(subchoice-emph-scale * subchoice-hover-scale)
+
+.subchoice-item-amount
+  font-family brandFont
+  font-size 1.7em
+
+.subchoice-item-period
+  vertical-align bottom
+  font-size 0.8em
+
+.subchoice-item-features
+  list-style disc
+  padding-left 30px
+  font-size 0.9em

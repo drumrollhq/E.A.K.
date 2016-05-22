@@ -1,0 +1,23 @@
+colours = {
+  cave: #4C4644
+  cave-a: #3F3A39
+  cave-b: #33302F
+  cave-c: #302D2C
+  cave-d: #282525
+  lighten-2: rgba(white, 0.2)
+  red: #FF0000
+}
+
+sizes = {
+  small: { height: 7px, slope: 10px, padding: 5px }
+  medium: { height: 12px, slope: 16px, padding: 10px }
+  large: { height: 16px, slope: 22px, padding: 15px }
+}
+
+for colourName, colour in colours {
+  for sizeName, size in sizes {
+    .perspective-{colourName + '-' + sizeName} {
+      perspective-top(colour, size.height, size.slope, size.padding)
+    }
+  }
+}

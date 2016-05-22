@@ -1,0 +1,24 @@
+Hobo: Nice work spud! You found the perfect place for Dusty and I.
+go menu
+
+# menu
+Arca:
+	- Er...can I go now? -> go
+	- (unless asked-explore) Good luck on your date! -> good-luck
+	- (unless asked-romantic) I'm sure it'll be very romantic. -> romantic
+
+# romantic
+set asked-romantic
+Hobo: Dusty and me, sitting in a tree, K.I.S.S.I.N.G. Oh Dusty, I love you!
+go menu
+
+# good-luck 
+set asked-go
+Hobo: Thanks spud! I haven't been this excited since mother used her generous proportions, to shield us from the great Candy Floss Tornado of '93. Powerful woman, you know? Strong ankles.
+Hobo: Thanks spud! I haven't been this excited since 
+go menu
+
+# go
+set asked-go
+Hobo: Yes, but you'll have to wait till I get back. Can't be late for my date!
+go finish

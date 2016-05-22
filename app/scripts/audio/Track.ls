@@ -1,7 +1,7 @@
 require! {
   'audio/context'
   'audio/tracks'
-  'channels'
+  'lib/channels'
 }
 
 unless context then return module.exports = false

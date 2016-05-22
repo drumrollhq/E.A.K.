@@ -1,0 +1,55 @@
+.bananabird
+  width 100px
+  height 93px
+  position absolute
+  animation bananabird-body 0.4s ease-in-out infinite alternate
+
+.bananabird-body
+  background-image url('/entities/bananabird/bananabird-nowings.png')
+  background-size 100% 100%
+  width 100px
+  height 93px
+  position absolute
+  z-index 3
+
+.bananabird-wing-1
+  width 42px
+  height 42px
+  top 10px
+  left 58px
+  position absolute
+  z-index 2
+  background-image url('/entities/bananabird/bananabird-wing-1.png')
+  background-size 100% 100%
+  animation bananabird-wing-1 0.2s ease-in-out infinite alternate
+
+.bananabird-wing-2
+  width 29px
+  height 36px
+  top 12px
+  left 55px
+  position absolute
+  background-image url('/entities/bananabird/bananabird-wing-2.png')
+  background-size 100% 100%
+  animation bananabird-wing-2 0.2s ease-in-out infinite alternate
+
+@keyframes bananabird-body
+  from
+    transform translate(0, 0)
+
+  to
+    transform translate(0, 7px)
+
+@keyframes bananabird-wing-1
+  from
+    transform none
+
+  to
+    transform scaleY(0.6) translate(6px, 18px) rotate(20deg)
+
+@keyframes bananabird-wing-2
+  from
+    transform none
+
+  to
+    transform scaleY(0.8) rotate(10deg) translate(4px, 10px)

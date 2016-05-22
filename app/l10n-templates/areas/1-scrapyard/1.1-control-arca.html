@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Arca's Scrapyard</title>
+
+    <meta name="size" content="780 585">
+    <meta name="player" content="60 520">
+    <meta name="targets" content="590 527">
+    <meta name="editable" content="false">
+
+    <hints>
+      <pointer scope=".scene .dom-layer" name="leftright"
+        target=".player"
+        enter="time: 1000"
+        exit="key-down: left, right, a, d"
+        exit-delay="500"
+        position="above">
+        This is you! You can move left and right with the <kbd>←</kbd> and <kbd>→</kbd> keys.
+      </pointer>
+      <pointer scoped name="jump"
+        target=".computer-junk"
+        enter="hint: leftright:exit"
+        exit="key-down: up, space, w"
+        position="right">
+        Jump using the <kbd>space</kbd> or <kbd>↑</kbd> keys.
+      </pointer>
+      <pointer scoped name="target"
+        target=".entity-target"
+        enter="hint: jump:exit"
+        exit="contact: start: ENTITY_PLAYER + ENTITY_KITTENBOX"
+        position="right">
+        Move over to this kitten to rescue it. You need to rescue all the kittens you find!
+      </pointer>
+    </hints>
+
+    <style>
+      .floor {
+        width: 1030px;
+        height: 30px;
+        position: absolute;
+        left: -250px;
+        bottom: 0px;
+      }
+
+      .computer-junk {
+        position: absolute;
+        bottom: 29px;
+        left: 300px;
+        width: 89px;
+        height: 100px;
+      }
+
+      .computer-junk:before {
+        content: ' ';
+        width: 97px;
+        height: 100px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-image: url('/content/1-scrapyard/computer-junk.png');
+        background-size: 97px 100px;
+        background-position: top right;
+      }
+
+      .fan {
+        width: 67px;
+        height: 67px;
+        position: absolute;
+      }
+
+      .fan:after {
+        content: ' ';
+        display: block;
+        position: absolute;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        background-image: url('/content/1-scrapyard/fan-overlay.png');
+        background-size: 100% 100%;
+      }
+
+      .fan-blades {
+        z-index: 1;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: url('/content/1-scrapyard/fan-blades.png');
+        background-size: 100% 100%;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+      }
+    </style>
+
+    <hidden>
+      <div class="flashing-light-red" style="top: 310px; left: 197px;" data-ignore></div>
+      <div class="flashing-light-green" style="top: 310px; left: 207px;" data-ignore></div>
+      <div class="fan" style="top: 322px; left: 74px;" data-ignore>
+        <div class="fan-blades"></div>
+      </div>
+      <div class="hint-helper" style="position: absolute; bottom: 350px; right: -10px; width: 10px; height: 10px;" data-ignore></div>
+    </hidden>
+  </head>
+  <body>
+    <div class="floor"></div>
+    <div class="computer-junk"></div>
+  </body>
+</html>

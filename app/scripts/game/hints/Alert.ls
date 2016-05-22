@@ -1,4 +1,4 @@
-require! 'channels'
+require! 'lib/channels'
 
 module.exports = class AlertPointer extends Backbone.View
   initialize: (hint) ~> @message = hint.content

@@ -19,3 +19,6 @@ else
   module.exports = false
 
 module.exports.format = format
+
+module.exports.decode-audio-data-async = (data) -> new Promise (resolve, reject) ->
+  module.exports.decode-audio-data data, resolve, reject

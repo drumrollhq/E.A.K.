@@ -1,0 +1,195 @@
+#conversation-container
+  display none
+  position fixed
+  top 0
+  left 0
+  width 100%
+  height 100%
+  z-index 9000
+
+  &.active
+    display block
+    animation fadein 0.5s linear
+
+  .conversation
+    width 100%
+    height 100%
+    overflow auto
+
+.conversation
+  background-color eakSkyBlue
+  background-size cover
+  background-position center
+  font-size 16px
+
+  .conversation-lines
+    position absolute
+    top 0
+    left calc('28% - 30px')
+    width calc('44% + 60px')
+    height 100%
+    display flex
+    flex-direction column
+    padding 0 15px
+    background rgba(eakSkyBlue, 0.9)
+
+    > ul
+      overflow auto
+      overflow-x hidden
+      padding 0 15px
+      order 1
+      flex 2
+
+  .conversation-line
+    position relative
+    margin 30px 0 0 0
+    padding 15px
+    background rgba(white, 0.5)
+    width auto
+    max-width 80%
+    clear both
+    float left
+    border-radius 10px
+    transform-origin bottom left
+
+    &:after
+      content ''
+      display block
+      width 0
+      height 0
+      position absolute
+      left -30px
+      top 50%
+      margin-top -15px
+      border 15px solid transparent
+      border-right-color rgba(white, 0.5)
+
+  .conversation-line-enter
+    transition all 0.3s ease
+    transform scale(0.6)
+    opacity 0
+
+  .conversation-line-enter-active
+    transform scale(1)
+    opacity 1
+
+  .conversation-line-player
+    float right
+    transform-origin bottom right
+
+    &:after
+      border-left-color rgba(white, 0.5)
+      border-right-color transparent
+      right -30px
+      left auto
+
+    .conversation-line-speaker
+      right 15px
+
+  .conversation-line-line
+    display inline
+
+  .conversation-line-speaker
+    display block
+    position absolute
+    top -25px
+    font-weight 300
+    font-size 0.8em
+
+  .conversation-line-play
+    display block
+    width 30px
+    height 30px
+    position absolute
+    top 50%
+    margin-top -15px
+    right -30px
+    cursor pointer
+    text-align center
+    font-size 22px
+    opacity 0
+    transition opacity 0.3s ease
+    background-color rgba(white, 0.5)
+    border-top-right-radius 5px
+    border-bottom-right-radius 5px
+
+    &::before
+      content '\f028'
+      font-family FontAwesome
+
+    &.playing::before
+      content '\f00d'
+
+  .conversation-line:hover .conversation-line-play
+    opacity 1
+
+  .conversation-speaker
+    position absolute
+    bottom 0
+    width 25%
+    height 100%
+
+    img
+      position absolute
+      display block
+      width 100%
+      bottom 0
+
+  .conversation-speaker-left
+    left 0
+
+  .conversation-speaker-right
+    right 0
+
+  .conversation-speaker-enter
+    opacity 0
+    transition opacity 0.2s linear
+
+  .conversation-speaker-enter-active
+    opacity 1
+
+  .conversation-speaker-leave
+    opacity 1
+    transition opacity 0.2s linear
+
+  .conversation-speaker-leave-active
+    opacity 0
+
+  .conversation-choice
+    order 2
+    min-height 240px
+    opacity 0
+    transition all 0.2s ease
+    text-align center
+
+    &.active
+      opacity 1
+
+    h4
+      margin-top 20px
+      font-weight 300
+      font-size 1.2em
+
+    .choice
+      margin 10px
+      display block
+
+      a
+        cursor pointer
+        display inline-block
+        padding 10px 15px
+        background rgba(white, 0.5)
+        border-radius 10px
+        border 2px solid rgba(eakPurple, 0.3)
+        transition all 0.2s ease
+
+        &:hover
+          box-shadow 0 0 5px rgba(eakPurple, 0.5)
+
+  .skip-all
+    position absolute
+    width 100%
+    margin-left -50%
+    bottom 10px
+    text-decoration underline
+    cursor pointer

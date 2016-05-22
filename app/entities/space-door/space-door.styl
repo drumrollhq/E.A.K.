@@ -1,0 +1,12 @@
+.space-door
+  position absolute
+  width 32px
+  height 135px
+
+  &::before
+    content ' '
+    entity '/entities/space-door/space-door.png' 32px 135px
+    transition all 0.5s ease
+
+  &.door-open::before
+    transform translateY(-100px)
