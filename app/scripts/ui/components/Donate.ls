@@ -88,8 +88,8 @@ module.exports = React.create-class do
 
   render: ->
     loader.toggle @state.loading || not @state.stripe-handler, 'Loading...',
-      dom.div class-name: 'cont clearfix', style: {max-width: 550px},
-        dom.h2 style: {margin-bottom: \2rem}, 'Want more levels?'
+      dom.div class-name: 'cont clearfix', style: {max-width: 580px},
+        dom.h2 style: {margin-bottom: \2rem}, 'Help us build more levels'
         dom.p style: {text-align: \center}, '''
           If you’d like to see E.A.K. turn into an epic Mario-meets-Minecraft style game,
           please support us by making a donation!'''

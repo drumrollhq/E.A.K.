@@ -1,6 +1,6 @@
 {
-  "name": "web-platformer",
-  "version": "0.0.0",
+  "name": "eak",
+  "version": "1.0.0",
   "description": "",
   "scripts": {
     "test": "./node_modules/.bin/gulp test"
