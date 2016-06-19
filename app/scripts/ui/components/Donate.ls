@@ -94,9 +94,6 @@ module.exports = React.create-class do
           If you’d like to see E.A.K. turn into an epic Mario-meets-Minecraft style game,
           please support us by making a donation!'''
         dom.p style: {text-align: \center}, '''
-          We'd love to create more levels, and tools for you to build your own - but we need
-          your help to do so.'''
-        dom.p style: {text-align: \center}, '''
           To say thanks, we’ll send you a copy of the full game for free, when it’s released :)'''
         dom.form on-submit: @handle-submit, style: {max-width: 400px, margin: \auto, margin-top: \3rem},
           error-panel-list 'A wild error message appears!', @state.errors
