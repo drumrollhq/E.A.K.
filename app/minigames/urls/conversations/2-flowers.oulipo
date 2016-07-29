@@ -1,8 +1,10 @@
+set audio-root = '/audio/3.2'
+
 set view.characters.hobo.image = 'buttstacks'
 set view.characters.hobo.name = 'Boris J. Buttstacks'
 
-Hobo [smug]: Ahhh... my precious pickles. 
-Hobo [neutral]: Not the ones I wanted, but close enough I suppose!
+Hobo [smug track:01c-precious-pickles]: Ahhh... my precious pickles.
+Hobo [neutral track:02c-not-the-ones]: Not the ones I wanted, but close enough I suppose!
 
 go menu
 
@@ -21,17 +23,17 @@ Arca:
 
 # what-else
 set asked-what-else
-Hobo [smug]: Well as you know I’m a bit of a celebrity, being the mayor and all... What can I say, it brings success with the ladies! I've got a date tonight with a very special lady, and it must be perfect. So i'll need flowers. To woo her, understand? I've read that they love flowers. That and clocks.
+Hobo [smug track:03b-need-flowers]: Well as you know I’m a bit of a celebrity, being the mayor and all... What can I say, it brings success with the ladies! I've got a date tonight with a very special lady, and it must be perfect. So i'll need flowers. To woo her, understand? I've read that they love flowers. That and clocks.
 go menu
 
 # which-onions
 set asked-which-onions
-Hobo [irritated]: Vintage '95. You got me Vintage '97. Not pungent enough for my sophisticated palate.
+Hobo [irritated track:04b-vintage]: Vintage '95. You got me Vintage '97. Not pungent enough for my sophisticated palate.
 go menu
 
 # onions-are-onions
 set onions-are-onions
-Hobo [irritated]: You don't know what you're talkin' about. Although we can't all be pickled onion connessieurs.
+Hobo [irritated track:05b-connoisseurs]: You don't know what you're talkin' about. Although we can't all be pickled onion connessieurs.
 go menu
 
 # menu-what-type
@@ -41,12 +43,12 @@ Arca:
 
 # what-type
 set asked-what-type
-Hobo [neutral]: Hmmm... I want the biggest bunch of the fluffiest dandelions you ever saw. They're like a man's heart you know? The softest blow can destroy them... 
+Hobo [neutral track:06d-dandelions]: Hmmm... I want the biggest bunch of the fluffiest dandelions you ever saw. They're like a man's heart you know? The softest blow can destroy them...
 go menu
 
 # clocks
 set asked-clocks
-Hobo [irritated]: To tell the time of course. You obviously haven't read Fellows are from Mongo, Fillies are from Marmington. Clueless critter.
+Hobo [irritated track:07b-tell-time]: To tell the time of course. You obviously haven't read Fellows are from Mongo, Fillies are from Marmington. Clueless critter.
 go menu
 
 # menu-where
@@ -57,17 +59,15 @@ Arca:
 
 # careful
 set asked-careful
-Hobo [smug]: Good. I want her to swoon at the sight of me holding them.
+Hobo [smug track:08a-swoon]: Good. I want her to swoon at the sight of me holding them.
 go menu
-	
+
 # love
 set asked-love
-Hobo [smug]: Of course she will! Much more subtle than roses. 
+Hobo [smug track:09b-roses]: Of course she will! Much more subtle than roses.
 go menu
 
 # where
 set asked-where
-Hobo [neutral]: The flower stall in Flee Market - here's another URL so you can find them.
+Hobo [neutral track:10a-flowerstall]: The flower stall in Flee Market - here's another URL so you can find them.
 continue
-
-
