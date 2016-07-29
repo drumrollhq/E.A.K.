@@ -1,14 +1,16 @@
+set audio-root = '/audio/3.5'
+
 set view.characters.hobo.image = 'buttstacks'
 set view.characters.hobo.name = 'Boris J. Buttstacks'
 
 exec alert("Play cutscene showing buttstacks and dusty walking off. Sign comes up saying 'some time later' or words to that effect. Buttstacks is seen running back down the road towards Arca, clearly distraught.")
 
 
-Hobo [bawling]: The date's off! Dusty broke up with me! How could she do this to me?
+Hobo [bawling track:01a-bawling]: The date's off! Dusty broke up with me! How could she do this to me?
 go menu
 
 [--------------top menu--------------]
-#menu 
+#menu
 branch
 	- (if asked-talk) go arca-where
 	- (if asked-cupboard) go arca-talk
@@ -22,7 +24,7 @@ Arca:
 	- (unless asked-cupboard) Don't be sad Boris... there are plenty of other mops in the cupboard -> hobo-cupboard
 
 #arca-talk
-Arca: 
+Arca:
   - (unless asked-forget) Um... I think you should try and forget about her. Maybe go on holiday? -> hobo-forget
   - (unless asked-hoover) Why don't you buy a hoover? Or take up yodelling? -> hobo-hoover
   - (unless asked-talk) Talk to your closest friends - it always helps when you're feeling sad. I used to talk to my kittens, but now they've gone... I really need to find them. Can you let me pass now? -> hobo-talk
@@ -37,51 +39,52 @@ Arca:
 #hobo-mop
 set asked-mop
 
-Hobo [pissed]: A mop?! A she-devil more like! I told her all my secrets, told her she was the one. And then she tells me she needs space. Space! My cupboard is huge! It must be me.
+Hobo [pissed track:02a-she-devil]: A mop?! A she-devil more like! I told her all my secrets, told her she was the one. And then she tells me she needs space. Space! My cupboard is huge! It must be me.
 go arca-talk
 
 #hobo-what
 set asked-what
 
-Hobo [bawling]: I told her all my secrets, told her she was the one. And then she goes and tells me she needs space. Space! I am Mayor Boris J Buttstacks. And I'm not going to let some fancy squeegee treat me like dirt. 
+Hobo [bawling track:03a-fancy-squeegee]: I told her all my secrets, told her she was the one. And then she goes and tells me she needs space. Space! I am Mayor Boris J Buttstacks. And I'm not going to let some fancy squeegee treat me like dirt.
 go arca-talk
 
 #hobo-cupboard
 set asked-cupboard
 
-Hobo [bawling]: I don't care about other mops! I care about her! What should I do?
+Hobo [bawling track:04c-care-about]: I don't care about other mops! I care about her! What should I do?
 go arca-talk
 
 #hobo-forget
 set asked-forget
 
-Hobo [pissed]: Newt's head on a stick! I'm. The. Mayor. I can't go taking holidays. 
-Hobo: My brain is clouded with sadness and betrayal... can you help me get back home?
+Hobo [pissed track:05c-newts-head]: Newt's head on a stick!
+Hobo [pissed track:06b-mayor-holidays]: I'm. The. Mayor. I can't go taking holidays.
+Hobo [neutral track:07g-sadness-betrayal]: My brain is clouded with sadness and betrayal... can you help me get back home?
 go arca-where
 
 #hobo-hoover
 set asked-hoover
 
-Hobo [pissed]: Whaaat?! I'd never cheat on Dusty with a hoover! I could try yodelling... 
-Hobo: She used to love it when I yelled sweet nothings in her ear... Could you take me back to my park, please? 
+Hobo [pissed track:08c-yoddeling]: Whaaat?! I'd never cheat on Dusty with a hoover! I could try yodelling...
+Hobo [crying track:09a-sweet-nothings]: She used to love it when I yelled sweet nothings in her ear... Could you take me back to my park, please?
 go arca-where
 
 #hobo-talk
 set asked-talk
 
-Hobo [sceptical]: Hmph. Talking to kittens sounds pretty crazy to me. Besides, my heart feels like it's been smashed into a trillion pieces. I can't think straight... 
-Hobo [crying]: Take me back to my park.. please?
+Hobo [sceptical track:10a-talking-kittens]: Hmph. Talking to kittens sounds pretty crazy to me. Besides, my heart feels like it's been smashed into a trillion pieces. I can't think straight...
+Hobo [crying track:11c-park-please]: Take me back to my park.. please?
 go arca-where
 
 #hobo-how
 set asked-how
 
-Hobo [crying]: I live in a park with a park bench... that's all I can tell you right now. 
-Hobo [bawling]: It hurts! It hurts so bad... Oh Dusty, how could you do this to me? Please help me find my way home...
+Hobo [crying track:12d-live-park]: I live in a park with a park bench... that's all I can tell you right now.
+Hobo [bawling track:13a-it-hurts]: It hurts! It hurts so bad... Oh Dusty, how could you do this to me? Please help me find my way home...
 go finish
 
 #hobo-hmm
 set asked-hmm
 
-Hobo [crying]: Please spud, I need help! No more tasks after this, I promise.
+Hobo [crying track:14c-please-spud]: Please spud, I need help! No more tasks after this, I promise.
 go arca-where
