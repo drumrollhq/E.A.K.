@@ -1,0 +1,8 @@
+1 = neutral.png
+2 = omg.png
+3 = bored.png
+4 = twitch.png
+5 = squinting.png
+6 = cheeky.png
+7 = crying.png
+8 = quizzical.png

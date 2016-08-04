@@ -1,24 +1,26 @@
+set audio-root = '/audio/3.1'
+
 set view.characters.hobo.image = 'buttstacks'
 set view.characters.hobo.name = 'Boris J. Buttstacks'
 
-Hobo [worried]: Allo there... where d'ya think you're goin'? Just waltzin' into town? You ain't gettin' through unless I say so.
+Hobo [angry track:01c-hello]: Allo there... where d'ya think you're goin'? Just waltzin' into town? You ain't gettin' through unless I say so.
 go menu-kittens
 
 # menu-kittens
 Arca:
-	- Who are you? -> who
-	- (unless asked-passage) I don't have much time - can't you just let me pass? -> passage
-	- (unless asked-kittens) I'm here to look for missing kittens - have you heard anything? -> kittens
-	- (unless asked-clothes) Why are your clothes so dirty? -> clothes
+	- [neutral] Who are you? -> who
+	- (unless asked-passage) [twitch] I don't have much time - can't you just let me pass? -> passage
+	- (unless asked-kittens) [neutral] I'm here to look for missing kittens - have you heard anything? -> kittens
+	- (unless asked-clothes) [neutral] Why are your clothes so dirty? -> clothes
 
 # passage
 set asked-passage
-Hobo [irritated]: I'm afraid I can't do that. This is my town. I'm the mayor. Completely legit. Understand?
+Hobo [angry track:02f-dont-pass]: I'm afraid I can't do that. This is my town. I'm the mayor. Completely legit. Understand?
 go menu-kittens
 
 # kittens
 set asked-kittens
-Hobo [worried]: Strange ya mentioned that. A funny lookin' chap with a tail came an' asked where he could find kittens, just t'other day. Didn't like the look of his jumper, so I told 'im to bob off.
+Hobo [question track:03d-floyd]: Strange ya mentioned that. A funny lookin' chap with a tail came an' asked where he could find kittens, just t'other day. Didn't like the look of his jumper, so I told 'im to bob off.
 Arca:
 	- Oh... did he say why he was looking for them?
 		continue
@@ -26,29 +28,29 @@ Arca:
 		continue
 	- Do you know where he was going?
 		continue
-		
-Hobo [irritated]: No
+
+Hobo [neutral track:04f-didnt-say.mp3]: No, he didn't say...
 go menu-kittens
 
 # clothes
 set asked-clothes
-Hobo [irritated]: What the Newt kinda question is that? No offense, but that's rich coming from someone dressed as a potato.
+Hobo [angry track:05b-wt-newt]: What the Newt kinda question is that? No offense, but that's rich coming from someone dressed as a potato.
 Arca:
 	- It's a cape... capes are awesome!
-		Hobo [irritated]: Hmph! Who do you think you are? Wonder Walrus?
+		Hobo [question track:06c-wonderwalrus]: Hmph! Who do you think you are? Wonder Walrus?
 
 	- These are the only clothes I have.
-		Hobo [smug]: Don't be lazy, there are lots of bins around 'ere. Tha's where I get all my clothes.
+		Hobo [neutral track:07a-bins]: Don't be lazy, there are lots of bins around 'ere. Tha's where I get all my clothes.
 
-	- What's so bad about looking like a turnip? 
-	  Hobo [irritated]: Hmmm. I've avoided potatos ever since the accident...
+	- What's so bad about looking like a turnip?
+	  Hobo [sad track:08b-accident]: Hmmm. I've avoided potatos ever since the accident...
 go menu-kittens
 
 # who
 set asked-who
 branch
-	- (if asked-passage) Hobo [smug]: I'm Boris J. Buttstacks - the town's mayor, as I might 'ave mentioned. As in, I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
-	- (default) Hobo [smug]: I'm Boris J. Buttstacks - the town's mayor. As in, I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
+	- (if asked-passage) Hobo [neutral track:09b-boris-mentioned]: I'm Boris J. Buttstacks - the town's mayor, as I might 'ave mentioned. As in, I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
+	- (default) Hobo [neutral track:09b-boris-mentioned]: I'm Boris J. Buttstacks - the town's mayor. As in, I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
 go menu-mission
 
 # menu-mission
@@ -56,20 +58,20 @@ Arca:
 	- What do I need to do, to pass through? -> mission
 	- (unless asked-why) Okay, okay - so you're the mayor. Why can't you let me pass? -> why
 	- (unless asked-how) How did you get to be mayor? -> how
-		
+
 # why
 set asked-why
-Hobo [smug]: You scratch my feet, I'll scratch yours. That's how the world works, you know.
+Hobo [smile track:11c-feet]: You scratch my feet, I'll scratch yours. That's how the world works, you know.
 go menu-mission
 
 # how
 set asked-how
-Hobo [irritated]: Hmph! How rude! I'm the mayor, and that's that.
+Hobo [angry track:12b-rude]: Hmph! How rude! I'm the mayor, and that's that.
 go menu-mission
 
 # mission
 set asked-mission
-Hobo[neutral]: Well... You're going to need to fetch some of my things. I'll give you the addresses, and you go and find them. Understood?
+Hobo[neutral track:13b-fetch-things]: Well... You're going to need to fetch some of my things. I'll give you the addresses, and you go and find them. Understood?
 go menu-onions
 
 # menu-onions
@@ -79,15 +81,15 @@ Arca:
 
 # onions
 set asked-onions
-Hobo [neutral]: Well you see, I'm a big fan of pickled onions. I could eat a thousand and beg for more. You're going to need to go to Bulbous Island and get me the juiciest jar of pickled onions you can find.
+Hobo [smile track:14b-pickled-onions]: Well you see, I'm a big fan of pickled onions. I could eat a thousand and beg for more. You're going to need to go to Bulbous Island and get me the juiciest jar of pickled onions you can find.
 go menu-lets-go
 
 # time
 set asked-time
-Hobo [irritated]: Well then, you'd better hop to it.
+Hobo [neutral track:15d-hop]: Well then, you'd better hop to it.
 go menu-onions
 
 # menu-lets-go
-Arca: 
+Arca:
 	- Fine, I'll go and get your onions -> finish
 	- Yuk. I'll try and be quick. -> finish
