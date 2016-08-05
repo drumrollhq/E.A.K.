@@ -9,9 +9,9 @@ go menu
 #menu
 Arca:
 	- SKIP CONVERSATION -> skip
-	-(unless said-thanks or asked-entrance) Uhhh... Thanks? -> thanks
-	-(unless asked-entrance) But I really need to leave! Can't you let me into Ponyhead Bay now? -> entrance
-	-(if said-thanks or asked-entrance) Okay... what is it? -> date
+	-(unless said-thanks or asked-entrance) [twitch] Uhhh... Thanks? -> thanks
+	-(unless asked-entrance) [quizzical] But I really need to leave! Can't you let me into Ponyhead Bay now? -> entrance
+	-(if said-thanks or asked-entrance) [neutral] Okay... what is it? -> date
 
 #thanks
 set said-thanks
@@ -33,9 +33,9 @@ go menu-date
 
 #menu-date
 Arca:
-	- (unless asked-love) Wow, you must really like her. -> love
-	- (unless asked-romance) Hmm. I'm not really an expert in romance... -> romance
-	- (unless asked-where) I'm new around here - where can I find a place like that? -> where
+	- (unless asked-love) [neutral] Wow, you must really like her. -> love
+	- (unless asked-romance) [twitch] Hmm. I'm not really an expert in romance... -> romance
+	- (unless asked-where) [neutral] I'm new around here - where can I find a place like that? -> where
 
 #love
 set asked-love
@@ -54,9 +54,9 @@ go menu-how
 
 #menu-how
 Arca:
-	- How do I find it? -> how
-	- (unless asked-adventure) I've never been to a beach before! What an adventure. -> adventure
-	- (unless asked-what) What will you do there? -> what
+	- [neutral] How do I find it? -> how
+	- (unless asked-adventure) [cheeky] I've never been to a beach before! What an adventure. -> adventure
+	- (unless asked-what) [neutral] What will you do there? -> what
 
 #how
 set asked-how

@@ -22,11 +22,11 @@ go menu-kittens
 set asked-kittens
 Hobo [question track:03d-floyd]: Strange ya mentioned that. A funny lookin' chap with a tail came an' asked where he could find kittens, just t'other day. Didn't like the look of his jumper, so I told 'im to bob off.
 Arca:
-	- Oh... did he say why he was looking for them?
+	- [quizzical] Oh... did he say why he was looking for them?
 		continue
-	- Did you get his name?
+	- [neutral] Did you get his name?
 		continue
-	- Do you know where he was going?
+	- [neutral] Do you know where he was going?
 		continue
 
 Hobo [neutral track:04f-didnt-say.mp3]: No, he didn't say...
@@ -36,13 +36,13 @@ go menu-kittens
 set asked-clothes
 Hobo [angry track:05b-wt-newt]: What the Newt kinda question is that? No offense, but that's rich coming from someone dressed as a potato.
 Arca:
-	- It's a cape... capes are awesome!
+	- [cheeky] It's a cape... capes are awesome!
 		Hobo [question track:06c-wonderwalrus]: Hmph! Who do you think you are? Wonder Walrus?
 
-	- These are the only clothes I have.
+	- [neutral] These are the only clothes I have.
 		Hobo [neutral track:07a-bins]: Don't be lazy, there are lots of bins around 'ere. Tha's where I get all my clothes.
 
-	- What's so bad about looking like a turnip?
+	- [neutral] What's so bad about looking like a turnip?
 	  Hobo [sad track:08b-accident]: Hmmm. I've avoided potatos ever since the accident...
 go menu-kittens
 
@@ -55,9 +55,9 @@ go menu-mission
 
 # menu-mission
 Arca:
-	- What do I need to do, to pass through? -> mission
-	- (unless asked-why) Okay, okay - so you're the mayor. Why can't you let me pass? -> why
-	- (unless asked-how) How did you get to be mayor? -> how
+	- [twitch] What do I need to do, to pass through? -> mission
+	- (unless asked-why) [neutral] Okay, okay - so you're the mayor. Why can't you let me pass? -> why
+	- (unless asked-how) [neutral] How did you get to be mayor? -> how
 
 # why
 set asked-why
@@ -76,8 +76,8 @@ go menu-onions
 
 # menu-onions
 Arca:
-	- Okay. What do you need me to fetch? -> onions
-	- (unless asked-time) I need to rescue the missing kittens - I really don't have much time -> time
+	- [neutral] Okay. What do you need me to fetch? -> onions
+	- (unless asked-time) [twitch] I need to rescue the missing kittens - I really don't have much time -> time
 
 # onions
 set asked-onions
@@ -91,5 +91,5 @@ go menu-onions
 
 # menu-lets-go
 Arca:
-	- Fine, I'll go and get your onions -> finish
-	- Yuk. I'll try and be quick. -> finish
+	- [cheeky] Fine, I'll go and get your onions -> finish
+	- [twitch] Yuk. I'll try and be quick. -> finish

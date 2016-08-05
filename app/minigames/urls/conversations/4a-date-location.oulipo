@@ -5,9 +5,9 @@ go menu
 
 # menu
 Arca:
-	- Er...can I go now? -> go
-	- (unless asked-explore) Good luck on your date! -> good-luck
-	- (unless asked-romantic) I'm sure it'll be very romantic. -> romantic
+	- [twitch] Er...can I go now? -> go
+	- (unless asked-explore) [cheeky] Good luck on your date! -> good-luck
+	- (unless asked-romantic) [cheeky] I'm sure it'll be very romantic. -> romantic
 
 # romantic
 set asked-romantic

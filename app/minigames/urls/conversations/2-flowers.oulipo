@@ -17,9 +17,9 @@ branch
 # menu-what-else
 Arca:
 	- SKIP CONVERSATION -> skip
-	- Okay... so is there anything else do you need me to get? -> what-else
-	- (unless asked-which-onions) Huh? Which pickled onions did you want? -> which-onions
-	- (unless onions-are-onions) A pickled onion is a pickled onion, Buttstacks -> onions-are-onions
+	- [neutral] Okay... so is there anything else do you need me to get? -> what-else
+	- (unless asked-which-onions) [twitch] Huh? Which pickled onions did you want? -> which-onions
+	- (unless onions-are-onions) [cheeky] A pickled onion is a pickled onion, Buttstacks -> onions-are-onions
 
 # what-else
 set asked-what-else
@@ -38,8 +38,8 @@ go menu
 
 # menu-what-type
 Arca:
-	- What kind of flowers do you want?  -> what-type
-	- (unless asked-clocks) Clocks? Why? -> clocks
+	- [neutral] What kind of flowers do you want?  -> what-type
+	- (unless asked-clocks) [twitch] Clocks? Why? -> clocks
 
 # what-type
 set asked-what-type
@@ -53,9 +53,9 @@ go menu
 
 # menu-where
 Arca:
-	- Okay... where can I find flowers? -> where
-	- (unless asked-love) I'm sure she'll love them. -> love
-	- (unless asked-careful) Okay. I'll be very careful. -> careful
+	- [neutral] Okay... where can I find flowers? -> where
+	- (unless asked-love) [cheeky] I'm sure she'll love them. -> love
+	- (unless asked-careful) [neutral] Okay. I'll be very careful. -> careful
 
 # careful
 set asked-careful

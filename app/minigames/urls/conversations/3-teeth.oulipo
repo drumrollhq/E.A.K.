@@ -9,9 +9,9 @@ go menu
 
 # menu
 Arca:
-	- (unless asked-how) How do you eat, the rest of the time? -> how
-	- (unless asked-steal) Why would anyone steal your teeth? Gross! -> steal
-	- (unless asked-who) Okay... who do I need to get them from? -> who
+	- (unless asked-how) [twitch] How do you eat, the rest of the time? -> how
+	- (unless asked-steal) [cheeky] Why would anyone steal your teeth? Gross! -> steal
+	- (unless asked-who) [neutral] Okay... who do I need to get them from? -> who
 
 # how
 set asked-how

@@ -19,20 +19,20 @@ branch
 [--------Arca's responses------------]
 #arca-cupboard
 Arca:
-	- (unless asked-mop) Good question. I mean... she is a mop. -> hobo-mop
-	- (unless asked-what) Oh no... what happened? -> hobo-what
-	- (unless asked-cupboard) Don't be sad Boris... there are plenty of other mops in the cupboard -> hobo-cupboard
+	- (unless asked-mop) [twitch] Good question. I mean... she is a mop. -> hobo-mop
+	- (unless asked-what) [omg] Oh no... what happened? -> hobo-what
+	- (unless asked-cupboard) [cheeky] Don't be sad Boris... there are plenty of other mops in the cupboard -> hobo-cupboard
 
 #arca-talk
 Arca:
-  - (unless asked-forget) Um... I think you should try and forget about her. Maybe go on holiday? -> hobo-forget
-  - (unless asked-hoover) Why don't you buy a hoover? Or take up yodelling? -> hobo-hoover
-  - (unless asked-talk) Talk to your closest friends - it always helps when you're feeling sad. I used to talk to my kittens, but now they've gone... I really need to find them. Can you let me pass now? -> hobo-talk
+  - (unless asked-forget) [neutral] Um... I think you should try and forget about her. Maybe go on holiday? -> hobo-forget
+  - (unless asked-hoover) [cheeky] Why don't you buy a hoover? Or take up yodelling? -> hobo-hoover
+  - (unless asked-talk) [neutral] Talk to your closest friends - it always helps when you're feeling sad. I used to talk to my kittens, but now they've gone... I really need to find them. Can you let me pass now? -> hobo-talk
 
 #arca-where
 Arca:
-  - Oh, alright. Where do you live? -> hobo-how
-  - (unless asked-hmm) I think you should find someone else - I really need to go and save the kittens. -> hobo-hmm
+  - [bored] Oh, alright. Where do you live? -> hobo-how
+  - (unless asked-hmm) [quizzical] I think you should find someone else - I really need to go and save the kittens. -> hobo-hmm
 
 
 [--------Hobo's responses-------------]
