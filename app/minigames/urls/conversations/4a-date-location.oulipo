@@ -1,5 +1,8 @@
 set audio-root = '/audio/3.4.a'
 
+set view.characters.hobo.image = 'buttstacks'
+set view.characters.hobo.name = 'Boris J. Buttstacks'
+
 Hobo [smile track:01a-perfect-place]: Nice work spud! You found the perfect place for Dusty and I.
 go menu
 

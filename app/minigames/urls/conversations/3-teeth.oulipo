@@ -3,7 +3,7 @@ set audio-root = '/audio/3.3'
 set view.characters.hobo.image = 'buttstacks'
 set view.characters.hobo.name = 'Boris J. Buttstacks'
 
-Hobo [smile track:01c-smoochin-teeth]: Excellent job with the dandelions! Now I need you to go on a special mission... you need to get me my smooching teeth. I only wear them on special occasions you know.
+Hobo [smile track:01c-smooching-teeth]: Excellent job with the dandelions! Now I need you to go on a special mission... you need to get me my smooching teeth. I only wear them on special occasions you know.
 Hobo [question track:02b-stealing]: I can't risk anyone stealing them!
 go menu
 
@@ -26,4 +26,4 @@ go menu
 # who
 set asked-who
 Hobo [smile track:05d-greasy-pete]: From a charming fellow called Greasy Pete. Some say he's a little unseemly, but I believe he's as soft as a marshmallow, deep down.
-go menu
+continue 

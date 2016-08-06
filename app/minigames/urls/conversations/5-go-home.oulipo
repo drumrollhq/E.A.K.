@@ -3,9 +3,6 @@ set audio-root = '/audio/3.5'
 set view.characters.hobo.image = 'buttstacks'
 set view.characters.hobo.name = 'Boris J. Buttstacks'
 
-exec alert("Play cutscene showing buttstacks and dusty walking off. Sign comes up saying 'some time later' or words to that effect. Buttstacks is seen running back down the road towards Arca, clearly distraught.")
-
-
 Hobo [sobbing track:01a-bawling]: The date's off! Dusty broke up with me! How could she do this to me?
 go menu
 
