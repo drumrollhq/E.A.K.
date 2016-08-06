@@ -25,7 +25,7 @@ module.exports = class URLMiniGame
       .then ->
         eak.play-cutscene '/cutscenes/3-urls-hello'
       .then ~>
-        @frame-sub = channels.frame.subscribe ({t}) ~> @on-frame t
+        @frame-sub = channels.frame.subscribe ({t}) ~> @on-frame t * 3
         unless show-tutorial
           @create-view \junctionPhb, false
           return
@@ -86,7 +86,7 @@ module.exports = class URLMiniGame
         @view.start-url-entry-mode 'http://'
         @start-home-tutorial!
       .then ~> eak.play-cutscene '/cutscenes/3-urls-goodbye'
-      .then ~> eak.trigger-async \quit
+      .then ~> window.location.hash = '/app/donate'
 
   start-tutorial-onions: ->
     var bulbous-zoom-out, onions-zoom-out
@@ -148,6 +148,7 @@ module.exports = class URLMiniGame
         @view.set-target-url 'http' 'ponyhead-bay.com'
         Promise.delay 1000
       .then ~>
+        @view.help.activate \return-to-phb
         @view.url-component.set-state correct: false
         wait-for-event @view.zoomer, \before-zoom-in, condition: (loc, prevent) ->
           if loc is \phb

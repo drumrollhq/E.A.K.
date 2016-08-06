@@ -22,6 +22,7 @@ messages = {
   shackerton-wrong-path: 'That\'s not quite right... You need to say where in shackeron I\'m going!'
   phb-wrong-domain: 'Ehh, not quite. I live in Ponyhead Bay, ya see? I\'m the Mayor, you know. Take me to Ponyhead Bay please.'
   phb-wrong-path: 'Naa, that\'s not it. I normally kip in the park. I get to keep an eye on everything that way. Take me to the park, please.'
+  return-to-phb: 'Perfect! Bring them back to me at Ponyhead Bay'
 }
 
 module.exports = HelpfulButtstacks = React.create-class {
