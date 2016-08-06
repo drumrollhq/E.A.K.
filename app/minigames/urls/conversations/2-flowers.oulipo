@@ -22,7 +22,7 @@ Arca:
 
 # what-else
 set asked-what-else
-Hobo [bigsmile track:03b-need-flowers]: Well as you know I’m a bit of a celebrity, being the mayor and all... What can I say, it brings success with the ladies! I've got a date tonight with a very special lady, and it must be perfect. So i'll need flowers. To woo her, understand? I've read that they love flowers. That and clocks.
+Hobo [bigsmile track:03b-need-flowers]: Well as you know I’m a bit of a celebrity, being the mayor and all... What can I say, it brings success with the ladies! I've got a date tonight with a very special lady, and it must be perfect. So I'll need flowers. To woo her, understand? I've read that they love flowers. That and clocks.
 go menu
 
 # which-onions
@@ -32,7 +32,7 @@ go menu
 
 # onions-are-onions
 set onions-are-onions
-Hobo [neutral track:05b-connoisseurs]: You don't know what you're talkin' about. Although we can't all be pickled onion connessieurs.
+Hobo [neutral track:05b-connoisseurs]: You don't know what you're talking about! Although we can't all be pickled onion connessieurs.
 go menu
 
 # menu-what-type

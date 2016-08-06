@@ -3,7 +3,7 @@ set audio-root = '/audio/3.1'
 set view.characters.hobo.image = 'buttstacks'
 set view.characters.hobo.name = 'Boris J. Buttstacks'
 
-Hobo [angry track:01c-hello]: Allo there... where d'ya think you're goin'? Just waltzin' into town? You ain't gettin' through unless I say so.
+Hobo [angry track:01c-hello]: Hello there... where do you think you're going? Just waltzing into town? You ain't getting through unless I say so.
 go menu-kittens
 
 # menu-kittens
@@ -20,7 +20,7 @@ go menu-kittens
 
 # kittens
 set asked-kittens
-Hobo [question track:03d-floyd]: Strange ya mentioned that. A funny lookin' chap with a tail came an' asked where he could find kittens, just t'other day. Didn't like the look of his jumper, so I told 'im to bob off.
+Hobo [question track:03d-floyd]: Strange you mentioned that. A funny looking chap with a tail came and asked where he could find kittens, just the other day. Didn't like the look of his jumper, so I told him to bob off.
 Arca:
 	- [quizzical] Oh... did he say why he was looking for them?
 		continue
@@ -29,7 +29,7 @@ Arca:
 	- [neutral] Do you know where he was going?
 		continue
 
-Hobo [neutral track:04f-didnt-say.mp3]: No, he didn't say...
+Hobo [neutral track:04f-didnt-say]: No, he didn't say...
 go menu-kittens
 
 # clothes
@@ -40,17 +40,15 @@ Arca:
 		Hobo [question track:06c-wonderwalrus]: Hmph! Who do you think you are? Wonder Walrus?
 
 	- [neutral] These are the only clothes I have.
-		Hobo [neutral track:07a-bins]: Don't be lazy, there are lots of bins around 'ere. Tha's where I get all my clothes.
+		Hobo [neutral track:07a-bins]: Don't be lazy, there are lots of bins around here. That's where I get all my clothes.
 
-	- [neutral] What's so bad about looking like a turnip?
+	- [neutral] What's so bad about looking like a potato?
 	  Hobo [sad track:08b-accident]: Hmmm. I've avoided potatos ever since the accident...
 go menu-kittens
 
 # who
 set asked-who
-branch
-	- (if asked-passage) Hobo [neutral track:09b-boris-mentioned]: I'm Boris J. Buttstacks - the town's mayor, as I might 'ave mentioned. As in, I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
-	- (default) Hobo [neutral track:09b-boris-mentioned]: I'm Boris J. Buttstacks - the town's mayor. As in, I rule th'whole town. As mayors do. And I'm the mayor, fo'real. I'm legit.
+Hobo [neutral track:09b-boris-mentioned]: I'm Boris J. Buttstacks - the town's mayor, as I might have mentioned. As in, I rule the whole town. As mayors often do. And I'm the mayor. For real. I'm legit.
 go menu-mission
 
 # menu-mission
@@ -61,7 +59,7 @@ Arca:
 
 # why
 set asked-why
-Hobo [smile track:11c-feet]: You scratch my feet, I'll scratch yours. That's how the world works, you know.
+Hobo [smile track:11c-feet]: You scratch my feet, and I'll scratch yours. That's how the world works, you know.
 go menu-mission
 
 # how

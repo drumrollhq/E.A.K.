@@ -9,9 +9,10 @@ go menu
 
 # menu
 Arca:
+	- (unless asked-who) [neutral] Okay... who do I need to get them from? -> who
+  - (if asked-who) [neutral] Uhh, OK. I'll go find them. -> finish
 	- (unless asked-how) [twitch] How do you eat, the rest of the time? -> how
 	- (unless asked-steal) [cheeky] Why would anyone steal your teeth? Gross! -> steal
-	- (unless asked-who) [neutral] Okay... who do I need to get them from? -> who
 
 # how
 set asked-how
@@ -26,4 +27,4 @@ go menu
 # who
 set asked-who
 Hobo [smile track:05d-greasy-pete]: From a charming fellow called Greasy Pete. Some say he's a little unseemly, but I believe he's as soft as a marshmallow, deep down.
-continue 
+go menu
