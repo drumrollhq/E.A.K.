@@ -1,24 +1,28 @@
-Hobo: Nice work spud! You found the perfect place for Dusty and I.
+set audio-root = '/audio/3.4.a'
+
+set view.characters.hobo.image = 'buttstacks'
+set view.characters.hobo.name = 'Boris J. Buttstacks'
+
+Hobo [smile track:01a-perfect-place]: Nice work spud! You found the perfect place for Dusty and I.
 go menu
 
 # menu
 Arca:
-	- Er...can I go now? -> go
-	- (unless asked-explore) Good luck on your date! -> good-luck
-	- (unless asked-romantic) I'm sure it'll be very romantic. -> romantic
+	- [twitch] Er...can I go now? -> go
+	- (unless asked-explore) [cheeky] Good luck on your date! -> good-luck
+	- (unless asked-romantic) [cheeky] I'm sure it'll be very romantic. -> romantic
 
 # romantic
 set asked-romantic
-Hobo: Dusty and me, sitting in a tree, K.I.S.S.I.N.G. Oh Dusty, I love you!
+Hobo [love track:02e-kissing]: Dusty and me, sitting in a tree, K.I.S.S.I.N.G. Oh Dusty, I love you!
 go menu
 
-# good-luck 
+# good-luck
 set asked-go
-Hobo: Thanks spud! I haven't been this excited since mother used her generous proportions, to shield us from the great Candy Floss Tornado of '93. Powerful woman, you know? Strong ankles.
-Hobo: Thanks spud! I haven't been this excited since 
+Hobo [bigsmile track:03a-strong-ankles]: Thanks spud! I haven't been this excited since mother used her generous proportions, to shield us from the great Candy Floss Tornado of '93. Powerful woman, you know? Strong ankles.
 go menu
 
 # go
 set asked-go
-Hobo: Yes, but you'll have to wait till I get back. Can't be late for my date!
+Hobo [bigsmile track:04a-cant-be-late]: Yes, but you'll have to wait till I get back. Can't be late for my date!
 go finish
