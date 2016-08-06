@@ -25,7 +25,7 @@ module.exports = class URLMiniGame
       .then ->
         eak.play-cutscene '/cutscenes/3-urls-hello'
       .then ~>
-        @frame-sub = channels.frame.subscribe ({t}) ~> @on-frame t * 3
+        @frame-sub = channels.frame.subscribe ({t}) ~> @on-frame t
         unless show-tutorial
           @create-view \junctionPhb, false
           return
@@ -42,7 +42,6 @@ module.exports = class URLMiniGame
       .then ~>
         @frame-sub.resume!
         Promise.delay 300
-      .then ~>
       .then ~>
         @view.map.exit!
         @view.set-target-url 'http' 'bulbous-island.com' 'onions-r-us' 'pickled-onions'
@@ -63,12 +62,14 @@ module.exports = class URLMiniGame
       .then ~>
         @view.set-target-url 'http' 'drudshire.biz' 'gum-alley' 'greasy-pete'
         @view.set-target-image '/minigames/urls/assets/teeth.png', false
+        @view.towns.drudshire.extras.location-indicator.visible = true
         @frame-sub.resume!
         Promise.delay 300
       .then ~>
         @view.map.exit!
         wait-for-event @view.map, \arrive
       .then ~> @simple-tutorial \drudshire, 'gum-alley/greasy-pete', ~>
+        @view.towns.drudshire.extras.location-indicator.visible = false
         eak.play-cutscene '/cutscenes/3-urls-greasy-pete'
       .then ~> eak.start-conversation '/minigames/urls/conversations/4-date-location'
       .then ~>

@@ -16,7 +16,7 @@ colors = [0xFF0000 0x00FF00 0x0000FF 0x00FFFF 0xFF00FF 0xFFFF00]
 
 module.exports = class WalkingMap extends PIXI.Container
   player-scale: 0.5
-  (@camera, @layer, @player, {width, height, map-url, scale, position, buildings, player-scale, @start, @rects}) ->
+  (@camera, @layer, @player, {width, height, map-url, scale, position, buildings, player-scale, @start, @rects, @extras}) ->
     super!
     @bg = new TiledSpriteContainer map-url, width, height, false
     @bg.player-scale = @player-scale
@@ -49,6 +49,10 @@ module.exports = class WalkingMap extends PIXI.Container
       @add-child @dbg
       @add-child @dbg-labels
 
+    @extras = @extras or {}
+    for _, extra of @extras
+      @add-child extra
+
     @on \enter (building) ->
       building = camelize building
       if @buildings[building] then @zoomer.zoom-to building
@@ -60,6 +64,7 @@ module.exports = class WalkingMap extends PIXI.Container
   step: (t) ->
     @zoomer.step t
     for _, building of @buildings => building.step t
+    for _, extra of @extras => extra.step t
     unless @active then return
     if keys.up
       @player.v.y -= player-accel

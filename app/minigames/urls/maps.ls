@@ -1,5 +1,9 @@
 out$, require, module <- require.register 'minigames/urls/maps'
 
+require! {
+  'minigames/urls/LocationIndicator'
+}
+
 export towns = {
   bulbous: [740 212]
   shackerton: [882 1252]
@@ -98,6 +102,8 @@ export drudshire = {
   map-url: '/content/bg-tiles/url-minigame/drudshire'
   start: x: 964, y: 1633
   scale: 0.12
+  extras:
+    location-indicator: new LocationIndicator 1662.5, 960, false
   rects: [
     [0 1600 925 400]
     [0 0 200 1700]
