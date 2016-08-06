@@ -1,7 +1,7 @@
 set view.characters.hobo.image = 'buttstacks'
 set view.characters.hobo.name = 'Boris J. Buttstacks'
 
-Hobo [smug]: Thanks for helping me with everything, spud... you're a good friend. You're free to go into Ponyhead Bay now. Good luck finding your kittens. 
+Hobo [smug]: Thanks for helping me with everything, spud... you're a good friend. You're free to go into Ponyhead Bay now. Good luck finding your kittens.
 go menu
 
 # menu
@@ -16,7 +16,7 @@ Hobo [crying]: My dearest mother always told me I have a voice like a nightingal
 go finish
 
 # learnt
-set asked-learnt 
+set asked-learnt
 Hobo [smug]: Well, that's nice! No-one's ever told me they've learned anything from me... Can't imagine why. So long, spud.
 go finish
 

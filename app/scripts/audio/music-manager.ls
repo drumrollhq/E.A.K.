@@ -31,6 +31,9 @@ tracks = {
     creepy-glitch: '/audio/music/spaceship-creepy-glitch'
     disco: '/audio/music/spaceship-disco'
     disco-glitch: '/audio/music/spaceship-disco-glitch'
+
+  urls-minigame:
+    normal: '/audio/music/urls-minigame'
 }
 
 const fade-duration = 0.75s
@@ -46,6 +49,7 @@ class MusicManager
     channels.parse 'game-commands: stop-edit' .subscribe ~> @music.deglitchify fade-duration
 
   start-track: (name) ~>
+    name = camelize name
     unless @tracks[name]? then throw new Error 'Cannot find track called ' + name
     if @playing is name then return Promise.resolve!
     @playing = name

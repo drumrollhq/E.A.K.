@@ -1,6 +1,7 @@
 exports, require, module <- require.register 'minigames/urls/index'
 
 require! {
+  'audio/music-manager'
   'lib/channels'
   'minigames/urls/URLMiniGameView'
 }
@@ -20,12 +21,19 @@ module.exports = class URLMiniGame
     @view.start!
 
   start: !->
-    @frame-sub = channels.frame.subscribe ({t}) ~> @on-frame t
-    unless show-tutorial
-      @create-view \junctionPhb, false
-      return
+    @_main-promise = music-manager.start-track 'urls-minigame'
+      .then ->
+        eak.play-cutscene '/cutscenes/3-urls-hello'
+      .then ~>
+        @frame-sub = channels.frame.subscribe ({t}) ~> @on-frame t
+        unless show-tutorial
+          @create-view \junctionPhb, false
+          return
 
-    @_main-promise = Promise.delay 500
+        @do-the-thing!
+
+  do-the-thing: ->
+    Promise.resolve!
       .cancellable!
       .then ~>
         @create-view \phb, false
@@ -61,7 +69,7 @@ module.exports = class URLMiniGame
         @view.map.exit!
         wait-for-event @view.map, \arrive
       .then ~> @simple-tutorial \drudshire, 'gum-alley/greasy-pete', ~>
-        eak.start-conversation '/minigames/urls/conversations/3a-greasypete' .then ~> Promise.delay 1500
+        eak.play-cutscene '/cutscenes/3-urls-greasy-pete'
       .then ~> eak.start-conversation '/minigames/urls/conversations/4-date-location'
       .then ~>
         @frame-sub.resume!
@@ -69,6 +77,7 @@ module.exports = class URLMiniGame
       .then ~>
         @view.start-url-entry-mode 'http://'
         @start-date-tutorial!
+      .then ~> eak.play-cutscene '/cutscenes/3-urls-date'
       .then ~> eak.start-conversation '/minigames/urls/conversations/5-go-home'
       .then ~>
         @frame-sub.resume!
@@ -76,7 +85,7 @@ module.exports = class URLMiniGame
       .then ~>
         @view.start-url-entry-mode 'http://'
         @start-home-tutorial!
-      .then ~> eak.start-conversation '/minigames/urls/conversations/6-finish'
+      .then ~> eak.play-cutscene '/cutscenes/3-urls-goodbye'
       .then ~> eak.trigger-async \quit
 
   start-tutorial-onions: ->

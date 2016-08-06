@@ -16,7 +16,6 @@ branch
 
 # menu-what-else
 Arca:
-	- SKIP CONVERSATION -> skip
 	- [neutral] Okay... so is there anything else do you need me to get? -> what-else
 	- (unless asked-which-onions) [twitch] Huh? Which pickled onions did you want? -> which-onions
 	- (unless onions-are-onions) [cheeky] A pickled onion is a pickled onion, Buttstacks -> onions-are-onions
