@@ -108,6 +108,7 @@ module.exports = class URLMiniGame
       .then ~> wait-for-event @view.zoomer, \zoom-in
       .then ~>
         @view.help.activate \bulbous, 'Got it'
+          .then ~> @view.help.activate \bulbous2
         bulbous-zoom-out := (prevent) ~>
           @view.help.activate \bulbous-zoom-out
           prevent!

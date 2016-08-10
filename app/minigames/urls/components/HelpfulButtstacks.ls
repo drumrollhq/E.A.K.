@@ -7,21 +7,49 @@ require! {
 dom = React.DOM
 
 messages = {
-  url: 'OK. See the writing at the bottom of the screen? That\'s a URL - the address of where in the Internet Universe we\'re heading.'
-  domain: 'See where it says \'bulbous-island.com\'? That bit\'s called the domain - for us, it\'s the name of the town we\'re trying to get to.'
-  move: 'Use the arrow keys to move. Try to find Bulbous Island, like it says on the domain.'
-  wrong-domain: 'Where do ya thing you\'re going? That\'s not Bulbous Island!'
-  bulbous: 'MMMMmmm! You can just smell those onions. Beautiful. See how the domain in the URL has a tick above it? That means it\'s time to move to the next part of URL - called the path. In this URL, the path is Onions-r-us. Try to find it!'
+  url: [
+    'The writing at the bottom of the screen is a '
+    dom.strong null, 'URL'
+    '. A URL is an address to somewhere in the Internet Universe. It always starts with '
+    dom.strong null, 'http://'
+  ]
+  domain: [
+    'This URL shows that we want to get to Bulbous Island. The part that says '
+    dom.strong null, 'bulbous-island.com'
+    ' is called the '
+    dom.strong null, 'domain'
+    '.'
+  ]
+  move: [
+    'Use the arrow keys to try and find '
+    dom.strong null, 'Bulbous Island'
+    '!'
+  ]
+  wrong-domain: 'Where do you thing you\'re going? That\'s not Bulbous Island!'
+  bulbous: [
+    'Mmmm! You can really smell those onions! See how '
+    dom.strong null, 'bulbous-island.com'
+    ' has a tick above it? That means it\'s time to move on to the next bit of the URL - called the '
+    dom.strong null, 'path'
+    '.'
+  ]
+  bulbous2: [
+    'Try to find the '
+    dom.strong null, 'path'
+    ' - '
+    dom.strong null, 'Onions-r-Us'
+    '! They sell the best vintage pickled onions.'
+  ]
   bulbous-zoom-out: 'Where ya going? You can\'t be leaving Bulbous Island now! Onions-R-Us is in the complete opposite direction!'
-  onions-r-us: 'We\'re here! This is my favourite shop... Now try to find the pickled onions.'
+  onions-r-us: 'Nice work spud! Now find me my pickled onions'
   onions-zoom-out: 'Na-ah! We don\'t wanna leave till we got them pickled onions!'
   collect-onions: 'You found me onions! Beautiful. Meet me back at Ponyhead Bay.'
-  flee-market: 'The dandelions are in the Flee Market!' 
-  flee-market-found: 'You made it! Now try and find the right stall' 
+  flee-market: 'The dandelions are in the Flee Market!'
+  flee-market-found: 'You made it! Now try and find the right stall'
   flee-zoom-out: 'Where ya going? You can\'t be leaving the Flee Market now! The dandelions are in the complete opposite direction!'
   collect-dandelions: 'They\'re beautiful! See you back at Ponyhead Bay.'
-  drudshire: 'Greasy Pete lives in a town called Drushire. I went there ten years ago to buy some onions... disgusting.' 
-  drudshire-found:'Hmmm... where can Gum Alley be?' 
+  drudshire: 'Greasy Pete lives in a town called Drushire. I went there ten years ago to buy some onions... disgusting.'
+  drudshire-found:'Hmmm... where can Gum Alley be?'
   drudshire-zoom-out: 'Where ya going? You can\'t be leaving Gum Alley now! My teeth are in the complete opposite direction!'
   collect-teeth: 'Yippee! You found \'em! See you in Ponyhead Bay Spud'
   type-url-start: 'This is the start of a new URL. We need to finish it by putting in the address of where I’m going on my date.'
