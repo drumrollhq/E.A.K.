@@ -9,7 +9,7 @@ go menu
 #menu
 Arca:
 	-(unless said-thanks or asked-entrance) [twitch] Uhhh... Thanks? -> thanks
-	-(unless asked-entrance) [quizzical] But I really need to leave! Can't you let me into Ponyhead Bay now? -> entrance
+	-(unless asked-entrance) [quizzical] I really need to leave! Can't you let me into Ponyhead Bay now? -> entrance
 	-(if said-thanks or asked-entrance) [neutral] Okay... what is it? -> date
 
 #thanks
