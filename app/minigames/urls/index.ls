@@ -56,8 +56,6 @@ module.exports = class URLMiniGame
         Promise.delay 300
       .then ~>
         @view.map.exit!
-        @view.set-target-url 'http' 'flee' 'flower-power' 'dandelions'
-        @view.set-target-image '/minigames/urls/assets/dandelions.png'
         wait-for-event @view.map, \arrive
       .then ~> @start-dandelion-tutorial!
       .then ~> eak.start-conversation '/minigames/urls/conversations/3-teeth'
@@ -142,46 +140,6 @@ module.exports = class URLMiniGame
         @view.help.deactivate!
         @frame-sub.pause!
         Promise.delay 2000
-        
-    start-dandelion-tutorial: ->
-      var bulbous-zoom-out, onions-zoom-out
-      
-      wait-for-event @view.map, \arrive, condition: (dest) -> dest is \flee
-          .then ~> wait-for-event @view.zoomer, \zoom-in
-          .then ~>
-            @view.help.activate \flee-market, 'Got it'
-            bulbous-zoom-out := (prevent) ~>
-              @view.help.activate \bulbous-zoom-out
-              prevent!
-            @view.zoomer.on \before-zoom-out, bulbous-zoom-out
-            wait-for-event @view.towns.bulbous.zoomer, \zoom-in, condition: (dest) -> console.log {dest}; dest is \flower-power
-          .then ~>
-            @view.help.activate \flee-market-found
-            onions-zoom-out := (prevent) ~>
-              @view.help.activate \onions-zoom-out
-              prevent!
-            @view.towns.bulbous.zoomer.on \before-zoom-out, onions-zoom-out
-            wait-for-event @view.towns.bulbous, \path, condition: (path) -> path is 'flower-power/dandelions'
-          .then ~>
-            @view.help.activate \collect-dandelions
-            @view.towns.bulbous.zoomer.off \before-zoom-out onions-zoom-out
-            @view.zoomer.off \before-zoom-out bulbous-zoom-out
-            @view.map.off \before-go before-go
-            Promise.delay 2000
-          .then ~>
-            @view.set-target-url 'http' 'ponyhead-bay.com'
-            Promise.delay 1000
-          .then ~>
-            @view.url-component.set-state correct: false
-            wait-for-event @view.zoomer, \before-zoom-in, condition: (loc, prevent ) ->
-              if loc is \phb
-                prevent!
-                true
-              else false
-          .then ~>
-            @view.help.deactivate!
-            @frame-sub.pause!
-            Promise.delay 2000
 
   start-dandelion-tutorial: -> 
     var flee-zoom-out
