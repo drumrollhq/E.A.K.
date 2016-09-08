@@ -14,3 +14,4 @@ gulp-cache
 config.js
 *.swp
 *.swo
+.DS_STORE
