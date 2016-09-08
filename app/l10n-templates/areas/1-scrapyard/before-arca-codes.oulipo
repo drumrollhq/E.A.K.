@@ -2,7 +2,6 @@ set audio-root = '/audio/conversations/before-arca-codes'
 
 Lao [neutral track:01-pink-pantaloons]: Pink pantaloons! You should be more careful... this would have never happened in my day.
 Lao [angry track:02-puffin]: You could have flown on your gentleman puffin... or coded your way across, or even just walked around!
-Lao [neutral track:03-fling]: But no, you had to fling yourself off a ledge.
 Arca:
 	- Thanks for saving me! My name is Arca. Who are you? -> who
 	- I don't have a gentleman puffin... -> puffin
@@ -39,7 +38,7 @@ go menu
 
 # imagination
 set asked-imagination
-Lao [thoughtful track:09-vegan-sausage]: Fascinating question my dear vegan sausage. Some say we are all figments of the Internewt's imagination. I've met him though - he really isn't that creative.
+Lao [thoughtful track:09-vegan-sausage]: Fascinating question my dear vegan sausage. Some say we are all figments of the Internewt's imagination.
 set view.player = 'arca neutral'
 go menu
 
