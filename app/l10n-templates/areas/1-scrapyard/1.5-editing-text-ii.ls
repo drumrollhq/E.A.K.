@@ -19,10 +19,6 @@ eak.register-level-script '1-scrapyard/1.5-editing-text-ii.html' do
 
   activate: ->
     @edit-prompt-timer.start!
-    @spike-sub = channels.parse \death:spike .subscribe ~>
-      unless @level-store.get \state.shownSpikeHint
-        @level-store.patch-state shown-spike-hint: true
-        @message creepy-tree-hands
 
   deactivate: ->
     @spike-sub.unsubscribe!

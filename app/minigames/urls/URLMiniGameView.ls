@@ -147,7 +147,7 @@ module.exports = class URLMiniGameView extends Backbone.View
   start-url-entry-mode: (start-url) ->
     @player.visible = false
     @url-component.set-state hidden: true
-    @help.set-state bottom: true
+    @help.set-state bottom: false
     @url-entry.activate start-url
     @camera.pause-tracking!
     event-loop.pause-keys!

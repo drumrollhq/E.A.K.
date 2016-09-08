@@ -1,4 +1,45 @@
+require! 'lib/channels'
+
+function create-edit-prompt-overlay
+    $ '<div></div>'
+      .html 'Click \'Edit\' in the top left corner, or press the <kbd>E</kbd> key to change the code of this level'
+      .css do
+        display: \block
+        position: \absolute
+        top: \50%
+        left: 0
+        width: \60%
+        padding: '3% 10%'
+        margin-top: -150px
+        margin-left: \20%
+        background: 'rgba(255, 255, 255, 0.9)'
+        border-radius: 5px
+        box-shadow: '0 0 60px rgba(0, 0, 0, 0.5)'
+        font-size: \30px
+        font-weight: \300
+        line-height: \1.5em
+        text-align: \center
+        z-index: \1000
+      .drop-in document.body
+
+function is-solved level
+    width = level
+      .$ \p
+      .to-array!
+      .reduce ((total, el) -> $ el .width! + total), 0
+
+    width > 450
+
+function prompt-edit level
+    overlay = create-edit-prompt-overlay!
+    (new Promise (resolve) -> channels.parse 'game-commands:start-edit' .once resolve)
+      .then ->
+        overlay.drop-out!
+
 eak.register-level-script '2-spaceship/2.2-creating-elements-i.html' do
+  activate: ->
+    prompt-edit this
+
   tutorial: (t) ->
     dom = React.DOM
     t.set \audio-root '/audio/2.2'
