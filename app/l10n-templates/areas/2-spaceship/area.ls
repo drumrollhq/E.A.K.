@@ -1,3 +1,15 @@
+require! 'lib/timer'
+
+
+function show-message-engines-fixed
+  eak.character-messages.activate engine-fixed
+  Promise.delay(5000)
+    .then ~> eak.character-messages.deactivate!
+
+engine-fixed = do
+  from: \ada
+  content: 'You fixed the engines! The portal must be around here somewhere…'
+
 eak.register-area-script '2-spaceship' do
   setup: ->
     glitch-first-step-seen = ~>
@@ -11,7 +23,7 @@ eak.register-area-script '2-spaceship' do
           t.show-at 3, 'Remember the code you just wrote? '
           t.show-at 5, 'Use that pattern to fix the error here.'
         ]
-
+      
   before-start: ->
     if @stage-store.get \stage.state.shownIntro then return Promise.resolve!
     eak.play-cutscene '/cutscenes/2-spaceship-zoom'
@@ -28,5 +40,8 @@ eak.register-area-script '2-spaceship' do
 
     if no-errors and not @stage-store.get \stage.state.shownEngines
       eak.play-cutscene '/cutscenes/2-spaceship-engines'
-        .then ~> @stage-store.patch-stage-state shown-engines: true
+        .then ~> 
+          show-message-engines-fixed!
+          @stage-store.patch-stage-state shown-engines: true
+          
 
