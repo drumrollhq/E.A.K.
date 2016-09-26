@@ -16,3 +16,4 @@ config.js
 *.swo
 .DS_STORE
 .idea/*
+.envrc
