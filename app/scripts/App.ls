@@ -314,12 +314,13 @@ module.exports = class App
         throw e
 
   stop-conversation: ~>
-    @_current-conversation.stop!
+    if @_current-conversation then @_current-conversation.cancel!
 
   show-conversation: ~>
     $conversation-container.add-class \active
 
   hide-conversation: ~>
+    @stop-conversation!
     $conversation-container.remove-class \active
 
   show-active-menu: ->

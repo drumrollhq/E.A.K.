@@ -56,6 +56,7 @@ export start = (name, $el, {resolve = noop-resolve, reject = noop-reject} = {}) 
     .then resolve
     .catch reject
     .finally ->
+      console.log('GOT CANCEL!!!')
       tracks.blur!
       conversation.off \choice component.choice
       state.off \change:game.* update-game

@@ -42,6 +42,9 @@ module.exports = React.create-class {
   component-did-mount: ->
     @play-track!
 
+  component-will-unmount: ->
+    if @state.playing then @stop-playing!
+
   render: ->
     dom.li class-name: (cx \conversation-line, \conversation-line-player : @props.from-player),
       dom.div class-name: \conversation-line-speaker, @props.speaker
