@@ -21,7 +21,6 @@ eak.register-level-script '1-scrapyard/1.5-editing-text-ii.html' do
     @edit-prompt-timer.start!
 
   deactivate: ->
-    @spike-sub.unsubscribe!
     @edit-prompt-timer.stop!
 
   tutorial: (t) ->
