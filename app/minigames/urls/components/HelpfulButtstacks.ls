@@ -48,7 +48,7 @@ messages = {
   flee-market-found: 'You made it! Now try and find the right stall'
   flee-zoom-out: 'Where ya going? You can\'t be leaving the Flee Market now! The dandelions are in the complete opposite direction!'
   collect-dandelions: 'They\'re beautiful! See you back at Ponyhead Bay.'
-  drudshire: 'Greasy Pete lives in a town called Drushire. I went there ten years ago to buy some onions... disgusting.'
+  drudshire: 'Greasy Pete lives in a town called Drudshire. I went there ten years ago to buy some onions... Disgusting.'
   drudshire-found:'Hmmm... where can Gum Alley be?'
   drudshire-zoom-out: 'Where ya going? You can\'t be leaving Gum Alley now! My teeth are in the complete opposite direction!'
   collect-teeth: 'Yippee! You found \'em! See you in Ponyhead Bay Spud'
