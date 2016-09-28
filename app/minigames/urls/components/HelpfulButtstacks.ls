@@ -97,7 +97,8 @@ module.exports = HelpfulButtstacks = React.create-class {
     dom.div class-name: (cx \helpful-buttstacks, @state.{active, bottom}),
       dom.img src: (assets.load-asset '/minigames/urls/assets/buttstacks.png', \url)
       dom.div class-name: \speech-bubble,
-        @state.message
-        dom.button class-name: 'speech-bubble-dismiss btn btn-small', on-click: @deactivate,
-          @state.button-label
+        dom.div class-name: \speech-bubble-inner,
+          @state.message
+          dom.button class-name: 'speech-bubble-dismiss btn btn-small', on-click: @deactivate,
+            @state.button-label
 }
