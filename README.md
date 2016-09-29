@@ -32,6 +32,8 @@ Next, you'll need to download E.A.K. and its dependencies. Run the following on 
 ```sh
   git clone --recursive https://github.com/drumrollhq/E.A.K..git
   cd E.A.K.
+  git submodule init
+  git submodule update
   npm install
   bower install
 ```
