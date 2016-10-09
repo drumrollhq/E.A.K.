@@ -3,8 +3,7 @@ require! {
   'game/scene/TiledSpriteContainer'
 }
 
-const blur-amount = 50px
-  blur-passes = 13
+const blur-amount = 15px
 
 module.exports = class BackgroundLayer extends WebglLayer
   initialize: (options) ->
@@ -35,7 +34,6 @@ module.exports = class BackgroundLayer extends WebglLayer
 
     @_blur-filter = new PIXI.filters.BlurFilter!
       ..blur = 0
-      ..passes = blur-passes
     @blurable-container.filters = [@_blur-filter]
     @render!
     @animate duration, (amt) ~> @_blur-filter.blur = blur-amount * amt
