@@ -20,6 +20,9 @@ Promise.resolve $.get-JSON "/bundles.#{EAKVERSION}.json"
 
 export _cache = {assets: asset-cache, loaded-bundles, registered-actors, added-css}
 
+normalize-bundle-name = (name) ->
+  if name.0 isnt '/' then "/#name" else name
+
 export function load-asset name = '', type, mime-hint
   name .= replace /^\//, ''
   unless asset-cache[name]
@@ -49,7 +52,7 @@ export function clear name
 
 export function load-bundle bundle-name, progress
   progress ?= -> null
-  if bundle-name.0 isnt '/' then bundle-name = "/#bundle-name"
+  bundle-name = normalize-bundle-name bundle-name
   req = new Promise (resolve, reject) ->
     filename = "#{bundle-name}/bundled.#{audio-format}.#{EAKVERSION}.eakpackage"
     on-load = (e) ->
@@ -86,6 +89,7 @@ export function load-bundle bundle-name, progress
         if type is 'text/css' then add-css asset-cache[name].default, bundle-name, name
 
 export function unload-bundle bundle-name
+  bundle-name = normalize-bundle-name bundle-name
   for name in loaded-bundles[bundle-name]
     file = asset-cache[name]
     if file.url and file.url.match /^blob:/
