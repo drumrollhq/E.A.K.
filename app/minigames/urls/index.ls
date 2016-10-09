@@ -75,6 +75,7 @@ module.exports = class URLMiniGame
         Promise.delay 300
       .then ~>
         @view.start-url-entry-mode 'http://'
+        @view.set-target-image null
         @start-date-tutorial!
       .then ~> eak.play-cutscene '/cutscenes/3-urls-date'
       .then ~> eak.start-conversation '/minigames/urls/conversations/5-go-home'
