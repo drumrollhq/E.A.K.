@@ -69,9 +69,6 @@ module.exports = class URLMiniGame
         @view.map.exit!
         wait-for-event @view.map, \arrive
       .then ~> @start-teeth-tutorial!
-      .then ~>
-        @view.towns.drudshire.extras.location-indicator.visible = false
-        eak.play-cutscene '/cutscenes/3-urls-greasy-pete'
       .then ~> eak.start-conversation '/minigames/urls/conversations/4-date-location'
       .then ~>
         @frame-sub.resume!
@@ -206,6 +203,9 @@ module.exports = class URLMiniGame
           prevent!
         @view.zoomer.on \before-zoom-out, drudshire-zoom-out
         wait-for-event @view.towns.drudshire, \path, condition: (path) -> path is 'gum-alley/greasy-pete'
+      .then ~>
+        @view.towns.drudshire.extras.location-indicator.visible = false
+        eak.play-cutscene '/cutscenes/3-urls-greasy-pete'
       .then ~>
         @view.help.activate \collect-teeth
         @view.towns.drudshire.zoomer.off \before-zoom-out drudshire-zoom-out
