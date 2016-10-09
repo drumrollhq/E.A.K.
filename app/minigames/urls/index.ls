@@ -142,7 +142,7 @@ module.exports = class URLMiniGame
         @frame-sub.pause!
         Promise.delay 2000
 
-  start-dandelion-tutorial: -> 
+  start-dandelion-tutorial: ->
     var flee-zoom-out
 
     @view.help.activate \flee-market, 'Got it'
@@ -153,39 +153,39 @@ module.exports = class URLMiniGame
         prevent!
 
     @view.url-component.set-state hidden: false, correct: false
-      
-    wait-for-event @view.map, \arrive, condition: (dest) -> dest is \flee 
-      .then ~> wait-for-event @view.zoomer, \zoom-in 
-      .then ~> 
+
+    wait-for-event @view.map, \arrive, condition: (dest) -> dest is \flee
+      .then ~> wait-for-event @view.zoomer, \zoom-in
+      .then ~>
         @view.help.activate \flee-market-found
-        flee-zoom-out := (prevent) ~> 
-          @view.help.activate \flee-zoom-out 
-          prevent! 
+        flee-zoom-out := (prevent) ~>
+          @view.help.activate \flee-zoom-out
+          prevent!
         @view.zoomer.on \before-zoom-out, flee-zoom-out
-        wait-for-event @view.towns.flee, \path, condition: (path) -> path is 'flower-power/dandelions' 
-      .then ~> 
-        @view.help.activate \collect-dandelions 
+        wait-for-event @view.towns.flee, \path, condition: (path) -> path is 'flower-power/dandelions'
+      .then ~>
+        @view.help.activate \collect-dandelions
         @view.towns.flee.zoomer.off \before-zoom-out flee-zoom-out
         @view.zoomer.off \before-zoom-out flee-zoom-out
-        @view.map.off \before-go before-go 
-        Promise.delay 2000 
-      .then ~> 
-        @view.set-target-url 'http' 'ponyhead-bay.com' 
-        Promise.delay 1000 
-      .then ~> 
-        @view.url-component.set-state correct: false 
-        wait-for-event @view.zoomer, \before-zoom-in, condition: (loc, prevent ) -> 
-          if loc is \phb 
-            prevent! 
-            true 
-          else false 
-      .then ~> 
-        @view.help.deactivate! 
-        @frame-sub.pause! 
+        @view.map.off \before-go before-go
+        Promise.delay 2000
+      .then ~>
+        @view.set-target-url 'http' 'ponyhead-bay.com'
+        Promise.delay 1000
+      .then ~>
+        @view.url-component.set-state correct: false
+        wait-for-event @view.zoomer, \before-zoom-in, condition: (loc, prevent ) ->
+          if loc is \phb
+            prevent!
+            true
+          else false
+      .then ~>
+        @view.help.deactivate!
+        @frame-sub.pause!
         Promise.delay 2000
 
 
-  start-teeth-tutorial: -> 
+  start-teeth-tutorial: ->
     var drudshire-zoom-out
 
     @view.help.activate \drudshire, 'Got it'
@@ -196,35 +196,35 @@ module.exports = class URLMiniGame
         prevent!
 
     @view.url-component.set-state hidden: false, correct: false
-      
-    wait-for-event @view.map, \arrive, condition: (dest) -> dest is \drudshire 
-      .then ~> wait-for-event @view.zoomer, \zoom-in 
-      .then ~> 
+
+    wait-for-event @view.map, \arrive, condition: (dest) -> dest is \drudshire
+      .then ~> wait-for-event @view.zoomer, \zoom-in
+      .then ~>
         @view.help.activate \drudshire-found
-        drudshire-zoom-out := (prevent) ~> 
-          @view.help.activate \drudshire-zoom-out 
-          prevent! 
+        drudshire-zoom-out := (prevent) ~>
+          @view.help.activate \drudshire-zoom-out
+          prevent!
         @view.zoomer.on \before-zoom-out, drudshire-zoom-out
-        wait-for-event @view.towns.drudshire, \path, condition: (path) -> path is 'gum-alley/greasy-pete' 
-      .then ~> 
-        @view.help.activate \collect-teeth 
+        wait-for-event @view.towns.drudshire, \path, condition: (path) -> path is 'gum-alley/greasy-pete'
+      .then ~>
+        @view.help.activate \collect-teeth
         @view.towns.drudshire.zoomer.off \before-zoom-out drudshire-zoom-out
         @view.zoomer.off \before-zoom-out drudshire-zoom-out
-        @view.map.off \before-go before-go 
-        Promise.delay 2000 
-      .then ~> 
-        @view.set-target-url 'http' 'ponyhead-bay.com' 
-        Promise.delay 1000 
-      .then ~> 
-        @view.url-component.set-state correct: false 
-        wait-for-event @view.zoomer, \before-zoom-in, condition: (loc, prevent ) -> 
-          if loc is \phb 
-            prevent! 
-            true 
-          else false 
-      .then ~> 
-        @view.help.deactivate! 
-        @frame-sub.pause! 
+        @view.map.off \before-go before-go
+        Promise.delay 2000
+      .then ~>
+        @view.set-target-url 'http' 'ponyhead-bay.com'
+        Promise.delay 1000
+      .then ~>
+        @view.url-component.set-state correct: false
+        wait-for-event @view.zoomer, \before-zoom-in, condition: (loc, prevent ) ->
+          if loc is \phb
+            prevent!
+            true
+          else false
+      .then ~>
+        @view.help.deactivate!
+        @frame-sub.pause!
         Promise.delay 2000
 
   simple-tutorial: (town, target, on-arrive = -> null) ->
@@ -247,7 +247,7 @@ module.exports = class URLMiniGame
         @view.help.deactivate!
         @frame-sub.pause!
         Promise.delay 2000
-  
+
   start-date-tutorial: ->
     check-url = ~>
       wait-for-event @view, \submit-url
