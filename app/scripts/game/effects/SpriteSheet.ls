@@ -76,20 +76,21 @@ module.exports = class SpriteSheet extends PIXI.extras.MovieClip
       tex := _tex
       frames |> obj-to-pairs
     .map ([id, frame]) ->
-      rect = frame.frame
-      size = if frame.rotated
-        new PIXI.Rectangle rect.x, rect.y, rect.h, rect.w
-      else new PIXI.Rectangle rect.x, rect.y, rect.w, rect.h
+      orig = new PIXI.Rectangle 0, 0, frame.source-size.w, frame.source-size.h
 
-      if frame.trimmed
-        trim = new PIXI.Rectangle frame.sprite-source-size.x, frame.sprite-source-size.y, frame.source-size.w, frame.source-size.h
+      rect = if frame.rotated
+        new PIXI.Rectangle frame.frame.x, frame.frame.y, frame.frame.h, frame.frame.w
+      else
+        new PIXI.Rectangle frame.frame.x, frame.frame.y, frame.frame.w, frame.frame.h
 
-      if frame.rotated
-        t = size.width
-        size.width = size.height
-        size.height = t
+      trim = if frame.trimmed
+        new PIXI.Rectangle frame.sprite-source-size.x, frame.sprite-source-size.y, frame.sprite-source-size.w, frame.sprite-source-size.h
+      else
+        null
 
-      texture = new PIXI.Texture tex.base-texture, size, size.clone!, trim, frame.rotated
+      rotation = if frame.rotated then 2 else 0
+
+      texture = new PIXI.Texture tex.base-texture, rect, orig, trim, rotation
       texture.id = id
       texture
 

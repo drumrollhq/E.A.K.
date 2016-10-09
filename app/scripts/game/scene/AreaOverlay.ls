@@ -11,7 +11,8 @@ module.exports = class AreaOverlay extends TiledSpriteContainer
   (name, regions, width, height, renderer) ->
     super "/content/bg-tiles/#{name}.overlay", width, height
 
-    @render-texture = new PIXI.RenderTexture renderer, 100, 100
+    @renderer = renderer
+    @render-texture = PIXI.RenderTexture.create 100, 100
 
     @regions = for region in regions =>
       region =
@@ -47,7 +48,7 @@ module.exports = class AreaOverlay extends TiledSpriteContainer
 
       @render-cont = new PIXI.Container!
       @render-cont.add-child @cont
-      @render-texture.render @render-cont
+      @renderer.render @render-cont, @render-texture, true
       @mask = new PIXI.Sprite @render-texture
 
       if AreaOverlay.DRAW_TRIGGERS
@@ -65,9 +66,7 @@ module.exports = class AreaOverlay extends TiledSpriteContainer
         region.graphics.alpha += fade-speed
         region.graphics.alpha = 1 if region.graphics.alpha > 1
 
-    @render-texture
-      ..clear!
-      ..render @render-cont
+    @renderer.render @render-cont, @render-texture, true
 
   draw-triggers: ->
     colors = [0xFF0000, 0xFFFF00, 0x00FF00, 0x00FFFF, 0x0000FF, 0xFF00FF]
@@ -86,14 +85,13 @@ module.exports = class AreaOverlay extends TiledSpriteContainer
     width = right - left
     height = bottom - top
     if width isnt @render-texture.width or height isnt @render-texture.height
-      @render-texture.resize width, height, true
-      @render-texture.renderer.resize width, height
+      @render-texture.resize width, height
 
     @draw left, top, right, bottom
 
   create-main-mask: (width, height) ->
     graphics = new PIXI.Graphics!
-      ..begin-fill 0xFFFFFF
+      ..begin-fill 0x000000
       ..line-style 0
       ..move-to 0, 0
       ..line-to @img-width, 0
