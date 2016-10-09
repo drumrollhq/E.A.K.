@@ -85,6 +85,7 @@ module.exports = class AreaLevel extends Backbone.View
     @hint-controller?.destroy!
     @style.remove!
     for sprite in @sprites => sprite.0.remove!
+    for actor in @actors => actor.remove!
     @hook \cleanup
     # @tutorial?.remove!
     super!

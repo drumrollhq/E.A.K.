@@ -3,12 +3,13 @@ require! {
   'lib/channels'
 }
 
-module.exports = do
+module.exports = (BaseClass) -> class extends BaseClass
   physics: data:
     dynamic: false
     sensor: true
 
   initialize: (options) ->
+    super options
     @render!
     @down-sub = channels.parse 'key-down: j, s, down' .subscribe @activate.bind this
     @down-sub.pause!
@@ -27,7 +28,9 @@ module.exports = do
     @stop-listening this, \contact:start:ENTITY_PLAYER, @_down-sub-pause
 
   render: ->
+    super!
     @$el.add-class \activatable
 
   remove: ->
+    super!
     @down-sub.unsubscribe!

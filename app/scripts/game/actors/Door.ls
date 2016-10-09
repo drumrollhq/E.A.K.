@@ -4,7 +4,7 @@ require! {
   'lib/channels'
 }
 
-module.exports = mixin Conditional, class Door extends Actor
+module.exports = class Door extends Conditional(Actor)
   @from-el = ($el, _, offset, store, area-view) ->
     options = do
       el: $el

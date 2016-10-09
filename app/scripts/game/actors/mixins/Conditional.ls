@@ -1,7 +1,10 @@
 require! 'lib/channels'
 
-module.exports = do
-  initialize: ({condition, condition-trigger}) ->
+module.exports = (BaseClass) -> class extends BaseClass
+  initialize: (options) ->
+    super options
+
+    { condition, condition-trigger } = options
     condition ?= @$el.attr \data-condition
     if typeof condition is \string
       condition = new Function \eak, \store, \areaView, condition
@@ -21,4 +24,5 @@ module.exports = do
     if res then @turn-on! else @turn-off!
 
   remove: ->
+    super!
     if @_condition-trigger-sub then @_condition-trigger-sub.unsubscribe!

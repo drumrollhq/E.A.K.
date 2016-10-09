@@ -5,7 +5,7 @@ require! {
   'lib/channels'
 }
 
-module.exports = mixin Activatable, Conditional, class Portal extends Actor
+module.exports = class Portal extends Activatable(Conditional(Actor))
   @from-el = ($el, [href], offset, store, area-view) ->
     new Portal {
       href: href
@@ -39,3 +39,5 @@ module.exports = mixin Activatable, Conditional, class Portal extends Actor
     @$el.add-class \disabled
       .remove-class \activatable
 
+  remove: ->
+    super!

@@ -49,7 +49,7 @@ module.exports = class Actor extends Backbone.View
     @origin <<< {x, y}
     @trigger 'set:origin', @origin, @last-origin
 
-  reset: (origin = @origin) ~>
+  reset: (origin = @origin) ->
     @ <<< {
       x: origin.x
       y: origin.y
@@ -69,7 +69,7 @@ module.exports = class Actor extends Backbone.View
 
     @prepare true
 
-  remove: ~>
+  remove: ->
     super!
     for sub in @subs => sub.unsubscribe!
 
