@@ -9,6 +9,7 @@ module.exports = class Actor extends Backbone.View
     @args = start.args if start.args
     @store = start.store if start.store
     @area-view = start.area-view if start.area-view
+    @area-level = start.area-level if start.area-level
     @origin = start.{x, y}
     @offset = start.offset or {x: 0, y: 0}
     @store = start.store

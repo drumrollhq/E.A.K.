@@ -1,6 +1,8 @@
 require! {
   'lib/channels'
   'game/event-loop'
+  'game/actors/Actor'
+  'game/actors/mixins/Conditional'
 }
 
 function create-edit-prompt-overlay
@@ -44,31 +46,38 @@ function prompt-edit level
       if is-solved level then eak.view.player.unfreeze!
       else prompt-edit level
 
+function update-class level
+  currently-showing = level.$el.has-class \ledge-crumbled
+  should-show = level.stage-store.get \stage.state.ledgeCrumbled
+
+  if (not currently-showing) and should-show
+    level.$el.add-class \ledge-crumbled
+    level.area-view.area.refresh!
+  else if currently-showing and (not should-show)
+    level.$el.remove-class \ledge-crumbled
+    level.area-view.area.refresh!
+
 eak.register-level-script '1-scrapyard/1.3-editing-text-i.html' do
   initialize: ->
     @tut-in-progress = false
-    @death-sub = channels.parse 'death:fall-out-of-world' .subscribe ~>
+    @ledge-crumble = ~>
       unless @tut-in-progress or @stage-store.get \stage.state.doneEditTutorial
         @tut-in-progress = true
+        eak._stage.view.player.fall-to-death!
         eak.play-cutscene '/cutscenes/1-scrapyard-fall'
           .then ~> eak.start-conversation "/#{EAK_LANG}/areas/1-scrapyard/before-arca-codes"
           .then ~>
+            debugger
+            @stage-store.patch-stage-state ledge-crumbled: true
             @done-first-part = true
             prompt-edit this
           .then ~> eak.start-conversation "/#{EAK_LANG}/areas/1-scrapyard/after-arca-codes"
           .then ~> @stage-store.patch-stage-state done-edit-tutorial: true
           .finally ~> @tut-in-progress = false
 
-    @death-sub.pause!
-
   activate: ->
-    @death-sub.resume!
-
-  deactivate: ->
-    @death-sub.pause!
-
-  cleanup: ->
-    @death-sub.unsubscribe!
+    @stage-store.on \change, ~> update-class this
+    update-class this
 
   editable: ->
     # true
@@ -136,3 +145,27 @@ eak.register-level-script '1-scrapyard/1.3-editing-text-i.html' do
             t .say 'Smashing work my little vegetable soup!'
               .at 3 ~> t.say 'You picked that up faster than a squirrel on a scooter'
               .at \end ~> t.save!
+
+class LedgeDetector extends Actor
+  @from-el = ($el, _, offset, store, area-view, area-level) ->
+    new LedgeDetector {
+      el: $el
+      offset,
+      store,
+      area-view,
+      area-level,
+    }
+
+  physics: data:
+    dynamic: false
+
+  mapper-ignore: false
+  sensor: true
+
+  initialize: (options) ->
+    super options
+
+    @listen-to-once this, \contact:start:ENTITY_PLAYER, ->
+      @area-level?.ledge-crumble?!
+
+eak.register-actor LedgeDetector

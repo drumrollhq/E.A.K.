@@ -127,7 +127,7 @@ module.exports = class AreaLevel extends Backbone.View
 
   add-actors: ->
     @actors ?= for actor-el in @$ '[data-actor]'
-      actors.from-el actor-el, @conf.{x, y}, @level-store, @area-view
+      actors.from-el actor-el, @conf.{x, y}, @level-store, @area-view, this
 
   add-borders: (nodes) ->
     const thickness = 30px
@@ -182,6 +182,9 @@ module.exports = class AreaLevel extends Backbone.View
 
     @set-error parsed.error
     @hook \setHtmlCss
+
+  redraw: ->
+    @redraw-from @current-HTML, @current-CSS
 
   set-error: (error) ->
     if error?

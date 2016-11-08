@@ -33,8 +33,7 @@ module.exports = class Area
       .then ~> @view.start stage
       .then ~> @hook \beforeStart
       .then ~>
-        @physics-state = physics.prepare @view.build-map!
-        @hook \preparePhysics @physics-state
+        @refresh!
         @frame-sub = channels.frame.subscribe ({t}) ~> @on-frame t
         @hook \start
 
@@ -75,9 +74,12 @@ module.exports = class Area
     @view.editor-unfocus edit-transition-duration
       .then ~> @hook \stopEdit
       .then ~>
-        @physics-state = physics.prepare @view.build-map!
-        @hook \preparePhysics @physics-state
+        @refresh!
         @frame-sub.resume!
+
+  refresh: ->
+    @physics-state = physics.prepare @view.build-map!
+    @hook \preparePhysics @physics-state
 
   load-music: ->
     music-manager.start-track @conf.music
