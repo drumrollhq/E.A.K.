@@ -2,6 +2,7 @@
   "width": 3430,
   "height": 2085,
   "music": "spaceship",
+  "paywall": true,
   "levels": [
     {
       "url": "2.1-space-play-i.html",

@@ -4,6 +4,7 @@ require! {
   'game/area/Area'
   'lib/parse'
   'logger'
+  'user'
 }
 first-path = window.location.pathname |> split '/' |> reject empty |> first
 if first-path in window.LANGUAGES
@@ -37,6 +38,10 @@ export area = (name, app, options) ->
   Promise.all [log, bundle]
     .then ([event]) ->
       conf = assets.load-asset "#prefix/areas/#name/area.json"
+
+      if EAKCONFIG.PAYWALL_ENABLED and conf.paywall and not user.purchased!
+        window.location.href = '/buy-ingame'
+
       conf.name = name
       area = new Area {conf, prefix, name, options, event-id: event.id}
       area.on \done -> logger.stop event.id

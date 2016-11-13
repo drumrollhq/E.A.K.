@@ -33,6 +33,7 @@ class User extends Backbone.DeepModel
   fetch: ~> @_user-promise
 
   logged-in: ~> @get \loggedIn
+  purchased: ~> @logged-in! and @get \user .purchased
 
   set-user: (user, logged-in = true) ->
     if user?.status is 'creating' then window.location.hash = '/app/signup-next'
@@ -40,7 +41,7 @@ class User extends Backbone.DeepModel
 
   display-name: ->
     user = @get 'user'
-    if user.username then "@#{user.username}" else user.first-name
+    user.name
 
   full-name: ->
     user = @get \user

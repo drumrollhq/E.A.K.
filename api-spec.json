@@ -1,8 +1,8 @@
 {
-  "rootUrl": "https://api.eraseallkittens.com",
-  "tag": "v0.4.1",
-  "packaged": "2016-08-01T20:05:13.000Z",
-  "hash": "61f01266d7dac933479db989fda6355dcdba25ae",
+  "rootUrl": "http://localhost:3000",
+  "tag": "v0.5.0",
+  "packaged": "2016-11-13T17:21:32.000Z",
+  "hash": "77f7869f887083da3d7acf20c9f422f346910ade",
   "endpoints": {
     "status": {
       "params": false,
@@ -40,8 +40,7 @@
           }
         }
       },
-      "options": false,
-      "httpOnly": true
+      "options": false
     },
     "auth.logout": {
       "params": false,
@@ -79,7 +78,7 @@
             "type": "string",
             "flags": {
               "trim": true,
-              "presence": "required"
+              "presence": "optional"
             },
             "invalids": [
               ""
@@ -90,7 +89,7 @@
               },
               {
                 "name": "min",
-                "arg": 2
+                "arg": 1
               }
             ]
           },
@@ -122,7 +121,7 @@
           "username": {
             "type": "string",
             "flags": {
-              "presence": "required"
+              "presence": "optional"
             },
             "invalids": [
               ""
@@ -198,12 +197,6 @@
             "type": "boolean",
             "flags": {
               "default": false
-            }
-          },
-          "hasPassword": {
-            "type": "boolean",
-            "flags": {
-              "default": true
             }
           }
         }
@@ -1597,6 +1590,83 @@
       },
       "options": false
     },
+    "users.buy": {
+      "params": false,
+      "body": {
+        "type": "object",
+        "children": {
+          "type": {
+            "type": "any",
+            "flags": {
+              "presence": "required"
+            },
+            "valids": [
+              "parent"
+            ]
+          },
+          "token": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "regex",
+                "arg": {}
+              }
+            ]
+          },
+          "ip": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "ip",
+                "arg": {
+                  "cidr": "optional"
+                }
+              }
+            ]
+          },
+          "cardCountry": {
+            "type": "string",
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "length",
+                "arg": 2
+              }
+            ]
+          },
+          "userCountry": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "length",
+                "arg": 2
+              }
+            ]
+          }
+        }
+      },
+      "options": false
+    },
     "users.current": {
       "params": false,
       "body": false,
@@ -1988,6 +2058,9 @@
           },
           "eakSettings": {
             "POST": "users.updateEakSettings"
+          },
+          "buy": {
+            "POST": "users.buy"
           }
         }
       },
