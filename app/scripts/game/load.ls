@@ -40,7 +40,7 @@ export area = (name, app, options) ->
       conf = assets.load-asset "#prefix/areas/#name/area.json"
 
       if EAKCONFIG.PAYWALL_ENABLED and conf.paywall and not user.purchased!
-        window.location.href = '/buy-ingame'
+        window.location.href = '/buy-ingame.html'
 
       conf.name = name
       area = new Area {conf, prefix, name, options, event-id: event.id}
