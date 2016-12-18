@@ -86,7 +86,7 @@ module.exports = class URLMiniGame
         @view.start-url-entry-mode 'http://'
         @start-home-tutorial!
       .then ~> eak.play-cutscene '/cutscenes/3-urls-goodbye'
-      .then ~> window.location = '/game-over.html'
+      .then ~> window.location = '/eak-complete.html'
 
   start-tutorial-onions: ->
     var bulbous-zoom-out, onions-zoom-out
