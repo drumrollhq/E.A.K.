@@ -133,7 +133,7 @@ module.exports = React.create-class {
                   dom.input id: \gender-nope, type: \radio, name: \gender, value: \nope
                   dom.label html-for: \gender-nope, 'Nope'
               dom.div class-name: 'radio-group radio-group-plain subscribe', ref: \subscribe,
-                dom.span null, 'Would you like to recieve infrequent updates about E.A.K?'
+                dom.span null, 'Would you like to receive infrequent updates about E.A.K?'
                 dom.div class-name: \radio-group-radios,
                   dom.input id: \sub-yes, type: \radio, name: \subscribedNewsletter, value: \true
                   dom.label html-for: \sub-yes, 'Yes'
