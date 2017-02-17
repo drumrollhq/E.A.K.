@@ -8,7 +8,9 @@ before_install:
   - "curl -o ffmpeg.tar.xz http://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz"
   - "sudo tar -vxJf ffmpeg.tar.xz -C /usr/bin"
 
+install:
+  - npm install
+  - npm install -g bower
+  - bower install
 before_script:
-  - "npm install -g bower"
-  - "bower install"
   - "gulp build -o"
