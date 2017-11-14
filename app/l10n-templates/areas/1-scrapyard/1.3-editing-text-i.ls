@@ -67,7 +67,6 @@ eak.register-level-script '1-scrapyard/1.3-editing-text-i.html' do
         eak.play-cutscene '/cutscenes/1-scrapyard-fall'
           .then ~> eak.start-conversation "/#{EAK_LANG}/areas/1-scrapyard/before-arca-codes"
           .then ~>
-            debugger
             @stage-store.patch-stage-state ledge-crumbled: true
             @done-first-part = true
             prompt-edit this

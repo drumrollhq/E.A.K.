@@ -129,7 +129,7 @@ decode = ({type, content}, name) ->
     case \application/json
       async-array-to-string content .then (str) ->
         default: \json, string: str, json: JSON.parse str
-    case \application/javascript, \text/css, \text/html, \text/vtt
+    case \application/javascript, \text/css, \text/html, \text/vtt, \text/plain
       async-array-to-string content .then (str) ->
         default: \string, string: str
     case \audio/mpeg, \audio/ogg

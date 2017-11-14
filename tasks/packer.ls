@@ -15,6 +15,16 @@ glob = Promise.promisify-all glob
 glob-async = Promise.promisify glob
 fs = Promise.promisify-all fs
 
+ends-with = (str, search) ->
+  (str.substr -search.length, search.length) is search
+
+ignore-packer-files = (files) ->
+  files.filter (file) ->
+    (not
+      (ends-with file, '/bundle.txt') or
+      (ends-with file, '.eakpackage') or
+      (ends-with file, '/Thumbs.db'))
+
 gulp.task 'pack' ->
   gulp.src src.bundles
     .pipe create-bundle!
@@ -48,6 +58,9 @@ export watch = ->
     assets
 
   packages = glob.sync src.bundles, ignore: ['**/bundle.txt' '**/*.eakpackage', '**/Thumbs.db']
+    |> ignore-packer-files
+
+  console.log 'glob packages', packages
 
   for let package-name in packages
     files = files-for package-name
@@ -90,6 +103,9 @@ export create-bundle = ->
 export bundle-assets = (assets, {encoding = 'base64', reject = -> false} = {}) ->
   Promise
     .map assets, (f) -> glob-async (path.join dest.bundles, f), ignore: ['**/bundle.txt' '**/*.eakpackage' '**/Thumbs.db']
+    .map ignore-packer-files
+    .tap (x) ->
+      console.log 'assets', x
     .then flatten >> unique
     .filter (asset) ->
       fs.stat-async asset .then (stat) -> not stat.is-directory!
