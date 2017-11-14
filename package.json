@@ -9,6 +9,9 @@
     "build": "gulp build",
     "dev": "gulp dev"
   },
+  "engines": {
+    "node": "6.x"
+  },
   "repository": {
     "type": "git",
     "url": "http://github.com/somehats/E.A.K."
