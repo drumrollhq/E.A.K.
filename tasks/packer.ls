@@ -12,6 +12,7 @@ require! {
 }
 
 glob = Promise.promisify-all glob
+glob-async = Promise.promisify glob
 fs = Promise.promisify-all fs
 
 gulp.task 'pack' ->
@@ -88,7 +89,7 @@ export create-bundle = ->
 
 export bundle-assets = (assets, {encoding = 'base64', reject = -> false} = {}) ->
   Promise
-    .map assets, (f) -> glob.glob-async (path.join dest.bundles, f), ignore: ['**/bundle.txt' '**/*.eakpackage' '**/Thumbs.db']
+    .map assets, (f) -> glob-async (path.join dest.bundles, f), ignore: ['**/bundle.txt' '**/*.eakpackage' '**/Thumbs.db']
     .then flatten >> unique
     .filter (asset) ->
       fs.stat-async asset .then (stat) -> not stat.is-directory!
