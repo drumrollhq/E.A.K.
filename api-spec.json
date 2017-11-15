@@ -1,8 +1,8 @@
 {
-  "rootUrl": "http://localhost:3000",
-  "tag": "v0.5.0",
-  "packaged": "2016-11-13T17:21:32.000Z",
-  "hash": "77f7869f887083da3d7acf20c9f422f346910ade",
+  "rootUrl": "https://api.eraseallkittens.com",
+  "tag": "v0.6.1",
+  "packaged": "2017-02-13T22:03:52.000Z",
+  "hash": "21a912664acc254271ea39cdf046bd719c3f55c6",
   "endpoints": {
     "status": {
       "params": false,
@@ -1226,6 +1226,111 @@
       },
       "options": false
     },
+    "giftCodes.claim": {
+      "params": false,
+      "body": false,
+      "options": false
+    },
+    "giftCodes.purchase": {
+      "params": false,
+      "body": {
+        "type": "object",
+        "children": {
+          "type": {
+            "type": "any",
+            "flags": {
+              "presence": "required"
+            },
+            "valids": [
+              "parent"
+            ]
+          },
+          "token": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "regex",
+                "arg": {}
+              }
+            ]
+          },
+          "ip": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "ip",
+                "arg": {
+                  "cidr": "optional"
+                }
+              }
+            ]
+          },
+          "cardCountry": {
+            "type": "string",
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "length",
+                "arg": 2
+              }
+            ]
+          },
+          "userCountry": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "length",
+                "arg": 2
+              }
+            ]
+          },
+          "quantity": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              null,
+              null
+            ],
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "arg": 1
+              },
+              {
+                "name": "max",
+                "arg": 50
+              }
+            ]
+          }
+        }
+      },
+      "options": false
+    },
     "sessions.checkin": {
       "paramList": [
         "sessionId"
@@ -1591,7 +1696,46 @@
       "options": false
     },
     "users.buy": {
-      "params": false,
+      "paramList": [
+        "userId"
+      ],
+      "params": {
+        "type": "object",
+        "flags": {
+          "presence": "required"
+        },
+        "children": {
+          "userId": {
+            "type": "alternatives",
+            "flags": {
+              "presence": "required"
+            },
+            "alternatives": [
+              {
+                "type": "number",
+                "invalids": [
+                  null,
+                  null
+                ],
+                "rules": [
+                  {
+                    "name": "integer"
+                  },
+                  {
+                    "name": "positive"
+                  }
+                ]
+              },
+              {
+                "type": "string",
+                "invalids": [
+                  ""
+                ]
+              }
+            ]
+          }
+        }
+      },
       "body": {
         "type": "object",
         "children": {
@@ -2002,6 +2146,40 @@
         "type": "object"
       },
       "options": false
+    },
+    "users.update": {
+      "params": false,
+      "body": {
+        "type": "object",
+        "children": {
+          "status": {
+            "type": "string",
+            "flags": {
+              "trim": true,
+              "presence": "optional"
+            },
+            "invalids": [
+              ""
+            ],
+            "rules": [
+              {
+                "name": "trim"
+              },
+              {
+                "name": "min",
+                "arg": 1
+              }
+            ]
+          },
+          "purchased": {
+            "type": "boolean",
+            "flags": {
+              "presence": "optional"
+            }
+          }
+        }
+      },
+      "options": false
     }
   },
   "routes": {
@@ -2061,6 +2239,9 @@
           },
           "buy": {
             "POST": "users.buy"
+          },
+          "update": {
+            "POST": "users.update"
           }
         }
       },
@@ -2109,6 +2290,14 @@
       },
       "donations": {
         "POST": "donations.donate"
+      },
+      "giftCodes": {
+        "POST": "giftCodes.purchase",
+        "_code": {
+          "claim": {
+            "POST": "giftCodes.claim"
+          }
+        }
       }
     }
   }

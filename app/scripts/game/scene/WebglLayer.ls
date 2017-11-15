@@ -17,7 +17,13 @@ module.exports = class WebglLayer extends Layer
     @_layers = [new PIXI.Container! for i to 6]
     for layer in @_layers => @stage.add-child layer
     @_needs-viewport = []
-    @renderer = new PIXI.WebGLRenderer @_viewport-width, @_viewport-height, {
+    # Renderer = if options.canvas
+    #   PIXI.CanvasRenderer
+    # else
+    #   PIXI.WebGLRenderer
+    Renderer = PIXI.CanvasRenderer
+
+    @renderer = new Renderer @_viewport-width, @_viewport-height, {
       view: @el
       transparent: true
       resolution: @_resolution

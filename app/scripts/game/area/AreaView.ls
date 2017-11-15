@@ -28,9 +28,9 @@ module.exports = class AreaView extends Backbone.View
     @scene = new Scene @conf.{width, height}, @camera
     @scene.add-layers @background-layer, @levels-layer, @effects-layer
 
-    if @conf.overlay
-      @overlay = new AreaOverlay @conf.name, @conf.overlay, @conf.width, @conf.height, @effects-layer.renderer
-      @effects-layer.add @overlay, 5, true
+    # if @conf.overlay
+      # @overlay = new AreaOverlay @conf.name, @conf.overlay, @conf.width, @conf.height, @effects-layer.renderer
+      # @effects-layer.add @overlay, 5, true
 
     @window-sub = channels.window-size.subscribe ({width, height}) ~> @scene.set-viewport-size width, height
     @scene.set-viewport-size channels.window-size.value.width, channels.window-size.value.height
